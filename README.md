@@ -1,7 +1,10 @@
 # Ribose-seq-Project
+Alli Gombolay, M.P.H
+Storici Lab | School of Biology
+Georgia Institute of Technology
 
-##Project Overview##
+##Project Overview
 
-##Software Requirements##
+##Software Requirements
 
-##Execution Order of Scripts##
+##Execution Order of Scripts
