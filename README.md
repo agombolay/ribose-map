@@ -7,4 +7,6 @@ Georgia Institute of Technology
 
 ##Software Requirements
 
-##Execution Order of Scripts
+##Required Directory Structure
+
+##Order of Execution of Scripts
