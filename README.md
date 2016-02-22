@@ -1,7 +1,7 @@
 # Ribose-seq-Project
 Alli Gombolay, M.P.H
-Storici Lab | School of Biology
-Georgia Institute of Technology
+Storici Lab | School of Biology  
+Georgia Institute of Technology  
 
 ##Project Overview
 
