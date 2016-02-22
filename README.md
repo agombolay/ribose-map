@@ -4,7 +4,7 @@ Storici Lab | School of Biology
 Georgia Institute of Technology  
 
 ##Project Overview
-References:  
+**References**:  
 [Ribose-seq *Nature Methods* Paper, 2015]
 (http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4686381/pdf/nihms742750.pdf)  
 [Georgia Tech News Article on Ribose-seq]
