@@ -28,9 +28,10 @@ Georgia Institute of Technology
 
 ##Required Directory Structure:  
 1. Create a bin folder  
-2. Add bin folder to PATH  
-```echo "export PATH="~/bin:$PATH"" >> ~/.bashrc  ```
-3. git clone https://github.com/agombolay/Ribose-seq-Project/tree/master/Ribose-seq-Directory  
+2. Add bin folder to PATH:  
+```echo "export PATH="~/bin:$PATH"" >> ~/.bashrc```  
+3. Clone the Ribose-seq Analysis Pipeline Directory Structure:  
+```git clone https://github.com/agombolay/Ribose-seq-Project/tree/master/Ribose-seq-Directory```  
 
 ##Order of Execution of Scripts:  
 1.  
