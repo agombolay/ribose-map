@@ -27,7 +27,7 @@ Georgia Institute of Technology
 -bedGraphToBigWig  
 
 ##Required Directory Structure:  
-1. Create a bin folder  
+1. Create a bin folder:  
 ```mkdir bin```  
 
 2. Add bin folder to PATH:  
