@@ -28,6 +28,7 @@ Georgia Institute of Technology
 
 ##Required Directory Structure:  
 1. Create a bin folder  
+```mkdir bin```  
 
 2. Add bin folder to PATH:  
 ```echo "export PATH="~/bin:$PATH"" >> ~/.bashrc```  
