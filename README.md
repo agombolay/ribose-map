@@ -13,7 +13,8 @@ Georgia Institute of Technology
 (http://www.news.gatech.edu/2015/01/26/ribose-seq-identifies-and-locates-ribonucleotides-genomic-dna)
 
 ##Required Files:  
-http://amc-sandbox.ucdenver.edu/User13/outbox/2016/
+-Input Files: FASTQ files  
+-http://amc-sandbox.ucdenver.edu/User13/outbox/2016/  
 
 ##Software Requirements:  
 -bowtie  
@@ -29,6 +30,7 @@ http://amc-sandbox.ucdenver.edu/User13/outbox/2016/
 1. Create a bin folder  
 2. Add bin folder to PATH  
 echo "export PATH="~/bin:$PATH"" >> ~/.bashrc  
+3. git clone <URL>  
 
 ##Order of Execution of Scripts:  
 1.  
