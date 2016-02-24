@@ -4,7 +4,7 @@ Storici Lab | School of Biology
 Georgia Institute of Technology  
 
 ##Project Overview
-#Non-LSF Dependent Version of Ribose-seq Analysis Pipeline#  
+###Non-LSF Dependent Version of Ribose-seq Analysis Pipeline  
 
 **References**:  
 [Ribose-seq *Nature Methods* Paper, 2015]
@@ -12,25 +12,25 @@ Georgia Institute of Technology
 [Georgia Tech News Article on Ribose-seq]
 (http://www.news.gatech.edu/2015/01/26/ribose-seq-identifies-and-locates-ribonucleotides-genomic-dna)
 
-##Required Files:
+##Required Files:  
 http://amc-sandbox.ucdenver.edu/User13/outbox/2016/
 
-##Software Requirements:
--umitools
--samtools
--bedtools
--python
--R
--bedToBigBed
--bedGraphToBigWig
+##Software Requirements:  
+-umitools  
+-samtools  
+-bedtools  
+-python  
+-R  
+-bedToBigBed  
+-bedGraphToBigWig  
 
-##Required Directory Structure:
-1. Create a bin folder
-2. Add bin folder to PATH
-echo "export PATH="~/bin:$PATH"" >> ~/.bashrc
+##Required Directory Structure:  
+1. Create a bin folder  
+2. Add bin folder to PATH  
+echo "export PATH="~/bin:$PATH"" >> ~/.bashrc  
 
-##Order of Execution of Scripts:
-1.
-2.
-3.
-4.
+##Order of Execution of Scripts:  
+1.  
+2.  
+3.  
+4.  
