@@ -29,7 +29,7 @@ Georgia Institute of Technology
 ##Required Directory Structure:  
 1. Create a bin folder  
 2. Add bin folder to PATH  
-echo "export PATH="~/bin:$PATH"" >> ~/.bashrc  
+```echo "export PATH="~/bin:$PATH"" >> ~/.bashrc  ```
 3. git clone https://github.com/agombolay/Ribose-seq-Project/tree/master/Ribose-seq-Directory  
 
 ##Order of Execution of Scripts:  
