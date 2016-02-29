@@ -18,14 +18,12 @@ Georgia Institute of Technology
 
 ##Software Requirements:  
 -bowtie (https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.1.2/)  
--umitools (wget https://github.com/brwnj/umitools/archive/master.zip);  
-*Requires pysam and editdist   
--samtools  
--bedtools  
--python  
--R  
--bedToBigBed  
--bedGraphToBigWig  
+-bedToBigBed and bedGraphToBigWig (http://hgdownload.cse.ucsc.edu/admin/exe/)  
+-umitools (https://github.com/brwnj/umitools); Also requires pysam and editdist  
+-bedtools  (http://bedtools.readthedocs.org/en/latest/content/installation.html)  
+-samtools (http://www.htslib.org/download/)  
+-python (https://www.python.org/downloads/)  
+-R  (https://www.r-project.org/)  
 
 ##Getting ready:
 Part A: Software Set-up
