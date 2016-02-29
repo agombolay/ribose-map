@@ -34,7 +34,7 @@ Part A: Software Set-up
 3. Download all required software above into bin folder:  
 ```cd path/to/bin```  
 
-Part B: Directory Set-up:  
+Part B: Directory Set-up  
 1. Clone the Ribose-seq Analysis Pipeline Directory Structure:  
 ```git clone https://github.com/agombolay/Ribose-seq-Project/tree/master/Ribose-seq-Directory```  
 
