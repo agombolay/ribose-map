@@ -26,7 +26,7 @@ Georgia Institute of Technology
 -R  (https://www.r-project.org/)  
 
 ##Getting ready:
-Part A: Software Set-up
+Part A: Software Set-up  
 1. Create a bin folder in home directory:  
 ```mkdir bin```  
 
