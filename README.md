@@ -17,12 +17,12 @@ Georgia Institute of Technology
 -http://amc-sandbox.ucdenver.edu/User13/outbox/2016/  
 
 ##Software Requirements:  
--bowtie (https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.1.2/)  
+-Bowtie (https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.1.2/)  
 -bedtools  (http://bedtools.readthedocs.org/en/latest/content/installation.html)  
 -umitools (https://github.com/brwnj/umitools); Also requires pysam and editdist  
 -bedToBigBed and bedGraphToBigWig (http://hgdownload.cse.ucsc.edu/admin/exe/)  
--samtools (http://www.htslib.org/download/)  
--python (https://www.python.org/downloads/)  
+-SAMtools (http://www.htslib.org/download/)  
+-Python (https://www.python.org/downloads/)  
 -R  (https://www.r-project.org/)  
 
 ##Getting ready:
