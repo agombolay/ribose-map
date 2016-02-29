@@ -12,8 +12,8 @@ Georgia Institute of Technology
 [Georgia Tech News Article on Ribose-seq]
 (http://www.news.gatech.edu/2015/01/26/ribose-seq-identifies-and-locates-ribonucleotides-genomic-dna)
 
-##Required Files:  
--Input Files: FASTQ files  
+##Required Input Files:  
+-Sequencing data in FASTQ file format  
 -http://amc-sandbox.ucdenver.edu/User13/outbox/2016/  
 
 ##Software Requirements:  
