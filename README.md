@@ -31,7 +31,7 @@ Part A: Software Set-up
 ```mkdir bin```  
 2. If not already done, add bin folder to PATH:  
 ```echo "export PATH="~/bin:$PATH"" >> ~/.bashrc```  
-3. Download all required software into bin folder:  
+3. Download all required software above into bin folder:  
 ```cd path/to/bin```  
 
 Part B: Directory Set-up:  
