@@ -29,10 +29,8 @@ Georgia Institute of Technology
 Part A: Software Set-up  
 1. Create a bin folder in home directory:  
 ```mkdir bin```  
-
 2. If not already done, add bin folder to PATH:  
 ```echo "export PATH="~/bin:$PATH"" >> ~/.bashrc```  
-
 3. Download all required software into bin folder:  
 ```cd path/to/bin```  
 
