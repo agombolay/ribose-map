@@ -4,7 +4,7 @@ Storici Lab | School of Biology
 Georgia Institute of Technology  
 
 ##Project Overview
-###Open-source Version of Ribose-seq Analysis Pipeline  
+###Non-LSF Dependent Version of Ribose-seq Analysis Pipeline  
 
 **References**:  
 [Ribose-seq *Nature Methods* Paper, 2015]
