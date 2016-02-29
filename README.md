@@ -35,7 +35,7 @@ Part A: Software Set-up
 ```echo "export PATH="~/bin:$PATH"" >> ~/.bashrc```  
 
 3. Download all required software into bin folder:  
-```cd path/to/bin``  
+```cd path/to/bin```  
 ```wget <URL>```  
 ```unzip <file>```  
 
