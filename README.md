@@ -26,7 +26,7 @@ Georgia Institute of Technology
 -R  (https://www.r-project.org/)  
 
 ##Set-up:
-Part A: Software Set-up  
+###Part A: Software Set-up  
 1. Create a bin folder in home directory:  
 ```mkdir bin```  
 2. If not already done, add bin folder to PATH:  
@@ -36,7 +36,7 @@ Part A: Software Set-up
 4. Create script to automatically load software upon startup  
 Please view: http://cosmolinux.no-ip.org/raconetlinux2/boot.html
 
-Part B: Directory Set-up  
+###Part B: Directory Set-up  
 1. Clone the Ribose-seq Analysis Pipeline Directory Structure:  
 ```git clone https://github.com/agombolay/Ribose-seq-Project/tree/master/Ribose-seq-Directory```  
 
