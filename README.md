@@ -18,7 +18,7 @@ Georgia Institute of Technology
 
 ##Software Requirements:  
 -bowtie (https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.1.2/)  
--umitools (https://pypi.python.org/pypi/umitools)  
+-umitools (https://pypi.python.org/pypi/umitools; requires pysam and editdist   
 -samtools  
 -bedtools  
 -python  
