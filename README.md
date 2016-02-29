@@ -25,7 +25,7 @@ Georgia Institute of Technology
 -Python (https://www.python.org/downloads/)  
 -R  (https://www.r-project.org/)  
 
-##Getting ready:
+##Set-up:
 Part A: Software Set-up  
 1. Create a bin folder in home directory:  
 ```mkdir bin```  
