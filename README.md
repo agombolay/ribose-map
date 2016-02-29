@@ -17,7 +17,7 @@ Georgia Institute of Technology
 -http://amc-sandbox.ucdenver.edu/User13/outbox/2016/  
 
 ##Software Requirements:  
--bowtie  
+-bowtie (https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.1.2/)  
 -umitools  
 -samtools  
 -bedtools  
