@@ -26,14 +26,21 @@ Georgia Institute of Technology
 -bedToBigBed  
 -bedGraphToBigWig  
 
-##Required Directory Structure:  
-1. Create a bin folder:  
+##Getting ready:
+Part A: Software Set-up
+1. Create a bin folder in home directory:  
 ```mkdir bin```  
 
-2. Add bin folder to PATH:  
+2. If not already done, add bin folder to PATH:
 ```echo "export PATH="~/bin:$PATH"" >> ~/.bashrc```  
 
-3. Clone the Ribose-seq Analysis Pipeline Directory Structure:  
+3. Download all required software into bin folder:
+```cd path/to/bin``
+```wget <URL>```
+```unzip <file>```
+
+Part B: Directory Set-up:  
+1. Clone the Ribose-seq Analysis Pipeline Directory Structure:  
 ```git clone https://github.com/agombolay/Ribose-seq-Project/tree/master/Ribose-seq-Directory```  
 
 ##Order of Execution of Scripts:  
