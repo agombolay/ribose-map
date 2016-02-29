@@ -18,7 +18,8 @@ Georgia Institute of Technology
 
 ##Software Requirements:  
 -bowtie (https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.1.2/)  
--umitools (https://pypi.python.org/pypi/umitools); requires pysam and editdist   
+-umitools (wget https://github.com/brwnj/umitools/archive/master.zip);  
+*Requires pysam and editdist   
 -samtools  
 -bedtools  
 -python  
@@ -36,8 +37,6 @@ Part A: Software Set-up
 
 3. Download all required software into bin folder:  
 ```cd path/to/bin```  
-```wget <URL>```  
-```unzip <file>```  
 
 Part B: Directory Set-up:  
 1. Clone the Ribose-seq Analysis Pipeline Directory Structure:  
