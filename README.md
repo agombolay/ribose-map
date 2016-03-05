@@ -35,8 +35,6 @@ Georgia Institute of Technology
 ```echo "export PATH="~/bin:$PATH"" >> ~/.bashrc```  
 3. Download all required software above into bin folder:  
 ```cd path/to/bin```  
-4. Create script to automatically load software upon startup  
-Please view: http://cosmolinux.no-ip.org/raconetlinux2/boot.html
 
 ###Part B: Directory Set-up  
 1. Clone the Ribose-seq Analysis Pipeline Directory Structure:  
