@@ -38,10 +38,4 @@ Please view: http://cosmolinux.no-ip.org/raconetlinux2/boot.html
 
 ###Part B: Directory Set-up  
 1. Clone the Ribose-seq Analysis Pipeline Directory Structure:  
-```git clone https://github.com/agombolay/Ribose-seq-Project/tree/master/Ribose-seq-Directory```  
-
-##Order of Execution of Scripts:  
-1.  
-2.  
-3.  
-4.  
+```git clone https://github.com/agombolay/Ribose-seq-Project/tree/master/Ribose-seq-Directory```
