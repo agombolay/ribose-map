@@ -14,7 +14,7 @@ Georgia Institute of Technology
 
 ##Required Input Files:  
 -Sequencing data in FASTQ file format  
--http://amc-sandbox.ucdenver.edu/User13/outbox/2016/  
+-Yeast data: http://amc-sandbox.ucdenver.edu/User13/outbox/2016/  
 
 ##Software Requirements:  
 * Bowtie (https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.1.2/)  
