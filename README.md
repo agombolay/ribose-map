@@ -17,7 +17,7 @@ Georgia Institute of Technology
 -Yeast data: http://amc-sandbox.ucdenver.edu/User13/outbox/2016/  
 
 ##Software Requirements:  
-* [Bowtie]: (https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.1.2/) Align raw sequencing reads to reference genome
+* [Bowtie] (https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.1.2/) Align raw sequencing reads to reference genome
  * [How to test if Bowtie index is properly installed] (http://bowtie-bio.sourceforge.net/tutorial.shtml)
 * [bedToBigBed and bedGraphToBigWig] (http://hgdownload.cse.ucsc.edu/admin/exe/)
 * [bedtools]  (http://bedtools.readthedocs.org/en/latest/content/installation.html)
