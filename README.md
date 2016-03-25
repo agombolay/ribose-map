@@ -23,7 +23,7 @@ Georgia Institute of Technology
  * [Manual page for information on commands] (http://bowtie-bio.sourceforge.net/manual.shtml)
  * [How to test if Bowtie index is properly installed] (http://bowtie-bio.sourceforge.net/tutorial.shtml)
 
-* [SAMtools] (http://www.htslib.org/download/): Convert aligned reads file to BAM format
+* [SAMtools] (http://www.htslib.org/download/): Convert aligned reads files to BAM format
  * [Manual page for information on commands] (http://www.htslib.org/doc/samtools.html)
 
 * [bedToBigBed and bedGraphToBigWig] (http://hgdownload.cse.ucsc.edu/admin/exe/)
