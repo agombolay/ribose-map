@@ -17,8 +17,8 @@ Georgia Institute of Technology
 -Yeast data: http://amc-sandbox.ucdenver.edu/User13/outbox/2016/  
 
 ##Software Requirements:  
-* [umitools] (https://github.com/brwnj/umitools)
-* [Bowtie] (https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.1.2/): Align raw sequencing reads to reference genome
+* [umitools] (https://github.com/brwnj/umitools): Trim UMIs and remove duplicate reads
+* [Bowtie] (https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.1.2/): Align sequencing reads to reference genome
  * [Manual page for information on commands] (http://bowtie-bio.sourceforge.net/manual.shtml)
  * [How to test if Bowtie index is properly installed] (http://bowtie-bio.sourceforge.net/tutorial.shtml)
 * [SAMtools] (http://www.htslib.org/download/): Convert aligned reads file to BAM format
