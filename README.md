@@ -17,14 +17,14 @@ Georgia Institute of Technology
 -Yeast data: http://amc-sandbox.ucdenver.edu/User13/outbox/2016/  
 
 ##Software Requirements:  
+* [umitools] (https://github.com/brwnj/umitools)
 * [Bowtie] (https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.1.2/): Align raw sequencing reads to reference genome
  * [Manual page for information on commands] (http://bowtie-bio.sourceforge.net/manual.shtml)
  * [How to test if Bowtie index is properly installed] (http://bowtie-bio.sourceforge.net/tutorial.shtml)
+* [SAMtools] (http://www.htslib.org/download/)
+ * [Manual page for information on commands] (http://www.htslib.org/doc/samtools.html)
 * [bedToBigBed and bedGraphToBigWig] (http://hgdownload.cse.ucsc.edu/admin/exe/)
 * [bedtools]  (http://bedtools.readthedocs.org/en/latest/content/installation.html)
-* [umitools] (https://github.com/brwnj/umitools)
-* [SAMtools] (http://www.htslib.org/download/)
-  * [Manual page for information on commands] (http://www.htslib.org/doc/samtools.html)
 * [Python] (https://www.python.org/downloads/)  
 * [R]  (https://www.r-project.org/)
 
