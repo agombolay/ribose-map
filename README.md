@@ -18,8 +18,8 @@ Georgia Institute of Technology
 
 ##Software Requirements:  
 * [Bowtie] (https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.1.2/)
- * Align raw sequencing reads to reference genome
  * [How to test if Bowtie index is properly installed] (http://bowtie-bio.sourceforge.net/tutorial.shtml)
+ * Align raw sequencing reads to reference genome
 * [bedToBigBed and bedGraphToBigWig] (http://hgdownload.cse.ucsc.edu/admin/exe/)
 * [bedtools]  (http://bedtools.readthedocs.org/en/latest/content/installation.html)
 * [umitools] (https://github.com/brwnj/umitools)
