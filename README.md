@@ -7,11 +7,12 @@ Georgia Institute of Technology
 ###Non-LSF Dependent Version of Ribose-seq Analysis Pipeline  
 
 **References**:  
-[Ribose-seq *Nature Methods* Paper, 2015]
+* [Ribose-seq *Nature Methods* Paper, 2015]
 (http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4686381/pdf/nihms742750.pdf)  
-[Georgia Tech News Article on Ribose-seq]
+* [Georgia Tech News Article on Ribose-seq]
 (http://www.news.gatech.edu/2015/01/26/ribose-seq-identifies-and-locates-ribonucleotides-genomic-dna)
-(Jay Hesselberth's GitHub Page] (https://github.com/hesselberthlab/modmap/tree/snake/pipeline/ribose-seq-ms)
+* (Jay Hesselberth's GitHub Page]
+(https://github.com/hesselberthlab/modmap/tree/snake/pipeline/ribose-seq-ms)
 
 ##Required Input Files:  
 -Sequencing data in FASTQ file format  
