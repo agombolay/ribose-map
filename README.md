@@ -23,6 +23,7 @@ Georgia Institute of Technology
 * [bedtools]  (http://bedtools.readthedocs.org/en/latest/content/installation.html)
 * [umitools] (https://github.com/brwnj/umitools)
 * [SAMtools] (http://www.htslib.org/download/)
+  * [Manual page for information on commands] (http://www.htslib.org/doc/samtools.html)
 * [Python] (https://www.python.org/downloads/)  
 * [R]  (https://www.r-project.org/)
 
