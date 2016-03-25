@@ -18,6 +18,7 @@ Georgia Institute of Technology
 
 ##Software Requirements:  
 * Bowtie (https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.1.2/)  
+  * [How to test Bowtie index is properly installed] (http://bowtie-bio.sourceforge.net/tutorial.shtml)
 * bedtools  (http://bedtools.readthedocs.org/en/latest/content/installation.html)  
 * umitools (https://github.com/brwnj/umitools); Also requires pysam and editdist  
 * bedToBigBed and bedGraphToBigWig (http://hgdownload.cse.ucsc.edu/admin/exe/)  
