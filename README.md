@@ -27,6 +27,7 @@ Georgia Institute of Technology
 
 * [SAMtools] (http://www.htslib.org/download/): Convert aligned reads files to BAM format
  * [Manual page for information on commands] (http://www.htslib.org/doc/samtools.html)
+ * [Download SAMtools] (http://www.htslib.org/download/)
 
 * [bedToBigBed and bedGraphToBigWig] (http://hgdownload.cse.ucsc.edu/admin/exe/)
 
