@@ -23,6 +23,9 @@ Georgia Institute of Technology
 -Sequencing data in FASTQ file format  
 -Saccharomyces cerevisiae data: http://amc-sandbox.ucdenver.edu/User13/outbox/2016/  
 
+##Convert input reference genome files from 2bit to fasta format
+* http://hgdownload.soe.ucsc.edu/admin/exe/
+
 ##Software Requirements:  
 * [umitools] (https://github.com/brwnj/umitools): Trim UMIs and remove duplicate reads
 
