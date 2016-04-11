@@ -6,10 +6,10 @@ Georgia Institute of Technology
 Last Updated: 2016  
 
 ##Project Overview
-Goal:  
-Background: Non-LSF Dependent Version of Ribose-seq Analysis Pipeline  
-Significance:  
-Applications:  
+**Goal**:  
+**Background**: Non-LSF Dependent Version of Ribose-seq Analysis Pipeline  
+**Significance**:  
+**Applications**:  
 
 ##**References**  
 * [Ribose-seq *Nature Methods* Paper, 2015]
