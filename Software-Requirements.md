@@ -17,5 +17,4 @@
 
 * [R]  (https://www.r-project.org/)
 
-* [MACS2] (https://pypi.python.org/pypi/MACS2)
-  * Purpose: To call peaks from alignment results
+* [MACS2] (https://pypi.python.org/pypi/MACS2): Call peaks from alignment results
