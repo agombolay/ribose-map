@@ -16,7 +16,7 @@ Georgia Institute of Technology
 
 ##Program Set-up
 ###Part A: Software Set-up  
--Script to download and install software automatically  
+* Script to download and install software automatically  
 
 ###Part B: Directory Set-up  
 1. Clone the Ribose-seq Analysis Pipeline Directory Structure:  
