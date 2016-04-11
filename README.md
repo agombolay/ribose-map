@@ -14,7 +14,7 @@ Georgia Institute of Technology
 * [Jay Hesselberth's GitHub Page]
 (https://github.com/hesselberthlab/modmap/tree/snake/pipeline/ribose-seq-ms)
 
-##Set-up
+##Program Set-up
 ###Part A: Software Set-up  
 -Script to download and install software automatically  
 
