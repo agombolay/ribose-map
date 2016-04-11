@@ -11,7 +11,7 @@
 
 * [bedToBigBed] (http://hgdownload.cse.ucsc.edu/admin/exe/)
 
-* [bedGraphToBigWig] (http://hgdownload.cse.ucsc.edu/admin/exe/)
+* [bedGraphToBigWig] (http://hgdownload.cse.ucsc.edu/admin/exe/): Convert files from bedGraph format to bigWig
 
 * [bedtools]  (http://bedtools.readthedocs.org/en/latest/content/installation.html)
 
