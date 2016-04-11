@@ -8,5 +8,5 @@ http://www.ncbi.nlm.nih.gov/books/NBK158900/
 http://www.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=software  
 http://www.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=toolkit_doc  
 
-##Convert input reference genome files from 2bit to fasta format
-* http://hgdownload.soe.ucsc.edu/admin/exe/
+##Convert input reference genome files from 2bit to FASTA format
+* [twoBitToFa program] (http://hgdownload.soe.ucsc.edu/admin/exe/)
