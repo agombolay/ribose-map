@@ -15,7 +15,8 @@
   * bigWig file format is used to display dense, continuous data in the UCSC Genome Browser as a graph [(more)] (https://genome.ucsc.edu/goldenpath/help/bigWig.html)
 
 * [bedtools]  (http://bedtools.readthedocs.org/en/latest/content/installation.html)
- * bedtools coverage tool calculates the depth and breadth of genome coverage from alignment results
+ * bedtools coverage tool calculates the depth and breadth of genome coverage from alignment results [(more)]
+(http://bedtools.readthedocs.org/en/latest/content/tools/coverage.html)
 
 * [Python] (https://www.python.org/downloads/)  
 
