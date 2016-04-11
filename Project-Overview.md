@@ -1,5 +1,5 @@
 ##Background
-Koh et al.’s Nature Methods Ribose-seq paper
+(Reference: Koh et al.’s Nature Methods Ribose-seq paper)
 
 ##Significance
 
