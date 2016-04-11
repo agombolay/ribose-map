@@ -9,7 +9,9 @@
  * [Manual page for information on commands] (http://www.htslib.org/doc/samtools.html)
  * [Download SAMtools] (http://www.htslib.org/download/)
 
-* [bedToBigBed and bedGraphToBigWig] (http://hgdownload.cse.ucsc.edu/admin/exe/)
+* [bedToBigBed] (http://hgdownload.cse.ucsc.edu/admin/exe/)
+
+* [bedGraphToBigWig] (http://hgdownload.cse.ucsc.edu/admin/exe/)
 
 * [bedtools]  (http://bedtools.readthedocs.org/en/latest/content/installation.html)
 
