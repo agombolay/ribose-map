@@ -3,7 +3,7 @@
 
 ##Significance
 
-##Potential applications
+##Potential Applications
 * Develop drug targets
 * Biomarkers for disease
 
