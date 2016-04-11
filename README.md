@@ -1,4 +1,4 @@
-# Ribose-seq-Project
+# Sequencing Analysis of Ribose-seq Libraries
 Alli Gombolay, M.P.H  
 Storici Lab | School of Biology  
 Georgia Institute of Technology  
