@@ -14,15 +14,6 @@ Georgia Institute of Technology
 * [Jay Hesselberth's GitHub Page]
 (https://github.com/hesselberthlab/modmap/tree/snake/pipeline/ribose-seq-ms)
 
-##Convert input raw sequencing files from SRA to FASTQ format
-* SRA Toolkit (fastq-dump):  
-http://www.ncbi.nlm.nih.gov/books/NBK158900/  
-http://www.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=software  
-http://www.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=toolkit_doc  
-
-##Convert input reference genome files from 2bit to fasta format
-* http://hgdownload.soe.ucsc.edu/admin/exe/
-
 ##Set-up:
 ###Part A: Software Set-up  
 -Script to download and install software automatically  
