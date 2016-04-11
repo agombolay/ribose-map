@@ -1,7 +1,7 @@
 ##Software Requirements:  
 * [Python] (https://www.python.org/downloads/)  
  * [umitools] (https://github.com/brwnj/umitools): Trim UMIs and remove duplicate reads
- * [MACS2] (https://pypi.python.org/pypi/MACS2): Call peaks from alignment results
+ * [MACS2] (https://pypi.python.org/pypi/MACS2): Call peaks based on alignment results
 
 * [Bowtie] (https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.1.2/): Align sequencing reads to reference genome
  * [Manual page for information on commands] (http://bowtie-bio.sourceforge.net/manual.shtml)
