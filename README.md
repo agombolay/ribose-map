@@ -3,6 +3,8 @@ Alli Gombolay, M.P.H
 Storici Lab | School of Biology  
 Georgia Institute of Technology  
 
+Last Updated: 2016  
+
 ##Project Overview
 ###Non-LSF Dependent Version of Ribose-seq Analysis Pipeline  
 
@@ -23,5 +25,3 @@ Georgia Institute of Technology
 ###Part B: Directory Set-up  
 1. Clone the Ribose-seq Analysis Pipeline Directory Structure:  
 ```git clone https://github.com/agombolay/Ribose-seq-Project/tree/master/Ribose-seq-Directory```
-
-Last Updated: 2016
