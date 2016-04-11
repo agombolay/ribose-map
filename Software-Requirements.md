@@ -10,13 +10,13 @@
 * [SAMtools] (http://www.htslib.org/download/): Convert aligned reads files to BAM format
  * [Manual page for information on commands] (http://www.htslib.org/doc/samtools.html)
 
-* [bedToBigBed] (http://hgdownload.cse.ucsc.edu/admin/exe/)
+* [bedtools]  (http://bedtools.readthedocs.org/en/latest/content/installation.html): Coverage tool calculates genome coverage based on alignment results
+ * bedtools coverage tool calculates the depth and breadth of genome coverage from alignment results [(more)]
+(http://bedtools.readthedocs.org/en/latest/content/tools/coverage.html)
 
 * [bedGraphToBigWig] (http://hgdownload.cse.ucsc.edu/admin/exe/): Convert files from bedGraph file format to bigWig format
   * bigWig file format is used to display dense, continuous data in the UCSC Genome Browser as a graph [(more)] (https://genome.ucsc.edu/goldenpath/help/bigWig.html)
 
-* [bedtools]  (http://bedtools.readthedocs.org/en/latest/content/installation.html): Coverage tool calculates genome coverage based on alignment results
- * bedtools coverage tool calculates the depth and breadth of genome coverage from alignment results [(more)]
-(http://bedtools.readthedocs.org/en/latest/content/tools/coverage.html)
+* [bedToBigBed] (http://hgdownload.cse.ucsc.edu/admin/exe/)
 
 * [R]  (https://www.r-project.org/)
