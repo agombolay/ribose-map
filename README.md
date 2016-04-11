@@ -16,7 +16,9 @@ Georgia Institute of Technology
 
 ##Program Set-up
 ###Part A: Software Set-up  
-* Script to download and install software automatically  
+* Script to download and install software automatically
+* [Required Software] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Required-Software.md)
+* [Required Input Files] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Required-Input-Files.md)
 
 ###Part B: Directory Set-up  
 1. Clone the Ribose-seq Analysis Pipeline Directory Structure:  
