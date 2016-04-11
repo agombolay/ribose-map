@@ -14,11 +14,6 @@ Georgia Institute of Technology
 * [Jay Hesselberth's GitHub Page]
 (https://github.com/hesselberthlab/modmap/tree/snake/pipeline/ribose-seq-ms)
 
-##Biological Information on *Saccharomyces cerevisiae*
-* Chromosomes: 16
-* Genome size: 12 million base pairs  
-(Reference: https://www.ncbi.nlm.nih.gov/genome/15)
-
 ##Required Input Files:  
 -Sequencing data in FASTQ file format  
 -Saccharomyces cerevisiae data: http://amc-sandbox.ucdenver.edu/User13/outbox/2016/  
