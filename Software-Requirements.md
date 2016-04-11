@@ -12,6 +12,7 @@
 * [bedToBigBed] (http://hgdownload.cse.ucsc.edu/admin/exe/)
 
 * [bedGraphToBigWig] (http://hgdownload.cse.ucsc.edu/admin/exe/): Convert files from bedGraph format to bigWig
+  * bigWig file format is used to display dense, continuous data in the UCSC Genome Browser as a graph
 
 * [bedtools]  (http://bedtools.readthedocs.org/en/latest/content/installation.html)
 
