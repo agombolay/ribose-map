@@ -17,4 +17,4 @@
 
 * [R]  (https://www.r-project.org/)
 
-* MACS2
+* [MACS2] (https://pypi.python.org/pypi/MACS2)
