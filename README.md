@@ -23,3 +23,5 @@ Georgia Institute of Technology
 ###Part B: Directory Set-up  
 1. Clone the Ribose-seq Analysis Pipeline Directory Structure:  
 ```git clone https://github.com/agombolay/Ribose-seq-Project/tree/master/Ribose-seq-Directory```
+
+Last Updated: 2016
