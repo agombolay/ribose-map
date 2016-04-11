@@ -6,7 +6,7 @@ Georgia Institute of Technology
 ##Project Overview
 ###Non-LSF Dependent Version of Ribose-seq Analysis Pipeline  
 
-**References**:  
+##**References**  
 * [Ribose-seq *Nature Methods* Paper, 2015]
 (http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4686381/pdf/nihms742750.pdf)  
 * [Georgia Tech News Article on Ribose-seq]
@@ -14,7 +14,7 @@ Georgia Institute of Technology
 * [Jay Hesselberth's GitHub Page]
 (https://github.com/hesselberthlab/modmap/tree/snake/pipeline/ribose-seq-ms)
 
-##Set-up:
+##Set-up
 ###Part A: Software Set-up  
 -Script to download and install software automatically  
 
