@@ -14,10 +14,6 @@ Georgia Institute of Technology
 * [Jay Hesselberth's GitHub Page]
 (https://github.com/hesselberthlab/modmap/tree/snake/pipeline/ribose-seq-ms)
 
-##Required Input Files:  
--Sequencing data in FASTQ file format  
--Saccharomyces cerevisiae data: http://amc-sandbox.ucdenver.edu/User13/outbox/2016/  
-
 ##Convert input raw sequencing files from SRA to FASTQ format
 * SRA Toolkit (fastq-dump):  
 http://www.ncbi.nlm.nih.gov/books/NBK158900/  
