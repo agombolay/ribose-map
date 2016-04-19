@@ -20,3 +20,5 @@
 * [bedToBigBed] (http://hgdownload.cse.ucsc.edu/admin/exe/)
 
 * [R]  (https://www.r-project.org/)
+
+* [Trimmomatic] (http://www.usadellab.org/cms/?page=trimmomatic)
