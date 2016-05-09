@@ -6,9 +6,12 @@ Alli Gombolay, M.P.H
 Last Updated: May 2016  
 
 ##Project Overview
-**Goal**:  
-**Background**: Non-LSF Dependent Version of Ribose-seq Analysis Pipeline  
+**Goal**: To create a streamlined bioinformatics pipeline to analyze Ribose-seq libraries on any Linux platform
+
+**Background**: The original scripts for this analysis required LSF job scheduling software.  To enable any user to effectively and efficiently analyze their input sequencing data, I have created a streamlined, all-inclusive non-LSF dependent version of the Ribose-seq analysis pipeline.  This pipeline will run on any Linux platform.
+
 **Significance**:  
+
 **Applications**:  
 
 ##**References**  
