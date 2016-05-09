@@ -16,7 +16,7 @@ Last Updated: May 2016
 (http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4686381/pdf/nihms742750.pdf)  
 * [Georgia Tech News Article on Ribose-seq]
 (http://www.news.gatech.edu/2015/01/26/ribose-seq-identifies-and-locates-ribonucleotides-genomic-dna)
-* [Jay Hesselberth's GitHub Page]
+* [Jay Hesselberth's GitHub Page for Ribose-seq]
 (https://github.com/hesselberthlab/modmap/tree/snake/pipeline/ribose-seq-ms)
 
 ##Program Set-up
