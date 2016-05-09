@@ -8,7 +8,7 @@ Last Updated: May 2016
 ##Project Overview
 **Goal**: To create a streamlined bioinformatics pipeline to analyze Ribose-seq libraries on any Linux platform
 
-**Background**: The original scripts for this analysis required LSF job scheduling software.  To enable any user to effectively and efficiently analyze their input sequencing data, I have created a streamlined, all-inclusive non-LSF dependent version of the Ribose-seq analysis pipeline.  This pipeline will run on any Linux platform.
+**Background**: The original scripts for this analysis required LSF job scheduling software to run properly.  To enable any user to effectively and efficiently analyze their input sequencing data, I have created a streamlined, all-inclusive non-LSF dependent version of the Ribose-seq analysis pipeline.  This pipeline will run on any Linux platform.  I have also included all required input files and the appropriate directory structure that can be cloned as a GitHub repository.
 
 **Significance**:  
 
