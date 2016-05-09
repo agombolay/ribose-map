@@ -11,7 +11,7 @@ Last Updated: May 2016
 
 **Background**: The original scripts used to analyze Ribose-seq libraries required LSF job scheduling software to run properly.  To enable any user to effectively and efficiently analyze their input sequencing data of Ribose-seq libraries, I have created a streamlined, non-LSF dependent version of the Ribose-seq analysis pipeline.  This pipeline will run on any Linux platform.  I have also included all required input files, the appropriate directory structure that can be cloned as a GitHub repository, and a script to automatically download and install the required software.  I have tailored the pipeline for four different species, including *Saccharomyces cerevisiae*, *Escherichia coli K12*, *Mus musculus*, and humans.
 
-**Significance**:  
+**Significance**: This pipeline allows any user to easily download and install all required software, download all required input files, and download the appropriate directory structure.  
 
 **Applications**:  
 
