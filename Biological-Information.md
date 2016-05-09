@@ -1,10 +1,9 @@
 ##Biological Information
 
-###*Escherichia coli K12*
+###[*Escherichia coli K12*] (https://www.ncbi.nlm.nih.gov/genome/167)
 * GC Content: 50.60%
 * # of Chromosomes: 1
 * Size of Genome: 5.17 Mb   
-* [Reference] (https://www.ncbi.nlm.nih.gov/genome/167)
 * [Download Genome] (http://support.illumina.com/sequencing/sequencing_software/igenome.html)
 
 ###*Mus musculus*
