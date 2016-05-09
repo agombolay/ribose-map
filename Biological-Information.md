@@ -5,15 +5,18 @@
 * # of Chromosomes: 1
 * Size of Genome: 5.17 Mb   
 * Reference: https://www.ncbi.nlm.nih.gov/genome/167
+* Download: 
 
 ###*Mus musculus*
 * GC Content: 42.58%
 * # of Chromosomes: 19
 * Size of Genome: 2,641.99 Mb  
 * Reference: https://www.ncbi.nlm.nih.gov/genome/15
+* Download: 
 
 ###*Saccharomyces cerevisiae*
 * GC Content: 38.42%
 * # of Chromosomes: 16
 * Size of Genome: 12.30 Mb  
 * Reference: https://www.ncbi.nlm.nih.gov/genome/15
+* Download:
