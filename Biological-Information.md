@@ -8,7 +8,7 @@
 
 ###[*Mus musculus*] (https://www.ncbi.nlm.nih.gov/genome/?term=Mus+musculus+%28house+mouse%29)
 * GC Content: 42.58%
-* # of Chromosomes: 19
+* # of Chromosomes: 21
 * Size of Genome: 2,641.99 Mb  
 * [Download Genome from UCSC] (http://hgdownload.soe.ucsc.edu/goldenPath/mm10/bigZips/)
 
