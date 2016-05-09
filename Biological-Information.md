@@ -1,7 +1,7 @@
 ##Biological Information
 
 ###*Escherichia coli K12*
-* GC Content: 50.6%
+* GC Content: 50.60%
 * # of Chromosomes: 1
 * Size of Genome: 5.17 Mb   
 * Reference: https://www.ncbi.nlm.nih.gov/genome/167
@@ -9,7 +9,7 @@
 ###*Mus musculus*
 * GC Content: 42.58%
 * # of Chromosomes: 19
-* Size of Genome: 2641.99 Mb  
+* Size of Genome: 2,641.99 Mb  
 * Reference: https://www.ncbi.nlm.nih.gov/genome/15
 
 ###*Saccharomyces cerevisiae*
