@@ -23,8 +23,8 @@ Last Updated: May 2016
 
 ##Program Set-up
 ###Part A: Software Set-up  
-* Script to automatically download and install software
 * Script to automatically download required input files
+* Script to automatically download and install software
 
 ###Part B: Directory Set-up  
 1. Clone the Ribose-seq Analysis Pipeline Directory Structure:  
