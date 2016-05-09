@@ -13,8 +13,6 @@ Last Updated: May 2016
 
 **Significance**: This pipeline allows any user to easily download and install all required software, download all required input files, and download the appropriate directory structure to analyze Ribose-seq libraries.  Now, users can readily choose the species of interest and run the corresponding pipeline to map the distribution of rNMPs in their Ribose-seq libraries.  
 
-**Applications**:  
-
 ##**References**  
 * [Ribose-seq *Nature Methods* Paper, 2015]
 (http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4686381/pdf/nihms742750.pdf)  
