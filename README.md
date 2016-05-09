@@ -3,7 +3,7 @@ Alli Gombolay, M.P.H
 Storici Lab | School of Biology  
 Georgia Institute of Technology  
 
-Last Updated: 2016  
+Last Updated: May 2016  
 
 ##Project Overview
 **Goal**:  
