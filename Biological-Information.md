@@ -6,7 +6,7 @@
 * Size of Genome: 5.17 Mb   
 * [Download Genome from Illumina] (http://support.illumina.com/sequencing/sequencing_software/igenome.html)
 
-###[*Mus musculus*] (https://www.ncbi.nlm.nih.gov/genome/15)
+###[*Mus musculus*] (https://www.ncbi.nlm.nih.gov/genome/?term=Mus+musculus+%28house+mouse%29)
 * GC Content: 42.58%
 * # of Chromosomes: 19
 * Size of Genome: 2,641.99 Mb  
