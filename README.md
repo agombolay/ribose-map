@@ -2,6 +2,7 @@
 Alli Gombolay, M.P.H  
 [Storici Lab] (http://www.storicilab.gatech.edu/) | [School of Biology] (http://www.biology.gatech.edu/)  
 [Georgia Institute of Technology] (http://www.gatech.edu/)
+Contact: alli.gombolay@gatech.edu
 
 Last Updated: May 2016  
 
