@@ -17,14 +17,14 @@ Last Updated: May 2016
 * Develop drug targets
 * Biomarkers for disease
 
-**Usage**:
+##Usage:
 To display help menu:  
 `wrapper -h`  
 
 To run pipeline:  
 `wrapper -g 'FASTQ.GZ Files of Interest' -r 'Bowtie Index'`
 
-##**References**  
+##References  
 * [Ribose-seq *Nature Methods* Paper, 2015]
 (http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4686381/pdf/nihms742750.pdf)  
 * [Jay Hesselberth's GitHub Page for Ribose-seq]
