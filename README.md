@@ -18,7 +18,7 @@ Last Updated: May 2016
 * Biomarkers for disease
 
 **Usage**
-To display help menu: `wrapper -h`
+To display help menu: `wrapper -h`  
 To run pipeline: `wrapper -g 'Sequenced Ribose-seq Libraries of Interest' -r 'Appropriate Bowtie Index for Reference Genome'`
 
 ##**References**  
