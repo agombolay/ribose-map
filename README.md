@@ -19,7 +19,7 @@ Last Updated: May 2016
 
 **Usage**
 To display help menu: `wrapper -h`  
-To run pipeline: `wrapper -g 'Sequenced Ribose-seq Libraries of Interest' -r 'Appropriate Bowtie Index for Reference Genome'`
+To run pipeline: `wrapper -g 'FASTQ.GZ Files of Interest' -r 'Bowtie Index'`
 
 ##**References**  
 * [Ribose-seq *Nature Methods* Paper, 2015]
