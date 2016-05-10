@@ -17,11 +17,11 @@ Last Updated: May 2016
 * Develop drug targets
 * Biomarkers for disease
 
-##Usage:
+##Usage
 To display help menu:  
 `wrapper -h`  
 
-To run pipeline:  
+To run Ribose-seq analysis pipeline:  
 `wrapper -g 'FASTQ.GZ Files of Interest' -r 'Bowtie Index'`
 
 ##References  
