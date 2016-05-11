@@ -6,6 +6,6 @@ This is a regular paragraph.
     </tr>
 </table>
 
- <p align="jusitfy">This is some text in a paragraph.</p> 
+ <p align="center">This is some text in a paragraph.</p> 
  
 This is another regular paragraph.
