@@ -62,7 +62,7 @@ for sample in ${input[@]}; do
 	#Convert SAM files to BAM files
 	samtools view -bS $intermediateSAM > $intermediateBAM
 
-	#Explanation of options used in step above:
+	#SAMtools options used above:
 	#"-b": Output in BAM format
 	#"-S": Input in SAM format
 
