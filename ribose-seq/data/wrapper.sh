@@ -20,9 +20,8 @@ function usage () {
 #Use getOpts function to create command-line options (i.e., "-a", "-b", and "-h")
 while getopts "a:b:h::" opt; do
     case $opt in
-        g ) input=($OPTARG) #Specify input as an array
-            echo "Aligning ${input[@]} genomes to reference" ;;
-        r ) reference=($OPTARG) ;; #Specify input as an array
-        h ) usage ;;
+        g ) input=($OPTARG) ;; #Specify input as an array to allow multiple input arguments
+        r ) reference=($OPTARG) ;; #Specify input as an array to allow multiple input arguments
+        h ) usage ;; #Specify "-h" (help) option as usage statement
     esac
 done
