@@ -43,7 +43,7 @@ for sample in ${input[@]}; do
 
 	#ALIGNMENT
 	
-	#1. Trim UMI from reads and compress output files
+	#1. Trim UMI from raw reads and compress output files
 	python2.7 umitools.py trim $fastq $UMI | gzip -c > $umiTrimmed
 
 	#2. Align UMI trimmed reads to reference genome and output alignment statistics
