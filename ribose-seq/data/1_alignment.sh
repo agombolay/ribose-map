@@ -4,7 +4,7 @@
 #Adapted from Jay Hesselberth's code located at https://github.com/hesselberthlab/modmap/tree/snake
 #This program removes UMI's from sequencing reads, aligns reads to reference genome, and de-duplicates reads.
 
-for sample in ${inputA[@]}; do
+for sample in ${fastq[@]}; do
 
 	#VARIABLE SPECIFICATION
 	#Length of UMI (Unique Molecular Identifiers)
@@ -12,7 +12,7 @@ for sample in ${inputA[@]}; do
 
 	#INPUT FILES
 	#Location of .fastq sequencing files
-	fastq=$directory/ribose-seq/fastq/$sample.fastq
+	input=$directory/ribose-seq/fastq/$sample.fastq
 
 	#OUTPUT
 	#Location of output directory
@@ -44,7 +44,7 @@ for sample in ${inputA[@]}; do
 	#ALIGNMENT
 	
 	#1. Trim UMI from raw reads and compress output files
-	python2.7 umitools.py trim $fastq $UMI | gzip -c > $umiTrimmed
+	python2.7 umitools.py trim $input $UMI | gzip -c > $umiTrimmed
 
 	#2. Align UMI trimmed reads to reference genome and output alignment statistics
 	zcat $umiTrimmed | bowtie --uniq --sam $reference - 2> $statistics 1> $intermediateSAM
