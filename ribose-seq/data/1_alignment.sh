@@ -11,14 +11,14 @@ for sample in ${input[@]}; do
 	UMI=NNNNNNNN
 
 	#INPUT FILES
-	#Location of raw .fastq.gz sequencing files
+	#Location of .fastq sequencing files
 	fastq=$directory/ribose-seq/fastq/$sample.fastq
 
 	#OUTPUT
-	#LOCATION OF OUTPUT FILES
+	#Location of output directory
 	output=$directory/ribose-seq/results/$sample/alignment
 
-	#CREATE DIRECTORY STRUCTURE FOR OUTPUT FILES
+	#Create directory for output
 	if [[ ! -d $output ]]; then
     		mkdir -p $output 
 	fi
@@ -32,13 +32,13 @@ for sample in ${input[@]}; do
 
 	sortedBAM=$directory/$output/$sample.sorted.bam
 
-	#Main output BAM files
+	#Final BAM files
 	finalBAM=$directory/$output/$sample.bam
 
-	#Output file detailing Bowtie alignment statistics
+	#Output file of Bowtie alignment statistics
 	statistics=$directory/$output/$sample.statistics.txt
 
-	#Final output BED file
+	#BED file
 	BED=$directory/$output/$sample.bed.gz
 
 	#ALIGNMENT
