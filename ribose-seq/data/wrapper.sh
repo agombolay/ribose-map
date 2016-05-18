@@ -25,3 +25,7 @@ while getopts "a:b:h::" opt; do
         h ) usage ;; #Specify "-h" (help) option as usage statement
     esac
 done
+
+for file in ${inputA[@]}; do
+        1_alignment.sh;
+done
