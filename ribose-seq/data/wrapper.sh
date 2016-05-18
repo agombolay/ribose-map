@@ -9,10 +9,10 @@
 program=$0
 
 function usage () {
-        echo "Usage: $program [-a] 'input1 input2 input3 etc.' [-b] 'basename of Bowtie index'" [-h]
+        echo "Usage: $program [-a] 'input1 input2 input3 etc.' [-b] 'basename of Bowtie index' [-h]
           -a Runs ribose-seq pipeline on input .fastq files using Bowtie index 
           -b Runs ribose-seq pipeline on input .fastq files using Bowtie index
-          -h Displays help menu describing options
+          -h Displays help menu describing options"
 }
 
 while getopts "a:b:h::" opt; do
