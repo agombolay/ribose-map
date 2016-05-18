@@ -21,7 +21,7 @@ function usage () {
 while getopts "a:b:h::" opt; do
     case $opt in
         g ) fastq=($OPTARG) ;; #Specify input as an array to allow multiple input arguments
-        r ) index=($OPTARG) ;; #Specify input as an array to allow multiple input arguments
+        r ) index=$OPTARG ;; #Specify input as a variable to allow only one input argument
         h ) usage ;; #Specify "-h" (help) option as usage statement
     esac
 done
