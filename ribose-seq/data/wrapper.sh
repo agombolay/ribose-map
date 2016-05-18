@@ -11,9 +11,9 @@ program=$0
 
 #Usage statement for program; will be displayed to standard output if user specifies "-h" option
 function usage () {
-        echo "Usage: $program [-a] 'input1 input2 input3 etc.' [-b] 'basename of Bowtie index' [-h]
-          -a Runs ribose-seq pipeline on input .fastq files using Bowtie index 
-          -b Runs ribose-seq pipeline on input .fastq files using Bowtie index
+        echo "Usage: $program [-a] 'sample1 sample2 sample3 etc.' [-b] 'basename of Bowtie index' [-h]
+          -a Runs ribose-seq pipeline on input sample.fastq files using Bowtie index 
+          -b Runs ribose-seq pipeline on input sample.fastq files using Bowtie index
           -h Displays help menu describing options"
 }
 
@@ -26,6 +26,4 @@ while getopts "a:b:h::" opt; do
     esac
 done
 
-for file in ${inputA[@]}; do
-        1_alignment.sh;
-done
+1_alignment.sh
