@@ -59,7 +59,7 @@ for sample in ${input[@]}; do
 	#"--sam": Print alignment results in SAM format
 	#reference: Basename of Bowtie index to be searched
 	
-	#Convert intermediate SAM files to intermediate BAM files
+	#Convert SAM files to BAM files
 	samtools view -bS $intermediateSAM > $intermediateBAM
 
 	#Explanation of options used in step above:
