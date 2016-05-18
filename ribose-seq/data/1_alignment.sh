@@ -73,6 +73,6 @@ for sample in ${fastq[@]}; do
 	python2.7 umitools.py rmdup $sortedBAM $finalBAM | gzip -c > $BED
 	
 	#Remove intermediate files
-	rm $intermediateSAM $intermediateBAM
+	rm $umiTrimmed $intermediateSAM $intermediateBAM $sortedBAM
 
 done
