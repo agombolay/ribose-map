@@ -4,98 +4,72 @@
 #Adapted from Jay Hesselberth's code located at https://github.com/hesselberthlab/modmap/tree/snake
 #This program removes UMI's from sequencing reads, aligns reads to reference genome, and deduplicates reads.
 
-#SPECIFY COMMAND LINE OPTIONS
-
-program=$0
-
-function usage () {
-        echo "Usage: $program -g 'input1 input2 input3 etc.' -r 'basename of Bowtie index'"
-}
-
-while getopts "g:r:h" opt; do
-    case $opt in
-        g ) input=($OPTARG) #Specify input as an array
-            echo "Aligning ${input[@]} genomes to reference" ;;
-	r ) reference=($OPTARG) ;; #Specify input as an array
-        h ) usage ;;
-    esac
-done
-
 for sample in ${input[@]}; do
 
-#VARIABLE SPECIFICATION
+	#VARIABLE SPECIFICATION
 
-#Path to umitools
-umitoolsPath=/projects/home/agombolay3/.local/lib/python2.7/site-packages/umitools-2.1.1-py2.7.egg/umitools/
+	#Length of UMI's
+	UMI=NNNNNNNN
 
-#Length of UMI's
-UMI=NNNNNNNN
+	#INPUT FILES
 
-#Align modes
-ALIGN_MODES=("all")
+	#Location of raw .fastq.gz sequencing files
+	unprocessedFASTQ=$HOME/data/sequencingResults/run2_February2016/compressedFiles/$sample.trimmed.fastq.gz
 
-#Arguments of alignment
-ALIGN_ARGUMENTS=("--all")
+	#OUTPUT
 
-#INPUT
+	#LOCATION OF OUTPUT FILES
+	output=$HOME/ribose-seq/results/$sample/alignment
 
-#Location of raw FASTQ files
-unprocessedFASTQ=$HOME/data/sequencingResults/run2_February2016/compressedFiles/$sample.trimmed.fastq.gz
+	#CREATE DIRECTORY STRUCTURE FOR OUTPUT FILES
+	if [[ ! -d $output ]]; then
+    		mkdir -p $output 
+	fi
 
-#OUTPUT
+	#Location of files with trimmed UMI
+	umiTrimmed=$output/$sample.umiTrimmed.fastq.gz
 
-#LOCATION OF OUTPUT FILES
-output=$HOME/data/ribose-seq/results/$sample/alignment
+	#Intermediate files
+	SAM=$output/$sample.sam
+	BAM=$output/$sample.bam
 
-#CREATE DIRECTORY STRUCTURE FOR OUTPUT FILES
-if [[ ! -d $output ]]; then
-    mkdir -p $output 
-fi
+	sortedBAM=$output/$sample.sorted.bam
 
-#Location of files with trimmed UMI
-umiTrimmed=$output/$sample.umiTrimmed.fastq.gz
+	#Main output BAM files
+	finalBAM=$output/$sample.final.bam
 
-#Intermediate files
-SAM=$output/$sample.sam
-BAM=$output/$sample.bam
+	#Output file detailing Bowtie statistics
+	statistics=$output/$sample.statistics.txt
 
-sortedBAM=$output/$sample.sorted.bam
+	#Final output BED file
+	finalBED=$output/$sample.bed.gz
 
-#Main output BAM files
-finalBAM=$output/$sample.final.bam
+	#ALIGNMENT
+	#1. Trim UMI from FASTQ files and then compress output files
+	python2.7 umitools.py trim $unprocessedFASTQ $UMI | gzip -c > $umiTrimmed
 
-#Output file detailing Bowtie statistics
-statistics=$output/$sample.statistics.txt
+	#2. Align FASTQ reads with Bowtie and output alignment statistics
+	zcat $umiTrimmed | bowtie --all --sam $reference - 2> $statistics 1> $SAM
 
-#Final output BED file
-finalBED=$output/$sample.bed.gz
+	#Explanation of options used in step above:
+	#"-": standard input
+	#2>: Redirect standard error to file
+	#1>: Redirect standard output to file
+	#"--all": Return all valid alignments per read
+	#"--sam": Print alignment results in SAM format
+	#reference = Basename of Bowtie index to be searched
 
-#ALIGNMENT
-#1. Trim UMI from FASTQ files and then compress output files
-python2.7 $umitoolsPath/umitools.py trim $unprocessedFASTQ $UMI | gzip -c > $umiTrimmed
+	#Convert SAM file to BAM file
+	samtools view -bS $SAM > $BAM
 
-#2. Align FASTQ reads with Bowtie and output alignment statistics
-zcat $umiTrimmed | bowtie --all --sam $reference - 2> $statistics 1> $SAM
+	#Explanation of options used in step above:
+	#"-b": Output in BAM format
+	#"-S": Input in SAM format
 
-#Explanation of options used in step above:
-#"-": standard input
-#2>: Redirect standard error to file
-#1>: Redirect standard output to file
-#"--all": Return all valid alignments per read
-#"--sam": Print alignment results in SAM format
-#reference = Basename of Bowtie index to be searched
+	#Sort BAM file
+	samtools sort $BAM > $sortedBAM
 
-#Convert SAM file to BAM file
-samtools view -bS $SAM > $BAM
-
-#Explanation of options used in step above:
-#"-b": Output in BAM format
-#"-S": Input in SAM format
-
-#Sort BAM file
-samtools sort $BAM > $sortedBAM
-
-#3. De-duplicate reads based on UMI information
-python2.7 $umitoolsPath/umitools.py rmdup $sortedBAM $finalBAM | gzip -c > $finalBED;
+	#3. De-duplicate reads based on UMI information
+	python2.7 umitools.py rmdup $sortedBAM $finalBAM | gzip -c > $finalBED;
 
 done
