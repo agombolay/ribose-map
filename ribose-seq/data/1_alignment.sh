@@ -11,7 +11,7 @@ for sample in ${fastq[@]}; do
 	UMI=NNNNNNNN
 
 	#INPUT FILES
-	#Location of .fastq sequencing files
+	#Location of raw sequencing files
 	input=$directory/ribose-seq/fastq/$sample.fastq
 
 	#OUTPUT
