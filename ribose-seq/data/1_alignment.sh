@@ -46,7 +46,7 @@ for sample in ${input[@]}; do
 	#1. Trim UMI from input .fastq files and compress output files
 	python2.7 umitools.py trim $fastq $UMI | gzip -c > $umiTrimmed
 
-	#2. Align trimmed reads in .fastq.gz files to reference and output alignment statistics
+	#2. Align trimmed reads to reference genome with Bowtie and output alignment statistics
 	zcat $umiTrimmed | bowtie --uniq --sam $reference - 2> $statistics 1> $intermediateSAM
 
 	#Bash functions used above:
