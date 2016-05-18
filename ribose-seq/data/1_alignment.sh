@@ -2,7 +2,7 @@
 
 #Author: Alli Gombolay
 #Adapted from Jay Hesselberth's code located at https://github.com/hesselberthlab/modmap/tree/snake
-#This program removes UMI's from sequencing reads, aligns reads to reference genome, and deduplicates reads.
+#This program removes UMI's from sequencing reads, aligns reads to reference genome, and de-duplicates reads.
 
 for sample in ${input[@]}; do
 
