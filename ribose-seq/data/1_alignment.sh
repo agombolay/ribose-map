@@ -69,10 +69,10 @@ for sample in ${input[@]}; do
 	#Sort intermediate BAM files
 	samtools sort $intermeidateBAM > $sortedBAM
 
-	#3. De-duplicate reads based on UMI information and compress BED files
+	#3. De-duplicate reads based on UMI's and compress BED files
 	python2.7 umitools.py rmdup $sortedBAM $finalBAM | gzip -c > $BED
 	
-	#Remove intermediate SAM and BAM files
+	#Remove intermediate files
 	rm $intermediateSAM $intermediateBAM
 
 done
