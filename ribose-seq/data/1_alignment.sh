@@ -7,19 +7,16 @@
 for sample in ${input[@]}; do
 
 	#VARIABLE SPECIFICATION
-
-	#Length of UMI's
+	#Length of UMI (Unique Molecular Identifiers)
 	UMI=NNNNNNNN
 
 	#INPUT FILES
-
 	#Location of raw .fastq.gz sequencing files
-	unprocessedFASTQ=$HOME/data/sequencingResults/run2_February2016/compressedFiles/$sample.trimmed.fastq.gz
+	fastq=$directory/ribose-seq/fastq/$sample.fastq
 
 	#OUTPUT
-
 	#LOCATION OF OUTPUT FILES
-	output=$HOME/ribose-seq/results/$sample/alignment
+	output=$directory/ribose-seq/results/$sample/alignment
 
 	#CREATE DIRECTORY STRUCTURE FOR OUTPUT FILES
 	if [[ ! -d $output ]]; then
@@ -27,49 +24,55 @@ for sample in ${input[@]}; do
 	fi
 
 	#Location of files with trimmed UMI
-	umiTrimmed=$output/$sample.umiTrimmed.fastq.gz
+	umiTrimmed=$directory/$output/$sample.umiTrimmed.fastq.gz
 
 	#Intermediate files
-	SAM=$output/$sample.sam
-	BAM=$output/$sample.bam
+	intermediateSAM=$directory/$output/$sample.intermediate.sam
+	intermediateBAM=$directory/$output/$sample.intermediate.bam
 
-	sortedBAM=$output/$sample.sorted.bam
+	sortedBAM=$directory/$output/$sample.sorted.bam
 
 	#Main output BAM files
-	finalBAM=$output/$sample.final.bam
+	finalBAM=$directory/$output/$sample.bam
 
-	#Output file detailing Bowtie statistics
-	statistics=$output/$sample.statistics.txt
+	#Output file detailing Bowtie alignment statistics
+	statistics=$directory/$output/$sample.statistics.txt
 
 	#Final output BED file
-	finalBED=$output/$sample.bed.gz
+	BED=$directory/$output/$sample.bed.gz
 
 	#ALIGNMENT
-	#1. Trim UMI from FASTQ files and then compress output files
-	python2.7 umitools.py trim $unprocessedFASTQ $UMI | gzip -c > $umiTrimmed
+	
+	#1. Trim UMI from input .fastq files and compress output files
+	python2.7 umitools.py trim $fastq $UMI | gzip -c > $umiTrimmed
 
-	#2. Align FASTQ reads with Bowtie and output alignment statistics
-	zcat $umiTrimmed | bowtie --all --sam $reference - 2> $statistics 1> $SAM
+	#2. Align trimmed reads in .fastq.gz files to reference and output alignment statistics
+	zcat $umiTrimmed | bowtie --uniq --sam $reference - 2> $statistics 1> $intermediateSAM
 
-	#Explanation of options used in step above:
+	#Bash functions used above:
 	#"-": standard input
 	#2>: Redirect standard error to file
 	#1>: Redirect standard output to file
-	#"--all": Return all valid alignments per read
+	
+	#Bowtie options used above:
+	#"-m 1": Return only unique reads
 	#"--sam": Print alignment results in SAM format
-	#reference = Basename of Bowtie index to be searched
-
-	#Convert SAM file to BAM file
-	samtools view -bS $SAM > $BAM
+	#reference: Basename of Bowtie index to be searched
+	
+	#Convert intermediate SAM files to intermediate BAM files
+	samtools view -bS $intermediateSAM > $intermediateBAM
 
 	#Explanation of options used in step above:
 	#"-b": Output in BAM format
 	#"-S": Input in SAM format
 
-	#Sort BAM file
-	samtools sort $BAM > $sortedBAM
+	#Sort intermediate BAM files
+	samtools sort $intermeidateBAM > $sortedBAM
 
-	#3. De-duplicate reads based on UMI information
-	python2.7 umitools.py rmdup $sortedBAM $finalBAM | gzip -c > $finalBED;
+	#3. De-duplicate reads based on UMI information and compress BED files
+	python2.7 umitools.py rmdup $sortedBAM $finalBAM | gzip -c > $BED
+	
+	#Remove intermediate SAM and BAM files
+	rm $intermediateSAM $intermediateBAM
 
 done
