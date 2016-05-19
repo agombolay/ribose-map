@@ -21,9 +21,9 @@ bedGraphPositiveStrand=$HOME/data/ribose-seq/results/FS1/bedGraphs/$sample.posit
 bedGraphNegativeStrand=$HOME/data/ribose-seq/results/FS1/bedGraphs/$sample.negativeStrand.coverage.bg
 
 #CALCULATE GENOME COVERAGE
-bedtools genomecov -5 -bg -ibam $finalBAM > $bedGraphBothStrands
-bedtools genomecov -5 -strand + -bg -ibam $finalBAM  > $bedGraphPositiveStrand
-bedtools genomecov -5 -strand - -bg -ibam $finalBAM > $bedGraphNegativeStrand
+bedtools genomecov -5 -bg -g $CHROM_SIZES -ibam $finalBAM > $bedGraphBothStrands
+bedtools genomecov -5 -strand + -bg -g $CHROM_SIZES -ibam $finalBAM  > $bedGraphPositiveStrand
+bedtools genomecov -5 -strand - -bg -g $CHROM_SIZES -ibam $finalBAM > $bedGraphNegativeStrand
 
 #Explanation of options used in step above:
 #"-5": Calculate coverage of only 5’ positions
