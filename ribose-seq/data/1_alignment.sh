@@ -4,6 +4,8 @@
 #Adapted from Jay Hesselberth's code located at https://github.com/hesselberthlab/modmap/tree/snake
 #This program removes UMI's from sequencing reads, aligns reads to reference genome, and de-duplicates reads.
 
+source $configuration
+
 for samples in ${fastq[@]}; do
 
 	#VARIABLE SPECIFICATION
