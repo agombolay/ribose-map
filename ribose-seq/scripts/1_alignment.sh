@@ -10,7 +10,7 @@ echo "What is the filepath to the input .fastq files?:"
 
 #"directory" is the variable representing the user's answer
 read directory
-
+	
 for samples in ${fastq[@]}; do
 
 	#VARIABLE SPECIFICATION
