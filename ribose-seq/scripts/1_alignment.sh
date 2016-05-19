@@ -25,7 +25,7 @@ for samples in ${fastq[@]}; do
 
 	#INPUT FILES
 	#Location of raw sequencing files
-	input=$inputDirectory/ribose-seq/fastq/$samples.fastq
+	input=$inputDirectory/$samples.fastq
 
 	#OUTPUT
 	#Location of output directory
