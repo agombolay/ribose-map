@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 #Author: Alli Gombolay
+#This program removes UMI's from reads, aligns reads to reference genome, and de-duplicates reads
 #Adapted from Jay Hesselberth's code located at https://github.com/hesselberthlab/modmap/tree/snake
-#This program removes UMI's from sequencing reads, aligns reads to reference genome, and de-duplicates reads
 
 #LOCATE INPUT FASTQ FILES
 #Ask the user the path to the input .fastq files
