@@ -24,5 +24,3 @@ bedtools genomecov -5 -strand - -bg -ibam $finalBAM > $bedGraphNegativeStrand
 #"-bg": Report coverage in bedGraph file format
 #"-strand": Calculate coverage of + or - strand
 #"-ibam": Specify input file as BAM file format
-
-echo "Calculation of genome coverage from alignment results is complete"
