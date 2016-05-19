@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #Ask the user the path to the input .fastq files
 echo "What is the filepath to the input .fastq files?:"
