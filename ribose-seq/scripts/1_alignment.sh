@@ -29,30 +29,30 @@ for samples in ${fastq[@]}; do
 
 	#OUTPUT
 	#Location of output "ribose-seq" alignment directory
-	output=$ouputDirectory/ribose-seq/results/$samples/alignment
+	output1=$ouputDirectory/ribose-seq/results/$samples/alignment
 
 	#Create directory for output
-	if [[ ! -d $output ]]; then
-    		mkdir -p $output 
+	if [[ ! -d $output1 ]]; then
+    		mkdir -p $output1 
 	fi
 
 	#Location of files with trimmed UMI
-	umiTrimmed=$output/$samples.umiTrimmed.fastq.gz
+	umiTrimmed=$output1/$samples.umiTrimmed.fastq.gz
 
 	#Intermediate files
-	intermediateSAM=$output/$samples.intermediate.sam
-	intermediateBAM=$output/$samples.intermediate.bam
+	intermediateSAM=$output1/$samples.intermediate.sam
+	intermediateBAM=$output1/$samples.intermediate.bam
 
-	sortedBAM=$output/$samples.sorted.bam
+	sortedBAM=$output1/$samples.sorted.bam
 
 	#Final BAM files
-	finalBAM=$output/$samples.bam
+	finalBAM=$output1/$samples.bam
 
 	#Output file of Bowtie alignment statistics
-	statistics=$output/$samples.statistics.txt
+	statistics=$output1/$samples.statistics.txt
 
 	#BED file
-	BED=$output/$samples.bed.gz
+	BED=$output1/$samples.bed.gz
 
 	#ALIGNMENT
 	
@@ -80,7 +80,7 @@ for samples in ${fastq[@]}; do
 	#"-S": Input in SAM format
 
 	#Sort intermediate BAM files
-	samtools sort $intermeidateBAM > $sortedBAM
+	samtools sort $intermediateBAM > $sortedBAM
 
 	#3. De-duplicate reads based on UMI's and compress BED files
 	python2.7 umitools.py rmdup $sortedBAM $finalBAM | gzip -c > $BED
