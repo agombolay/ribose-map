@@ -14,7 +14,7 @@ if [[ ! -d $output2 ]]; then
     mkdir -p $output2
 fi
 
-#OUTPUT BEDGRAPH FILES
+#OUTPUT
 bgBothStrands=$HOME/data/ribose-seq/results/FS1/bedGraphs/$sample.bothStrands.coverage.bg
 bgPositiveStrand=$HOME/data/ribose-seq/results/FS1/bedGraphs/$sample.positiveStrand.coverage.bg
 bgNegativeStrand=$HOME/data/ribose-seq/results/FS1/bedGraphs/$sample.negativeStrand.coverage.bg
