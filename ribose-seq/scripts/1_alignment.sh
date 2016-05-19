@@ -60,7 +60,7 @@ for samples in ${fastq[@]}; do
 	python2.7 umitools.py trim $input $UMI | gzip -c > $umiTrimmed
 
 	#2. Align UMI trimmed reads to reference genome and output alignment statistics
-	zcat $umiTrimmed | bowtie --uniq --sam $reference - 2> $statistics 1> $intermediateSAM
+	zcat $umiTrimmed | bowtie -m 1 --sam $index - 2> $statistics 1> $intermediateSAM
 
 	#Bash functions used above:
 	#"-": standard input
