@@ -5,7 +5,6 @@
 #Adapted from Jay Hesselberth's code located at https://github.com/hesselberthlab/modmap/tree/snake
 
 #INPUT
-#chromosomeSizes=$HOME/data/ribose-seq/data/reference/sacCer2.chrom.sizes
 chromosomeSizes=$HOME/data/ribose-seq/data/sacCer2.chrom.sizes
 finalBAM=$HOME/data/ribose-seq/results/$sample/alignment/$sample.final.bam
 
