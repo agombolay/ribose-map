@@ -9,6 +9,12 @@
 chromosomeSizes=$HOME/data/ribose-seq/data/sacCer2.chrom.sizes
 finalBAM=$HOME/data/ribose-seq/results/$sample/alignment/$sample.final.bam
 
+output2=$outputDirectory/$samples/bedgraphs
+
+if [[ ! -d $output2 ]]; then
+    mkdir -p $output2
+fi
+
 #OUTPUT BEDGRAPH FILES
 bedGraphBothStrands=$HOME/data/ribose-seq/results/FS1/bedGraphs/$sample.bothStrands.coverage.bg
 bedGraphPositiveStrand=$HOME/data/ribose-seq/results/FS1/bedGraphs/$sample.positiveStrand.coverage.bg
