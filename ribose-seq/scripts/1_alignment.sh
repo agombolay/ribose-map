@@ -85,10 +85,14 @@ for samples in ${fastq[@]}; do
 	#3. De-duplicate reads based on UMI's and compress BED files
 	python2.7 umitools.py rmdup $sortedBAM $finalBAM | gzip -c > $BED
 	
-	#Ask user if he/she would like to emove intermediate files
-	echo "Would you like to remove all of the intermediate files for $samples? [y/n]"
-	read varname
-	if [ $varname == "y" ];
+	#Ask the user if he/she would like to delete all of the intermediate files
+	echo "Would you like to delete all of the intermediate files for $samples? [y/n]"
+	
+	#"answer" is the variable representing the user's answer
+	read answer
+	
+	#If the user answers "y," then remove the specified files
+	if [ $answer == "y" ];
         	then rm $umiTrimmed $intermediateSAM $intermediateBAM $sortedBAM;
         fi
 
