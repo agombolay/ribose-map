@@ -28,7 +28,7 @@ for samples in ${fastq[@]}; do
 	input=$inputDirectory/$samples.fastq
 
 	#OUTPUT
-	#Location of output "ribose-seq" directory
+	#Location of output "ribose-seq" alignment directory
 	output=$ouputDirectory/ribose-seq/results/$samples/alignment
 
 	#Create directory for output
