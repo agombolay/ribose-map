@@ -8,9 +8,15 @@
 #Ask the user the path to the input .fastq files
 echo "What is the filepath to the input .fastq files?:"
 
-#"directory" is the variable representing the user's answer
-read directory
-	
+#"inputDirectory" is the variable representing the user's answer
+read inputDirectory
+
+#Ask the user the path to the output file directory
+echo "What is the filepath to the output file directory?:"
+
+#"outputDirectory" is the variable representing the user's answer
+read outputDirectory
+
 for samples in ${fastq[@]}; do
 
 	#VARIABLE SPECIFICATION
@@ -19,11 +25,11 @@ for samples in ${fastq[@]}; do
 
 	#INPUT FILES
 	#Location of raw sequencing files
-	input=$directory/ribose-seq/fastq/$sample.fastq
+	input=$inputDirectory/ribose-seq/fastq/$samples.fastq
 
 	#OUTPUT
 	#Location of output directory
-	output=$directory/ribose-seq/results/$sample/alignment
+	output=$ouputDirectory/ribose-seq/results/$samples/alignment
 
 	#Create directory for output
 	if [[ ! -d $output ]]; then
@@ -31,22 +37,22 @@ for samples in ${fastq[@]}; do
 	fi
 
 	#Location of files with trimmed UMI
-	umiTrimmed=$directory/$output/$sample.umiTrimmed.fastq.gz
+	umiTrimmed=$output/$samples.umiTrimmed.fastq.gz
 
 	#Intermediate files
-	intermediateSAM=$directory/$output/$sample.intermediate.sam
-	intermediateBAM=$directory/$output/$sample.intermediate.bam
+	intermediateSAM=$output/$samples.intermediate.sam
+	intermediateBAM=$output/$samples.intermediate.bam
 
-	sortedBAM=$directory/$output/$sample.sorted.bam
+	sortedBAM=$output/$samples.sorted.bam
 
 	#Final BAM files
-	finalBAM=$directory/$output/$sample.bam
+	finalBAM=$output/$samples.bam
 
 	#Output file of Bowtie alignment statistics
-	statistics=$directory/$output/$sample.statistics.txt
+	statistics=$output/$samples.statistics.txt
 
 	#BED file
-	BED=$directory/$output/$sample.bed.gz
+	BED=$output/$samples.bed.gz
 
 	#ALIGNMENT
 	
