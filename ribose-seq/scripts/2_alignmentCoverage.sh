@@ -5,8 +5,8 @@
 #Adapted from Jay Hesselberth's code located at https://github.com/hesselberthlab/modmap/tree/snake
 
 #INPUT
-chromosomeSizes=$HOME/data/ribose-seq/data/sacCer2.chrom.sizes
-finalBAM=$HOME/data/ribose-seq/results/$sample/alignment/$sample.final.bam
+chromosomeSizes=$HOME/data/ribose-seq/data/sacCer2.chromosome.sizes
+finalBAM=$HOME/data/ribose-seq/results/$sample/alignment/$sample.bam
 
 output2=$outputDirectory/$samples/bedgraphs
 
@@ -15,14 +15,14 @@ if [[ ! -d $output2 ]]; then
 fi
 
 #OUTPUT BEDGRAPH FILES
-bedGraphBothStrands=$HOME/data/ribose-seq/results/FS1/bedGraphs/$sample.bothStrands.coverage.bg
-bedGraphPositiveStrand=$HOME/data/ribose-seq/results/FS1/bedGraphs/$sample.positiveStrand.coverage.bg
-bedGraphNegativeStrand=$HOME/data/ribose-seq/results/FS1/bedGraphs/$sample.negativeStrand.coverage.bg
+bgBothStrands=$HOME/data/ribose-seq/results/FS1/bedGraphs/$sample.bothStrands.coverage.bg
+bgPositiveStrand=$HOME/data/ribose-seq/results/FS1/bedGraphs/$sample.positiveStrand.coverage.bg
+bgNegativeStrand=$HOME/data/ribose-seq/results/FS1/bedGraphs/$sample.negativeStrand.coverage.bg
 
 #CALCULATE GENOME COVERAGE
-bedtools genomecov -ibam $finalBAM -g $chromosomeSizes -5 -bg > $bedGraphBothStrands
-bedtools genomecov -ibam $finalBAM -g $chromosomeSizes -5 -strand + -bg > $bedGraphPositiveStrand
-bedtools genomecov -ibam $finalBAM -g $chromosomeSizes -5 -strand - -bg > $bedGraphNegativeStrand
+bedtools genomecov -ibam $finalBAM -g $chromosomeSizes -5 -bg > $bgBothStrands
+bedtools genomecov -ibam $finalBAM -g $chromosomeSizes -5 -strand + -bg > $bgPositiveStrand
+bedtools genomecov -ibam $finalBAM -g $chromosomeSizes -5 -strand - -bg > $bgNegativeStrand
 
 #Explanation of options used in step above:
 #"-5": Calculate coverage of only 5’ positions
