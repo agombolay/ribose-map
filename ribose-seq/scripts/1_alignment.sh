@@ -29,7 +29,7 @@ for samples in ${fastq[@]}; do
 
 	#OUTPUT
 	#Location of output "ribose-seq" alignment directory
-	output1=$ouputDirectory/ribose-seq/results/$samples/alignment
+	output1=$outputDirectory/ribose-seq/results/$samples/alignment
 
 	#Create directory for output
 	if [[ ! -d $output1 ]]; then
