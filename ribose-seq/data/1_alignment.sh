@@ -4,7 +4,7 @@
 #Adapted from Jay Hesselberth's code located at https://github.com/hesselberthlab/modmap/tree/snake
 #This program removes UMI's from sequencing reads, aligns reads to reference genome, and de-duplicates reads.
 
-for sample in ${fastq[@]}; do
+for samples in ${fastq[@]}; do
 
 	#VARIABLE SPECIFICATION
 	#Length of UMI (Unique Molecular Identifiers)
@@ -73,7 +73,7 @@ for sample in ${fastq[@]}; do
 	python2.7 umitools.py rmdup $sortedBAM $finalBAM | gzip -c > $BED
 	
 	#Ask user if he/she would like to emove intermediate files
-	echo "Would you like to remove all of the intermediate files? [y/n]"
+	echo "Would you like to remove all of the intermediate files for $samples? [y/n]"
 	read varname
 	if [ $varname == "y" ];
         	then rm $umiTrimmed $intermediateSAM $intermediateBAM $sortedBAM;
