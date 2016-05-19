@@ -26,4 +26,7 @@ while getopts "a:b:h" opt; do
     esac
 done
 
-1_alignment.sh
+if [ "$1" = "-h" ] then
+        exit
+        else 1_alignment.sh;
+fi
