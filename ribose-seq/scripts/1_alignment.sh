@@ -21,10 +21,13 @@ function usage () {
 #Use getOpts function to create command-line options (i.e., "-a", "-b", "-o," and "-h")
 while getopts "a:b:h" opt; do
     case $opt in
-        a ) fastq=($OPTARG) ;; #Specify input as an array to allow multiple input arguments
-        b ) index=$OPTARG ;; #Specify input as a variable to allow only one input argument
-        o ) outputDirectory=$OPTARG ;; #Specify input as a variable to allow only one input argument
-        h ) usage ;; #Specify "-h" (help) option as usage statement
+        #Specify input as arrays to allow multiple input arguments
+        a ) fastq=($OPTARG) ;;
+        o ) outputDirectory=$OPTARG ;;
+	#Specify input as variable to allow only one input argument
+	b ) index=$OPTARG ;;
+        #Specify "-h" (help) option as usage statement shown above
+        h ) usage ;;
     esac
 done
 
