@@ -7,12 +7,14 @@
 path=/projects/home/agombolay3/.local/lib/python2.7/site-packages/umitools-2.1.1-py2.7.egg/umitools/
 
 for samples in ${fastq[@]}; do
-
+	
+	#Extract sample names from filepaths
 	filename=$(basename "$fastq")
-	extension="${filename##*.}"
 	samples="${filename%.*}"
 	
+	#Extract input directories from filepaths
 	inputDirectory=$(dirname "${fastq}")
+	
 	outputDirectory=/projects/home/agombolay3/data
 
 	#VARIABLE SPECIFICATION
