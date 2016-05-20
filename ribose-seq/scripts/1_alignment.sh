@@ -23,9 +23,9 @@ while getopts "a:b:h" opt; do
     case $opt in
         #Specify input as arrays to allow multiple input arguments
         a ) fastq=($OPTARG) ;;
-        o ) outputDirectory=$OPTARG ;;
 	#Specify input as variable to allow only one input argument
 	b ) index=$OPTARG ;;
+	o ) outputDirectory=$OPTARG ;;
         #Specify "-h" (help) option as usage statement written above
         h ) usage ;;
     esac
