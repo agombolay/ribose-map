@@ -26,7 +26,7 @@ while getopts "a:b:h" opt; do
         o ) outputDirectory=$OPTARG ;;
 	#Specify input as variable to allow only one input argument
 	b ) index=$OPTARG ;;
-        #Specify "-h" (help) option as usage statement shown above
+        #Specify "-h" (help) option as usage statement written above
         h ) usage ;;
     esac
 done
