@@ -4,22 +4,16 @@
 #This program removes UMI's from reads, aligns reads to reference genome, and de-duplicates reads
 #Adapted from Jay Hesselberth's code located at https://github.com/hesselberthlab/modmap/tree/snake
 
-#LOCATE INPUT FASTQ FILES
-#Ask the user the path to the input .fastq files
-echo "What is the filepath to the input .fastq files?:"
-
-#"inputDirectory" is the variable representing the user's answer
-read inputDirectory
-
-#Ask the user the path to the output file directory
-echo "What is the filepath to the output file directory?:"
-
-#"outputDirectory" is the variable representing the user's answer
-read outputDirectory
-
 path=/projects/home/agombolay3/.local/lib/python2.7/site-packages/umitools-2.1.1-py2.7.egg/umitools/
 
 for samples in ${fastq[@]}; do
+
+	filename=$(basename "$fastq")
+	extension="${filename##*.}"
+	samples="${filename%.*}"
+	
+	inputDirectory=$(dirname "${fastq}")
+	outputDirectory=/projects/home/agombolay3/data
 
 	#VARIABLE SPECIFICATION
 	#Length of UMI (Unique Molecular Identifiers)
