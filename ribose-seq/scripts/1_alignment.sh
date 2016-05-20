@@ -11,17 +11,19 @@ program=$0
 
 #Usage statement for program; will be displayed to standard output if user specifies "-h" option
 function usage () {
-        echo "Usage: $program [-a] 'sample1 sample2 sample3 etc.' [-b] 'basename of Bowtie index' [-h]
+        echo "Usage: $program [-a] 'filepath1 filepath2 etc.' [-b] 'basename of Bowtie index' [-o] 'outputDirectory' [-h]
           -a Runs ribose-seq pipeline on input sample.fastq files using Bowtie index 
           -b Runs ribose-seq pipeline on input sample.fastq files using Bowtie index
+          -o Saves all results to the specified output directory
           -h Displays help menu describing options"
 }
 
-#Use getOpts function to create command-line options (i.e., "-a", "-b", and "-h")
+#Use getOpts function to create command-line options (i.e., "-a", "-b", "-o," and "-h")
 while getopts "a:b:h" opt; do
     case $opt in
         a ) fastq=($OPTARG) ;; #Specify input as an array to allow multiple input arguments
         b ) index=$OPTARG ;; #Specify input as a variable to allow only one input argument
+        o ) outputDirectory=$OPTARG ;; #Specify input as a variable to allow only one input argument
         h ) usage ;; #Specify "-h" (help) option as usage statement
     esac
 done
@@ -37,8 +39,6 @@ for samples in ${fastq[@]}; do
 	#Extract input directories from filepaths
 	inputDirectory=$(dirname "${fastq}")
 	
-	outputDirectory=/projects/home/agombolay3/data
-
 	#VARIABLE SPECIFICATION
 	#Length of UMI (Unique Molecular Identifiers)
 	UMI=NNNNNNNN
@@ -49,30 +49,30 @@ for samples in ${fastq[@]}; do
 
 	#OUTPUT
 	#Location of output "ribose-seq" alignment directory
-	output1=$outputDirectory/ribose-seq/results/$samples/alignment
+	output=$outputDirectory/ribose-seq/results/$samples/alignment
 
 	#Create directory for output
-	if [[ ! -d $output1 ]]; then
-    		mkdir -p $output1 
+	if [[ ! -d $output ]]; then
+    		mkdir -p $output
 	fi
 
 	#Location of files with trimmed UMI
-	umiTrimmed=$output1/$samples.umiTrimmed.fastq.gz
+	umiTrimmed=$output/$samples.umiTrimmed.fastq.gz
 
 	#Intermediate files
-	intermediateSAM=$output1/$samples.intermediate.sam
-	intermediateBAM=$output1/$samples.intermediate.bam
+	intermediateSAM=$output/$samples.intermediate.sam
+	intermediateBAM=$output/$samples.intermediate.bam
 
-	sortedBAM=$output1/$samples.sorted.bam
+	sortedBAM=$output/$samples.sorted.bam
 
 	#Final BAM files
-	finalBAM=$output1/$samples.bam
+	finalBAM=$output/$samples.bam
 
 	#Output file of Bowtie alignment statistics
-	statistics=$output1/$samples.statistics.txt
+	statistics=$output/$samples.statistics.txt
 
 	#BED file
-	BED=$output1/$samples.bed.gz
+	BED=$output/$samples.bed.gz
 
 	#ALIGNMENT
 	
