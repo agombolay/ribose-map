@@ -19,7 +19,7 @@ function usage () {
 }
 
 #Use getOpts function to create command-line options (i.e., "-a", "-b", "-o," and "-h")
-while getopts "a:b:h" opt; do
+while getopts "a:b:o:h" opt; do
     case $opt in
         #Specify input as arrays to allow multiple input arguments
         a ) fastq=($OPTARG) ;;
