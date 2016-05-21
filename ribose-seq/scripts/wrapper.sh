@@ -5,6 +5,5 @@
 #Adapted from Jay Hesselberth's code located at https://github.com/hesselberthlab/modmap/tree/snake
 
 if [ "$1" == "-h" ]; then
-        exit
-        else 1_alignment.sh;
+        exit;
 fi
