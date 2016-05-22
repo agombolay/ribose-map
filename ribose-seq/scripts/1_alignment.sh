@@ -37,8 +37,10 @@ then
         exit
 fi
 
+#Path to umitools Python script (umitools.py)
 path=/projects/home/agombolay3/.local/lib/python2.7/site-packages/umitools-2.1.1-py2.7.egg/umitools/
 
+#Align all of the input sequence data to the specified reference genome
 for samples in ${fastq[@]};
 do
 	
