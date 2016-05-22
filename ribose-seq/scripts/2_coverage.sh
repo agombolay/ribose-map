@@ -22,7 +22,7 @@ do
         mkdir -p $output
     fi
 
-    #Location of output bedgraph files
+    #Location of output bedgraph files containing genome coverage information
     BothStrands=$outputDirectory/ribose-seq/results/$samples/bedGraphs/$samples.bothStrands.coverage.bg
     PositiveStrands=$outputDirectory/ribose-seq/results/$samples/bedGraphs/$samples.positiveStrands.coverage.bg
     NegativeStrands=$outputDirectory/ribose-seq/results/$samples/bedGraphs/$samples.negativeStrands.coverage.bg
