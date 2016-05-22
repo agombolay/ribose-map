@@ -11,21 +11,21 @@ program=$0
 
 #Usage statement of the program
 function usage () {
-        echo "Usage: $program [-a] 'filepath1 filepath2 etc.' [-b] 'basename of Bowtie index' [-o] 'outputDirectory' [-h]
-          -a Runs ribose-seq pipeline on input sample.fastq files using Bowtie index 
-          -b Runs ribose-seq pipeline on input sample.fastq files using Bowtie index
-          -o Saves all results to the specified output directory"
+        echo "Usage: $program [-i] '/path/to/file1.fastq etc.' [-b] 'Bowtie index' [-d] 'Ribose-seq directory' [-h]
+          -i Filepaths of input FASTQ files 
+          -b Basename of Bowtie index to be searched
+          -d Location to save local Ribose-seq directory"
 }
 
 #Use getopts function to create the command-line options ([-a], [-b], [-o], and [-h])
-while getopts "a:b:o:h" opt;
+while getopts "i:b:d:h" opt;
 do
     case $opt in
         #Specify input as arrays to allow multiple input arguments
-        a ) fastq=($OPTARG) ;;
+        i ) fastq=($OPTARG) ;;
 	#Specify input as variable to allow only one input argument
 	b ) index=$OPTARG ;;
-	o ) outputDirectory=$OPTARG ;;
+	d ) directory=$OPTARG ;;
         #If user specifies [-h], print usage statement
         h ) usage ;;
     esac
