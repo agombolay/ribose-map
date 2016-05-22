@@ -17,7 +17,7 @@ function usage () {
           -o Saves all results to the specified output directory"
 }
 
-#Use getOpts function to create the command-line options ([-a], [-b], [-o], and [-h])
+#Use getopts function to create the command-line options ([-a], [-b], [-o], and [-h])
 while getopts "a:b:o:h" opt;
 do
     case $opt in
@@ -30,6 +30,12 @@ do
         h ) usage ;;
     esac
 done
+
+#Exit program if user specifies [-h]
+if [ "$1" == "-h" ];
+then
+        exit
+fi
 
 path=/projects/home/agombolay3/.local/lib/python2.7/site-packages/umitools-2.1.1-py2.7.egg/umitools/
 
