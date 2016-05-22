@@ -6,20 +6,20 @@
 
 #COMMAND LINE OPTIONS
 
-#Name of the program given as the first entry on the commnad-line (i.e., getOptions.sh))
+#Name of the program (1_alignment.sh)
 program=$0
 
-#Usage statement for program; will be displayed to standard output if user specifies "-h" option
+#Usage statement of the program
 function usage () {
         echo "Usage: $program [-a] 'filepath1 filepath2 etc.' [-b] 'basename of Bowtie index' [-o] 'outputDirectory' [-h]
           -a Runs ribose-seq pipeline on input sample.fastq files using Bowtie index 
           -b Runs ribose-seq pipeline on input sample.fastq files using Bowtie index
-          -o Saves all results to the specified output directory
-          -h Displays help menu describing options"
+          -o Saves all results to the specified output directory"
 }
 
-#Use getOpts function to create command-line options (i.e., "-a", "-b", "-o," and "-h")
-while getopts "a:b:o:h" opt; do
+#Use getOpts function to create the command-line options ([-a], [-b], [-o], and [-h])
+while getopts "a:b:o:h" opt;
+do
     case $opt in
         #Specify input as arrays to allow multiple input arguments
         a ) fastq=($OPTARG) ;;
@@ -33,7 +33,8 @@ done
 
 path=/projects/home/agombolay3/.local/lib/python2.7/site-packages/umitools-2.1.1-py2.7.egg/umitools/
 
-for samples in ${fastq[@]}; do
+for samples in ${fastq[@]};
+do
 	
 	#Extract sample names from filepaths
 	filename=$(basename "$fastq")
@@ -55,7 +56,8 @@ for samples in ${fastq[@]}; do
 	output=$outputDirectory/ribose-seq/results/$samples/alignment
 
 	#Create directory for output
-	if [[ ! -d $output ]]; then
+	if [[ ! -d $output ]];
+	then
     		mkdir -p $output
 	fi
 
@@ -116,7 +118,8 @@ for samples in ${fastq[@]}; do
 	
 	#If the user answers "y," then remove the specified files
 	if [ $answer == "y" ];
-        	then rm $umiTrimmed $intermediateSAM $intermediateBAM $sortedBAM;
+        then
+        	rm $umiTrimmed $intermediateSAM $intermediateBAM $sortedBAM;
         fi
 
 done
