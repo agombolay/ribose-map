@@ -55,7 +55,7 @@ do
 	#Length of UMI (Unique Molecular Identifiers)
 	UMI=NNNNNNNN
 
-	#INPUT FILES
+	#INPUT
 	#Location of raw sequencing files
 	input=$inputDirectory/$samples.fastq
 
