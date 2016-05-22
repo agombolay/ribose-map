@@ -11,9 +11,9 @@ program=$0
 
 #Usage statement of the program
 function usage () {
-        echo "Usage: $program [-i] 'sample1 sample2 sample3 etc.' [-r] 'reference' [-d] 'directory' [-h]
-          -i Sample names of input BAM files (i.e, FS1 for FS1.bam)
-          -r File containing sizes in base pairs of chromosomes
+        echo "Usage: $program [-i] 'sample1 etc.' [-r] 'reference genome' [-d] 'Ribose-seq directory' [-h]
+          -i Sample names of input BAM files (i.e, sample1 for sample1.bam)
+          -r File containing sizes in base pairs of chromosomes (i.e, sacCer2)
           -d Location of user's local Ribose-seq directory"
 }
 
@@ -22,7 +22,7 @@ while getopts "i:r:d:h" opt;
 do
     case $opt in
         #Specify input as arrays to allow multiple input arguments
-        i ) list=($OPTARG) ;;
+        i ) names=($OPTARG) ;;
 	#Specify input as variable to allow only one input argument
 	r ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
@@ -37,7 +37,7 @@ then
         exit
 fi
 
-for samples in ${fastq[@]};
+for samples in ${names[@]};
 do
 
 	#INPUT
