@@ -26,7 +26,7 @@ do
 	#Specify input as variable to allow only one input argument
 	b ) index=$OPTARG ;;
 	o ) outputDirectory=$OPTARG ;;
-        #Specify "-h" (help) option as usage statement written above
+        #If user specifies [-h], print usage statement
         h ) usage ;;
     esac
 done
