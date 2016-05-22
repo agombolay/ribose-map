@@ -4,29 +4,39 @@
 #This script calculates the genome coverage based on the alignment results from 1_alignment.sh
 #Adapted from Jay Hesselberth's code located at https://github.com/hesselberthlab/modmap/tree/snake
 
-#INPUT
-chromosomeSizes=$HOME/data/ribose-seq/data/sacCer2.chromosome.sizes
-finalBAM=$HOME/data/ribose-seq/results/$sample/alignment/$sample.bam
+for samples in ${fastq[@]};
+do
 
-output2=$outputDirectory/$samples/bedgraphs
+    #INPUT
+	#Location of BAM files
+	input=$outputDirectory/ribose-seq/results/$samples/alignment/$samples.bam
+	
+	#Location of files containing sizes in base pairs of chromosomes
+	chromosomeSizes=$outputDirectory/ribose-seq/data/$reference.chromosome.sizes
+	
+	#OUTPUT
+    output=$outputDirectory/ribose-seq/results/$samples/bedgraphs
 
-if [[ ! -d $output2 ]]; then
-    mkdir -p $output2
-fi
+    if [[ ! -d $output ]];
+    then
+        mkdir -p $output
+    fi
 
-#OUTPUT
-bgBothStrands=$HOME/data/ribose-seq/results/FS1/bedGraphs/$sample.bothStrands.coverage.bg
-bgPositiveStrand=$HOME/data/ribose-seq/results/FS1/bedGraphs/$sample.positiveStrand.coverage.bg
-bgNegativeStrand=$HOME/data/ribose-seq/results/FS1/bedGraphs/$sample.negativeStrand.coverage.bg
+    #Location of output bedgraph files
+    BothStrands=$outputDirectory/ribose-seq/results/$samples/bedGraphs/$samples.bothStrands.coverage.bg
+    PositiveStrands=$outputDirectory/ribose-seq/results/$samples/bedGraphs/$samples.positiveStrands.coverage.bg
+    NegativeStrands=$outputDirectory/ribose-seq/results/$samples/bedGraphs/$samples.negativeStrands.coverage.bg
 
-#CALCULATE GENOME COVERAGE
-bedtools genomecov -ibam $finalBAM -g $chromosomeSizes -5 -bg > $bgBothStrands
-bedtools genomecov -ibam $finalBAM -g $chromosomeSizes -5 -strand + -bg > $bgPositiveStrand
-bedtools genomecov -ibam $finalBAM -g $chromosomeSizes -5 -strand - -bg > $bgNegativeStrand
+    #CALCULATE GENOME COVERAGE
+    bedtools genomecov -ibam $input -g $chromosomeSizes -5 -bg > $BothStrands
+    bedtools genomecov -ibam $input -g $chromosomeSizes -5 -strand + -bg > $PositiveStrands
+    bedtools genomecov -ibam $input -g $chromosomeSizes -5 -strand - -bg > $NegativeStrands
 
-#Explanation of options used in step above:
-#"-5": Calculate coverage of only 5’ positions
-#"-g": Genome file containing chromosome sizes
-#"-bg": Report coverage in bedGraph file format
-#"-strand": Calculate coverage of + or - strand
-#"-ibam": Specify input file as BAM file format
+    #bedtools options used above:
+    #"-5": Calculate coverage of only 5’ positions
+    #"-g": Genome file containing chromosome sizes
+    #"-bg": Report coverage in bedGraph file format
+    #"-strand": Calculate coverage of + or - strand
+    #"-ibam": Specify input file as BAM file format
+
+done
