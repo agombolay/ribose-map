@@ -46,11 +46,15 @@ tar xzf py-editdist-0.3.tar.gz
 ```
 
 3. Change current directory to editdist folder
+```
 cd py-editdist-0.3/
+```
 
 4. Install the editdist program with Python version 2.7
 * "--user" allows user to avoid permission issues
+```
 python2.7 setup.py install --user
+```
 
 **Part c.)**
 
