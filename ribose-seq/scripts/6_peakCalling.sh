@@ -33,10 +33,6 @@ then
         exit
 fi
 
-#INPUT
-#Input directory
-input=$directory/ribose-seq/results/$sample/alignment
-
 #OUTPUT
 #Location of output "ribose-seq" peaks directory
 output=$directory/ribose-seq/results/$samples/peaks
@@ -57,6 +53,10 @@ flags=("-F 0x10" "-f 0x10")
 
 for samples in ${BAM[@]};
 do
+
+	#INPUT
+	#Input directory
+	input=$directory/ribose-seq/results/$sample/alignment
 
 	#Extract sample names from filepaths
 	filename=$(basename "$BAM")
