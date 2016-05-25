@@ -46,6 +46,32 @@ make prefix=/projects/home/agombolay3/data/bin install
 echo "export PATH="/projects/home/agombolay3/data/bin/bin:$PATH"" >> ~/.bashrc
 ```
 
+###INSTALL BEDTOOLS TO DETERMINE GENOME COVERAGE
+1. Download the .tar.gz file from the BEDtools website 
+```
+wget https://github.com/arq5x/bedtools2/releases/download/v2.25.0/bedtools-2.25.0.tar.gz
+```
+&nbsp;
+2. Uncompress the downloaded .tar.gz file
+```
+tar -zxvf bedtools-2.25.0.tar.gz
+```
+&nbsp;
+3. Change current directory to bedtools folder
+```
+cd bedtools2
+```
+&nbsp;
+4. Execute commands outlined in the Makefile
+```
+make
+```
+&nbsp;
+5. Add the path to the umitools script to your $PATH via the .bashrc configuration file
+```
+echo "export PATH="/projects/home/agombolay3/data/bin/bin:$PATH"" >> ~/.bashrc
+```
+
 ###INSTALL UMITOOLS PROGRAM TO REMOVE PCR DUPLICATES
 (Note: Instructions adapted from https://github.com/brwnj/umitools)
 
