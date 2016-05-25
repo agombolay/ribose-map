@@ -35,11 +35,10 @@ then
 fi
 
 #INPUT
-#Location of FASTA file containing sequences of sacCer2 genome
-fasta=$directory/reference/sacCer2.fa
+#Location of file containing sequences of reference genome
+fasta=$directory/reference/$reference.fa
 
 #OUTPUT
-
 #Location of output "ribose-seq" backgroundNucleotideFrequencies directory
 output="$directory/ribose-seq/results/backgroundNucleotideFrequencies"
 
