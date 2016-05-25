@@ -77,6 +77,7 @@ done
 #CREATE BIGWIG FILES
 for files in $(ls $output/*.bg);
 do
-    bigWig="$output/$(basename $files .bg).bw"
-    bedGraphToBigWig $files $chromosomeSizes $bigWig
+	#Change file extensions from .bg to .bw
+	bigWig="$output/$(basename $files .bg).bw"
+	bedGraphToBigWig $files $chromosomeSizes $bigWig
 done
