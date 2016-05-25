@@ -14,4 +14,4 @@ python2.7 setup.py install --user
 echo "export PATH="/projects/home/agombolay3/.local/bin:$PATH"" >> ~/.bashrc
 
 
-/projects/home/agombolay3/.local/lib/python2.7/site-packages/umitools-2.1.1-py2.7.egg/umitools
+/projects/home/agombolay3/.local/bin
