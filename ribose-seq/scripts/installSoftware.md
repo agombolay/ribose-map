@@ -28,7 +28,7 @@ echo "export PATH="/projects/home/agombolay3/.local/bin:$PATH"" >> ~/.bashrc
 wget https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.1.2/bowtie-1.1.2-linux-x86_64.zip
 ```
 &nbsp; 
-2. Uncompress the downloaded .tar.gz file
+2. Uncompress the downloaded .zip file
 ```
 unzip bowtie-1.1.2-linux-x86_64.zip
 ```
