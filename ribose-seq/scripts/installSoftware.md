@@ -37,7 +37,7 @@ pip install pysam
 
 **Install the editdist program**
 
-1. Download the compressed file from the editdist website
+1. Download the compressed file from the editdist website  
 (Reference: http://www.mindrot.org/projects/py-editdist/)
 ```
 wget https://py-editdist.googlecode.com/files/py-editdist-0.3.tar.gz
@@ -63,7 +63,7 @@ python2.7 setup.py install --user
 
 **Install the umitools program**
 
-1. Download the compressed file from the umitools website
+1. Download the compressed file from the umitools website  
 (Reference: https://github.com/brwnj/umitools)
 ```
 wget -O umitools-master.zip https://github.com/brwnj/umitools/archive/master.zip
