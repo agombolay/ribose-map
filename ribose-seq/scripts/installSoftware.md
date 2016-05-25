@@ -69,7 +69,7 @@ make
 &nbsp;
 5. Add the path to the umitools script to your $PATH via the .bashrc configuration file
 ```
-echo "export PATH="/projects/home/agombolay3/data/bin/bin:$PATH"" >> ~/.bashrc
+echo "export PATH="/projects/home/agombolay3/data/bin/bedtools2/bin:$PATH"" >> ~/.bashrc
 ```
 
 ###INSTALL UMITOOLS PROGRAM TO REMOVE PCR DUPLICATES
@@ -158,4 +158,21 @@ python2.7 setup.py install --user
 4. Add the path to the MACS2 script to your $PATH via the .bashrc configuration file
 ```
 echo "export PATH="/projects/home/agombolay3/.local/bin:$PATH"" >> ~/.bashrc
+```
+
+###INSTALL BEDTOBIGBED
+1. Download the program from the UCSC Genome Browswer website  
+(Reference: http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/)
+```
+wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/bedToBigBed
+```
+&nbsp;
+2. Change the permissions to make the file executable
+```
+chmod +x bedToBigBed
+```
+&nbsp;
+3. Add the path to the bedToBigBed script to your $PATH via the .bashrc configuration file
+```
+echo "export PATH="/projects/home/agombolay3/data/bin:$PATH"" >> ~/.bashrc
 ```
