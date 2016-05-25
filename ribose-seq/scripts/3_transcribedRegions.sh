@@ -14,24 +14,26 @@ strands="+ -"
 #Please see $HOME/data/ribose-seq/data/reference/downloadReferenceGenome.sh for more information
 
 #Location of sgdGene.bed file
-sgdGene=$HOME/data/ribose-seq/data/reference/sgdGene.bed
+sgdGene=$directory/reference/sgdGene.bed
 
 #Location of sacCer2.chrom.sizes file
-chromosomeSizes=$HOME/data/ribose-seq/data/reference/sacCer2.chrom.sizes
+chromosomeSizes=$directory/reference/sacCer2.chrom.sizes
 
 #OUTPUT
 #Location of output "ribose-seq" alignment directory
 output=$directory/ribose-seq/results/transcribedRegions
 
-#Create directory for output
+#Create directory for output if it does not already exist
 if [[ ! -d $output ]];
 then
 	mkdir -p $output
 fi
 
-BED=$directory/genes.bed
+#Location of output BED files containing genes
 genes="$output/$(basename $genesbed .bed).nuclear.bed"
-$complementRegions="$output/$(basename $genesbed .bed).complementRegions.bed"
+
+#Location of output BED files containing complementary regions
+complementRegions="$output/$(basename $genesbed .bed).complementRegions.bed"
 
 #TRANSCRIPTION ANALYSIS
 
@@ -65,10 +67,8 @@ grep '^chrM' $genes > "$output/$(basename $genes .bed).mito.bed"
 #Obtain non-coding genomic intervals in chromosome M
 grep '^chrM' $complementRegions > "$output/$(basename $complementRegions .bed).mito.bed"
 
-#Obtain genes on chromosomes I-XVI (not chromosome M or 2micron)
+#Obtain genes on chromosomes I-XVI (not on either chromosome M or 2micron plasmid)
 grep -v '^chrM' $genes | grep -v '^2micron' > "$output/$(basename $genes .bed).nuc.bed"
 
-#Obtain non-coding genomic intervals in chromosomes I-XVI (not	chromosome M or	2micron)
+#Obtain non-coding genomic intervals in chromosomes I-XVI (not on either chromosome M or 2micron plasmid)
 grep -v '^chrM' $complementRegions | grep -v '^2micron' > "$output/$(basename $complementRegions .bed).nuc.bed"
-
-echo "Determination of gene coordinates and complementary regions in genome complete"
