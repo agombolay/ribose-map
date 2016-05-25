@@ -160,7 +160,7 @@ python2.7 setup.py install --user
 echo "export PATH="/projects/home/agombolay3/.local/bin:$PATH"" >> ~/.bashrc
 ```
 
-###INSTALL BEDTOBIGBED
+###INSTALL bedToBigBed
 1. Download the program from the UCSC Genome Browswer website  
 (Reference: http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/)
 ```
@@ -170,6 +170,23 @@ wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/bedToBigBed
 2. Change the permissions to make the file executable
 ```
 chmod +x bedToBigBed
+```
+&nbsp;
+3. Add the path to the bedToBigBed script to your $PATH via the .bashrc configuration file
+```
+echo "export PATH="/projects/home/agombolay3/data/bin:$PATH"" >> ~/.bashrc
+```
+
+###INSTALL bedgraphToBigWig
+1. Download the program from the UCSC Genome Browswer website  
+(Reference: http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/)
+```
+wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/bedgraphToBigWig
+```
+&nbsp;
+2. Change the permissions to make the file executable
+```
+chmod +x bedgraphToBigWig
 ```
 &nbsp;
 3. Add the path to the bedToBigBed script to your $PATH via the .bashrc configuration file
