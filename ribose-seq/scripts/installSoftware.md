@@ -21,6 +21,31 @@ python2.7 setup.py install --user
 ```
 echo "export PATH="/projects/home/agombolay3/.local/bin:$PATH"" >> ~/.bashrc
 ```
+###INSTALL SAMTOOLS TO PROCESS ALIGNMENT FILES
+1. Download the .zip file from the SAMtools website
+```
+wget https://github.com/samtools/samtools/releases/download/1.3.1/samtools-1.3.1.tar.bz2
+```
+&nbsp;
+2. Uncompress the downloaded .tar.bz2 file
+```
+tar -jxvf samtools-1.3.1.tar.bz2
+```
+&nbsp;
+3. Change current directory to samtools folder
+```
+cd samtools-1.3.1/
+```
+&nbsp;
+4. Execute commands in Makefile
+```
+make
+```
+&nbsp;
+5. Install the SAMtools program to specified location
+```
+make prefix=/projects/home/agombolay3/data/bin install
+```
 
 ###INSTALL BOWTIE PROGRAM TO ALIGN READS TO GENOME
 1. Download the .zip file from the bowtie website
