@@ -12,3 +12,6 @@ python2.7 setup.py install --user
 
 #Add the path to the MACS2 script to your $PATH via your .bashrc file
 echo "export PATH="/projects/home/agombolay3/.local/bin:$PATH"" >> ~/.bashrc
+
+
+/projects/home/agombolay3/.local/lib/python2.7/site-packages/umitools-2.1.1-py2.7.egg/umitools
