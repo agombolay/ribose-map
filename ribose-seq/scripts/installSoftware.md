@@ -1,4 +1,4 @@
-#INSTALL MACS2 PROGRAM TO CALL ALIGNMENT PEAKS
+##INSTALL MACS2 PROGRAM TO CALL ALIGNMENT PEAKS
 
 #1. Download the compressed file from the Python MACS2 website
 wget https://pypi.python.org/packages/9f/99/a8ac96b357f6b0a6f559fe0f5a81bcae12b98579551620ce07c5183aee2c/MACS2-2.1.1.20160309.tar.gz
@@ -13,7 +13,7 @@ python2.7 setup.py install --user
 #4. Add the path to the MACS2 script to your $PATH via your .bashrc file
 echo "export PATH="/projects/home/agombolay3/.local/bin:$PATH"" >> ~/.bashrc
 
-#INSTALL UMITOOLS PROGRAM TO REMOVE PCR DUPLICATES
+##INSTALL UMITOOLS PROGRAM TO REMOVE PCR DUPLICATES
 
 #Part a.)
 
@@ -40,7 +40,7 @@ python2.7 setup.py install --user
 
 # Part c.
 
-#Install the umitools program
+##Install the umitools program
 
 #1. Download the compressed file from the umitools website
 wget -O umitools-master.zip https://github.com/brwnj/umitools/archive/master.zip
