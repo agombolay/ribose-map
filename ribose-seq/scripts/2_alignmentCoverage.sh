@@ -50,6 +50,7 @@ do
 	#OUTPUT
 	output=$directory/ribose-seq/results/$samples/bedgraphs
 
+	#Create directory for output if it does not already exist
 	if [[ ! -d $output ]];
 	then
 		mkdir -p $output
