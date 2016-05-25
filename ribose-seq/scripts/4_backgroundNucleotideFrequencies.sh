@@ -5,7 +5,8 @@
 #Adapted from Jay Hesselberth's code located at https://github.com/hesselberthlab/modmap/tree/snake
 
 #INPUT
-fasta=$HOME/data/ribose-seq/data/reference/sacCer2.fa
+#Location of FASTA file containing sequences of sacCer2 genome
+fasta=$directory/reference/sacCer2.fa
 
 #OUTPUT
 
