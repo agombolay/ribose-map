@@ -38,15 +38,13 @@ unzip bowtie-1.1.2-linux-x86_64.zip
 
 ####Part a.) Pysam Program
 
-Install the pysam program  
+1. Install the pysam program  
 * Pip must already be installed
 ```
 pip install pysam
 ```
 
 ####Part b. Editdist Program
-
-Install the editdist program
 
 1. Download the .tar.gz file from the editdist website  
 (Reference: http://www.mindrot.org/projects/py-editdist/)
@@ -71,8 +69,6 @@ python2.7 setup.py install --user
 ```
 
 ####Part c.) Umitools Program
-
-**Install the umitools program**
 
 1. Download the .zip file from the umitools website  
 (Reference: https://github.com/brwnj/umitools)
