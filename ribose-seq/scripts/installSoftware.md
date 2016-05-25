@@ -11,7 +11,7 @@ tar -zxvf MACS2-2.1.1.20160309.tar.gz
 ```
 &nbsp; 
 3. Install the MACS2 program with Python version 2.7  
-* "--user" allows user to avoid permission issues
+* "--user" allows bypasses permission issues on server
 ```
 python2.7 setup.py install --user
 ```
@@ -51,7 +51,7 @@ cd py-editdist-0.3/
 ```
 &nbsp; 
 4. Install the editdist program with Python version 2.7
-* "--user" allows user to avoid permission issues
+* "--user" allows bypasses permission issues on server
 ```
 python2.7 setup.py install --user
 ```
@@ -76,7 +76,7 @@ cd umitools-master
 ```
 &nbsp; 
 4. Install the umitools program with Python version 2.7 
-* "--user" allows user to avoid permission issues
+* "--user" allows bypasses permission issues on server
 ```
 python2.7 setup.py install --user
 ```
