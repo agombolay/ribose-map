@@ -11,7 +11,7 @@ program=$0
 
 #Usage statement of the program
 function usage () {
-        echo "Usage: $program [-i] '/path/to/file1.fastq etc.' [-d] 'Ribose-seq directory' [-h]
+        echo "Usage: $program [-i] '/path/to/file1.bam etc.' [-d] 'Ribose-seq directory' [-h]
           -i Filepaths of input FASTQ files 
           -d Location to save local Ribose-seq directory"
 }
@@ -21,9 +21,7 @@ while getopts "i:d:h" opt;
 do
     case $opt in
         #Specify input as arrays to allow multiple input arguments
-        i ) fastq=($OPTARG) ;;
-	#Specify input as variable to allow only one input argument
-	b ) index=$OPTARG ;;
+        i ) BAM=($OPTARG) ;;
         #If user specifies [-h], print usage statement
         h ) usage ;;
     esac
@@ -57,7 +55,18 @@ strands=("positive" "negative")
 #"-F 0x10" = forward and "-f 0x10" = reverse
 flags=("-F 0x10" "-f 0x10")
 
+for samples in ;
+do
+
+#Extract sample names from filepaths
+	filename=$(basename "$BAM")
+	samples="${filename%.*}"
+	
+	#Extract input directories from filepaths
+	inputDirectory=$(dirname "${BAM}")
+	
 for index in ${!strands[@]}; do
+
 	#Define variable for input BAM files
 	finalBAM=$input/$sample.final.bam
 	
