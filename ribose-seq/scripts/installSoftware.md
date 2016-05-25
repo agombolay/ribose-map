@@ -14,7 +14,7 @@ unzip bowtie-1.1.2-linux-x86_64.zip
 echo "export PATH="/projects/home/agombolay3/data/bin/bowtie-1.1.2:$PATH"" >> ~/.bashrc
 ```
 
-###INSTALL SAMTOOLS TO PROCESS OUTPUT ALIGNMENT FILES
+###INSTALL SAMtools TO PROCESS OUTPUT ALIGNMENT FILES
 1. Download the .zip file from the SAMtools website  
 (Reference: http://www.htslib.org/download/)
 ```
@@ -46,7 +46,7 @@ make prefix=/projects/home/agombolay3/data/bin install
 echo "export PATH="/projects/home/agombolay3/data/bin/bin:$PATH"" >> ~/.bashrc
 ```
 
-###INSTALL BEDTOOLS TO DETERMINE GENOME COVERAGE
+###INSTALL BEDtools TO DETERMINE GENOME COVERAGE
 1. Download the .tar.gz file from the BEDtools website 
 ```
 wget https://github.com/arq5x/bedtools2/releases/download/v2.25.0/bedtools-2.25.0.tar.gz
@@ -72,7 +72,7 @@ make
 echo "export PATH="/projects/home/agombolay3/data/bin/bedtools2/bin:$PATH"" >> ~/.bashrc
 ```
 
-###INSTALL UMITOOLS PROGRAM TO REMOVE PCR DUPLICATES
+###INSTALL UMItools PROGRAM TO REMOVE PCR DUPLICATES
 (Note: Instructions adapted from https://github.com/brwnj/umitools)
 
 ####Part a.) Pysam Program
