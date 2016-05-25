@@ -4,13 +4,42 @@
 #This script using the "MACS2 callpeak" program to analyze the peaks from the alignment results
 #Adapted from Jay Hesselberth's code located at https://github.com/hesselberthlab/modmap/tree/snake
 
-#INPUT
+#COMMAND LINE OPTIONS
 
+#Name of the program (1_alignment.sh)
+program=$0
+
+#Usage statement of the program
+function usage () {
+        echo "Usage: $program [-i] '/path/to/file1.fastq etc.' [-d] 'Ribose-seq directory' [-h]
+          -i Filepaths of input FASTQ files 
+          -d Location to save local Ribose-seq directory"
+}
+
+#Use getopts function to create the command-line options ([-a], [-b], [-o], and [-h])
+while getopts "i:d:h" opt;
+do
+    case $opt in
+        #Specify input as arrays to allow multiple input arguments
+        i ) fastq=($OPTARG) ;;
+	#Specify input as variable to allow only one input argument
+	b ) index=$OPTARG ;;
+        #If user specifies [-h], print usage statement
+        h ) usage ;;
+    esac
+done
+
+#Exit program if user specifies [-h]
+if [ "$1" == "-h" ];
+then
+        exit
+fi
+
+#INPUT
 #Input directory
 input=$HOME/data/ribose-seq/results/$sample/alignment
 
 #OUTPUT
-
 #Location of output "ribose-seq" peaks directory
 output=$directory/ribose-seq/results/$samples/peaks
 
