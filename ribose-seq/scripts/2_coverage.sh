@@ -73,3 +73,10 @@ do
 	#"-ibam": Specify input file as BAM file format
 
 done
+
+#CREATE BIGWIG FILES
+for fileS in $(ls $output/*.bg);
+do
+    bigWig="$output/$(basename $files .bg).bw"
+    bedGraphToBigWig $files $chromosomeSizes $bigWig
+done
