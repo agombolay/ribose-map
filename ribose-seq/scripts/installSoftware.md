@@ -20,7 +20,7 @@ python2.7 setup.py install --user
 ```
 echo "export PATH="/projects/home/agombolay3/.local/bin:$PATH"" >> ~/.bashrc
 ```
-&nbsp; 
+
 ###INSTALL UMITOOLS PROGRAM TO REMOVE PCR DUPLICATES
 
 ####Part a.) Pysam Program
@@ -39,16 +39,17 @@ pip install pysam
 ```
 wget https://py-editdist.googlecode.com/files/py-editdist-0.3.tar.gz
 ```
+&nbsp; 
 2. Uncompress the downloaded .tar.gz file
 ```
 tar xzf py-editdist-0.3.tar.gz
 ```
-
+&nbsp; 
 3. Change current directory to editdist folder
 ```
 cd py-editdist-0.3/
 ```
-
+&nbsp; 
 4. Install the editdist program with Python version 2.7
 * "--user" allows user to avoid permission issues
 ```
@@ -63,23 +64,23 @@ python2.7 setup.py install --user
 ```
 wget -O umitools-master.zip https://github.com/brwnj/umitools/archive/master.zip
 ```
-
+&nbsp; 
 2. Uncompress the downloaded .zip file
 ```
 unzip umitools-master.zip
 ```
-
+&nbsp; 
 3. Change current directory to umitools folder
 ```
 cd umitools-master
 ```
-
+&nbsp; 
 4. Install the umitools program with Python version 2.7 
 * "--user" allows user to avoid permission issues
 ```
 python2.7 setup.py install --user
 ```
-
+&nbsp; 
 5. Add the path to the umitools script to your $PATH via your .bashrc file
 ```
 echo "export PATH="/projects/home/agombolay3/.local/bin:$PATH"" >> ~/.bashrc
