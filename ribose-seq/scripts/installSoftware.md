@@ -16,7 +16,7 @@ tar -zxvf MACS2-2.1.1.20160309.tar.gz
 python2.7 setup.py install --user
 ```
 &nbsp; 
-4. Add the path to the MACS2 script to your $PATH via the .bashrc file
+4. Add the path to the MACS2 script to your $PATH via the .bashrc startup file
 ```
 echo "export PATH="/projects/home/agombolay3/.local/bin:$PATH"" >> ~/.bashrc
 ```
