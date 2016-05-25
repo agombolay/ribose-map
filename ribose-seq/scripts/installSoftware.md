@@ -167,7 +167,7 @@ echo "export PATH="/projects/home/agombolay3/.local/bin:$PATH"" >> ~/.bashrc
 wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/bedToBigBed
 ```
 &nbsp;
-2. Change the permissions to make the file executable
+2. Change the file permissions to make the file executable
 ```
 chmod +x bedToBigBed
 ```
@@ -184,7 +184,7 @@ echo "export PATH="/projects/home/agombolay3/data/bin:$PATH"" >> ~/.bashrc
 wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/bedgraphToBigWig
 ```
 &nbsp;
-2. Change the permissions to make the file executable
+2. Change the file permissions to make the file executable
 ```
 chmod +x bedgraphToBigWig
 ```
