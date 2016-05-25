@@ -4,13 +4,10 @@
 #This script using the "MACS2 callpeak" program to analyze the peaks from the alignment results
 #Adapted from Jay Hesselberth's code located at https://github.com/hesselberthlab/modmap/tree/snake
 
-#VARIABLE SPECIFICATION
-sample=(FS3)
-
 #INPUT
 
 #Input directory
-input=$HOME/data/ribose-seq/results/FS3/alignment
+input=$HOME/data/ribose-seq/results/$sample/alignment
 
 #OUTPUT
 
