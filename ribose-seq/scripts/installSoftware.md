@@ -22,6 +22,7 @@ echo "export PATH="/projects/home/agombolay3/.local/bin:$PATH"" >> ~/.bashrc
 ```
 
 ###INSTALL UMITOOLS PROGRAM TO REMOVE PCR DUPLICATES
+(Note: Instruction adapted from https://github.com/brwnj/umitools)
 
 ####Part a.) Pysam Program
 
@@ -57,7 +58,6 @@ python2.7 setup.py install --user
 ```
 
 ####Part c.) Umitools Program
-(Note: Instruction adapted from https://github.com/brwnj/umitools)
 
 **Install the umitools program**
 
