@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 #Author: Alli Gombolay
-#This script determines gene coordinates and non-coding genomic intervals in sacCer2 genome
+#This script determines the gene coordinates and non-coding genomic intervals in sacCer2 genome
 #Adapted from Jay Hesselberth's code located at https://github.com/hesselberthlab/modmap/tree/snake
 
 #VARIABLE SPECIFICATION
@@ -20,6 +20,13 @@ sgdGene=$HOME/data/ribose-seq/data/reference/sgdGene.bed
 chromosomeSizes=$HOME/data/ribose-seq/data/reference/sacCer2.chrom.sizes
 
 #OUTPUT
+
+output=$outputDirectory/transcribedRegions
+if [[ ! -d $output ]];
+then
+	mkdir -p $output
+fi
+
 genes="$HOME/data/ribose-seq/results/transcribedRegions/genes.bed"
 genes_Nuclear="$HOME/data/ribose-seq/results/transcribedRegions/genes.nuclear.bed"
 genes_Mitochondrial="$HOME/data/ribose-seq/results/transcribedRegions/genes.mitochondrial.bed"
