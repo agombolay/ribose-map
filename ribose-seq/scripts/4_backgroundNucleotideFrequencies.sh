@@ -7,6 +7,15 @@
 #INPUT
 fasta=$HOME/data/ribose-seq/data/reference/sacCer2.fa
 
+#OUTPUT
+
+output="$directory/ribose-seq/results/backgroundNucleotideFrequencies"
+
+if [[ ! -d $output ]];
+then
+  mkdir $output
+fi
+
 #CALCULATION OF NUCLEOTIDE FREQUENCIES
 
 #Calculate frequencies of nucleotides in sacCer2 genome
