@@ -8,6 +8,10 @@ wget https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.1.2/bowtie-1.1.2
 ```
 unzip bowtie-1.1.2-linux-x86_64.zip
 ```
+3. Add the path to the umitools script to your $PATH via the .bashrc configuration file
+```
+echo "export PATH="/projects/home/agombolay3/data/bin/bowtie-1.1.2:$PATH"" >> ~/.bashrc
+```
 
 ###INSTALL SAMTOOLS TO PROCESS OUTPUT ALIGNMENT FILES
 1. Download the .zip file from the SAMtools website  
@@ -34,6 +38,10 @@ make
 5. Install the SAMtools program to specified location
 ```
 make prefix=/projects/home/agombolay3/data/bin install
+```
+6. Add the path to the umitools script to your $PATH via the .bashrc configuration file
+```
+echo "export PATH="/projects/home/agombolay3/data/bin/bin:$PATH"" >> ~/.bashrc
 ```
 
 ###INSTALL UMITOOLS PROGRAM TO REMOVE PCR DUPLICATES
