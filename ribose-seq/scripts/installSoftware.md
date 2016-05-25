@@ -1,6 +1,6 @@
 ###INSTALL MACS2 PROGRAM TO CALL ALIGNMENT PEAKS
 
-1. Download the .tar.gz file from the Python MACS2 website  
+1. Download the .tar.gz file from the MACS2 website  
 (Reference: https://pypi.python.org/pypi/MACS2)
 ```
 wget https://pypi.python.org/packages/9f/99/a8ac96b357f6b0a6f559fe0f5a81bcae12b98579551620ce07c5183aee2c/MACS2-2.1.1.20160309.tar.gz
@@ -85,7 +85,7 @@ cd umitools-master
 python2.7 setup.py install --user
 ```
 &nbsp; 
-5. Add the path to the umitools script to your $PATH via the .bashrc configureation file
+5. Add the path to the umitools script to your $PATH via the .bashrc configuration file
 ```
 echo "export PATH="/projects/home/agombolay3/.local/bin:$PATH"" >> ~/.bashrc
 ```
