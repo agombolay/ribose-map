@@ -45,7 +45,7 @@ python2.7 setup.py install --user
 #1. Download the compressed file from the umitools website
 wget -O umitools-master.zip https://github.com/brwnj/umitools/archive/master.zip
 
-#2. Uncompress the downloaded .tar.gz file
+#2. Uncompress the downloaded .zip file
 unzip umitools-master.zip
 
 #3. Change current directory to umitools folder
