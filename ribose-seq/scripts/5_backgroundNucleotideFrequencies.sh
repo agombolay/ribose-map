@@ -60,5 +60,5 @@ chrM="$output/chrM.nucleotide.frequencies.tab"
 python2.7 4_nucleotideFrequencies.py $fasta --region-size-minimum 1 --region-size-maximum 3 --only-chrom chrM --verbose > $chrM
 
 #Calculate frequencies of nucleotides in 2micron 
-2micron="$output/2micron.nucleotide.frequencies.tab"
-python2.7 4_nucleotideFrequencies.py $fasta --region-size-minimum 1 --region-size-maximum 3 --only-chrom 2micron --verbose > $2micron
+plasmid="$output/2micron.nucleotide.frequencies.tab"
+python2.7 4_nucleotideFrequencies.py $fasta --region-size-minimum 1 --region-size-maximum 3 --only-chrom 2micron --verbose > $plasmid
