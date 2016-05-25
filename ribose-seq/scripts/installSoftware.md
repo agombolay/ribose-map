@@ -37,7 +37,7 @@ tar -jxvf samtools-1.3.1.tar.bz2
 cd samtools-1.3.1/
 ```
 &nbsp;
-4. Execute commands outlined in Makefile
+4. Execute commands outlined in the Makefile
 ```
 make
 ```
