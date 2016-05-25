@@ -55,7 +55,7 @@ strands=("positive" "negative")
 #"-F 0x10" = forward and "-f 0x10" = reverse
 flags=("-F 0x10" "-f 0x10")
 
-for samples in ;
+for samples in ${BAM[@]};
 do
 
 #Extract sample names from filepaths
