@@ -1,7 +1,7 @@
 ###INSTALL MACS2 PROGRAM TO CALL ALIGNMENT PEAKS
 
 1. Download the compressed file from the Python MACS2 website  
-Reference: https://pypi.python.org/pypi/MACS2
+(Reference: https://pypi.python.org/pypi/MACS2)
 ```
 wget https://pypi.python.org/packages/9f/99/a8ac96b357f6b0a6f559fe0f5a81bcae12b98579551620ce07c5183aee2c/MACS2-2.1.1.20160309.tar.gz
 ```
@@ -38,7 +38,7 @@ pip install pysam
 **Install the editdist program**
 
 1. Download the compressed file from the editdist website
-Reference: http://www.mindrot.org/projects/py-editdist/
+(Reference: http://www.mindrot.org/projects/py-editdist/)
 ```
 wget https://py-editdist.googlecode.com/files/py-editdist-0.3.tar.gz
 ```
@@ -64,8 +64,7 @@ python2.7 setup.py install --user
 **Install the umitools program**
 
 1. Download the compressed file from the umitools website
-Reference: https://github.com/brwnj/umitools
-
+(Reference: https://github.com/brwnj/umitools)
 ```
 wget -O umitools-master.zip https://github.com/brwnj/umitools/archive/master.zip
 ```
