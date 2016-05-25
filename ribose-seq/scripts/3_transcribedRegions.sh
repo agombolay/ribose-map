@@ -20,30 +20,27 @@ sgdGene=$HOME/data/ribose-seq/data/reference/sgdGene.bed
 chromosomeSizes=$HOME/data/ribose-seq/data/reference/sacCer2.chrom.sizes
 
 #OUTPUT
+#Location of output "ribose-seq" alignment directory
+output=$directory/ribose-seq/results/transcribedRegions
 
-output=$outputDirectory/transcribedRegions
+#Create directory for output
 if [[ ! -d $output ]];
 then
 	mkdir -p $output
 fi
 
-genes="$HOME/data/ribose-seq/results/transcribedRegions/genes.bed"
-genes_Nuclear="$HOME/data/ribose-seq/results/transcribedRegions/genes.nuclear.bed"
-genes_Mitochondrial="$HOME/data/ribose-seq/results/transcribedRegions/genes.mitochondrial.bed"
-
-complementRegions="$HOME/data/ribose-seq/results/transcribedRegions/complementRegions.bed"
-complementRegions_Nuclear="$HOME/data/ribose-seq/results/transcribedRegions/complementRegions.nuclear.bed"
-complementRegions_Mitochondrial="$HOME/data/ribose-seq/results/transcribedRegions/complementRegions.mitochondrial.bed"
+BED=$directory/genes.bed
+genes="$output/$(basename $genesbed .bed).nuclear.bed"
+$complementRegions="$output/$(basename $genesbed .bed).complementRegions.bed"
 
 #TRANSCRIPTION ANALYSIS
 
 #Sorts and merges overlapping genomic regions of sgdGene.bed file
-
 for strand in $strands; do
 
 	#Assign +/- value to variable, "strand"
 	#Command accepts input from sgdGene.bed file
-	awk -v strand=$strand '$6 == strand' < $sgdGene |
+	awk -v strand=$strand '$6 == strand' < $BED |
 	
 		#Takes output from previous step as input and sorts it alphanumerically
 		bedtools sort -i - |
@@ -62,16 +59,16 @@ done | bedtools sort -i - > $genes
 bedtools complement -i $genes -g $chromosomeSizes | bedtools sort -i - |
 awk 'BEGIN {OFS="\t"} {print $0, ".", ".", "."}' > $complementRegions
 
-#Obtain genes in chromosome M
-grep '^chrM' $genes > $genes_Mitochondrial
+#Obtain genes on chromosome M
+grep '^chrM' $genes > "$output/$(basename $genes .bed).mito.bed"
 
 #Obtain non-coding genomic intervals in chromosome M
-grep '^chrM' $complementRegions > $complementRegions_Mitochondrial
+grep '^chrM' $complementRegions > "$output/$(basename $complementRegions .bed).mito.bed"
 
-#Obtain genes in chromosomes I-XVI (not chromosome M or 2micron)
-grep -v '^chrM' $genes | grep -v '^2micron' > "$genes_Nuclear"
+#Obtain genes on chromosomes I-XVI (not chromosome M or 2micron)
+grep -v '^chrM' $genes | grep -v '^2micron' > "$output/$(basename $genes .bed).nuc.bed"
 
 #Obtain non-coding genomic intervals in chromosomes I-XVI (not	chromosome M or	2micron)
-grep -v '^chrM' $complementRegions | grep -v '^2micron' > "$complementRegions_Nuclear"
+grep -v '^chrM' $complementRegions | grep -v '^2micron' > "$output/$(basename $complementRegions .bed).nuc.bed"
 
 echo "Determination of gene coordinates and complementary regions in genome complete"
