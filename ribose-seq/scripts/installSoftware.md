@@ -1,6 +1,6 @@
 ###INSTALL MACS2 PROGRAM TO CALL ALIGNMENT PEAKS
 
-1. Download the compressed file from the Python MACS2 website
+1. Download the compressed file from the Python MACS2 website (https://pypi.python.org/pypi/MACS2)
 ```
 wget https://pypi.python.org/packages/9f/99/a8ac96b357f6b0a6f559fe0f5a81bcae12b98579551620ce07c5183aee2c/MACS2-2.1.1.20160309.tar.gz
 ```
