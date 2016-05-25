@@ -22,6 +22,17 @@ python2.7 setup.py install --user
 echo "export PATH="/projects/home/agombolay3/.local/bin:$PATH"" >> ~/.bashrc
 ```
 
+###INSTALL BOWTIE PROGRAM TO ALIGN READS TO GENOME
+1. Download the .zip file from the bowtie website
+```
+wget https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.1.2/bowtie-1.1.2-linux-x86_64.zip
+```
+&nbsp; 
+2. Uncompress the downloaded .tar.gz file
+```
+unzip bowtie-1.1.2-linux-x86_64.zip
+```
+
 ###INSTALL UMITOOLS PROGRAM TO REMOVE PCR DUPLICATES
 (Note: Instructions adapted from https://github.com/brwnj/umitools)
 
