@@ -61,7 +61,7 @@ python2.7 setup.py install --user
 
 **Install the umitools program**
 
-1. Download the compressed file from the umitools website
+1. Download the compressed file from the umitools website (https://github.com/brwnj/umitools)
 ```
 wget -O umitools-master.zip https://github.com/brwnj/umitools/archive/master.zip
 ```
@@ -82,7 +82,7 @@ cd umitools-master
 python2.7 setup.py install --user
 ```
 &nbsp; 
-5. Add the path to the umitools script to your $PATH via your .bashrc file
+5. Add the path to the umitools script to your $PATH via the .bashrc configureation file
 ```
 echo "export PATH="/projects/home/agombolay3/.local/bin:$PATH"" >> ~/.bashrc
 ```
