@@ -39,7 +39,6 @@ pip install pysam
 ```
 wget https://py-editdist.googlecode.com/files/py-editdist-0.3.tar.gz
 ```
-
 2. Uncompress the downloaded .tar.gz file
 ```
 tar xzf py-editdist-0.3.tar.gz
