@@ -48,6 +48,7 @@ do
 	chromosomeSizes=$directory/ribose-seq/data/$reference.chromosome.sizes
 	
 	#OUTPUT
+	#Location of output "ribose-seq" bedgraphs directory
 	output=$directory/ribose-seq/results/$samples/bedgraphs
 
 	#Create directory for output if it does not already exist
