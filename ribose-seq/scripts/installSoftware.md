@@ -11,7 +11,7 @@ tar -zxvf MACS2-2.1.1.20160309.tar.gz
 ```
 
 3. Install the MACS2 program with Python version 2.7  
-"--user": Allows user to avoid permission issues
+* "--user" allows user to avoid permission issues
 ```
 python2.7 setup.py install --user
 ```
@@ -26,7 +26,7 @@ echo "export PATH="/projects/home/agombolay3/.local/bin:$PATH"" >> ~/.bashrc
 **Part a.)**
 
 Install the pysam program  
-Pip must already be installed
+* Pip must already be installed
 ```
 pip install pysam
 ```
@@ -49,7 +49,7 @@ tar xzf py-editdist-0.3.tar.gz
 cd py-editdist-0.3/
 
 4. Install the editdist program with Python version 2.7
-#. "--user": Allows user to avoid permission issues
+* "--user" allows user to avoid permission issues
 python2.7 setup.py install --user
 
 **Part c.)**
@@ -72,7 +72,7 @@ cd umitools-master
 ```
 
 4. Install the umitools program with Python version 2.7 
-"--user": Allows user to avoid permission issues
+* "--user" allows user to avoid permission issues
 ```
 python2.7 setup.py install --user
 ```
