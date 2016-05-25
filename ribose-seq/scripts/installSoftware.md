@@ -23,6 +23,7 @@ echo "export PATH="/projects/home/agombolay3/.local/bin:$PATH"" >> ~/.bashrc
 ```
 ###INSTALL SAMTOOLS TO PROCESS ALIGNMENT FILES
 1. Download the .zip file from the SAMtools website
+(Reference: http://www.htslib.org/download/)
 ```
 wget https://github.com/samtools/samtools/releases/download/1.3.1/samtools-1.3.1.tar.bz2
 ```
