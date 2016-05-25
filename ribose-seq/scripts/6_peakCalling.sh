@@ -45,6 +45,9 @@ flags=("-F 0x10" "-f 0x10")
 #Use to remove very long peaks
 maximumPeakLength=5000
 
+#Location of .as file
+asFile=$directory/narrowPeak.as
+
 for samples in ${BAM[@]};
 do
 
@@ -98,12 +101,12 @@ do
 			# Sometimes the score exceeds the maximum (1000) defined by the narrowPeak spec.
         		# Reformat the narrowPeak output file to covert values greater than 1000 to 1000
         		narrowpeakTemporary="$narrowpeak.tmp"
-        		bigbed="${experiment}.peaks.bb"
+        		bigBed="${experiment}.peaks.bb"
         		
         		awk 'BEGIN {OFS="\t"} { if ($5 > 1000) $5 = 1000; print $0}' < $narrowpeak |
             		awk -v maxlen=$maximumPeakLength '$3 - $2 < maxlen' > $narrowpeakTemporary
         		mv $narrowpeakTemporary $narrowpeak
         
-        		bedToBigBed -type=bed6+4 -as=$asfile $narrowpeak $sizes $bigbed
+        		bedToBigBed -type=bed6+4 -as=$asfile $narrowpeak $sizes $bigBed
 		done
 done
