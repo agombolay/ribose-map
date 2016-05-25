@@ -9,18 +9,18 @@ wget https://pypi.python.org/packages/9f/99/a8ac96b357f6b0a6f559fe0f5a81bcae12b9
 ```
 tar -zxvf MACS2-2.1.1.20160309.tar.gz
 ```
-
+&nbsp; 
 3. Install the MACS2 program with Python version 2.7  
 * "--user" allows user to avoid permission issues
 ```
 python2.7 setup.py install --user
 ```
-
+&nbsp; 
 4. Add the path to the MACS2 script to your $PATH via your .bashrc file
 ```
 echo "export PATH="/projects/home/agombolay3/.local/bin:$PATH"" >> ~/.bashrc
 ```
-
+&nbsp; 
 ###INSTALL UMITOOLS PROGRAM TO REMOVE PCR DUPLICATES
 
 ####Part a.) Pysam Program
