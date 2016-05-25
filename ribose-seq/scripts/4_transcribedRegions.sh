@@ -43,11 +43,11 @@ strands="+ -"
 #Input files for this script: sgdGene.bed and sacCer2.chrom.sizes from genome.ucsc.edu/index.html
 #Please see $HOME/data/ribose-seq/data/reference/downloadReferenceGenome.sh for more information
 
-#Location of sgdGene.bed file
-sgdGene=$directory/reference/$reference.bed
+#Location of file containing gene coordinates 
+BED=$directory/reference/$reference.bed
 
-#Location of sacCer2.chrom.sizes file
-chromosomeSizes=$directory/reference/$reference.chrom.sizes
+#Location of file containing chromosome sizes
+sizes=$directory/reference/$reference.chrom.sizes
 
 #OUTPUT
 #Location of output "ribose-seq" alignment directory
@@ -60,10 +60,10 @@ then
 fi
 
 #Location of output BED files containing genes
-genes="$output/$(basename $genesbed .bed).nuclear.bed"
+genes="$output/$(basename $BED .bed).nuclear.bed"
 
 #Location of output BED files containing complementary regions
-complementRegions="$output/$(basename $genesbed .bed).complementRegions.bed"
+complement="$output/$(basename $BED .bed).complementRegions.bed"
 
 #TRANSCRIPTION ANALYSIS
 
@@ -88,17 +88,17 @@ done | bedtools sort -i - > $genes
 
 #Returns all genomic intervals not covered by at least one interval in input file
 #Next, sorts output and prints chromosome names, start and end positions of genes
-bedtools complement -i $genes -g $chromosomeSizes | bedtools sort -i - |
-awk 'BEGIN {OFS="\t"} {print $0, ".", ".", "."}' > $complementRegions
+bedtools complement -i $genes -g $sizes | bedtools sort -i - |
+awk 'BEGIN {OFS="\t"} {print $0, ".", ".", "."}' > $complement
 
 #Obtain genes on chromosome M
 grep '^chrM' $genes > "$output/$(basename $genes .bed).mito.bed"
 
 #Obtain non-coding genomic intervals in chromosome M
-grep '^chrM' $complementRegions > "$output/$(basename $complementRegions .bed).mito.bed"
+grep '^chrM' $complement > "$output/$(basename $complement .bed).mito.bed"
 
-#Obtain genes on chromosomes I-XVI (not on either chromosome M or 2micron plasmid)
+#Obtain genes on chromosomes I-XVI (not on chromosome M or 2micron)
 grep -v '^chrM' $genes | grep -v '^2micron' > "$output/$(basename $genes .bed).nuc.bed"
 
-#Obtain non-coding genomic intervals in chromosomes I-XVI (not on either chromosome M or 2micron plasmid)
-grep -v '^chrM' $complementRegions | grep -v '^2micron' > "$output/$(basename $complementRegions .bed).nuc.bed"
+#Obtain non-coding genomic intervals in chromosomes I-XVI (not on chromosome M or 2micron)
+grep -v '^chrM' $complement | grep -v '^2micron' > "$output/$(basename $complement .bed).nuc.bed"
