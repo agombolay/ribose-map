@@ -36,7 +36,7 @@ pip install pysam
 
 **Install the editdist program**
 
-1. Download the compressed file from the editdist website
+1. Download the compressed file from the editdist website (http://www.mindrot.org/projects/py-editdist/)
 ```
 wget https://py-editdist.googlecode.com/files/py-editdist-0.3.tar.gz
 ```
