@@ -15,7 +15,7 @@ input=$HOME/data/ribose-seq/results/FS3/alignment
 #OUTPUT
 
 #Location of output "ribose-seq" peaks directory
-output=$directory/peaks
+output=$directory/ribose-seq/results/$samples/peaks
 
 #Create output directory if it does not already exist
 if [[ ! -f $output ]]; then
