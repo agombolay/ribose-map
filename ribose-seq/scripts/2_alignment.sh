@@ -17,7 +17,7 @@ function usage () {
           -d Location to save local Ribose-seq directory"
 }
 
-#Use getopts function to create the command-line options ([-a], [-b], [-o], and [-h])
+#Use getopts function to create the command-line options ([-i], [-b], [-d], and [-h])
 while getopts "i:b:d:h" opt;
 do
     case $opt in
