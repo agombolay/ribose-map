@@ -4,6 +4,37 @@
 #This script determines the gene coordinates and non-coding genomic intervals in sacCer2 genome
 #Adapted from Jay Hesselberth's code located at https://github.com/hesselberthlab/modmap/tree/snake
 
+#COMMAND LINE OPTIONS
+
+#Name of the program (1_alignment.sh)
+program=$0
+
+#Usage statement of the program
+function usage () {
+        echo "Usage: $program [-i] '/path/to/file1.fastq etc.' [-d] 'Ribose-seq directory' [-h]
+          -i Filepaths of input FASTQ files 
+          -d Location to save local Ribose-seq directory"
+}
+
+#Use getopts function to create the command-line options ([-a], [-b], [-o], and [-h])
+while getopts "i:b:d:h" opt;
+do
+    case $opt in
+        #Specify input as arrays to allow multiple input arguments
+        i ) fastq=($OPTARG) ;;
+	#Specify input as variable to allow only one input argument
+	d ) directory=$OPTARG ;;
+        #If user specifies [-h], print usage statement
+        h ) usage ;;
+    esac
+done
+
+#Exit program if user specifies [-h]
+if [ "$1" == "-h" ];
+then
+        exit
+fi
+
 #VARIABLE SPECIFICATION
 
 #DNA strands, positive or negative
