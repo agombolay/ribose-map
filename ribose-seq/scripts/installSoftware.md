@@ -57,6 +57,7 @@ python2.7 setup.py install --user
 ```
 
 ####Part c.) Umitools Program
+(Note: Instruction adapted from https://github.com/brwnj/umitools)
 
 **Install the umitools program**
 
