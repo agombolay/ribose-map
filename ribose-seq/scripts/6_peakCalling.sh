@@ -45,7 +45,7 @@ flags=("-F 0x10" "-f 0x10")
 #Use to remove very long peaks
 maximumPeakLength=5000
 
-#Location of .as file
+#Location of narrowPeak table
 asFile=$directory/narrowPeak.as
 
 for samples in ${BAM[@]};
@@ -107,6 +107,6 @@ do
             		awk -v maxlen=$maximumPeakLength '$3 - $2 < maxlen' > $narrowpeakTemporary
         		mv $narrowpeakTemporary $narrowpeak
         
-        		bedToBigBed -type=bed6+4 -as=$asfile $narrowpeak $sizes $bigBed
+        		bedToBigBed -type=bed6+4 -as=$asFile $narrowpeak $sizes $bigBed
 		done
 done
