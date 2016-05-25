@@ -46,7 +46,7 @@ pip install pysam
 
 ####Part b. Editdist Program
 
-**Install the editdist program**
+Install the editdist program
 
 1. Download the .tar.gz file from the editdist website  
 (Reference: http://www.mindrot.org/projects/py-editdist/)
