@@ -59,11 +59,11 @@ then
 	mkdir -p $output
 fi
 
-#Location of output BED files containing genes
+#Location of output files containing genes
 genes="$output/$(basename $BED .bed).nuclear.bed"
 
-#Location of output BED files containing complementary regions
-complement="$output/$(basename $BED .bed).complementRegions.bed"
+#Location of output files containing complement regions
+complement="$output/$(basename $BED .bed).complement.bed"
 
 #TRANSCRIPTION ANALYSIS
 
