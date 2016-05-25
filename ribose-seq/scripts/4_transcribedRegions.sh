@@ -44,10 +44,10 @@ strands="+ -"
 #Please see $HOME/data/ribose-seq/data/reference/downloadReferenceGenome.sh for more information
 
 #Location of sgdGene.bed file
-sgdGene=$directory/reference/sgdGene.bed
+sgdGene=$directory/reference/$reference.bed
 
 #Location of sacCer2.chrom.sizes file
-chromosomeSizes=$directory/reference/sacCer2.chrom.sizes
+chromosomeSizes=$directory/reference/$reference.chrom.sizes
 
 #OUTPUT
 #Location of output "ribose-seq" alignment directory
