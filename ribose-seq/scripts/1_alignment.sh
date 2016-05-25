@@ -63,7 +63,7 @@ do
 	#Location of output "ribose-seq" alignment directory
 	output=$directory/ribose-seq/results/$samples/alignment
 
-	#Create directory for output
+	#Create directory for output if it does not already exist
 	if [[ ! -d $output ]];
 	then
     		mkdir -p $output
