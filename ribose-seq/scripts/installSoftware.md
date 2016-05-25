@@ -9,7 +9,7 @@ wget https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.1.2/bowtie-1.1.2
 unzip bowtie-1.1.2-linux-x86_64.zip
 ```
 
-###INSTALL SAMTOOLS TO PROCESS ALIGNMENT FILES
+###INSTALL SAMTOOLS TO PROCESS OUTPUT ALIGNMENT FILES
 1. Download the .zip file from the SAMtools website  
 (Reference: http://www.htslib.org/download/)
 ```
