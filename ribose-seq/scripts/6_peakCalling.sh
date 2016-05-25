@@ -100,12 +100,12 @@ do
 		
 			# Sometimes the score exceeds the maximum (1000) defined by the narrowPeak spec.
         		# Reformat the narrowPeak output file to covert values greater than 1000 to 1000
-        		narrowpeakTemporary="$narrowpeak.tmp"
+        		narrowPeak_temporary="$narrowpeak.tmp"
         		bigBed="${experiment}.peaks.bb"
         		
-        		awk 'BEGIN {OFS="\t"} { if ($5 > 1000) $5 = 1000; print $0}' < $narrowpeak |
-            		awk -v maxlen=$maximumPeakLength '$3 - $2 < maxlen' > $narrowpeakTemporary
-        		mv $narrowpeakTemporary $narrowpeak
+        		awk 'BEGIN {OFS="\t"} { if ($5 > 1000) $5 = 1000; print $0}' < $narrowPeak |
+            		awk -v maxlen=$maximumPeakLength '$3 - $2 < maxlen' > $narrowPeak_temporary
+        		mv $narrowPeak_temporary $narrowPeak
         
         		bedToBigBed -type=bed6+4 -as=$asFile $narrowpeak $sizes $bigBed
 		done
