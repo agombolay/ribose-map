@@ -11,18 +11,17 @@ program=$0
 
 #Usage statement of the program
 function usage () {
-        echo "Usage: $program [-i] '/path/to/file1.fastq etc.' [-d] 'Ribose-seq directory' [-h]
-          -i Filepaths of input FASTQ files 
+        echo "Usage: $program [-r] 'reference genome' [-d] 'Ribose-seq directory' [-h]
+          -r Reference genome of interest (i.e., sacCer2)
           -d Location to save local Ribose-seq directory"
 }
 
-#Use getopts function to create the command-line options ([-a], [-b], [-o], and [-h])
+#Use getopts function to create the command-line options ([-i], [-d], and [-h])
 while getopts "i:d:h" opt;
 do
     case $opt in
-        #Specify input as arrays to allow multiple input arguments
-        i ) fastq=($OPTARG) ;;
 	#Specify input as variable to allow only one input argument
+        r ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
         #If user specifies [-h], print usage statement
         h ) usage ;;
