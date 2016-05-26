@@ -63,7 +63,7 @@ fi
 genes="$output/$(basename $BED .bed).bed"
 
 #Location of output files containing complement regions
-complement="$output/$(basename $BED .bed).bed"
+complement="$output/$(basename $BED .bed).complement.bed"
 
 #TRANSCRIPTION ANALYSIS
 
