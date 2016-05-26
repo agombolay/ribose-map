@@ -14,9 +14,9 @@ for strand in ${strands[@]}; do
         samples=""
         names=""
         for sample in ${SAMPLES[@]}; do
-            peakdir=$directory/ribose-seq/results/$samples/peaks
+            input=$directory/ribose-seq/results/$samples/peaks
             exp_name="$sample.align.$align_mode.strand.$strand"
-            peakbed="$peakdir/$exp_name""_peaks.narrowPeak"
+            peakbed="$input/$exp_name""_peaks.narrowPeak"
             samples="$samples $peakbed"
             names="$names $sample"
         done
