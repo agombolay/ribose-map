@@ -43,8 +43,8 @@ strands="+ -"
 #Input files for this script: sgdGene.bed and sacCer2.chrom.sizes from genome.ucsc.edu/index.html
 #Please see $HOME/data/ribose-seq/data/reference/downloadReferenceGenome.sh for more information
 
-#Location of file containing gene coordinates 
-BED=$directory/reference/$reference.bed
+#Location of file containing gene start/end positions
+BED=$directory/ribose-seq/data/reference/$reference.bed
 
 #Location of files containing sizes in base pairs of all the chromosomes
 chromosomeSizes=$directory/ribose-seq/data/reference/$reference.chrom.sizes
