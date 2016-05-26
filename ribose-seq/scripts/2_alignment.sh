@@ -37,9 +37,6 @@ then
         exit
 fi
 
-#Path to umitools Python script (umitools.py)
-path=/projects/home/agombolay3/.local/lib/python2.7/site-packages/umitools-2.1.1-py2.7.egg/umitools/
-
 #Align all of the input sequence data to the specified reference genome
 for samples in ${fastq[@]};
 do
@@ -90,7 +87,7 @@ do
 	#ALIGNMENT
 	
 	#1. Trim UMI from raw reads and compress output files
-	python2.7 $path/umitools.py trim $input $UMI | gzip -c > $umiTrimmed
+	python2.7 umitools.py trim $input $UMI | gzip -c > $umiTrimmed
 
 	#2. Align UMI trimmed reads to reference genome and output alignment statistics
 	zcat $umiTrimmed | bowtie -m 1 --sam $index - 2> $statistics 1> $intermediateSAM
@@ -116,7 +113,7 @@ do
 	samtools sort $intermediateBAM > $sortedBAM
 
 	#3. De-duplicate reads based on UMI's and compress BED files
-	python2.7 $path/umitools.py rmdup $sortedBAM $finalBAM | gzip -c > $BED
+	python2.7 umitools.py rmdup $sortedBAM $finalBAM | gzip -c > $BED
 	
 	#Ask the user if he/she would like to delete all of the intermediate files
 	echo "Would you like to delete all of the intermediate files for $samples? [y/n]"
