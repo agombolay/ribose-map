@@ -47,6 +47,7 @@ strands="+ -"
 BED=$directory/ribose-seq/data/reference/$reference.bed
 
 #Location of files containing sizes in base pairs of all the chromosomes
+#Notes: This file must be already sorted to be ready as input into bedtools
 chromosomeSizes=$directory/ribose-seq/data/reference/$reference.chrom.sizes
 
 #OUTPUT
