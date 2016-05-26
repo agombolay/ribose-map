@@ -60,10 +60,10 @@ then
 fi
 
 #Location of output files containing genes
-genes="$output/$(basename $BED .bed).nuclear.bed"
+genes="$output/$(basename $BED .bed).bed"
 
 #Location of output files containing complement regions
-complement="$output/$(basename $BED .bed).complement.bed"
+complement="$output/$(basename $BED .bed).bed"
 
 #TRANSCRIPTION ANALYSIS
 
