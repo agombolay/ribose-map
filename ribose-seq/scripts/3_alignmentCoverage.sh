@@ -6,7 +6,7 @@
 
 #COMMAND LINE OPTIONS
 
-#Name of the program (1_alignment.sh)
+#Name of the program (3_alignmentCoverage.sh)
 program=$0
 
 #Usage statement of the program
