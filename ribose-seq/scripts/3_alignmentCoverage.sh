@@ -44,8 +44,8 @@ do
 	#Location of BAM files
 	input=$directory/ribose-seq/results/$samples/alignment/$samples.bam
 	
-	#Location of files containing sizes in base pairs of chromosomes
-	chromosomeSizes=$directory/ribose-seq/data/$reference.chromosome.sizes
+	#Location of files containing sizes in base pairs of all the chromosomes
+	chromosomeSizes=$directory/ribose-seq/data/reference/$reference.chrom.sizes
 	
 	#OUTPUT
 	#Location of output "ribose-seq" bedgraphs directory
@@ -58,9 +58,9 @@ do
 	fi
 
 	#Location of output bedgraph files containing genome coverage information
-	BothStrands=$directory/ribose-seq/results/$samples/bedGraphs/$samples.bothStrands.coverage.bg
-	PositiveStrands=$directory/ribose-seq/results/$samples/bedGraphs/$samples.positiveStrands.coverage.bg
-	NegativeStrands=$directory/ribose-seq/results/$samples/bedGraphs/$samples.negativeStrands.coverage.bg
+	BothStrands=$directory/ribose-seq/results/$samples/bedgraphs/$samples.bothStrands.coverage.bg
+	PositiveStrands=$directory/ribose-seq/results/$samples/bedgraphs/$samples.positiveStrands.coverage.bg
+	NegativeStrands=$directory/ribose-seq/results/$samples/bedgraphs/$samples.negativeStrands.coverage.bg
 
 	#CALCULATE GENOME COVERAGE
 	bedtools genomecov -ibam $input -g $chromosomeSizes -5 -bg > $BothStrands
@@ -74,10 +74,13 @@ do
 	#"-strand": Calculate coverage of + or - strand
 	#"-ibam": Specify input file as BAM file format
 
+	LC_COLLATE=C sort -k1,1 -k2,2n $BothStrands > $(basename $BothStrands .bg).sorted.bg
+	LC_COLLATE=C sort -k1,1 -k2,2n $PositiveStrands > $(basename $PositiveStrands .bg).sorted.bg
+	LC_COLLATE=C sort -k1,1 -k2,2n $NegativeStrands > $(basename $NegativeStrands .bg).sorted.bg
 done
 
 #CREATE BIGWIG FILES
-for files in $(ls $output/*.bg);
+for files in $(ls $output/*.sorted.bg);
 do
 	#Change file extensions from .bg to .bw
 	bigWig="$output/$(basename $files .bg).bw"
