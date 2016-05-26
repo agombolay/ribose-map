@@ -16,8 +16,8 @@ function usage () {
           -d Location to save local Ribose-seq directory"
 }
 
-#Use getopts function to create the command-line options ([-i], [-d], and [-h])
-while getopts "i:d:h" opt;
+#Use getopts function to create the command-line options ([-r], [-d], and [-h])
+while getopts "r:d:h" opt;
 do
     case $opt in
 	#Specify input as variable to allow only one input argument
@@ -36,7 +36,7 @@ fi
 
 #INPUT
 #Location of file containing sequences of reference genome
-fasta=$directory/reference/$reference.fa
+fasta=$directory/ribose-seq/data/reference/$reference.fa
 
 #OUTPUT
 #Location of output "ribose-seq" backgroundNucleotideFrequencies directory
