@@ -1,30 +1,39 @@
 #! /usr/bin/env bash
 
+#Author: Alli Gombolay
+#This script generates summary tables of the peaks calling resulting from the "MACS2" program
+#Adapted from Jay Hesselberth's code located at https://github.com/hesselberthlab/modmap/tree/snake
+
 output=$directory/ribose-seq/results/peaksSummary
 
-if [[ ! -d $output ]]; then
+if [[ ! -d $output ]];
+then
     mkdir $output
 fi
 
-strands=("pos" "neg")
+strands=("positive" "negative")
 
-for strand in ${strands[@]}; do
-    for align_mode in ${ALIGN_MODES[@]}; do
+for strand in ${strands[@]};
+do
 
         samples=""
         names=""
+        
         for sample in ${SAMPLES[@]}; do
             input=$directory/ribose-seq/results/$samples/peaks
-            exp_name="$sample.align.$align_mode.strand.$strand"
-            peakbed="$input/$exp_name""_peaks.narrowPeak"
+            
+            experiment="$sample.strand.$strand"
+            
+            peakbed="$input/$experiment""_peaks.narrowPeak"
+            
             samples="$samples $peakbed"
+            
             names="$names $sample"
         done
 
-        result="$output/peaks_summary_table.align.$align_mode.strand.$strand.tab"
+        tables="$output/peaksSummary.$strand.strand.tab"
 
-        bedtools multiinter -i $samples -names $names \
-            -g $CHROM_SIZES \
-            > $output
+        bedtools multiinter -i $samples -names $names -g $chromosomeSizes > $tables
+        
     done
 done
