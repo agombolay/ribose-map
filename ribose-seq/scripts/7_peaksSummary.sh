@@ -22,17 +22,18 @@ do
         for sample in ${SAMPLES[@]}; do
             input=$directory/ribose-seq/results/$samples/peaks
             
-            experiment="$samples.${strands[index]}.strand"
+            experiment="$samples.$strand.strand"
             
-            peakbed="$input/$experiment""_peaks.narrowPeak"
+            Bed="$input/$experiment""_peaks.narrowPeak"
             
-            samples="$samples $peakbed"
+            samples="$samples $Bed"
             
             names="$names $sample"
         done
 
         tables="$output/peaksSummary.$strand.strand.tab"
 
+        Compares multiple files and identifies whether each file overlaps a given feature
         bedtools multiinter -i $samples -names $names -g $chromosomeSizes > $tables
         
     done
