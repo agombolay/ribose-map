@@ -47,7 +47,7 @@ strands="+ -"
 BED=$directory/reference/$reference.bed
 
 #Location of file containing chromosome sizes
-sizes=$directory/reference/$reference.chrom.sizes
+sizes=$directory/ribose-seq/data/reference/$reference.chrom.sizes
 
 #OUTPUT
 #Location of output "ribose-seq" alignment directory
