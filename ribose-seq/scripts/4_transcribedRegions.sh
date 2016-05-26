@@ -46,8 +46,8 @@ strands="+ -"
 #Location of file containing gene coordinates 
 BED=$directory/reference/$reference.bed
 
-#Location of file containing chromosome sizes
-sizes=$directory/ribose-seq/data/reference/$reference.chrom.sizes
+#Location of files containing sizes in base pairs of all the chromosomes
+chromosomeSizes=$directory/ribose-seq/data/reference/$reference.chrom.sizes
 
 #OUTPUT
 #Location of output "ribose-seq" alignment directory
@@ -88,7 +88,7 @@ done | bedtools sort -i - > $genes
 
 #Returns all genomic intervals not covered by at least one interval in input file
 #Next, sorts output and prints chromosome names, start and end positions of genes
-bedtools complement -i $genes -g $sizes | bedtools sort -i - |
+bedtools complement -i $genes -g $chromosomeSizes | bedtools sort -i - |
 awk 'BEGIN {OFS="\t"} {print $0, ".", ".", "."}' > $complement
 
 #Obtain genes on chromosome M
