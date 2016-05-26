@@ -22,7 +22,7 @@ do
         for sample in ${SAMPLES[@]}; do
             input=$directory/ribose-seq/results/$samples/peaks
             
-            experiment="$sample.strand.$strand"
+            experiment="$samples.${strands[index]}.strand"
             
             peakbed="$input/$experiment""_peaks.narrowPeak"
             
