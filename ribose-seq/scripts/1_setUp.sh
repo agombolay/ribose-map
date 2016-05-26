@@ -18,7 +18,7 @@ wget http://hgdownload.cse.ucsc.edu/goldenPath/sacCer2/bigZips/sacCer2.2bit
 #Contains length in base pairs of all 16 chromosomes, chr M, and 2micron plasmid
 wget http://hgdownload.cse.ucsc.edu/goldenPath/sacCer2/bigZips/sacCer2.chrom.sizes
 
-sort sacCer2.chrom.sizes > sacCer2.chrom.sizes
+sort sacCer2.chrom.sizes -o sacCer2.chrom.sizes
 
 #OR
 
