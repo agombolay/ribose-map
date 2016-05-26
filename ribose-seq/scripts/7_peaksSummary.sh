@@ -33,7 +33,10 @@ do
 
         tables="$output/peaksSummary.$strand.strand.tab"
 
-        Compares multiple files and identifies whether each file overlaps a given feature
+        #Compares multiple files and identifies whether each file overlaps a given feature
+        #"-i": Input BED files
+        #"-names": List of names to describe each input file
+        #"-g": Indicates to use genome file to calculate empty regions
         bedtools multiinter -i $samples -names $names -g $chromosomeSizes > $tables
         
     done
