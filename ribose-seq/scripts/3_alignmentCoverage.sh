@@ -74,6 +74,10 @@ do
 	#"-strand": Calculate coverage of + or - strand
 	#"-ibam": Specify input file as BAM file format
 
+	#Change current directory to location of output bedgraph files
+	cd $output
+	
+	#Sort the chromosomes to prepare the bedgraph files for bedGraphToBigWig
 	LC_COLLATE=C sort -k1,1 -k2,2n $BothStrands > $(basename $BothStrands .bg).sorted.bg
 	LC_COLLATE=C sort -k1,1 -k2,2n $PositiveStrands > $(basename $PositiveStrands .bg).sorted.bg
 	LC_COLLATE=C sort -k1,1 -k2,2n $NegativeStrands > $(basename $NegativeStrands .bg).sorted.bg
