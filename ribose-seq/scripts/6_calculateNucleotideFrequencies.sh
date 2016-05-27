@@ -45,7 +45,7 @@ do
 
         if [[ $ignore_mode == "only-mito" ]];
         then
-            BKGD_FREQS="$RESULT/backgroundNucleotideFrequencies/chrM.nucleotide.frequencies.tab"
+            BackgroundFrequencies="$RESULT/backgroundNucleotideFrequencies/chrM.nucleotide.frequencies.tab"
         
         elif [[ $ignore_mode == "only-2micron" ]];
         then
