@@ -5,9 +5,9 @@ ignore_modes=("all" "only-mito" "no-mito" "only-2micron")
 input=$directory/ribose-seq/results/$samples/nucleotideFrequencies/
 output="$directory/ribose-seq/results/$samples/plots/nucleotideFrequencies"
 
-if [[ ! -d $subplotdir ]];
+if [[ ! -d $output ]];
 then
-  mkdir -p $subplotdir
+  mkdir -p $output
 fi
 
 for index in ${!ignore_modes[@]};
