@@ -24,7 +24,7 @@ do
   for value in ${offset_values[@]};
   do
     sampleID="$sample.subset-$ignore_mode"
-    tables="input/$sample.ignore.$ignore_mode.nucleotideFrequencies.tab"
+    tables="input/$sample.$ignore_mode.nucleotideFrequencies.tab"
     Rscript nucleotideFrequencies.R -n "$sampleID" -d $output --offsetmax $value $tables
   done
 
