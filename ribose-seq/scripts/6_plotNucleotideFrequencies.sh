@@ -1,10 +1,9 @@
-output=$directory/ribose-seq/results/$sample/plots
-
 ignore_modes=("all" "only-mito" "no-mito" "only-2micron")
 
 offset_values=(100 50 15)
 
-subplotdir="$output/nucleotideFrequencies"
+output=$directory/ribose-seq/results/$sample/plots
+subPlotDirectory="$output/nucleotideFrequencies"
 
 if [[ ! -d $subplotdir ]];
 then
@@ -20,9 +19,9 @@ do
   do
     tables="$directory/ribose-seq/results/nucleotideFrequencies/$sample.ignore.$ignore_mode.nucleotideFrequencies.tab"
     
-    sampleid="$sample.align-$align_mode.subset-$ignore_mode"
+    sampleID="$sample.subset-$ignore_mode"
     
-    Rscript $RSCRIPTS/nuc.freqs.R -n "$sampleid" -d $subplotdir --offsetmax $offset_values $counts
+    Rscript $RSCRIPTS/nuc.freqs.R -n "$sampleID" -d $subPlotDirectory --offsetmax $offset_values $tables
   done
 
 done
