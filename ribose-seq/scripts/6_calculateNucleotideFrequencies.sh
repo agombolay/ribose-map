@@ -1,5 +1,9 @@
 #! /usr/bin/env bash
 
+#Author: Alli Gombolay
+#This program calculates the frequencies of the nucleotides located in the assembled samples.
+#Adapted from Jay Hesselberth's code located at https://github.com/hesselberthlab/modmap/tree/snake
+
 # mononucleotides, dinucleotides, and trinucleotides
 sizes="1 2 3"
 
