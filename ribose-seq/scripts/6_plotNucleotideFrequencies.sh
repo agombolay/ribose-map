@@ -1,3 +1,9 @@
+#! /usr/bin/env bash
+
+#Author: Alli Gombolay
+#This program plots the frequencies of the nucleotides located in the assembled samples.
+#Adapted from Jay Hesselberth's code located at https://github.com/hesselberthlab/modmap/tree/snake
+
 offset_values=(100 50 15)
 
 ignore_modes=("all" "only-mito" "no-mito" "only-2micron")
