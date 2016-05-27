@@ -2,8 +2,7 @@ ignore_modes=("all" "only-mito" "no-mito" "only-2micron")
 
 offset_values=(100 50 15)
 
-output=$directory/ribose-seq/results/$samples/plots
-subPlotDirectory="$output/nucleotideFrequencies"
+output="$directory/ribose-seq/results/$samples/plots/nucleotideFrequencies"
 
 input=$directory/ribose-seq/results/$samples/nucleotideFrequencies/
 
@@ -21,7 +20,7 @@ do
   do
     sampleID="$sample.subset-$ignore_mode"
     tables="input/$sample.ignore.$ignore_mode.nucleotideFrequencies.tab"
-    Rscript nucleotideFrequencies.R -n "$sampleID" -d $subPlotDirectory --offsetmax $offset_values $tables
+    Rscript nucleotideFrequencies.R -n "$sampleID" -d $output --offsetmax $offset_values $tables
   done
 
 done
