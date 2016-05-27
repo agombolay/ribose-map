@@ -1,20 +1,5 @@
 #! /usr/bin/env bash
 
-#BSUB -J nuc.freqs[1-13]
-#BSUB -e nuc.freqs.%J.%I.err
-#BSUB -o nuc.freqs.%J.%I.out
-#BSUB -q normal
-#BSUB -P storici
-
-<<DOC
-Calculate nucleotide frequencies
-DOC
-
-set -o nounset -o pipefail -o errexit -x
-
-source $CONFIG
-sample=${SAMPLES[$(($LSB_JOBINDEX - 1))]}
-
 # mono, di and trinucleotides
 sizes="1 2 3"
 
