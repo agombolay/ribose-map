@@ -51,8 +51,8 @@ maximumPeakLength=5000
 #Location of narrowPeak table
 asFile=$directory/ribose-seq/data/narrowPeak.as
 
-#Location of file containing chromosome sizes
-sizes=$directory/ribose-seq/data/reference/$reference.chrom.sizes
+#Location of files containing sizes in base pairs of all the chromosomes
+chromosomeSizes=$directory/ribose-seq/data/reference/$reference.chrom.sizes
 
 for samples in ${BAM[@]};
 do
@@ -113,6 +113,6 @@ do
             		awk -v maxlen=$maximumPeakLength '$3 - $2 < maxlen' > $narrowPeak_temporary
         		mv $narrowPeak_temporary $narrowPeak
         
-        		bedToBigBed -type=bed6+4 -as=$asFile $narrowpeak $sizes $bigBed
+        		bedToBigBed -type=bed6+4 -as=$asFile $narrowpeak $chromosomeSizes $bigBed
 		done
 done
