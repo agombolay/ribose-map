@@ -59,7 +59,7 @@ do
         for size in $sizes;
         do
             python -m modmap.nuc_frequencies $BAM $FASTA --region-size $size $ignore_arguments --revcomp-strand \
-            --background-freq-table $BackgroundFrequencies --offset-min $offset_minimum --offset-max $offset_maximum
+            --background-freq-table $BackgroundFrequencies --offset-min $offset_minimum --offset-max $offset_maximum \
             --verbose >> $output
         done
     
