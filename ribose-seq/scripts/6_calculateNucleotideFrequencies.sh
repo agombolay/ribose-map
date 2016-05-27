@@ -8,7 +8,13 @@
 sizes="1 2 3"
 
 ignore_modes=("all" "only-mito" "no-mito" "only-2micron")
+
 ignore_arguments=("" "--only-chrom chrM" "--ignore-chrom chrM" "--only-chrom 2micron")
+
+#""= Entire genome ("all")
+#"--only-chrom chrM"= Only chrM ("only-mito")
+#"--only-chrom 2micron"=Only 2micron plasmid ("only-2micron")
+#"--ignore-chrom chrM"= Nuclear chromosomes and 2micron plasmid ("no-mito")
 
 input=$directory/ribose-seq/results/$samples/alignment
 
