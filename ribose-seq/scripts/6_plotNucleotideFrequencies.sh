@@ -21,7 +21,7 @@ do
     
     sampleID="$sample.subset-$ignore_mode"
     
-    Rscript $RSCRIPTS/nuc.freqs.R -n "$sampleID" -d $subPlotDirectory --offsetmax $offset_values $tables
+    Rscript nucleotideFrequencies.R -n "$sampleID" -d $subPlotDirectory --offsetmax $offset_values $tables
   done
 
 done
