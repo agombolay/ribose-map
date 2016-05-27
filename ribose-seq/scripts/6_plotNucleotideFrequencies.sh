@@ -5,6 +5,8 @@ offset_values=(100 50 15)
 output=$directory/ribose-seq/results/$sample/plots
 subPlotDirectory="$output/nucleotideFrequencies"
 
+input=$directory/ribose-seq/results/$samples/nucleotideFrequencies/
+
 if [[ ! -d $subplotdir ]];
 then
   mkdir -p $subplotdir
@@ -18,7 +20,7 @@ do
   for offset_max in ${offset_maxs[@]};
   do
     sampleID="$sample.subset-$ignore_mode"
-    tables="$directory/ribose-seq/results/nucleotideFrequencies/$sample.ignore.$ignore_mode.nucleotideFrequencies.tab"
+    tables="input/$sample.ignore.$ignore_mode.nucleotideFrequencies.tab"
     Rscript nucleotideFrequencies.R -n "$sampleID" -d $subPlotDirectory --offsetmax $offset_values $tables
   done
 
