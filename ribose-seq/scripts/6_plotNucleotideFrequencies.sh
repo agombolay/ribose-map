@@ -2,7 +2,7 @@ ignore_modes=("all" "only-mito" "no-mito" "only-2micron")
 
 offset_values=(100 50 15)
 
-output=$directory/ribose-seq/results/$sample/plots
+output=$directory/ribose-seq/results/$samples/plots
 subPlotDirectory="$output/nucleotideFrequencies"
 
 input=$directory/ribose-seq/results/$samples/nucleotideFrequencies/
