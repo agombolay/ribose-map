@@ -17,10 +17,10 @@ fi
 offset_minimum=-100
 offset_maximum=100
 
-
 BAM=$input/$sample.bam
 
-for index in ${!ignore_modes[@]}; do
+for index in ${!ignore_modes[@]};
+do
 
         ignore_mode=${ignore_modes[$index]}
         
