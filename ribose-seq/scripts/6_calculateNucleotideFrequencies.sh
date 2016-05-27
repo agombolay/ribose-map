@@ -45,14 +45,14 @@ do
 
         if [[ $ignore_mode == "only-mito" ]];
         then
-            BackgroundFrequencies="$RESULT/backgroundNucleotideFrequencies/chrM.nucleotide.frequencies.tab"
+            BackgroundFrequencies="$output/backgroundNucleotideFrequencies/chrM.nucleotide.frequencies.tab"
         
         elif [[ $ignore_mode == "only-2micron" ]];
         then
-            BackgroundFrequencies="$RESULT/backgroundNucleotideFrequencies/2micron.nucleotide.frequencies.tab"
+            BackgroundFrequencies="$utput/backgroundNucleotideFrequencies/2micron.nucleotide.frequencies.tab"
         
         else
-            BackgroundFrequencies="$RESULT/backgroundNucleotideFrequencies/genome.nucleotide.frequencies.tab"
+            BackgroundFrequencies="$utput/backgroundNucleotideFrequencies/genome.nucleotide.frequencies.tab"
         fi
 
         #Signals need to be reverse complemented since sequence is reverse complement of the captured strand
