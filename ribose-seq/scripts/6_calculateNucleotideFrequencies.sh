@@ -10,9 +10,9 @@ sizes="1 2 3"
 ignore_modes=("all" "only-mito" "no-mito" "only-2micron")
 ignore_arguments=("" "--only-chrom chrM" "--ignore-chrom chrM" "--only-chrom 2micron")
 
-input=$directory/ribose-seq/data/$sample/alignment
+input=$directory/ribose-seq/results/$sample/alignment
 
-output=$directory/ribose-seq/data/$sample/nucleotideFrequencies
+output=$directory/ribose-seq/results/$sample/nucleotideFrequencies
 
 if [[ ! -d $output ]]; then
     mkdir -p $output
