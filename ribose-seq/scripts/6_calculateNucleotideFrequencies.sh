@@ -3,64 +3,55 @@
 # mono, di and trinucleotides
 sizes="1 2 3"
 
-if [[ $ASSEMBLY == "sacCer2" ]]; then
-    ignore_modes=("all" "only-mito" "no-mito" "only-2micron")
-    ignore_args=("" "--only-chrom chrM"
-                 "--ignore-chrom chrM"
-                 "--only-chrom 2micron")
-else
-    ignore_modes=("all" "only-mito" "no-mito")
-    ignore_args=("" "--only-chrom chrM"
-                 "--ignore-chrom chrM")
-fi
 
-aligndir=$RESULT/$sample/alignment
-results=$RESULT/$sample/nuc_freqs
-if [[ ! -d $results ]]; then
-    mkdir -p $results
-fi
+ignore_modes=("all" "only-mito" "no-mito" "only-2micron")
+ignore_args=("" "--only-chrom chrM" "--ignore-chrom chrM" "--only-chrom 2micron")
 
-# need to be in BIN to run module
-cd $BIN
+input=$directory/ribose-seq/data/$sample/alignment
+
+output=$directory/ribose-seq/data/$sample/nucleotideFrequencies
+
+if [[ ! -d $output ]]; then
+    mkdir -p $output
+fi
 
 offset_min=-100
 offset_max=100
 
-for aln_idx in ${!ALIGN_MODES[@]}; do
-    align_mode=${ALIGN_MODES[$aln_idx]}
-    BAM=$aligndir/$sample.align.$align_mode.bam
 
-    for ig_idx in ${!ignore_modes[@]}; do
+BAM=$input/$sample.bam
 
-        ignore_mode=${ignore_modes[$ig_idx]}
-        ignore_arg=${ignore_args[$ig_idx]}
+for index in ${!ignore_modes[@]}; do
 
-        output="$results/$sample.align.$align_mode.ignore.$ignore_mode.nuc_freqs.tab"
-        if [[ -f $output ]]; then
-            rm -f $output
+        ignore_mode=${ignore_modes[$index]}
+        
+        ignore_arg=${ignore_args[$index]}
+
+        tables="$output/$sample.ignore.$ignore_mode.nucleotideFrequencies.tab"
+        
+        if [[ -f $tables ]];
+        then
+            rm -f $tables
         fi
 
-        if [[ $ignore_mode == "only-mito" ]]; then
-            BKGD_FREQS="$RESULT/background_nuc_freqs/$ASSEMBLY.chrM.nuc.freqs.tab"
-        elif [[ $ignore_mode == "only-2micron" ]]; then
-            BKGD_FREQS="$RESULT/background_nuc_freqs/$ASSEMBLY.2micron.nuc.freqs.tab"
+        if [[ $ignore_mode == "only-mito" ]];
+        then
+            BKGD_FREQS="$RESULT/background_nuc_freqs/chrM.nuc.freqs.tab"
+        
+        elif [[ $ignore_mode == "only-2micron" ]];
+        then
+            BKGD_FREQS="$RESULT/background_nuc_freqs/2micron.nuc.freqs.tab"
+        
         else
-            BKGD_FREQS="$RESULT/background_nuc_freqs/$ASSEMBLY.genome.nuc.freqs.tab"
+            BKGD_FREQS="$RESULT/background_nuc_freqs/genome.nuc.freqs.tab"
         fi
 
-        # signals need to be reverse complemented because the sequence is
-        # the reverse complement of the captured strand
-        for size in $sizes; do
-            python -m modmap.nuc_frequencies \
-                $BAM $FASTA \
-                --region-size $size \
-                $ignore_arg \
-                --revcomp-strand \
-                --background-freq-table $BKGD_FREQS \
-                --offset-min $offset_min \
-                --offset-max $offset_max \
-                --verbose \
-                >> $output
+        #Signals need to be reverse complemented since the sequence is the reverse complement of the captured strand
+        for size in $sizes;
+        do
+            python -m modmap.nuc_frequencies $BAM $FASTA --region-size $size $ignore_arg --revcomp-strand \
+            --background-freq-table $BKGD_FREQS --offset-min $offset_min --offset-max $offset_max --verbose \
+            >> $output
         done
-    done
+    
 done
