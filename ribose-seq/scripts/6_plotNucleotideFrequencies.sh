@@ -1,10 +1,9 @@
-ignore_modes=("all" "only-mito" "no-mito" "only-2micron")
-
 offset_values=(100 50 15)
 
-output="$directory/ribose-seq/results/$samples/plots/nucleotideFrequencies"
+ignore_modes=("all" "only-mito" "no-mito" "only-2micron")
 
 input=$directory/ribose-seq/results/$samples/nucleotideFrequencies/
+output="$directory/ribose-seq/results/$samples/plots/nucleotideFrequencies"
 
 if [[ ! -d $subplotdir ]];
 then
