@@ -15,11 +15,11 @@ do
 
   ignore_mode=${ignore_modes[$index]}
 
-  for offset_max in ${offset_maxs[@]};
+  for values in ${offset_values[@]};
   do
     sampleID="$sample.subset-$ignore_mode"
     tables="input/$sample.ignore.$ignore_mode.nucleotideFrequencies.tab"
-    Rscript nucleotideFrequencies.R -n "$sampleID" -d $output --offsetmax $offset_values $tables
+    Rscript nucleotideFrequencies.R -n "$sampleID" -d $output --offsetmax $values $tables
   done
 
 done
