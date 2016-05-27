@@ -1,8 +1,7 @@
 #! /usr/bin/env bash
 
-# mono, di and trinucleotides
+# mononucleotides, dinucleotides, and trinucleotides
 sizes="1 2 3"
-
 
 ignore_modes=("all" "only-mito" "no-mito" "only-2micron")
 ignore_arguments=("" "--only-chrom chrM" "--ignore-chrom chrM" "--only-chrom 2micron")
