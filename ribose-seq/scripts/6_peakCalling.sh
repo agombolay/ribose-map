@@ -49,10 +49,10 @@ flags=("-F 0x10" "-f 0x10")
 maximumPeakLength=5000
 
 #Location of narrowPeak table
-asFile=$directory/narrowPeak.as
+asFile=$directory/ribose-seq/data/narrowPeak.as
 
 #Location of file containing chromosome sizes
-sizes=$directory/reference/$reference.chrom.sizes
+sizes=$directory/ribose-seq/data/reference/$reference.chrom.sizes
 
 for samples in ${BAM[@]};
 do
@@ -66,7 +66,7 @@ do
 	
 	#INPUT
 	#Location of input BAM files
-	input=$inputDirectory/$samples.final.bam
+	input=$inputDirectory/$samples.bam
 	
 	#OUTPUT
 	#Location of output "ribose-seq" peaks directory
