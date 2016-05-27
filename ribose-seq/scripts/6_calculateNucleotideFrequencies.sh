@@ -49,10 +49,10 @@ do
         
         elif [[ $ignore_mode == "only-2micron" ]];
         then
-            BackgroundFrequencies="$utput/backgroundNucleotideFrequencies/2micron.nucleotide.frequencies.tab"
+            BackgroundFrequencies="$output/backgroundNucleotideFrequencies/2micron.nucleotide.frequencies.tab"
         
         else
-            BackgroundFrequencies="$utput/backgroundNucleotideFrequencies/genome.nucleotide.frequencies.tab"
+            BackgroundFrequencies="$output/backgroundNucleotideFrequencies/genome.nucleotide.frequencies.tab"
         fi
 
         #Signals need to be reverse complemented since sequence is reverse complement of the captured strand
