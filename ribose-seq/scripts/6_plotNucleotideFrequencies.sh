@@ -1,21 +1,25 @@
+output=$directory/ribose-seq/data/$sample/plots
+
 # for nuc freq plots
 offset_maxs=(100 50 15)
 
-subplotdir="$plotdir/nuc_freqs"
+subplotdir="$output/nucleotideFrequencies"
 
 if [[ ! -d $subplotdir ]];
 then
   mkdir -p $subplotdir
 fi
 
-for ig_idx in ${!ignore_modes[@]};
+for index in ${!ignore_modes[@]};
 do
-  ignore_mode=${ignore_modes[$ig_idx]}
 
-    for offset_max in ${offset_maxs[@]};
-    do
-      counts="$results/nuc_freqs/$sample.align.$align_mode.ignore.$ignore_mode.nuc_freqs.tab"
-      sampleid="$sample.align-$align_mode.subset-$ignore_mode"
+  ignore_mode=${ignore_modes[$index]}
 
-      Rscript $RSCRIPTS/nuc.freqs.R -n "$sampleid" -d $subplotdir --offsetmax $offset_max $counts
-    done
+  for offset_max in ${offset_maxs[@]};
+  do
+    tables="$directory/ribose-seq/results/nucleotideFrequencies/$sample.ignore.$ignore_mode.nucleotideFrequencies.tab"
+    sampleid="$sample.align-$align_mode.subset-$ignore_mode"
+    Rscript $RSCRIPTS/nuc.freqs.R -n "$sampleid" -d $subplotdir --offsetmax $offset_max $counts
+  done
+
+done
