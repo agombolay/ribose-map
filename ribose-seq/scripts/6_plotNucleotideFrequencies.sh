@@ -17,10 +17,8 @@ do
 
   for offset_max in ${offset_maxs[@]};
   do
-    tables="$directory/ribose-seq/results/nucleotideFrequencies/$sample.ignore.$ignore_mode.nucleotideFrequencies.tab"
-    
     sampleID="$sample.subset-$ignore_mode"
-    
+    tables="$directory/ribose-seq/results/nucleotideFrequencies/$sample.ignore.$ignore_mode.nucleotideFrequencies.tab"
     Rscript nucleotideFrequencies.R -n "$sampleID" -d $subPlotDirectory --offsetmax $offset_values $tables
   done
 
