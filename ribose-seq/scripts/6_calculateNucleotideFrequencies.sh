@@ -48,14 +48,14 @@ do
 
         if [[ $mode == "only-mitochondria" ]];
         then
-            BackgroundFrequencies="$output/backgroundNucleotideFrequencies/chrM.nucleotide.frequencies.tab"
+            BackgroundFrequencies="$output/backgroundNucleotideFrequencies/$reference.chrM.nucleotide.frequencies.tab"
         
         elif [[ $mode == "only-2micron" ]];
         then
-            BackgroundFrequencies="$output/backgroundNucleotideFrequencies/2micron.nucleotide.frequencies.tab"
+            BackgroundFrequencies="$output/backgroundNucleotideFrequencies/$reference.2micron.nucleotide.frequencies.tab"
         
         else
-            BackgroundFrequencies="$output/backgroundNucleotideFrequencies/genome.nucleotide.frequencies.tab"
+            BackgroundFrequencies="$output/backgroundNucleotideFrequencies/$reference.genome.nucleotide.frequencies.tab"
         fi
 
         #Signals need to be reverse complemented since sequence is reverse complement of the captured strand
