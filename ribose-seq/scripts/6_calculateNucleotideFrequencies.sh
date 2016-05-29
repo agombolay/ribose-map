@@ -7,7 +7,7 @@
 # Mononucleotides, dinucleotides, and trinucleotides
 sizes="1 2 3"
 
-modes=("all" "only-mito" "no-mito" "only-2micron")
+modes=("all" "only-mitochondria" "no-mitochondria" "only-2micron")
 
 arguments=("" "--only-chrom chrM" "--ignore-chrom chrM" "--only-chrom 2micron")
 
