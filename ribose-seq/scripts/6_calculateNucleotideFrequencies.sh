@@ -21,8 +21,8 @@ do
     case $opt in
 	#Specify input as variable to allow only one input argument
 	d ) directory=$OPTARG ;;
-    #If user specifies [-h], print usage statement
-    h ) usage ;;
+    	#If user specifies [-h], print usage statement
+    	h ) usage ;;
     esac
 done
 
