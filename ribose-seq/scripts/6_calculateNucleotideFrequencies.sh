@@ -76,14 +76,14 @@ do
 
         if [[ $mode == "only-mitochondria" ]];
         then
-            BackgroundFrequencies="$output/backgroundNucleotideFrequencies/$reference.chrM.nucleotide.frequencies.tab"
+            BackgroundFrequencies="$directory/ribose-seq/results/backgroundNucleotideFrequencies/$reference.chrM.nucleotide.frequencies.tab"
         
         elif [[ $mode == "only-2micron" ]];
         then
-            BackgroundFrequencies="$output/backgroundNucleotideFrequencies/$reference.2micron.nucleotide.frequencies.tab"
+            BackgroundFrequencies="$directory/ribose-seq/results/backgroundNucleotideFrequencies/$reference.2micron.nucleotide.frequencies.tab"
         
         else
-            BackgroundFrequencies="$output/backgroundNucleotideFrequencies/$reference.genome.nucleotide.frequencies.tab"
+            BackgroundFrequencies="$directory/ribose-seq/results/backgroundNucleotideFrequencies/$reference.genome.nucleotide.frequencies.tab"
         fi
 
         #Signals need to be reverse complemented since sequence is reverse complement of the captured strand
@@ -91,7 +91,7 @@ do
         do
             python2.7 6_calculateNucleotideFrequencies.py $BAM $FASTA --region-size $size $arguments --revcomp-strand \
             --background-freq-table $BackgroundFrequencies --offset-min $offset_minimum --offset-max $offset_maximum \
-            --verbose >> $output
+            --verbose >> $tables
         done
     
 done
