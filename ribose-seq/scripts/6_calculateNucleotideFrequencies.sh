@@ -4,6 +4,34 @@
 #This program calculates the frequencies of the nucleotides located in the assembled samples.
 #Adapted from Jay Hesselberth's code located at https://github.com/hesselberthlab/modmap/tree/snake
 
+#COMMAND LINE OPTIONS
+
+#Name of the program (2_alignment.sh)
+program=$0
+
+#Usage statement of the program
+function usage () {
+        echo "Usage: $program [-d] 'Ribose-seq directory' [-h]
+          -d Location to save local Ribose-seq directory"
+}
+
+#Use getopts function to create the command-line options ([-i], [-b], [-d], and [-h])
+while getopts "d:h" opt;
+do
+    case $opt in
+	#Specify input as variable to allow only one input argument
+	d ) directory=$OPTARG ;;
+    #If user specifies [-h], print usage statement
+    h ) usage ;;
+    esac
+done
+
+#Exit program if user specifies [-h]
+if [ "$1" == "-h" ];
+then
+        exit
+fi
+
 # Mononucleotides, dinucleotides, and trinucleotides
 sizes="1 2 3"
 
