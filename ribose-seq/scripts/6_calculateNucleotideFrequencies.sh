@@ -30,7 +30,7 @@ offset_maximum=100
 BAM=$input/$sample.bam
 
 #Location of file containing sequences of reference genome
-fasta=$directory/ribose-seq/data/reference/$reference.fa
+FASTA=$directory/ribose-seq/data/reference/$reference.fa
 
 for index in ${!modes[@]};
 do
