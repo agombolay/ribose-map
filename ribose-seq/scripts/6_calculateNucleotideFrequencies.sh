@@ -35,9 +35,9 @@ FASTA=$directory/ribose-seq/data/reference/$reference.fa
 for index in ${!modes[@]};
 do
 
-        mode=${ignore_modes[$index]}
+        mode=${modes[$index]}
         
-        arguments=${ignore_args[$index]}
+        argument=${arguments[$index]}
 
         tables="$output/$sample.$mode.nucleotideFrequencies.tab"
         
@@ -46,7 +46,7 @@ do
             rm -f $tables
         fi
 
-        if [[ $mode == "only-mito" ]];
+        if [[ $mode == "only-mitochondria" ]];
         then
             BackgroundFrequencies="$output/backgroundNucleotideFrequencies/chrM.nucleotide.frequencies.tab"
         
