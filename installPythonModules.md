@@ -15,10 +15,18 @@ python setup.py install --user
 
 ###Pyfaidx
 
+```
 wget https://pypi.python.org/packages/9f/e6/e745e065c291b25e3fd025360edfe6289c2ee35ffa9375e85708612ca820/pyfaidx-0.4.7.1.tar.gz
+```
+```
 tar -zxvf pyfaidx-0.4.7.1.tar.gz 
+```
+```
 cd pyfaidx-0.4.7.1
+```
+```
 python setup.py install --user
+```
 
 ###Pybedtools
 
