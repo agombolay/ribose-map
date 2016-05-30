@@ -25,7 +25,7 @@ do
   for value in ${offset_values[@]};
   do
     
-    sampleID="$sample.subset-$ignore_mode"
+    sampleID="$sample.subset-$mode"
     
     tables="input/$sample.$mode.nucleotideFrequencies.tab"
     
