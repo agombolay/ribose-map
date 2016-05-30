@@ -21,7 +21,10 @@ function usage () {
 while getopts "d:h" opt;
 do
     case $opt in
+	 #Specify input as arrays to allow multiple input arguments
+        i ) names=($OPTARG) ;;
 	#Specify input as variable to allow only one input argument
+	r ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
     	#If user specifies [-h], print usage statement
     	h ) usage ;;
