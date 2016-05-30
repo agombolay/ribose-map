@@ -1,9 +1,17 @@
 ###Toolshed
 
+```
 wget https://pypi.python.org/packages/2e/97/f9a1a64d70e47d1c0d84a1a6671ba7828b7f99df09ab83103b8cce838406/toolshed-0.4.5.tar.gz
+```
+```
 tar -zxvf toolshed-0.4.5.tar.gz 
+```
+```
 cd toolshed-0.4.5
+```
+```
 python setup.py install --user
+```
 
 ###Pyfaidx
 
