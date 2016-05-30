@@ -1,4 +1,4 @@
-#Instructions to install Python modules required for Ribose-seq Pipeline
+#Instructions to install required Python modules
 
 ###Toolshed
 
