@@ -30,14 +30,30 @@ python setup.py install --user
 
 ###Pybedtools
 
+```
 wget https://pypi.python.org/packages/c2/a6/29fd41e86b38e7ca39eb7818c422e927534f2bd324c34cfd411cfca203b0/pybedtools-0.7.7.tar.gz
+```
+```
 tar -zxvf pybedtools-0.7.7.tar.gz 
+```
+```
 cd pybedtools-0.7.7
+```
+```
 python setup.py install --user
+```
 
 #Pandas
 
+```
 wget https://pypi.python.org/packages/11/09/e66eb844daba8680ddff26335d5b4fead77f60f957678243549a8dd4830d/pandas-0.18.1.tar.gz
+```
+```
 tar -zxvf pandas-0.18.1.tar.gz
+```
+```
 cd pandas-0.18.1
+```
+```
 python setup.py install --user
+```
