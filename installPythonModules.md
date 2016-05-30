@@ -2,6 +2,7 @@
 
 ###References
 * [Installing Python modules] (https://docs.python.org/2/install/)
+* [Using "--user" flag to install] (http://stackoverflow.com/questions/18199853/error-could-not-create-library-python-2-7-site-packages-xlrd-permission-den)
 
 ###Toolshed
 
