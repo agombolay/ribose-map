@@ -12,7 +12,9 @@ program=$0
 #Usage statement of the program
 function usage () {
         echo "Usage: $program [-d] 'Ribose-seq directory' [-h]
-          -d Location to save local Ribose-seq directory"
+        -i Sample names of input BAM files (i.e, sample1 for sample1.bam)
+        -r File containing sizes in base pairs of chromosomes (i.e, sacCer2)
+        -d Location to save local Ribose-seq directory"
 }
 
 #Use getopts function to create the command-line options ([-d] and [-h])
