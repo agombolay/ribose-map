@@ -11,7 +11,7 @@ program=$0
 
 #Usage statement of the program
 function usage () {
-        echo "Usage: $program [-d] 'Ribose-seq directory' [-h]
+        echo "Usage: $program [-i] 'sample1 etc.' [-r] 'reference genome' [-d] 'Ribose-seq directory' [-h]
         -i Sample names of input BAM files (i.e, sample1 for sample1.bam)
         -r File containing sizes in base pairs of chromosomes (i.e, sacCer2)
         -d Location to save local Ribose-seq directory"
