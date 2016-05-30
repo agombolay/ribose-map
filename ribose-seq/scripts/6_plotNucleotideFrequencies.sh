@@ -6,7 +6,7 @@
 
 offset_values=(100 50 15)
 
-modes=("all" "only-mito" "no-mito" "only-2micron")
+modes=("all" "only-mitochondria" "no-mitochondria" "only-2micron")
 
 input=$directory/ribose-seq/results/$samples/nucleotideFrequencies/
 
