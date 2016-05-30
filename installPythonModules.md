@@ -1,5 +1,8 @@
 #Instructions to install required Python modules
 
+###References
+* [Installing Python modules] (https://docs.python.org/2/install/)
+
 ###Toolshed
 
 ```
