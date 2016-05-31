@@ -4,6 +4,38 @@
 #This program plots the frequencies of the nucleotides located in the assembled samples.
 #Adapted from Jay Hesselberth's code located at https://github.com/hesselberthlab/modmap/tree/snake
 
+#COMMAND LINE OPTIONS
+
+#Name of the program (6_calculateNucleotideFrequencies.sh)
+program=$0
+
+#Usage statement of the program
+function usage () {
+        echo "Usage: $program [-i] 'sample1 etc.' [-d] 'Ribose-seq directory' [-h]
+        -i Sample names of input BAM files (i.e, sample1 for sample1.bam)
+        -r File containing sizes in base pairs of chromosomes (i.e, sacCer2)
+        -d Location to save local Ribose-seq directory"
+}
+
+#Use getopts function to create the command-line options ([-d] and [-h])
+while getopts "d:h" opt;
+do
+    case $opt in
+	 #Specify input as arrays to allow multiple input arguments
+        i ) names=($OPTARG) ;;
+	#Specify input as variable to allow only one input argument
+	d ) directory=$OPTARG ;;
+    	#If user specifies [-h], print usage statement
+    	h ) usage ;;
+    esac
+done
+
+#Exit program if user specifies [-h]
+if [ "$1" == "-h" ];
+then
+        exit
+fi
+
 offset_values=(100 50 15)
 
 modes=("all" "only-mitochondria" "no-mitochondria" "only-2micron")
