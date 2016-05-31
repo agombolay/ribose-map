@@ -13,15 +13,14 @@ program=$0
 function usage () {
         echo "Usage: $program [-i] 'sample1 etc.' [-d] 'Ribose-seq directory' [-h]
         -i Sample names of input BAM files (i.e, sample1 for sample1.bam)
-        -r File containing sizes in base pairs of chromosomes (i.e, sacCer2)
         -d Location to save local Ribose-seq directory"
 }
 
 #Use getopts function to create the command-line options ([-d] and [-h])
-while getopts "d:h" opt;
+while getopts "i:d:h" opt;
 do
     case $opt in
-	 #Specify input as arrays to allow multiple input arguments
+    	#Specify input as arrays to allow multiple input arguments
         i ) names=($OPTARG) ;;
 	#Specify input as variable to allow only one input argument
 	d ) directory=$OPTARG ;;
