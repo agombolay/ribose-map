@@ -60,7 +60,7 @@ do
     
     tables="$input/$sample.$mode.nucleotideFrequencies.tab"
     
-    Rscript 6_nucleotideFrequencies.R -n "$sampleID" -d $output --offsetmax $value $tables
+    Rscript 6_plotNucleotideFrequencies.R -n "$sampleID" -d $output --offsetmax $value $tables
     
   done
 
