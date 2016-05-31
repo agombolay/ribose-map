@@ -21,7 +21,7 @@ while getopts "i:d:h" opt;
 do
     case $opt in
     	#Specify input as arrays to allow multiple input arguments
-        i ) names=($OPTARG) ;;
+        i ) samples=($OPTARG) ;;
 	#Specify input as variable to allow only one input argument
 	d ) directory=$OPTARG ;;
     	#If user specifies [-h], print usage statement
@@ -56,9 +56,9 @@ do
   for value in ${offset_values[@]};
   do
     
-    sampleID="$sample.subset-$mode"
+    sampleID="$samples.subset-$mode"
     
-    tables="$input/$sample.$mode.nucleotideFrequencies.tab"
+    tables="$input/$samples.$mode.nucleotideFrequencies.tab"
     
     Rscript 6_plotNucleotideFrequencies.R -n "$sampleID" -d $output --offsetmax $value $tables
     
