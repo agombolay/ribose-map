@@ -18,7 +18,7 @@ function usage () {
 }
 
 #Use getopts function to create the command-line options ([-d] and [-h])
-while getopts "d:h" opt;
+while getopts "i:r:d:h" opt;
 do
     case $opt in
 	 #Specify input as arrays to allow multiple input arguments
