@@ -90,7 +90,7 @@ do
 	umitools trim $input $UMI | gzip -c > $umiTrimmed
 
 	#2. Align UMI trimmed reads to reference genome and output alignment statistics
-	zcat $umiTrimmed | bowtie -m 1 --sam $index - 2> $statistics 1> $intermediateSAM
+	zcat $umiTrimmed | bowtie --all --sam $index - 2> $statistics 1> $intermediateSAM
 
 	#Bash functions used above:
 	#"-": standard input
@@ -116,15 +116,15 @@ do
 	umitools rmdup $sortedBAM $finalBAM | gzip -c > $BED
 	
 	#Ask the user if he/she would like to delete all of the intermediate files
-	echo "Would you like to delete all of the intermediate files for $samples? [y/n]"
+	#echo "Would you like to delete all of the intermediate files for $samples? [y/n]"
 	
 	#"answer" is the variable representing the user's answer
-	read answer
+	#read answer
 	
 	#If the user answers "y," then remove the specified files
-	if [ $answer == "y" ];
-        then
-        	rm $umiTrimmed $intermediateSAM $intermediateBAM $sortedBAM;
-        fi
+	#if [ $answer == "y" ];
+        #then
+        #	rm $umiTrimmed $intermediateSAM $intermediateBAM $sortedBAM;
+        #fi
 
 done
