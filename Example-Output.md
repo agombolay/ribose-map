@@ -1,5 +1,0 @@
-###Alignment
-
-###Nucleotide Frequencies
-
-###Plots
