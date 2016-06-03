@@ -51,13 +51,13 @@ fi
 #CALCULATION OF BACKGROUND NUCLEOTIDE FREQUENCIES
 
 #Calculate frequencies of nucleotides in reference genome
-genome="$output/$reference.genome.nucleotide.frequencies.tab"
-python2.7 5_backgroundNucleotideFrequencies.py $FASTA --region-size-minimum 1 --region-size-maximum 3 --verbose > $genome
+#genome="$output/$reference.genome.nucleotide.frequencies.tab"
+#python2.7 5_backgroundNucleotideFrequencies.py $FASTA --region-size-minimum 1 --region-size-maximum 3 --verbose > $genome
 
 #Calculate frequencies of nucleotides in chrM of sacCer2 genome
 chrM="$output/$reference.chrM.nucleotide.frequencies.tab"
 python2.7 5_backgroundNucleotideFrequencies.py $FASTA --region-size-minimum 1 --region-size-maximum 3 --only-chrom chrM --verbose > $chrM
 
 #Calculate frequencies of nucleotides in 2micron of sacCer2 genome 
-plasmid="$output/$reference.2micron.nucleotide.frequencies.tab"
-python2.7 5_backgroundNucleotideFrequencies.py $FASTA --region-size-minimum 1 --region-size-maximum 3 --only-chrom 2micron --verbose > $plasmid
+#plasmid="$output/$reference.2micron.nucleotide.frequencies.tab"
+#python2.7 5_backgroundNucleotideFrequencies.py $FASTA --region-size-minimum 1 --region-size-maximum 3 --only-chrom 2micron --verbose > $plasmid
