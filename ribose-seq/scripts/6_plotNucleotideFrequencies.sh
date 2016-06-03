@@ -58,7 +58,7 @@ do
     
     sampleID="$samples.subset-$mode"
     
-    tables="$input/$samples.$mode.nucleotideFrequencies_normalized.tab"
+    tables="$input/$samples.$mode.nucleotideFrequencies.tab"
     
     Rscript 6_plotNucleotideFrequencies.R -n "$sampleID" -d $output --offsetmax $value $tables
     
