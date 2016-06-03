@@ -1,3 +1,14 @@
+##INSTALL twoBitToFa PROGRAM TO CONVERT .2BIT FILE TO .FA
+1. Download the twoBitToFa program from UCSC's application site
+(Reference: http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/)
+```
+wget http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/twoBitToFa
+```
+2. Change file permissions to make the program executable
+```
+chmod +x twoBitToFa
+```
+
 ###INSTALL BOWTIE PROGRAM TO ALIGN READS TO GENOME
 1. Download the .zip file from the bowtie website
 ```
