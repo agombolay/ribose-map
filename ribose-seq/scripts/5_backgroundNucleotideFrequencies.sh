@@ -36,7 +36,7 @@ fi
 
 #INPUT
 #Location of file containing sequences of reference genome
-FASTA=$directory/ribose-seq/data/reference/$reference.fa
+FASTA=$directory/ribose-seq/scripts/$reference.fa
 
 #OUTPUT
 #Location of output "ribose-seq" backgroundNucleotideFrequencies directory
