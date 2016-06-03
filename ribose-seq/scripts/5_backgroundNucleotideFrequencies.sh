@@ -12,7 +12,7 @@ program=$0
 #Usage statement of the program
 function usage () {
         echo "Usage: $program [-r] 'reference genome' [-d] 'Ribose-seq directory' [-h]
-          -r Reference genome of interest (i.e., sacCer2)
+          -r Reference genome of interest (i.e., sacCer2Index)
           -d Location to save local Ribose-seq directory"
 }
 
