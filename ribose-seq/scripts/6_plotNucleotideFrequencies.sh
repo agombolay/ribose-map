@@ -37,7 +37,8 @@ fi
 
 offset_values=(100 50 15)
 
-modes=("all" "only-mitochondria" "no-mitochondria" "only-2micron")
+#modes=("all" "only-mitochondria" "no-mitochondria" "only-2micron")
+modes=("only-mitochondria")
 
 input=$directory/ribose-seq/results/$samples/nucleotideFrequencies/
 
@@ -58,7 +59,7 @@ do
     
     sampleID="$samples.subset-$mode"
     
-    tables="$input/$samples.$mode.nucleotideFrequencies.tab"
+    tables="$input/$samples.$mode.nucleotideFrequencies.testFile.tab"
     
     Rscript 6_plotNucleotideFrequencies.R -n "$sampleID" -d $output --offsetmax $value $tables
     
