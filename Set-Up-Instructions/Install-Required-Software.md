@@ -4,6 +4,7 @@
 ```
 wget http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/twoBitToFa
 ```
+&nbsp; 
 2. Change file permissions to make the program executable
 ```
 chmod +x twoBitToFa
