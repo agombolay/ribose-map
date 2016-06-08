@@ -6,7 +6,7 @@
   * umitools is used to trim unique molecular identifiers (UMIs) and to remove duplicate reads
 
 * [MACS2] (https://pypi.python.org/pypi/MACS2):
-  * MACS2 is used to call peaks based on alignment results
+  * MACS2 is used to call peaks based on alignment results to determine locations of hotspots
 
 * [Bowtie] (https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.1.2/):
    * Bowtie is used to align the raw sequencing reads to the reference genome
