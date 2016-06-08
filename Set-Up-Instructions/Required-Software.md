@@ -3,7 +3,7 @@
   * Required Modules:
 
 * [umitools] (https://github.com/brwnj/umitools):
-  * umitools is used to trim UMIs and remove duplicate reads
+  * umitools is used to trim unique molecular identifiers (UMIs) and to remove duplicate reads
 
 * [MACS2] (https://pypi.python.org/pypi/MACS2):
   * MACS2 is used to call peaks based on alignment results
