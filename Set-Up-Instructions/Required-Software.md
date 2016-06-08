@@ -1,7 +1,12 @@
 ##Software Requirements:  
 * [Python] (https://www.python.org/downloads/)  
- * [umitools] (https://github.com/brwnj/umitools): Trim UMIs and remove duplicate reads
- * [MACS2] (https://pypi.python.org/pypi/MACS2): Call peaks based on alignment results
+  * Required Modules:
+
+* [umitools] (https://github.com/brwnj/umitools):
+  * Trim UMIs and remove duplicate reads
+
+* [MACS2] (https://pypi.python.org/pypi/MACS2):
+  * Call peaks based on alignment results
 
 * [Bowtie] (https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.1.2/):
    * Bowtie is used to align the raw sequencing reads to the reference genome
