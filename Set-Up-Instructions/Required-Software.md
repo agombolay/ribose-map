@@ -1,16 +1,16 @@
 ##Software Requirements:  
 * [Python] (https://www.python.org/downloads/)  
     
- * Modules contained within the Python Standard Library:
-     * [operator] (https://docs.python.org/2/library/index.html)
-     * [itertools] (https://docs.python.org/2/library/index.html)
-     * [collections] (https://docs.python.org/2/library/index.html)
+    * Modules contained within the Python Standard Library:
+        * [operator] (https://docs.python.org/2/library/index.html)
+        * [itertools] (https://docs.python.org/2/library/index.html)
+        * [collections] (https://docs.python.org/2/library/index.html)
 
     * Additional Required Modules that need to be installed:
-    * [pandas] (https://pypi.python.org/pypi/pandas/0.18.1/): Data analysis tools
-    * [pyfaidx] (https://pypi.python.org/pypi/pyfaidx): Manipulation of FASTA files
-    * [toolshed] (https://pypi.python.org/pypi/toolshed): Manipulation of tabular data files 
-    * [pybedtools] (https://pypi.python.org/pypi/pybedtools): Extension of BEDtools program
+        * [pandas] (https://pypi.python.org/pypi/pandas/0.18.1/): Data analysis tools
+        * [pyfaidx] (https://pypi.python.org/pypi/pyfaidx): Manipulation of FASTA files
+        * [toolshed] (https://pypi.python.org/pypi/toolshed): Manipulation of tabular data files 
+        * [pybedtools] (https://pypi.python.org/pypi/pybedtools): Extension of BEDtools program
 
 * [umitools] (https://github.com/brwnj/umitools):
   * umitools is used to trim unique molecular identifiers (UMIs) and to remove duplicate reads
