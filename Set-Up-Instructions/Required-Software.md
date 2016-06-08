@@ -20,11 +20,13 @@
  * bedtools coverage tool calculates the depth and breadth of genome coverage from alignment results [(more)]
 (http://bedtools.readthedocs.org/en/latest/content/tools/coverage.html)
 
-* [bedToBigBed] (http://hgdownload.cse.ucsc.edu/admin/exe/): Convert files from BED file format to bigBed format
- * bigBed files are used to display annotation items in the UCSC Genome Browser as a graph [(more)] (http://genome.ucsc.edu/goldenPath/help/bigBed.html)
- * Compared to BED files, bigBed files are a faster way to display data in the UCSC Genome Browser
+* [bedToBigBed] (http://hgdownload.cse.ucsc.edu/admin/exe/):
+  * bedToBigBed is used to convert files from BED file format to bigBed format
+  * bigBed files are used to display annotation items in the UCSC Genome Browser as a graph [(more)] (http://genome.ucsc.edu/goldenPath/help/bigBed.html)
+  * Compared to BED files, bigBed files are a faster way to display data in the UCSC Genome Browser
 
-* [bedGraphToBigWig] (http://hgdownload.cse.ucsc.edu/admin/exe/): Convert files from bedGraph file format to bigWig format
+* [bedGraphToBigWig] (http://hgdownload.cse.ucsc.edu/admin/exe/):
+  * bedGraphToBigWig is used to convert files from bedGraph file format to bigWig format
   * bigWig files are used to display dense, continuous data in the UCSC Genome Browser as a graph [(more)] (https://genome.ucsc.edu/goldenpath/help/bigWig.html)
   * Compared to BedGraph files, bigWig files are a faster way to display data in the UCSC Genome Browser
 
