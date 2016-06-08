@@ -16,9 +16,8 @@
     * [Filter reads based on forward/reverse strands] (https://www.biostars.org/p/14378/)
     * [Explanation of SAMtools flags (i.e., "4")] (http://broadinstitute.github.io/picard/explain-flags.html)
 
-* [bedtools]  (http://bedtools.readthedocs.org/en/latest/content/installation.html): Coverage tool calculates genome coverage based on alignment results
- * bedtools coverage tool calculates the depth and breadth of genome coverage from alignment results [(more)]
-(http://bedtools.readthedocs.org/en/latest/content/tools/coverage.html)
+* [bedtools]  (http://bedtools.readthedocs.org/en/latest/content/installation.html):
+  * bedtools coverage tool is used to calculate genome coverage based on alignment results [(more)] (http://bedtools.readthedocs.org/en/latest/content/tools/coverage.html)
 
 * [bedToBigBed] (http://hgdownload.cse.ucsc.edu/admin/exe/):
   * bedToBigBed is used to convert files from BED file format to bigBed format
