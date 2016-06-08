@@ -9,7 +9,7 @@
   * MACS2 is used to call peaks based on alignment results to determine locations of hotspots
 
 * [Bowtie] (https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.1.2/):
-   * Bowtie is used to align the raw sequencing reads to the reference genome
+   * Bowtie is used to align the raw sequencing reads to the reference genome of interest
    * Resources:
       * [Manual page for information on commands] (http://bowtie-bio.sourceforge.net/manual.shtml)
       * [How to test if Bowtie index is properly installed] (http://bowtie-bio.sourceforge.net/tutorial.shtml)
