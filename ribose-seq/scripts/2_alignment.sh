@@ -103,8 +103,9 @@ do
 	#reference: Basename of Bowtie index to be searched
 	
 	#Convert SAM files to BAM files
-	samtools view -bS $intermediateSAM > $intermediateBAM
-
+	#samtools view -bS $intermediateSAM > $intermediateBAM
+	samtools view -ShuF4 $intermediateSAM > $intermediateBAM
+	
 	#SAMtools options used above:
 	#"-b": Output in BAM format
 	#"-S": Input in SAM format
