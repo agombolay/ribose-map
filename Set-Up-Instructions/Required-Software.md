@@ -6,7 +6,7 @@
      * [itertools] (https://docs.python.org/2/library/index.html)
      * [collections] (https://docs.python.org/2/library/index.html)
 
-* Additional Required Modules:
+    * Additional Required Modules that need to be downloaded and installed:
     * [pandas] (https://pypi.python.org/pypi/pandas/0.18.1/): Data analysis tools
     * [pyfaidx] (https://pypi.python.org/pypi/pyfaidx): Manipulation of FASTA files
     * [toolshed] (https://pypi.python.org/pypi/toolshed): Manipulation of tabular data files 
