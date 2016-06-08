@@ -3,7 +3,7 @@
   * Required Modules:
     * [pandas] (https://pypi.python.org/pypi/pandas/0.18.1/): Data analysis tools
     * [pyfaidx] (https://pypi.python.org/pypi/pyfaidx): Manipulation of FASTA files
-    * [toolshed] (https://pypi.python.org/pypi/toolshed): Manipulation of tabular files 
+    * [toolshed] (https://pypi.python.org/pypi/toolshed): Manipulation of tabular data files 
     * [pybedtools] (https://pypi.python.org/pypi/pybedtools): Extension of BEDtools program
 
 * [umitools] (https://github.com/brwnj/umitools):
