@@ -1,10 +1,10 @@
 ##Software Requirements:  
 * [Python] (https://www.python.org/downloads/)  
   * Required Modules:
-    * [pandas] (https://pypi.python.org/pypi/pandas/0.18.1/): Provides data analysis tools
-    * [pyfaidx] (https://pypi.python.org/pypi/pyfaidx): Enables the manipulation of FASTA files
-    * [toolshed] (https://pypi.python.org/pypi/toolshed): 
-    * [pybedtools] (https://pypi.python.org/pypi/pybedtools)
+    * [pandas] (https://pypi.python.org/pypi/pandas/0.18.1/): Data analysis tools
+    * [pyfaidx] (https://pypi.python.org/pypi/pyfaidx): Manipulation of FASTA files
+    * [toolshed] (https://pypi.python.org/pypi/toolshed): Manipulation of tabular files 
+    * [pybedtools] (https://pypi.python.org/pypi/pybedtools): Extension of BEDtools program
 
 * [umitools] (https://github.com/brwnj/umitools):
   * umitools is used to trim unique molecular identifiers (UMIs) and to remove duplicate reads
