@@ -9,8 +9,9 @@
       * [Manual page for information on commands] (http://bowtie-bio.sourceforge.net/manual.shtml)
       * [How to test if Bowtie index is properly installed] (http://bowtie-bio.sourceforge.net/tutorial.shtml)
 
-* [SAMtools] (http://www.htslib.org/download/): Convert aligned reads files to BAM format
- * Resources:
+* [SAMtools] (http://www.htslib.org/download/):
+  * SAMtools is used to convert the output aligned reads files from SAM to BAM format
+  * Resources:
     * [Manual page for information on commands] (http://www.htslib.org/doc/samtools.html)
     * [Filter reads based on forward/reverse strands] (https://www.biostars.org/p/14378/)
     * [Explanation of SAMtools flags (i.e., "4")] (http://broadinstitute.github.io/picard/explain-flags.html)
