@@ -4,7 +4,7 @@
  * [MACS2] (https://pypi.python.org/pypi/MACS2): Call peaks based on alignment results
 
 * [Bowtie] (https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.1.2/):
-   * Bowtie is used to align the sequencing reads to the reference genome
+   * Bowtie is used to align the raw sequencing reads to the reference genome
    * Resources:
       * [Manual page for information on commands] (http://bowtie-bio.sourceforge.net/manual.shtml)
       * [How to test if Bowtie index is properly installed] (http://bowtie-bio.sourceforge.net/tutorial.shtml)
