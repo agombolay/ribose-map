@@ -2,8 +2,8 @@
 * [Python] (https://www.python.org/downloads/)  
     
     * Modules contained within the Python Standard Library:
-        * [itertools] (https://docs.python.org/2/library/index.html)
-        * [operator] (https://docs.python.org/2/library/index.html)
+        * [itertools] (https://docs.python.org/2/library/index.html): Creates iterators for looping
+        * [operator] (https://docs.python.org/2/library/index.html): Standard mathimatical operations
         * [collections] (https://docs.python.org/2/library/index.html)
 
     * Additional Required Modules that need to be installed:
