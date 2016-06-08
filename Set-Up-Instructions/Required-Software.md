@@ -7,9 +7,9 @@
     * [pybedtools] (https://pypi.python.org/pypi/pybedtools): Extension of BEDtools program
     
  * Modules contained within the Python Standard Library:
-     * [collections] (https://docs.python.org/2/library/index.html)
-     * [itertools] (https://docs.python.org/2/library/index.html)
      * [operator] (https://docs.python.org/2/library/index.html)
+     * [itertools] (https://docs.python.org/2/library/index.html)
+     * [collections] (https://docs.python.org/2/library/index.html)
 
 * [umitools] (https://github.com/brwnj/umitools):
   * umitools is used to trim unique molecular identifiers (UMIs) and to remove duplicate reads
