@@ -107,8 +107,10 @@ do
 	samtools view -ShuF4 $intermediateSAM > $intermediateBAM
 	
 	#SAMtools options used above:
-	#"-b": Output in BAM format
 	#"-S": Input in SAM format
+	#"-h": Include header in output
+	#"-u": Output as uncompressed BAM
+	#"-F4": Do not output any unmapped reads
 
 	#Sort intermediate BAM files
 	samtools sort $intermediateBAM > $sortedBAM
