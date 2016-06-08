@@ -1,9 +1,9 @@
 ##Software Requirements:  
 * [Python] (https://www.python.org/downloads/)  
   * Required Modules:
-    * [pandas] (https://pypi.python.org/pypi/pandas/0.18.1/)
-    * [pyfaidx] (https://pypi.python.org/pypi/pyfaidx)
-    * [toolshed] (https://pypi.python.org/pypi/toolshed)
+    * [pandas] (https://pypi.python.org/pypi/pandas/0.18.1/): Provides data analysis tools
+    * [pyfaidx] (https://pypi.python.org/pypi/pyfaidx): Enables the manipulation of FASTA files
+    * [toolshed] (https://pypi.python.org/pypi/toolshed): 
     * [pybedtools] (https://pypi.python.org/pypi/pybedtools)
 
 * [umitools] (https://github.com/brwnj/umitools):
