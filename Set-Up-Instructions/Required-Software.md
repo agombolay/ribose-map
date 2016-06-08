@@ -24,10 +24,6 @@
   * bigWig files are used to display dense, continuous data in the UCSC Genome Browser as a graph [(more)] (https://genome.ucsc.edu/goldenpath/help/bigWig.html)
   * Compared to BedGraph files, bigWig files are a faster way to display data in the UCSC Genome Browser
 
-* [R]  (https://www.r-project.org/)
-
-
-<a href="https://www.r-project.org/" target="_blank">R</a>
-
+* [R](https://www.r-project.org/){:target="_blank"}
 
 * [Trimmomatic] (http://www.usadellab.org/cms/?page=trimmomatic)
