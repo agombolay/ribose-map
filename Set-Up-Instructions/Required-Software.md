@@ -1,6 +1,11 @@
 ##Software Requirements:  
 * [Python] (https://www.python.org/downloads/)  
   * Required Modules:
+   * [pandas] (https://pypi.python.org/pypi/pandas/0.18.1/)
+   * [pyfaidx] (https://pypi.python.org/pypi/pyfaidx)
+   * [toolshed] (https://pypi.python.org/pypi/toolshed)
+   * betools2
+   * pybedtools
 
 * [umitools] (https://github.com/brwnj/umitools):
   * umitools is used to trim unique molecular identifiers (UMIs) and to remove duplicate reads
