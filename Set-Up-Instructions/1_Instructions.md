@@ -1,4 +1,5 @@
 #Set-up and use the Ribose-seq Analysis Pipeline
+Author: Alli Gombolay
 
 ###1. [Install required software] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/3_Software-Installation.md)
 
