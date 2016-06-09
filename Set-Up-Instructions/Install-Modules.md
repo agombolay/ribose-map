@@ -1,9 +1,9 @@
-#Install Python and non-standard modules
+#Install Python and Non-standard Modules
 
 Author: Alli Gombolay
 Date: June 9, 2016
 
-#Instructions to install Python
+##Instructions to install Python
 
 (Note: Instructions adapted from [here] (https://mail.python.org/pipermail/tutor/2002-March/012903.html))
 
@@ -29,7 +29,7 @@ make
 
 ------
 
-#Instructions to install modules
+##Instructions to install modules
 
 ###References
 * [Installing Python modules] (https://docs.python.org/2/install/)
