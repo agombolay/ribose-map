@@ -31,6 +31,7 @@ then
         exit
 fi
 
+#Convert raw sequencing files from .sra to .fq
 for samples in ${sra[@]};
 do
         fastq-dump $samples
