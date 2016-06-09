@@ -7,8 +7,7 @@
 
 ###4. [Download reference genome files] (https://github.com/agombolay/Ribose-seq-Project/blob/master/ribose-seq/scripts/1_setUp.sh)
 
-###5. [Analyze data with Ribose-seq Analysis scripts]
-(https://github.com/agombolay/Ribose-seq-Project/tree/master/ribose-seq/scripts)
+###5. [Analyze data with Ribose-seq Analysis scripts] (https://github.com/agombolay/Ribose-seq-Project/tree/master/ribose-seq/scripts)
 * The scripts are numbered in the order in which they should be run
 
 ###Optional:
