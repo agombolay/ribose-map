@@ -34,6 +34,12 @@ then
         exit
 fi
 
+#Create directory for output if it does not already exist
+if [[ ! -d $output ]];
+then
+	mkdir -p $output
+fi
+	
 $directory/ribose-seq/data/reference/
 
 #Download twoBit file of the reference genome sequence from UCSC's site
