@@ -1,5 +1,9 @@
 #Instructions to install Python
 
+```
+wget https://www.python.org/ftp/python/2.7.11/Python-2.7.11.tgz
+```
+
 ###References
 * [Install Python]
 (https://www.python.org/downloads/release/python-2711/)
