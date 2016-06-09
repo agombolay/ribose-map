@@ -20,7 +20,7 @@
 
 ------
 
-[Instructions on how to install required software] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/Install-Required-Software.md)
+[Instructions on how to install required all other required software] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/Install-Required-Software.md)
 
 * [**umitools**] (https://github.com/brwnj/umitools):
   * umitools is used to trim unique molecular identifiers (UMIs) and to remove duplicate reads
