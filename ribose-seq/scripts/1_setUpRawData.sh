@@ -25,3 +25,8 @@ if [ "$1" == "-h" ];
 then
         exit
 fi
+
+for samples in ${sra[@]};
+do
+        fastq-dump $samples
+done
