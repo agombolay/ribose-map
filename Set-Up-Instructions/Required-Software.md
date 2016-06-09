@@ -1,4 +1,4 @@
-##Software Requirements:  
+##Description of Software Requirements:  
 
 ####[Instructions on how to install Python and non-standard modules] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/Install-Python-Modules.md)
 
