@@ -6,7 +6,7 @@
 #Download UCSC's twoBitToFa program to convert .2bit files to .fa
 wget http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/twoBitToFa
 
-#Download the .2bit file of the reference genome sequence from UCSC
+#Download .2bit file of the reference genomic sequence from UCSC's site
 wget http://hgdownload.cse.ucsc.edu/goldenPath/sacCer2/bigZips/sacCer2.2bit
 
 #Convert the reference genome sequence file from .2bit to .fa
@@ -15,7 +15,7 @@ twoBitToFa sacCer2.2bit sacCer2.fa
 #Build Bowtie index for the reference genome from the .fa file
 bowtie-build sacCer2.fa sacCer2Index
 
-#Download file containing length in base pairs of the reference genome from UCSC
+#Download file of length (in base pairs) of the reference genome from UCSC's site
 wget http://hgdownload.cse.ucsc.edu/goldenPath/sacCer2/bigZips/sacCer2.chrom.sizes
 
 #Sort the reference genome file for processing
