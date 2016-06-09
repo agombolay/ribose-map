@@ -8,7 +8,7 @@
 
 ------
 
-#Instructions to install Python modules
+#Instructions to install modules
 
 ###References
 * [Installing Python modules] (https://docs.python.org/2/install/)
