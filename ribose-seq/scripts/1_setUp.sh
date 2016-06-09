@@ -8,7 +8,7 @@
 wget http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/twoBitToFa
 
 #Build Bowtie index for sacCer2
-bowtie-build sacCer2.fa sacCer2index
+bowtie-build sacCer2.fa sacCer2Index
 
 #Download sacCer2 reference genome (ChrI-XVI, ChrM, and 2micron)
 #Contains sequences of all 16 chromosomes, chr M, and 2micron plasmid
