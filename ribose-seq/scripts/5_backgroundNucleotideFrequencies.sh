@@ -13,7 +13,7 @@ program=$0
 function usage () {
         echo "Usage: $program [-r] 'reference genome' [-d] 'Ribose-seq directory' [-h]
           -r Reference genome of interest (i.e., sacCer2)
-          -d Location to save local Ribose-seq directory"
+          -d Location of user's local Ribose-seq directory"
 }
 
 #Use getopts function to create the command-line options ([-r], [-d], and [-h])
