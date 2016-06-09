@@ -1,6 +1,6 @@
 #Instructions to install Python
 
-(Note: Instructions adapted from [here]) (https://mail.python.org/pipermail/tutor/2002-March/012903.html)
+(Note: Instructions adapted from [here] (https://mail.python.org/pipermail/tutor/2002-March/012903.html))
 
 ```
 wget https://www.python.org/ftp/python/2.7.11/Python-2.7.11.tgz
