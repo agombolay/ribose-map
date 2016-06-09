@@ -22,7 +22,6 @@ wget http://hgdownload.cse.ucsc.edu/goldenPath/sacCer2/bigZips/sacCer2.chrom.siz
 #Sort the reference genome file for processing
 sort sacCer2.chrom.sizes -o sacCer2.chrom.sizes
 
-
 #Download file of gene locations (start and end positions) from UCSC's site
 wget http://hgdownload.soe.ucsc.edu/goldenPath/sacCer2/database/sgdGene.txt.gz
 
