@@ -3,12 +3,10 @@
 #Author: Alli Gombolay 
 #Script to download the reference genome files required for the Ribose-seq Analysis Pipeline
 
-#Download twoBitToFa program to convert twoBit (.2bit) files to FASTA (.fa)
-#This program is necessary to convert the reference genome sequence file to .fa
+#Download UCSC's twoBitToFa program to convert .2bit files to .fa
 wget http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/twoBitToFa
 
-#Download the reference genome sequence .2bit file from the UCSC Genome Browser
-#sacCer2.2bit: Contains the sequences of Chromosomes I-XVI, ChrM, and 2micron plasmid
+#Download the .2bit file of the reference genome sequence from UCSC
 wget http://hgdownload.cse.ucsc.edu/goldenPath/sacCer2/bigZips/sacCer2.2bit
 
 #Convert the reference genome sequence file from .2bit to .fa
