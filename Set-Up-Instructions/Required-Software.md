@@ -3,8 +3,8 @@
     
     * Modules contained within the Python Standard Library:
         * [itertools] (https://docs.python.org/2/library/index.html): Creates iterators for looping
-        * [operator] (https://docs.python.org/2/library/index.html): Standard mathimatical operations
-        * [collections] (https://docs.python.org/2/library/index.html)
+        * [operator] (https://docs.python.org/2/library/index.html): Performs standard mathimatical operations
+        * [collections] (https://docs.python.org/2/library/index.html): Employs specialized container data types
 
     * Additional Required Modules that need to be installed:
         * [pandas] (https://pypi.python.org/pypi/pandas/0.18.1/): Data analysis tools
