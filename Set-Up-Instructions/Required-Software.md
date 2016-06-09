@@ -1,17 +1,19 @@
 ##Software Requirements:  
 * [Python] (https://www.python.org/downloads/)  
-[Note: Instructions on how to install Python modules] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/Install-Python-Modules.md)
 
-    * Modules contained within the Python Standard Library:
-        * [itertools] (https://docs.python.org/2/library/index.html): Creates iterators for looping
-        * [operator] (https://docs.python.org/2/library/index.html): Performs standard mathimatical operations
-        * [collections] (https://docs.python.org/2/library/index.html): Employs specialized container data types
+   * Python Modules:
+      * [Note: Instructions on how to install Python modules] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/Install-Python-Modules.md)
 
-    * Additional Required Modules that need to be installed:
-        * [pandas] (https://pypi.python.org/pypi/pandas/0.18.1/): Data analysis tools
-        * [pyfaidx] (https://pypi.python.org/pypi/pyfaidx): Manipulation of FASTA files
-        * [toolshed] (https://pypi.python.org/pypi/toolshed): Manipulation of tabular data files 
-        * [pybedtools] (https://pypi.python.org/pypi/pybedtools): Extension of BEDtools program
+      * Modules contained within the Python Standard Library:
+         * [itertools] (https://docs.python.org/2/library/index.html): Creates iterators for looping
+         * [operator] (https://docs.python.org/2/library/index.html): Performs standard mathimatical operations
+         * [collections] (https://docs.python.org/2/library/index.html): Employs specialized container data types
+
+      * Additional Required Modules that need to be installed:
+         * [pandas] (https://pypi.python.org/pypi/pandas/0.18.1/): Data analysis tools
+         * [pyfaidx] (https://pypi.python.org/pypi/pyfaidx): Manipulation of FASTA files
+         * [toolshed] (https://pypi.python.org/pypi/toolshed): Manipulation of tabular data files 
+         * [pybedtools] (https://pypi.python.org/pypi/pybedtools): Extension of BEDtools program
 
 * [umitools] (https://github.com/brwnj/umitools):
   * umitools is used to trim unique molecular identifiers (UMIs) and to remove duplicate reads
