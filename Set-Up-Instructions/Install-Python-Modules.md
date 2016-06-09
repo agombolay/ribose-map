@@ -1,10 +1,14 @@
-#Instructions to install Python modules
+#Instruction to install Python
 
+###References
 * [Install Python]
 (https://www.python.org/downloads/release/python-2711/)
-
 * [Instructions on installing Python]
 (https://mail.python.org/pipermail/tutor/2002-March/012903.html)
+
+------
+
+#Instructions to install Python modules
 
 ###References
 * [Installing Python modules] (https://docs.python.org/2/install/)
