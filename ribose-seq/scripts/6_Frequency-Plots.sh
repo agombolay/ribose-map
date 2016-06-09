@@ -6,7 +6,7 @@
 
 #COMMAND LINE OPTIONS
 
-#Name of the program (6_Plot-Frequencies.sh)
+#Name of the program (6_Frequency-Plots.sh)
 program=$0
 
 #Usage statement of the program
@@ -61,7 +61,7 @@ do
     
     tables="$input/$samples.$mode.nucleotideFrequencies.testFile.tab"
     
-    Rscript 6_plotNucleotideFrequencies.R -n "$sampleID" -d $output --offsetmax $value $tables
+    Rscript 6_Frequency-Plots.R -n "$sampleID" -d $output --offsetmax $value $tables
     
   done
 
