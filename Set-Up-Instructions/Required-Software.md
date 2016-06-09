@@ -15,6 +15,8 @@
          * [toolshed] (https://pypi.python.org/pypi/toolshed): Manipulation of tabular data files 
          * [pybedtools] (https://pypi.python.org/pypi/pybedtools): Extension of BEDtools program
 
+------
+
 * [**umitools**] (https://github.com/brwnj/umitools):
   * umitools is used to trim unique molecular identifiers (UMIs) and to remove duplicate reads
 
