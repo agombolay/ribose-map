@@ -1,5 +1,7 @@
 ##Instructions to install required software
 
+####SRA Toolkit
+
 ####twoBitToFa
 1. Download the twoBitToFa program from UCSC's application site  
 (Reference: http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/)
