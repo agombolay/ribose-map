@@ -44,7 +44,7 @@ then
 	mkdir -p $output
 fi
 
-#Change working directory to "ribose-seq" reference directory
+#Change current directory to "ribose-seq" reference directory
 cd $output
 
 #Download twoBit file of the reference genome sequence from UCSC's site
