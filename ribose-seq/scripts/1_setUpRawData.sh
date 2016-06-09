@@ -1,3 +1,8 @@
+#!/usr/bin/env bash
+
+#Author: Alli Gombolay
+#This program converts the raw sequencing files from SRA format to FASTQ
+
 #COMMAND LINE OPTIONS
 
 #Name of the program (1_setUpRawData.sh)
