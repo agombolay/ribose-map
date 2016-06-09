@@ -17,23 +17,20 @@
 
 ------
 
+* [**twoBitToFa**] (https://genome.ucsc.edu/goldenpath/help/twoBit.html)
+  * twoBitToFa is used to convert  twoBit (.2bit) files to FASTA (.fa) format for processing
+
 * [**SRA Toolkit**] (http://www.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=software):
   * SRA Toolkit fastq-dump tool is used to convert SRA (.sra) files to FASTQ (.fq) format
   * Resources: 
     * [SRA reference on using frequently used tools] (http://www.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=toolkit_doc)
     * [NCBI reference on how to use the SRA Toolkit] (http://www.ncbi.nlm.nih.gov/books/NBK158900/)
 
-* [**twoBitToFa**] (https://genome.ucsc.edu/goldenpath/help/twoBit.html)
-  * twoBitToFa is used to convert  twoBit (.2bit) files to FASTA (.fa) format for processing
-
 * [**Trimmomatic**] (http://www.usadellab.org/cms/?page=trimmomatic)
  * Trimmomatic program is used to trim reads based on quality (optional)
 
 * [**umitools**] (https://github.com/brwnj/umitools):
   * umitools is used to trim unique molecular identifiers (UMIs) and to remove duplicate reads
-
-* [**MACS2**] (https://pypi.python.org/pypi/MACS2):
-  * MACS2 is used to call peaks based on alignment results to determine locations of hotspots
 
 * [**Bowtie**] (https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.1.2/):
    * Bowtie is used to align the raw sequencing reads to the reference genome of interest
@@ -51,6 +48,9 @@
 * [**BEDtools**]  (http://bedtools.readthedocs.org/en/latest/content/installation.html):
   * BEDtools coverage tool is used to calculate genome coverage based on alignment results [(more)] (http://bedtools.readthedocs.org/en/latest/content/tools/coverage.html)
   * BEDtools is also used in conjunction with pybedtools to calculate nucleotide frequencies [(more)] (https://pythonhosted.org/pybedtools/)
+
+* [**MACS2**] (https://pypi.python.org/pypi/MACS2):
+  * MACS2 is used to call peaks based on alignment results to determine locations of hotspots
 
 * [**bedToBigBed**] (http://hgdownload.cse.ucsc.edu/admin/exe/):
   * bedToBigBed is used to convert files from BED file format to bigBed format
