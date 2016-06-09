@@ -1,8 +1,12 @@
 ##Software Requirements:  
+
+------
+
+[Note: Instructions on how to install Python modules] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/Install-Python-Modules.md)
+
 * [**Python**] (https://www.python.org/downloads/)  
 
    * Python Modules:
-      * [Note: Instructions on how to install Python modules] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/Install-Python-Modules.md)
 
       * Modules contained within the Python Standard Library:
          * [itertools] (https://docs.python.org/2/library/index.html): Creates iterators for looping
