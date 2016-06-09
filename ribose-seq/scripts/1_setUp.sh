@@ -5,7 +5,7 @@
 
 #COMMAND LINE OPTIONS
 
-#Name of the program (2_alignment.sh)
+#Name of the program (1_setUp.sh)
 program=$0
 
 #Usage statement of the program
