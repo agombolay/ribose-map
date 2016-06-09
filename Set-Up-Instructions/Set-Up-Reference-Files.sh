@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #Author: Alli Gombolay 
-#Script to download the reference genome files required for the Ribose-seq Analysis Pipeline
+#Script to download the reference genome files of interest from UCSC
 
 #COMMAND LINE OPTIONS
 
