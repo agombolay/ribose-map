@@ -3,7 +3,7 @@
 #Author: Alli Gombolay 
 #Script to download the reference genome files required for the Ribose-seq Analysis Pipeline
 
-#Download UCSC's twoBitToFa program to convert .2bit files to .fa
+#Download UCSC's twoBitToFa program to convert .2bit file to .fa
 wget http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/twoBitToFa
 
 #Download .2bit file of the reference genomic sequence from UCSC's site
