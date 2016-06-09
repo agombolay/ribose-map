@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #Author: Alli Gombolay 
-#Script to download reference genome (sacCer2) files
+#Script to download the reference genome files required for the Ribose-seq Analysis Pipeline
 
 #Download twoBitToFa program to convert twoBit (.2bit) files to FASTA (.fa)
 #This program is necessary to convert the reference genome sequence file to .fa
