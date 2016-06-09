@@ -44,6 +44,9 @@ then
 	mkdir -p $output
 fi
 
+#Change working directory to "ribose-seq" reference directory
+cd $output
+
 #Download twoBit file of the reference genome sequence from UCSC's site
 wget http://hgdownload.cse.ucsc.edu/goldenPath/sacCer2/bigZips/sacCer2.2bit
 
