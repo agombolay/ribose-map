@@ -1,1 +1,1 @@
-
+fastq-dump <path/file>
