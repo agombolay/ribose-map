@@ -1,5 +1,5 @@
 ##Software Requirements:  
-* [Python] (https://www.python.org/downloads/)  
+* **[Python]** (https://www.python.org/downloads/)  
 
    * Python Modules:
       * [Note: Instructions on how to install Python modules] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/Install-Python-Modules.md)
