@@ -9,7 +9,7 @@ Date: June 9, 2016
 ###3. a) Download raw sequencing files
 
 ###3. b) Convert sequencing files from .sra to .fq
-* Sequencing files to be analyzed must be converted to FASTQ format if not already
+* Sequencing files must be converted to FASTQ format if not already
 
 ###4. [Download reference genome files] (https://github.com/agombolay/Ribose-seq-Project/blob/master/ribose-seq/scripts/1_setUp.sh)
 
