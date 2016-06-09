@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #Author: Alli Gombolay 
-#Script to download the reference genome files of interest from UCSC
+#Script to download the reference genome files of interest from UCSC's site
 
 #COMMAND LINE OPTIONS
 
