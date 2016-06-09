@@ -1,3 +1,5 @@
+#Instructions to set-up and use the Ribose-seq Analysis Pipeline
+
 ###1. [Install required software] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/3_Software-Installation.md)
 
 ###2. [Install required modules] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/4_Modules-Installation.md)
