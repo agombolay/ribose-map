@@ -47,7 +47,7 @@ fi
 #Change current directory to "ribose-seq" reference directory
 cd $output
 
-#Download twoBit file of the reference genome sequence from UCSC's site
+#Download .2bit file of the complete reference sequence from UCSC's site
 wget http://hgdownload.cse.ucsc.edu/goldenPath/sacCer2/bigZips/sacCer2.2bit
 
 #Convert the reference genome sequence file from .2bit to .fa
