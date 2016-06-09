@@ -1,11 +1,5 @@
 ##Description of Software Requirements:  
 
-####To install the required software, please click on the links below:
-* [Instructions on how to install Python and non-standard modules] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/Install-Python-Modules.md)  
-* [Instructions on how to install required all other required software] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/Install-Required-Software.md)
-
-------
-
 * [**Python**] (https://www.python.org/downloads/)  
 
    * Python Modules:
@@ -61,3 +55,9 @@
 
 * [**Trimmomatic**] (http://www.usadellab.org/cms/?page=trimmomatic)
  * Trimmomatic program is used to trim reads based on quality (optional)
+
+------
+
+####To install the required software, please click on the links below:
+* [Instructions on how to install Python and non-standard modules] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/Install-Python-Modules.md)  
+* [Instructions on how to install required all other required software] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/Install-Required-Software.md)
