@@ -1,4 +1,4 @@
-#Description of Software Requirements
+#Description of Required Software
 Author: Alli Gombolay  
 Date: June 9, 2016
 
