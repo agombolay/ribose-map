@@ -1,3 +1,5 @@
+1. [Install required software] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/3_Software-Installation.md)
+
 ##Raw sequencing files
 * Need to be converted from SRA to FASTQ format
 
