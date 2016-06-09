@@ -34,13 +34,15 @@ then
         exit
 fi
 
+#OUTPUT
+#Location of output "ribose-seq" reference directory
+output=$directory/ribose-seq/data/reference
+	
 #Create directory for output if it does not already exist
 if [[ ! -d $output ]];
 then
 	mkdir -p $output
 fi
-	
-$directory/ribose-seq/data/reference/
 
 #Download twoBit file of the reference genome sequence from UCSC's site
 wget http://hgdownload.cse.ucsc.edu/goldenPath/sacCer2/bigZips/sacCer2.2bit
