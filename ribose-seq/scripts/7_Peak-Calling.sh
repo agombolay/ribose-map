@@ -6,7 +6,7 @@
 
 #COMMAND LINE OPTIONS
 
-#Name of the program (6_peakCalling.sh)
+#Name of the program (7_Peak-Calling.sh)
 program=$0
 
 #Usage statement of the program
