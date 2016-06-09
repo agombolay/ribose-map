@@ -48,7 +48,7 @@
 
 * [**BEDtools**]  (http://bedtools.readthedocs.org/en/latest/content/installation.html):
   * BEDtools coverage tool is used to calculate genome coverage based on alignment results [(more)] (http://bedtools.readthedocs.org/en/latest/content/tools/coverage.html)
-  * BEDtools is also used in conjunction with pybedtools to calculate nucleotide frequencies [(more)] (https://pythonhosted.org/pybedtools/)
+  * It is also used in conjunction with pybedtools module to calculate nucleotide frequencies [(more)] (https://pythonhosted.org/pybedtools/)
 
 * [**MACS2**] (https://pypi.python.org/pypi/MACS2):
   * MACS2 is used to call peaks based on alignment results to determine locations of hotspots
