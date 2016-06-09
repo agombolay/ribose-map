@@ -47,7 +47,7 @@ fi
 #Change current directory to "ribose-seq" reference directory
 cd $output
 
-if [ == "sacCer2"];
+if [ "$2" == "sacCer2"];
 then
 	
 	#Download .2bit file of the complete reference sequence from UCSC's site
