@@ -34,5 +34,11 @@ fi
 #Convert raw sequencing files from .sra to .fq
 for samples in ${sra[@]};
 do
+        #Extract input directories from filepaths
+	inputDirectory=$(dirname "${sra}")
+	
+	#Change current diretory to 
+	cd $inputDirectory
+	
         fastq-dump $samples
 done
