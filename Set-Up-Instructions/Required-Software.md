@@ -40,7 +40,7 @@
 
 * [**SAMtools**] (http://www.htslib.org/download/):
   * SAMtools is used to convert the output SAM file of aligned reads to BAM file format
-  * It is also used to remove unmapped reads from the final BAM file and sort/index it
+  * It is also used to remove unmapped reads from the BAM file as well as sort/index it
   * Resources:
     * [Manual page for information on commands] (http://www.htslib.org/doc/samtools.html)
     * [Filter reads based on forward/reverse strands] (https://www.biostars.org/p/14378/)
