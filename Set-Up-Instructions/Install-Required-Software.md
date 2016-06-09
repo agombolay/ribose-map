@@ -12,7 +12,7 @@ wget http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/twoBitToFa
 chmod +x twoBitToFa
 ```
 
-####BOWTIE
+####Bowtie
 1. Download the .zip file from the bowtie website
 ```
 wget https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.1.2/bowtie-1.1.2-linux-x86_64.zip
@@ -86,7 +86,7 @@ make
 echo "export PATH="/projects/home/agombolay3/data/bin/bedtools2/bin:$PATH"" >> ~/.bashrc
 ```
 
-####UMItools
+####umitools
 (Note: Instructions adapted from https://github.com/brwnj/umitools)
 
 ####Part a.) Pysam Program
