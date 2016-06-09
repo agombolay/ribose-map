@@ -1,7 +1,7 @@
 ##Instructions to install required software
 
 ####twoBitToFa
-1. Download the twoBitToFa program from UCSC's application site
+1. Download the twoBitToFa program from UCSC's application site  
 (Reference: http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/)
 ```
 wget http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/twoBitToFa
