@@ -1,3 +1,8 @@
+#Install Python and non-standard modules
+
+Author: Alli Gombolay
+Date: June 9, 2016
+
 #Instructions to install Python
 
 (Note: Instructions adapted from [here] (https://mail.python.org/pipermail/tutor/2002-March/012903.html))
