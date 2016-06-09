@@ -7,12 +7,16 @@
 #This program is necessary to convert sacCer2.2bit to .fa format
 wget http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/twoBitToFa
 
+#Download the sacCer2 reference genome (Chromosomes I-XVI, ChrM, and 2micron plasmid)
+#sacCer2.2bit contains the sequences of all 16 chromosomes, chr M, and 2micron plasmid
+wget http://hgdownload.cse.ucsc.edu/goldenPath/sacCer2/bigZips/sacCer2.2bit
+
+#Run twoBitToFa program to convert file from twoBit to FASTA format
+#sacCer2.2bit file contains the genomic sequence of the reference, sacCer2
+twoBitToFa sacCer2.2bit sacCer2.fa
+
 #Build Bowtie index for sacCer2
 bowtie-build sacCer2.fa sacCer2Index
-
-#Download sacCer2 reference genome (ChrI-XVI, ChrM, and 2micron)
-#Contains sequences of all 16 chromosomes, chr M, and 2micron plasmid
-wget http://hgdownload.cse.ucsc.edu/goldenPath/sacCer2/bigZips/sacCer2.2bit
 
 #Download file containing sizes of chromosomes of sacCer2 genome
 #Contains length in base pairs of all 16 chromosomes, chr M, and 2micron plasmid
