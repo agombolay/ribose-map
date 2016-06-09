@@ -95,7 +95,7 @@ echo "export PATH="/projects/home/agombolay3/data/bin/bedtools2/bin:$PATH"" >> ~
 pip install pysam
 ```
 
-####Part b. Editdist Program
+####Part b.) Editdist Program
 
 1. Download the .tar.gz file from the editdist website  
 (Reference: http://www.mindrot.org/projects/py-editdist/)
