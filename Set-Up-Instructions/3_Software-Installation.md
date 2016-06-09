@@ -1,6 +1,10 @@
 ##Instructions to install required software
 
 ####SRA Toolkit
+1. Download the SRA Toolkit program from NCBI's website
+```
+wget http://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.6.3/sratoolkit.2.6.3-centos_linux64.tar.gz
+```
 
 ####twoBitToFa
 1. Download the twoBitToFa program from UCSC's application site  
