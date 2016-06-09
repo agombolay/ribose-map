@@ -14,7 +14,7 @@ function usage () {
         echo "Usage: $program [-i] '/path/to/file1.fastq etc.' [-b] 'Bowtie index' [-d] 'Ribose-seq directory' [-h]
           -i Filepaths of input FASTQ files 
           -b Basename of Bowtie index to be searched
-          -d Location to save local Ribose-seq directory"
+          -d Location of user's local Ribose-seq directory"
 }
 
 #Use getopts function to create the command-line options ([-i], [-b], [-d], and [-h])
