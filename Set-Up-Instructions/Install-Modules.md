@@ -1,6 +1,6 @@
 #Install Python and Non-standard Modules
 
-Author: Alli Gombolay
+Author: Alli Gombolay  
 Date: June 9, 2016
 
 ##Instructions to install Python
