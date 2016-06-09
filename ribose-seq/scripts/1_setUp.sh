@@ -27,7 +27,7 @@ sort sacCer2.chrom.sizes -o sacCer2.chrom.sizes
 #wget http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/fetchChromSizes
 #fetchChromSizes sacCer2 > sacCer2.chrom.sizes
 
-#Download file containing locations of genes on chromosomes from UCSC's site
+#Download file of gene locations (start and end positions) from UCSC's site
 wget http://hgdownload.soe.ucsc.edu/goldenPath/sacCer2/database/sgdGene.txt.gz
 
 #Uncompress the .txt.gz file and then convert it from .txt to .bed (rearrange columns and remove some)
