@@ -18,7 +18,7 @@
 ------
 
 * [**twoBitToFa**] (https://genome.ucsc.edu/goldenpath/help/twoBit.html)
-  *twoBitToFa is used to convert .2bit files to .fa format for further processing
+  * twoBitToFa is used to convert .2bit files to .fa format for further processing
 
 * [**umitools**] (https://github.com/brwnj/umitools):
   * umitools is used to trim unique molecular identifiers (UMIs) and to remove duplicate reads
