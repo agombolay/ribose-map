@@ -1,6 +1,8 @@
 ##Description of Software Requirements:  
 
-####[Instructions on how to install Python and non-standard modules] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/Install-Python-Modules.md)
+####To install the required software for the Ribose-seq Analysis Pipeline, please click on the links below:
+[Instructions on how to install Python and non-standard modules] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/Install-Python-Modules.md)
+[Instructions on how to install required all other required software] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/Install-Required-Software.md)
 
 * [**Python**] (https://www.python.org/downloads/)  
 
@@ -18,8 +20,6 @@
          * [pybedtools] (https://pypi.python.org/pypi/pybedtools): Extension of BEDtools program
 
 ------
-
-####[Instructions on how to install required all other required software] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/Install-Required-Software.md)
 
 * [**umitools**] (https://github.com/brwnj/umitools):
   * umitools is used to trim unique molecular identifiers (UMIs) and to remove duplicate reads
