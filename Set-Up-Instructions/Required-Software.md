@@ -59,7 +59,7 @@
 * [**Trimmomatic**] (http://www.usadellab.org/cms/?page=trimmomatic)
  * Trimmomatic program is used to trim reads based on quality (optional)
 
-* [SRA Toolkit] (http://www.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=software):
+* [**SRA Toolkit**] (http://www.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=software):
   * SRA Toolkit fastq-dump tool is used to convert SRA (.sra) files to FASTQ (.fq) format
   * Resources: 
     * [NCBI reference on how to use the SRA Toolkit] (http://www.ncbi.nlm.nih.gov/books/NBK158900/)
