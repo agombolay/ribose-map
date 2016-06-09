@@ -11,7 +11,7 @@ tar zxf Python-2.7.11.tgz
 ```
 
 ```
-cd Python-2.2
+cd Python-2.7.11
 ```
 
 ```
