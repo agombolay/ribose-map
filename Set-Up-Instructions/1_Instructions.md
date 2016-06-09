@@ -11,4 +11,4 @@
 * The scripts are numbered according to the order in which they should be run
 
 ###Optional:
-* If analyzing *S. cerevisiae*, [download expression data] (http://amc-sandbox.ucdenver.edu/User13/outbox/2016/)
+* If analyzing *S. cerevisiae*, [download expression data from Jay Hesselberth's site] (http://amc-sandbox.ucdenver.edu/User13/outbox/2016/)
