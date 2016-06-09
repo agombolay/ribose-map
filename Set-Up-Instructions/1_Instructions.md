@@ -6,10 +6,11 @@ Date: June 9, 2016
 
 ###2. [Install required modules] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/4_Modules-Installation.md)
 
-###3. a) Download raw sequencing files
+###3.
+a) Download raw sequencing files
 
-###   b) [Convert sequencing files from .sra to .fq] (https://github.com/agombolay/Ribose-seq-Project/blob/master/ribose-seq/scripts/1_setUpRawData.sh)
-         * Sequencing files must be converted to FASTQ file format if not already
+b) [Convert sequencing files from .sra to .fq] (https://github.com/agombolay/Ribose-seq-Project/blob/master/ribose-seq/scripts/1_setUpRawData.sh)
+* Sequencing files must be converted to FASTQ file format if not already
 
 ###4. [Download reference genome files] (https://github.com/agombolay/Ribose-seq-Project/blob/master/ribose-seq/scripts/1_setUp.sh)
 
