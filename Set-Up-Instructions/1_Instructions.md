@@ -7,6 +7,7 @@
 
 ###4. [Download reference genome files] (https://github.com/agombolay/Ribose-seq-Project/blob/master/ribose-seq/scripts/1_setUp.sh)
 
+###5. Analyze data with Ribose-seq Analysis scripts
 
 ###Optional:
 * If analyzing *S. cerevisiae*, [download expression data] (http://amc-sandbox.ucdenver.edu/User13/outbox/2016/)
