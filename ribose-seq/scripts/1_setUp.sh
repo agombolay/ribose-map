@@ -18,6 +18,7 @@ bowtie-build sacCer2.fa sacCer2Index
 #Download file containing length in base pairs of the reference genome from UCSC
 wget http://hgdownload.cse.ucsc.edu/goldenPath/sacCer2/bigZips/sacCer2.chrom.sizes
 
+#Sort the reference genome file for processing
 sort sacCer2.chrom.sizes -o sacCer2.chrom.sizes
 
 #OR
