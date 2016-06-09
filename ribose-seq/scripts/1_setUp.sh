@@ -6,7 +6,7 @@
 #Download UCSC's twoBitToFa program to convert .2bit file to .fa
 wget http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/twoBitToFa
 
-#Download .2bit file of the reference genomic sequence from UCSC's site
+#Download .2bit file of the reference genome sequence from UCSC's site
 wget http://hgdownload.cse.ucsc.edu/goldenPath/sacCer2/bigZips/sacCer2.2bit
 
 #Convert the reference genome sequence file from .2bit to .fa
