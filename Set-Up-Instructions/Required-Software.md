@@ -1,6 +1,5 @@
 ##Software Requirements:  
 
-------
 
 [Note: Instructions on how to install Python modules] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/Install-Python-Modules.md)
 
