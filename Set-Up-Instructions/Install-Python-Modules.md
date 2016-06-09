@@ -1,4 +1,4 @@
-#Instruction to install Python
+#Instructions to install Python
 
 ###References
 * [Install Python]
