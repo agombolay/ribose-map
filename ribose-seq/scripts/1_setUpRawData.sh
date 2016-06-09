@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #Author: Alli Gombolay
-#This program converts the raw sequencing files from SRA format to FASTQ
+#This program converts the raw sequencing files from SRA (.sra) format to FASTQ (.fq)
 
 #COMMAND LINE OPTIONS
 
