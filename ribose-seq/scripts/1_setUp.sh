@@ -34,6 +34,8 @@ then
         exit
 fi
 
+$directory/ribose-seq/data/reference/
+
 #Download twoBit file of the reference genome sequence from UCSC's site
 wget http://hgdownload.cse.ucsc.edu/goldenPath/sacCer2/bigZips/sacCer2.2bit
 
