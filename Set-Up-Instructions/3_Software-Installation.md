@@ -5,6 +5,11 @@
 ```
 wget http://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.6.3/sratoolkit.2.6.3-centos_linux64.tar.gz
 ```
+&nbsp;
+2. Uncompress the downloaded .tar.gz file
+```
+tar -zxvf sratoolkit.2.6.3-centos_linux64.tar.gz
+```
 
 ####twoBitToFa
 1. Download the twoBitToFa program from UCSC's application site  
