@@ -9,7 +9,7 @@ Date: June 9, 2016
 ###3. Download raw sequencing files
 * Sequencing files may be downloaded from [Illumina] (https://basespace.illumina.com/home/index) or [NCBI] (http://www.ncbi.nlm.nih.gov/gds/)
 
-###4. [Convert sequencing files from .sra to .fq] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/Format-Data-Files.sh)
+###4. [Convert sequencing files from .sra to .fq] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/Set-Up-Data-Files.sh)
 * Sequencing files must be converted to FASTQ file format if not already
 
 ###5. [Download reference genome files from UCSC] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/Set-Up-Reference-Files.sh)
