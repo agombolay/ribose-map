@@ -51,7 +51,7 @@
   * It is also used in conjunction with pybedtools module to calculate nucleotide frequencies [(more)] (https://pythonhosted.org/pybedtools/)
 
 * [**MACS2**] (https://pypi.python.org/pypi/MACS2):
-  * MACS2 is used to call peaks based on alignment results to determine locations of hotspots
+  * MACS2 is used to call peaks based on the alignment results to determine locations of hotspots
 
 * [**bedToBigBed**] (http://hgdownload.cse.ucsc.edu/admin/exe/):
   * bedToBigBed is used to convert files from BED file format to bigBed format
