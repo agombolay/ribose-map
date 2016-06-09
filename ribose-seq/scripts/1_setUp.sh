@@ -10,14 +10,14 @@ program=$0
 
 #Usage statement of the program
 function usage () {
-        echo "Usage: $program [-r] 'reference genome' [-d] 'directory' [-h]
+        echo "Usage: $program [-r] 'reference genome' [-d] 'Ribose-seq directory' [-h]
           -r referene genome of interest
-          -d"
+          -d Location of local Ribose-seq directory"
 
 }
 
 #Use getopts function to create the command-line options ([-i], [-b], [-d], and [-h])
-while getopts "r:h" opt;
+while getopts "r:d:h" opt;
 do
     case $opt in
 	#Specify input as variable to allow only one input argument
