@@ -1,5 +1,5 @@
 #Description of Software Requirements
-Author: Alli Gombolay
+Author: Alli Gombolay  
 Date: June 9, 2016
 
 * [**Python**] (https://www.python.org/downloads/)  
