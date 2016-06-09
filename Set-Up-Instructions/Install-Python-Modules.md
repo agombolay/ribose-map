@@ -4,6 +4,22 @@
 wget https://www.python.org/ftp/python/2.7.11/Python-2.7.11.tgz
 ```
 
+```
+tar zxf Python-2.7.11.tgz
+```
+
+```
+cd Python-2.2
+```
+
+```
+./configure
+```
+
+```
+make
+```
+
 ###References
 * [Install Python]
 (https://www.python.org/downloads/release/python-2711/)
