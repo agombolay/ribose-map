@@ -63,7 +63,7 @@
   * Compared to BedGraph files, bigWig files are a faster way to display data in the UCSC Genome Browser
 
 * [**R**] (https://www.r-project.org/):
- * R software is used to create figures summarizing results of analysis
+ * R software is used to create the figures summarizing the results of the analysis
 
 ------
 
