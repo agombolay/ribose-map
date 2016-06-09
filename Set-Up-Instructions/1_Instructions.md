@@ -1,11 +1,11 @@
-##1. [Install required software] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/3_Software-Installation.md)
+###1. [Install required software] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/3_Software-Installation.md)
 
-##2. [Install required modules] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/4_Modules-Installation.md)
+###2. [Install required modules] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/4_Modules-Installation.md)
 
-##Raw sequencing files
+###3. Download raw sequencing files
 * Need to be converted from SRA to FASTQ format
 
-##Reference genome files
+###4. Download reference genome files
 * Need to be converted from 2bit to FASTA format
 
 ##Expression data:  
