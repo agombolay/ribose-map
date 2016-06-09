@@ -6,7 +6,7 @@
 
 #COMMAND LINE OPTIONS
 
-#Name of the program (6_plotNucleotideFrequencies.sh)
+#Name of the program (6_Plot-Nucleotide-Frequencies.sh)
 program=$0
 
 #Usage statement of the program
