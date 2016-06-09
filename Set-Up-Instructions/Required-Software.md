@@ -62,8 +62,8 @@
 * [**SRA Toolkit**] (http://www.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=software):
   * SRA Toolkit fastq-dump tool is used to convert SRA (.sra) files to FASTQ (.fq) format
   * Resources: 
-    * [NCBI reference on how to use the SRA Toolkit] (http://www.ncbi.nlm.nih.gov/books/NBK158900/)
     * [SRA reference on using frequently used tools] (http://www.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=toolkit_doc)
+    * [NCBI reference on how to use the SRA Toolkit] (http://www.ncbi.nlm.nih.gov/books/NBK158900/)
 
 ------
 
