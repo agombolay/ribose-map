@@ -16,12 +16,12 @@ function usage () {
 
 }
 
-#Use getopts function to create the command-line options ([-i], [-b], [-d], and [-h])
+#Use getopts function to create the command-line options ([-r], [-d], and [-h])
 while getopts "r:d:h" opt;
 do
     case $opt in
 	#Specify input as variable to allow only one input argument
-	b ) reference=$OPTARG ;;
+	r ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
         #If user specifies [-h], print usage statement
         h ) usage ;;
