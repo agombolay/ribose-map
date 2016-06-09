@@ -8,5 +8,5 @@
 ###4. [Download reference genome files] (https://github.com/agombolay/Ribose-seq-Project/blob/master/ribose-seq/scripts/1_setUp.sh)
 
 
-###If analyzing *S. cerevisiae*:
-* [Download expression data] (http://amc-sandbox.ucdenver.edu/User13/outbox/2016/)
+###Optional:
+* If analyzing *S. cerevisiae*, [download expression data] (http://amc-sandbox.ucdenver.edu/User13/outbox/2016/)
