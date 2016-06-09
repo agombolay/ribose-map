@@ -2,11 +2,8 @@
 * Sequencing data in FASTQ file format (or convert from SRA to FASTQ format)
 * *S. cerevisiae* data files: http://amc-sandbox.ucdenver.edu/User13/outbox/2016/
 
-##Convert input raw sequencing files from SRA to FASTQ format
-* SRA Toolkit (fastq-dump):  
-http://www.ncbi.nlm.nih.gov/books/NBK158900/  
-http://www.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=software  
-http://www.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=toolkit_doc  
+##Raw sequencing files
+* Need to be converted from SRA to FASTQ format
 
 ##Reference genome files
 * Need to be converted from 2bit to FASTA format
