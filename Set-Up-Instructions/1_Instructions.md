@@ -7,7 +7,7 @@ Date: June 9, 2016
 ###2. [Install required modules] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/4_Modules-Installation.md)
 
 ###3. Download raw sequencing files
-* Raw sequencing files may be downloaded from [BaseSpace] (https://basespace.illumina.com/home/index) or [NCBI] (http://www.ncbi.nlm.nih.gov/gds/)
+* Sequencing files may be downloaded from [BaseSpace] (https://basespace.illumina.com/home/index) or [NCBI] (http://www.ncbi.nlm.nih.gov/gds/)
 
 ###4. [Convert sequencing files from .sra to .fq] (https://github.com/agombolay/Ribose-seq-Project/blob/master/ribose-seq/scripts/1_setUpRawData.sh)
 * Sequencing files must be converted to FASTQ file format if not already
