@@ -30,5 +30,5 @@ sort sacCer2.chrom.sizes -o sacCer2.chrom.sizes
 #Download file containing locations of genes on chromosomes from UCSC's site
 wget http://hgdownload.soe.ucsc.edu/goldenPath/sacCer2/database/sgdGene.txt.gz
 
-#Uncompress the .txt.gz file and then convert it to .bed file format (rearrange columns and remove some)
+#Uncompress the .txt.gz file and then convert it from .txt to .bed (rearrange columns and remove some)
 gunzip sgdGene.txt.gz | cat sgdGene.txt | awk  ' {OFS="\t"; print $3,$5,$6,".", ".",$4 } ' > sgdGene.bed
