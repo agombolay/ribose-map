@@ -5,7 +5,7 @@
 
 #COMMAND LINE OPTIONS
 
-#Name of the program (1_setUpReference.sh)
+#Name of the program (Set-Up-Reference-Files.sh)
 program=$0
 
 #Usage statement of the program
