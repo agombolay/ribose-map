@@ -39,7 +39,7 @@
       * [How to test if Bowtie index is properly installed] (http://bowtie-bio.sourceforge.net/tutorial.shtml)
 
 * [**SAMtools**] (http://www.htslib.org/download/):
-  * SAMtools is used to convert the output SAM file of aligned reads to BAM file format
+  * SAMtools is used to convert the SAM (.sam) file generated from alignment to BAM (.bam)
   * It is also used to remove unmapped reads from the BAM file as well as sort and index it
   * Resources:
     * [Manual page for information on commands] (http://www.htslib.org/doc/samtools.html)
