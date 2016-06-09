@@ -15,17 +15,13 @@ twoBitToFa sacCer2.2bit sacCer2.fa
 #Build Bowtie index for the reference genome from the .fa file
 bowtie-build sacCer2.fa sacCer2Index
 
-#Download file of size (in base pairs) of the reference genome from UCSC's site
+#Download file of chromosome sizes (in bp) the reference genome from UCSC's site
 wget http://hgdownload.cse.ucsc.edu/goldenPath/sacCer2/bigZips/sacCer2.chrom.sizes
 
 #Sort the reference genome file for processing
 sort sacCer2.chrom.sizes -o sacCer2.chrom.sizes
 
-#OR
-
-#Download fetchChromSizes to create file containing sizes of chromosomes
-#wget http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/fetchChromSizes
-#fetchChromSizes sacCer2 > sacCer2.chrom.sizes
+#Note: fetchChromSizes is an alternative program
 
 #Download file of gene locations (start and end positions) from UCSC's site
 wget http://hgdownload.soe.ucsc.edu/goldenPath/sacCer2/database/sgdGene.txt.gz
