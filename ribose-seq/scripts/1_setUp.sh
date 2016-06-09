@@ -27,9 +27,8 @@ sort sacCer2.chrom.sizes -o sacCer2.chrom.sizes
 #wget http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/fetchChromSizes
 #fetchChromSizes sacCer2 > sacCer2.chrom.sizes
 
-#Download sgdGene.txt.gz and convert it to BED format
-#Contains names of chromosomes, start and end positions of genes, and strand
+#Download file containing locations of genes on chromosomes from UCSC's site
 wget http://hgdownload.soe.ucsc.edu/goldenPath/sacCer2/database/sgdGene.txt.gz
 
-#Uncompress sgdGene.txt.gz file and then convert it to a bed file (rearrange columns and remove some)
+#Uncompress sgdGene.txt.gz file and then convert it to a BED file (rearrange columns and remove some)
 gunzip sgdGene.txt.gz | cat sgdGene.txt | awk  ' {OFS="\t"; print $3,$5,$6,".", ".",$4 } ' > sgdGene.bed
