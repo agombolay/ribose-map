@@ -30,7 +30,7 @@
  * Trimmomatic program is used to trim reads based on quality (optional)
 
 * [**umitools**] (https://github.com/brwnj/umitools):
-  * umitools is used to trim UMIs from raw sequencing reads and to remove duplicate reads
+  * umitools is used to trim UMIs from sequencing reads and to remove duplicate reads
 
 * [**Bowtie**] (https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.1.2/):
    * Bowtie is used to align the raw sequencing reads to the reference genome of interest
