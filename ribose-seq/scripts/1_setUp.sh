@@ -12,7 +12,7 @@ program=$0
 function usage () {
         echo "Usage: $program [-r] 'reference genome' [-d] 'Ribose-seq directory' [-h]
           -r referene genome of interest
-          -d Location of local Ribose-seq directory"
+          -d Location of user's local Ribose-seq directory"
 
 }
 
