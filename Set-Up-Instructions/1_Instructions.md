@@ -7,5 +7,4 @@
 
 ###4. [Download reference genome files] (https://github.com/agombolay/Ribose-seq-Project/blob/master/ribose-seq/scripts/1_setUp.sh)
 
-##Expression data:  
-* *S. cerevisiae* data files: http://amc-sandbox.ucdenver.edu/User13/outbox/2016/
+###5. [Download expression data for *S. cerevisiae*] (http://amc-sandbox.ucdenver.edu/User13/outbox/2016/)
