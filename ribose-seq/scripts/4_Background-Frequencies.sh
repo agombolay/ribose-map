@@ -6,7 +6,7 @@
 
 #COMMAND LINE OPTIONS
 
-#Name of the program (5_Background-Frequencies.sh)
+#Name of the program (4_Background-Frequencies.sh)
 program=$0
 
 #Usage statement of the program
