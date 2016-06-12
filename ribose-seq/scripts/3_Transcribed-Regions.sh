@@ -6,7 +6,7 @@
 
 #COMMAND LINE OPTIONS
 
-#Name of the program (4_Transcribed-Regions.sh)
+#Name of the program (3_Transcribed-Regions.sh)
 program=$0
 
 #Usage statement of the program
