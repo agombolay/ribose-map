@@ -22,7 +22,7 @@ while getopts "i:r:d:h" opt;
 do
     case $opt in
 	 #Specify input as arrays to allow multiple input arguments
-        i ) names=($OPTARG) ;;
+        i ) samples=($OPTARG) ;;
 	#Specify input as variable to allow only one input argument
 	r ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
@@ -60,7 +60,7 @@ fi
 offset_minimum=-100
 offset_maximum=100
 
-BAM=$input/$sample.bam
+BAM=$input/$samples.bam
 
 #Location of file containing sequences of reference genome
 FASTA=$directory/ribose-seq/data/reference/$reference.fa
@@ -94,7 +94,7 @@ do
         #Signals need to be reverse complemented since sequence is reverse complement of the captured strand
         for size in $sizes;
         do
-            ./5_Experimental-Frequencies.py $BAM $FASTA --verbose --region-size $size $arguments --revcomp-strand \
+            /projects/home/agombolay3/data/bin/Python-2.7.11/python 5_Experimental-Frequencies.py $BAM $FASTA --verbose --region-size $size $arguments --revcomp-strand \
             --background-freq-table $BackgroundFrequencies --offset-min $offset_minimum --offset-max $offset_maximum \
             >> $tables
         done

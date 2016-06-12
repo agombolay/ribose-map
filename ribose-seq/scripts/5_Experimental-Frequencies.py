@@ -16,7 +16,7 @@ from collections import Counter, defaultdict
 from toolshed import reader
 from pyfaidx import Fasta, complement
 
-from .common import load_coverage
+from common import load_coverage
 
 __author__ = 'Jay Hesselberth'
 __contact__ = 'jay.hesselberth@gmail.com'
