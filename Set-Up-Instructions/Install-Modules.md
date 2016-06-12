@@ -47,7 +47,7 @@ tar -zxvf toolshed-0.4.5.tar.gz
 cd toolshed-0.4.5
 ```
 ```
-python setup.py install --user
+path/to/python setup.py install --user
 ```
 
 ###[Pyfaidx] (https://pypi.python.org/pypi/pyfaidx)
@@ -62,7 +62,7 @@ tar -zxvf pyfaidx-0.4.7.1.tar.gz
 cd pyfaidx-0.4.7.1
 ```
 ```
-python setup.py install --user
+path/to/python setup.py install --user
 ```
 
 ###[Pybedtools] (https://pypi.python.org/pypi/pybedtools)
@@ -77,7 +77,7 @@ tar -zxvf pybedtools-0.7.7.tar.gz
 cd pybedtools-0.7.7
 ```
 ```
-python setup.py install --user
+path/to/python setup.py install --user
 ```
 
 ###[Pandas] (https://pypi.python.org/pypi/pandas)
@@ -92,5 +92,5 @@ tar -zxvf pandas-0.18.1.tar.gz
 cd pandas-0.18.1
 ```
 ```
-python setup.py install --user
+path/to/python setup.py install --user
 ```
