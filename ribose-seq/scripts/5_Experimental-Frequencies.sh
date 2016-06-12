@@ -94,15 +94,11 @@ do
         #Signals need to be reverse complemented since sequence is reverse complement of the captured strand
         for size in $sizes;
         do
-<<<<<<< HEAD
+
         	/projects/home/agombolay3/data/bin/Python-2.7.11/python 5_Experimental-Frequencies.py $BAM $FASTA \
 		--region-size $size $arguments --revcomp-strand --background-freq-table $BackgroundFrequencies \
 		--offset-min $offset_minimum --offset-max $offset_maximum --verbose >> $tables
-=======
-            /projects/home/agombolay3/data/bin/Python-2.7.11/python 5_Experimental-Frequencies.py $BAM $FASTA
-            --region-size $size $arguments --revcomp-strand --background-freq-table $BackgroundFrequencies
-            --offset-min $offset_minimum --offset-max $offset_maximum --verbose >> $tables
->>>>>>> 00e51bf587afd72b8c69ce7f5fd7a4a8d652fad0
+
         done
     
 done
