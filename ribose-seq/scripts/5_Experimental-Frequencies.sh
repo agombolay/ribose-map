@@ -72,7 +72,7 @@ do
         
         argument=${arguments[$index]}
 
-        tables="$output/$sample.$mode.nucleotideFrequencies.tab"
+        tables="$output/$samples.$mode.nucleotideFrequencies.tab"
         
         if [[ -f $tables ]];
         then
@@ -95,8 +95,7 @@ do
         for size in $sizes;
         do
             /projects/home/agombolay3/data/bin/Python-2.7.11/python 5_Experimental-Frequencies.py $BAM $FASTA --verbose --region-size $size $arguments --revcomp-strand \
-            --background-freq-table $BackgroundFrequencies --offset-min $offset_minimum --offset-max $offset_maximum \
-            >> $tables
+            --background-freq-table $BackgroundFrequencies --offset-min $offset_minimum --offset-max $offset_maximum >> $tables
         done
     
 done
