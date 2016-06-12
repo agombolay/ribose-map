@@ -1,4 +1,35 @@
-#Instructions to install required Python modules
+#Install Python and Non-standard Modules
+
+Author: Alli Gombolay  
+Date: June 9, 2016
+
+##1. Instructions to install Python
+
+(Note: Instructions adapted from [here] (https://mail.python.org/pipermail/tutor/2002-March/012903.html))
+
+```
+wget https://www.python.org/ftp/python/2.7.11/Python-2.7.11.tgz
+```
+
+```
+tar zxf Python-2.7.11.tgz
+```
+
+```
+cd Python-2.7.11
+```
+
+```
+./configure
+```
+
+```
+make
+```
+
+------
+
+##2. Instructions to install modules
 
 ###References
 * [Installing Python modules] (https://docs.python.org/2/install/)

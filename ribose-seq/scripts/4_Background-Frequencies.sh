@@ -6,14 +6,14 @@
 
 #COMMAND LINE OPTIONS
 
-#Name of the program (5_backgroundNucleotideFrequencies.sh)
+#Name of the program (4_Background-Frequencies.sh)
 program=$0
 
 #Usage statement of the program
 function usage () {
         echo "Usage: $program [-r] 'reference genome' [-d] 'Ribose-seq directory' [-h]
           -r Reference genome of interest (i.e., sacCer2)
-          -d Location to save local Ribose-seq directory"
+          -d Location of user's local Ribose-seq directory"
 }
 
 #Use getopts function to create the command-line options ([-r], [-d], and [-h])
@@ -52,12 +52,12 @@ fi
 
 #Calculate frequencies of nucleotides in reference genome
 genome="$output/$reference.genome.nucleotide.frequencies.tab"
-python2.7 5_backgroundNucleotideFrequencies.py $FASTA --region-size-minimum 1 --region-size-maximum 3 --verbose > $genome
+python2.7 5_Background-Frequencies.py $FASTA --region-size-minimum 1 --region-size-maximum 3 --verbose > $genome
 
 #Calculate frequencies of nucleotides in chrM of sacCer2 genome
 chrM="$output/$reference.chrM.nucleotide.frequencies.tab"
-python2.7 5_backgroundNucleotideFrequencies.py $FASTA --region-size-minimum 1 --region-size-maximum 3 --only-chrom chrM --verbose > $chrM
+python2.7 5_Background-Frequencies.py $FASTA --region-size-minimum 1 --region-size-maximum 3 --only-chrom chrM --verbose > $chrM
 
 #Calculate frequencies of nucleotides in 2micron of sacCer2 genome 
 plasmid="$output/$reference.2micron.nucleotide.frequencies.tab"
-python2.7 5_backgroundNucleotideFrequencies.py $FASTA --region-size-minimum 1 --region-size-maximum 3 --only-chrom 2micron --verbose > $plasmid
+python2.7 5_Background-Frequencies.py $FASTA --region-size-minimum 1 --region-size-maximum 3 --only-chrom 2micron --verbose > $plasmid

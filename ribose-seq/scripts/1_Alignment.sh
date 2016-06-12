@@ -6,7 +6,7 @@
 
 #COMMAND LINE OPTIONS
 
-#Name of the program (2_alignment.sh)
+#Name of the program (1_Alignment.sh)
 program=$0
 
 #Usage statement of the program
@@ -14,7 +14,7 @@ function usage () {
         echo "Usage: $program [-i] '/path/to/file1.fastq etc.' [-b] 'Bowtie index' [-d] 'Ribose-seq directory' [-h]
           -i Filepaths of input FASTQ files 
           -b Basename of Bowtie index to be searched
-          -d Location to save local Ribose-seq directory"
+          -d Location of user's local Ribose-seq directory"
 }
 
 #Use getopts function to create the command-line options ([-i], [-b], [-d], and [-h])
@@ -107,8 +107,10 @@ do
 	samtools view -ShuF4 $intermediateSAM > $intermediateBAM
 	
 	#SAMtools options used above:
-	#"-b": Output in BAM format
 	#"-S": Input in SAM format
+	#"-h": Include header in output
+	#"-u": Output as uncompressed BAM
+	#"-F4": Do not output unmapped reads
 
 	#Sort intermediate BAM files
 	samtools sort $intermediateBAM > $sortedBAM

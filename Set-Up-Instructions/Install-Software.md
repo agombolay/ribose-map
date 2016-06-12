@@ -1,5 +1,22 @@
-##INSTALL twoBitToFa PROGRAM TO CONVERT .2BIT FILE TO .FA
-1. Download the twoBitToFa program from UCSC's application site
+##Instructions to install required software
+
+####SRA Toolkit
+1. Download the SRA Toolkit program from NCBI's website
+```
+wget http://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.6.3/sratoolkit.2.6.3-centos_linux64.tar.gz
+```
+&nbsp;
+2. Uncompress the downloaded .tar.gz file
+```
+tar -zxvf sratoolkit.2.6.3-centos_linux64.tar.gz
+```
+3. Add the path to the fastq-dump script to your $PATH via the .bashrc configuration file
+```
+echo "export PATH="/projects/home/agombolay3/data/bin/sratoolkit.2.6.3-centos_linux64/bin:$PATH"" >> ~/.bashrc
+```
+
+####twoBitToFa
+1. Download the twoBitToFa program from UCSC's application site  
 (Reference: http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/)
 ```
 wget http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/twoBitToFa
@@ -10,7 +27,7 @@ wget http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/twoBitToFa
 chmod +x twoBitToFa
 ```
 
-###INSTALL BOWTIE PROGRAM TO ALIGN READS TO GENOME
+####Bowtie
 1. Download the .zip file from the bowtie website
 ```
 wget https://sourceforge.net/projects/bowtie-bio/files/bowtie/1.1.2/bowtie-1.1.2-linux-x86_64.zip
@@ -26,7 +43,7 @@ unzip bowtie-1.1.2-linux-x86_64.zip
 echo "export PATH="/projects/home/agombolay3/data/bin/bowtie-1.1.2:$PATH"" >> ~/.bashrc
 ```
 
-###INSTALL SAMtools TO PROCESS OUTPUT ALIGNMENT FILES
+####SAMtools
 1. Download the .zip file from the SAMtools website  
 (Reference: http://www.htslib.org/download/)
 ```
@@ -58,7 +75,7 @@ make prefix=/projects/home/agombolay3/data/bin install
 echo "export PATH="/projects/home/agombolay3/data/bin/bin:$PATH"" >> ~/.bashrc
 ```
 
-###INSTALL BEDtools TO DETERMINE GENOME COVERAGE
+####BEDtools
 1. Download the .tar.gz file from the BEDtools website 
 ```
 wget https://github.com/arq5x/bedtools2/releases/download/v2.25.0/bedtools-2.25.0.tar.gz
@@ -84,7 +101,7 @@ make
 echo "export PATH="/projects/home/agombolay3/data/bin/bedtools2/bin:$PATH"" >> ~/.bashrc
 ```
 
-###INSTALL UMItools PROGRAM TO REMOVE PCR DUPLICATES
+####umitools
 (Note: Instructions adapted from https://github.com/brwnj/umitools)
 
 ####Part a.) Pysam Program
@@ -95,7 +112,7 @@ echo "export PATH="/projects/home/agombolay3/data/bin/bedtools2/bin:$PATH"" >> ~
 pip install pysam
 ```
 
-####Part b. Editdist Program
+####Part b.) Editdist Program
 
 1. Download the .tar.gz file from the editdist website  
 (Reference: http://www.mindrot.org/projects/py-editdist/)
@@ -148,7 +165,7 @@ python2.7 setup.py install --user
 echo "export PATH="/projects/home/agombolay3/.local/bin:$PATH"" >> ~/.bashrc
 ```
 
-###INSTALL MACS2 PROGRAM TO CALL ALIGNMENT PEAKS
+####MACS2
 
 1. Download the .tar.gz file from the MACS2 website  
 (Reference: https://pypi.python.org/pypi/MACS2)
@@ -172,7 +189,7 @@ python2.7 setup.py install --user
 echo "export PATH="/projects/home/agombolay3/.local/bin:$PATH"" >> ~/.bashrc
 ```
 
-###INSTALL bedToBigBed
+###bedToBigBed
 1. Download the program from the UCSC Genome Browswer website  
 (Reference: http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/)
 ```
@@ -189,7 +206,7 @@ chmod +x bedToBigBed
 echo "export PATH="/projects/home/agombolay3/data/bin:$PATH"" >> ~/.bashrc
 ```
 
-###INSTALL bedgraphToBigWig
+###bedgraphToBigWig
 1. Download the program from the UCSC Genome Browswer website  
 (Reference: http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/)
 ```

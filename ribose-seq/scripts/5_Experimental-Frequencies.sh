@@ -6,7 +6,7 @@
 
 #COMMAND LINE OPTIONS
 
-#Name of the program (6_calculateNucleotideFrequencies.sh)
+#Name of the program (6_Experimental-Frequencies.sh)
 program=$0
 
 #Usage statement of the program
@@ -14,7 +14,7 @@ function usage () {
         echo "Usage: $program [-i] 'sample1 etc.' [-r] 'reference genome' [-d] 'Ribose-seq directory' [-h]
         -i Sample names of input BAM files (i.e, sample1 for sample1.bam)
         -r File containing sizes in base pairs of chromosomes (i.e, sacCer2)
-        -d Location to save local Ribose-seq directory"
+        -d Location of user's local Ribose-seq directory"
 }
 
 #Use getopts function to create the command-line options ([-d] and [-h])
@@ -94,7 +94,7 @@ do
         #Signals need to be reverse complemented since sequence is reverse complement of the captured strand
         for size in $sizes;
         do
-            6_calculateNucleotideFrequencies.py $BAM $FASTA --verbose --region-size $size $arguments --revcomp-strand \
+            6_Experimental-Frequencies.py $BAM $FASTA --verbose --region-size $size $arguments --revcomp-strand \
             --background-freq-table $BackgroundFrequencies --offset-min $offset_minimum --offset-max $offset_maximum \
             >> $tables
         done
