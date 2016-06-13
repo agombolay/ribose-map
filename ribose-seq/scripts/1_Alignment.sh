@@ -121,6 +121,9 @@ do
 	#3. De-duplicate reads based on UMI's and compress BED files
 	umitools rmdup $sortedBAM $finalBAM | gzip -c > $BED
 	
+	#Index final BAM files
+	samtools index $finalBAM
+	
 	#Ask the user if he/she would like to delete all of the intermediate files
 	#echo "Would you like to delete all of the intermediate files for $samples? [y/n]"
 	
