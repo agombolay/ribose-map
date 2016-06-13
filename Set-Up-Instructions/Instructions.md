@@ -16,7 +16,7 @@ Date: June 9, 2016
 
 ###6. [Analyze data with Ribose-seq Analysis scripts] (https://github.com/agombolay/Ribose-seq-Project/tree/master/ribose-seq/scripts)
 * The scripts are numbered according to the order in which they should be run
-* To read usage statements for the scripts, please run the following command
+* To read usage statements for the scripts, please run the command shown below
 ```
 <script name> -h
 ```
