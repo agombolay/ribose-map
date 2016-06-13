@@ -115,6 +115,9 @@ do
 	#Sort intermediate BAM files
 	samtools sort $intermediateBAM > $sortedBAM
 
+	#Index sorted BAM files
+	samtools index $sortedBAM
+	
 	#3. De-duplicate reads based on UMI's and compress BED files
 	umitools rmdup $sortedBAM $finalBAM | gzip -c > $BED
 	
