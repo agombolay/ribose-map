@@ -16,6 +16,10 @@ Date: June 9, 2016
 
 ###6. [Analyze data with Ribose-seq Analysis scripts] (https://github.com/agombolay/Ribose-seq-Project/tree/master/ribose-seq/scripts)
 * The scripts are numbered according to the order in which they should be run
+* To read usage statements for the scripts, please run the following command
+```
+<script name> -h
+```
 
 ###Optional:
 * If analyzing *S. cerevisiae*, [download expression data from Jay Hesselberth's site] (http://amc-sandbox.ucdenver.edu/User13/outbox/2016/)
