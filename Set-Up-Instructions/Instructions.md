@@ -14,9 +14,9 @@ Date: June 9, 2016
 
 ###5. [Download reference genome files from UCSC] (https://github.com/agombolay/Ribose-seq-Project/blob/master/Set-Up-Instructions/Set-Up-Reference-Files.sh)
 
-###6. [Analyze data with Ribose-seq Analysis scripts] (https://github.com/agombolay/Ribose-seq-Project/tree/master/ribose-seq/scripts)
-* The scripts are numbered according to the order in which they should be run
-* To read usage statements for the scripts, please run the command shown below
+###6. [Analyze data with Ribose-seq Analysis programs] (https://github.com/agombolay/Ribose-seq-Project/tree/master/ribose-seq/scripts)
+* The programs are numbered according to the order in which they should be run
+* To read usage statements, please run the command below for any given program
 ```
 <script name> -h
 ```
