@@ -37,11 +37,10 @@ then
         exit
 fi
 
-# Mononucleotides, dinucleotides, and trinucleotides
-sizes="1 2 3"
+#Mononucleotides
+sizes="1"
 
 modes=("all" "only-mitochondria" "no-mitochondria" "only-2micron")
-
 arguments=("" "--only-chrom chrM" "--ignore-chrom chrM" "--only-chrom 2micron")
 
 #""= Entire genome ("all")
@@ -65,40 +64,44 @@ BAM=$input/$samples.bam
 #Location of file containing sequences of reference genome
 FASTA=$directory/ribose-seq/reference/$reference.fa
 
-for index in ${!modes[@]};
+for files in ${samples[@]};
 do
 
-        mode=${modes[$index]}
+	for index in ${!modes[@]};
+	do
+
+        	mode=${modes[$index]}
         
-        argument=${arguments[$index]}
+        	argument=${arguments[$index]}
 
-        tables="$output/$samples.$mode.nucleotideFrequencies.tab"
+        	tables="$output/$samples.$mode.nucleotideFrequencies.tab"
         
-        if [[ -f $tables ]];
-        then
-            rm -f $tables
-        fi
+        	if [[ -f $tables ]];
+        	then
+            		rm -f $tables
+        	fi
 
-        if [[ $mode == "only-mitochondria" ]];
-        then
-            BackgroundFrequencies="$directory/ribose-seq/results/backgroundNucleotideFrequencies/$reference.chrM.nucleotide.frequencies.tab"
+        	if [[ $mode == "only-mitochondria" ]];
+        	then
+            		BackgroundFrequencies="$directory/ribose-seq/results/backgroundNucleotideFrequencies/$reference.chrM.nucleotide.frequencies.tab"
         
-        elif [[ $mode == "only-2micron" ]];
-        then
-            BackgroundFrequencies="$directory/ribose-seq/results/backgroundNucleotideFrequencies/$reference.2micron.nucleotide.frequencies.tab"
+        	elif [[ $mode == "only-2micron" ]];
+        	then
+            		BackgroundFrequencies="$directory/ribose-seq/results/backgroundNucleotideFrequencies/$reference.2micron.nucleotide.frequencies.tab"
         
-        else
-            BackgroundFrequencies="$directory/ribose-seq/results/backgroundNucleotideFrequencies/$reference.genome.nucleotide.frequencies.tab"
-        fi
+        	else
+            		BackgroundFrequencies="$directory/ribose-seq/results/backgroundNucleotideFrequencies/$reference.genome.nucleotide.frequencies.tab"
+        	fi
 
-        #Signals need to be reverse complemented since sequence is reverse complement of the captured strand
-        for size in $sizes;
-        do
+        	#Signals need to be reverse complemented since sequence is reverse complement of the captured strand
+        	for size in $sizes;
+        	do
 
-        	/projects/home/agombolay3/data/bin/Python-2.7.11/python 5_Experimental-Frequencies.py $BAM $FASTA \
-		--region-size $size $arguments --revcomp-strand --background-freq-table $BackgroundFrequencies \
-		--offset-min $offset_minimum --offset-max $offset_maximum --verbose >> $tables
+        		/projects/home/agombolay3/data/bin/Python-2.7.11/python 5_Experimental-Frequencies.py $BAM $FASTA \
+			--region-size $size $argument --revcomp-strand --background-freq-table $BackgroundFrequencies \
+			--offset-min $offset_minimum --offset-max $offset_maximum --verbose >> $tables
 
-        done
+        	done
     
+	done
 done
