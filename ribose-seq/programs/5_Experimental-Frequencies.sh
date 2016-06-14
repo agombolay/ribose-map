@@ -13,7 +13,7 @@ program=$0
 function usage () {
         echo "Usage: $program [-i] 'sample1 etc.' [-r] 'reference genome' [-d] 'Ribose-seq directory' [-h]
         -i Sample names of input BAM files (i.e, sample1 for sample1.bam)
-        -r File containing sizes in base pairs of chromosomes (i.e, sacCer2)
+        -r Basename of FASTA file containing chromosome sizes (i.e, sacCer2)
         -d Location of user's local Ribose-seq directory"
 }
 
