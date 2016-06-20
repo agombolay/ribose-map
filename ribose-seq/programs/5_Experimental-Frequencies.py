@@ -158,10 +158,10 @@ def print_report(nuc_counts, freq_background_filename,
 
             freq = float(count) / float(sum_counts)
 
-            freq_type = 'raw'
-            vals = map(str, [nuc, report_offset, region_size, count,
-                             freq, freq_type, total_sites])
-            print '\t'.join(vals)
+#            freq_type = 'raw'
+#            vals = map(str, [nuc, report_offset, region_size, count,
+#                             freq, freq_type, total_sites])
+#            print '\t'.join(vals)
 
             # write out normalized frequencies if requested
             if freq_background_filename:
