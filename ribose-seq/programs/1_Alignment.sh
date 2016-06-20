@@ -90,7 +90,7 @@ do
 	umitools trim $input $UMI | gzip -c > $umiTrimmed
 
 	#2. Align UMI trimmed reads to reference genome and output alignment statistics
-	zcat $umiTrimmed | bowtie -m 1 --sam $index - 2> $statistics 1> $intermediateSAM
+	zcat $umiTrimmed | bowtie -m 1 --sam $index --un $samples.unmappedReads --max $samples.extraReads - 2> $statistics 1> $intermediateSAM
 
 	#Bash functions used above:
 	#"-": standard input
