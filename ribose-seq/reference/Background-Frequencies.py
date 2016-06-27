@@ -18,6 +18,8 @@ args = parser.parse_args()
 #Open input FASTA file and assign it to an object ("r": read file)
 fasta = open(sys.argv[1], "r")
 
+#CALCULATE NUCLEOTIDE FREQUENCIES
+
 #Set the values of the base counts of nucleotide numbers to 0
 A=0;
 C=0;
