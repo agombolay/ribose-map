@@ -58,7 +58,7 @@ table = [["A", A, A_frequency, total], ["C", C, C_frequency, ""], ["G", G, G_fre
 
 #NAME OUTPUT FILE
 
-#Obtain name of FASTA file without .fa file extension
+#Obtain name of FASTA file without file extension
 filename=os.path.splitext(sys.argv[1])[0]
 
 #Specify name of output file based on input filename
