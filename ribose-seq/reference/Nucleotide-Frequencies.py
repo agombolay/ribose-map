@@ -67,7 +67,7 @@ data.headers = ['Nucleotide', 'Number', 'Frequency', 'Total Number of Nucleotide
 filename=os.path.splitext(sys.argv[1])[0]
 
 #Specify name of output file based on input filename
-output=filename+str('.xls')
+output=filename+str('.Nucleotide_Frequencies.xls')
 
 #Redirect output to .xls file
 sys.stdout=open(output, "w")
