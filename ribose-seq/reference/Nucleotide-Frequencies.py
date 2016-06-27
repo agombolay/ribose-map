@@ -7,7 +7,8 @@
 import sys
 import os
 import argparse
-import tablib
+#import tablib
+from tabulate import tabulate
 
 #Use argparse function to create the "help" command-line option ([-h])
 parser = argparse.ArgumentParser()
@@ -50,26 +51,32 @@ T_frequency = float(T)/total
 
 #CREATE EXCEL FILE
 
-data = tablib.Dataset()
+#data = tablib.Dataset()
 
 #Add data values to Excel file
-data.append_col(['A', 'C', 'G', 'T'], header='Nucleotide')
-data.append_col([A, C, G, T], header='Number of Occurrences')
-data.append_col([A_frequency, C_frequency, G_frequency, T_frequency], header='Frequency')
-data.append_col([total, '     ', '     ', '     '], header='Total Number of Nucleotides')
+#data.append_col(['A', 'C', 'G', 'T'], header='Nucleotide')
+#data.append_col([A, C, G, T], header='Number of Occurrences')
+#data.append_col([A_frequency, C_frequency, G_frequency, T_frequency], header='Frequency')
+#data.append_col([total, '     ', '     ', '     '], header='Total Number of Nucleotides')
 
 #Add column headers to Excel file
-data.headers = ['Nucleotide', 'Number', 'Frequency', 'Total Number of Nucleotides']
+#data.headers = ['Nucleotide', 'Number', 'Frequency', 'Total Number of Nucleotides']
 
 #NAME EXCEL FILE
 
 #Obtain name of FASTA file without .fa file extension
-filename=os.path.splitext(sys.argv[1])[0]
+#filename=os.path.splitext(sys.argv[1])[0]
 
 #Specify name of output file based on input filename
-output=filename+str('.Nucleotide_Frequencies.xls')
+#output=filename+str('.Nucleotide_Frequencies.xls')
 
 #Redirect output to .xls file
-sys.stdout=open(output, "w")
+#sys.stdout=open(output, "w")
 
-print data.xls
+#print data.xls
+
+table = [["A", A, A_frequency, total], ["C", C, C_frequency, ""], ["G", G, G_frequency, ""], ["T", T, T_frequency, ""]]
+
+sys.stdout=open("output.txt", "w")
+
+print tabulate(table, headers=["Nucleotide", "Number", "Frequency", "Total"], tablefmt="simple")
