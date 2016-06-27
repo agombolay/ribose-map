@@ -7,7 +7,7 @@
 import sys
 import os
 import argparse
-#import tablib
+
 from tabulate import tabulate
 
 #Use argparse function to create the "help" command-line option ([-h])
@@ -49,33 +49,12 @@ C_frequency = float(C)/total
 G_frequency = float(G)/total
 T_frequency = float(T)/total
 
-#CREATE EXCEL FILE
+#CREATE TABLE
 
-#data = tablib.Dataset()
-
-#Add data values to Excel file
-#data.append_col(['A', 'C', 'G', 'T'], header='Nucleotide')
-#data.append_col([A, C, G, T], header='Number of Occurrences')
-#data.append_col([A_frequency, C_frequency, G_frequency, T_frequency], header='Frequency')
-#data.append_col([total, '     ', '     ', '     '], header='Total Number of Nucleotides')
-
-#Add column headers to Excel file
-#data.headers = ['Nucleotide', 'Number', 'Frequency', 'Total Number of Nucleotides']
-
-#NAME EXCEL FILE
-
-#Obtain name of FASTA file without .fa file extension
-#filename=os.path.splitext(sys.argv[1])[0]
-
-#Specify name of output file based on input filename
-#output=filename+str('.Nucleotide_Frequencies.xls')
-
-#Redirect output to .xls file
-#sys.stdout=open(output, "w")
-
-#print data.xls
-
+#Create table of data with "tabulate" Python module
 table = [["A", A, A_frequency, total], ["C", C, C_frequency, ""], ["G", G, G_frequency, ""], ["T", T, T_frequency, ""]]
+
+#NAME OUTPUT FILE
 
 #Obtain name of FASTA file without .fa file extension
 filename=os.path.splitext(sys.argv[1])[0]
@@ -83,6 +62,8 @@ filename=os.path.splitext(sys.argv[1])[0]
 #Specify name of output file based on input filename
 output=filename+str('.Nucleotide_Frequencies.txt')
 
+#Redirect output to .txt file
 sys.stdout=open(output, "w")
 
+#Specify header names and table style
 print tabulate(table, headers=["Nucleotide", "Number", "Frequency", "Total"], tablefmt="simple")
