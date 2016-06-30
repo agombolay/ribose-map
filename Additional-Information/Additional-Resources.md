@@ -64,7 +64,7 @@ sed 's/ \+/\t/g'
 ###[Calculate coverage with "genomecov"] (http://bedtools.readthedocs.io/en/latest/content/tools/genomecov.html)
 * [Calculate coverage of 5' end of reads aligned to genome] (https://www.biostars.org/p/80236/)
 ```
-bedtools genomecov [-ibam] <BAM> -g <GENOME>
+bedtools genomecov -d 5 [-ibam] <BAM> -g <GENOME>
 ```
 
 ###[Obtain upstream and downstream sequences from a FASTA file] (https://www.biostars.org/p/82776/)
