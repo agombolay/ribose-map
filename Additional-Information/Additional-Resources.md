@@ -32,7 +32,7 @@ samtools tview <BAM> --reference <Fasta>
 
 <h2><p align="center">Convert file formats</p></h2>
 
-###[BAM to FASTA:] (https://www.biostars.org/p/129763/)
+###[BAM to FASTA] (https://www.biostars.org/p/129763/)
 ```
 samtools bam2fq <BAM> | seqtk seq -A > <FASTA>
 ```
