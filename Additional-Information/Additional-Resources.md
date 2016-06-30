@@ -1,33 +1,34 @@
-##Additional Helpful Resources:  
+###Count number of reads
+* [Count number of reads in a FASTA file] (http://thegenomefactory.blogspot.com/2011/09/counting-sequences-with-unix-tools.html)
 
-* [Reference for I/O redirection] (http://www.tldp.org/LDP/abs/html/io-redirection.html)
-* [Extract filename from filepath] (http://stackoverflow.com/questions/965053/extract-filename-and-extension-in-bash)
-* [Extract directory from filepath] (http://stackoverflow.com/questions/6121091/get-file-directory-path-from-filepath)
+* [Count number of reads in BAM file] (http://crazyhottommy.blogspot.com/2013/06/count-how-many-mapped-reads-in-bam-file.html)
 
-###[Duplicate reads vs. Singletons] (http://sfg.stanford.edu/quality.html)
-
-###Zero-based vs. One-based files
-* https://www.biostars.org/p/51504/
-* https://www.biostars.org/p/84686/
-
-###[Make sure BED file is tab-delimited] (https://www.biostars.org/p/127275/)
+**Mapped reads**:
 ```
-sed 's/ \+/\t/g'
+samtools view -c -F 4
 ```
 
-###[bam-readcount] (https://github.com/genome/bam-readcount)
-
-###[Obtain upstream and downstream sequences from a FASTA file] (https://www.biostars.org/p/82776/)
-* [BEDtools flank] (http://bedtools.readthedocs.io/en/latest/content/tools/flank.html)
-* [BEDtools getfasta] (http://bedtools.readthedocs.io/en/latest/content/tools/getfasta.html)
-
-####[Calculate coverage with "genomecov"] (http://bedtools.readthedocs.io/en/latest/content/tools/genomecov.html)
-* [Calculate coverage of 5' end of reads aligned to genome] (https://www.biostars.org/p/80236/)
+**Unmapped reads**:
 ```
-bedtools genomecov [-ibam] <BAM> -g <GENOME>
+samtools view -c -f 4
 ```
 
-##[Sequencing Contamination] (http://seqanswers.com/forums/showthread.php?t=12520)
+##Check quality of reads
+####[FastQC] (http://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+
+##Trim reads based on quality and adapters
+Importance of removing adapters: Increase mapping percentage and decrease incorrect mappings
+
+####[Trimmomatic] (http://www.usadellab.org/cms/?page=trimmomatic)
+* [Manual for Trimmomatic] (http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf)
+
+##View alignment data
+
+####[SAMtools tview] (http://samtools.sourceforge.net/tview.shtml)
+
+```
+samtools tview <BAM> --reference <Fasta>
+```
 
 ##Convert file formats
 
@@ -42,34 +43,32 @@ bedtools bamtobed -i data.bam > data.bed
 samtools view data.bam > data.sam
 paste data.bed data.sam | awk -v "OFS=\t" '{print $1, $2, $3, $16, $6}' | head
 ```
-
-* [Count number of reads in a FASTA file] (http://thegenomefactory.blogspot.com/2011/09/counting-sequences-with-unix-tools.html)
-
-##Check quality of reads
-####[FastQC] (http://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
-
-##Trim reads based on quality and adapters
-Importance of removing adapters: Increase mapping percentage and decrease incorrect mappings
-
-####[Trimmomatic] (http://www.usadellab.org/cms/?page=trimmomatic)
-* [Manual for Trimmomatic] (http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf)
-
-##[Count number of reads in BAM file] (http://crazyhottommy.blogspot.com/2013/06/count-how-many-mapped-reads-in-bam-file.html)
-
-**Mapped reads**:
+###[Make sure BED file is tab-delimited] (https://www.biostars.org/p/127275/)
 ```
-samtools view -c -F 4
+sed 's/ \+/\t/g'
 ```
 
-**Unmapped reads**:
+####[Calculate coverage with "genomecov"] (http://bedtools.readthedocs.io/en/latest/content/tools/genomecov.html)
+* [Calculate coverage of 5' end of reads aligned to genome] (https://www.biostars.org/p/80236/)
 ```
-samtools view -c -f 4
+bedtools genomecov [-ibam] <BAM> -g <GENOME>
 ```
 
-##View alignment data
+###[Obtain upstream and downstream sequences from a FASTA file] (https://www.biostars.org/p/82776/)
+* [BEDtools flank] (http://bedtools.readthedocs.io/en/latest/content/tools/flank.html)
+* [BEDtools getfasta] (http://bedtools.readthedocs.io/en/latest/content/tools/getfasta.html)
 
-####[SAMtools tview] (http://samtools.sourceforge.net/tview.shtml)
+###[bam-readcount] (https://github.com/genome/bam-readcount)
 
-```
-samtools tview <BAM> --reference <Fasta>
-```
+###[Duplicate reads vs. Singletons] (http://sfg.stanford.edu/quality.html)
+
+###Zero-based vs. One-based files
+* https://www.biostars.org/p/51504/
+* https://www.biostars.org/p/84686/
+
+##Additional Helpful Resources:  
+
+* [Reference for I/O redirection] (http://www.tldp.org/LDP/abs/html/io-redirection.html)
+* [Extract filename from filepath] (http://stackoverflow.com/questions/965053/extract-filename-and-extension-in-bash)
+* [Extract directory from filepath] (http://stackoverflow.com/questions/6121091/get-file-directory-path-from-filepath)
+* [Sequencing Contamination] (http://seqanswers.com/forums/showthread.php?t=12520)
