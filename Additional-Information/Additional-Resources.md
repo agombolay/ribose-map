@@ -25,7 +25,7 @@ samtools view -c -f 4
 * [Information reagarding overrepresented Sequences] (http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/9%20Overrepresented%20Sequences.html)
 
 <h2><p align="center">Trim reads based on quality and adapters</p></h2>
-Importance of removing adapters: Increase mapping percentage and decrease incorrect mappings
+**Importance of removing adapters**: Increase mapping percentage and decrease incorrect mappings
 
 ###[Trimmomatic] (http://www.usadellab.org/cms/?page=trimmomatic)
   * [Manual for Trimmomatic] (http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf)
