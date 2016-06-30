@@ -60,7 +60,7 @@ paste data.bed data.sam | awk -v "OFS=\t" '{print $1, $2, $3, $16, $6}' | head
 sed 's/ \+/\t/g'
 ```
 
-<h2><p align="center">Analyze Alignment Data</p></h2>
+<h2><p align="center">Analyze alignment data</p></h2>
 ###[Calculate coverage with "genomecov"] (http://bedtools.readthedocs.io/en/latest/content/tools/genomecov.html)
 * [Calculate coverage of 5' end of reads aligned to genome] (https://www.biostars.org/p/80236/)
 ```
@@ -71,7 +71,7 @@ bedtools genomecov [-ibam] <BAM> -g <GENOME>
 * [BEDtools flank] (http://bedtools.readthedocs.io/en/latest/content/tools/flank.html)
 * [BEDtools getfasta] (http://bedtools.readthedocs.io/en/latest/content/tools/getfasta.html)
 
-<h2><p align="center">Additional Helpful Resources</p></h2>
+<h2><p align="center">Additional helpful resources</p></h2>
 
 ###Programming
 * [Reference for I/O redirection] (http://www.tldp.org/LDP/abs/html/io-redirection.html)
