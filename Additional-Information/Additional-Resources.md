@@ -69,6 +69,10 @@ bedtools genomecov -d 5 [-ibam] <BAM> -g <GENOME>
 
 ###[Obtain upstream and downstream sequences from a FASTA file] (https://www.biostars.org/p/82776/)
 * [BEDtools flank] (http://bedtools.readthedocs.io/en/latest/content/tools/flank.html)
+```
+bedtools flank -i <BED> -g <GENOME> -b 100
+```
+
 * [BEDtools getfasta] (http://bedtools.readthedocs.io/en/latest/content/tools/getfasta.html)
 
 <h2><p align="center">Additional helpful resources</p></h2>
