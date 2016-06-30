@@ -29,9 +29,18 @@ bedtools genomecov [-ibam] <BAM> -g <GENOME>
 
 ##[Sequencing Contamination] (http://seqanswers.com/forums/showthread.php?t=12520)
 
+##Convert file formats
+
 ####[BAM to FASTA:] (https://www.biostars.org/p/129763/)
 ```
 samtools bam2fq <BAM> | seqtk seq -A > <FASTA>
+```
+
+####[BAM to BED] (https://www.biostars.org/p/85990/)
+```
+bedtools bamtobed -i data.bam > data.bed 
+samtools view data.bam > data.sam
+paste data.bed data.sam | awk -v "OFS=\t" '{print $1, $2, $3, $16, $6}' | head
 ```
 
 * [Count number of reads in a FASTA file] (http://thegenomefactory.blogspot.com/2011/09/counting-sequences-with-unix-tools.html)
