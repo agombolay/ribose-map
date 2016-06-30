@@ -58,8 +58,6 @@ bedtools genomecov [-ibam] <BAM> -g <GENOME>
 * [BEDtools flank] (http://bedtools.readthedocs.io/en/latest/content/tools/flank.html)
 * [BEDtools getfasta] (http://bedtools.readthedocs.io/en/latest/content/tools/getfasta.html)
 
-###[bam-readcount] (https://github.com/genome/bam-readcount)
-
 ###[Duplicate reads vs. Singletons] (http://sfg.stanford.edu/quality.html)
 
 ###Zero-based vs. One-based files
