@@ -43,12 +43,12 @@ bedtools bamtobed -i data.bam > data.bed
 samtools view data.bam > data.sam
 paste data.bed data.sam | awk -v "OFS=\t" '{print $1, $2, $3, $16, $6}' | head
 ```
-###[Make sure BED file is tab-delimited] (https://www.biostars.org/p/127275/)
+###[Check if BED file is tab-delimited] (https://www.biostars.org/p/127275/)
 ```
 sed 's/ \+/\t/g'
 ```
 
-####[Calculate coverage with "genomecov"] (http://bedtools.readthedocs.io/en/latest/content/tools/genomecov.html)
+###[Calculate coverage with "genomecov"] (http://bedtools.readthedocs.io/en/latest/content/tools/genomecov.html)
 * [Calculate coverage of 5' end of reads aligned to genome] (https://www.biostars.org/p/80236/)
 ```
 bedtools genomecov [-ibam] <BAM> -g <GENOME>
