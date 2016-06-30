@@ -74,6 +74,9 @@ bedtools flank -i <BED> -g <GENOME> -b 100
 ```
 
 * [BEDtools getfasta] (http://bedtools.readthedocs.io/en/latest/content/tools/getfasta.html)
+```
+bedtools getfasta -fi <input FASTA> -bed <BED> -fo <output FASTA>
+```
 
 <h2><p align="center">Additional helpful resources</p></h2>
 
