@@ -18,7 +18,11 @@ samtools view -c -f 4
 ```
 
 <h2><p align="center">Check quality of reads</p></h2>
-* [FastQC] (http://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+###[FastQC] (http://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+
+* [Example Reports (Good, bad, adapter contaminated, etc.)]
+(http://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+* [Information reagarding overrepresented Sequences] (http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/9%20Overrepresented%20Sequences.html)
 
 <h2><p align="center">Trim reads based on quality and adapters</p></h2>
 Importance of removing adapters: Increase mapping percentage and decrease incorrect mappings
