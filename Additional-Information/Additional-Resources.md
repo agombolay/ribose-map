@@ -14,7 +14,7 @@ samtools view -c -f 4
 ```
 
 ##Check quality of reads
-####[FastQC] (http://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+* [FastQC] (http://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 
 ##Trim reads based on quality and adapters
 Importance of removing adapters: Increase mapping percentage and decrease incorrect mappings
