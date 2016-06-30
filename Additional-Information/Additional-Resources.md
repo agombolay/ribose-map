@@ -77,6 +77,7 @@ bedtools flank -i <BED> -g <GENOME> -b 100
 ```
 bedtools getfasta -fi <input FASTA> -bed <BED> -fo <output FASTA>
 ```
+* Chromosome name in header of FASTA file must match those in BED file
 
 <h2><p align="center">Additional helpful resources</p></h2>
 
