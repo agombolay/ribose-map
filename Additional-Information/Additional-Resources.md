@@ -27,8 +27,12 @@ samtools view -c -f 4
 <h2><p align="center">Trim reads based on quality and adapters</p></h2>
 Importance of removing adapters: Increase mapping percentage and decrease incorrect mappings
 
-* [Trimmomatic] (http://www.usadellab.org/cms/?page=trimmomatic)
+###[Trimmomatic] (http://www.usadellab.org/cms/?page=trimmomatic)
   * [Manual for Trimmomatic] (http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf)
+
+```
+java -jar trimmomatic-0.35.jar SE -phred33 input.fq.gz output.fq.gz ILLUMINACLIP:TruSeq3-SE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+```
 
 <h2><p align="center">View alignment data</p></h2>
 
