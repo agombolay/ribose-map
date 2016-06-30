@@ -1,4 +1,4 @@
-<h1><p align="center">##Count number of reads</p></h1>
+<h1><p align="center">Count number of reads</p></h1>
 * [Count number of reads in a FASTA file] (http://thegenomefactory.blogspot.com/2011/09/counting-sequences-with-unix-tools.html)
 
 * [Count number of reads in BAM file] (http://crazyhottommy.blogspot.com/2013/06/count-how-many-mapped-reads-in-bam-file.html)
