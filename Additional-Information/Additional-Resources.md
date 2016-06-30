@@ -67,6 +67,6 @@ bedtools genomecov [-ibam] <BAM> -g <GENOME>
 * [Sequencing Contamination] (http://seqanswers.com/forums/showthread.php?t=12520)
 * [Duplicate reads vs. Singletons] (http://sfg.stanford.edu/quality.html)
 * Zero-based vs. One-based files
-*   https://www.biostars.org/p/51504/
-*   https://www.biostars.org/p/84686/
+ * https://www.biostars.org/p/51504/
+ * https://www.biostars.org/p/84686/
 
