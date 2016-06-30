@@ -49,7 +49,7 @@ samtools tview <BAM> --reference <Fasta>
 
 ###[BAM to FASTA] (https://www.biostars.org/p/129763/)
 ```
-samtools bam2fq <BAM> | seqtk seq -A > <FASTA>
+samtools bam2fq <BAM> | seqtk seq - > <FASTA>
 ```
 
 ###[BAM to BED] (https://www.biostars.org/p/85990/)
