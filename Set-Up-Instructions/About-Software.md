@@ -55,8 +55,8 @@ Date: June 9, 2016
 * [**MACS2**] (https://pypi.python.org/pypi/MACS2):
   * MACS2 is used to call peaks based on the alignment results to determine locations of hotspots
     * Resources:
-      * MACS2 GitHub page (https://github.com/taoliu/MACS) 
-      * [Call peaks using MACS2 subcommands] (https://github.com/taoliu/MACS/wiki/Advanced:-Call-peaks-using-MACS2-subcommands)
+      * [MACS2 GitHub page] (https://github.com/taoliu/MACS) 
+      * [MACS2 subcommands] (https://github.com/taoliu/MACS/wiki/Advanced:-Call-peaks-using-MACS2-subcommands)
 
 * [**bedToBigBed**] (http://hgdownload.cse.ucsc.edu/admin/exe/):
   * bedToBigBed is used to convert files from BED file format to bigBed format
