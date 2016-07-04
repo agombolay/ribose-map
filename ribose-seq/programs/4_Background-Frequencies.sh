@@ -40,7 +40,7 @@ FASTA=$directory/ribose-seq/scripts/$reference.fa
 
 #OUTPUT
 #Location of output "ribose-seq" backgroundNucleotideFrequencies directory
-output="$directory/ribose-seq/results/backgroundNucleotideFrequencies"
+output="$directory/ribose-seq/results/Background-Nucleotide-Frequencies"
 
 #Create output directory if it does not already exist
 if [[ ! -d $output ]];
