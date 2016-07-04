@@ -77,10 +77,15 @@ table = [["A", A, A_frequency, total], ["C", C, C_frequency, ""], ["G", G, G_fre
 #NAME OUTPUT FILE
 
 #Obtain name of FASTA file excluding file extension
-filename=os.path.splitext(sys.argv[1])[0]
+filename=os.path.splitext(os.path.basename(sys.argv[1]))[0]
+
+#Path
+path = "/projects/home/agombolay3/data/repository/Ribose-seq-Project/ribose-seq/results/%s/nucleotideFrequencies/" % filename
 
 #Specify name of output file based on input filename
-output=filename+str('.Ribonucleotide.Frequencies.txt')
+output=path+filename+str('.Ribonucleotide.Frequencies.txt')
+
+print output
 
 #Redirect output to .txt file
 sys.stdout=open(output, "w")
