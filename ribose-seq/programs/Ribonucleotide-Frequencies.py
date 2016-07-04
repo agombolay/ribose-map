@@ -13,28 +13,34 @@ from tabulate import tabulate
 #Use argparse function to create the "help" command-line option ([-h])
 parser = argparse.ArgumentParser()
 parser.add_argument('FASTA file')
-#parser.add_argument('temporary file')
-#parser.add_argument('output file')
 args = parser.parse_args()
 
 #Open input FASTA file and assign it to an object ("r": read file)
 fasta = open(sys.argv[1], "r")
-orig_stdout = sys.stdout
-temp = open('temp.txt', 'w')
-sys.stdout = temp
-#sys.stdout = open(sys.argv[2], "w")
+
+#Create temporary file to where list of 5' nucleotides will saved
+standard_output = sys.stdout
+temporary1 = open('temporary.txt', 'w')
+sys.stdout = temporary1
 
 #CALCULATE NUCLEOTIDE FREQUENCIES
 
+#Skip header lines and print only 5' nucleotides (line[:1])
 for line in fasta:
+
         if ">" in line:
                 continue
 	
 	print line[:1]
-sys.stdout = orig_stdout
-temp.close()
 
-temp2 = open('temp.txt', 'r')
+#Redirect standard output to the temporary file
+sys.stdout = standard_output
+
+#Close the temporary file
+temporary1.close()
+
+#Open temporary file and assign it to an object ("r": read file)
+temporary2 = open('temporary.txt', 'r')
 
 #Set the values of the base counts of nucleotide numbers to 0
 A=0;
@@ -42,7 +48,7 @@ C=0;
 G=0;
 T=0;
 
-for line in temp2:
+for line in temporary2:
 
 	for character in line:
 		if character == "A":
@@ -54,34 +60,30 @@ for line in temp2:
 		if character == "T":
 			T+=1
 
-print A
-
 #Calculate total number of nucleotides
-#total = (A+C+G+T)
+total = (A+C+G+T)
 
 #Calculate frequency of each nucleotide
-#A_frequency = float(A)/total
-#C_frequency = float(C)/total
-#G_frequency = float(G)/total
-#T_frequency = float(T)/total
+A_frequency = float(A)/total
+C_frequency = float(C)/total
+G_frequency = float(G)/total
+T_frequency = float(T)/total
 
 #CREATE TABLE
 
 #Create table of data with "tabulate" Python module
-#table = [["A", A, A_frequency, total], ["C", C, C_frequency, ""], ["G", G, G_frequency, ""], ["T", T, T_frequency, ""]]
+table = [["A", A, A_frequency, total], ["C", C, C_frequency, ""], ["G", G, G_frequency, ""], ["T", T, T_frequency, ""]]
 
 #NAME OUTPUT FILE
 
 #Obtain name of FASTA file excluding file extension
-#filename=os.path.splitext(sys.argv[1])[0]
+filename=os.path.splitext(sys.argv[1])[0]
 
 #Specify name of output file based on input filename
-#output=filename+str('.Ribonucleotide_Frequencies.txt')
+output=filename+str('.Ribonucleotide.Frequencies.txt')
 
 #Redirect output to .txt file
-#sys.stdout=open(output, "w")
+sys.stdout=open(output, "w")
 
 #Specify header names and table style
-#print tabulate(table, headers=["Nucleotide", "Number", "Frequency", "Total"], tablefmt="simple")
-
-#sys.stdout = open(sys.argv[3], "w")
+print tabulate(table, headers=["Nucleotide", "Number", "Frequency", "Total"], tablefmt="simple")
