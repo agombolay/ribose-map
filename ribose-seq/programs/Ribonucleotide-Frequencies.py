@@ -21,11 +21,15 @@ fasta = open(sys.argv[1], "r")
 #Obtain name of FASTA file excluding file extension
 filename=os.path.splitext(os.path.basename(sys.argv[1]))[0]
 
-#Path
-path="/projects/home/agombolay3/data/repository/Ribose-seq-Project/ribose-seq/results/%s/nucleotideFrequencies/" % filename
+#Obtain directory path of FASTA file
+directory=os.path.dirname(sys.argv[1])
+
+#Specify directory path of output files
+path="/".join(directory.split('/')[:-1])
+folder="/nucleotideFrequencies/"
 
 #Specify name of output file based on input filename
-list=path+filename+str('.5-Prime-Nucleotides-List.txt')
+list=path+folder+filename+str('.5-Prime-Nucleotides-List.txt')
 
 #Create file to where list of 5' nucleotides will saved
 standard_output = sys.stdout
@@ -86,7 +90,7 @@ table = [["A", A, A_frequency, total], ["C", C, C_frequency, ""], ["G", G, G_fre
 #NAME OUTPUT FILE
 
 #Specify name of output file based on input filename
-output=path+filename+str('.Ribonucleotide.Frequencies.txt')
+output=path+folder+filename+str('.Ribonucleotide.Frequencies.txt')
 
 #Redirect output to .txt file
 sys.stdout=open(output, "w")
