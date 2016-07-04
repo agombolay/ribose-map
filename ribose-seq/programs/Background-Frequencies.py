@@ -59,10 +59,16 @@ table = [["A", A, A_frequency, total], ["C", C, C_frequency, ""], ["G", G, G_fre
 #NAME OUTPUT FILE
 
 #Obtain name of FASTA file excluding file extension
-filename=os.path.splitext(sys.argv[1])[0]
+filename=os.path.splitext(os.path.basename(sys.argv[1]))[0]
+
+#Obtain directory path of FASTA file
+directory=os.path.dirname(sys.argv[1])
+
+#Specify directory path of output files
+folder="/%s/" % filename
 
 #Specify name of output file based on input filename
-output=filename+str('.Nucleotide.Frequencies.txt')
+output=directory+folder+filename+str('.Nucleotide.Frequencies.txt')
 
 #Redirect output to .txt file
 sys.stdout=open(output, "w")
