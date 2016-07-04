@@ -64,11 +64,14 @@ filename=os.path.splitext(os.path.basename(sys.argv[1]))[0]
 #Obtain directory path of FASTA file
 directory=os.path.dirname(sys.argv[1])
 
+#Extract only a part of directory path
+path="/".join(directory.split('/')[:-1])
+
 #Specify directory path of output files
-folder="/%s/" % filename
+folder="/results/backgroundNucleotideFrequencies/"
 
 #Specify name of output file based on input filename
-output=directory+folder+filename+str('.Nucleotide.Frequencies.txt')
+output=path+folder+filename+str('.Nucleotide.Frequencies.txt')
 
 #Redirect output to .txt file
 sys.stdout=open(output, "w")
