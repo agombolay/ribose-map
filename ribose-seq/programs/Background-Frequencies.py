@@ -62,7 +62,7 @@ table = [["A", A, A_frequency, total], ["C", C, C_frequency, ""], ["G", G, G_fre
 filename=os.path.splitext(sys.argv[1])[0]
 
 #Specify name of output file based on input filename
-output=filename+str('.Nucleotide_Frequencies.txt')
+output=filename+str('.Nucleotide.Frequencies.txt')
 
 #Redirect output to .txt file
 sys.stdout=open(output, "w")
