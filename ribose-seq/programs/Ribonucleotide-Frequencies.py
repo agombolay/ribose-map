@@ -32,7 +32,7 @@ standard_output = sys.stdout
 list1 = open(list, 'w')
 sys.stdout = list1
 
-#CALCULATE NUCLEOTIDE FREQUENCIES
+#CALCULATE 5' NUCLEOTIDE FREQUENCIES
 
 #Skip header lines and print only 5' nucleotides (line[:1])
 for line in fasta:
@@ -42,16 +42,16 @@ for line in fasta:
 	
 	print line[:1]
 
-#Redirect standard output to the temporary file
+#Redirect standard output to file of list of 5' nucleotides
 sys.stdout = standard_output
 
-#Close the temporary file
+#Close the file
 list1.close()
 
-#Open list of 5' nucleotides and assign it to an object ("r": read file)
+#Open list and assign it to a different object ("r": read file)
 list2 = open(list, 'r')
 
-#Set the values of the base counts of nucleotide numbers to 0
+#Set the values of the base counts of 5' nucleotide numbers to 0
 A=0;
 C=0;
 G=0;
