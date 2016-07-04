@@ -85,7 +85,7 @@ T_frequency = float(T)/total
 #CREATE TABLE
 
 #Create table of data with "tabulate" Python module
-table = [["A", T, T_frequency, total], ["C", G, G_frequency, ""], ["G", C, C_frequency, ""], ["T", A, A_frequency, ""]]
+table = [["A", T, T_frequency, total], ["C", G, G_frequency, ""], ["G", C, C_frequency, ""], ["U", A, A_frequency, ""]]
 
 #NAME OUTPUT FILE
 
