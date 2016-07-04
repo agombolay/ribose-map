@@ -18,10 +18,19 @@ args = parser.parse_args()
 #Open input FASTA file and assign it to an object ("r": read file)
 fasta = open(sys.argv[1], "r")
 
-#Create temporary file to where list of 5' nucleotides will saved
+#Obtain name of FASTA file excluding file extension
+filename=os.path.splitext(os.path.basename(sys.argv[1]))[0]
+
+#Path
+path="/projects/home/agombolay3/data/repository/Ribose-seq-Project/ribose-seq/results/%s/nucleotideFrequencies/" % filename
+
+#Specify name of output file based on input filename
+list=path+filename+str('.5-Prime-Nucleotides-List.txt')
+
+#Create file to where list of 5' nucleotides will saved
 standard_output = sys.stdout
-temporary1 = open('temporary.txt', 'w')
-sys.stdout = temporary1
+list1 = open(list, 'w')
+sys.stdout = list1
 
 #CALCULATE NUCLEOTIDE FREQUENCIES
 
@@ -37,10 +46,10 @@ for line in fasta:
 sys.stdout = standard_output
 
 #Close the temporary file
-temporary1.close()
+list1.close()
 
-#Open temporary file and assign it to an object ("r": read file)
-temporary2 = open('temporary.txt', 'r')
+#Open list of 5' nucleotides and assign it to an object ("r": read file)
+list2 = open(list, 'r')
 
 #Set the values of the base counts of nucleotide numbers to 0
 A=0;
@@ -48,7 +57,7 @@ C=0;
 G=0;
 T=0;
 
-for line in temporary2:
+for line in list2:
 
 	for character in line:
 		if character == "A":
@@ -76,16 +85,8 @@ table = [["A", A, A_frequency, total], ["C", C, C_frequency, ""], ["G", G, G_fre
 
 #NAME OUTPUT FILE
 
-#Obtain name of FASTA file excluding file extension
-filename=os.path.splitext(os.path.basename(sys.argv[1]))[0]
-
-#Path
-path = "/projects/home/agombolay3/data/repository/Ribose-seq-Project/ribose-seq/results/%s/nucleotideFrequencies/" % filename
-
 #Specify name of output file based on input filename
 output=path+filename+str('.Ribonucleotide.Frequencies.txt')
-
-print output
 
 #Redirect output to .txt file
 sys.stdout=open(output, "w")
