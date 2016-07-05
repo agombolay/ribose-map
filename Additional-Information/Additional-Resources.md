@@ -42,7 +42,7 @@ java -jar trimmomatic-0.35.jar SE -phred33 input.fq.gz output.fq.gz ILLUMINACLIP
 ###[SAMtools tview] (http://samtools.sourceforge.net/tview.shtml)
 
 ```
-samtools tview <BAM> --reference <Fasta>
+samtools tview -p <chr:pos> <BAM> --reference <Fasta>
 ```
 
 <h2><p align="center">Convert file formats</p></h2>
