@@ -44,6 +44,8 @@ java -jar trimmomatic-0.35.jar SE -phred33 input.fq.gz output.fq.gz ILLUMINACLIP
 ```
 samtools tview -p <chr:pos> <BAM> --reference <Fasta>
 ```
+* ["."] (http://samtools.sourceforge.net/pileup.shtml) = match to the reference base on the forward strand
+* [","] (http://samtools.sourceforge.net/pileup.shtml) = match to the reference base on the reverse strand
 
 <h2><p align="center">Convert file formats</p></h2>
 
