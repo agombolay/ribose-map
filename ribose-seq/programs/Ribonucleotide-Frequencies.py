@@ -27,7 +27,7 @@ args = parser.parse_args()
 #Open input FASTA file and assign it to an object ("r": read file)
 fasta = open(sys.argv[1], "r")
 reference = sys.argv[2]
-directory1=sys.argv[3]
+directory1 = sys.argv[3]
 
 #Obtain name of input FASTA file excluding file extension
 filename=os.path.splitext(os.path.basename(sys.argv[1]))[0]
