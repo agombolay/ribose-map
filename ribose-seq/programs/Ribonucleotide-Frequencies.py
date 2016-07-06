@@ -6,26 +6,37 @@
 #Import Python modules
 import sys
 import os
-import argparse
 
+#Module to create tables
 from tabulate import tabulate
+
+#Modules to create and read Excel files
+import xlwt
+import xlrd
+
+#Module to parse command-line arguments
+import argparse
 
 #Use argparse function to create the "help" command-line option ([-h])
 parser = argparse.ArgumentParser()
 parser.add_argument('FASTA file')
+parser.add_argument('Reference')
+parser.add_argument("Location of user's local Ribose-seq directory")
 args = parser.parse_args()
 
 #Open input FASTA file and assign it to an object ("r": read file)
 fasta = open(sys.argv[1], "r")
+reference = sys.argv[2]
+directory1=sys.argv[3]
 
 #Obtain name of input FASTA file excluding file extension
 filename=os.path.splitext(os.path.basename(sys.argv[1]))[0]
 
 #Obtain directory path of FASTA file
-directory=os.path.dirname(sys.argv[1])
+directory2=os.path.dirname(sys.argv[1])
 
 #Specify directory path of output files
-path="/".join(directory.split('/')[:-1])
+path="/".join(directory2.split('/')[:-1])
 folder="/nucleotideFrequencies/"
 
 #Specify name of output file based on input filename
@@ -59,41 +70,98 @@ list2 = open(list, 'r')
 A=0;
 C=0;
 G=0;
-T=0;
+U=0;
 
 for line in list2:
 
 	for character in line:
 		if character == "A":
-			A+=1
+			U+=1
 		if character == "C":
-			C+=1
-		if character == "G":
 			G+=1
+		if character == "G":
+			C+=1
 		if character == "T":
-			T+=1
+			A+=1
 
 #Calculate total number of nucleotides
-total = (A+C+G+T)
+total = (A+C+G+U)
 
-#Calculate frequency of each nucleotide
+#Calculate raw frequency of each nucleotide
 A_frequency = float(A)/total
 C_frequency = float(C)/total
 G_frequency = float(G)/total
-T_frequency = float(T)/total
+U_frequency = float(U)/total
+
+#READ EXCEL FILE
+
+background_frequencies = "%s/ribose-seq/results/Background-Nucleotide-Frequencies/%s.Nucleotide.Frequencies.xls" % (directory1, reference)
+workbook1 = xlrd.open_workbook(background_frequencies)
+sheet1 = workbook1.sheet_by_index(0)
+
+A_background = sheet1.cell_value(rowx=1, colx=2)
+C_background = sheet1.cell_value(rowx=2, colx=2)
+G_background = sheet1.cell_value(rowx=3, colx=2)
+T_background = sheet1.cell_value(rowx=4, colx=2)
+
+#Calculate normalized frequency of each nucleotide
+A_normalized = A_frequency/A_background
+C_normalized = C_frequency/C_background
+G_normalized = G_frequency/G_background
+U_normalized = U_frequency/T_background
 
 #CREATE TABLE
 
 #Create table of data with "tabulate" Python module
-table = [["A", T, T_frequency, total], ["C", G, G_frequency, ""], ["G", C, C_frequency, ""], ["U", A, A_frequency, ""]]
+table = [["A", A, A_frequency, A_normalized, total], ["C", C, C_frequency, C_normalized, ""], ["G", G, G_frequency, G_normalized, ""], ["U", U, U_frequency, U_normalized, ""]]
 
-#NAME OUTPUT FILE
+#CREATE EXCEL FILE
+
+workbook2 = xlwt.Workbook()
+sheet = workbook2.add_sheet("Sheet1")
+
+decimal_style = xlwt.XFStyle()
+decimal_style.num_format_str = '0.0000'
+
+sheet.write(0, 0, "Ribonucleotide")
+sheet.write(0, 1, "Number")
+sheet.write(0, 2, "Raw Frequency")
+sheet.write(0, 3, "Normalized Frequency")
+sheet.write(0, 4, "Total")
+
+sheet.write(1, 0, "A")
+sheet.write(2, 0, "C")
+sheet.write(3, 0, "G")
+sheet.write(4, 0, "U")
+
+sheet.write(1, 1, A)
+sheet.write(2, 1, C)
+sheet.write(3, 1, G)
+sheet.write(4, 1, U)
+
+sheet.write(1, 2, A_frequency, decimal_style)
+sheet.write(2, 2, C_frequency, decimal_style)
+sheet.write(3, 2, G_frequency, decimal_style)
+sheet.write(4, 2, U_frequency, decimal_style)
+
+sheet.write(1, 3, A_normalized, decimal_style)
+sheet.write(2, 3, C_normalized, decimal_style)
+sheet.write(3, 3, G_normalized, decimal_style)
+sheet.write(4, 3, U_normalized, decimal_style)
+
+sheet.write(1, 4, total)
+
+#NAME OUTPUT FILES
 
 #Specify name of output file based on input filename
-output=path+folder+filename+str('.Ribonucleotide.Frequencies.txt')
+output1=path+folder+filename+str('.Ribonucleotide.Frequencies.txt')
+output2=path+folder+filename+str('.Ribonucleotide.Frequencies.xls')
 
 #Redirect output to .txt file
-sys.stdout=open(output, "w")
+sys.stdout=open(output1, "w")
 
 #Specify header names and table style
-print tabulate(table, headers=["Nucleotide", "Number", "Frequency", "Total"], tablefmt="simple")
+print tabulate(table, headers=["Ribonucleotide", "Number", "Raw Frequency", "Normalized Frequency", "Total"], tablefmt="simple", floatfmt=".4f")
+
+#Save table to .xls file
+workbook2.save(output2)
