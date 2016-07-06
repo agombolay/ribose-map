@@ -117,6 +117,7 @@ table = [["A", A, A_frequency, A_normalized, total], ["C", C, C_frequency, C_nor
 
 #CREATE EXCEL FILE
 
+#Create table of data with "xlwt" Python module
 workbook2 = xlwt.Workbook()
 sheet = workbook2.add_sheet("Sheet1")
 

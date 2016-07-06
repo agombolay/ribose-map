@@ -62,6 +62,9 @@ T_frequency = float(T)/total
 #Create table of data with "tabulate" Python module
 table = [["A", A, A_frequency, total], ["C", C, C_frequency, ""], ["G", G, G_frequency, ""], ["T", T, T_frequency, ""]]
 
+#CREATE EXCEL FILE
+
+#Create table of data with "xlwt" Python module
 workbook = xlwt.Workbook()
 sheet = workbook.add_sheet("Sheet1")
 
