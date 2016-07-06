@@ -52,7 +52,8 @@ samtools tview -p <chr:pos> <BAM> --reference <Fasta>
 
 ###[BAM to FASTA] (https://www.biostars.org/p/129763/)
 ```
-samtools bam2fq <BAM> | seqtk seq - > <FASTA>
+samtools bam2fq <BAM> > <output FASTQ>
+seqtk seq -A <input FASTQ> > <output FASTA>
 ```
 
 ###[BAM to BED] (https://www.biostars.org/p/85990/)
