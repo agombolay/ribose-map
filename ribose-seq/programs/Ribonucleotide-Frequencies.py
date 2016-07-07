@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 #Author: Alli Gombolay
-#This program calculates the nucleotide frequencies of the 5' position of an input FASTA file
+#This program calculates the ribonucleotide frequencies located at 5' position of input BED file
 
 #Import Python modules
 import sys
@@ -19,20 +19,20 @@ import argparse
 
 #Use argparse function to create the "help" command-line option ([-h])
 parser = argparse.ArgumentParser()
-parser.add_argument('FASTA file')
+parser.add_argument('BED file')
 parser.add_argument('Reference')
 parser.add_argument("Location of user's local Ribose-seq directory")
 args = parser.parse_args()
 
-#Open input FASTA file and assign it to an object ("r": read file)
-fasta = open(sys.argv[1], "r")
+#Open input BED file and assign it to an object ("r": read file)
+bed = open(sys.argv[1], "r")
 reference = sys.argv[2]
 directory1 = sys.argv[3]
 
-#Obtain name of input FASTA file excluding file extension
-filename=os.path.splitext(os.path.basename(sys.argv[1]))[0]
+#Obtain name of input BED file excluding file extension
+filename=os.path.splitext(os.path.basename(sys.argv[1]))[0][:-12]
 
-#Obtain directory path of FASTA file
+#Obtain directory path of BED file
 directory2=os.path.dirname(sys.argv[1])
 
 #Specify directory path of output files
@@ -49,13 +49,10 @@ sys.stdout = list1
 
 #CALCULATE 5' NUCLEOTIDE FREQUENCIES
 
-#Skip header lines and print only 5' nucleotides (line[:1])
-for line in fasta:
+#Print only ribonucleotides (5' or left most side of read)
+for line in bed:
 
-        if ">" in line:
-                continue
-	
-	print line[:1]
+	print(line.split()[3])[:1]
 
 #Redirect standard output to file of list of 5' nucleotides
 sys.stdout = standard_output
