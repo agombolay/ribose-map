@@ -40,7 +40,7 @@ path="/".join(directory2.split('/')[:-1])
 folder="/nucleotideFrequencies/"
 
 #Specify name of output file based on input filename
-list=path+folder+filename+str('.5-Prime-Nucleotides-List.txt')
+list=path+folder+filename+str('.')+reference+str('.5-Prime-Nucleotides-List.txt')
 
 #Create file to where list of 5' nucleotides will saved
 standard_output = sys.stdout
@@ -56,7 +56,7 @@ for line in bed:
 		print(line.split()[3])[:1]
 
 	elif reference == "nuclear":
-		if "chrM" not in line and "2micron" not in line:
+		if "chrM" not in line:
 			print(line.split()[3])[:1]
 
 	elif reference == "chrM":
@@ -166,8 +166,8 @@ sheet.write(1, 4, total)
 #NAME OUTPUT FILES
 
 #Specify name of output file based on input filename
-output1=path+folder+filename+str('.Ribonucleotide.Frequencies.txt')
-output2=path+folder+filename+str('.Ribonucleotide.Frequencies.xls')
+output1=path+folder+filename+str('.')+reference+str('.Ribonucleotide.Frequencies.txt')
+output2=path+folder+filename+str('.')+reference+str('.Ribonucleotide.Frequencies.xls')
 
 #Redirect output to .txt file
 sys.stdout=open(output1, "w")
