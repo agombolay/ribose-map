@@ -51,8 +51,22 @@ sys.stdout = list1
 
 #Print only ribonucleotides (5' or left most side of read)
 for line in bed:
+	
+	if reference == "sacCer2":
+		print(line.split()[3])[:1]
 
-	print(line.split()[3])[:1]
+	elif reference == "nuclear":
+		if "chrM" not in line and "2micron" not in line:
+			print(line.split()[3])[:1]
+
+	elif reference == "chrM":
+		if "chrM" in line:
+			print(line.split()[3])[:1]
+	
+	elif reference == "2micron":
+		if "2micron" in line:
+			print(line.split()[3])[:1]
+
 
 #Redirect standard output to file of list of 5' nucleotides
 sys.stdout = standard_output
