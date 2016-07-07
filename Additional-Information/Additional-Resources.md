@@ -31,10 +31,11 @@ samtools view -c -f 4
   * [Manual for Trimmomatic] (http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf)
 
 ```
-java -jar trimmomatic-0.36.jar SE -phred33 input.fq.gz output.fq.gz ILLUMINACLIP:TruSeq3-SE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+java -jar trimmomatic-0.36.jar SE -phred33 input.fq.gz output.fq.gz ILLUMINACLIP:TruSeq3-SE.fa:2:30:10 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
 ```
-* ILLUMINACLIP:TruSeq3-SE.fa:2:30:10: Trims adapters and other Illumina sequences from reads
-* LEADING:3 and TRAILING:3: Cuts bases off the start and end of read, if below threshold quality
+* ILLUMINACLIP:TruSeq3-SE.fa:2:30:10: Trims adapters from reads
+* TRAILING:3: Cuts bases off the end of read, if below threshold quality
+ * Do not use LEADING:3 opton since the UMI need to be retained
 * MINLEN:36: Drop the read if it is below a specified length
 
 <h2><p align="center">View alignment data</p></h2>
@@ -52,7 +53,8 @@ samtools tview -p <chr:pos> <BAM> --reference <Fasta>
 
 ###[BAM to FASTA] (https://www.biostars.org/p/129763/)
 ```
-samtools bam2fq <BAM> | seqtk seq - > <FASTA>
+samtools bam2fq <BAM> > <output FASTQ>
+seqtk seq -A <input FASTQ> > <output FASTA>
 ```
 
 ###[BAM to BED] (https://www.biostars.org/p/85990/)
