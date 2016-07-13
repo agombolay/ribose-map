@@ -66,6 +66,9 @@ do
     		mkdir -p $output
 	fi
 
+	#Location of reverse complement files of input FASTQ files
+	reverseComplement=$output/$samples.reverse.complement.fastq
+
 	#Location of files with trimmed UMI
 	umiTrimmed=$output/$samples.umiTrimmed.fastq.gz
 
@@ -85,9 +88,12 @@ do
 	BED=$output/$samples.bed.gz
 
 	#ALIGNMENT
+
+	#Obtain reverse complement of input FASTQ files
+	seqtk seq -r $input > $reverseComplement
 	
-	#1. Trim UMI from raw reads and compress output files
-	umitools trim $input $UMI | gzip -c > $umiTrimmed
+	#1. Trim UMI from 3' end of reads and compress output files
+	umitools trim --end 3 $reverseComplement $UMI | gzip -c > $umiTrimmed
 
 	#2. Align UMI trimmed reads to reference genome and output alignment statistics
 	#zcat $umiTrimmed | bowtie -m 1 --sam $index --un $samples.unmappedReads --max $samples.extraReads - 2> $statistics 1> $intermediateSAM
