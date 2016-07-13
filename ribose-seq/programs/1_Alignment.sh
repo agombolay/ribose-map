@@ -92,7 +92,7 @@ do
 	#Obtain reverse complement of input FASTQ files
 	seqtk seq -r $input > $reverseComplement
 	
-	#1. Trim UMI from 3' end of reads and compress output files
+	#1. Trim UMI from 3' ends of reads and compress output files
 	umitools trim --end 3 $reverseComplement $UMI | gzip -c > $umiTrimmed
 
 	#2. Align UMI trimmed reads to reference genome and output alignment statistics
