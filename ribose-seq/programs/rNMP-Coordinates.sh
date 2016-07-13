@@ -35,10 +35,11 @@ then
         exit
 fi
 
+#Obtain 0-based and 1-based coordinates of rNMPs
 for files in ${bam[@]};
 do
 
-	#Coordinates (0-based) of Sequencing Reads
+	#COORDINATES (0-BASED) of SEQUENCING READS
 
 	#Covert file from BAM to BED format using BEDtools software
 	bedtools bamtobed -i $files.bam > $files.bed
