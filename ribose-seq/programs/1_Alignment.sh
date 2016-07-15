@@ -42,7 +42,7 @@ for samples in ${fastq[@]};
 do
 	
 	#Extract sample names from filepaths
-	filename=$(basename "$fastq")
+	filename=$(basename "${samples}")
 	samples="${filename%.*}"
 	
 	#Extract input directories from filepaths
