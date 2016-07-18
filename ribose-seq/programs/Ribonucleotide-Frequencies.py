@@ -50,7 +50,7 @@ sys.stdout = list1
 #CALCULATE 5' NUCLEOTIDE FREQUENCIES
 
 #Print only ribonucleotides (5' or left most side of read)
-for line in bed:
+for line in bam:
 	
 	if reference == "sacCer2" and "+" in line:
 		print(line.split()[3])[:1]
