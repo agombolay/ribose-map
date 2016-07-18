@@ -52,6 +52,9 @@ do
 	#Location of input BAM files
 	input=$inputDirectory/$samples.bam
 
+	#Location of input FASTA files
+        fasta=$inputDirectory/$samples.fasta
+
 	#OUTPUT
 	#Location of output "ribose-seq" alignment directory
 	output=$directory/ribose-seq/results/$reference/$samples/nucleotideFrequencies/Ribonucleotides
@@ -61,9 +64,6 @@ do
 	then
     		mkdir -p $output
 	fi
-
-	#Location of input FASTA files
-	fasta=$output/$samples.fasta
 
 	#Location of output files
 	bed=$output/$samples.bed

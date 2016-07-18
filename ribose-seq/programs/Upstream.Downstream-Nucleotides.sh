@@ -54,24 +54,40 @@ do
 
         #OUTPUT
         #Location of output "ribose-seq" alignment directory
-        output=$directory/ribose-seq/results/$reference/$samples/alignment
+        output=$directory/ribose-seq/results/$reference/$samples/nucleotideFrequencies/Nucleotides
+
+	#Create directory for output if it does not already exist
+	if [[ ! -d $output ]];
+	then
+    		mkdir -p $output
+	fi	
+
+	#Location of output files
+	positionsBoth=$output/$samples.rNMPs.bothStrands.bed
+	flankingIntervalsBed=$output/$samples.flanking.intervals.bed
+	flankingIntervalsFasta=$output/$samples.flanking.intervals.fasta
+	temporary=$output/temporary.bed
+	temporary2=$output/temporary2.bed
 
 	#Obtain positions of rNMPs (3’ end of each mapped read)
-	bedtools genomecov -3 -bg -ibam $input > $samples.rNMPs.bothStrands.bed
+	bedtools genomecov -3 -bg -ibam $input > $positionsBoth
 
 	#Remove column containing coverage values
-	awk '!($4="")' $samples.rNMPs.bothStrands.bed > temporary.bed
+	awk '!($4="")' $positionsBoth > $temporary
 
-	#Change file back to original name
-	mv temporary.bed $samples.rNMPs.bothStrands.bed
+	#Change file back to its original name
+	mv $temporary $positionsBoth
 
 	#Make columns of BED file tab-delimited
-	sed 's/ \+/\t/g' $samples.rNMPs.bothStrands.bed
+	sed 's/ \+/\t/g' $positionsBoth > $temporary2
+
+	#Change file back to its original name
+        mv $temporary2 $positionsBoth
 
 	#Obtain coordinates of sacCer2 sequences that are +/- 100 bp downstream/upstream of each rNMP position:
-	bedtools flank -i $samples.rNMPs.bothStrands.bed -g $directory/ribose-seq/reference/$reference.bed -b 100 > $samples.flanking.intervals.bed
+	bedtools flank -i $positionsBoth -g $directory/ribose-seq/reference/$reference.bed -b 100 > $flankingIntervalsBed
 
 	#Obtain sequences of sacCer2 coordinates from above that are +/- 100 bp downstream/upstream of each rNMP position:
-	bedtools getfasta -fi $directory/ribose-seq/reference/$refernce.fa -bed $samples.flanking.intervals.bed -fo $samples.flanking.intervals.fasta
+	bedtools getfasta -fi $directory/ribose-seq/reference/$reference.fa -bed $flankingIntervalsBed -fo $flankingIntervalsFasta
 
 done
