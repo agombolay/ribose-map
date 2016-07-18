@@ -61,10 +61,10 @@ do
 	bed=$output/$samples.bed
 	sam=$output/$samples.sam
 	coordinates=$output/$samples.coordinates.bed
-	positions.positive.0=$output/$samples.rNMPs.positive.0-based.txt
-	positions.negative.0=$output/$samples.rNMPs.negative.0-based.txt
-	positions.positive.1=$output/$samples.rNMPs.positive.1-based.txt
-	positions.negative.1=$output/$samples.rNMPs.negative.1-based.txt
+	positionsPositive0=$output/$samples.rNMPs.positive.0-based.txt
+	positionsNegative0=$output/$samples.rNMPs.negative.0-based.txt
+	positionsPositive1=$output/$samples.rNMPs.positive.1-based.txt
+	positionsNegative1=$output/$samples.rNMPs.negative.1-based.txt
 	
 	#COORDINATES (0-BASED) of SEQUENCING READS
 
@@ -80,29 +80,29 @@ do
 	#0-BASED COORDINATES OF rNMPs
 
 	#Obtain positions of rNMPs (3’ end of each mapped read) for positive strand:
-	bedtools genomecov -3 -strand + -bg -ibam $input > $positions.positive.0
+	bedtools genomecov -3 -strand + -bg -ibam $input > $positionsPositive0
 
 	#Obtain positions of rNMPs (3’ end of each mapped read) for negative strand:
-	bedtools genomecov -3 -strand - -bg -ibam $input > $positions.negative.0
+	bedtools genomecov -3 -strand - -bg -ibam $input > $positionsNegative0
 
 	#1-BASED COORDINATES OF	rNMPs
 
 	#Obtain positions of rNMPs (3’ end of each mapped read) for positive strand:
-	bedtools genomecov -3 -strand + -d -ibam $input > $positions.positive.1
+	bedtools genomecov -3 -strand + -d -ibam $input > $positionsPositive1
 
 	#Remove rows where genome coverage equals 0
-	awk '$3 != 0' $positions.positive.1 > temporary
+	awk '$3 != 0' $positionsPositive1 > temporary
 
 	#Change filename back to original
-	mv temporary $positions.positive.1
+	mv temporary $positionsPositive1
 
 	#Obtain positions of rNMPs (3’ end of each mapped read) for negative strand:
-	bedtools genomecov -3 -strand - -d -ibam $input > $positions.negative.1
+	bedtools genomecov -3 -strand - -d -ibam $input > $positionsNegative1
 
 	#Remove rows where genome coverage equals 0
-	awk '$3 != 0' $positions.negative.1 > temporary
+	awk '$3 != 0' $positionsNegative1 > temporary
 
 	#Change filename back to original
-	mv temporary $positions.negative.1
+	mv temporary $positionsNegative1
 
 done
