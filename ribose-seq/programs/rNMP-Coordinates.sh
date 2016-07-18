@@ -106,5 +106,3 @@ do
 	mv temporary $positions.negative.1
 
 done
-
-
