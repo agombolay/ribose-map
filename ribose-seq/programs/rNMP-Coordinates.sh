@@ -36,47 +36,65 @@ then
 fi
 
 #Obtain 0-based and 1-based coordinates of rNMPs
-for files in ${bam[@]};
+for samples in ${bam[@]};
 do
+
+	#Extract sample names from filepaths
+	filename=$(basename "${bam}")
+	samples="${filename%.*}"
+
+	#Extract input directories from filepaths
+	inputDirectory=$(dirname "${bam}")
+
+	#INPUT
+	#Location of input BAM files
+	input=$inputDirectory/$samples.bam
+
+	#OUTPUT
+	#Location of output "ribose-seq" alignment directory
+	output=$directory/ribose-seq/results/align_sacCer2/$samples/alignment
+
+	bed=$output/$samples.bed
+	sam=$output/$samples.sam
 
 	#COORDINATES (0-BASED) of SEQUENCING READS
 
 	#Covert file from BAM to BED format using BEDtools software
-	bedtools bamtobed -i $files.bam > $files.bed
+	bedtools bamtobed -i $input > $bed
 
 	#Convert file from BAM to SAM format using SAMtools software
-	samtools view $files.bam > $files.sam
+	samtools view $input > $sam
 
 	#Extract read coordinates, sequences, and strands from BED and SAM files and save it to new file
-	paste $files.bed $files.sam | awk -v "OFS=\t" '{print $1, $2, $3, $16, $6}' > $files.coordinates.bed
+	paste $bed $sam | awk -v "OFS=\t" '{print $1, $2, $3, $16, $6}' > $output/$samples.coordinates.bed
 
 	#0-BASED COORDINATES OF rNMPs
 
-	#Obtain positions of rNMPs (5’ end of each mapped read) for positive strand:
-	bedtools genomecov -5 -strand + -bg -ibam $files.bam > $files.rNMPs.positive.txt
+	#Obtain positions of rNMPs (3’ end of each mapped read) for positive strand:
+	bedtools genomecov -3 -strand + -bg -ibam $input > $output/$samples.rNMPs.positive.0-based.txt
 
-	#Obtain positions of rNMPs (5’ end of each mapped read) for negative strand:
-	bedtools genomecov -5 -strand - -bg -ibam $files.bam > $files.rNMPs.negative.txt
+	#Obtain positions of rNMPs (3’ end of each mapped read) for negative strand:
+	bedtools genomecov -3 -strand - -bg -ibam $input > $output/$samples.rNMPs.negative.0-based.txt
 
 	#1-BASED COORDINATES OF	rNMPs
 
-	#Obtain positions of rNMPs (5’ end of each mapped read) for positive strand:
-	bedtools genomecov -5 -strand + -d -ibam $files.bam > $files.rNMPs.positive.txt
+	#Obtain positions of rNMPs (3’ end of each mapped read) for positive strand:
+	bedtools genomecov -3 -strand + -d -ibam $input > $output/$samples.rNMPs.positive.1-based.txt
 
 	#Remove rows where genome coverage equals 0
-	awk '$3 != 0' $files.rNMPs.positive.txt > temporary
+	awk '$3 != 0' $output/$samples.rNMPs.positive.1-based.txt > temporary
 
 	#Change filename back to original
-	mv temporary $files.rNMPs.positive.txt
+	mv temporary $output/$samples.rNMPs.positive.1-based.txt
 
-	#Obtain positions of rNMPs (5’ end of each mapped read) for negative strand:
-	bedtools genomecov -5 -strand - -d -ibam $files.bam > $files.rNMPs.negative.txt
+	#Obtain positions of rNMPs (3’ end of each mapped read) for negative strand:
+	bedtools genomecov -3 -strand - -d -ibam $input > $output/$samples.rNMPs.negative.1-based.txt
 
 	#Remove rows where genome coverage equals 0
-	awk '$3 != 0' $files.rNMPs.negative.txt > temporary
+	awk '$3 != 0' $output/$samples.rNMPs.negative.1-based.txt > temporary
 
 	#Change filename back to original
-	mv temporary $files.rNMPs.negative.txt
+	mv temporary $output/$samples.rNMPs.negative.1-based.txt
 
 done
 
