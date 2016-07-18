@@ -66,7 +66,7 @@ do
 	samtools view $input > $sam
 
 	#Extract read coordinates, sequences, and strands from BED and SAM files and save it to new file
-	paste $bed $sam | awk -v "OFS=\t" '{print $1, $2, $3, $16, $6}' > $output/$samples.coordinates.bed
+	paste $bed $sam | awk -v "OFS=\t" '{print $1, $2, $3, $4, $16, $6}' > $output/$samples.coordinates.bed
 
 	#0-BASED COORDINATES OF rNMPs
 
