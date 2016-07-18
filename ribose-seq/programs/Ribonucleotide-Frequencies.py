@@ -95,13 +95,13 @@ for line in list2:
 
 	for character in line:
 		if character == "A":
-			U+=1
-		if character == "C":
-			G+=1
-		if character == "G":
-			C+=1
-		if character == "T":
 			A+=1
+		if character == "C":
+			C+=1
+		if character == "G":
+			G+=1
+		if character == "T":
+			U+=1
 
 #Calculate total number of nucleotides
 total = (A+C+G+U)
