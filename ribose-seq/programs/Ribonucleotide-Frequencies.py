@@ -49,32 +49,40 @@ sys.stdout = list1
 
 #CALCULATE 5' NUCLEOTIDE FREQUENCIES
 
-#Print only ribonucleotides (5' or left most side of read)
-for line in bam:
+#Print only ribonucleotides (3' end of read (end for + strand and start for - strand))
+for line in bed:
 	
-	if reference == "sacCer2" and "+" in line:
-		print(line.split()[3])[:1]
+	if (reference == "sacCer2" and "+" in line):
+		print(line.split()[4])[-1],
+		print(line.split()[5])
 
-	elif reference == "sacCer2" and "-" in line:
-		print(line.split()[3])[-1]
+	elif (reference == "sacCer2" and "-" in line):
+		print(line.split()[4])[:1],
+		print(line.split()[5])
 
 	elif (reference == "nuclear" and "chrM" not in line and "+" in line):
-		print(line.split()[3])[:1]
+		print(line.split()[4])[-1],
+		print(line.split()[5])
 
 	elif (reference == "nuclear" and "chrM" not in line and "-" in line):
-                print(line.split()[3])[-1]
+                print(line.split()[4])[:1],
+		print(line.split()[5])
 
 	elif (reference == "chrM" and "chrM" in line and "+" in line):
-		print(line.split()[3])[:1]
+		print(line.split()[4])[-1],
+		print(line.split()[5])
 
 	elif (reference == "chrM" and "chrM" in line and "-" in line):
-		print(line.split()[3])[-1]
+		print(line.split()[4])[:1],
+		print(line.split()[5])
 
 	elif (reference == "2micron" and "2micron" in line  and "+" in line):
-		print(line.split()[3])[:1]
+		print(line.split()[4])[-1],
+		print(line.split()[5])
 
 	elif (reference == "2micron" and "2micron" in line and "-" in line):
-                print(line.split()[3])[-1]
+                print(line.split()[4])[:1],
+		print(line.split()[5])
 
 #Redirect standard output to file of list of 5' nucleotides
 sys.stdout = standard_output
@@ -93,15 +101,24 @@ U=0;
 
 for line in list2:
 
-	for character in line:
-		if character == "A":
-			A+=1
-		if character == "C":
-			C+=1
-		if character == "G":
-			G+=1
-		if character == "T":
-			U+=1
+	#for character in line:
+
+	if ("A" in line and "+" in line):
+		A+=1
+	elif ("A" in line and "-" in line):
+		U+=1
+	elif ("C" in line and "+" in line):
+		C+=1
+	elif ("C" in line and "-" in line):
+		G+=1
+	elif ("G" in line and "+" in line):
+		G+=1
+	elif ("G" in line and "-" in line):
+		C+=1
+	elif ("T"  in line and "+" in line):
+		U+=1
+	elif ("T" in line and "-" in line):
+		A+=1
 
 #Calculate total number of nucleotides
 total = (A+C+G+U)
