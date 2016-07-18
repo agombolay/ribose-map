@@ -64,8 +64,13 @@ do
 
 	#Location of output files
 	positionsBoth=$output/$samples.rNMPs.bothStrands.bed
-	flankingIntervalsBed=$output/$samples.flanking.intervals.bed
-	flankingIntervalsFasta=$output/$samples.flanking.intervals.fasta
+
+	flankingIntervalsUpstreamBed=$output/$samples.flanking.intervals.upstream.bed
+	flankingIntervalsDownstreamBed=$output/$samples.flanking.intervals.downstream.bed
+
+	flankingIntervalsUpstreamTab=$output/$samples.flanking.intervals.upstream.tab
+        flankingIntervalsDownstreamTab=$output/$samples.flanking.intervals.downstream.tab
+
 	temporary=$output/temporary.bed
 	temporary2=$output/temporary2.bed
 
@@ -84,10 +89,16 @@ do
 	#Change file back to its original name
         mv $temporary2 $positionsBoth
 
-	#Obtain coordinates of sacCer2 sequences that are +/- 100 bp downstream/upstream of each rNMP position:
-	bedtools flank -i $positionsBoth -g $directory/ribose-seq/reference/$reference.bed -b 100 > $flankingIntervalsBed
+	#Obtain coordinates of sacCer2 sequences that are 100 bp upstream of each rNMP position:
+	bedtools flank -i $positionsBoth -g $directory/ribose-seq/reference/$reference.bed -l 100 -r 0 > $flankingIntervalsUpstreamBed
 
-	#Obtain sequences of sacCer2 coordinates from above that are +/- 100 bp downstream/upstream of each rNMP position:
-	bedtools getfasta -fi $directory/ribose-seq/reference/$reference.fa -bed $flankingIntervalsBed -fo $flankingIntervalsFasta
+	#Obtain coordinates of sacCer2 sequences that are 100 bp downstream of each rNMP position:
+        bedtools flank -i $positionsBoth -g $directory/ribose-seq/reference/$reference.bed -l 0 -r 100 > $flankingIntervalsDownstreamBed
+
+	#Obtain sequences of sacCer2 coordinates from above that are 100 bp upstream of each rNMP position:
+	bedtools getfasta -fi $directory/ribose-seq/reference/$reference.fa -bed $flankingIntervalsUpstreamBed -tab -fo $flankingIntervalsUpstreamTab
+
+	#Obtain sequences of sacCer2 coordinates from above that are 100 bp downstream of each rNMP position:
+        bedtools getfasta -fi $directory/ribose-seq/reference/$reference.fa -bed $flankingIntervalsDownstreamBed -tab -fo flankingIntervalsDownstreamTab
 
 done
