@@ -58,7 +58,7 @@ do
 
 	#OUTPUT
 	#Location of output "ribose-seq" alignment directory
-	output=$directory/ribose-seq/results/$index/$samples/alignment/
+	output=$directory/ribose-seq/results/$index/$samples/Alignment/
 
 	#Create directory for output if it does not already exist
 	if [[ ! -d $output ]];
