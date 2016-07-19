@@ -55,7 +55,7 @@ do
 
 	#OUTPUT
 	#Location of output "ribose-seq" Columns directory
-	output=$directory/ribose-seq/results/$reference/$samples/nucleotideFrequencies/Nucleotides/Columns
+	output=$directory/ribose-seq/results/$reference/$samples/nucleotideFrequencies/Nucleotides/Columns/$location
 
 	if [[ ! -d $output ]]; then
     		mkdir -p $output
