@@ -52,7 +52,7 @@ do
 
 	#OUTPUT
 	#Location of output "ribose-seq" nucleotideFrequencies directory
-	output=$directory/ribose-seq/results/$reference/$samples/nucleotideFrequencies/Ribonucleotides
+	output=$directory/ribose-seq/results/$reference/$samples/Nucleotide-Frequencies/Ribonucleotides
 
 	fastq=$output/$samples.fastq
 	fasta=$output/$samples.fasta
