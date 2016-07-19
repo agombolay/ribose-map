@@ -19,12 +19,13 @@ function usage () {
 }
 
 #Use getopts function to create the command-line options ([-i], [-l], [-r], [-d], and [-h])
-while getopts "i:l:r:d:h" opt;
+while getopts "i:s:l:r:d:h" opt;
 do
     case $opt in
         #Specify input as arrays to allow multiple input arguments
         i ) tab=($OPTARG) ;;
 	#Specify input as variable to allow only one input argument
+	s ) subset=$OPTARG ;;
         l ) location=$OPTARG ;;
 	r ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
@@ -55,21 +56,30 @@ do
 
 	#OUTPUT
 	#Location of output "ribose-seq" Columns directory
-	output=$directory/ribose-seq/results/$reference/$samples/nucleotideFrequencies/Nucleotides/Columns/$location
+	output=$directory/ribose-seq/results/$reference/$samples/nucleotideFrequencies/Nucleotides/Columns/$subset/$location
 
 	if [[ ! -d $output ]]; then
     		mkdir -p $output
 	fi
 
 	#Location of output files
-	sequences=$output/$samples.trimmed.$location.sequences.raw.txt
-	columns=$output/$samples.trimmed.$location.sequences.columns.txt
+	sequences=$output/$samples.trimmed.$location.sequences.$subset.raw.txt
+	columns=$output/$samples.trimmed.$location.sequences.$subset.columns.txt
+
+	if [ $subset == "sacCer2" ];
+	then
+		cat $input > $sacCer2
+	elif [ $subset == "chrM" ]
+		grep 'chrM' $input > $chrM
+	elif [ $subset == "nuclear" ]
+		grep -v 'chrM' $input > $nuclear
+	fi
 
 	#Print sequences to new file
-	awk -v "OFS=\t" '{print $2}' $input > $sequences
+	awk -v "OFS=\t" '{print $2}' $genome > $sequences
 
 	#Insert tabs between each nucleotide
-	cat $sequences | sed 's/.../& /2g;s/./& /g' > $columns
+	cat $sequences1 | sed 's/.../& /2g;s/./& /g' > $columns
 
 		for i in {1..100};
 		do
