@@ -66,6 +66,23 @@ C_frequency = float(C)/total
 G_frequency = float(G)/total
 T_frequency = float(T)/total
 
+#READ EXCEL FILE
+
+background_frequencies = "%s/ribose-seq/results/Background-Nucleotide-Frequencies/%s.Nucleotide.Frequencies.xls" % (directory1, reference)
+workbook1 = xlrd.open_workbook(background_frequencies)
+sheet1 = workbook1.sheet_by_index(0)
+
+A_background = sheet1.cell_value(rowx=1, colx=2)
+C_background = sheet1.cell_value(rowx=2, colx=2)
+G_background = sheet1.cell_value(rowx=3, colx=2)
+T_background = sheet1.cell_value(rowx=4, colx=2)
+
+#Calculate normalized frequency of each nucleotide
+A_normalized = A_frequency/A_background
+C_normalized = C_frequency/C_background
+G_normalized = G_frequency/G_background
+U_normalized = U_frequency/T_background
+
 #CREATE TABLE
 
 #Create table of data with "tabulate" Python module
