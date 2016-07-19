@@ -11,8 +11,9 @@ program=$0
 
 #Usage statement of the program
 function usage () {
-	echo "Usage: $program [-i] '/path/to/file1.tab etc.' [-l] 'location' [-r] 'reference' [-d] 'Ribose-seq directory' [-h]
+	echo "Usage: $program [-i] '/path/to/file1.tab etc.' [-s] 'subset' [-l] 'location' [-r] 'reference' [-d] 'Ribose-seq directory' [-h]
 	-i Filepaths of input tab files
+	-s Geneome subset (i.e., nuclear)
 	-l Upstream or Downstream location
 	-r Reference genome of interest (i.e., sacCer2)
 	-d Location of user's local Ribose-seq directory"
@@ -66,6 +67,8 @@ do
 	selection=$output/$samples.trimmed.$location.sequences.$subset.txt
 	sequences=$output/$samples.trimmed.$location.sequences.$subset.raw.txt
 	columns=$output/$samples.trimmed.$location.sequences.$subset.columns.txt
+
+	#echo $selection
 
 	if [ $subset == "sacCer2" ];
 	then
