@@ -11,18 +11,20 @@ program=$0
 
 #Usage statement of the program
 function usage () {
-        echo "Usage: $program [-i] '/path/to/file1.bam etc.' [-d] 'Ribose-seq directory' [-h]
-          -i Filepaths of input BAM files
-          -d Location of user's local Ribose-seq directory"
+	echo "Usage: $program [-i] '/path/to/file1.bam etc.' [-r] 'reference' [-d] 'Ribose-seq directory' [-h]
+	-i Filepaths of input BAM files
+	-r Reference genome of interest (i.e., sacCer2)
+	-d Location of user's local Ribose-seq directory"
 }
 
-#Use getopts function to create the command-line options ([-i], [-d], and [-h])
-while getopts "i:d:h" opt;
+#Use getopts function to create the command-line options ([-i], [-r], [-d], and [-h])
+while getopts "i:r:d:h" opt;
 do
     case $opt in
         #Specify input as arrays to allow multiple input arguments
         i ) bam=($OPTARG) ;;
 	#Specify input as variable to allow only one input argument
+	r ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
         #If user specifies [-h], print usage statement
         h ) usage ;;
@@ -49,8 +51,8 @@ do
 	input=$inputDirectory/$samples.bam
 
 	#OUTPUT
-	#Location of output "ribose-seq" alignment directory
-	output=$directory/ribose-seq/results/align_sacCer2/$samples/alignment
+	#Location of output "ribose-seq" nucleotideFrequencies directory
+	output=$directory/ribose-seq/results/$reference/$samples/nucleotideFrequencies/Ribonucleotides
 
 	fastq=$output/$samples.fastq
 	fasta=$output/$samples.fasta
