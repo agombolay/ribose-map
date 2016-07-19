@@ -83,12 +83,12 @@ T_background = sheet1.cell_value(rowx=4, colx=2)
 A_normalized = A_frequency/A_background
 C_normalized = C_frequency/C_background
 G_normalized = G_frequency/G_background
-U_normalized = U_frequency/T_background
+T_normalized = T_frequency/T_background
 
 #CREATE TABLE
 
 #Create table of data with "tabulate" Python module
-table = [["A", A, A_frequency, A_normalized, total], ["C", C, C_frequency, C_normalized, ""], ["G", G, G_frequency, G_normalized, ""], ["T", T, T_frequency, T_normalized""]]
+table = [["A", A, A_frequency, A_normalized, total], ["C", C, C_frequency, C_normalized, ""], ["G", G, G_frequency, G_normalized, ""], ["T", T, T_frequency, T_normalized, ""]]
 
 #CREATE EXCEL FILE
 
@@ -123,7 +123,7 @@ sheet.write(4, 2, T_frequency, decimal_style)
 sheet.write(1, 3, A_normalized, decimal_style)
 sheet.write(2, 3, C_normalized, decimal_style)
 sheet.write(3, 3, G_normalized, decimal_style)
-sheet.write(4, 3, U_normalized, decimal_style)
+sheet.write(4, 3, T_normalized, decimal_style)
 
 sheet.write(1, 4, total)
 
