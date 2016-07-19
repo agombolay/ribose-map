@@ -88,7 +88,7 @@ T_normalized = T_frequency/T_background
 #CREATE TABLE
 
 #Create table of data with "tabulate" Python module
-table = [["A", A, A_frequency, A_normalized, total], ["C", C, C_frequency, C_normalized, ""], ["G", G, G_frequency, G_normalized, ""], ["T", T, T_frequency, T_normalized, ""]]
+table = [[A_normalized], [C_normalized], [G_normalized], [T_normalized]]
 
 #CREATE EXCEL FILE
 
@@ -99,33 +99,10 @@ sheet = workbook2.add_sheet("Sheet1")
 decimal_style = xlwt.XFStyle()
 decimal_style.num_format_str = '0.0000'
 
-sheet.write(0, 0, "Ribonucleotide")
-sheet.write(0, 1, "Number")
-sheet.write(0, 2, "Raw Frequency")
-sheet.write(0, 3, "Normalized Frequency")
-sheet.write(0, 4, "Total")
-
-sheet.write(1, 0, "A")
-sheet.write(2, 0, "C")
-sheet.write(3, 0, "G")
-sheet.write(4, 0, "T")
-
-sheet.write(1, 1, A)
-sheet.write(2, 1, C)
-sheet.write(3, 1, G)
-sheet.write(4, 1, T)
-
-sheet.write(1, 2, A_frequency, decimal_style)
-sheet.write(2, 2, C_frequency, decimal_style)
-sheet.write(3, 2, G_frequency, decimal_style)
-sheet.write(4, 2, T_frequency, decimal_style)
-
 sheet.write(1, 3, A_normalized, decimal_style)
 sheet.write(2, 3, C_normalized, decimal_style)
 sheet.write(3, 3, G_normalized, decimal_style)
 sheet.write(4, 3, T_normalized, decimal_style)
-
-sheet.write(1, 4, total)
 
 #NAME OUTPUT FILES
 
@@ -137,7 +114,7 @@ output2=path+folder+filename+str('.Nucleotide.Frequencies.xls')
 sys.stdout=open(output1, "w")
 
 #Specify header names and table style
-print tabulate(table, headers=["Nucleotide", "Number", "Raw Frequency", "Normalized Frequency", "Total"], tablefmt="plain", floatfmt=".4f")
+print tabulate(table, tablefmt="plain", floatfmt=".4f")
 
 #Save table to .xls file
 workbook2.save(output2)
