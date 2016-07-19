@@ -70,7 +70,7 @@ T_frequency = float(T)/total
 
 #READ EXCEL FILE
 
-background_frequencies = "%s/ribose-seq/results/Background-Nucleotide-Frequencies/%s.Nucleotide.Frequencies.xls" % (directory, reference)
+background_frequencies = "%s/ribose-seq/results/Background-Nucleotide-Frequencies/%s.Nucleotide.Frequencies.xls" % (directory, subset)
 workbook1 = xlrd.open_workbook(background_frequencies)
 sheet1 = workbook1.sheet_by_index(0)
 
