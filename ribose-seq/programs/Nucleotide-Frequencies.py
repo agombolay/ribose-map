@@ -114,7 +114,7 @@ output2=path+folder+filename+str('.Nucleotide.Frequencies.xls')
 sys.stdout=open(output1, "w")
 
 #Specify header names and table style
-print tabulate(table, tablefmt="simple", floatfmt=".4f")
+print tabulate(table, tablefmt="plain", floatfmt=".4f")
 
 #Save table to .xls file
 workbook2.save(output2)
