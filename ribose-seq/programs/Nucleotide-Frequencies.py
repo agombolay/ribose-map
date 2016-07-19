@@ -22,12 +22,14 @@ parser = argparse.ArgumentParser()
 parser.add_argument('txt file')
 parser.add_argument('subset')
 parser.add_argument('location')
+parser.add_argument("Location of user's local Ribose-seq directory")
 args = parser.parse_args()
 
 #Open input txt file and assign it to an object ("r": read file)
 txt = open(sys.argv[1], "r")
 subset = sys.argv[2]
 location = sys.argv[3]
+directory = sys.argv[4]
 
 #Obtain name of input txt file excluding file extension
 filename=os.path.splitext(os.path.basename(sys.argv[1]))[0]
