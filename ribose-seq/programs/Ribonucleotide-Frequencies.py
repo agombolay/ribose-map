@@ -37,7 +37,7 @@ directory2=os.path.dirname(sys.argv[1])
 
 #Specify directory path of output files
 path="/".join(directory2.split('/')[:-1])
-folder="/nucleotideFrequencies/Ribonucleotides"
+folder="/Ribonucleotides/tables/"
 
 #Specify name of output file based on input filename
 list=path+folder+filename+str('.')+reference+str('.Ribonucleotides-List.txt')

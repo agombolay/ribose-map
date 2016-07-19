@@ -63,27 +63,30 @@ do
 	fi
 
 	#Location of output files
+	selection=$output/$samples.trimmed.$location.sequences.$subset.txt
 	sequences=$output/$samples.trimmed.$location.sequences.$subset.raw.txt
 	columns=$output/$samples.trimmed.$location.sequences.$subset.columns.txt
 
 	if [ $subset == "sacCer2" ];
 	then
-		cat $input > $sacCer2
-	elif [ $subset == "chrM" ]
-		grep 'chrM' $input > $chrM
-	elif [ $subset == "nuclear" ]
-		grep -v 'chrM' $input > $nuclear
+		cat $input > $selection
+	elif [ $subset == "chrM" ];
+	then
+		grep 'chrM' $input > $selection
+	elif [ $subset == "nuclear" ];
+	then
+		grep -v 'chrM' $input > $selection
 	fi
 
 	#Print sequences to new file
-	awk -v "OFS=\t" '{print $2}' $genome > $sequences
+	awk -v "OFS=\t" '{print $2}' $selection > $sequences
 
 	#Insert tabs between each nucleotide
-	cat $sequences1 | sed 's/.../& /2g;s/./& /g' > $columns
+	cat $sequences | sed 's/.../& /2g;s/./& /g' > $columns
 
 		for i in {1..100};
 		do
-			awk -v field=$i '{ print $field }' $columns > $output/column.$i.$location.txt
+			awk -v field=$i '{ print $field }' $columns > $output/column.$i.$location.$subset.txt
 		done
 done
 

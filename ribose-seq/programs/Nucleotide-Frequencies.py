@@ -37,6 +37,7 @@ directory1=os.path.dirname(sys.argv[1])
 
 #Specify directory path of output files
 path="/".join(directory1.split('/'))
+folder="/tables/"
 
 #CALCULATE 5' NUCLEOTIDE FREQUENCIES
 
@@ -47,7 +48,6 @@ G=0;
 T=0;
 
 for line in txt:
-
 	if "A" in line:
 		A+=1
 	elif "C" in line:
@@ -105,8 +105,8 @@ sheet.write(1, 3, total)
 #NAME OUTPUT FILES
 
 #Specify name of output file based on input filename
-output1=path+str('/')+filename+str('.Nucleotide.Frequencies.txt')
-output2=path+str('/')+filename+str('.Nucleotide.Frequencies.xls')
+output1=path+folder+filename+str('.Nucleotide.Frequencies.txt')
+output2=path+folder+filename+str('.Nucleotide.Frequencies.xls')
 
 #Redirect output to .txt file
 sys.stdout=open(output1, "w")

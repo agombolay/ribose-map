@@ -65,11 +65,11 @@ do
 	#Location of output files
 	positionsBoth=$output/$samples.rNMPs.bothStrands.bed
 
-	flankingIntervalsUpstreamBed=$output/$samples.flanking.intervals.upstream.bed
-	flankingIntervalsDownstreamBed=$output/$samples.flanking.intervals.downstream.bed
+	flankingUpstreamIntervals=$output/$samples.flanking.upstream.intervals.bed
+	flankingDownstreamIntervals=$output/$samples.flanking.downstream.intervals.bed
 
-	flankingIntervalsUpstreamTab=$output/$samples.flanking.intervals.upstream.tab
-        flankingIntervalsDownstreamTab=$output/$samples.flanking.intervals.downstream.tab
+	flankingUpstreamSequences=$output/$samples.flanking.upstream.sequences.tab
+        flankingDownstreamSequences=$output/$samples.flanking.downstream.sequences.tab
 
 	temporary=$output/temporary.bed
 	temporary2=$output/temporary2.bed
@@ -90,15 +90,15 @@ do
         mv $temporary2 $positionsBoth
 
 	#Obtain coordinates of sacCer2 sequences that are 100 bp upstream of each rNMP position:
-	bedtools flank -i $positionsBoth -g $directory/ribose-seq/reference/$reference.bed -l 100 -r 0 > $flankingIntervalsUpstreamBed
+	bedtools flank -i $positionsBoth -g $directory/ribose-seq/reference/$reference.bed -l 100 -r 0 > $flankingUpstreamIntervals
 
 	#Obtain coordinates of sacCer2 sequences that are 100 bp downstream of each rNMP position:
-        bedtools flank -i $positionsBoth -g $directory/ribose-seq/reference/$reference.bed -l 0 -r 100 > $flankingIntervalsDownstreamBed
+        bedtools flank -i $positionsBoth -g $directory/ribose-seq/reference/$reference.bed -l 0 -r 100 > $flankingDownstreamIntervals
 
 	#Obtain sequences of sacCer2 coordinates from above that are 100 bp upstream of each rNMP position:
-	bedtools getfasta -fi $directory/ribose-seq/reference/$reference.fa -bed $flankingIntervalsUpstreamBed -tab -fo $flankingIntervalsUpstreamTab
+	bedtools getfasta -fi $directory/ribose-seq/reference/$reference.fa -bed $flankingUpstreamIntervals -tab -fo $flankingUpstreamSequences
 
 	#Obtain sequences of sacCer2 coordinates from above that are 100 bp downstream of each rNMP position:
-        bedtools getfasta -fi $directory/ribose-seq/reference/$reference.fa -bed $flankingIntervalsDownstreamBed -tab -fo flankingIntervalsDownstreamTab
+        bedtools getfasta -fi $directory/ribose-seq/reference/$reference.fa -bed $flankingDownstreamIntervals -tab -fo $flankingDownstreamSequences
 
 done
