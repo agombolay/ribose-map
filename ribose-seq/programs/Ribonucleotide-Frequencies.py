@@ -40,9 +40,9 @@ path="/".join(directory2.split('/')[:-1])
 folder="/nucleotideFrequencies/Ribonucleotides"
 
 #Specify name of output file based on input filename
-list=path+folder+filename+str('.')+reference+str('.5-Prime-Nucleotides-List.txt')
+list=path+folder+filename+str('.')+reference+str('.Ribonucleotides-List.txt')
 
-#Create file to where list of 5' nucleotides will saved
+#Create file to where list of ribonucleotides will saved
 standard_output = sys.stdout
 list1 = open(list, 'w')
 sys.stdout = list1
