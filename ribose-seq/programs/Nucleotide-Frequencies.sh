@@ -1,7 +1,4 @@
-#background="/projects/home/agombolay3/data/repository/Ribose-seq-Project/ribose-seq/reference/sacCer2.fa"
-#nucleotides="/projects/home/agombolay3/data/repository/Ribose-seq-Project/ribose-seq/results/sacCer2/FS15.trimmed/Nucleotide-Frequencies/Nucleotides/Columns/nuclear/upstream/*.txt"
 #!/usr/bin/env bash
-
 #Author: Alli Gombolay
 #This program calculates the frequencies of +/- 100 downstream/upstream nucleotides from ribonucleotides 
 
