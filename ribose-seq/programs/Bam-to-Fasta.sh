@@ -6,7 +6,7 @@
 
 #COMMAND LINE OPTIONS
 
-#Name of the program (BAM-to-FASTA.sh)
+#Name of the program (Bam-to-Fasta.sh)
 program=$0
 
 #Usage statement of the program
