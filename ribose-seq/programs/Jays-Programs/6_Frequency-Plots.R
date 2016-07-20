@@ -86,7 +86,6 @@ ggplot.nuc.freq <- function(df, cur.size, offset.min, offset.max, ... ) {
     }
 
     gp <- gp + xlim(offset.min, offset.max)
-    gp <- gp + ylim(0, 7)
 
     # axis labels 
     gp <- gp + xlab('Position')
