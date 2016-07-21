@@ -93,3 +93,8 @@ do
 		done
 done
 
+mkdir $output/sequences
+
+mv $selection $output/sequences
+mv $sequences $output/sequences
+mv $columns $output/sequences
