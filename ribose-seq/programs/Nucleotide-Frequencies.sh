@@ -9,21 +9,25 @@ program=$0
 
 #Usage statement of the program
 function usage () {
-	echo "Usage: $program [-i] '/path/to/*.txt etc.' [-s] 'sample' [-r] 'reference' [-d] 'Ribose-seq directory' [-h]
+	echo "Usage: $program [-i] '/path/to/*.txt etc.' [-s] 'sample' [-l] 'location' -n 'sample name' [-r] 'reference' [-d] 'Ribose-seq directory' [-h]
 	-i Filepath of input text files
-	-s Sample of interest (i.e., FS15.trimmed)
+	-s Geneome subset (i.e., nuclear)
+	-l Upstream or Downstream location
+	-n Sample of interest (i.e., FS15.trimmed)
 	-r Reference genome of interest (i.e., sacCer2)
 	-d Location of user's local Ribose-seq directory"
 }
 
-#Use getopts function to create the command-line options ([-i], [-b], [-d], and [-h])
-while getopts "i:s:r:d:h" opt;
+#Use getopts function to create the command-line options ([-i], [-s], [-l], [-n], [-r], [-d], and [-h])
+while getopts "i:s:l:n:r:d:h" opt;
 do
     case $opt in
         #Specify input as arrays to allow multiple input arguments
         i ) txt=($OPTARG) ;;
 	#Specify input as variable to allow only one input argument
-	s ) sample=$OPTARG ;;
+	s ) subset=$OPTARG ;;
+	l ) location=$OPTARG ;;
+	n ) sample=$OPTARG ;;
 	r ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
         #If user specifies [-h], print usage statement
@@ -39,7 +43,7 @@ fi
 
 #INPUT
 #Location of FASTA file
-fasta=$directory/ribose-seq/reference/$reference.fa
+fasta=$directory/ribose-seq/reference/$subset.fa
 
 #OUTPUT
 #Location of output directory
@@ -86,11 +90,11 @@ do
         G_normalized_frequency=$(bc <<< "scale = 4; `expr $G_frequency/$G_background_frequency`")
         T_normalized_frequency=$(bc <<< "scale = 4; `expr $T_frequency/$T_background_frequency`")
 
-	echo $A_normalized_frequency >> $output2/A_normalized_frequencies.txt
-	echo $C_normalized_frequency >> $output2/C_normalized_frequencies.txt
-	echo $G_normalized_frequency >> $output2/G_normalized_frequencies.txt
-	echo $T_normalized_frequency >> $output2/T_normalized_frequencies.txt
+	echo $A_normalized_frequency >> $output2/A_normalized_frequencies.$location.txt
+	echo $C_normalized_frequency >> $output2/C_normalized_frequencies.$location.txt
+	echo $G_normalized_frequency >> $output2/G_normalized_frequencies.$location.txt
+	echo $T_normalized_frequency >> $output2/T_normalized_frequencies.$location.txt
 
-	paste $output2/A_normalized_frequencies.txt $output2/C_normalized_frequencies.txt $output2/G_normalized_frequencies.txt $output2/T_normalized_frequencies.txt > $output2/Normalized-Frequencies.txt
+	paste $output2/A_normalized_frequencies.$location.txt $output2/C_normalized_frequencies.$location.txt $output2/G_normalized_frequencies.$location.txt $output2/T_normalized_frequencies.$location.txt > $output2/Normalized-Frequencies.$location.txt
 
 done

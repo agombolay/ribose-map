@@ -53,7 +53,7 @@ do
 	input=$inputDirectory/$samples.bam
 
 	#Location of input FASTA files
-        fasta=$inputDirectory/$samples.fasta
+        fasta=$directory/ribose-seq/results/$reference/$samples/Nucleotide-Frequencies/Ribonucleotides/$samples.fasta
 
 	#OUTPUT
 	#Location of output "ribose-seq" alignment directory

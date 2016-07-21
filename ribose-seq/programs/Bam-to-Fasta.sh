@@ -54,6 +54,12 @@ do
 	#Location of output "ribose-seq" nucleotideFrequencies directory
 	output=$directory/ribose-seq/results/$reference/$samples/Nucleotide-Frequencies/Ribonucleotides
 
+	#Create directory for output if it does not already exist
+	if [[ ! -d $output ]];
+	then
+    		mkdir -p $output
+	fi
+	
 	fastq=$output/$samples.fastq
 	fasta=$output/$samples.fasta
 
