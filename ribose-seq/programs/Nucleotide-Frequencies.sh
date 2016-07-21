@@ -40,7 +40,7 @@ fi
 #INPUT
 #Location of FASTA file
 fasta=$directory/ribose-seq/reference/$reference.fa
-echo $fasta
+
 #OUTPUT
 #Location of output directory
 output1=$directory/ribose-seq/results/Background-Nucleotide-Frequencies
