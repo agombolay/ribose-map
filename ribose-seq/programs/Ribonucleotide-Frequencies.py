@@ -47,7 +47,7 @@ standard_output = sys.stdout
 list1 = open(list, 'w')
 sys.stdout = list1
 
-#CALCULATE 5' NUCLEOTIDE FREQUENCIES
+#CALCULATE 3' NUCLEOTIDE FREQUENCIES
 
 #Print only ribonucleotides (3' end of read (end for + strand and start for - strand))
 for line in bed:
