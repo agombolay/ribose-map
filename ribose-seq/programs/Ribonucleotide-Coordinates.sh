@@ -114,3 +114,5 @@ do
 	mv temporary $positionsNegative1
 
 done
+
+mkdir $output/tables

@@ -90,11 +90,11 @@ do
         G_normalized_frequency=$(bc <<< "scale = 4; `expr $G_frequency/$G_background_frequency`")
         T_normalized_frequency=$(bc <<< "scale = 4; `expr $T_frequency/$T_background_frequency`")
 
-	echo $A_normalized_frequency >> $output2/A_normalized_frequencies.$location.txt
-	echo $C_normalized_frequency >> $output2/C_normalized_frequencies.$location.txt
-	echo $G_normalized_frequency >> $output2/G_normalized_frequencies.$location.txt
-	echo $T_normalized_frequency >> $output2/T_normalized_frequencies.$location.txt
+	echo $A_normalized_frequency >> $output2/A_normalized_frequencies.$subset.$location.txt
+	echo $C_normalized_frequency >> $output2/C_normalized_frequencies.$subset.$location.txt
+	echo $G_normalized_frequency >> $output2/G_normalized_frequencies.$subset.$location.txt
+	echo $T_normalized_frequency >> $output2/T_normalized_frequencies.$subset.$location.txt
 
-	paste $output2/A_normalized_frequencies.$location.txt $output2/C_normalized_frequencies.$location.txt $output2/G_normalized_frequencies.$location.txt $output2/T_normalized_frequencies.$location.txt > $output2/Normalized-Frequencies.$location.txt
+	paste $output2/A_normalized_frequencies.$subset.$location.txt $output2/C_normalized_frequencies.$subset.$location.txt $output2/G_normalized_frequencies.$subset.$location.txt $output2/T_normalized_frequencies.$subset.$location.txt > $output2/Normalized-Frequencies.$subset.$location.txt
 
 done
