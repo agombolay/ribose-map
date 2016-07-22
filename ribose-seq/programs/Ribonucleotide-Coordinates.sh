@@ -2,7 +2,7 @@
 
 #Author: Alli Gombolay
 #Date: July 11, 2016
-#This program determines 0-based and 1-based coordinates of rNMPs (5’ end of each mapped read) for positive and negative strands
+#This program determines 0-based and 1-based coordinates of rNMPs (5’ end of each mapped read) for + and - strands
 
 #COMMAND LINE OPTIONS
 
