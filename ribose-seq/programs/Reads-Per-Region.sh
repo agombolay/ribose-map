@@ -2,7 +2,7 @@
 
 #Author: Alli Gombolay
 #Date: August 2, 2016
-#This program extracts number of reads per chromosome and saves output to text file in same location as bam file
+#This program extracts number of reads per chromosome and saves output to text file in same location as input bam file
 
 #COMMAND LINE OPTIONS
 
