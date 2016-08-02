@@ -11,19 +11,16 @@ program=$0
 
 #Usage statement of the program
 function usage () {
-	echo "Usage: $program [-i] '/path/to/file1.bam etc.' [-d] 'Ribose-seq directory' [-h]
-	-i Input (i.e., /projects/home/agombolay3/data/repository/Ribose-seq-Project/ribose-seq/results/hg38/FS56/Alignment)
-	-d Location of user's local Ribose-seq directory (i.e., /projects/home/agombolay3/data/repository/Ribose-seq-Project)"
+	echo "Usage: $program [-i] '/path/to/file1.bam etc.' [-h]
+	-i Input (i.e., /projects/home/agombolay3/data/repository/Ribose-seq-Project/ribose-seq/results/hg38/FS56/Alignment)"
 }
 
-#Use getopts function to create the command-line options ([-i], [-d], and [-h])
-while getopts "i:d:h" opt;
+#Use getopts function to create the command-line options ([-i] and [-h])
+while getopts "i:h" opt;
 do
     case $opt in
         #Specify input as arrays to allow multiple input arguments
         i ) bam=($OPTARG) ;;
-	#Specify input as variable to allow only one input argument
-	d ) directory=$OPTARG ;;
         #If user specifies [-h], print usage statement
         h ) usage ;;
     esac
@@ -37,6 +34,7 @@ fi
 
 for samples in ${bam[@]};
 do
+
 	#Extract sample names from filepaths
 	filename=$(basename "${samples}")
 	samples="${filename%.*}"
@@ -52,5 +50,7 @@ do
 	#Location of output files
 	output=$inputDirectory/$samples.Reads-Per-Region.txt
 
+	#Extract number of reads per chromosome and save output
 	samtools idxstats $samples.bam | cut -f 1,3 > $output
+
 done
