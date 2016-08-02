@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 #Author: Alli Gombolay
-#This program calculates the ribonucleotide frequencies located at 5' position of input BED file
+#This program calculates the ribonucleotide frequencies located at 3' position of input BED file
 
 #Import Python modules
 import sys
@@ -47,7 +47,7 @@ standard_output = sys.stdout
 list1 = open(list, 'w')
 sys.stdout = list1
 
-#CALCULATE 5' NUCLEOTIDE FREQUENCIES
+#CALCULATE 3' NUCLEOTIDE FREQUENCIES
 
 #Print only ribonucleotides (3' end of read (end for + strand and start for - strand))
 for line in bed:
@@ -84,7 +84,7 @@ for line in bed:
                 print(line.split()[4])[:1],
 		print(line.split()[5])
 
-#Redirect standard output to file of list of 5' nucleotides
+#Redirect standard output to file of list of 3' nucleotides
 sys.stdout = standard_output
 
 #Close the file
@@ -93,7 +93,7 @@ list1.close()
 #Open list and assign it to a different object ("r": read file)
 list2 = open(list, 'r')
 
-#Set the values of the base counts of 5' nucleotide numbers to 0
+#Set the values of the base counts of 3' nucleotide numbers to 0
 A=0;
 C=0;
 G=0;

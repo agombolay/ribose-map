@@ -17,3 +17,4 @@
 * # of Chromosomes: 16
 * Size of Genome: 12.30 Mb  
 * [Download Genome from UCSC] (http://hgdownload.soe.ucsc.edu/goldenPath/sacCer2/bigZips/)
+* [Download Genome from SGD] (http://www.yeastgenome.org/)
