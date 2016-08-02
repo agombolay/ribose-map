@@ -12,7 +12,7 @@ program=$0
 #Usage statement of the program
 function usage () {
 	echo "Usage: $program [-i] '/path/to/file1.bam etc.' [-d] 'Ribose-seq directory' [-h]
-	-i Filepaths of input bam file(s) (i.e., /projects/home/agombolay3/data/repository/Ribose-seq-Project/ribose-seq/results/hg38/FS56/Alignment)
+	-i Input (i.e., /projects/home/agombolay3/data/repository/Ribose-seq-Project/ribose-seq/results/hg38/FS56/Alignment)
 	-d Location of user's local Ribose-seq directory (i.e., /projects/home/agombolay3/data/repository/Ribose-seq-Project)"
 }
 
