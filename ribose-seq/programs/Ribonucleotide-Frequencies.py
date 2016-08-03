@@ -17,10 +17,32 @@ import xlrd
 #Module to parse command-line arguments
 import argparse
 
+class SmartFormatter(argparse.HelpFormatter):
+
+    def _split_lines(self, text, width):
+        if text.startswith('R|'):
+            return text[2:].splitlines()  
+        # this is the RawTextHelpFormatter._split_lines
+        return argparse.HelpFormatter._split_lines(self, text, width)
+
+from argparse import ArgumentParser
+
+parser = ArgumentParser(description='test', formatter_class=SmartFormatter)
+
+parser.add_argument('-g', choices=['a', 'b', 'g', 'd', 'e'], default='a',
+    help="R|Some option, where\n"
+         " a = alpha\n"
+         " b = beta\n"
+         " g = gamma\n"
+         " d = delta\n"
+         " e = epsilon")
+
+parser.parse_args()
+
 #Use argparse function to create the "help" command-line option ([-h])
 parser = argparse.ArgumentParser()
 parser.add_argument('BED file')
-parser.add_argument('Reference')
+parser.add_argument('Reference genome (i.e., sacCer2, chrM,')
 parser.add_argument("Location of user's local Ribose-seq directory")
 args = parser.parse_args()
 

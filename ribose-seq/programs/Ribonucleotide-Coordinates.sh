@@ -13,8 +13,8 @@ program=$0
 function usage () {
 	echo "Usage: $program [-i] '/path/to/file1.bam etc.' [-r] 'reference' [-d] 'Ribose-seq directory' [-h]
 	-i Filepaths of input BAM files
-	-r Reference genome of interest (i.e., sacCer2)
-	-d Location of user's local Ribose-seq directory"
+	-r Name of reference genome folder in which to store output files (i.e., sacCer2)
+	-d Ribose-seq directory (i.e., /projects/home/agombolay3/data/repository/Ribose-seq-Project)"
 }
 
 #Use getopts function to create the command-line options ([-i], [-r], [-d], and [-h])
