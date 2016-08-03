@@ -17,12 +17,12 @@ import xlrd
 #Module to parse command-line arguments
 import argparse
 
+#Use argparse function to create command-line options
 class SmartFormatter(argparse.HelpFormatter):
 
     def _split_lines(self, text, width):
         if text.startswith('R|'):
             return text[2:].splitlines()  
-        # this is the RawTextHelpFormatter._split_lines
         return argparse.HelpFormatter._split_lines(self, text, width)
 
 from argparse import ArgumentParser
@@ -34,13 +34,6 @@ parser.add_argument('-r', choices=['Reference'], help="R|Reference genome of int
 parser.add_argument('-d', choices=['Directory'], help="R|/projects/home/agombolay3/data/repository/Ribose-seq-Project")
 
 parser.parse_args()
-
-#Use argparse function to create the "help" command-line option ([-h])
-#parser = argparse.ArgumentParser()
-#parser.add_argument('BED file')
-#parser.add_argument('Reference genome (i.e., sacCer2, chrM,')
-#parser.add_argument("Location of user's local Ribose-seq directory")
-#args = parser.parse_args()
 
 #Open input BED file and assign it to an object ("r": read file)
 bed = open(sys.argv[1], "r")
