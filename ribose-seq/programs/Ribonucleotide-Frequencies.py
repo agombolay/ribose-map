@@ -27,24 +27,20 @@ class SmartFormatter(argparse.HelpFormatter):
 
 from argparse import ArgumentParser
 
-parser = ArgumentParser(description='test', formatter_class=SmartFormatter)
+parser = ArgumentParser(description='This program calculates Ribonucleotide Frequencies; Requires Python2.7+', formatter_class=SmartFormatter)
 
-parser.add_argument('-g',
-    help="R|Some option, where\n"
-         " a = alpha\n"
-         " b = beta\n"
-         " g = gamma\n"
-         " d = delta\n"
-         " e = epsilon")
+parser.add_argument('-i', choices=['BED'], help="R|Input BED file (i.e., FS1.coordinates.bed")
+parser.add_argument('-r', choices=['Reference'], help="R|Reference genome of interest (sacCer2, nuclear, chrM, etc.)")
+parser.add_argument('-d', choices=['Directory'], help="R|/projects/home/agombolay3/data/repository/Ribose-seq-Project")
 
 parser.parse_args()
 
 #Use argparse function to create the "help" command-line option ([-h])
-parser = argparse.ArgumentParser()
-parser.add_argument('BED file')
-parser.add_argument('Reference genome (i.e., sacCer2, chrM,')
-parser.add_argument("Location of user's local Ribose-seq directory")
-args = parser.parse_args()
+#parser = argparse.ArgumentParser()
+#parser.add_argument('BED file')
+#parser.add_argument('Reference genome (i.e., sacCer2, chrM,')
+#parser.add_argument("Location of user's local Ribose-seq directory")
+#args = parser.parse_args()
 
 #Open input BED file and assign it to an object ("r": read file)
 bed = open(sys.argv[1], "r")
