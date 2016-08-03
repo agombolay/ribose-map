@@ -29,7 +29,7 @@ from argparse import ArgumentParser
 
 parser = ArgumentParser(description='test', formatter_class=SmartFormatter)
 
-parser.add_argument('-g', choices=['a', 'b', 'g', 'd', 'e'], default='a',
+parser.add_argument('-g',
     help="R|Some option, where\n"
          " a = alpha\n"
          " b = beta\n"
