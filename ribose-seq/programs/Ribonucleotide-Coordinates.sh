@@ -11,10 +11,10 @@ program=$0
 
 #Usage statement of the program
 function usage () {
-	echo "Usage: $program [-i] '/path/to/file1.bam etc.' [-r] 'reference' [-d] 'Ribose-seq directory' [-h]
-	-i Filepaths of input BAM files
+	echo "Usage: Ribonucleotide-Coordinates.sh [-i] 'BAM' [-r] 'reference' [-d] 'Directory' [-h]
+	-i Filepaths of input BAM files ('/path/to/file1.bam etc.')
 	-r Name of reference genome folder in which to store output files (i.e., sacCer2)
-	-d Ribose-seq directory (i.e., /projects/home/agombolay3/data/repository/Ribose-seq-Project)"
+	-d Ribose-seq directory ('/projects/home/agombolay3/data/repository/Ribose-seq-Project')"
 }
 
 #Use getopts function to create the command-line options ([-i], [-r], [-d], and [-h])
