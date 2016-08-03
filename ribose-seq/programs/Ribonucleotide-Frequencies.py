@@ -20,10 +20,10 @@ import argparse
 #Use argparse function to create command-line options
 class SmartFormatter(argparse.HelpFormatter):
 
-    def _split_lines(self, text, width):
-        if text.startswith('R|'):
-            return text[2:].splitlines()  
-        return argparse.HelpFormatter._split_lines(self, text, width)
+	def _split_lines(self, text, width):
+		if text.startswith('R|'):
+			return text[2:].splitlines()
+		return argparse.HelpFormatter._split_lines(self, text, width)
 
 from argparse import ArgumentParser
 
