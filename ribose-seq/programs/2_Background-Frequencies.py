@@ -16,10 +16,20 @@ import xlwt
 #Module	to parse command-line arguments
 import argparse
 
-#Use argparse function to create the "help" command-line option ([-h])
-parser = argparse.ArgumentParser()
-parser.add_argument('FASTA file')
-args = parser.parse_args()
+#Use argparse function to create command-line options
+class SmartFormatter(argparse.HelpFormatter):
+
+	def _split_lines(self, text, width):
+		if text.startswith('R|'):
+			return text[2:].splitlines()
+		return argparse.HelpFormatter._split_lines(self, text, width)
+
+from argparse import ArgumentParser
+
+parser = ArgumentParser(description='This program calculates background nucleotide Frequencies; Requires Python2.7+', formatter_class=SmartFormatter)
+
+parser.add_argument('-i', choices=['FASTA'], help="R|Filepath of FASTA file (/path/to/reference.fasta)")
+parser.parse_args()
 
 #Open input FASTA file and assign it to an object ("r": read file)
 fasta = open(sys.argv[1], "r")
