@@ -11,7 +11,7 @@ program=$0
 
 #Usage statement of the program
 function usage () {
-	echo "Usage: $program [-i] 'TAB' [-s] 'subset' [-l] 'location' [-r] 'reference' [-d] 'Ribose-seq directory' [-h]
+	echo "Usage: $program [-i] 'TAB' [-s] 'Subset' [-l] 'Location' [-r] 'Reference' [-d] 'Directory' [-h]
 	-i Filepath of TAB file ('/path/to/FS1.flanking.upstream.sequences.tab')
 	-s Genetic subset of genome of interest ('sacCer2,' 'nuclear,' 'chrM,' etc.)
 	-l Location (Upstream or Downstream) specified in name of input TAB file above
