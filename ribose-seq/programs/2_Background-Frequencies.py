@@ -29,6 +29,7 @@ from argparse import ArgumentParser
 parser = ArgumentParser(description='This program calculates background nucleotide Frequencies; Requires Python2.7+', formatter_class=SmartFormatter)
 
 parser.add_argument('-i', choices=['FASTA'], help="R|Filepath of FASTA file (/path/to/reference.fasta)")
+
 parser.parse_args()
 
 #Open input FASTA file and assign it to an object ("r": read file)
