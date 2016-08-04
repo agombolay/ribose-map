@@ -1,1 +1,7 @@
-samtools faidx human_genome.fa chr1 chr2 > human_selected.fa
+#! /usr/bin/env bash
+
+#Author: Alli Gombolay
+#Date: August 4, 2016
+#This program allows the user to output only certain chromosomes from input FASTA file
+
+samtools faidx $fasta $chromosomes > $output
