@@ -14,7 +14,7 @@ function usage () {
 	echo "Usage: Nucleotide-Coordinates.sh [-i] 'BAM' [-r] 'Reference' [-d] 'Directory' [-h]
 	-i Filepaths of input BAM files ('/path/to/FS1.bam' etc.)
 	-r One reference genome of interest ('sacCer2,' 'eColi,' 'hg38,' etc.)
-	-d Directory ('/projects/home/agombolay3/data/repository/Ribose-seq-Project')"
+	-d Local directory ('/projects/home/agombolay3/data/repository/Ribose-seq-Project')"
 }
 
 #Use getopts function to create the command-line options ([-i], [-r], [-d], and [-h])
