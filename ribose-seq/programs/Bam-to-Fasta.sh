@@ -10,8 +10,8 @@ program=$0
 
 #Usage statement of the program
 function usage () {
-	echo "Usage: $program [-i] '/path/to/file1.bam etc.' [-r] 'reference' [-d] 'Ribose-seq directory' [-h]
-	-i Filepaths of input BAM files
+	echo "Usage: $program [-i] 'BAM' [-r] 'Reference' [-d] 'Directory' [-h]
+	-i Filepaths of BAM files ('/path/to/file1.bam' etc.)
 	-r Reference genome of interest (i.e., sacCer2)
 	-d Location of user's local Ribose-seq directory"
 }
