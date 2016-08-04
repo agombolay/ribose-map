@@ -12,7 +12,7 @@ program=$0
 #Usage statement of the program
 function usage () {
 	echo "Usage: Ribonucleotide-Coordinates.sh [-i] 'BAM' [-r] 'Reference' [-d] 'Directory' [-h]
-	-i Filepaths of input BAM files ('/path/to/FS1.bam etc.')
+	-i Filepaths of BAM files ('/path/to/FS1.bam etc.')
 	-r Name of reference genome folder in which to store output files (i.e., sacCer2)
 	-d Local directory ('/projects/home/agombolay3/data/repository/Ribose-seq-Project')"
 }
