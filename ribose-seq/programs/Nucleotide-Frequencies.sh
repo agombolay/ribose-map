@@ -9,13 +9,13 @@ program=$0
 
 #Usage statement of the program
 function usage () {
-	echo "Usage: $program [-i] '/path/to/*.txt etc.' [-s] 'sample' [-l] 'location' -n 'sample name' [-r] 'reference' [-d] 'Ribose-seq directory' [-h]
-	-i Filepath of input text files
-	-s Geneome subset (i.e., nuclear)
-	-l Upstream or Downstream location
+	echo "Usage: $program [-i] 'TXT' [-s] 'Subset' [-l] 'Location' -n 'Name' [-r] 'Reference' [-d] 'Directory' [-h]
+	-i Filepaths of text files of ribonucleotides per column ('/path/to/*.txt' etc.)
+	-s Genetic subset of genome of interest ('sacCer2,' 'nuclear,' 'chrM,' etc.)
+	-l Location (Upstream or Downstream) specified in name of input TXT files above
 	-n Sample of interest (i.e., FS15.trimmed)
-	-r Reference genome of interest (i.e., sacCer2)
-	-d Location of user's local Ribose-seq directory"
+	-r Name of reference genome folder in which to store output files (i.e., sacCer2)
+	-d Directory ('/projects/home/agombolay3/data/repository/Ribose-seq-Project')"
 }
 
 #Use getopts function to create the command-line options ([-i], [-s], [-l], [-n], [-r], [-d], and [-h])
