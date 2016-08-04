@@ -41,6 +41,10 @@ then
         exit
 fi
 
+#Extract sample name from filepath
+filename=$(basename "${txt}")
+sample="${filename%.column.*}"
+
 #INPUT
 #Location of FASTA file
 fasta=$directory/ribose-seq/reference/$subset.fa
