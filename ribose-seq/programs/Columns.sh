@@ -15,8 +15,8 @@ function usage () {
 	-i Filepath of TAB file ('/path/to/FS1.flanking.upstream.sequences.tab')
 	-s Genetic subset of genome of interest ('sacCer2,' 'nuclear,' 'chrM,' etc.)
 	-l Location (Upstream or Downstream) specified in name of input TAB file above
-	-r Name of reference genome folder in which to store output files (i.e., sacCer2)
-	-d Directory ('/projects/home/agombolay3/data/repository/Ribose-seq-Project')"
+	-r Name of reference genome folder in which to store output files ('sacCer2', etc.)
+	-d Local directory ('/projects/home/agombolay3/data/repository/Ribose-seq-Project')"
 }
 
 #Use getopts function to create the command-line options ([-i], [-l], [-r], [-d], and [-h])
