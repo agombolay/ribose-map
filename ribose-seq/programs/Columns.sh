@@ -11,12 +11,12 @@ program=$0
 
 #Usage statement of the program
 function usage () {
-	echo "Usage: $program [-i] '/path/to/file1.tab etc.' [-s] 'subset' [-l] 'location' [-r] 'reference' [-d] 'Ribose-seq directory' [-h]
-	-i Filepaths of input tab files
-	-s Geneome subset (i.e., nuclear)
-	-l Upstream or Downstream location
-	-r Reference genome of interest (i.e., sacCer2)
-	-d Location of user's local Ribose-seq directory"
+	echo "Usage: $program [-i] 'TAB' [-s] 'subset' [-l] 'location' [-r] 'reference' [-d] 'Ribose-seq directory' [-h]
+	-i Filepath of TAB file ('/path/to/FS1.flanking.upstream.sequences.tab')
+	-s Genetic subset of genome of interest ('sacCer2,' 'nuclear,' 'chrM,' etc.)
+	-l Location (Upstream or Downstream) specified in name of input TAB file above
+	-r Name of reference genome folder in which to store output files (i.e., sacCer2)
+	-d Directory ('/projects/home/agombolay3/data/repository/Ribose-seq-Project')"
 }
 
 #Use getopts function to create the command-line options ([-i], [-l], [-r], [-d], and [-h])
