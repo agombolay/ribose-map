@@ -11,8 +11,8 @@ program=$0
 
 #Usage statement of the program
 function usage () {
-	echo "Usage: $program [-i] '/path/to/file1.bam etc.' [-h]
-	-i Input (i.e., /projects/home/agombolay3/data/repository/Ribose-seq-Project/ribose-seq/results/hg38/FS56/Alignment/FS56.bam)"
+	echo "Usage: $program [-i] 'BAM' [-h]
+	-i Filepath of BAM file ('/path/to/FS1.bam' etc.)"
 }
 
 #Use getopts function to create the command-line options ([-i] and [-h])
