@@ -12,7 +12,7 @@ program=$0
 #Usage statement of the program
 function usage () {
 	echo "Usage: $program [-i] 'BAM' [-h]
-	-i Filepath of BAM file ('/path/to/FS1.bam' etc.)"
+	-i Filepath of BAM files ('/path/to/FS1.bam' etc.)"
 }
 
 #Use getopts function to create the command-line options ([-i] and [-h])
