@@ -6,12 +6,9 @@
 
 #COMMAND LINE OPTIONS
 
-#Name of the program (rNMP-Coordinates.sh)
-program=$0
-
 #Usage statement of the program
 function usage () {
-	echo "Usage: Ribonucleotide-Coordinates.sh [-i] 'BAM' [-r] 'Reference' [-d] 'Directory' [-h]
+	echo "Usage: 4_Ribonucleotide-Coordinates.sh [-i] 'BAM' [-r] 'Reference' [-d] 'Directory' [-h]
 	-i Filepaths of BAM files ('/path/to/FS1.bam etc.')
 	-r Name of reference genome folder in which to store output files (i.e., sacCer2)
 	-d Local directory ('/projects/home/agombolay3/data/repository/Ribose-seq-Project')"
@@ -115,4 +112,10 @@ do
 
 done
 
-mkdir $output/tables
+#Create directory for tables if it does not already exist
+tables=$output/tables
+
+if [[ ! -d $tables ]];
+then
+	mkdir -p $tables
+fi
