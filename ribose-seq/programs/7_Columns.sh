@@ -61,9 +61,9 @@ do
 	fi
 
 	#Location of output files
-	selection=$output/$samples.trimmed.$location.sequences.$subset.txt
-	sequences=$output/$samples.trimmed.$location.sequences.$subset.raw.txt
-	columns=$output/$samples.trimmed.$location.sequences.$subset.columns.txt
+	selection=$output/sequences/$samples.trimmed.$location.sequences.$subset.txt
+	sequences=$output/sequences/$samples.trimmed.$location.sequences.$subset.raw.txt
+	columns=$output/sequences/$samples.trimmed.$location.sequences.$subset.columns.txt
 
 	#echo $selection
 
@@ -89,9 +89,3 @@ do
 			awk -v field=$i '{ print $field }' $columns > $output/$samples.column.$i.$location.$subset.txt
 		done
 done
-
-mkdir $output/sequences
-
-mv $selection $output/sequences
-mv $sequences $output/sequences
-mv $columns $output/sequences
