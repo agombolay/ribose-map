@@ -6,12 +6,12 @@
 
 #COMMAND LINE OPTIONS
 
-#Name of the program (Reads-Per-Region.sh)
-program=$0
+#Name of the program (9_Reads-Per-Region.sh)
+#program=$0
 
 #Usage statement of the program
 function usage () {
-	echo "Usage: $program [-i] 'BAM' [-h]
+	echo "Usage: 9_Reads-Per-Region.sh [-i] 'BAM' [-h]
 	-i Filepath of BAM files ('/path/to/FS1.bam' etc.)"
 }
 
