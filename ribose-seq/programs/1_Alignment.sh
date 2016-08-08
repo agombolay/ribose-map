@@ -97,11 +97,11 @@ do
 	#2. Align UMI trimmed reads to reference genome and output alignment statistics
 	#zcat $umiTrimmed | bowtie -m 1 --sam $index --un $samples.unmappedReads --max $samples.extraReads - 2> $statistics 1> $intermediateSAM
 	
-	if [ "$version" == "1" ];
+	if [ $version == "1" ];
 	then
 		zcat $umiTrimmed | bowtie -m 1 --sam $index - 2> $statistics 1> $intermediateSAM
 	
-	elif [ "$version" == "2" ];
+	elif [ $version == "2" ];
         then
 		zcat $umiTrimmed | bowtie2 -x $index - 2> $statistics 1> $intermediateSAM
 	fi
