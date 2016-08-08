@@ -5,12 +5,9 @@
 
 #COMMAND LINE OPTIONS
 
-#Name of the program (Bam-to-Fasta.sh)
-program=$0
-
 #Usage statement of the program
 function usage () {
-	echo "Usage: $program [-i] 'BAM' [-r] 'Reference' [-d] 'Directory' [-h]
+	echo "Usage: 3_Bam-to-Fasta.sh [-i] 'BAM' [-r] 'Reference' [-d] 'Directory' [-h]
 	-i Filepaths of BAM files ('/path/to/FS1.bam' etc.)
 	-r Name of reference genome folder in which to store output files ('sacCer2', etc.)
 	-d Local directory ('/projects/home/agombolay3/data/repository/Ribose-seq-Project')"
