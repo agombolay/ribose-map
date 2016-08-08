@@ -28,12 +28,12 @@ from argparse import ArgumentParser
 
 parser = ArgumentParser(description='This program calculates background nucleotide Frequencies; Requires Python2.7+', formatter_class=SmartFormatter)
 
-parser.add_argument('-i', choices=['FASTA'], help="R|Filepath of FASTA file (/path/to/reference.fasta)")
+parser.add_argument('-i', metavar='FASTA', help="R|Reference FASTA (/path/to/sacCer2.fa etc.)")
 
 parser.parse_args()
 
 #Open input FASTA file and assign it to an object ("r": read file)
-fasta = open(sys.argv[1], "r")
+fasta = open(sys.argv[2], "r")
 
 #CALCULATE NUCLEOTIDE FREQUENCIES
 
@@ -107,7 +107,7 @@ sheet.write(1, 3, total)
 #NAME OUTPUT FILE
 
 #Obtain name of input FASTA file excluding file extension
-filename=os.path.splitext(os.path.basename(sys.argv[1]))[0]
+filename=os.path.splitext(os.path.basename(sys.argv[2]))[0]
 
 #Obtain directory path of FASTA file
 directory=os.path.dirname(sys.argv[1])
