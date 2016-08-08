@@ -4,14 +4,9 @@
 #Date: July 11, 2016
 #This program determines 0-based coordinates of +/100 downstream/upstream nucleotides from each rNMP
 
-#COMMAND LINE OPTIONS
-
-#Name of the program (Nucleotide-Coordinates.sh)
-program=$0
-
 #Usage statement of the program
 function usage () {
-	echo "Usage: Nucleotide-Coordinates.sh [-i] 'BAM' [-r] 'Reference' [-d] 'Directory' [-h]
+	echo "Usage: 6_Nucleotide-Coordinates.sh [-i] 'BAM' [-r] 'Reference' [-d] 'Directory' [-h]
 	-i Filepaths of BAM files ('/path/to/FS1.bam' etc.)
 	-r One reference genome of interest ('sacCer2,' 'eColi,' 'hg38,' etc.)
 	-d Local directory ('/projects/home/agombolay3/data/repository/Ribose-seq-Project')"

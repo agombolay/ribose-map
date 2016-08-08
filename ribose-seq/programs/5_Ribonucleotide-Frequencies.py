@@ -30,7 +30,7 @@ from argparse import ArgumentParser
 parser = ArgumentParser(description='This program calculates Ribonucleotide Frequencies; Requires Python2.7+', formatter_class=SmartFormatter)
 
 parser.add_argument('-i', metavar='BED', help="R|Filepath of BED file (/path/to/FS1.coordinates.bed)")
-parser.add_argument('-r', metavar='Reference', help="R|Reference genome of interest (sacCer2, nuclear, chrM, etc.)")
+parser.add_argument('-r', metavar='Reference', help="R|Reference subset of interest (sacCer2, nuclear, chrM, etc.)")
 parser.add_argument('-d', metavar='Directory', help="R|/projects/home/agombolay3/data/repository/Ribose-seq-Project")
 
 parser.parse_args()
