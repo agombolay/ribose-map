@@ -12,7 +12,7 @@
 #Usage statement of the program
 function usage () {
 	echo "Usage: 9_Reads-Per-Region.sh [-i] 'BAM' [-h]
-	-i Filepath of BAM files ('/path/to/FS1.bam' etc.)"
+		-i Filepath of BAM files ('/path/to/FS1.bam' etc.)"
 }
 
 #Use getopts function to create the command-line options ([-i] and [-h])
