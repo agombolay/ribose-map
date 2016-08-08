@@ -29,22 +29,22 @@ from argparse import ArgumentParser
 
 parser = ArgumentParser(description='This program calculates Ribonucleotide Frequencies; Requires Python2.7+', formatter_class=SmartFormatter)
 
-parser.add_argument('-i', choices=['BED'], help="R|Filepath of BED file (/path/to/FS1.coordinates.bed)")
-parser.add_argument('-r', choices=['Reference'], help="R|Reference genome of interest (sacCer2, nuclear, chrM, etc.)")
-parser.add_argument('-d', choices=['Directory'], help="R|/projects/home/agombolay3/data/repository/Ribose-seq-Project")
+parser.add_argument('-i', metavar='BED', help="R|Filepath of BED file (/path/to/FS1.coordinates.bed)")
+parser.add_argument('-r', metavar='Reference', help="R|Reference genome of interest (sacCer2, nuclear, chrM, etc.)")
+parser.add_argument('-d', metavar='Directory', help="R|/projects/home/agombolay3/data/repository/Ribose-seq-Project")
 
 parser.parse_args()
 
 #Open input BED file and assign it to an object ("r": read file)
-bed = open(sys.argv[1], "r")
-reference = sys.argv[2]
-directory1 = sys.argv[3]
+bed = open(sys.argv[2], "r")
+reference = sys.argv[4]
+directory1 = sys.argv[6]
 
 #Obtain name of input BED file excluding file extension
 filename=os.path.splitext(os.path.basename(sys.argv[1]))[0][:-12]
 
 #Obtain directory path of BED file
-directory2=os.path.dirname(sys.argv[1])
+directory2=os.path.dirname(sys.argv[2])
 
 #Specify directory path of output files
 path="/".join(directory2.split('/')[:-1])

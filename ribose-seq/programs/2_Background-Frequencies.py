@@ -28,7 +28,7 @@ from argparse import ArgumentParser
 
 parser = ArgumentParser(description='This program calculates background nucleotide Frequencies; Requires Python2.7+', formatter_class=SmartFormatter)
 
-parser.add_argument('-i', metavar='FASTA', help="R|Reference FASTA (/path/to/sacCer2.fa etc.)")
+parser.add_argument('-i', metavar='FASTA', help="R|Reference FASTA ('/path/to/sacCer2.fa' etc.)")
 
 parser.parse_args()
 
