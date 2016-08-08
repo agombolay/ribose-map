@@ -8,20 +8,22 @@
 
 #Usage statement of the program
 function usage () {
-        echo "Usage: 1_Alignment.sh [-i] 'FASTQ' [-b] 'Index' [-d] 'Directory' [-h]
-          -i Filepaths of input FASTQ files ('/path/to/file1.fastq' etc.) 
-          -b Basename of Bowtie index to be searched (sacCer2, chrM, ecoli, hg38, etc.)
-          -d Local directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
+	echo "Usage: 1_Alignment.sh [-i] 'FASTQ' [-b] 'Index' [-d] 'Directory' [-h]
+		-i Filepaths of input FASTQ files ('/path/to/file1.fastq' etc.) 
+		-b Basename of Bowtie index to be searched (sacCer2, chrM, ecoli, hg38, etc.)
+		-v Version of Bowtie program to use (Version 1 = Bowtie1; Version 2 = Bowtie2)
+		-d Local directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
 }
 
-#Use getopts function to create the command-line options ([-i], [-b], [-d], and [-h])
-while getopts "i:b:d:h" opt;
+#Use getopts function to create the command-line options ([-i], [-b], [-d], [-v], and [-h])
+while getopts "i:b:d:v:h" opt;
 do
     case $opt in
         #Specify input as arrays to allow multiple input arguments
         i ) fastq=($OPTARG) ;;
 	#Specify input as variable to allow only one input argument
 	b ) index=$OPTARG ;;
+	v ) version=$OPTARG ;;
 	d ) directory=$OPTARG ;;
         #If user specifies [-h], print usage statement
         h ) usage ;;
@@ -95,8 +97,14 @@ do
 	#2. Align UMI trimmed reads to reference genome and output alignment statistics
 	#zcat $umiTrimmed | bowtie -m 1 --sam $index --un $samples.unmappedReads --max $samples.extraReads - 2> $statistics 1> $intermediateSAM
 	
-	#zcat $umiTrimmed | bowtie -m 1 --sam $index - 2> $statistics 1> $intermediateSAM
-	zcat $umiTrimmed | bowtie2 -x $index - 2> $statistics 1> $intermediateSAM
+	if [ "$version" == "1" ];
+	then
+		zcat $umiTrimmed | bowtie -m 1 --sam $index - 2> $statistics 1> $intermediateSAM
+	
+	elif [ "$version" == "2" ];
+        then
+		zcat $umiTrimmed | bowtie2 -x $index - 2> $statistics 1> $intermediateSAM
+	fi
 
 	#Bash functions used above:
 	#"-": standard input
