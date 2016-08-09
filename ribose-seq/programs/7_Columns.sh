@@ -9,9 +9,9 @@
 #Usage statement of the program
 function usage () {
 	echo "Usage: 7_Columns.sh [-i] 'TAB' [-s] 'Subset' [-l] 'Location' [-r] 'Reference' [-d] 'Directory' [-h]
-	-i TAB file ('/path/to/FS1.flanking.upstream.sequences.tab')
-	-s Reference subset of interest (sacCer2, nuclear, chrM, etc.)
-	-l Location (Upstream or Downstream) specified in name of input TAB file above
+	-i '/path/to/Nucleotide-Frequencies/Nucleotides/FS1.flanking.upstream.sequences.tab'
+	-s Subset of reference genome of interest (sacCer2, hg38, eColi, nuclear, chrM, etc.)
+	-l Location (Upstream or Downstream) specified in name of input TAB file shown above
 	-r Name of reference genome folder in which to store output files ('sacCer2', etc.)
 	-d Local directory ('/projects/home/agombolay3/data/repository/Ribose-seq-Project')"
 }
