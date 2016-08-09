@@ -60,12 +60,14 @@ do
     		mkdir -p $output
 	fi
 
+	if [[ ! -d $output/sequences ]]; then
+                mkdir -p $output/sequences
+        fi
+
 	#Location of output files
 	selection=$output/sequences/$samples.trimmed.$location.sequences.$subset.txt
 	sequences=$output/sequences/$samples.trimmed.$location.sequences.$subset.raw.txt
 	columns=$output/sequences/$samples.trimmed.$location.sequences.$subset.columns.txt
-
-	#echo $selection
 
 	if [ $subset == "sacCer2" ];
 	then

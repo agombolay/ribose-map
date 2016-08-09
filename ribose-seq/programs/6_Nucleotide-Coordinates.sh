@@ -8,7 +8,7 @@
 function usage () {
 	echo "Usage: 6_Nucleotide-Coordinates.sh [-i] 'BAM' [-r] 'Reference' [-d] 'Directory' [-h]
 	-i Filepaths of BAM files ('/path/to/FS1.bam' etc.)
-	-r One reference genome of interest ('sacCer2,' 'eColi,' 'hg38,' etc.)
+	-r One reference genome of interest (sacCer2, eColi, hg38, etc.)
 	-d Local directory ('/projects/home/agombolay3/data/repository/Ribose-seq-Project')"
 }
 

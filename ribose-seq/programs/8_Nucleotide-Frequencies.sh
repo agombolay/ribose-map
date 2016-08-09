@@ -10,9 +10,9 @@ program=$0
 #Usage statement of the program
 function usage () {
 	echo "Usage: $program [-i] 'TXT' [-s] 'Subset' [-l] 'Location' [-r] 'Reference' [-d] 'Directory' [-h]
-	-i TXT files of each column of data ('/path/to/*.txt' etc.)
-	-s Reference subset of interest (sacCer2, nuclear, chrM, etc.)
-	-l Location (Upstream or Downstream) specified in name of input TXT files above
+	-i '/path/to/Nucleotide-Frequencies/Nucleotides/Columns/Subset/Location/FS1*.txt'
+	-s Subset of reference genome of interest (sacCer2, hg38, eColi, nuclear, chrM, etc.)
+	-l Location (Upstream or Downstream) specified in name of input TXT files shown above
 	-r Name of reference genome folder in which to store output files (i.e., sacCer2)
 	-d Local directory ('/projects/home/agombolay3/data/repository/Ribose-seq-Project')"
 }
