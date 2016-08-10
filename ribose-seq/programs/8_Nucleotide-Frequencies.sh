@@ -18,15 +18,16 @@ function usage () {
 }
 
 #Use getopts function to create the command-line options ([-i], [-s], [-l], [-n], [-r], [-d], and [-h])
-while getopts "i:s:l:n:r:d:h" opt;
+while getopts "i:s:n:r:d:h" opt;
 do
     case $opt in
         #Specify input as arrays to allow multiple input arguments
-        i ) txt=($OPTARG) ;;
+        i ) sample=($OPTARG) ;;
+	#i ) txt=($OPTARG) ;;
 	#Specify input as variable to allow only one input argument
 	s ) subset=$OPTARG ;;
-	l ) location=$OPTARG ;;
-	n ) sample=$OPTARG ;;
+	#l ) location=$OPTARG ;;
+	#n ) sample=$OPTARG ;;
 	r ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
         #If user specifies [-h], print usage statement
@@ -41,8 +42,8 @@ then
 fi
 
 #Extract sample name from filepath
-filename=$(basename "${txt}")
-sample="${filename%.column.*}"
+#filename=$(basename "${txt}")
+#sample="${filename%.column.*}"
 
 #INPUT
 #Location of FASTA file
@@ -74,30 +75,43 @@ do
 
 done
 
-for file in ${txt[@]};
+locations="upstream downstream"
+
+for location in ${locations[@]};
 do
-	A=$(grep -v '>' $file | grep -o 'A' - | wc -l)
-	C=$(grep -v '>' $file | grep -o 'C' - | wc -l)
-	G=$(grep -v '>' $file | grep -o 'G' - | wc -l)
-	T=$(grep -v '>' $file | grep -o 'T' - | wc -l)
 
-	total=$(($A+$C+$G+$T))
+	A_normalized_frequencies=$output2/A_normalized_frequencies.$subset.$location.txt
+	C_normalized_frequencies=$output2/C_normalized_frequencies.$subset.$location.txt
+	G_normalized_frequencies=$output2/G_normalized_frequencies.$subset.$location.txt
+	T_normalized_frequencies=$output2/T_normalized_frequencies.$subset.$location.txt
+	Normalized_Frequencies=$output2/Normalized_Frequencies.$subset.$location.txt
 	
-	A_frequency=$(bc <<< "scale = 4; `expr $A/$total`")
-	C_frequency=$(bc <<< "scale = 4; `expr $C/$total`")
-	G_frequency=$(bc <<< "scale = 4; `expr $G/$total`")
-	T_frequency=$(bc <<< "scale = 4; `expr $T/$total`")
+	input=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/Columns/$subset/$location/$sample*.txt
+	
+	for file in ${input[@]};
+	do
+		A=$(grep -v '>' $file | grep -o 'A' - | wc -l)
+		C=$(grep -v '>' $file | grep -o 'C' - | wc -l)
+		G=$(grep -v '>' $file | grep -o 'G' - | wc -l)
+		T=$(grep -v '>' $file | grep -o 'T' - | wc -l)
 
-	A_normalized_frequency=$(bc <<< "scale = 4; `expr $A_frequency/$A_background_frequency`")
-        C_normalized_frequency=$(bc <<< "scale = 4; `expr $C_frequency/$C_background_frequency`")
-        G_normalized_frequency=$(bc <<< "scale = 4; `expr $G_frequency/$G_background_frequency`")
-        T_normalized_frequency=$(bc <<< "scale = 4; `expr $T_frequency/$T_background_frequency`")
+		total=$(($A+$C+$G+$T))
+	
+		A_frequency=$(bc <<< "scale = 4; `expr $A/$total`")
+		C_frequency=$(bc <<< "scale = 4; `expr $C/$total`")
+		G_frequency=$(bc <<< "scale = 4; `expr $G/$total`")
+		T_frequency=$(bc <<< "scale = 4; `expr $T/$total`")
 
-	echo $A_normalized_frequency >> $output2/A_normalized_frequencies.$subset.$location.txt
-	echo $C_normalized_frequency >> $output2/C_normalized_frequencies.$subset.$location.txt
-	echo $G_normalized_frequency >> $output2/G_normalized_frequencies.$subset.$location.txt
-	echo $T_normalized_frequency >> $output2/T_normalized_frequencies.$subset.$location.txt
+		A_normalized_frequency=$(bc <<< "scale = 4; `expr $A_frequency/$A_background_frequency`")
+        	C_normalized_frequency=$(bc <<< "scale = 4; `expr $C_frequency/$C_background_frequency`")
+        	G_normalized_frequency=$(bc <<< "scale = 4; `expr $G_frequency/$G_background_frequency`")
+        	T_normalized_frequency=$(bc <<< "scale = 4; `expr $T_frequency/$T_background_frequency`")
 
-	paste $output2/A_normalized_frequencies.$subset.$location.txt $output2/C_normalized_frequencies.$subset.$location.txt $output2/G_normalized_frequencies.$subset.$location.txt $output2/T_normalized_frequencies.$subset.$location.txt > $output2/Normalized-Frequencies.$subset.$location.txt
+		echo $A_normalized_frequency >> $A_normalized_frequencies
+		echo $C_normalized_frequency >> $C_normalized_frequencies
+		echo $G_normalized_frequency >> $G_normalized_frequencies
+		echo $T_normalized_frequency >> $T_normalized_frequencies
 
+		paste $A_normalized_frequencies $C_normalized_frequencies $G_normalized_frequencies $T_normalized_frequencies > $Normalized_Frequencies
+	done
 done

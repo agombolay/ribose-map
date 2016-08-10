@@ -44,6 +44,8 @@ do
 		
 		for file in ${input[@]};
 		do
+			
+			#input=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$sample.flanking.$location.sequences.tab
 
 			#OUTPUT
 			#Location of output "ribose-seq" Columns directory
