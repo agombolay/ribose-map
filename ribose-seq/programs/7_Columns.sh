@@ -40,13 +40,15 @@ then
 fi
 
 locations="upstream downstream"
-tab="$sample.flanking.$location.sequences.tab"
 
-for file in ${tab[@]};
+for location in ${locations[@]};
 do
+	tab="$sample.flanking.$location.sequences.tab"
 
-	for location in ${locations[@]};
-	do
+		for file in ${tab[@]};
+		do
+
+
 		#Extract sample names from filepaths
         	#filename=$(basename "${tab}")
         	#samples="${filename%.flanking.*}"
@@ -98,5 +100,5 @@ do
 			do
 				awk -v field=$i '{ print $field }' $columns > $output/$sample.column.$i.$location.$subset.txt
 			done
-	done
+		done
 done
