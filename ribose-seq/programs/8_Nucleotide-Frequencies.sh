@@ -4,29 +4,23 @@
 
 #COMMAND LINE OPTIONS
 
-#Name of the program (Nucleotide-Frequencies.sh)
-program=$0
-
 #Usage statement of the program
 function usage () {
-	echo "Usage: $program [-i] 'TXT' [-s] 'Subset' [-l] 'Location' [-r] 'Reference' [-d] 'Directory' [-h]
+	echo "Usage: 8_Nucleotide-Frequencies.sh [-i] 'Sample' [-s] 'Subset' [-r] 'Reference' [-d] 'Directory' [-h]
 	-i Sample name (FS1, etc.)
-	-s Subset of reference genome of interest (sacCer2, hg38, eColi, nuclear, chrM, etc.)
-	-r Name of reference genome folder in which to store output files (i.e., sacCer2)
-	-d Local directory ('/projects/home/agombolay3/data/repository/Ribose-seq-Project')"
+	-s Subset of reference genome (sacCer2, hg38, eColi, nuclear, chrM, etc.)
+	-r Name of reference genome folder in which to store output files (sacCer2, etc.)
+	-d Local directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
 }
 
-#Use getopts function to create the command-line options ([-i], [-s], [-n], [-r], [-d], and [-h])
-while getopts "i:s:n:r:d:h" opt;
+#Use getopts function to create the command-line options ([-i], [-s], [-r], [-d], and [-h])
+while getopts "i:s:r:d:h" opt;
 do
     case $opt in
         #Specify input as arrays to allow multiple input arguments
         i ) sample=($OPTARG) ;;
-	#i ) txt=($OPTARG) ;;
 	#Specify input as variable to allow only one input argument
 	s ) subset=$OPTARG ;;
-	#l ) location=$OPTARG ;;
-	#n ) sample=$OPTARG ;;
 	r ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
         #If user specifies [-h], print usage statement
@@ -39,10 +33,6 @@ if [ "$1" == "-h" ];
 then
         exit
 fi
-
-#Extract sample name from filepath
-#filename=$(basename "${txt}")
-#sample="${filename%.column.*}"
 
 #INPUT
 #Location of FASTA file
