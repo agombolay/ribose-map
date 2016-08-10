@@ -56,11 +56,11 @@ do
 	#Location of input tab files
 	#input=$inputDirectory/$samples.flanking.$location.sequences.tab
 
-	input=$directory/ribose-seq/results/$reference/$samples/Nucleotide-Frequencies/Nucleotides/$tab
+	input=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$tab
 	
 	#OUTPUT
 	#Location of output "ribose-seq" Columns directory
-	output=$directory/ribose-seq/results/$reference/$samples/Nucleotide-Frequencies/Nucleotides/Columns/$subset/$location
+	output=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/Columns/$subset/$location
 
 	if [[ ! -d $output ]]; then
     		mkdir -p $output
@@ -71,9 +71,9 @@ do
         fi
 
 	#Location of output files
-	selection=$output/sequences/$samples.trimmed.$location.sequences.$subset.txt
-	sequences=$output/sequences/$samples.trimmed.$location.sequences.$subset.raw.txt
-	columns=$output/sequences/$samples.trimmed.$location.sequences.$subset.columns.txt
+	selection=$output/sequences/$sample.trimmed.$location.sequences.$subset.txt
+	sequences=$output/sequences/$sample.trimmed.$location.sequences.$subset.raw.txt
+	columns=$output/sequences/$sample.trimmed.$location.sequences.$subset.columns.txt
 
 	if [ $subset == "sacCer2" ];
 	then
@@ -94,6 +94,6 @@ do
 
 		for i in {1..100};
 		do
-			awk -v field=$i '{ print $field }' $columns > $output/$samples.column.$i.$location.$subset.txt
+			awk -v field=$i '{ print $field }' $columns > $output/$sample.column.$i.$location.$subset.txt
 		done
 done
