@@ -205,9 +205,6 @@ sheet.write(1, 4, total)
 output1=path+folder+filename+str('.')+reference+str('.Ribonucleotide.Frequencies.txt')
 output2=path+folder+filename+str('.')+reference+str('.Ribonucleotide.Frequencies.xls')
 
-print output1
-print output2
-
 #Redirect output to .txt file
 sys.stdout=open(output1, "w")
 

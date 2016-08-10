@@ -28,8 +28,8 @@ from argparse import ArgumentParser
 
 parser = ArgumentParser(description='This program calculates background nucleotide Frequencies; Requires Python2.7+', formatter_class=SmartFormatter)
 
-parser.add_argument('-r', metavar='Reference', help="R|sacCer2.fa")
-parser.add_argument('-d', metavar='Directory', help="R|/projects/home/agombolay3/data/repository/Ribose-seq-Project")
+parser.add_argument('-r', metavar='Reference', help="R|FASTA file of reference genome of interest (sacCer2.fa, eColi.fa, hg38.fa, etc.)")
+parser.add_argument('-d', metavar='Directory', help="R|Local directory ('/projects/home/agombolay3/data/repository/Ribose-seq-Project')")
 
 parser.parse_args()
 
