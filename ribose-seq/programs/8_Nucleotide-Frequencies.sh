@@ -75,6 +75,9 @@ do
 
 done
 
+#Remove old .txt files
+rm $output2/*.txt
+
 locations="upstream downstream"
 
 for location in ${locations[@]};
@@ -85,7 +88,7 @@ do
 	G_normalized_frequencies=$output2/G_normalized_frequencies.$subset.$location.txt
 	T_normalized_frequencies=$output2/T_normalized_frequencies.$subset.$location.txt
 	Normalized_Frequencies=$output2/Normalized_Frequencies.$subset.$location.txt
-	
+		
 	input=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/Columns/$subset/$location/$sample*.txt
 	
 	for file in ${input[@]};
@@ -112,6 +115,10 @@ do
 		echo $G_normalized_frequency >> $G_normalized_frequencies
 		echo $T_normalized_frequency >> $T_normalized_frequencies
 
-		paste $A_normalized_frequencies $C_normalized_frequencies $G_normalized_frequencies $T_normalized_frequencies > $Normalized_Frequencies
+		if [ -e "$Normalized_Frequencies" ]; then
+    			rm $Normalized_Frequencies
+		fi
+
+		paste $A_normalized_frequencies $C_normalized_frequencies $G_normalized_frequencies $T_normalized_frequencies >> $Normalized_Frequencies
 	done
 done
