@@ -43,25 +43,11 @@ locations="upstream downstream"
 
 for location in ${locations[@]};
 do
-	tab=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$sample.flanking.$location.sequences.tab
-	echo $tab
-		for file in ${tab[@]};
+	input=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$sample.flanking.$location.sequences.tab
+		
+		for file in ${input[@]};
 		do
 
-
-			#Extract sample names from filepaths
-        		#filename=$(basename "${tab}")
-        		#samples="${filename%.flanking.*}"
-
-        		#Extract input directories from filepaths
-        		#inputDirectory=$(dirname "${tab}")
-
-        		#INPUT
-			#Location of input tab files
-			#input=$inputDirectory/$samples.flanking.$location.sequences.tab
-
-			file=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$tab
-	
 			#OUTPUT
 			#Location of output "ribose-seq" Columns directory
 			output=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/Columns/$subset/$location
