@@ -8,7 +8,7 @@
 
 #Usage statement of the program
 function usage () {
-	echo "Usage: 7_Columns.sh [-i] 'TAB' [-s] 'Subset' [-l] 'Location' [-r] 'Reference' [-d] 'Directory' [-h]
+	echo "Usage: 7_Columns.sh [-i] 'Sample' [-s] 'Subset' [-r] 'Reference' [-d] 'Directory' [-h]
 	-i Sample name (FS1, etc.)
 	-s Subset of reference genome (sacCer2, hg38, eColi, nuclear, chrM, etc.)
 	-r Name of reference genome folder in which to store output files (sacCer2, etc.)
@@ -44,9 +44,6 @@ do
 		
 		for file in ${input[@]};
 		do
-			
-			#input=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$sample.flanking.$location.sequences.tab
-
 			#OUTPUT
 			#Location of output "ribose-seq" Columns directory
 			output=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/Columns/$subset/$location
