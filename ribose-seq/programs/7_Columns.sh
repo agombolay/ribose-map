@@ -21,10 +21,11 @@ while getopts "i:s:l:r:d:h" opt;
 do
     case $opt in
         #Specify input as arrays to allow multiple input arguments
-        i ) tab=($OPTARG) ;;
+        #i ) tab=($OPTARG) ;;
+        i ) sample=($OPTARG) ;;
 	#Specify input as variable to allow only one input argument
 	s ) subset=$OPTARG ;;
-        l ) location=$OPTARG ;;
+        #l ) location=$OPTARG ;;
 	r ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
         #If user specifies [-h], print usage statement
@@ -37,6 +38,9 @@ if [ "$1" == "-h" ];
 then
         exit
 fi
+
+location=("upstream" "downstream")
+tab="$sample.flanking.$location.sequences.tab"
 
 for samples in ${tab[@]};
 do
