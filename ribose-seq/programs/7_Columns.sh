@@ -97,4 +97,5 @@ for location in ${locations[@]};
 			do
 				awk -v field=$i '{ print $field }' $columns > $output/$sample.column.$i.$location.$subset.txt
 			done
+	done
 done
