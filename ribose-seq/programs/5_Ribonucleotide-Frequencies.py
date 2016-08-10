@@ -41,7 +41,7 @@ reference = sys.argv[4]
 directory1 = sys.argv[6]
 
 #Obtain name of input BED file excluding file extension
-filename=os.path.splitext(os.path.basename(sys.argv[1]))[0][:-12]
+filename=os.path.splitext(os.path.basename(sys.argv[2]))[0][:-12]
 
 #Obtain directory path of BED file
 directory2=os.path.dirname(sys.argv[2])
@@ -204,6 +204,9 @@ sheet.write(1, 4, total)
 #Specify name of output file based on input filename
 output1=path+folder+filename+str('.')+reference+str('.Ribonucleotide.Frequencies.txt')
 output2=path+folder+filename+str('.')+reference+str('.Ribonucleotide.Frequencies.xls')
+
+print output1
+print output2
 
 #Redirect output to .txt file
 sys.stdout=open(output1, "w")
