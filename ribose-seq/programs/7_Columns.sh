@@ -46,16 +46,18 @@ for samples in ${tab[@]};
 do
 
 	#Extract sample names from filepaths
-        filename=$(basename "${tab}")
-        samples="${filename%.flanking.*}"
+        #filename=$(basename "${tab}")
+        #samples="${filename%.flanking.*}"
 
         #Extract input directories from filepaths
-        inputDirectory=$(dirname "${tab}")
+        #inputDirectory=$(dirname "${tab}")
 
         #INPUT
 	#Location of input tab files
-	input=$inputDirectory/$samples.flanking.$location.sequences.tab
+	#input=$inputDirectory/$samples.flanking.$location.sequences.tab
 
+	input=$directory/ribose-seq/results/$reference/$samples/Nucleotide-Frequencies/Nucleotides/$tab
+	
 	#OUTPUT
 	#Location of output "ribose-seq" Columns directory
 	output=$directory/ribose-seq/results/$reference/$samples/Nucleotide-Frequencies/Nucleotides/Columns/$subset/$location
