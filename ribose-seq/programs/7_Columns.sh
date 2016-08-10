@@ -43,62 +43,62 @@ locations="upstream downstream"
 
 for location in ${locations[@]};
 do
-	tab="$sample.flanking.$location.sequences.tab"
-
+	tab=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$sample.flanking.$location.sequences.tab
+	echo $tab
 		for file in ${tab[@]};
 		do
 
 
-		#Extract sample names from filepaths
-        	#filename=$(basename "${tab}")
-        	#samples="${filename%.flanking.*}"
+			#Extract sample names from filepaths
+        		#filename=$(basename "${tab}")
+        		#samples="${filename%.flanking.*}"
 
-        	#Extract input directories from filepaths
-        	#inputDirectory=$(dirname "${tab}")
+        		#Extract input directories from filepaths
+        		#inputDirectory=$(dirname "${tab}")
 
-        	#INPUT
-		#Location of input tab files
-		#input=$inputDirectory/$samples.flanking.$location.sequences.tab
+        		#INPUT
+			#Location of input tab files
+			#input=$inputDirectory/$samples.flanking.$location.sequences.tab
 
-		file=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$tab
+			file=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$tab
 	
-		#OUTPUT
-		#Location of output "ribose-seq" Columns directory
-		output=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/Columns/$subset/$location
+			#OUTPUT
+			#Location of output "ribose-seq" Columns directory
+			output=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/Columns/$subset/$location
 
-		if [[ ! -d $output ]]; then
-    			mkdir -p $output
-		fi
+			if [[ ! -d $output ]]; then
+    				mkdir -p $output
+			fi
 
-		if [[ ! -d $output/sequences ]]; then
-                	mkdir -p $output/sequences
-        	fi
+			if [[ ! -d $output/sequences ]]; then
+                		mkdir -p $output/sequences
+        		fi
 
-		#Location of output files
-		selection=$output/sequences/$sample.trimmed.$location.sequences.$subset.txt
-		sequences=$output/sequences/$sample.trimmed.$location.sequences.$subset.raw.txt
-		columns=$output/sequences/$sample.trimmed.$location.sequences.$subset.columns.txt
+			#Location of output files
+			selection=$output/sequences/$sample.trimmed.$location.sequences.$subset.txt
+			sequences=$output/sequences/$sample.trimmed.$location.sequences.$subset.raw.txt
+			columns=$output/sequences/$sample.trimmed.$location.sequences.$subset.columns.txt
 
-		if [ $subset == "sacCer2" ];
-		then
-			cat $input > $selection
-		elif [ $subset == "chrM" ];
-		then
-			grep 'chrM' $input > $selection
-		elif [ $subset == "nuclear" ];
-		then
-			grep -v 'chrM' $input > $selection
-		fi
+			if [ $subset == "sacCer2" ];
+			then
+				cat $input > $selection
+			elif [ $subset == "chrM" ];
+			then
+				grep 'chrM' $input > $selection
+			elif [ $subset == "nuclear" ];
+			then
+				grep -v 'chrM' $input > $selection
+			fi
 
-		#Print sequences to new file
-		awk -v "OFS=\t" '{print $2}' $selection > $sequences
+			#Print sequences to new file
+			awk -v "OFS=\t" '{print $2}' $selection > $sequences
 
-		#Insert tabs between each nucleotide
-		cat $sequences | sed 's/.../& /2g;s/./& /g' > $columns
+			#Insert tabs between each nucleotide
+			cat $sequences | sed 's/.../& /2g;s/./& /g' > $columns
 
-			for i in {1..100};
-			do
-				awk -v field=$i '{ print $field }' $columns > $output/$sample.column.$i.$location.$subset.txt
+				for i in {1..100};
+				do
+					awk -v field=$i '{ print $field }' $columns > $output/$sample.column.$i.$location.$subset.txt
+				done
 			done
-		done
 done
