@@ -43,6 +43,7 @@ locations=("upstream" "downstream")
 tab="$sample.flanking.$location.sequences.tab"
 
 for location in ${locations[@]};
+do
 	for file in ${tab[@]};
 	do
 
