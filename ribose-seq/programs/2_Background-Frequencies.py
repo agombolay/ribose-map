@@ -28,12 +28,15 @@ from argparse import ArgumentParser
 
 parser = ArgumentParser(description='This program calculates background nucleotide Frequencies; Requires Python2.7+', formatter_class=SmartFormatter)
 
-parser.add_argument('-i', metavar='FASTA', help="R|/projects/home/agombolay3/data/repository/Ribose-seq-Project/ribose-seq/reference/reference.fa")
+parser.add_argument('-r', metavar='Reference', help="R|sacCer2.fa")
+parser.add_argument('-d', metavar='Directory', help="R|/projects/home/agombolay3/data/repository/Ribose-seq-Project")
 
 parser.parse_args()
 
 #Open input FASTA file and assign it to an object ("r": read file)
-fasta = open(sys.argv[2], "r")
+reference=sys.argv[2]
+directory=sys.argv[4]
+fasta=open(directory+str('/ribose-seq/reference/')+reference, "r")
 
 #CALCULATE NUCLEOTIDE FREQUENCIES
 
@@ -109,18 +112,12 @@ sheet.write(1, 3, total)
 #Obtain name of input FASTA file excluding file extension
 filename=os.path.splitext(os.path.basename(sys.argv[2]))[0]
 
-#Obtain directory path of FASTA file
-directory=os.path.dirname(sys.argv[2])
-
-#Extract only a part of directory path
-path="/".join(directory.split('/')[:-1])
-
 #Specify directory path of output files
-folder="/results/Background-Nucleotide-Frequencies/"
+folder="/ribose-seq/results/Background-Nucleotide-Frequencies/"
 
 #Specify name of output file based on input filename
-output1=path+folder+filename+str('.Nucleotide.Frequencies.txt')
-output2=path+folder+filename+str('.Nucleotide.Frequencies.xls')
+output1=directory+folder+filename+str('.Nucleotide.Frequencies.txt')
+output2=directory+folder+filename+str('.Nucleotide.Frequencies.xls')
 
 #Redirect output to .txt file
 sys.stdout=open(output1, "w")
