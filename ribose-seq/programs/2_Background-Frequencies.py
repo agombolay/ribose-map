@@ -28,7 +28,7 @@ from argparse import ArgumentParser
 
 parser = ArgumentParser(description='This program calculates background nucleotide Frequencies; Requires Python2.7+', formatter_class=SmartFormatter)
 
-parser.add_argument('-i', metavar='FASTA', help="R|Reference FASTA ('/path/to/sacCer2.fa' etc.)")
+parser.add_argument('-i', metavar='FASTA', help="R|/projects/home/agombolay3/data/repository/Ribose-seq-Project/ribose-seq/reference/reference.fa")
 
 parser.parse_args()
 
@@ -110,7 +110,7 @@ sheet.write(1, 3, total)
 filename=os.path.splitext(os.path.basename(sys.argv[2]))[0]
 
 #Obtain directory path of FASTA file
-directory=os.path.dirname(sys.argv[1])
+directory=os.path.dirname(sys.argv[2])
 
 #Extract only a part of directory path
 path="/".join(directory.split('/')[:-1])
