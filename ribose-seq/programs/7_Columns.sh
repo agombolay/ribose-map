@@ -56,7 +56,7 @@ do
 	#Location of input tab files
 	#input=$inputDirectory/$samples.flanking.$location.sequences.tab
 
-	input=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$tab
+	file=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$tab
 	
 	#OUTPUT
 	#Location of output "ribose-seq" Columns directory
