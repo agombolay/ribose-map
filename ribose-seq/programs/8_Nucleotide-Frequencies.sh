@@ -10,14 +10,13 @@ program=$0
 #Usage statement of the program
 function usage () {
 	echo "Usage: $program [-i] 'TXT' [-s] 'Subset' [-l] 'Location' [-r] 'Reference' [-d] 'Directory' [-h]
-	-i '/path/to/Nucleotide-Frequencies/Nucleotides/Columns/Subset/Location/FS1*.txt'
+	-i Sample name (FS1, etc.)
 	-s Subset of reference genome of interest (sacCer2, hg38, eColi, nuclear, chrM, etc.)
-	-l Location (Upstream or Downstream) specified in name of input TXT files shown above
 	-r Name of reference genome folder in which to store output files (i.e., sacCer2)
 	-d Local directory ('/projects/home/agombolay3/data/repository/Ribose-seq-Project')"
 }
 
-#Use getopts function to create the command-line options ([-i], [-s], [-l], [-n], [-r], [-d], and [-h])
+#Use getopts function to create the command-line options ([-i], [-s], [-n], [-r], [-d], and [-h])
 while getopts "i:s:n:r:d:h" opt;
 do
     case $opt in
