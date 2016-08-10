@@ -42,7 +42,7 @@ fi
 location=("upstream" "downstream")
 tab="$sample.flanking.$location.sequences.tab"
 
-for sample in ${tab[@]};
+for file in ${tab[@]};
 do
 
 	#Extract sample names from filepaths
