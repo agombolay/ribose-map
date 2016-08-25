@@ -12,7 +12,7 @@ function usage () {
 	-i Sample name (FS1, etc.)
 	-s Subset of reference genome (sacCer2, hg38, eColi, nuclear, chrM, etc.)
 	-r Name of reference genome folder in which to store output files (sacCer2, etc.)
-	-d Local directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
+	-d Local directory ('/projects/home/agombolay3/data/repository/Ribose-seq-Project')"
 }
 
 #Use getopts function to create the command-line options ([-i], [-s], [-r], [-d], and [-h])

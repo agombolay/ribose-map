@@ -109,19 +109,19 @@ do
 		fi
 
 		paste $A_normalized_frequencies $C_normalized_frequencies $G_normalized_frequencies $T_normalized_frequencies >> $Normalized_Frequencies
+
+		#Create new folder, "data," to store output nucleotide frequency data files
+		data=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/$sample-Data
+
+		#Create folder only if it does not already exist
+		if [[ ! -d $data ]];
+		then
+        		mkdir $data
+		fi
+
+		#Copy data files to new folder
+		cp $Normalized_Frequencies $data
+		cp $directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Ribonucleotides/$sample.Ribonucleotide.Frequencies.*.txt $data
+
 	done
 done
-
-#Create new folder, "data," to store output nucleotide frequency data files
-data=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/$sample-Data
-
-#Create folder only if it does not already exist
-if [[ ! -d $data ]];
-then
-	mkdir $data    
-fi
-
-#Copy data files to new folder
-cp $Normalized_Frequencies $data
-cp $directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Ribonucleotides/$sample.Ribonucleotide.Frequencies.*.txt $data
-cp $directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Ribonucleotides/$sample.Ribonucleotides-List.*.txt $data

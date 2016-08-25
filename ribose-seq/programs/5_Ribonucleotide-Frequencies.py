@@ -160,7 +160,8 @@ U_normalized = U_frequency/T_background
 #CREATE TABLE
 
 #Create table of data with "tabulate" Python module
-table = [["A", A, A_frequency, A_normalized, total], ["C", C, C_frequency, C_normalized, ""], ["G", G, G_frequency, G_normalized, ""], ["U", U, U_frequency, U_normalized, ""]]
+#table = [["A", A, A_frequency, A_normalized, total], ["C", C, C_frequency, C_normalized, ""], ["G", G, G_frequency, G_normalized, ""], ["U", U, U_frequency, U_normalized, ""]]
+table = [[A_normalized, C_normalized, G_normalized, U_normalized]]
 
 #CREATE EXCEL FILE
 
@@ -209,7 +210,8 @@ output2=path+folder+filename+str('.Ribonucleotide.Frequencies')+str('.')+referen
 sys.stdout=open(output1, "w")
 
 #Specify header names and table style
-print tabulate(table, headers=["Ribonucleotide", "Number", "Raw Frequency", "Normalized Frequency", "Total"], tablefmt="simple", floatfmt=".4f")
+#print tabulate(table, headers=["Ribonucleotide", "Number", "Raw Frequency", "Normalized Frequency", "Total"], tablefmt="simple", floatfmt=".4f")
+print tabulate(table, tablefmt="plain", floatfmt=".4f")
 
 #Save table to .xls file
 workbook2.save(output2)
