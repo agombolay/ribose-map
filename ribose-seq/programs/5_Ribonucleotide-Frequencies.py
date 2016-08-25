@@ -72,12 +72,12 @@ for line in bed:
 		print(line.split()[5])
 
 	elif (reference == "nuclear" and "chrM" not in line and "+" in line):
-		print(line.split()[4])[-1],
-		print(line.split()[5])
+		print(line.split()[3])[-1],
+		print(line.split()[4])
 
 	elif (reference == "nuclear" and "chrM" not in line and "-" in line):
-                print(line.split()[4])[:1],
-		print(line.split()[5])
+                print(line.split()[3])[:1],
+		print(line.split()[4])
 
 	elif (reference == "chrM" and "chrM" in line and "+" in line):
 		print(line.split()[4])[-1],
