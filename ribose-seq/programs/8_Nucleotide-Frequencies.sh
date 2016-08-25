@@ -10,7 +10,7 @@ function usage () {
 	-i Sample name (FS1, etc.)
 	-s Subset of reference genome (sacCer2, hg38, eColi, nuclear, chrM, etc.)
 	-r Name of reference genome folder in which to store output files (sacCer2, etc.)
-	-d Local directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
+	-d Local directory ('/projects/home/agombolay3/data/repository/Ribose-seq-Project')"
 }
 
 #Use getopts function to create the command-line options ([-i], [-s], [-r], [-d], and [-h])
@@ -76,7 +76,7 @@ do
 	C_normalized_frequencies=$output2/C_normalized_frequencies.$subset.$location.txt
 	G_normalized_frequencies=$output2/G_normalized_frequencies.$subset.$location.txt
 	T_normalized_frequencies=$output2/T_normalized_frequencies.$subset.$location.txt
-	Normalized_Frequencies=$output2/Normalized_Frequencies.$subset.$location.txt
+	Normalized_Frequencies=$output2/$sample.Normalized_Frequencies.$subset.$location.txt
 		
 	input=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/Columns/$subset/$location/$sample*.txt
 	
@@ -111,3 +111,17 @@ do
 		paste $A_normalized_frequencies $C_normalized_frequencies $G_normalized_frequencies $T_normalized_frequencies >> $Normalized_Frequencies
 	done
 done
+
+#Create new folder, "data," to store output nucleotide frequency data files
+data=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/$sample-Data
+
+#Create folder only if it does not already exist
+if [[ ! -d $data ]];
+then
+	mkdir $data    
+fi
+
+#Copy data files to new folder
+cp $Normalized_Frequencies $data
+cp $directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Ribonucleotides/$sample.Ribonucleotide.Frequencies.*.txt $data
+cp $directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Ribonucleotides/$sample.Ribonucleotides-List.*.txt $data

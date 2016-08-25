@@ -48,10 +48,10 @@ directory2=os.path.dirname(sys.argv[2])
 
 #Specify directory path of output files
 path="/".join(directory2.split('/')[:-1])
-folder="/Ribonucleotides/tables/"
+folder="/Ribonucleotides/"
 
 #Specify name of output file based on input filename
-list=path+folder+filename+str('.')+reference+str('.Ribonucleotides-List.txt')
+list=path+folder+filename+str('.Ribonucleotides-List')+str('.')+reference+str('.txt')
 
 #Create file to where list of ribonucleotides will saved
 standard_output = sys.stdout
@@ -202,8 +202,8 @@ sheet.write(1, 4, total)
 #NAME OUTPUT FILES
 
 #Specify name of output file based on input filename
-output1=path+folder+filename+str('.')+reference+str('.Ribonucleotide.Frequencies.txt')
-output2=path+folder+filename+str('.')+reference+str('.Ribonucleotide.Frequencies.xls')
+output1=path+folder+filename+str('.Ribonucleotide.Frequencies')+str('.')+reference+str('.txt')
+output2=path+folder+filename+str('.Ribonucleotide.Frequencies')+str('.')+reference+str('.xls')
 
 #Redirect output to .txt file
 sys.stdout=open(output1, "w")
