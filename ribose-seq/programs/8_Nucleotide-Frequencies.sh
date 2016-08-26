@@ -120,8 +120,8 @@ do
 		fi
 
 		#Copy data files to new folder
-		cp $Normalized_Frequencies $data
-		cp $directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Ribonucleotides/$sample.Ribonucleotide.Frequencies.*.txt $data
+		#cp $Normalized_Frequencies $data
+		#cp $directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Ribonucleotides/$sample.Ribonucleotide_Frequencies.*.txt $data
 
 	done
 done

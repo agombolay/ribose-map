@@ -112,11 +112,3 @@ do
 	mv temporary $positionsNegative1
 
 done
-
-#Create directory for tables if it does not already exist
-tables=$output/tables
-
-if [[ ! -d $tables ]];
-then
-	mkdir -p $tables
-fi
