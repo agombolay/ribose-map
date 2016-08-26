@@ -80,12 +80,12 @@ for line in bed:
 		print(line.split()[4])
 
 	elif (reference == "chrM" and "chrM" in line and "+" in line):
-		print(line.split()[4])[-1],
-		print(line.split()[5])
+		print(line.split()[3])[-1],
+		print(line.split()[4])
 
 	elif (reference == "chrM" and "chrM" in line and "-" in line):
-		print(line.split()[4])[:1],
-		print(line.split()[5])
+		print(line.split()[3])[:1],
+		print(line.split()[4])
 
 	elif (reference == "2micron" and "2micron" in line  and "+" in line):
 		print(line.split()[4])[-1],
