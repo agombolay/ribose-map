@@ -97,17 +97,17 @@ do
 
 #for file in $file;
 #do
-#		A=$(grep -o 'A' $file | wc -l)
-#		C=$(grep -o 'C' $file | wc -l)
-#		G=$(grep -o 'G' $file | wc -l)
-#		U=$(grep -o 'T' $file | wc -l)
+#		A_ribonucleotide_count=$(grep -o 'A' $file | wc -l)
+#		C_ribonucleotide_count=$(grep -o 'C' $file | wc -l)
+#		G_ribonucleotide_count=$(grep -o 'G' $file | wc -l)
+#		U_ribonucleotide_count=$(grep -o 'T' $file | wc -l)
 
 #		total=$(($A+$C+$G+$U))
 	
-#		A_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $A/$total`")
-#		C_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C/$total`")
-#		G_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $G/$total`")
-#		U_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $T/$total`")
+#		A_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $A_ribonucleotide_count/$total`")
+#		C_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C_ribonucleotide_count/$total`")
+#		G_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $G_ribonucleotide_count/$total`")
+#		U_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $U_ribonucleotide_count/$total`")
 		
 #		A_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $A_ribonucleotide_frequency/$A_background_frequency`")
 #        	C_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C_ribonucleotide_frequency/$C_background_frequency`")
