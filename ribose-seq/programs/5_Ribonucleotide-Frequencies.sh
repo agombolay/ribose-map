@@ -53,15 +53,15 @@ do
 	
 	if [[ $subset == "nuclear" && $line != *"chrM"* && $line == *"+"* ]];
 	then
-		awk -v "OFS=\t" '{print $5}' FS15.coordinates.bed | awk '{print substr($0,length,1)}' > temporary1
-		awk -v "OFS=\t" '{print $6}' FS15.coordinates.bed > temporary2
+		awk -v "OFS=\t" '{print $5}' $bed | awk '{print substr($0,length,1)}' > temporary1
+		awk -v "OFS=\t" '{print $6}' $bed > temporary2
 		paste temporary1 temporary2 > FS15.List.$subset.txt
 	fi
 
 	elif [[ $subset == "nuclear" && $line != *"chrM"* && $line == *"-"* ]];
 	then
-		awk -v "OFS=\t" '{print $5}' FS15.coordinates.bed | awk '{print substr($0,0,1);}' >> temporary1
-        	awk -v "OFS=\t" '{print $6}' FS15.coordinates.bed >> temporary2
+		awk -v "OFS=\t" '{print $5}' $bed | awk '{print substr($0,0,1);}' >> temporary1
+        	awk -v "OFS=\t" '{print $6}' $bed >> temporary2
         	paste temporary1 temporary2 >> FS15.List.$subset.txt
 	fi
 
