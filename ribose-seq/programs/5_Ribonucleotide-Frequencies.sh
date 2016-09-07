@@ -37,7 +37,7 @@ fi
 #CALCULATE 3' NUCLEOTIDE FREQUENCIES
 
 #Print only ribonucleotides (3' end of read (end for + strand and start for - strand))
-cat $bed |while read -r line;
+cat $bed | while read -r line;
 do
 
 	#if [[ $subset == "sacCer2" && $line == *"+"* ]];
@@ -51,7 +51,7 @@ do
         #	awk -v "OFS=\t" '{print $6}' FS15.coordinates.bed > temporary2
         #	paste temporary1 temporary2 > $directory/$sample.List.$subset.txt
 	
-	if [[ $subset == "nuclear" && $line != *chrM* ]];
+	if [[ $subset == "nuclear" && $line != *chrM* && $line != *+* ]];
 	then
 		echo "yes"
 	#	print(line.split()[3])[-1],
