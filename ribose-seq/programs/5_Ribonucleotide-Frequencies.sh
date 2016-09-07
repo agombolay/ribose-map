@@ -39,19 +39,19 @@ fi
 #Print only ribonucleotides (3' end of read (end for + strand and start for - strand))
 for line in $(cat $bed);
 do
-	if [[ $subset == "sacCer2" && $line == *"+"* ]];
-	then
-		awk -v "OFS=\t" '{print $5}' FS15.coordinates.bed | awk '{print substr($0,length,1)}' > temporary1
-		awk -v "OFS=\t" '{print $6}' FS15.coordinates.bed > temporary2
-		paste temporary1 temporary2 > $directory/$sample.List.$subset.txt				
+	#if [[ $subset == "sacCer2" && $line == *"+"* ]];
+	#then
+	#	awk -v "OFS=\t" '{print $5}' FS15.coordinates.bed | awk '{print substr($0,length,1)}' > temporary1
+	#	awk -v "OFS=\t" '{print $6}' FS15.coordinates.bed > temporary2
+	#	paste temporary1 temporary2 > $directory/$sample.List.$subset.txt				
 	
-	elif [[ $subset == "sacCer2" && $line == *"-"* ]];
-		awk -v "OFS=\t" '{print $5}' FS15.coordinates.bed | awk '{print substr($0,0,1);}' > temporary1
-        	awk -v "OFS=\t" '{print $6}' FS15.coordinates.bed > temporary2
-        	paste temporary1 temporary2 > $directory/$sample.List.$subset.txt
+	#elif [[ $subset == "sacCer2" && $line == *"-"* ]];
+	#	awk -v "OFS=\t" '{print $5}' FS15.coordinates.bed | awk '{print substr($0,0,1);}' > temporary1
+        #	awk -v "OFS=\t" '{print $6}' FS15.coordinates.bed > temporary2
+        #	paste temporary1 temporary2 > $directory/$sample.List.$subset.txt
 	
 	if [[ $subset == "nuclear" && $line != *"chrM"* && $line == *"+"* ]];
-	#elif (reference == "nuclear" and "chrM" not in line and "+" in line):
+		echo "yes"
 	#	print(line.split()[3])[-1],
 	#	print(line.split()[4])
 
