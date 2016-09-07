@@ -100,18 +100,22 @@ do
 #		A=$(grep -o 'A' $file | wc -l)
 #		C=$(grep -o 'C' $file | wc -l)
 #		G=$(grep -o 'G' $file | wc -l)
-#		T=$(grep -o 'T' $file | wc -l)
+#		U=$(grep -o 'T' $file | wc -l)
 
-#		total=$(($A+$C+$G+$T))
+#		total=$(($A+$C+$G+$U))
 	
 #		A_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $A/$total`")
 #		C_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C/$total`")
 #		G_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $G/$total`")
-#		T_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $T/$total`")
+#		U_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $T/$total`")
 		
-#		A_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $A_frequency/$A_background_frequency`")
-#        	C_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C_frequency/$C_background_frequency`")
-#        	G_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $G_frequency/$G_background_frequency`")
-#        	T_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $T_frequency/$T_background_frequency`")
+#		A_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $A_ribonucleotide_frequency/$A_background_frequency`")
+#        	C_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C_ribonucleotide_frequency/$C_background_frequency`")
+#        	G_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $G_ribonucleotide_frequency/$G_background_frequency`")
+#        	U_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $U_ribonucleotide_frequency/$T_background_frequency`")
 
+#		echo $A_ribonucleotide_normalized_frequency
+#		echo $C_ribonucleotide_normalized_frequency
+#		echo $G_ribonucleotide_normalized_frequency
+#		echo $U_ribonucleotide_normalized_frequency
 done
