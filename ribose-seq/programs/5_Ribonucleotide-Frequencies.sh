@@ -37,8 +37,9 @@ fi
 #CALCULATE 3' NUCLEOTIDE FREQUENCIES
 
 #Print only ribonucleotides (3' end of read (end for + strand and start for - strand))
-for line in $(cat $bed);
+cat $bed |while read -r line;
 do
+
 	#if [[ $subset == "sacCer2" && $line == *"+"* ]];
 	#then
 	#	awk -v "OFS=\t" '{print $5}' FS15.coordinates.bed | awk '{print substr($0,length,1)}' > temporary1
@@ -50,10 +51,12 @@ do
         #	awk -v "OFS=\t" '{print $6}' FS15.coordinates.bed > temporary2
         #	paste temporary1 temporary2 > $directory/$sample.List.$subset.txt
 	
-	if [[ $subset == "nuclear" && $line != *"chrM"* && $line == *"+"* ]];
+	if [[ $subset == "nuclear" && $line != *chrM* ]];
+	then
 		echo "yes"
 	#	print(line.split()[3])[-1],
 	#	print(line.split()[4])
+	fi
 
 	#elif (reference == "nuclear" and "chrM" not in line and "-" in line):
         #        print(line.split()[3])[:1],
@@ -75,20 +78,20 @@ do
         #        print(line.split()[4])[:1],
 	#	print(line.split()[5])
 
-file="alli.txt"
-for file in $file;
-do
-		A=$(grep -o 'A' $file | wc -l)
-		C=$(grep -o 'C' $file | wc -l)
-		G=$(grep -o 'G' $file | wc -l)
-		T=$(grep -o 'T' $file | wc -l)
+#file="alli.txt"
+#for file in $file;
+#do
+#		A=$(grep -o 'A' $file | wc -l)
+#		C=$(grep -o 'C' $file | wc -l)
+#		G=$(grep -o 'G' $file | wc -l)
+#		T=$(grep -o 'T' $file | wc -l)
 
-		total=$(($A+$C+$G+$T))
+#		total=$(($A+$C+$G+$T))
 	
-		A_frequency=$(bc <<< "scale = 4; `expr $A/$total`")
-		C_frequency=$(bc <<< "scale = 4; `expr $C/$total`")
-		G_frequency=$(bc <<< "scale = 4; `expr $G/$total`")
-		T_frequency=$(bc <<< "scale = 4; `expr $T/$total`")
+#		A_frequency=$(bc <<< "scale = 4; `expr $A/$total`")
+#		C_frequency=$(bc <<< "scale = 4; `expr $C/$total`")
+#		G_frequency=$(bc <<< "scale = 4; `expr $G/$total`")
+#		T_frequency=$(bc <<< "scale = 4; `expr $T/$total`")
 		
-		echo $A_frequency
+#		echo $A_frequency
 done
