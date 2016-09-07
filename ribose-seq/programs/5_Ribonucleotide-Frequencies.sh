@@ -104,10 +104,14 @@ do
 
 #		total=$(($A+$C+$G+$T))
 	
-#		A_frequency=$(bc <<< "scale = 4; `expr $A/$total`")
-#		C_frequency=$(bc <<< "scale = 4; `expr $C/$total`")
-#		G_frequency=$(bc <<< "scale = 4; `expr $G/$total`")
-#		T_frequency=$(bc <<< "scale = 4; `expr $T/$total`")
+#		A_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $A/$total`")
+#		C_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C/$total`")
+#		G_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $G/$total`")
+#		T_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $T/$total`")
 		
-#		echo $A_frequency
+#		A_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $A_frequency/$A_background_frequency`")
+#        	C_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C_frequency/$C_background_frequency`")
+#        	G_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $G_frequency/$G_background_frequency`")
+#        	T_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $T_frequency/$T_background_frequency`")
+
 done
