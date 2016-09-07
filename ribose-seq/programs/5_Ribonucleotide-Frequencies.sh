@@ -51,7 +51,7 @@ do
         #	awk -v "OFS=\t" '{print $6}' FS15.coordinates.bed > temporary2
         #	paste temporary1 temporary2 > $directory/$sample.List.$subset.txt
 	
-	if [[ $subset == "nuclear" && $line != *chrM* && $line != *+* ]];
+	if [[ $subset == "nuclear" && $line != *chrM* && $line == *+* ]];
 	then
 		echo "yes"
 	#	print(line.split()[3])[-1],
