@@ -118,4 +118,5 @@ do
 #		echo $C_ribonucleotide_normalized_frequency
 #		echo $G_ribonucleotide_normalized_frequency
 #		echo $U_ribonucleotide_normalized_frequency
+
 done
