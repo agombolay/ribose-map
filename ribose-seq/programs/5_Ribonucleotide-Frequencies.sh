@@ -51,34 +51,50 @@ do
         #	awk -v "OFS=\t" '{print $6}' FS15.coordinates.bed > temporary2
         #	paste temporary1 temporary2 > $directory/$sample.List.$subset.txt
 	
-	if [[ $subset == "nuclear" && $line != *chrM* && $line == *+* ]];
-	then
-		echo "yes"
-	#	print(line.split()[3])[-1],
-	#	print(line.split()[4])
-	fi
+	#elif [[ $subset == "nuclear" && $line != *"chrM"* && $line == *"+"* ]];
+	#then
+	#	awk -v "OFS=\t" '{print $5}' FS15.coordinates.bed | awk '{print substr($0,length,1)}' > temporary1
+	#	awk -v "OFS=\t" '{print $6}' FS15.coordinates.bed > temporary2
+	#	paste temporary1 temporary2 > $directory/$sample.List.$subset.txt
+	#fi
 
-	#elif (reference == "nuclear" and "chrM" not in line and "-" in line):
-        #        print(line.split()[3])[:1],
-	#	print(line.split()[4])
+	#elif [[ $subset == "nuclear" && $line != *"chrM"* && $line == *"-"* ]];
+	#then
+	#	awk -v "OFS=\t" '{print $5}' FS15.coordinates.bed | awk '{print substr($0,0,1);}' > temporary1
+        #	awk -v "OFS=\t" '{print $6}' FS15.coordinates.bed > temporary2
+        #	paste temporary1 temporary2 > $directory/$sample.List.$subset.txt
+	#fi
 
-	#elif (reference == "chrM" and "chrM" in line and "+" in line):
-	#	print(line.split()[3])[-1],
-	#	print(line.split()[4])
+	#elif [[ $subset == "chrM" && $line == *"chrM"* && $line == *"+"* ]];
+	#then
+	#	awk -v "OFS=\t" '{print $5}' FS15.coordinates.bed | awk '{print substr($0,length,1)}' > temporary1
+	#	awk -v "OFS=\t" '{print $6}' FS15.coordinates.bed > temporary2
+	#	paste temporary1 temporary2 > $directory/$sample.List.$subset.txt
+	#fi
 
-	#elif (reference == "chrM" and "chrM" in line and "-" in line):
-	#	print(line.split()[3])[:1],
-	#	print(line.split()[4])
+	#elif [[ $subset == "chrM" && $line == *"chrM"* && $line == *"-"* ]];
+	#then
+	#	awk -v "OFS=\t" '{print $5}' FS15.coordinates.bed | awk '{print substr($0,0,1);}' > temporary1
+        #	awk -v "OFS=\t" '{print $6}' FS15.coordinates.bed > temporary2
+        #	paste temporary1 temporary2 > $directory/$sample.List.$subset.txt
+	#fi
 
-	#elif (reference == "2micron" and "2micron" in line  and "+" in line):
-	#	print(line.split()[4])[-1],
-	#	print(line.split()[5])
+	#elif [[ $subset == "2micron" && $line == *"2micron"* && $line == *"+"* ]];
+	#then
+	#	awk -v "OFS=\t" '{print $5}' FS15.coordinates.bed | awk '{print substr($0,length,1)}' > temporary1
+	#	awk -v "OFS=\t" '{print $6}' FS15.coordinates.bed > temporary2
+	#	paste temporary1 temporary2 > $directory/$sample.List.$subset.txt
+	#fi
 
-	#elif (reference == "2micron" and "2micron" in line and "-" in line):
-        #        print(line.split()[4])[:1],
-	#	print(line.split()[5])
+	#elif [[ $subset == "2micron" && $line == *"2micron"* && $line == *"-"* ]];
+	#then
+	#	awk -v "OFS=\t" '{print $5}' FS15.coordinates.bed | awk '{print substr($0,0,1);}' > temporary1
+        #	awk -v "OFS=\t" '{print $6}' FS15.coordinates.bed > temporary2
+        #	paste temporary1 temporary2 > $directory/$sample.List.$subset.txt
+	#fi
 
 #file="alli.txt"
+
 #for file in $file;
 #do
 #		A=$(grep -o 'A' $file | wc -l)
