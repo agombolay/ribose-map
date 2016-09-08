@@ -39,7 +39,7 @@ fi
 #Print only ribonucleotides (3' end of read (end for + strand and start for - strand))
 #cat $bed | while read -r line;
 #do
-for file in $bed;
+for line in $bed;
 do
 
 	#if [[ $subset == "sacCer2" && $line == *"+"* ]];
