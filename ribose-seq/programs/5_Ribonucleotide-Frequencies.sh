@@ -6,23 +6,23 @@
 
 #Usage statement of the program
 function usage () {
-	echo "Usage: 5_Ribonucleotide-Frequencies.sh [-i] 'Sample' [-s] 'Subset' [-r] 'Reference' [-d] 'Directory' [-h]
+	echo "Usage: 5_Ribonucleotide-Frequencies.sh [-i] 'Sample' [-r] 'Reference' [-s] 'Subset' [-d] 'Directory' [-h]
 	-i Sample name (FS1, etc.)
-	-s Subset of reference genome (sacCer2, hg38, eColi, nuclear, chrM, etc.)
-	-r Name of reference genome folder in which to store output files (sacCer2, etc.)
+	-s Subset of genome (sacCer2, nuclear, chrM)
+	-r Reference genome assembly (sacCer2, etc.)
 	-d Local directory ('/projects/home/agombolay3/data/repository/Ribose-seq-Project')"
 }
 
 #Use getopts function to create the command-line options ([-i], [-s], [-r], [-d], and [-h])
-while getopts "i:s:h" opt;
+while getopts "i:s:r:d:h" opt;
 do
     case $opt in
         #Specify input as arrays to allow multiple input arguments
-        i ) bed=($OPTARG) ;;
+        i ) sample=($OPTARG) ;;
 	#Specify input as variable to allow only one input argument
 	s ) subset=$OPTARG ;;
-	#r ) reference=$OPTARG ;;
-	#d ) directory=$OPTARG ;;
+	r ) reference=$OPTARG ;;
+	d ) directory=$OPTARG ;;
         #If user specifies [-h], print usage statement
         h ) usage ;;
     esac
@@ -33,6 +33,8 @@ if [ "$1" == "-h" ];
 then
         exit
 fi
+
+bed=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Ribonucleotides/$sample.coordinates.bed
 
 #CALCULATE 3' NUCLEOTIDE FREQUENCIES
 #Print only ribonucleotides of genome subset to output file
