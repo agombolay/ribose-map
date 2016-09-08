@@ -71,7 +71,7 @@ do
 	#	awk -v "OFS=\t" '{print $5}' FS15.coordinates.bed | awk '{print substr($0,length,1)}' > temporary1
 	#	awk -v "OFS=\t" '{print $6}' FS15.coordinates.bed > temporary2
 	#	paste temporary1 temporary2 > $directory/$sample.List.$subset.txt
-	fi
+	#fi
 
 	#elif [[ $subset == "chrM" && $line == *"chrM"* && $line == *"-"* ]];
 	#then
