@@ -42,20 +42,27 @@ bed=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Ribo
 #Whole genome subset
 if [[ $subset == "sacCer2" ]];
 then
-	cut -d'	' -f4,5 $bed > temporary.List.$subset.txt
+	cut -d'	' -f4,5 $bed > List.$subset.temp
 #Nuclear subset
 elif [[ $subset == "nuclear" ]];
 then
-	grep -v 'chrM' $bed | cut -d'	' -f4,5 - > temporary.List.$subset.txt
+	grep -v 'chrM' $bed | cut -d'	' -f4,5 - > List.$subset.temp
 #Mitochondria subset
 elif [[ $subset == "mitochondria" ]];
 then
-	grep 'chrM' $bed | cut -d'	' -f4,5 - > temporary.List.$subset.txt
+	grep 'chrM' $bed | cut -d'	' -f4,5 - > List.$subset.temp
 fi
 
 #Print only ribonucleotides (3' end of read (end for + strand and start for - strand)) to output file
-awk '$2 == "+" { print substr( $0, length($0) - 2, length($0) ) }' temporary.List.$subset.txt | wc -l
-awk '$2 == "-" {print substr($0,0,1), $2;}' temporary.List.$subset.txt | wc -l
+
+#Print ribonucleotides for positive strands (located at end of sequence)
+awk '$2 == "+" { print substr( $0, length($0) - 2, length($0) ) }' List.$subset.temp > List.$subset.positive.temp
+
+#Print ribonucleotides for negative strands (located at start of sequence)
+awk '$2 == "-" {print substr($0,0,1), $2;}' List.$subset.temp > List.$subset.negative.temp
+
+#Combine output files generated from above into one final output file
+paste List.$subset.positive.temp List.$subset.negative.temp > List.$subset.txt
 
 #for file in $file;
 #do
