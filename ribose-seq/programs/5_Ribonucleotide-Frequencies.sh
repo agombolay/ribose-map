@@ -55,17 +55,19 @@ do
 	
 	if [[ $subset == "nuclear" && $line != *"chrM"* && $line == *"+"* ]];
 	then
-		awk -v "OFS=\t" '{print $5}' $bed | awk '{print substr($0,length,1)}' > temporary1
-		awk -v "OFS=\t" '{print $6}' $bed > temporary2
-		paste temporary1 temporary2 > FS15.List.$subset.txt
+		awk -v "OFS=\t" '{print $5}' $bed | awk '{print substr($0,length,1)}' > temporary1_positive.txt
+		awk -v "OFS=\t" '{print $6}' $bed > temporary2_positive.txt
+		paste temporary1_positive temporary2_positive > FS15.List.$subset.positive.txt
 	
 	elif [[ $subset == "nuclear" && $line != *"chrM"* && $line == *"-"* ]];
 	then
-		awk -v "OFS=\t" '{print $5}' $bed | awk '{print substr($0,0,1);}' >> temporary1
-        	awk -v "OFS=\t" '{print $6}' $bed >> temporary2
-        	paste temporary1 temporary2 >> FS15.List.$subset.txt
+		awk -v "OFS=\t" '{print $5}' $bed | awk '{print substr($0,0,1);}' > temporary1_negative.txt
+        	awk -v "OFS=\t" '{print $6}' $bed > temporary2_negative.txt
+        	paste temporary1_negative.txt temporary2_negative.txt > FS15.List.$subset.negative.txt
 	fi
 
+	paste FS15.List.$subset.positive.txt FS15.List.$subset.negative.txt > FS15.List.$subset.txt
+	
 	#elif [[ $subset == "chrM" && $line == *"chrM"* && $line == *"+"* ]];
 	#then
 	#	awk -v "OFS=\t" '{print $5}' FS15.coordinates.bed | awk '{print substr($0,length,1)}' > temporary1
