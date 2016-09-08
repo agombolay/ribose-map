@@ -64,29 +64,26 @@ awk '$2 == "-" {print substr($0,0,1), $2;}' List.$subset.temp > List.$subset.neg
 #Combine output files generated from above into one final output file
 paste List.$subset.positive.temp List.$subset.negative.temp > List.$subset.txt
 
-#for file in $file;
-#do
-#		A_ribonucleotide_count=$(grep -o 'A' $file | wc -l)
-#		C_ribonucleotide_count=$(grep -o 'C' $file | wc -l)
-#		G_ribonucleotide_count=$(grep -o 'G' $file | wc -l)
-#		U_ribonucleotide_count=$(grep -o 'T' $file | wc -l)
+A_ribonucleotide_count=$(grep -o 'A' List.$subset.txt | wc -l)
+C_ribonucleotide_count=$(grep -o 'C' List.$subset.txt | wc -l)
+G_ribonucleotide_count=$(grep -o 'G' List.$subset.txt | wc -l)
+U_ribonucleotide_count=$(grep -o 'T' List.$subset.txt | wc -l)
 
-#		total=$(($A_ribonucleotide_count+$C_ribonucleotide_count+$G_ribonucleotide_count+$U_ribonucleotide_count))
+total=$(($A_ribonucleotide_count+$C_ribonucleotide_count+$G_ribonucleotide_count+$U_ribonucleotide_count))
 	
-#		A_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $A_ribonucleotide_count/$total`")
-#		C_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C_ribonucleotide_count/$total`")
-#		G_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $G_ribonucleotide_count/$total`")
-#		U_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $U_ribonucleotide_count/$total`")
+A_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $A_ribonucleotide_count/$total`")
+C_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C_ribonucleotide_count/$total`")
+G_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $G_ribonucleotide_count/$total`")
+U_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $U_ribonucleotide_count/$total`")
 		
-#		A_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $A_ribonucleotide_frequency/$A_background_frequency`")
-#        	C_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C_ribonucleotide_frequency/$C_background_frequency`")
-#        	G_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $G_ribonucleotide_frequency/$G_background_frequency`")
-#        	U_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $U_ribonucleotide_frequency/$T_background_frequency`")
+#A_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $A_ribonucleotide_frequency/$A_background_frequency`")
+#C_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C_ribonucleotide_frequency/$C_background_frequency`")
+#G_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $G_ribonucleotide_frequency/$G_background_frequency`")
+#U_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $U_ribonucleotide_frequency/$T_background_frequency`")
 
-#		echo $A_ribonucleotide_normalized_frequency
-#		echo $C_ribonucleotide_normalized_frequency
-#		echo $G_ribonucleotide_normalized_frequency
-#		echo $U_ribonucleotide_normalized_frequency
+#echo $A_ribonucleotide_normalized_frequency
+#echo $C_ribonucleotide_normalized_frequency
+#echo $G_ribonucleotide_normalized_frequency
+#echo $U_ribonucleotide_normalized_frequency
 
-#		echo $A_ribonucleotide_frequency
-#done
+echo $A_ribonucleotide_frequency
