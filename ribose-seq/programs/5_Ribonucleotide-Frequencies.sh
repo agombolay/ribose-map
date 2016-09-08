@@ -37,9 +37,7 @@ fi
 #CALCULATE 3' NUCLEOTIDE FREQUENCIES
 
 #Print only ribonucleotides (3' end of read (end for + strand and start for - strand))
-#cat $bed | while read -r line;
-#do
-for line in $bed;
+cat $bed | while read -r line;
 do
 
 	#if [[ $subset == "sacCer2" && $line == *"+"* ]];
