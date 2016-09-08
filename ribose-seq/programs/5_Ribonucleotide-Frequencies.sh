@@ -47,7 +47,7 @@ then
 fi
 
 awk -v OFS='\t' '$2 == "+" { print substr( $0, length($0) - 2, length($0) ) }' out
-awk -v OFS='\t' '$2 == "-" {print substr($1,0,1), $2;}' out
+awk -v OFS='\t' '$2 == "-" {print substr($0,0,1), $2;}' out
 
 #while read -r line;
 #do
