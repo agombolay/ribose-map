@@ -37,7 +37,9 @@ fi
 #CALCULATE 3' NUCLEOTIDE FREQUENCIES
 
 #Print only ribonucleotides (3' end of read (end for + strand and start for - strand))
-cat $bed | while read -r line;
+#cat $bed | while read -r line;
+#do
+for file in $bed;
 do
 
 	#if [[ $subset == "sacCer2" && $line == *"+"* ]];
@@ -56,8 +58,7 @@ do
 		awk -v "OFS=\t" '{print $5}' $bed | awk '{print substr($0,length,1)}' > temporary1
 		awk -v "OFS=\t" '{print $6}' $bed > temporary2
 		paste temporary1 temporary2 > FS15.List.$subset.txt
-	fi
-
+	
 	elif [[ $subset == "nuclear" && $line != *"chrM"* && $line == *"-"* ]];
 	then
 		awk -v "OFS=\t" '{print $5}' $bed | awk '{print substr($0,0,1);}' >> temporary1
@@ -70,7 +71,7 @@ do
 	#	awk -v "OFS=\t" '{print $5}' FS15.coordinates.bed | awk '{print substr($0,length,1)}' > temporary1
 	#	awk -v "OFS=\t" '{print $6}' FS15.coordinates.bed > temporary2
 	#	paste temporary1 temporary2 > $directory/$sample.List.$subset.txt
-	#fi
+	fi
 
 	#elif [[ $subset == "chrM" && $line == *"chrM"* && $line == *"-"* ]];
 	#then
@@ -93,6 +94,8 @@ do
         #	paste temporary1 temporary2 > $directory/$sample.List.$subset.txt
 	#fi
 
+done
+
 #file="alli.txt"
 file="FS15.List.$subset.txt"
 
@@ -103,7 +106,7 @@ do
 		G_ribonucleotide_count=$(grep -o 'G' $file | wc -l)
 		U_ribonucleotide_count=$(grep -o 'T' $file | wc -l)
 
-		total=$(($A+$C+$G+$U))
+		total=$(($A_ribonucleotide_count+$C_ribonucleotide_count+$G_ribonucleotide_count+$U_ribonucleotide_count))
 	
 		A_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $A_ribonucleotide_count/$total`")
 		C_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C_ribonucleotide_count/$total`")
