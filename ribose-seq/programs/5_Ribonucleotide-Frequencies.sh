@@ -56,18 +56,23 @@ fi
 #Print only ribonucleotides (3' end of read (end for + strand and start for - strand)) to output file
 
 #Print ribonucleotides for positive strands (located at end of sequence)
-awk '$2 == "+" { print substr( $0, length($0) - 2, length($0) ) }' List.$subset.temp > List.$subset.positive.temp
+awk '$2 == "+" { print substr( $0, length($0) - 2, length($0) ) }' List.$subset.temp > List.$subset.txt
 
 #Print ribonucleotides for negative strands (located at start of sequence)
-awk '$2 == "-" {print substr($0,0,1), $2;}' List.$subset.temp > List.$subset.negative.temp
+awk '$2 == "-" {print substr($0,0,1), $2;}' List.$subset.temp >> List.$subset.txt
 
 #Combine output files generated from above into one final output file
-paste List.$subset.positive.temp List.$subset.negative.temp > List.$subset.txt
+#paste List.$subset.positive.temp List.$subset.negative.temp > List.$subset.txt
 
 A_ribonucleotide_count=$(grep -o 'A' List.$subset.txt | wc -l)
 C_ribonucleotide_count=$(grep -o 'C' List.$subset.txt | wc -l)
 G_ribonucleotide_count=$(grep -o 'G' List.$subset.txt | wc -l)
 U_ribonucleotide_count=$(grep -o 'T' List.$subset.txt | wc -l)
+
+echo $A_ribonucleotide_count
+echo $C_ribonucleotide_count
+echo $G_ribonucleotide_count
+echo $U_ribonucleotide_count
 
 total=$(($A_ribonucleotide_count+$C_ribonucleotide_count+$G_ribonucleotide_count+$U_ribonucleotide_count))
 	
