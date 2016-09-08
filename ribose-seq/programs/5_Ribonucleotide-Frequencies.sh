@@ -40,17 +40,11 @@ fi
 
 if [[ $subset == "nuclear" ]];
 then
-	cut -d'	' -f5,6 $bed | head > out
-	#awk '$2 == "+" {print $1, substr($0,length,1)}' out
-	#awk '$2 == "-" {print substr($0,0,1);}' out
-	#awk '{print $1, substr($0,length,1)}' | head 
+	cut -d'	' -f5,6 $bed | head > temporary.List.$subset.txt
 fi
 
 awk -v OFS='\t' '$2 == "+" { print substr( $0, length($0) - 2, length($0) ) }' out
 awk -v OFS='\t' '$2 == "-" {print substr($0,0,1), $2;}' out
-
-#while read -r line;
-#do
 
 	#if [[ $subset == "sacCer2" && $line == *"+"* ]];
 	#then
@@ -62,22 +56,7 @@ awk -v OFS='\t' '$2 == "-" {print substr($0,0,1), $2;}' out
 	#	awk -v "OFS=\t" '{print $5}' FS15.coordinates.bed | awk '{print substr($0,0,1);}' > temporary1
         #	awk -v "OFS=\t" '{print $6}' FS15.coordinates.bed > temporary2
         #	paste temporary1 temporary2 > $directory/$sample.List.$subset.txt
-	
-	#if [[ $subset == "nuclear" && $line != *"chrM"* && $line == *"+"* ]];
-	#then
-		#awk -v "OFS=\t" '{print $5}' $line | awk '{print substr($0,length,1)}' > temporary1_positive.txt
-		#awk -v "OFS=\t" '{print $6}' $line > temporary2_positive.txt
-		#paste temporary1_positive.txt temporary2_positive.txt > FS15.List.$subset.positive.txt
 
-	#elif [[ $subset == "nuclear" && $line != *"chrM"* && $line == *"-"* ]];
-	#then
-		#awk -v "OFS=\t" '{print $5}' $line | awk '{print substr($0,0,1);}' > temporary1_negative.txt
-        	#awk -v "OFS=\t" '{print $6}' $line > temporary2_negative.txt
-        	#paste temporary1_negative.txt temporary2_negative.txt > FS15.List.$subset.negative.txt
-	#fi
-
-	#paste FS15.List.$subset.positive.txt FS15.List.$subset.negative.txt > FS15.List.$subset.txt
-	
 	#elif [[ $subset == "chrM" && $line == *"chrM"* && $line == *"+"* ]];
 	#then
 	#	awk -v "OFS=\t" '{print $5}' FS15.coordinates.bed | awk '{print substr($0,length,1)}' > temporary1
@@ -105,8 +84,6 @@ awk -v OFS='\t' '$2 == "-" {print substr($0,0,1), $2;}' out
         #	awk -v "OFS=\t" '{print $6}' FS15.coordinates.bed > temporary2
         #	paste temporary1 temporary2 > $directory/$sample.List.$subset.txt
 	#fi
-
-#done < $bed
 
 #file="alli.txt"
 #file="FS15.List.$subset.txt"
