@@ -37,8 +37,20 @@ fi
 #CALCULATE 3' NUCLEOTIDE FREQUENCIES
 
 #Print only ribonucleotides (3' end of read (end for + strand and start for - strand))
-while read -r line;
-do
+
+if [[ $subset == "nuclear" ]];
+then
+	cut -d'	' -f5,6 $bed | head > out
+	#awk '$2 == "+" {print $1, substr($0,length,1)}' out
+	#awk '$2 == "-" {print substr($0,0,1);}' out
+	#awk '{print $1, substr($0,length,1)}' | head 
+fi
+
+awk -v OFS='\t' '$2 == "+" { print substr( $0, length($0) - 2, length($0) ) }' out
+awk -v OFS='\t' '$2 == "-" {print substr($1,0,1), $2;}' out
+
+#while read -r line;
+#do
 
 	#if [[ $subset == "sacCer2" && $line == *"+"* ]];
 	#then
@@ -51,14 +63,12 @@ do
         #	awk -v "OFS=\t" '{print $6}' FS15.coordinates.bed > temporary2
         #	paste temporary1 temporary2 > $directory/$sample.List.$subset.txt
 	
-	if [[ $subset == "nuclear" && $line != *"chrM"* && $line == *"+"* ]];
-	then
+	#if [[ $subset == "nuclear" && $line != *"chrM"* && $line == *"+"* ]];
+	#then
 		#awk -v "OFS=\t" '{print $5}' $line | awk '{print substr($0,length,1)}' > temporary1_positive.txt
 		#awk -v "OFS=\t" '{print $6}' $line > temporary2_positive.txt
 		#paste temporary1_positive.txt temporary2_positive.txt > FS15.List.$subset.positive.txt
-		
-		awk -F'\t' '{ print $5 }' $bed
-		
+
 	#elif [[ $subset == "nuclear" && $line != *"chrM"* && $line == *"-"* ]];
 	#then
 		#awk -v "OFS=\t" '{print $5}' $line | awk '{print substr($0,0,1);}' > temporary1_negative.txt
@@ -66,7 +76,7 @@ do
         	#paste temporary1_negative.txt temporary2_negative.txt > FS15.List.$subset.negative.txt
 	#fi
 
-	paste FS15.List.$subset.positive.txt FS15.List.$subset.negative.txt > FS15.List.$subset.txt
+	#paste FS15.List.$subset.positive.txt FS15.List.$subset.negative.txt > FS15.List.$subset.txt
 	
 	#elif [[ $subset == "chrM" && $line == *"chrM"* && $line == *"+"* ]];
 	#then
@@ -96,24 +106,24 @@ do
         #	paste temporary1 temporary2 > $directory/$sample.List.$subset.txt
 	#fi
 
-done < $bed
+#done < $bed
 
 #file="alli.txt"
-file="FS15.List.$subset.txt"
+#file="FS15.List.$subset.txt"
 
-for file in $file;
-do
-		A_ribonucleotide_count=$(grep -o 'A' $file | wc -l)
-		C_ribonucleotide_count=$(grep -o 'C' $file | wc -l)
-		G_ribonucleotide_count=$(grep -o 'G' $file | wc -l)
-		U_ribonucleotide_count=$(grep -o 'T' $file | wc -l)
+#for file in $file;
+#do
+#		A_ribonucleotide_count=$(grep -o 'A' $file | wc -l)
+#		C_ribonucleotide_count=$(grep -o 'C' $file | wc -l)
+#		G_ribonucleotide_count=$(grep -o 'G' $file | wc -l)
+#		U_ribonucleotide_count=$(grep -o 'T' $file | wc -l)
 
-		total=$(($A_ribonucleotide_count+$C_ribonucleotide_count+$G_ribonucleotide_count+$U_ribonucleotide_count))
+#		total=$(($A_ribonucleotide_count+$C_ribonucleotide_count+$G_ribonucleotide_count+$U_ribonucleotide_count))
 	
-		A_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $A_ribonucleotide_count/$total`")
-		C_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C_ribonucleotide_count/$total`")
-		G_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $G_ribonucleotide_count/$total`")
-		U_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $U_ribonucleotide_count/$total`")
+#		A_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $A_ribonucleotide_count/$total`")
+#		C_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C_ribonucleotide_count/$total`")
+#		G_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $G_ribonucleotide_count/$total`")
+#		U_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $U_ribonucleotide_count/$total`")
 		
 #		A_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $A_ribonucleotide_frequency/$A_background_frequency`")
 #        	C_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C_ribonucleotide_frequency/$C_background_frequency`")
@@ -125,5 +135,5 @@ do
 #		echo $G_ribonucleotide_normalized_frequency
 #		echo $U_ribonucleotide_normalized_frequency
 
-		echo $A_ribonucleotide_frequency
-done
+#		echo $A_ribonucleotide_frequency
+#done
