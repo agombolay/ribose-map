@@ -37,7 +37,7 @@ fi
 #CALCULATE 3' NUCLEOTIDE FREQUENCIES
 
 #Print only ribonucleotides (3' end of read (end for + strand and start for - strand))
-cat $bed | while read -r line;
+while read -r line;
 do
 
 	#if [[ $subset == "sacCer2" && $line == *"+"* ]];
@@ -94,7 +94,7 @@ do
         #	paste temporary1 temporary2 > $directory/$sample.List.$subset.txt
 	#fi
 
-done
+done < $bed
 
 #file="alli.txt"
 file="FS15.List.$subset.txt"
