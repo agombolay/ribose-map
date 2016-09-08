@@ -35,58 +35,25 @@ then
 fi
 
 #CALCULATE 3' NUCLEOTIDE FREQUENCIES
+#Print only ribonucleotides of genome subset to output file
 
-#Print only ribonucleotides (3' end of read (end for + strand and start for - strand))
-
-if [[ $subset == "nuclear" ]];
+#Whole genome subset
+if [[ $subset == "sacCer2" ]];
+then
+	cut -d'	' -f4,5 $bed > temporary.List.$subset.txt
+#Nuclear subset
+elif [[ $subset == "nuclear" ]];
 then
 	grep -v 'chrM' $bed | cut -d'	' -f4,5 - > temporary.List.$subset.txt
+#Mitochondria subset
+elif [[ $subset == "mitochondria" ]];
+then
+	grep 'chrM' $bed | cut -d'	' -f4,5 - > temporary.List.$subset.txt
 fi
 
+#Print only ribonucleotides (3' end of read (end for + strand and start for - strand)) to output file
 awk '$2 == "+" { print substr( $0, length($0) - 2, length($0) ) }' temporary.List.$subset.txt | wc -l
 awk '$2 == "-" {print substr($0,0,1), $2;}' temporary.List.$subset.txt | wc -l
-
-	#if [[ $subset == "sacCer2" && $line == *"+"* ]];
-	#then
-	#	awk -v "OFS=\t" '{print $5}' FS15.coordinates.bed | awk '{print substr($0,length,1)}' > temporary1
-	#	awk -v "OFS=\t" '{print $6}' FS15.coordinates.bed > temporary2
-	#	paste temporary1 temporary2 > $directory/$sample.List.$subset.txt				
-	
-	#elif [[ $subset == "sacCer2" && $line == *"-"* ]];
-	#	awk -v "OFS=\t" '{print $5}' FS15.coordinates.bed | awk '{print substr($0,0,1);}' > temporary1
-        #	awk -v "OFS=\t" '{print $6}' FS15.coordinates.bed > temporary2
-        #	paste temporary1 temporary2 > $directory/$sample.List.$subset.txt
-
-	#elif [[ $subset == "chrM" && $line == *"chrM"* && $line == *"+"* ]];
-	#then
-	#	awk -v "OFS=\t" '{print $5}' FS15.coordinates.bed | awk '{print substr($0,length,1)}' > temporary1
-	#	awk -v "OFS=\t" '{print $6}' FS15.coordinates.bed > temporary2
-	#	paste temporary1 temporary2 > $directory/$sample.List.$subset.txt
-	#fi
-
-	#elif [[ $subset == "chrM" && $line == *"chrM"* && $line == *"-"* ]];
-	#then
-	#	awk -v "OFS=\t" '{print $5}' FS15.coordinates.bed | awk '{print substr($0,0,1);}' > temporary1
-        #	awk -v "OFS=\t" '{print $6}' FS15.coordinates.bed > temporary2
-        #	paste temporary1 temporary2 > $directory/$sample.List.$subset.txt
-	#fi
-
-	#elif [[ $subset == "2micron" && $line == *"2micron"* && $line == *"+"* ]];
-	#then
-	#	awk -v "OFS=\t" '{print $5}' FS15.coordinates.bed | awk '{print substr($0,length,1)}' > temporary1
-	#	awk -v "OFS=\t" '{print $6}' FS15.coordinates.bed > temporary2
-	#	paste temporary1 temporary2 > $directory/$sample.List.$subset.txt
-	#fi
-
-	#elif [[ $subset == "2micron" && $line == *"2micron"* && $line == *"-"* ]];
-	#then
-	#	awk -v "OFS=\t" '{print $5}' FS15.coordinates.bed | awk '{print substr($0,0,1);}' > temporary1
-        #	awk -v "OFS=\t" '{print $6}' FS15.coordinates.bed > temporary2
-        #	paste temporary1 temporary2 > $directory/$sample.List.$subset.txt
-	#fi
-
-#file="alli.txt"
-#file="FS15.List.$subset.txt"
 
 #for file in $file;
 #do
