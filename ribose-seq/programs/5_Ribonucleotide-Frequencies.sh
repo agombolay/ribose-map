@@ -55,7 +55,7 @@ do
 	then
 		awk -v "OFS=\t" '{print $5}' $bed | awk '{print substr($0,length,1)}' > temporary1_positive.txt
 		awk -v "OFS=\t" '{print $6}' $bed > temporary2_positive.txt
-		paste temporary1_positive temporary2_positive > FS15.List.$subset.positive.txt
+		paste temporary1_positive.txt temporary2_positive.txt > FS15.List.$subset.positive.txt
 	
 	elif [[ $subset == "nuclear" && $line != *"chrM"* && $line == *"-"* ]];
 	then
