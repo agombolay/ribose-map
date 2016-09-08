@@ -53,14 +53,14 @@ do
 	
 	if [[ $subset == "nuclear" && $line != *"chrM"* && $line == *"+"* ]];
 	then
-		awk -v "OFS=\t" '{print $5}' $bed | awk '{print substr($0,length,1)}' > temporary1_positive.txt
-		awk -v "OFS=\t" '{print $6}' $bed > temporary2_positive.txt
+		awk -v "OFS=\t" '{print $5}' $line | awk '{print substr($0,length,1)}' > temporary1_positive.txt
+		awk -v "OFS=\t" '{print $6}' $line > temporary2_positive.txt
 		paste temporary1_positive.txt temporary2_positive.txt > FS15.List.$subset.positive.txt
 	
 	elif [[ $subset == "nuclear" && $line != *"chrM"* && $line == *"-"* ]];
 	then
-		awk -v "OFS=\t" '{print $5}' $bed | awk '{print substr($0,0,1);}' > temporary1_negative.txt
-        	awk -v "OFS=\t" '{print $6}' $bed > temporary2_negative.txt
+		awk -v "OFS=\t" '{print $5}' $line | awk '{print substr($0,0,1);}' > temporary1_negative.txt
+        	awk -v "OFS=\t" '{print $6}' $line > temporary2_negative.txt
         	paste temporary1_negative.txt temporary2_negative.txt > FS15.List.$subset.negative.txt
 	fi
 
