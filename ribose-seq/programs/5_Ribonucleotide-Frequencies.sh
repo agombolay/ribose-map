@@ -40,11 +40,11 @@ fi
 
 if [[ $subset == "nuclear" ]];
 then
-	cut -d'	' -f5,6 $bed | head > temporary.List.$subset.txt
+	grep -v 'chrM' $bed | cut -d'	' -f4,5 - > temporary.List.$subset.txt
 fi
 
-awk -v OFS='\t' '$2 == "+" { print substr( $0, length($0) - 2, length($0) ) }' out
-awk -v OFS='\t' '$2 == "-" {print substr($0,0,1), $2;}' out
+awk '$2 == "+" { print substr( $0, length($0) - 2, length($0) ) }' temporary.List.$subset.txt | wc -l
+awk '$2 == "-" {print substr($0,0,1), $2;}' temporary.List.$subset.txt | wc -l
 
 	#if [[ $subset == "sacCer2" && $line == *"+"* ]];
 	#then
