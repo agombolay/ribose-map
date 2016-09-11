@@ -62,8 +62,8 @@ awk -v "OFS=\t" '$2 == "+" { print substr( $0, length($0) - 2, length($0) ) }' L
 awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2;}' List.$subset.temp >> List.$subset.txt
 
 #Calculate count of "A" ribonucleotides
-awk '$1 == "A" && $2 == "+" || $1 == "T" && $2 == "-" {print $1, $2}' List.$subset.txt > A_ribonucleotide_count.txt
-A_ribonucleotide_count=$(wc -l A_ribonucleotide_count.txt)
+A_ribonucleotide_count=$(awk '$1 == "A" && $2 == "+" || $1 == "T" && $2 == "-" {print $1, $2}' List.$subset.txt | wc -l)
+echo $A_ribonucleotide_count
 
 #Calculate count of "C"	ribonucleotides
 awk '$1 == "C" && $2 == "+" || $1 == "G" && $2 == "-" {print $1, $2}' List.$subset.txt > C_ribonucleotide_count.txt
@@ -77,12 +77,14 @@ G_ribonucleotide_count=$(wc -l G_ribonucleotide_count.txt)
 awk '$1 == "T" && $2 == "+" || $1 == "A" && $2 == "-" {print $1, $2}' List.$subset.txt > U_ribonucleotide_count.txt
 U_ribonucleotide_count=$(wc -l U_ribonucleotide_count.txt)
 
-echo $A_ribonucleotide_count
-echo $C_ribonucleotide_count
-echo $G_ribonucleotide_count
-echo $U_ribonucleotide_count
+#echo $A_ribonucleotide_count
+#echo $C_ribonucleotide_count
+#echo $G_ribonucleotide_count
+#echo $U_ribonucleotide_count
 
 #total=$(($A_ribonucleotide_count+$C_ribonucleotide_count+$G_ribonucleotide_count+$U_ribonucleotide_count))
+#total=$($A_ribonucleotide_count + $C_ribonucleotide_count)
+#echo $total
 	
 #A_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $A_ribonucleotide_count/$total`")
 #C_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C_ribonucleotide_count/$total`")
