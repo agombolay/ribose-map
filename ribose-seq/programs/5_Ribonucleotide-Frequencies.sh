@@ -61,24 +61,41 @@ awk -v "OFS=\t" '$2 == "+" { print substr( $0, length($0) - 2, length($0) ) }' L
 #Print ribonucleotides for negative strands (located at start of sequence)
 awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2;}' List.$subset.temp >> List.$subset.txt
 
-awk $1 == "A" && awk $2 == "+" List.$subset.txt | wc -l
+#Calculate count of "A" ribonucleotides
+awk '$1 == "A" && $2 == "+" {print $1, $2}' List.$subset.txt > A_ribonucleotide_count.txt
+awk '$1 == "T" && $2 == "-" {print $1, $2}' List.$subset.txt >> A_ribonucleotide_count.txt
 
-A_ribonucleotide_count=$(grep -o 'A' List.$subset.txt | wc -l)
-C_ribonucleotide_count=$(grep -o 'C' List.$subset.txt | wc -l)
-G_ribonucleotide_count=$(grep -o 'G' List.$subset.txt | wc -l)
-U_ribonucleotide_count=$(grep -o 'T' List.$subset.txt | wc -l)
+A_ribonucleotide_count=$(wc -l A_ribonucleotide_count.txt)
+
+#Calculate count of "C"	ribonucleotides
+awk '$1 == "C" && $2 == "+" {print $1, $2}' List.$subset.txt > C_ribonucleotide_count.txt
+awk '$1 == "G" && $2 == "-" {print $1, $2}' List.$subset.txt >> C_ribonucleotide_count.txt
+
+C_ribonucleotide_count=$(wc -l C_ribonucleotide_count.txt)
+
+#Calculate count of "G"	ribonucleotides
+awk '$1 == "G" && $2 == "+" {print $1, $2}' List.$subset.txt > G_ribonucleotide_count.txt
+awk '$1 == "C" && $2 == "-" {print $1, $2}' List.$subset.txt >> G_ribonucleotide_count.txt
+
+G_ribonucleotide_count=$(wc -l G_ribonucleotide_count.txt)
+
+#Calculate count of "U"	ribonucleotides
+awk '$1 == "T" && $2 == "+" {print $1, $2}' List.$subset.txt > U_ribonucleotide_count.txt
+awk '$1 == "A" && $2 == "-" {print $1, $2}' List.$subset.txt >> U_ribonucleotide_count.txt
+
+U_ribonucleotide_count=$(wc -l U_ribonucleotide_count.txt)
 
 echo $A_ribonucleotide_count
 echo $C_ribonucleotide_count
 echo $G_ribonucleotide_count
 echo $U_ribonucleotide_count
 
-total=$(($A_ribonucleotide_count+$C_ribonucleotide_count+$G_ribonucleotide_count+$U_ribonucleotide_count))
+#total=$(($A_ribonucleotide_count+$C_ribonucleotide_count+$G_ribonucleotide_count+$U_ribonucleotide_count))
 	
-A_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $A_ribonucleotide_count/$total`")
-C_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C_ribonucleotide_count/$total`")
-G_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $G_ribonucleotide_count/$total`")
-U_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $U_ribonucleotide_count/$total`")
+#A_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $A_ribonucleotide_count/$total`")
+#C_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C_ribonucleotide_count/$total`")
+#G_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $G_ribonucleotide_count/$total`")
+#U_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $U_ribonucleotide_count/$total`")
 		
 #A_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $A_ribonucleotide_frequency/$A_background_frequency`")
 #C_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C_ribonucleotide_frequency/$C_background_frequency`")
@@ -89,5 +106,3 @@ U_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $U_ribonucleotide_count/$t
 #echo $C_ribonucleotide_normalized_frequency
 #echo $G_ribonucleotide_normalized_frequency
 #echo $U_ribonucleotide_normalized_frequency
-
-echo $A_ribonucleotide_frequency
