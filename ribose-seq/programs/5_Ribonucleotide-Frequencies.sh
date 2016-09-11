@@ -42,15 +42,15 @@ bed=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Ribo
 #Whole genome subset
 if [[ $subset == "sacCer2" ]];
 then
-	cut -d'	' -f4,5 $bed > List.$subset.temp
+	awk -v "OFS=\t" '{print $4, $5}' - > List.$subset.temp
 #Nuclear subset
 elif [[ $subset == "nuclear" ]];
 then
-	grep -v 'chrM' $bed | cut -d'	' -f4,5 - > List.$subset.temp
+	grep -v 'chrM' $bed | awk -v "OFS=\t" '{print $4, $5}' - > List.$subset.temp
 #Mitochondria subset
 elif [[ $subset == "mitochondria" ]];
 then
-	grep 'chrM' $bed | cut -d'	' -f4,5 - > List.$subset.temp
+	grep 'chrM' $bed | awk -v "OFS=\t" '{print $4, $5}' - > List.$subset.temp
 fi
 
 #Print only ribonucleotides (3' end of read (end for + strand and start for - strand)) to output file
