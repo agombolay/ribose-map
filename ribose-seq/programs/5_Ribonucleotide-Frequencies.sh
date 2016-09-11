@@ -61,8 +61,7 @@ awk -v "OFS=\t" '$2 == "+" { print substr( $0, length($0) - 2, length($0) ) }' L
 #Print ribonucleotides for negative strands (located at start of sequence)
 awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2;}' List.$subset.temp >> List.$subset.txt
 
-#Combine output files generated from above into one final output file
-#paste List.$subset.positive.temp List.$subset.negative.temp > List.$subset.txt
+awk $1 == "A" && awk $2 == "+" List.$subset.txt | wc -l
 
 A_ribonucleotide_count=$(grep -o 'A' List.$subset.txt | wc -l)
 C_ribonucleotide_count=$(grep -o 'C' List.$subset.txt | wc -l)
