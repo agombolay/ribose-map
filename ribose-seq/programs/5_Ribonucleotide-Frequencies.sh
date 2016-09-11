@@ -62,27 +62,19 @@ awk -v "OFS=\t" '$2 == "+" { print substr( $0, length($0) - 2, length($0) ) }' L
 awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2;}' List.$subset.temp >> List.$subset.txt
 
 #Calculate count of "A" ribonucleotides
-awk '$1 == "A" && $2 == "+" {print $1, $2}' List.$subset.txt > A_ribonucleotide_count.txt
-awk '$1 == "T" && $2 == "-" {print $1, $2}' List.$subset.txt >> A_ribonucleotide_count.txt
-
+awk '$1 == "A" && $2 == "+" || $1 == "T" && $2 == "-" {print $1, $2}' List.$subset.txt > A_ribonucleotide_count.txt
 A_ribonucleotide_count=$(wc -l A_ribonucleotide_count.txt)
 
 #Calculate count of "C"	ribonucleotides
-awk '$1 == "C" && $2 == "+" {print $1, $2}' List.$subset.txt > C_ribonucleotide_count.txt
-awk '$1 == "G" && $2 == "-" {print $1, $2}' List.$subset.txt >> C_ribonucleotide_count.txt
-
+awk '$1 == "C" && $2 == "+" || $1 == "G" && $2 == "-" {print $1, $2}' List.$subset.txt > C_ribonucleotide_count.txt
 C_ribonucleotide_count=$(wc -l C_ribonucleotide_count.txt)
 
 #Calculate count of "G"	ribonucleotides
-awk '$1 == "G" && $2 == "+" {print $1, $2}' List.$subset.txt > G_ribonucleotide_count.txt
-awk '$1 == "C" && $2 == "-" {print $1, $2}' List.$subset.txt >> G_ribonucleotide_count.txt
-
+awk '$1 == "G" && $2 == "+" || $1 == "C" && $2 == "-" {print $1, $2}' List.$subset.txt > G_ribonucleotide_count.txt
 G_ribonucleotide_count=$(wc -l G_ribonucleotide_count.txt)
 
 #Calculate count of "U"	ribonucleotides
-awk '$1 == "T" && $2 == "+" {print $1, $2}' List.$subset.txt > U_ribonucleotide_count.txt
-awk '$1 == "A" && $2 == "-" {print $1, $2}' List.$subset.txt >> U_ribonucleotide_count.txt
-
+awk '$1 == "T" && $2 == "+" || $1 == "A" && $2 == "-" {print $1, $2}' List.$subset.txt > U_ribonucleotide_count.txt
 U_ribonucleotide_count=$(wc -l U_ribonucleotide_count.txt)
 
 echo $A_ribonucleotide_count
