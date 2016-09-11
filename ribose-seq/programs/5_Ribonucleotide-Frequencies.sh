@@ -63,28 +63,23 @@ awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2;}' List.$subset.temp >> Lis
 
 #Calculate count of "A" ribonucleotides
 A_ribonucleotide_count=$(awk '$1 == "A" && $2 == "+" || $1 == "T" && $2 == "-" {print $1, $2}' List.$subset.txt | wc -l)
-echo $A_ribonucleotide_count
 
 #Calculate count of "C"	ribonucleotides
-awk '$1 == "C" && $2 == "+" || $1 == "G" && $2 == "-" {print $1, $2}' List.$subset.txt > C_ribonucleotide_count.txt
-C_ribonucleotide_count=$(wc -l C_ribonucleotide_count.txt)
+C_ribonucleotide_count=$(awk '$1 == "C" && $2 == "+" || $1 == "G" && $2 == "-" {print $1, $2}' List.$subset.txt | wc -l)
 
 #Calculate count of "G"	ribonucleotides
-awk '$1 == "G" && $2 == "+" || $1 == "C" && $2 == "-" {print $1, $2}' List.$subset.txt > G_ribonucleotide_count.txt
-G_ribonucleotide_count=$(wc -l G_ribonucleotide_count.txt)
+G_ribonucleotide_count=$(awk '$1 == "G" && $2 == "+" || $1 == "C" && $2 == "-" {print $1, $2}' List.$subset.txt | wc -l)
 
 #Calculate count of "U"	ribonucleotides
-awk '$1 == "T" && $2 == "+" || $1 == "A" && $2 == "-" {print $1, $2}' List.$subset.txt > U_ribonucleotide_count.txt
-U_ribonucleotide_count=$(wc -l U_ribonucleotide_count.txt)
+U_ribonucleotide_count=$(awk '$1 == "T" && $2 == "+" || $1 == "A" && $2 == "-" {print $1, $2}' List.$subset.txt | wc -l)
 
-#echo $A_ribonucleotide_count
-#echo $C_ribonucleotide_count
-#echo $G_ribonucleotide_count
-#echo $U_ribonucleotide_count
+echo $A_ribonucleotide_count
+echo $C_ribonucleotide_count
+echo $G_ribonucleotide_count
+echo $U_ribonucleotide_count
 
-#total=$(($A_ribonucleotide_count+$C_ribonucleotide_count+$G_ribonucleotide_count+$U_ribonucleotide_count))
-#total=$($A_ribonucleotide_count + $C_ribonucleotide_count)
-#echo $total
+total=$(($A_ribonucleotide_count+$C_ribonucleotide_count+$G_ribonucleotide_count+$U_ribonucleotide_count))
+echo $total
 	
 #A_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $A_ribonucleotide_count/$total`")
 #C_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C_ribonucleotide_count/$total`")
