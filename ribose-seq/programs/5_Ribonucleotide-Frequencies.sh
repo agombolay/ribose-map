@@ -42,36 +42,36 @@ bed=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Ribo
 #Whole genome subset
 if [[ $subset == "sacCer2" ]];
 then
-	awk -v "OFS=\t" '{print $4, $5}' - > List.$subset.temp
-#Nuclear subset
-elif [[ $subset == "nuclear" ]];
-then
-	grep -v 'chrM' $bed | awk -v "OFS=\t" '{print $4, $5}' - > List.$subset.temp
+	List=$(awk -v "OFS=\t" '{print $4, $5}' -)
 #Mitochondria subset
 elif [[ $subset == "mitochondria" ]];
 then
-	grep 'chrM' $bed | awk -v "OFS=\t" '{print $4, $5}' - > List.$subset.temp
+    	List=$(grep 'chrM' $bed | awk -v "OFS=\t" '{print $4, $5}' -)
+#Nuclear subset
+elif [[ $subset == "nuclear" ]];
+then
+	List=$(grep -v 'chrM' $bed | awk -v "OFS=\t" '{print $4, $5}' -)
 fi
 
 #Print only ribonucleotides (3' end of read (end for + strand and start for - strand)) to output file
 
 #Print ribonucleotides for positive strands (located at end of sequence)
-awk '$2 == "+" {print substr($0,length($0)-2)}' List.$subset.temp > List.$subset.txt
+awk '$2 == "+" {print substr($0,length($0)-2)}' $List > Ribonucleotide_List.$subset.txt
 
-#Print ribonucleotides for negative strands (located at start of sequence)
-awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2}' List.$subset.temp >> List.$subset.txt
+#Print ribonucleotides for negative strands (located at beginning of sequence)
+awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2}' $List >> Ribonucleotide_List.$subset.txt
 
 #Calculate count of "A" ribonucleotides
-A_ribonucleotide_count=$(awk '$1 == "A" && $2 == "+" || $1 == "T" && $2 == "-" {print $1, $2}' List.$subset.txt | wc -l)
+A_ribonucleotide_count=$(awk '$1 == "A" && $2 == "+" || $1 == "T" && $2 == "-" {print $1, $2}' Ribonucleotide_List.$subset.txt | wc -l)
 
 #Calculate count of "C"	ribonucleotides
-C_ribonucleotide_count=$(awk '$1 == "C" && $2 == "+" || $1 == "G" && $2 == "-" {print $1, $2}' List.$subset.txt | wc -l)
+C_ribonucleotide_count=$(awk '$1 == "C" && $2 == "+" || $1 == "G" && $2 == "-" {print $1, $2}' Ribonucleotide_List.$subset.txt | wc -l)
 
 #Calculate count of "G"	ribonucleotides
-G_ribonucleotide_count=$(awk '$1 == "G" && $2 == "+" || $1 == "C" && $2 == "-" {print $1, $2}' List.$subset.txt | wc -l)
+G_ribonucleotide_count=$(awk '$1 == "G" && $2 == "+" || $1 == "C" && $2 == "-" {print $1, $2}' Ribonucleotide_List.$subset.txt | wc -l)
 
 #Calculate count of "U"	ribonucleotides
-U_ribonucleotide_count=$(awk '$1 == "T" && $2 == "+" || $1 == "A" && $2 == "-" {print $1, $2}' List.$subset.txt | wc -l)
+U_ribonucleotide_count=$(awk '$1 == "T" && $2 == "+" || $1 == "A" && $2 == "-" {print $1, $2}' Ribonucleotide_List.$subset.txt | wc -l)
 
 total_ribonucleotide_count=$(($A_ribonucleotide_count+$C_ribonucleotide_count+$G_ribonucleotide_count+$U_ribonucleotide_count))
 
