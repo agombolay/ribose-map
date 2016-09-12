@@ -189,20 +189,20 @@ C_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C_ribonucleotide_count/$t
 G_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $G_ribonucleotide_count/$total_ribonucleotide_count`")
 U_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $U_ribonucleotide_count/$total_ribonucleotide_count`")
 		
-#A_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $A_ribonucleotide_frequency/$A_background_frequency`")
-#C_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C_ribonucleotide_frequency/$C_background_frequency`")
-#G_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $G_ribonucleotide_frequency/$G_background_frequency`")
-#U_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $U_ribonucleotide_frequency/$T_background_frequency`")
+A_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $A_ribonucleotide_frequency/$A_background_frequency`")
+C_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C_ribonucleotide_frequency/$C_background_frequency`")
+G_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $G_ribonucleotide_frequency/$G_background_frequency`")
+U_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $U_ribonucleotide_frequency/$T_background_frequency`")
 
 echo $A_ribonucleotide_count
 echo $C_ribonucleotide_count
 echo $G_ribonucleotide_count
 echo $U_ribonucleotide_count
 
-#echo $A_ribonucleotide_normalized_frequency
-#echo $C_ribonucleotide_normalized_frequency
-#echo $G_ribonucleotide_normalized_frequency
-#echo $U_ribonucleotide_normalized_frequency
+echo $A_ribonucleotide_normalized_frequency
+echo $C_ribonucleotide_normalized_frequency
+echo $G_ribonucleotide_normalized_frequency
+echo $U_ribonucleotide_normalized_frequency
 
 echo $total_ribonucleotide_count
 
