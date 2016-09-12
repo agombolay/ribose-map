@@ -199,10 +199,10 @@ echo $C_ribonucleotide_count
 echo $G_ribonucleotide_count
 echo $U_ribonucleotide_count
 
-echo $A_ribonucleotide_normalized_frequency
-echo $C_ribonucleotide_normalized_frequency
-echo $G_ribonucleotide_normalized_frequency
-echo $U_ribonucleotide_normalized_frequency
+echo $A_normalized_ribonucleotide_frequency
+echo $C_normalized_ribonucleotide_frequency
+echo $G_normalized_ribonucleotide_frequency
+echo $U_normalized_ribonucleotide_frequency
 
 echo $total_ribonucleotide_count
 
