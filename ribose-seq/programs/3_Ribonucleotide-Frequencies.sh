@@ -109,8 +109,17 @@ mv temporary $positionsNegative1
 ##############################################################################################################################
 #STEP 4: Calculate Background Frequencies
 
+#Location of input FASTA file
 fasta=$directory/ribose-seq/results/reference/$subset.fa
+
+#Location of output directory
 output2=$directory/ribose-seq/results/Background-Nucleotide-Frequencies
+
+#Create directory for output if it does not already exist
+if [[ ! -d $output2 ]];
+then
+	mkdir -p $output2
+fi
 
 A_background_count=$(grep -v '>' $fasta | grep -o 'A' - | wc -l)
 C_background_count=$(grep -v '>' $fasta | grep -o 'C' - | wc -l)
