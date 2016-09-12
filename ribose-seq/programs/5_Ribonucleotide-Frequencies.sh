@@ -34,11 +34,35 @@ then
         exit
 fi
 
+#STEP 1: Covert BAM file to FASTA format
+
+#Location of input BAM file
+bam=$directory/ribose-seq/results/$reference/$sample/Alignment/$sample.bam
+
+#Location of output directory
+output=$directory/ribose-seq/results/$reference/$samples/Nucleotide-Frequencies/Ribonucleotides
+
+#Create directory for output if it does not already exist
+if [[ ! -d $output ]];
+then
+	mkdir -p $output
+fi
+	
+for samples in ${bam[@]};
+do
+	fastq=$output/$samples.fastq
+	fasta=$output/$samples.fasta
+
+	samtools bam2fq $input > $fastq
+	seqtk seq -A $fastq > $fasta
+done
+
+#STEP 2: Calculate Ribonucleotide Frequencies
+
+#Location of input BED file
 bed=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Ribonucleotides/$sample.coordinates.bed
 
-#CALCULATE 3' NUCLEOTIDE FREQUENCIES
 #Print only ribonucleotides of genome subset to output file
-
 #Whole genome subset
 if [[ $subset == "sacCer2" ]];
 then
