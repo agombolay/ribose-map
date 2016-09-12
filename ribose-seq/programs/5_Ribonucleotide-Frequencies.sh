@@ -53,7 +53,7 @@ do
 	fastq=$output/$samples.fastq
 	fasta=$output/$samples.fasta
 
-	samtools bam2fq $input > $fastq
+	samtools bam2fq $bam > $fastq
 	seqtk seq -A $fastq > $fasta
 done
 
