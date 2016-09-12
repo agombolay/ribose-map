@@ -41,16 +41,16 @@ fi
 bam=$directory/ribose-seq/results/$reference/$sample/Alignment/$sample.bam
 
 #Location of output directory
-output=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Ribonucleotides
+output1=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Ribonucleotides
 
 #Create directory for output if it does not already exist
-if [[ ! -d $output ]];
+if [[ ! -d $output1 ]];
 then
-	mkdir -p $output
+	mkdir -p $output1
 fi
 	
-fastq=$output/$sample.fastq
-fasta=$output/$sample.fasta
+fastq=$output1/$sample.fastq
+fasta=$output1/$sample.fasta
 
 samtools bam2fq $bam > $fastq
 seqtk seq -A $fastq > $fasta
@@ -59,13 +59,13 @@ seqtk seq -A $fastq > $fasta
 #STEP 2: Obtain Ribonucleotide Coordinates
 
 #Location of output files
-bed=$output/$sample.bed
-sam=$output/$sample.sam
-coordinates=$output/$sample.coordinates.bed
-positionsPositive0=$output/$sample.rNMPs.positive.0-based.txt
-positionsNegative0=$output/$sample.rNMPs.negative.0-based.txt
-positionsPositive1=$output/$sample.rNMPs.positive.1-based.txt
-positionsNegative1=$output/$sample.rNMPs.negative.1-based.txt
+bed=$output1/$sample.bed
+sam=$output1/$sample.sam
+coordinates=$output1/$sample.coordinates.bed
+positionsPositive0=$output1/$sample.rNMPs.positive.0-based.txt
+positionsNegative0=$output1/$sample.rNMPs.negative.0-based.txt
+positionsPositive1=$output1/$sample.rNMPs.positive.1-based.txt
+positionsNegative1=$output1/$sample.rNMPs.negative.1-based.txt
 	
 #COORDINATES (0-BASED) of SEQUENCING READS
 
@@ -105,6 +105,29 @@ awk '$3 != 0' $positionsNegative1 > temporary
 
 #Change filename back to original
 mv temporary $positionsNegative1
+
+##############################################################################################################################
+#STEP 4: Calculate Background Frequencies
+
+fasta=$directory/ribose-seq/results/reference/$subset.fa
+output2=$directory/ribose-seq/results/Background-Nucleotide-Frequencies
+
+A_background_count=$(grep -v '>' $fasta | grep -o 'A' - | wc -l)
+C_background_count=$(grep -v '>' $fasta | grep -o 'C' - | wc -l)
+G_background_count=$(grep -v '>' $fasta | grep -o 'G' - | wc -l)
+T_background_count=$(grep -v '>' $fasta | grep -o 'T' - | wc -l)
+
+total_background_count=$(($A_background_count+$C_background_count+$G_background_count+$T_background_count))
+
+A_background_frequency=$(bc <<< "scale = 4; `expr $A_background_count/$total_background_count`")
+C_background_frequency=$(bc <<< "scale = 4; `expr $C_background_count/$total_background_count`")
+G_background_frequency=$(bc <<< "scale = 4; `expr $G_background_count/$total_background_count`")
+T_background_frequency=$(bc <<< "scale = 4; `expr $T_background_count/$total_background_count`")
+	
+echo "A Background Frequency: $A_background_frequency" >> $output2/$reference.$subset.Nucleotide-Frequencies.txt
+echo "C Background Frequency: $C_background_frequency" >> $output2/$reference.$subset.Nucleotide-Frequencies.txt
+echo "G Background Frequency: $G_background_frequency" >> $output2/$reference.$subset.Nucleotide-Frequencies.txt
+echo "T Background Frequency: $T_background_frequency" >> $output2/$reference.$subset.Nucleotide-Frequencies.txt
 
 ##############################################################################################################################
 #STEP 3: Calculate Ribonucleotide Frequencies
