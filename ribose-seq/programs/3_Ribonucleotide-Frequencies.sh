@@ -110,7 +110,7 @@ mv temporary $positionsNegative1
 #STEP 4: Calculate Background Frequencies
 
 #Location of input FASTA file
-fasta=$directory/ribose-seq/results/reference/$subset.fa
+fasta=$directory/ribose-seq/reference/$subset.fa
 
 #Location of output directory
 output2=$directory/ribose-seq/results/Background-Nucleotide-Frequencies
