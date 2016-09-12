@@ -42,24 +42,24 @@ bed=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Ribo
 #Whole genome subset
 if [[ $subset == "sacCer2" ]];
 then
-	List=$(awk -v "OFS=\t" '{print $4, $5}' -)
+	list=$(awk -v "OFS=\t" '{print $4, $5}' $bed)
 #Mitochondria subset
 elif [[ $subset == "mitochondria" ]];
 then
-    	List=$(grep 'chrM' $bed | awk -v "OFS=\t" '{print $4, $5}' -)
+    	list=$(grep 'chrM' $bed | awk -v "OFS=\t" '{print $4, $5}' -)
 #Nuclear subset
 elif [[ $subset == "nuclear" ]];
 then
-	List=$(grep -v 'chrM' $bed | awk -v "OFS=\t" '{print $4, $5}' -)
+	list=$(grep -v 'chrM' $bed | awk -v "OFS=\t" '{print $4, $5}' -)
 fi
 
 #Print only ribonucleotides (3' end of read (end for + strand and start for - strand)) to output file
 
 #Print ribonucleotides for positive strands (located at end of sequence)
-awk '$2 == "+" {print substr($0,length($0)-2)}' $List > Ribonucleotide_List.$subset.txt
+awk '$2 == "+" {print substr($0,length($0)-2)}' $list > Ribonucleotide_List.$subset.txt
 
 #Print ribonucleotides for negative strands (located at beginning of sequence)
-awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2}' $List >> Ribonucleotide_List.$subset.txt
+awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2}' $list >> Ribonucleotide_List.$subset.txt
 
 #Calculate count of "A" ribonucleotides
 A_ribonucleotide_count=$(awk '$1 == "A" && $2 == "+" || $1 == "T" && $2 == "-" {print $1, $2}' Ribonucleotide_List.$subset.txt | wc -l)
