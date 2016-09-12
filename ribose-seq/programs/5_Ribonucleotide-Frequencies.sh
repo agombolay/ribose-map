@@ -40,7 +40,7 @@ fi
 bam=$directory/ribose-seq/results/$reference/$sample/Alignment/$sample.bam
 
 #Location of output directory
-output=$directory/ribose-seq/results/$reference/$samples/Nucleotide-Frequencies/Ribonucleotides
+output=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Ribonucleotides
 
 #Create directory for output if it does not already exist
 if [[ ! -d $output ]];
@@ -48,14 +48,11 @@ then
 	mkdir -p $output
 fi
 	
-for samples in ${bam[@]};
-do
-	fastq=$output/$samples.fastq
-	fasta=$output/$samples.fasta
+fastq=$output/$sample.fastq
+fasta=$output/$sample.fasta
 
-	samtools bam2fq $bam > $fastq
-	seqtk seq -A $fastq > $fasta
-done
+samtools bam2fq $bam > $fastq
+seqtk seq -A $fastq > $fasta
 
 #STEP 2: Calculate Ribonucleotide Frequencies
 
