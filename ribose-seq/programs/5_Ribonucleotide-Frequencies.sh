@@ -76,7 +76,6 @@ bedtools bamtobed -i $bam > $bed
 samtools view $bam > $sam
 
 #Extract read coordinates, sequences, and strands from BED and SAM files and save it to new file
-#paste $bed $sam $fasta | awk -v "OFS=\t" '{print $1, $2, $3, $16, $6}' > $coordinates
 paste $bed $sam | awk -v "OFS=\t" '{print $1, $2, $3, $16, $6}' > $coordinates
 
 #0-BASED COORDINATES OF rNMPs
