@@ -121,7 +121,7 @@ then
 	mkdir -p $output2
 fi
 
-#Remove file if file if it already exists
+#Remove file if it already exists
 rm $output2/$reference.$subset.Nucleotide-Frequencies.txt
 
 A_background_count=$(grep -v '>' $fasta | grep -o 'A' - | wc -l)
@@ -143,6 +143,9 @@ echo "T Background Frequency: $T_background_frequency" >> $output2/$reference.$s
 
 ##############################################################################################################################
 #STEP 4: Calculate Ribonucleotide Frequencies
+
+#Remove file if it already exists
+rm $output1/$sample.Ribonucleotide-Frequencies.txt
 
 #Location of input BED file
 bed=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Ribonucleotides/$sample.coordinates.bed
@@ -194,16 +197,16 @@ C_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C_ribonucleoti
 G_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $G_ribonucleotide_frequency/$G_background_frequency`")
 U_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $U_ribonucleotide_frequency/$T_background_frequency`")
 
-echo $A_ribonucleotide_count
-echo $C_ribonucleotide_count
-echo $G_ribonucleotide_count
-echo $U_ribonucleotide_count
+#echo $A_ribonucleotide_count
+#echo $C_ribonucleotide_count
+#echo $G_ribonucleotide_count
+#echo $U_ribonucleotide_count
 
-echo $A_normalized_ribonucleotide_frequency
-echo $C_normalized_ribonucleotide_frequency
-echo $G_normalized_ribonucleotide_frequency
-echo $U_normalized_ribonucleotide_frequency
+echo "Frequency of A Ribonucleotides: $A_normalized_ribonucleotide_frequency" >> $output1/$sample.Ribonucleotide-Frequencies.txt
+echo "Frequency of A Ribonucleotides: $C_normalized_ribonucleotide_frequency" >> $output1/$sample.Ribonucleotide-Frequencies.txt
+echo "Frequency of A Ribonucleotides: $G_normalized_ribonucleotide_frequency" >> $output1/$sample.Ribonucleotide-Frequencies.txt
+echo "Frequency of A Ribonucleotides: $U_normalized_ribonucleotide_frequency" >> $output1/$sample.Ribonucleotide-Frequencies.txt
 
-echo $total_ribonucleotide_count
+#echo $total_ribonucleotide_count
 
 rm temporary.txt
