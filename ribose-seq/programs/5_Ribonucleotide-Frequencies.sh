@@ -34,6 +34,7 @@ then
         exit
 fi
 
+##############################################################################################################################
 #STEP 1: Covert BAM file to FASTA format
 
 #Location of input BAM file
@@ -54,7 +55,60 @@ fasta=$output/$sample.fasta
 samtools bam2fq $bam > $fastq
 seqtk seq -A $fastq > $fasta
 
-#STEP 2: Calculate Ribonucleotide Frequencies
+##############################################################################################################################
+#STEP 2: Obtain Ribonucloetide Coordinates
+
+#Location of output files
+bed=$output/$sample.bed
+sam=$output/$sample.sam
+coordinates=$output/$sample.coordinates.bed
+positionsPositive0=$output/$sample.rNMPs.positive.0-based.txt
+positionsNegative0=$output/$sample.rNMPs.negative.0-based.txt
+positionsPositive1=$output/$sample.rNMPs.positive.1-based.txt
+positionsNegative1=$output/$sample.rNMPs.negative.1-based.txt
+	
+#COORDINATES (0-BASED) of SEQUENCING READS
+
+#Covert file from BAM to BED format using BEDtools software
+bedtools bamtobed -i $bam > $bed
+
+#Convert file from BAM to SAM format using SAMtools software
+samtools view $bam > $sam
+
+#Extract read coordinates, sequences, and strands from BED and SAM files and save it to new file
+#paste $bed $sam $fasta | awk -v "OFS=\t" '{print $1, $2, $3, $16, $6}' > $coordinates
+paste $bed $sam | awk -v "OFS=\t" '{print $1, $2, $3, $16, $6}' > $coordinates
+
+#0-BASED COORDINATES OF rNMPs
+
+#Obtain positions of rNMPs (3’ end of each mapped read) for positive strand:
+bedtools genomecov -3 -strand + -bg -ibam $bam > $positionsPositive0
+
+#Obtain positions of rNMPs (3’ end of each mapped read) for negative strand:
+bedtools genomecov -3 -strand - -bg -ibam $bam > $positionsNegative0
+
+#1-BASED COORDINATES OF	rNMPs
+
+#Obtain positions of rNMPs (3’ end of each mapped read) for positive strand:
+bedtools genomecov -3 -strand + -d -ibam $bam > $positionsPositive1
+
+#Remove rows where genome coverage equals 0
+awk '$3 != 0' $positionsPositive1 > temporary
+
+#Change filename back to original
+mv temporary $positionsPositive1
+
+#Obtain positions of rNMPs (3’ end of each mapped read) for negative strand:
+bedtools genomecov -3 -strand - -d -ibam $bam > $positionsNegative1
+
+#Remove rows where genome coverage equals 0
+awk '$3 != 0' $positionsNegative1 > temporary
+
+#Change filename back to original
+mv temporary $positionsNegative1
+
+##############################################################################################################################
+#STEP 3: Calculate Ribonucleotide Frequencies
 
 #Location of input BED file
 bed=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Ribonucleotides/$sample.coordinates.bed
