@@ -56,7 +56,7 @@ samtools bam2fq $bam > $fastq
 seqtk seq -A $fastq > $fasta
 
 ##############################################################################################################################
-#STEP 2: Obtain Ribonucloetide Coordinates
+#STEP 2: Obtain Ribonucleotide Coordinates
 
 #Location of output files
 bed=$output/$sample.bed
