@@ -96,3 +96,5 @@ echo $U_ribonucleotide_count
 #echo $U_ribonucleotide_normalized_frequency
 
 echo $total_ribonucleotide_count
+
+rm temporary.txt
