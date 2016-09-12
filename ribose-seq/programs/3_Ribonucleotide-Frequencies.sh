@@ -202,10 +202,10 @@ U_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $U_ribonucleoti
 #echo $G_ribonucleotide_count
 #echo $U_ribonucleotide_count
 
-echo "Frequency of A Ribonucleotides: $A_normalized_ribonucleotide_frequency" >> $output1/$sample.Ribonucleotide-Frequencies.txt
-echo "Frequency of A Ribonucleotides: $C_normalized_ribonucleotide_frequency" >> $output1/$sample.Ribonucleotide-Frequencies.txt
-echo "Frequency of A Ribonucleotides: $G_normalized_ribonucleotide_frequency" >> $output1/$sample.Ribonucleotide-Frequencies.txt
-echo "Frequency of A Ribonucleotides: $U_normalized_ribonucleotide_frequency" >> $output1/$sample.Ribonucleotide-Frequencies.txt
+echo "Frequency of A Ribonucleotides: $A_normalized_ribonucleotide_frequency" >> $output1/$sample.$reference.$subset.Ribonucleotide-Frequencies.txt
+echo "Frequency of C Ribonucleotides: $C_normalized_ribonucleotide_frequency" >> $output1/$sample.$reference.$subset.Ribonucleotide-Frequencies.txt
+echo "Frequency of G Ribonucleotides: $G_normalized_ribonucleotide_frequency" >> $output1/$sample.$reference.$subset.Ribonucleotide-Frequencies.txt
+echo "Frequency of U Ribonucleotides: $U_normalized_ribonucleotide_frequency" >> $output1/$sample.$reference.$subset.Ribonucleotide-Frequencies.txt
 
 #echo $total_ribonucleotide_count
 
