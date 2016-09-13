@@ -262,7 +262,7 @@ do
 	for file in "$output3/$sample.$location.sequences.tab";
 	do
 		#Location of output directory
-		output4=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/Columns/$subset/$location
+		output4=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$subset/Columns/$location
 
 		#Create directory for output if it does not already exist
 		if [[ ! -d $output4 ]]; then
