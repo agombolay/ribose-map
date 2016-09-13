@@ -61,7 +61,7 @@ seqtk seq -A $fastq > $fasta
 #Location of output files
 bed=$output1/$sample.bed
 sam=$output1/$sample.sam
-coordinates=$output1/$sample.coordinates.bed
+coordinate_information=$output1/$sample.coordinates.bed
 positionsPositive0=$output1/$sample.rNMPs.positive.0-based.txt
 positionsNegative0=$output1/$sample.rNMPs.negative.0-based.txt
 positionsPositive1=$output1/$sample.rNMPs.positive.1-based.txt
@@ -76,7 +76,7 @@ bedtools bamtobed -i $bam > $bed
 samtools view $bam > $sam
 
 #Extract read coordinates, sequences, and strands from BED and SAM files and save it to new file
-paste $bed $sam | awk -v "OFS=\t" '{print $1, $2, $3, $16, $6}' > $coordinates
+paste $bed $sam | awk -v "OFS=\t" '{print $1, $2, $3, $16, $6}' > $coordinate_information
 
 #0-BASED COORDINATES OF rNMPs
 
@@ -224,40 +224,39 @@ then
 fi	
 
 #Location of output files
-positionsBoth=$output/$sample.rNMPs.bothStrands.bed
+coordinates=$output/$sample.rNMPs.bothStrands.bed
+Upstream_Intervals=$output/$sample.upstream.intervals.bed
+Downstream_Intervals=$output/$sample.downstream.intervals.bed
 
-flankingUpstreamIntervals=$output/$sample.flanking.upstream.intervals.bed
-flankingDownstreamIntervals=$output/$sample.flanking.downstream.intervals.bed
+Upstream_Sequences=$output/$sample.flanking.upstream.sequences.tab
+Downstream_Sequences=$output/$sample.flanking.downstream.sequences.tab
 
-flankingUpstreamSequences=$output/$sample.flanking.upstream.sequences.tab
-flankingDownstreamSequences=$output/$sample.flanking.downstream.sequences.tab
-
-temporary=$output/temporary.bed
+temporary1=$output/temporary.bed
 temporary2=$output/temporary2.bed
 
 #Obtain positions of rNMPs (3’ end of each mapped read)
-bedtools genomecov -3 -bg -ibam $bam > $positionsBoth
+bedtools genomecov -3 -bg -ibam $bam > $coordinates
 
 #Remove column containing coverage values
-awk '!($4="")' $positionsBoth > $temporary
+awk '!($4="")' $coordinates > $temporary1
 
 #Change file back to its original name
-mv $temporary $positionsBoth
+mv $temporary1 $coordinates
 
 #Make columns of BED file tab-delimited
-sed 's/ \+/\t/g' $positionsBoth > $temporary2
+sed 's/ \+/\t/g' $coordinates > $temporary2
 
 #Change file back to its original name
-mv $temporary2 $positionsBoth
+mv $temporary2 $coordinates
 
 #Obtain coordinates of sacCer2 sequences that are 100 bp upstream of each rNMP position:
-bedtools flank -i $positionsBoth -g $directory/ribose-seq/reference/$reference.bed -l 100 -r 0 > $flankingUpstreamIntervals
+bedtools flank -i $coordinates -g $directory/ribose-seq/reference/$reference.bed -l 100 -r 0 > $Upstream_Intervals
 
 #Obtain coordinates of sacCer2 sequences that are 100 bp downstream of each rNMP position:
-bedtools flank -i $positionsBoth -g $directory/ribose-seq/reference/$reference.bed -l 0 -r 100 > $flankingDownstreamIntervals
+bedtools flank -i $coordinates -g $directory/ribose-seq/reference/$reference.bed -l 0 -r 100 > $Downstream_Intervals
 
 #Obtain sequences of sacCer2 coordinates from above that are 100 bp upstream of each rNMP position:
-bedtools getfasta -fi $directory/ribose-seq/reference/$reference.fa -bed $flankingUpstreamIntervals -tab -fo $flankingUpstreamSequences
+bedtools getfasta -fi $directory/ribose-seq/reference/$reference.fa -bed $Upstream_Intervals -tab -fo $Upstream_Sequences
 
 #Obtain sequences of sacCer2 coordinates from above that are 100 bp downstream of each rNMP position:
-bedtools getfasta -fi $directory/ribose-seq/reference/$reference.fa -bed $flankingDownstreamIntervals -tab -fo $flankingDownstreamSequences
+bedtools getfasta -fi $directory/ribose-seq/reference/$reference.fa -bed $Downstream_Intervals -tab -fo $Downstream_Sequences
