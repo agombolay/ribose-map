@@ -228,8 +228,8 @@ coordinates=$output/$sample.rNMPs.bothStrands.bed
 Upstream_Intervals=$output/$sample.upstream.intervals.bed
 Downstream_Intervals=$output/$sample.downstream.intervals.bed
 
-Upstream_Sequences=$output/$sample.flanking.upstream.sequences.tab
-Downstream_Sequences=$output/$sample.flanking.downstream.sequences.tab
+Upstream_Sequences=$output/$sample.upstream.sequences.tab
+Downstream_Sequences=$output/$sample.downstream.sequences.tab
 
 temporary1=$output/temporary.bed
 temporary2=$output/temporary2.bed
