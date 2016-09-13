@@ -61,7 +61,7 @@ seqtk seq -A $fastq > $fasta
 #Location of output files
 bed=$output1/$sample.bed
 sam=$output1/$sample.sam
-coordinate_information=$output1/$sample.coordinates.bed
+coordinate_information=$output1/$sample.coordinate-information.bed
 coordinates_positive_0=$output1/$sample.Ribonucleotide-Coordinates.positive.0-based.txt
 coordinates_negative_0=$output1/$sample.Ribonucleotide-Coordinates.negative.0-based.txt
 coordinates_positive_1=$output1/$sample.Ribonucleotide-Coordinates.positive.1-based.txt
@@ -215,7 +215,8 @@ then
 fi	
 
 #Location of output files
-coordinates=$output3/$sample.rNMPs.bothStrands.bed
+coordinates=$output3/$sample.ribonucleotide-coordinates.bed
+
 Upstream_Intervals=$output3/$sample.upstream.intervals.bed
 Downstream_Intervals=$output3/$sample.downstream.intervals.bed
 
