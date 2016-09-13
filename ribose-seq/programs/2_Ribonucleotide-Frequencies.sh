@@ -210,3 +210,54 @@ echo "Frequency of U Ribonucleotides: $U_normalized_ribonucleotide_frequency" >>
 #echo $total_ribonucleotide_count
 
 rm temporary.txt
+
+##############################################################################################################################
+#STEP 5: Obtain coordinates of +/- 100 downstream/upstream nucleotides from rNMPs
+
+#Location of output directory
+output3=$directory/ribose-seq/results/$reference/$samples/Nucleotide-Frequencies/Nucleotides
+
+#Create directory for output if it does not already exist
+if [[ ! -d $output ]];
+then
+    	mkdir -p $output
+fi	
+
+#Location of output files
+positionsBoth=$output/$sample.rNMPs.bothStrands.bed
+
+flankingUpstreamIntervals=$output/$sample.flanking.upstream.intervals.bed
+flankingDownstreamIntervals=$output/$sample.flanking.downstream.intervals.bed
+
+flankingUpstreamSequences=$output/$sample.flanking.upstream.sequences.tab
+flankingDownstreamSequences=$output/$sample.flanking.downstream.sequences.tab
+
+temporary=$output/temporary.bed
+temporary2=$output/temporary2.bed
+
+#Obtain positions of rNMPs (3’ end of each mapped read)
+bedtools genomecov -3 -bg -ibam $bam > $positionsBoth
+
+#Remove column containing coverage values
+awk '!($4="")' $positionsBoth > $temporary
+
+#Change file back to its original name
+mv $temporary $positionsBoth
+
+#Make columns of BED file tab-delimited
+sed 's/ \+/\t/g' $positionsBoth > $temporary2
+
+#Change file back to its original name
+mv $temporary2 $positionsBoth
+
+#Obtain coordinates of sacCer2 sequences that are 100 bp upstream of each rNMP position:
+bedtools flank -i $positionsBoth -g $directory/ribose-seq/reference/$reference.bed -l 100 -r 0 > $flankingUpstreamIntervals
+
+#Obtain coordinates of sacCer2 sequences that are 100 bp downstream of each rNMP position:
+bedtools flank -i $positionsBoth -g $directory/ribose-seq/reference/$reference.bed -l 0 -r 100 > $flankingDownstreamIntervals
+
+#Obtain sequences of sacCer2 coordinates from above that are 100 bp upstream of each rNMP position:
+bedtools getfasta -fi $directory/ribose-seq/reference/$reference.fa -bed $flankingUpstreamIntervals -tab -fo $flankingUpstreamSequences
+
+#Obtain sequences of sacCer2 coordinates from above that are 100 bp downstream of each rNMP position:
+bedtools getfasta -fi $directory/ribose-seq/reference/$reference.fa -bed $flankingDownstreamIntervals -tab -fo $flankingDownstreamSequences
