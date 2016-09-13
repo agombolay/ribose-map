@@ -34,14 +34,20 @@ then
         exit
 fi
 
+#Location of "Alignment" directory
+directory1=$directory/ribose-seq/results/$reference/$sample/Alignment
+
+#Location of "Nucleotide-Frequencies" directory
+directory2=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies
+
 ##############################################################################################################################
 #STEP 1: Covert BAM file to FASTA format
 
 #Location of input BAM file
-bam=$directory/ribose-seq/results/$reference/$sample/Alignment/$sample.bam
+bam=$directory1/$sample.bam
 
 #Location of output directory
-output1=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Ribonucleotides/$subset
+output1=$directory2/Ribonucleotides/$subset
 
 #Create directory for output if it does not already exist
 if [[ ! -d $output1 ]];
