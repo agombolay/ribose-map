@@ -180,31 +180,31 @@ awk '$2 == "+" {print substr($0,length($0)-2)}' temporary.txt > $output1/$sample
 awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2}' temporary.txt >> $output1/$sample.ribonucleotide-list.$subset.txt
 
 #Calculate count of "A" ribonucleotides
-A_ribonucleotide_count=$(awk '$1 == "A" && $2 == "+" || $1 == "T" && $2 == "-" {print $1, $2}' $output1/$sample.ribonucleotide-list.$subset.txt | wc -l)
+A_rNMP_count=$(awk '$1 == "A" && $2 == "+" || $1 == "T" && $2 == "-" {print $1, $2}' $output1/$sample.ribonucleotide-list.$subset.txt | wc -l)
 
 #Calculate count of "C"	ribonucleotides
-C_ribonucleotide_count=$(awk '$1 == "C" && $2 == "+" || $1 == "G" && $2 == "-" {print $1, $2}' $output1/$sample.ribonucleotide-list.$subset.txt | wc -l)
+C_rNMP_count=$(awk '$1 == "C" && $2 == "+" || $1 == "G" && $2 == "-" {print $1, $2}' $output1/$sample.ribonucleotide-list.$subset.txt | wc -l)
 
 #Calculate count of "G"	ribonucleotides
-G_ribonucleotide_count=$(awk '$1 == "G" && $2 == "+" || $1 == "C" && $2 == "-" {print $1, $2}' $output1/$sample.ribonucleotide-list.$subset.txt | wc -l)
+G_rNMP_count=$(awk '$1 == "G" && $2 == "+" || $1 == "C" && $2 == "-" {print $1, $2}' $output1/$sample.ribonucleotide-list.$subset.txt | wc -l)
 
 #Calculate count of "U"	ribonucleotides
-U_ribonucleotide_count=$(awk '$1 == "T" && $2 == "+" || $1 == "A" && $2 == "-" {print $1, $2}' $output1/$sample.ribonucleotide-list.$subset.txt | wc -l)
+U_rNMP_count=$(awk '$1 == "T" && $2 == "+" || $1 == "A" && $2 == "-" {print $1, $2}' $output1/$sample.ribonucleotide-list.$subset.txt | wc -l)
 
-total_ribonucleotide_count=$(($A_ribonucleotide_count+$C_ribonucleotide_count+$G_ribonucleotide_count+$U_ribonucleotide_count))
+total_rNMP_count=$(($A_rNMP_count+$C_rNMP_count+$G_rNMP_count+$U_rNMP_count))
 
-A_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $A_ribonucleotide_count/$total_ribonucleotide_count`")
-C_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C_ribonucleotide_count/$total_ribonucleotide_count`")
-G_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $G_ribonucleotide_count/$total_ribonucleotide_count`")
-U_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $U_ribonucleotide_count/$total_ribonucleotide_count`")
+A_rNMP_frequency=$(bc <<< "scale = 4; `expr $A_rNMP_count/$total_rNMP_count`")
+C_rNMP_frequency=$(bc <<< "scale = 4; `expr $C_rNMP_count/$total_rNMP_count`")
+G_rNMP_frequency=$(bc <<< "scale = 4; `expr $G_rNMP_count/$total_rNMP_count`")
+U_rNMP_frequency=$(bc <<< "scale = 4; `expr $U_rNMP_count/$total_rNMP_count`")
 		
-A_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $A_ribonucleotide_frequency/$A_background_frequency`")
-C_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C_ribonucleotide_frequency/$C_background_frequency`")
-G_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $G_ribonucleotide_frequency/$G_background_frequency`")
-U_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $U_ribonucleotide_frequency/$T_background_frequency`")
+A_normalized_rNMP_frequency=$(bc <<< "scale = 4; `expr $A_rNMP_frequency/$A_background_frequency`")
+C_normalized_rNMP_frequency=$(bc <<< "scale = 4; `expr $C_rNMP_frequency/$C_background_frequency`")
+G_normalized_rNMP_frequency=$(bc <<< "scale = 4; `expr $G_rNMP_frequency/$G_background_frequency`")
+U_normalized_rNMP_frequency=$(bc <<< "scale = 4; `expr $U_rNMP_frequency/$T_background_frequency`")
 
-echo "$A_normalized_ribonucleotide_frequency $C_normalized_ribonucleotide_frequency $G_normalized_ribonucleotide_frequency \
-$U_normalized_ribonucleotide_frequency" | column  > $output1/$sample.$reference.$subset.ribonucleotide-frequencies.txt
+echo "$A_normalized_rNMP_frequency $C_normalized_rNMP_frequency $G_normalized_rNMP_frequency $U_normalized_rNMP_frequency" \
+| column  > $output1/$sample.$reference.$subset.ribonucleotide-frequencies.txt
 
 rm temporary.txt
 
