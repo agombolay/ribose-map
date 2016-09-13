@@ -293,13 +293,13 @@ do
 
 			if [ $subset == "sacCer2" ];
 			then
-				cat $input > $selection
+				cat $file > $selection
 			elif [ $subset == "chrM" ];
 			then
-				grep 'chrM' $input > $selection
+				grep 'chrM' $file > $selection
 			elif [ $subset == "nuclear" ];
 			then
-				grep -v 'chrM' $input > $selection
+				grep -v 'chrM' $file > $selection
 			fi
 
 			#Print sequences to new file
