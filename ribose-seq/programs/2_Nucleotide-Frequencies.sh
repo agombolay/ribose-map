@@ -282,10 +282,10 @@ do
 		if [ $subset == "sacCer2" ];
 		then
 			cat $file > $selection
-		elif [ $subset == "chrM" ];
+		elif [ $subset == "Mitochondria" ];
 		then
 			grep 'chrM' $file > $selection
-		elif [ $subset == "nuclear" ];
+		elif [ $subset == "Nuclear" ];
 		then
 			grep -v 'chrM' $file > $selection
 		fi
