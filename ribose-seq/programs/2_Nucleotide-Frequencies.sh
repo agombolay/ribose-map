@@ -8,7 +8,7 @@
 function usage () {
 	echo "Usage: 5_Ribonucleotide-Frequencies.sh [-i] 'Sample' [-r] 'Reference' [-s] 'Subset' [-d] 'Directory' [-h]
 	-i Sample name (FS1, etc.)
-	-s Subset of genome (sacCer2, Nuclear, Mitochondria)
+	-s Subset of genome (sacCer2, nuclear, mitochondria)
 	-r Reference genome assembly version (sacCer2, etc.)
 	-d Local directory ('/projects/home/agombolay3/data/repository/Ribose-seq-Project')"
 }
@@ -156,11 +156,11 @@ if [[ $subset == "sacCer2" ]];
 then
 	awk -v "OFS=\t" '{print $4, $5}' $bed > temporary.txt
 #Mitochondria subset
-elif [[ $subset == "Mitochondria" ]];
+elif [[ $subset == "mitochondria" ]];
 then
     	grep 'chrM' $bed | awk -v "OFS=\t" '{print $4, $5}' - > temporary.txt
 #Nuclear subset
-elif [[ $subset == "Nuclear" ]];
+elif [[ $subset == "nuclear" ]];
 then
 	grep -v 'chrM' $bed | awk -v "OFS=\t" '{print $4, $5}' - > temporary.txt
 fi
@@ -282,10 +282,10 @@ do
 		if [ $subset == "sacCer2" ];
 		then
 			cat $file > $selection
-		elif [ $subset == "Mitochondria" ];
+		elif [ $subset == "mitochondria" ];
 		then
 			grep 'chrM' $file > $selection
-		elif [ $subset == "Nuclear" ];
+		elif [ $subset == "nuclear" ];
 		then
 			grep -v 'chrM' $file > $selection
 		fi
