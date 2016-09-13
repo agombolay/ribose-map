@@ -209,7 +209,7 @@ rm temporary.txt
 #STEP 5: Obtain coordinates of +/- 100 downstream/upstream nucleotides from rNMPs
 
 #Location of output directory
-output3=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$subset
+output3=$directory2/Nucleotides/$subset
 
 #Create directory for output if it does not already exist
 if [[ ! -d $output3 ]];
@@ -266,7 +266,7 @@ do
 	for file in "$output3/$sample.$location.sequences.tab";
 	do
 		#Location of output directory
-		output4=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$subset/Columns/$location
+		output4=$directory2/Nucleotides/$subset/Columns/$location
 
 		#Create directory for output if it does not already exist
 		if [[ ! -d $output4 ]]; then
@@ -311,7 +311,7 @@ done
 #STEP 7: Calculate frequencies of +/- 100 downstream/upstream nucleotides from ribonucleotides
 
 #Location of output directory
-output5=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$subset/Raw-Data
+output5=$directory2/Nucleotides/$subset/Raw-Data
 
 #Create directory for output if it does not already exist
 if [[ ! -d $output5 ]]; then
@@ -367,7 +367,7 @@ done
 #STEP 8: Create .txt file containing the output nucleotide frequencies data values for plotting
 
 #Location of output directory
-output6=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Datasets/$subset
+output6=$directory2/Datasets/$subset
 
 #Create directory for output if it does not already exist
 if [[ ! -d $output6 ]]; then
