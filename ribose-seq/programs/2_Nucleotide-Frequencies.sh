@@ -62,10 +62,10 @@ seqtk seq -A $fastq > $fasta
 bed=$output1/$sample.bed
 sam=$output1/$sample.sam
 coordinate_information=$output1/$sample.coordinates.bed
-positionsPositive0=$output1/$sample.rNMPs.positive.0-based.txt
-positionsNegative0=$output1/$sample.rNMPs.negative.0-based.txt
-positionsPositive1=$output1/$sample.rNMPs.positive.1-based.txt
-positionsNegative1=$output1/$sample.rNMPs.negative.1-based.txt
+coordinates_positive_0=$output1/$sample.Ribonucleotide-Coordinates.positive.0-based.txt
+coordinates_negative_0=$output1/$sample.Ribonucleotide-Coordinates.negative.0-based.txt
+coordinates_positive_1=$output1/$sample.Ribonucleotide-Coordinates.positive.1-based.txt
+coordinates_negative_1=$output1/$sample.Ribonucleotide-Coordinates.negative.1-based.txt
 	
 #COORDINATES (0-BASED) of SEQUENCING READS
 
