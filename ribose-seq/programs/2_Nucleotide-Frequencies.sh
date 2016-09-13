@@ -377,8 +377,8 @@ rm $output6/*.txt
 seq -100 1 100 > temporary1.txt
 
 #Combine upstream and downstream normalized nucleotide frequency files and ribonucleotide frequency files
-cat $output6/$sample.Normalized_Nucleotide_Frequencies.$subset.upstream.txt $output1/$sample.$reference.$subset.Ribonucleotide-Frequencies.txt \
-$output6/$sample.Normalized_Nucleotide_Frequencies.$subset.downstream.txt >> temporary2.txt
+cat $output5/$sample.Normalized_Nucleotide_Frequencies.$subset.upstream.txt $output1/$sample.$reference.$subset.Ribonucleotide-Frequencies.txt \
+$output5/$sample.Normalized_Nucleotide_Frequencies.$subset.downstream.txt >> temporary2.txt
 
 dataset=$output6/$sample.Nucleotide_Frequency_Dataset.$subset.txt
 
