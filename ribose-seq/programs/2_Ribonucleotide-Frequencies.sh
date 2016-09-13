@@ -268,49 +268,46 @@ locations="upstream downstream"
 
 for location in ${locations[@]};
 do
-#	input=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$sample.$location.sequences.tab
-		
-		for file in "$output3/$sample.$location.sequences.tab";
+	for file in "$output3/$sample.$location.sequences.tab";
+	do
+		#Location of output directory
+		output4=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/Columns/$subset/$location
+
+		#Create directory for output if it does not already exist
+		if [[ ! -d $output4 ]]; then
+    			mkdir -p $output4
+		fi
+
+		#Create directory for output if it does not already exist
+		if [[ ! -d $output4/sequences ]]; then
+                	mkdir -p $output4/sequences
+        	fi
+
+		#Location of output files
+		selection=$output4/sequences/$sample.$location.sequences.$subset.txt
+		sequences=$output4/sequences/$sample.$location.sequences.$subset.raw.txt
+		columns=$output4/sequences/$sample.$location.sequences.$subset.columns.txt
+
+		if [ $subset == "sacCer2" ];
+		then
+			cat $file > $selection
+		elif [ $subset == "chrM" ];
+		then
+			grep 'chrM' $file > $selection
+		elif [ $subset == "nuclear" ];
+		then
+			grep -v 'chrM' $file > $selection
+		fi
+
+		#Print sequences to new file
+		awk -v "OFS=\t" '{print $2}' $selection > $sequences
+
+		#Insert tabs between each nucleotide
+		cat $sequences | sed 's/.../& /2g;s/./& /g' > $columns
+
+		for i in {1..100};
 		do
-			#OUTPUT
-			#Location of output "ribose-seq" Columns directory
-			output4=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/Columns/$subset/$location
-
-			#Create directory for output if it does not already exist
-			if [[ ! -d $output4 ]]; then
-    				mkdir -p $output4
-			fi
-
-			#Create directory for output if it does not already exist
-			if [[ ! -d $output4/sequences ]]; then
-                		mkdir -p $output4/sequences
-        		fi
-
-			#Location of output files
-			selection=$output4/sequences/$sample.$location.sequences.$subset.txt
-			sequences=$output4/sequences/$sample.$location.sequences.$subset.raw.txt
-			columns=$output4/sequences/$sample.$location.sequences.$subset.columns.txt
-
-			if [ $subset == "sacCer2" ];
-			then
-				cat $file > $selection
-			elif [ $subset == "chrM" ];
-			then
-				grep 'chrM' $file > $selection
-			elif [ $subset == "nuclear" ];
-			then
-				grep -v 'chrM' $file > $selection
-			fi
-
-			#Print sequences to new file
-			awk -v "OFS=\t" '{print $2}' $selection > $sequences
-
-			#Insert tabs between each nucleotide
-			cat $sequences | sed 's/.../& /2g;s/./& /g' > $columns
-
-				for i in {1..100};
-				do
-					awk -v field=$i '{ print $field }' $columns > $output4/$sample.column.$i.$location.$subset.txt
-				done
+			awk -v field=$i '{ print $field }' $columns > $output4/$sample.column.$i.$location.$subset.txt
 		done
+	done
 done
