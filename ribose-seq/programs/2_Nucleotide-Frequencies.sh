@@ -118,8 +118,6 @@ mv temporary $coordinates_negative_1
 #Location of input FASTA file
 fasta=$directory/ribose-seq/reference/$subset.fa
 
-background=$output2/$reference.$subset.Background-Nucleotide-Frequencies.txt
-
 #Location of output directory
 output2=$directory/ribose-seq/results/Background-Nucleotide-Frequencies
 
@@ -128,6 +126,8 @@ if [[ ! -d $output2 ]];
 then
 	mkdir -p $output2
 fi
+
+background=$output2/$reference.$subset.Background-Nucleotide-Frequencies.txt
 
 #Remove file if it already exists
 #rm $output2/$reference.$subset.Nucleotide-Frequencies.txt
