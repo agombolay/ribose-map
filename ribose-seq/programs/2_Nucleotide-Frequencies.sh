@@ -8,8 +8,8 @@
 function usage () {
 	echo "Usage: 5_Ribonucleotide-Frequencies.sh [-i] 'Sample' [-r] 'Reference' [-s] 'Subset' [-d] 'Directory' [-h]
 	-i Sample name (FS1, etc.)
-	-s Subset of genome (sacCer2, nuclear, chrM)
-	-r Reference genome assembly (sacCer2, etc.)
+	-s Subset of genome (sacCer2, Nuclear, Mitochondria)
+	-r Reference genome assembly version (sacCer2, etc.)
 	-d Local directory ('/projects/home/agombolay3/data/repository/Ribose-seq-Project')"
 }
 
@@ -156,11 +156,11 @@ if [[ $subset == "sacCer2" ]];
 then
 	awk -v "OFS=\t" '{print $4, $5}' $bed > temporary.txt
 #Mitochondria subset
-elif [[ $subset == "mitochondria" ]];
+elif [[ $subset == "Mitochondria" ]];
 then
     	grep 'chrM' $bed | awk -v "OFS=\t" '{print $4, $5}' - > temporary.txt
 #Nuclear subset
-elif [[ $subset == "nuclear" ]];
+elif [[ $subset == "Nuclear" ]];
 then
 	grep -v 'chrM' $bed | awk -v "OFS=\t" '{print $4, $5}' - > temporary.txt
 fi
