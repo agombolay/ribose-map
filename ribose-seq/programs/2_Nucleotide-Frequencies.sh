@@ -384,7 +384,8 @@ rm $output6/*.txt
 seq -100 1 100 > temporary1.txt
 
 #Combine upstream and downstream normalized nucleotide frequency files and ribonucleotide frequency files
-cat $output5/$sample.Normalized_Nucleotide_Frequencies.$subset.upstream.txt $output1/$sample.$reference.$subset.ribonucleotide-frequencies.txt \
+cat $output5/$sample.Normalized_Nucleotide_Frequencies.$subset.upstream.txt \
+$output1/$sample.$reference.$subset.ribonucleotide-frequencies.txt \
 $output5/$sample.Normalized_Nucleotide_Frequencies.$subset.downstream.txt >> temporary2.txt
 
 dataset=$output6/$sample.Nucleotide_Frequency_Dataset.$subset.txt
@@ -393,7 +394,8 @@ dataset=$output6/$sample.Nucleotide_Frequency_Dataset.$subset.txt
 paste temporary1.txt temporary2.txt > temporary3.txt
 
 #Add Header to beginning of .txt file 
-echo "Position A C G U/T" | awk '{print $1,"\t",$2,"\t",$3,"\t",$4,"\t",$5}' | cat - temporary3.txt > temp && mv temp temporary3.txt
+echo "Position A C G U/T" | awk '{print $1,"\t",$2,"\t",$3,"\t",$4,"\t",$5}' \
+| cat - temporary3.txt > temp && mv temp temporary3.txt
 
 #Make sure data values are arranged in columns
 column -t temporary3.txt > $dataset
