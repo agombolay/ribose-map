@@ -264,13 +264,13 @@ bedtools getfasta -fi $directory/ribose-seq/reference/$reference.fa -bed $Downst
 ##############################################################################################################################
 #STEP 6: Output upstream and downstream flanking sequences into tabular format for processing
 
-#locations="upstream downstream"
+location="upstream downstream"
 
 #for location in ${locations[@]};
 #do
 #	input=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$sample.$location.sequences.tab
 		
-		for file in $output3/$sample.upstream.sequences.tab $output3/$sample.downstream.sequences.tab;
+		for file in $output3/$sample.$location.sequences.tab;
 		do
 			#OUTPUT
 			#Location of output "ribose-seq" Columns directory
@@ -313,4 +313,4 @@ bedtools getfasta -fi $directory/ribose-seq/reference/$reference.fa -bed $Downst
 					awk -v field=$i '{ print $field }' $columns > $output4/$sample.column.$i.$location.$subset.txt
 				done
 		done
-done
+#done
