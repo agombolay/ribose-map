@@ -193,17 +193,17 @@ U_rNMP_count=$(awk '$1 == "T" && $2 == "+" || $1 == "A" && $2 == "-" {print $1, 
 
 total_rNMP_count=$(($A_rNMP_count+$C_rNMP_count+$G_rNMP_count+$U_rNMP_count))
 
-A_rNMP_frequency=$(bc <<< "scale = 4; `expr $A_rNMP_count/$total_rNMP_count`")
-C_rNMP_frequency=$(bc <<< "scale = 4; `expr $C_rNMP_count/$total_rNMP_count`")
-G_rNMP_frequency=$(bc <<< "scale = 4; `expr $G_rNMP_count/$total_rNMP_count`")
-U_rNMP_frequency=$(bc <<< "scale = 4; `expr $U_rNMP_count/$total_rNMP_count`")
+A_rNMP_raw_frequency=$(bc <<< "scale = 4; `expr $A_rNMP_count/$total_rNMP_count`")
+C_rNMP_raw_frequency=$(bc <<< "scale = 4; `expr $C_rNMP_count/$total_rNMP_count`")
+G_rNMP_raw_frequency=$(bc <<< "scale = 4; `expr $G_rNMP_count/$total_rNMP_count`")
+U_rNMP_raw_frequency=$(bc <<< "scale = 4; `expr $U_rNMP_count/$total_rNMP_count`")
 		
-A_normalized_rNMP_frequency=$(bc <<< "scale = 4; `expr $A_rNMP_frequency/$A_background_frequency`")
-C_normalized_rNMP_frequency=$(bc <<< "scale = 4; `expr $C_rNMP_frequency/$C_background_frequency`")
-G_normalized_rNMP_frequency=$(bc <<< "scale = 4; `expr $G_rNMP_frequency/$G_background_frequency`")
-U_normalized_rNMP_frequency=$(bc <<< "scale = 4; `expr $U_rNMP_frequency/$T_background_frequency`")
+A_rNMP_frequency=$(bc <<< "scale = 4; `expr $A_rNMP_raw_frequency/$A_background_frequency`")
+C_rNMP_frequency=$(bc <<< "scale = 4; `expr $C_rNMP_raw_frequency/$C_background_frequency`")
+G_rNMP_frequency=$(bc <<< "scale = 4; `expr $G_rNMP_raw_frequency/$G_background_frequency`")
+U_rNMP_frequency=$(bc <<< "scale = 4; `expr $U_rNMP_raw_frequency/$T_background_frequency`")
 
-echo "$A_normalized_rNMP_frequency $C_normalized_rNMP_frequency $G_normalized_rNMP_frequency $U_normalized_rNMP_frequency" \
+echo "$A_rNMP_frequency $C_rNMP_frequency $G_rNMP_frequency $U_rNMP_frequency" \
 | column  > $output1/$sample.$reference.$subset.ribonucleotide-frequencies.txt
 
 rm temporary.txt
@@ -326,45 +326,43 @@ rm $output5/*.txt
 
 for location in ${locations[@]};
 do
-	A_normalized_nucleotide_frequencies=$output5/A_normalized_nucleotide_frequencies.$subset.$location.txt
-	C_normalized_nucleotide_frequencies=$output5/C_normalized_nucleotide_frequencies.$subset.$location.txt
-	G_normalized_nucleotide_frequencies=$output5/G_normalized_nucleotide_frequencies.$subset.$location.txt
-	T_normalized_nucleotide_frequencies=$output5/T_normalized_nucleotide_frequencies.$subset.$location.txt
-	Normalized_Nucleotide_Frequencies=$output5/$sample.Normalized_Nucleotide_Frequencies.$subset.$location.txt
+	A_dNTP_frequencies=$output5/A_normalized_nucleotide_frequencies.$subset.$location.txt
+	C_dNTP_frequencies=$output5/C_normalized_nucleotide_frequencies.$subset.$location.txt
+	G_dNTP_frequencies=$output5/G_normalized_nucleotide_frequencies.$subset.$location.txt
+	T_dNTP_frequencies=$output5/T_normalized_nucleotide_frequencies.$subset.$location.txt
+	dNTP_Frequencies=$output5/$sample.Normalized_Nucleotide_Frequencies.$subset.$location.txt
 		
 	input=$directory2/Nucleotides/$subset/Columns/$location/$sample*.txt
 	
 	for file in ${input[@]};
 	do
-		A_nucleotide_count=$(grep -v '>' $file | grep -o 'A' - | wc -l)
-		C_nucleotide_count=$(grep -v '>' $file | grep -o 'C' - | wc -l)
-		G_nucleotide_count=$(grep -v '>' $file | grep -o 'G' - | wc -l)
-		T_nucleotide_count=$(grep -v '>' $file | grep -o 'T' - | wc -l)
+		A_dNTP_count=$(grep -v '>' $file | grep -o 'A' - | wc -l)
+		C_dNTP_count=$(grep -v '>' $file | grep -o 'C' - | wc -l)
+		G_dNTP_count=$(grep -v '>' $file | grep -o 'G' - | wc -l)
+		T_dNTP_count=$(grep -v '>' $file | grep -o 'T' - | wc -l)
 
-		total_nucleotide_count=$(($A_nucleotide_count+$C_nucleotide_count+$G_nucleotide_count+$T_nucleotide_count))
+		total_dNTP_count=$(($A_dNTP_count+$C_dNTP_count+$G_dNTP_count+$T_dNTP_count))
 	
-		A_nucleotide_frequency=$(bc <<< "scale = 4; `expr $A_nucleotide_count/$total_nucleotide_count`")
-		C_nucleotide_frequency=$(bc <<< "scale = 4; `expr $C_nucleotide_count/$total_nucleotide_count`")
-		G_nucleotide_frequency=$(bc <<< "scale = 4; `expr $G_nucleotide_count/$total_nucleotide_count`")
-		T_nucleotide_frequency=$(bc <<< "scale = 4; `expr $T_nucleotide_count/$total_nucleotide_count`")
+		A_dNTP_raw_frequency=$(bc <<< "scale = 4; `expr $A_dNTP_count/$total_dNTP_count`")
+		C_dNTP_raw_frequency=$(bc <<< "scale = 4; `expr $C_dNTP_count/$total_dNTP_count`")
+		G_dNTP_raw_frequency=$(bc <<< "scale = 4; `expr $G_dNTP_count/$total_dNTP_count`")
+		T_dNTP_raw_frequency=$(bc <<< "scale = 4; `expr $T_dNTP_count/$total_dNTP_count`")
 
-		A_normalized_nucleotide_frequency=$(bc <<< "scale = 4; `expr $A_nucleotide_frequency/$A_background_frequency`")
-        	C_normalized_nucleotide_frequency=$(bc <<< "scale = 4; `expr $C_nucleotide_frequency/$C_background_frequency`")
-        	G_normalized_nucleotide_frequency=$(bc <<< "scale = 4; `expr $G_nucleotide_frequency/$G_background_frequency`")
-        	T_normalized_nucleotide_frequency=$(bc <<< "scale = 4; `expr $T_nucleotide_frequency/$T_background_frequency`")
+		A_dNTP_frequency=$(bc <<< "scale = 4; `expr $A_dNTP_raw_frequency/$A_background_frequency`")
+        	C_dNTP_frequency=$(bc <<< "scale = 4; `expr $C_dNTP_raw_frequency/$C_background_frequency`")
+        	G_dNTP_frequency=$(bc <<< "scale = 4; `expr $G_dNTP_raw_frequency/$G_background_frequency`")
+        	T_dNTP_frequency=$(bc <<< "scale = 4; `expr $T_dNTP_raw_frequency/$T_background_frequency`")
 
-		echo $A_normalized_nucleotide_frequency >> $A_normalized_nucleotide_frequencies
-		echo $C_normalized_nucleotide_frequency >> $C_normalized_nucleotide_frequencies
-		echo $G_normalized_nucleotide_frequency >> $G_normalized_nucleotide_frequencies
-		echo $T_normalized_nucleotide_frequency >> $T_normalized_nucleotide_frequencies
+		echo $A_dNTP_frequency >> $A_dNTP_frequencies
+		echo $C_dNTP_frequency >> $C_dNTP_frequencies
+		echo $G_dNTP_frequency >> $G_dNTP_frequencies
+		echo $T_dNTP_frequency >> $T_dNTP_frequencies
 
-		if [ -e "$Normalized_Nucleotide_Frequencies" ]; then
-    			rm $Normalized_Nucleotide_Frequencies
+		if [ -e "$dNTP_Frequencies" ]; then
+    			rm $dNTP_Frequencies
 		fi
 
-		paste $A_normalized_nucleotide_frequencies $C_normalized_nucleotide_frequencies \
-		$G_normalized_nucleotide_frequencies $T_normalized_nucleotide_frequencies >> \
-		$Normalized_Nucleotide_Frequencies
+		paste $A_dNTP_frequencies $C_dNTP_frequencies $G_dNTP_frequencies $T_dNTP_frequencies >> $dNTP_Frequencies
 	done
 done
 
