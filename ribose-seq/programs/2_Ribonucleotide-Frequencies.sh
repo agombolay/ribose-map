@@ -197,10 +197,10 @@ C_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C_ribonucleoti
 G_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $G_ribonucleotide_frequency/$G_background_frequency`")
 U_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $U_ribonucleotide_frequency/$T_background_frequency`")
 
-echo "Frequency of A Ribonucleotides: $A_normalized_ribonucleotide_frequency" >> $output1/$sample.$reference.$subset.Ribonucleotide-Frequencies.txt
-echo "Frequency of C Ribonucleotides: $C_normalized_ribonucleotide_frequency" >> $output1/$sample.$reference.$subset.Ribonucleotide-Frequencies.txt
-echo "Frequency of G Ribonucleotides: $G_normalized_ribonucleotide_frequency" >> $output1/$sample.$reference.$subset.Ribonucleotide-Frequencies.txt
-echo "Frequency of U Ribonucleotides: $U_normalized_ribonucleotide_frequency" >> $output1/$sample.$reference.$subset.Ribonucleotide-Frequencies.txt
+echo $A_normalized_ribonucleotide_frequency" >> $output1/$sample.$reference.$subset.Ribonucleotide-Frequencies.txt
+echo $C_normalized_ribonucleotide_frequency" >> $output1/$sample.$reference.$subset.Ribonucleotide-Frequencies.txt
+echo $G_normalized_ribonucleotide_frequency" >> $output1/$sample.$reference.$subset.Ribonucleotide-Frequencies.txt
+echo $U_normalized_ribonucleotide_frequency" >> $output1/$sample.$reference.$subset.Ribonucleotide-Frequencies.txt
 
 rm temporary.txt
 
