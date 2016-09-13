@@ -316,7 +316,7 @@ done
 #STEP 7: Calculate frequencies of +/- 100 downstream/upstream nucleotides from ribonucleotides
 
 #Remove old .txt files
-rm $output3/*$subset*.txt
+rm "$output3/*$subset*.txt"
 
 for location in ${locations[@]};
 do
@@ -335,12 +335,12 @@ do
 		G_nucleotide_count=$(grep -v '>' $file | grep -o 'G' - | wc -l)
 		T_nucleotide_count=$(grep -v '>' $file | grep -o 'T' - | wc -l)
 
-		total=$(($A+$C+$G+$T))
+		total_nucleotide_count=$(($A_nucleotide_count+$C_nucleotide_count+$G_nucleotide_count+$T_nucleotide_count))
 	
-		A_nucleotide_frequency=$(bc <<< "scale = 4; `expr $A/$total`")
-		C_nucleotide_frequency=$(bc <<< "scale = 4; `expr $C/$total`")
-		G_nucleotide_frequency=$(bc <<< "scale = 4; `expr $G/$total`")
-		T_nucleotide_frequency=$(bc <<< "scale = 4; `expr $T/$total`")
+		A_nucleotide_frequency=$(bc <<< "scale = 4; `expr $A_nucleotide_count/$total_nucleotide_count`")
+		C_nucleotide_frequency=$(bc <<< "scale = 4; `expr $C_nucleotide_count/$total_nucleotide_count`")
+		G_nucleotide_frequency=$(bc <<< "scale = 4; `expr $G_nucleotide_count/$total_nucleotide_count`")
+		T_nucleotide_frequency=$(bc <<< "scale = 4; `expr $T_nucleotide_count/$total_nucleotide_count`")
 
 		A_normalized_nucleotide_frequency=$(bc <<< "scale = 4; `expr $A_nucleotide_frequency/$A_background_frequency`")
         	C_normalized_nucleotide_frequency=$(bc <<< "scale = 4; `expr $C_nucleotide_frequency/$C_background_frequency`")
@@ -352,8 +352,8 @@ do
 		echo $G_normalized_nucleotide_frequency >> $G_normalized_nucleotide_frequencies
 		echo $T_normalized_nucleotide_frequency >> $T_normalized_nucleotide_frequencies
 
-		if [ -e "$Normalized_Frequencies" ]; then
-    			rm $Normalized_Frequencies
+		if [ -e "$Normalized_Nucleotide_Frequencies" ]; then
+    			rm $Normalized_Nucleotide_Frequencies
 		fi
 
 		paste $A_normalized_nucleotide_frequencies $C_normalized_nucleotide_frequencies $G_normalized_nucleotide_frequencies $T_normalized_nucleotide_frequencies >> $Normalized_Nucleotide_Frequencies
