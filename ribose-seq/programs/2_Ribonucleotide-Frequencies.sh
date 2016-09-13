@@ -197,17 +197,10 @@ C_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $C_ribonucleoti
 G_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $G_ribonucleotide_frequency/$G_background_frequency`")
 U_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $U_ribonucleotide_frequency/$T_background_frequency`")
 
-#echo $A_ribonucleotide_count
-#echo $C_ribonucleotide_count
-#echo $G_ribonucleotide_count
-#echo $U_ribonucleotide_count
-
 echo "Frequency of A Ribonucleotides: $A_normalized_ribonucleotide_frequency" >> $output1/$sample.$reference.$subset.Ribonucleotide-Frequencies.txt
 echo "Frequency of C Ribonucleotides: $C_normalized_ribonucleotide_frequency" >> $output1/$sample.$reference.$subset.Ribonucleotide-Frequencies.txt
 echo "Frequency of G Ribonucleotides: $G_normalized_ribonucleotide_frequency" >> $output1/$sample.$reference.$subset.Ribonucleotide-Frequencies.txt
 echo "Frequency of U Ribonucleotides: $U_normalized_ribonucleotide_frequency" >> $output1/$sample.$reference.$subset.Ribonucleotide-Frequencies.txt
-
-#echo $total_ribonucleotide_count
 
 rm temporary.txt
 
@@ -375,9 +368,10 @@ done
 seq -100 1 100 > temporary1.txt
 
 #Combine upstream and downstream normalized nucleotide frequency files and ribonucleotide frequency files
-cat $directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$sample.Normalized_Frequencies.$subset.upstream.txt $directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Ribonucleotides/$sample.Ribonucleotide_Frequencies.$subset.txt $directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$sample.Normalized_Frequencies.$subset.downstream.txt >> temporary2.txt
+cat $output5/$sample.Normalized_Nucleotide_Frequencies.$subset.upstream.txt $output1/$sample.$reference.$subset.Ribonucleotide-Frequencies.txt \
+$output5/$sample.Normalized_Nucleotide_Frequencies.$subset.downstream.txt >> temporary2.txt
 
-output=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/$sample-Data/$sample.Nucleotide_Frequencies.$subset.txt
+output=$output5/$sample.Nucleotide_Frequency_Dataset.$subset.txt
 
 #Merge two files into final .txt file
 paste temporary1.txt temporary2.txt > temporary3.txt
