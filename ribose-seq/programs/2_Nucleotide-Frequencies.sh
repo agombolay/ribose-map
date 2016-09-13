@@ -49,8 +49,8 @@ then
 	mkdir -p $output1
 fi
 	
-fastq=$output1/$sample.fastq
-fasta=$output1/$sample.fasta
+fastq=$output1/$sample.aligned-reads.fastq
+fasta=$output1/$sample.aligned-reads.fasta
 
 samtools bam2fq $bam > $fastq
 seqtk seq -A $fastq > $fasta
@@ -61,11 +61,11 @@ seqtk seq -A $fastq > $fasta
 #Location of output files
 bed=$output1/$sample.bed
 sam=$output1/$sample.sam
-coordinate_information=$output1/$sample.coordinate-information.bed
-coordinates_positive_0=$output1/$sample.Ribonucleotide-Coordinates.positive.0-based.txt
-coordinates_negative_0=$output1/$sample.Ribonucleotide-Coordinates.negative.0-based.txt
-coordinates_positive_1=$output1/$sample.Ribonucleotide-Coordinates.positive.1-based.txt
-coordinates_negative_1=$output1/$sample.Ribonucleotide-Coordinates.negative.1-based.txt
+coordinate_information=$output1/$sample.ribonucleotide-coordinate-information.bed
+coordinates_positive_0=$output1/$sample.ribonucleotide-coordinates.positive.0-based.txt
+coordinates_negative_0=$output1/$sample.ribonucleotide-coordinates.negative.0-based.txt
+coordinates_positive_1=$output1/$sample.ribonucleotide-coordinates.positive.1-based.txt
+coordinates_negative_1=$output1/$sample.ribonucleotide-coordinates.negative.1-based.txt
 	
 #COORDINATES (0-BASED) of SEQUENCING READS
 
@@ -145,10 +145,7 @@ echo "T Background Frequency: $T_background_frequency" >> $output2/$reference.$s
 #STEP 4: Calculate Ribonucleotide Frequencies
 
 #Remove file if it already exists
-rm $output1/$sample.$reference.$subset.Ribonucleotide-Frequencies.txt
-
-#Location of input BED file
-#bed=$output1/$sample.ribonucleotide-coordinates.bed
+rm $output1/$sample.$reference.$subset.ribonucleotide-frequencies.txt
 
 #Print only ribonucleotides of genome subset to output file
 #Whole genome subset
@@ -168,22 +165,22 @@ fi
 #Print only ribonucleotides (3' end of read (end for + strand and start for - strand)) to output file
 
 #Print ribonucleotides for positive strands (located at end of sequence)
-awk '$2 == "+" {print substr($0,length($0)-2)}' temporary.txt > $output1/$sample.Ribonucleotide-List.$subset.txt
+awk '$2 == "+" {print substr($0,length($0)-2)}' temporary.txt > $output1/$sample.ribonucleotide-list.$subset.txt
 
 #Print ribonucleotides for negative strands (located at beginning of sequence)
-awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2}' temporary.txt >> $output1/$sample.Ribonucleotide-List.$subset.txt
+awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2}' temporary.txt >> $output1/$sample.ribonucleotide-list.$subset.txt
 
 #Calculate count of "A" ribonucleotides
-A_ribonucleotide_count=$(awk '$1 == "A" && $2 == "+" || $1 == "T" && $2 == "-" {print $1, $2}' $output1/$sample.Ribonucleotide-List.$subset.txt | wc -l)
+A_ribonucleotide_count=$(awk '$1 == "A" && $2 == "+" || $1 == "T" && $2 == "-" {print $1, $2}' $output1/$sample.ribonucleotide-list.$subset.txt | wc -l)
 
 #Calculate count of "C"	ribonucleotides
-C_ribonucleotide_count=$(awk '$1 == "C" && $2 == "+" || $1 == "G" && $2 == "-" {print $1, $2}' $output1/$sample.Ribonucleotide-List.$subset.txt | wc -l)
+C_ribonucleotide_count=$(awk '$1 == "C" && $2 == "+" || $1 == "G" && $2 == "-" {print $1, $2}' $output1/$sample.ribonucleotide-list.$subset.txt | wc -l)
 
 #Calculate count of "G"	ribonucleotides
-G_ribonucleotide_count=$(awk '$1 == "G" && $2 == "+" || $1 == "C" && $2 == "-" {print $1, $2}' $output1/$sample.Ribonucleotide-List.$subset.txt | wc -l)
+G_ribonucleotide_count=$(awk '$1 == "G" && $2 == "+" || $1 == "C" && $2 == "-" {print $1, $2}' $output1/$sample.ribonucleotide-list.$subset.txt | wc -l)
 
 #Calculate count of "U"	ribonucleotides
-U_ribonucleotide_count=$(awk '$1 == "T" && $2 == "+" || $1 == "A" && $2 == "-" {print $1, $2}' $output1/$sample.Ribonucleotide-List.$subset.txt | wc -l)
+U_ribonucleotide_count=$(awk '$1 == "T" && $2 == "+" || $1 == "A" && $2 == "-" {print $1, $2}' $output1/$sample.ribonucleotide-list.$subset.txt | wc -l)
 
 total_ribonucleotide_count=$(($A_ribonucleotide_count+$C_ribonucleotide_count+$G_ribonucleotide_count+$U_ribonucleotide_count))
 
@@ -198,7 +195,7 @@ G_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $G_ribonucleoti
 U_normalized_ribonucleotide_frequency=$(bc <<< "scale = 4; `expr $U_ribonucleotide_frequency/$T_background_frequency`")
 
 echo "$A_normalized_ribonucleotide_frequency $C_normalized_ribonucleotide_frequency $G_normalized_ribonucleotide_frequency \
-$U_normalized_ribonucleotide_frequency" | column  > $output1/$sample.$reference.$subset.Ribonucleotide-Frequencies.txt
+$U_normalized_ribonucleotide_frequency" | column  > $output1/$sample.$reference.$subset.ribonucleotide-frequencies.txt
 
 rm temporary.txt
 
