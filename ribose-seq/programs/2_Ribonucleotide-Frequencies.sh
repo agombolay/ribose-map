@@ -266,8 +266,8 @@ bedtools getfasta -fi $directory/ribose-seq/reference/$reference.fa -bed $Downst
 
 location="upstream downstream"
 
-#for location in ${locations[@]};
-#do
+for location in ${locations[@]};
+do
 #	input=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$sample.$location.sequences.tab
 		
 		for file in $output3/$sample.$location.sequences.tab;
@@ -313,4 +313,4 @@ location="upstream downstream"
 					awk -v field=$i '{ print $field }' $columns > $output4/$sample.column.$i.$location.$subset.txt
 				done
 		done
-#done
+done
