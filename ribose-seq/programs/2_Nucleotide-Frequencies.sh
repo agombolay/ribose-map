@@ -148,7 +148,7 @@ echo "T Background Frequency: $T_background_frequency" >> $output2/$reference.$s
 rm $output1/$sample.$reference.$subset.Ribonucleotide-Frequencies.txt
 
 #Location of input BED file
-bed=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Ribonucleotides/$sample.ribonucleotide-coordinates.bed
+bed=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Ribonucleotides/$subset/$sample.ribonucleotide-coordinates.bed
 
 #Print only ribonucleotides of genome subset to output file
 #Whole genome subset
