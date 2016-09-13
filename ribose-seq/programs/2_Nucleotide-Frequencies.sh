@@ -130,7 +130,8 @@ then
 fi
 
 #Remove file if it already exists
-rm $output2/$reference.$subset.Nucleotide-Frequencies.txt
+#rm $output2/$reference.$subset.Nucleotide-Frequencies.txt
+rm $background
 
 A_background_count=$(grep -v '>' $fasta | grep -o 'A' - | wc -l)
 C_background_count=$(grep -v '>' $fasta | grep -o 'C' - | wc -l)
