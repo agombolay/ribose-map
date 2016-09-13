@@ -315,16 +315,24 @@ done
 ##############################################################################################################################
 #STEP 7: Calculate frequencies of +/- 100 downstream/upstream nucleotides from ribonucleotides
 
+#Location of output directory
+output5=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$subset
+
+#Create directory for output if it does not already exist
+if [[ ! -d $output5 ]]; then
+    	mkdir -p $output5
+fi
+		
 #Remove old .txt files
-rm "$output3/*$subset*.txt"
+rm $output5/*.txt
 
 for location in ${locations[@]};
 do
-	A_normalized_nucleotide_frequencies=$output3/A_normalized_nucleotide_frequencies.$subset.$location.txt
-	C_normalized_nucleotide_frequencies=$output3/C_normalized_nucleotide_frequencies.$subset.$location.txt
-	G_normalized_nucleotide_frequencies=$output3/G_normalized_nucleotide_frequencies.$subset.$location.txt
-	T_normalized_nucleotide_frequencies=$output3/T_normalized_nucleotide_frequencies.$subset.$location.txt
-	Normalized_Nucleotide_Frequencies=$output3/$sample.Normalized_Nucleotide_Frequencies.$subset.$location.txt
+	A_normalized_nucleotide_frequencies=$output5/A_normalized_nucleotide_frequencies.$subset.$location.txt
+	C_normalized_nucleotide_frequencies=$output5/C_normalized_nucleotide_frequencies.$subset.$location.txt
+	G_normalized_nucleotide_frequencies=$output5/G_normalized_nucleotide_frequencies.$subset.$location.txt
+	T_normalized_nucleotide_frequencies=$output5/T_normalized_nucleotide_frequencies.$subset.$location.txt
+	Normalized_Nucleotide_Frequencies=$output5/$sample.Normalized_Nucleotide_Frequencies.$subset.$location.txt
 		
 	input=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/Columns/$subset/$location/$sample*.txt
 	
