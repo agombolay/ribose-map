@@ -359,7 +359,9 @@ do
     			rm $Normalized_Nucleotide_Frequencies
 		fi
 
-		paste $A_normalized_nucleotide_frequencies $C_normalized_nucleotide_frequencies $G_normalized_nucleotide_frequencies $T_normalized_nucleotide_frequencies >> $Normalized_Nucleotide_Frequencies
+		paste $A_normalized_nucleotide_frequencies $C_normalized_nucleotide_frequencies \
+		$G_normalized_nucleotide_frequencies $T_normalized_nucleotide_frequencies >> \
+		$Normalized_Nucleotide_Frequencies
 	done
 done
 
