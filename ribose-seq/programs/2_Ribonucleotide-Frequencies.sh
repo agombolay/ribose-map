@@ -316,7 +316,7 @@ done
 #STEP 7: Calculate frequencies of +/- 100 downstream/upstream nucleotides from ribonucleotides
 
 #Remove old .txt files
-rm $output3/*.txt
+rm $output3/*$subset*.txt
 
 for location in ${locations[@]};
 do
