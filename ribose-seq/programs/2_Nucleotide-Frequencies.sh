@@ -206,7 +206,7 @@ rm temporary.txt
 #STEP 5: Obtain coordinates of +/- 100 downstream/upstream nucleotides from rNMPs
 
 #Location of output directory
-output3=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides
+output3=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$subset
 
 #Create directory for output if it does not already exist
 if [[ ! -d $output3 ]];
