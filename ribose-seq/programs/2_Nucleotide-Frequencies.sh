@@ -215,7 +215,7 @@ then
 fi	
 
 #Location of output files
-coordinates=$output3/$sample.ribonucleotide-coordinates.bed
+coordinates=$output1/$sample.ribonucleotide-coordinates.bed
 
 Upstream_Intervals=$output3/$sample.upstream.intervals.bed
 Downstream_Intervals=$output3/$sample.downstream.intervals.bed
