@@ -59,8 +59,8 @@ seqtk seq -A $fastq > $fasta
 #STEP 2: Obtain Ribonucleotide Coordinates
 
 #Location of output files
-bed=$output1/$sample.bed
-sam=$output1/$sample.sam
+bed=$output1/$sample.aligned-reads.bed
+sam=$output1/$sample.aligned-reads.sam
 coordinate_information=$output1/$sample.ribonucleotide-coordinate-information.bed
 coordinates_positive_0=$output1/$sample.ribonucleotide-coordinates.positive.0-based.txt
 coordinates_negative_0=$output1/$sample.ribonucleotide-coordinates.negative.0-based.txt
