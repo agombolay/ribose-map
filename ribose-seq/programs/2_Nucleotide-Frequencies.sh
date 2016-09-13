@@ -326,7 +326,7 @@ do
 	T_normalized_nucleotide_frequencies=$output5/T_normalized_nucleotide_frequencies.$subset.$location.txt
 	Normalized_Nucleotide_Frequencies=$output5/$sample.Normalized_Nucleotide_Frequencies.$subset.$location.txt
 		
-	input=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/Columns/$subset/$location/$sample*.txt
+	input=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$subset/Columns/$location/$sample*.txt
 	
 	for file in ${input[@]};
 	do
