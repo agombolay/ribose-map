@@ -363,7 +363,7 @@ done
 #STEP 8: Create .txt file containing the output nucleotide frequencies data values for plotting
 
 #Location of output directory
-output6=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/$subset
+output6=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Datasets/$subset
 
 #Create directory for output if it does not already exist
 if [[ ! -d $output6 ]]; then
