@@ -320,7 +320,6 @@ rm $output3/*$subset*.txt
 
 for location in ${locations[@]};
 do
-
 	A_normalized_nucleotide_frequencies=$output3/A_normalized_nucleotide_frequencies.$subset.$location.txt
 	C_normalized_nucleotide_frequencies=$output3/C_normalized_nucleotide_frequencies.$subset.$location.txt
 	G_normalized_nucleotide_frequencies=$output3/G_normalized_nucleotide_frequencies.$subset.$location.txt
@@ -358,14 +357,5 @@ do
 		fi
 
 		paste $A_normalized_nucleotide_frequencies $C_normalized_nucleotide_frequencies $G_normalized_nucleotide_frequencies $T_normalized_nucleotide_frequencies >> $Normalized_Nucleotide_Frequencies
-
-		#Create new folder, "data," to store output nucleotide frequency data files
-		data=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/$sample-Data
-
-		#Create folder only if it does not already exist
-		if [[ ! -d $data ]];
-		then
-        		mkdir $data
-		fi
 	done
 done
