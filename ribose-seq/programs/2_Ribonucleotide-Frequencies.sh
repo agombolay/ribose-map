@@ -264,7 +264,7 @@ bedtools getfasta -fi $directory/ribose-seq/reference/$reference.fa -bed $Downst
 ##############################################################################################################################
 #STEP 6: Output upstream and downstream flanking sequences into tabular format for processing
 
-location="upstream downstream"
+locations="upstream downstream"
 
 for location in ${locations[@]};
 do
