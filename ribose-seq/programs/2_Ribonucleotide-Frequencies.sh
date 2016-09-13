@@ -224,15 +224,15 @@ then
 fi	
 
 #Location of output files
-coordinates=$output/$sample.rNMPs.bothStrands.bed
-Upstream_Intervals=$output/$sample.upstream.intervals.bed
-Downstream_Intervals=$output/$sample.downstream.intervals.bed
+coordinates=$output3/$sample.rNMPs.bothStrands.bed
+Upstream_Intervals=$output3/$sample.upstream.intervals.bed
+Downstream_Intervals=$output3/$sample.downstream.intervals.bed
 
-Upstream_Sequences=$output/$sample.upstream.sequences.tab
-Downstream_Sequences=$output/$sample.downstream.sequences.tab
+Upstream_Sequences=$output3/$sample.upstream.sequences.tab
+Downstream_Sequences=$output3/$sample.downstream.sequences.tab
 
-temporary1=$output/temporary.bed
-temporary2=$output/temporary2.bed
+temporary1=$output3/temporary.bed
+temporary2=$output3/temporary2.bed
 
 #Obtain positions of rNMPs (3’ end of each mapped read)
 bedtools genomecov -3 -bg -ibam $bam > $coordinates
