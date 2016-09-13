@@ -148,21 +148,21 @@ echo "T Background Frequency: $T_background_frequency" >> $output2/$reference.$s
 rm $output1/$sample.$reference.$subset.Ribonucleotide-Frequencies.txt
 
 #Location of input BED file
-bed=$output1/$sample.ribonucleotide-coordinates.bed
+#bed=$output1/$sample.ribonucleotide-coordinates.bed
 
 #Print only ribonucleotides of genome subset to output file
 #Whole genome subset
 if [[ $subset == "sacCer2" ]];
 then
-	awk -v "OFS=\t" '{print $4, $5}' $bed > temporary.txt
+	awk -v "OFS=\t" '{print $4, $5}' $coordinate_information > temporary.txt
 #Mitochondria subset
 elif [[ $subset == "mitochondria" ]];
 then
-    	grep 'chrM' $bed | awk -v "OFS=\t" '{print $4, $5}' - > temporary.txt
+    	grep 'chrM' $coordinate_information | awk -v "OFS=\t" '{print $4, $5}' - > temporary.txt
 #Nuclear subset
 elif [[ $subset == "nuclear" ]];
 then
-	grep -v 'chrM' $bed | awk -v "OFS=\t" '{print $4, $5}' - > temporary.txt
+	grep -v 'chrM' $coordinate_information | awk -v "OFS=\t" '{print $4, $5}' - > temporary.txt
 fi
 
 #Print only ribonucleotides (3' end of read (end for + strand and start for - strand)) to output file
