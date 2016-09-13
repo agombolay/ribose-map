@@ -270,7 +270,7 @@ for location in ${locations[@]};
 do
 #	input=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$sample.$location.sequences.tab
 		
-		for file in $output3/$sample.$location.sequences.tab;
+		for file in "$output3/$sample.$location.sequences.tab";
 		do
 			#OUTPUT
 			#Location of output "ribose-seq" Columns directory
