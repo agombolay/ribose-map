@@ -367,3 +367,25 @@ do
 		paste $A_normalized_nucleotide_frequencies $C_normalized_nucleotide_frequencies $G_normalized_nucleotide_frequencies $T_normalized_nucleotide_frequencies >> $Normalized_Nucleotide_Frequencies
 	done
 done
+
+##############################################################################################################################
+#STEP 8: Create .txt file containing the output nucleotide frequencies data values for plotting
+
+#Print values -100 to 100
+seq -100 1 100 > temporary1.txt
+
+#Combine upstream and downstream normalized nucleotide frequency files and ribonucleotide frequency files
+cat $directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$sample.Normalized_Frequencies.$subset.upstream.txt $directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Ribonucleotides/$sample.Ribonucleotide_Frequencies.$subset.txt $directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$sample.Normalized_Frequencies.$subset.downstream.txt >> temporary2.txt
+
+output=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/$sample-Data/$sample.Nucleotide_Frequencies.$subset.txt
+
+#Merge two files into final .txt file
+paste temporary1.txt temporary2.txt > temporary3.txt
+
+#Add Header to beginning of .txt file 
+echo "Position A C G U/T" | awk '{print $1,"\t",$2,"\t",$3,"\t",$4,"\t",$5}' | cat - temporary3.txt > temp && mv temp temporary3.txt
+
+#Make sure data values are arranged in columns
+column -t temporary3.txt > $output
+
+rm temporary1.txt temporary2.txt temporary3.txt
