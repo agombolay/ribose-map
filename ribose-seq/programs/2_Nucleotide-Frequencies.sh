@@ -81,30 +81,30 @@ paste $bed $sam | awk -v "OFS=\t" '{print $1, $2, $3, $16, $6}' > $coordinate_in
 #0-BASED COORDINATES OF rNMPs
 
 #Obtain positions of rNMPs (3’ end of each mapped read) for positive strand:
-bedtools genomecov -3 -strand + -bg -ibam $bam > $positionsPositive0
+bedtools genomecov -3 -strand + -bg -ibam $bam > $coordinates_positive_0
 
 #Obtain positions of rNMPs (3’ end of each mapped read) for negative strand:
-bedtools genomecov -3 -strand - -bg -ibam $bam > $positionsNegative0
+bedtools genomecov -3 -strand - -bg -ibam $bam > $coordinates_negative_0
 
 #1-BASED COORDINATES OF	rNMPs
 
 #Obtain positions of rNMPs (3’ end of each mapped read) for positive strand:
-bedtools genomecov -3 -strand + -d -ibam $bam > $positionsPositive1
+bedtools genomecov -3 -strand + -d -ibam $bam > $coordinates_positive_1
 
 #Remove rows where genome coverage equals 0
-awk '$3 != 0' $positionsPositive1 > temporary
+awk '$3 != 0' $coordinates_positive_1 > temporary
 
 #Change filename back to original
-mv temporary $positionsPositive1
+mv temporary $coordinates_positive_1
 
 #Obtain positions of rNMPs (3’ end of each mapped read) for negative strand:
-bedtools genomecov -3 -strand - -d -ibam $bam > $positionsNegative1
+bedtools genomecov -3 -strand - -d -ibam $bam > $coordinates_negative_1
 
 #Remove rows where genome coverage equals 0
-awk '$3 != 0' $positionsNegative1 > temporary
+awk '$3 != 0' $coordinates_negative_1 > temporary
 
 #Change filename back to original
-mv temporary $positionsNegative1
+mv temporary $coordinates_negative_1
 
 ##############################################################################################################################
 #STEP 3: Calculate Background Frequencies
