@@ -41,7 +41,7 @@ fi
 bam=$directory/ribose-seq/results/$reference/$sample/Alignment/$sample.bam
 
 #Location of output directory
-output1=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Ribonucleotides
+output1=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Ribonucleotides/$subset
 
 #Create directory for output if it does not already exist
 if [[ ! -d $output1 ]];
