@@ -145,7 +145,7 @@ echo "T Background Frequency: $T_background_frequency" >> $output2/$reference.$s
 #STEP 4: Calculate Ribonucleotide Frequencies
 
 #Remove file if it already exists
-rm $output1/$sample.Ribonucleotide-Frequencies.txt
+rm $output1/$sample.$reference.$subset.Ribonucleotide-Frequencies.txt
 
 #Location of input BED file
 bed=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Ribonucleotides/$sample.coordinates.bed
