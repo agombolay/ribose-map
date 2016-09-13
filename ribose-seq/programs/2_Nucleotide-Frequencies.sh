@@ -307,7 +307,7 @@ done
 #STEP 7: Calculate frequencies of +/- 100 downstream/upstream nucleotides from ribonucleotides
 
 #Location of output directory
-output5=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$subset
+output5=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$subset/Raw-Data
 
 #Create directory for output if it does not already exist
 if [[ ! -d $output5 ]]; then
@@ -361,6 +361,17 @@ done
 
 ##############################################################################################################################
 #STEP 8: Create .txt file containing the output nucleotide frequencies data values for plotting
+
+#Location of output directory
+output6=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/$subset
+
+#Create directory for output if it does not already exist
+if [[ ! -d $output6 ]]; then
+    	mkdir -p $output6
+fi
+
+#Remove old .txt files
+rm $output6/*.txt
 
 #Print values -100 to 100
 seq -100 1 100 > temporary1.txt
