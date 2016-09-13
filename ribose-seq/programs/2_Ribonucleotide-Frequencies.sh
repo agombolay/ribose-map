@@ -218,9 +218,9 @@ rm temporary.txt
 output3=$directory/ribose-seq/results/$reference/$samples/Nucleotide-Frequencies/Nucleotides
 
 #Create directory for output if it does not already exist
-if [[ ! -d $output ]];
+if [[ ! -d $output3 ]];
 then
-    	mkdir -p $output
+    	mkdir -p $output3
 fi	
 
 #Location of output files
@@ -240,13 +240,13 @@ bedtools genomecov -3 -bg -ibam $bam > $coordinates
 #Remove column containing coverage values
 awk '!($4="")' $coordinates > $temporary1
 
-#Change file back to its original name
+#Then, change file back to its original name
 mv $temporary1 $coordinates
 
 #Make columns of BED file tab-delimited
 sed 's/ \+/\t/g' $coordinates > $temporary2
 
-#Change file back to its original name
+#Then, change file back to its original name
 mv $temporary2 $coordinates
 
 #Obtain coordinates of sacCer2 sequences that are 100 bp upstream of each rNMP position:
