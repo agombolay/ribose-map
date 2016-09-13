@@ -311,3 +311,61 @@ do
 		done
 	done
 done
+
+##############################################################################################################################
+#STEP 7: Calculate frequencies of +/- 100 downstream/upstream nucleotides from ribonucleotides
+
+#Remove old .txt files
+rm $output3/*.txt
+
+for location in ${locations[@]};
+do
+
+	A_normalized_nucleotide_frequencies=$output3/A_normalized_nucleotide_frequencies.$subset.$location.txt
+	C_normalized_nucleotide_frequencies=$output3/C_normalized_nucleotide_frequencies.$subset.$location.txt
+	G_normalized_nucleotide_frequencies=$output3/G_normalized_nucleotide_frequencies.$subset.$location.txt
+	T_normalized_nucleotide_frequencies=$output3/T_normalized_nucleotide_frequencies.$subset.$location.txt
+	Normalized_Nucleotide_Frequencies=$output3/$sample.Normalized_Nucleotide_Frequencies.$subset.$location.txt
+		
+	input=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/Nucleotides/Columns/$subset/$location/$sample*.txt
+	
+	for file in ${input[@]};
+	do
+		A_nucleotide_count=$(grep -v '>' $file | grep -o 'A' - | wc -l)
+		C_nucleotide_count=$(grep -v '>' $file | grep -o 'C' - | wc -l)
+		G_nucleotide_count=$(grep -v '>' $file | grep -o 'G' - | wc -l)
+		T_nucleotide_count=$(grep -v '>' $file | grep -o 'T' - | wc -l)
+
+		total=$(($A+$C+$G+$T))
+	
+		A_nucleotide_frequency=$(bc <<< "scale = 4; `expr $A/$total`")
+		C_nucleotide_frequency=$(bc <<< "scale = 4; `expr $C/$total`")
+		G_nucleotide_frequency=$(bc <<< "scale = 4; `expr $G/$total`")
+		T_nucleotide_frequency=$(bc <<< "scale = 4; `expr $T/$total`")
+
+		A_normalized_nucleotide_frequency=$(bc <<< "scale = 4; `expr $A_nucleotide_frequency/$A_background_frequency`")
+        	C_normalized_nucleotide_frequency=$(bc <<< "scale = 4; `expr $C_nucleotide_frequency/$C_background_frequency`")
+        	G_normalized_nucleotide_frequency=$(bc <<< "scale = 4; `expr $G_nucleotide_frequency/$G_background_frequency`")
+        	T_normalized_nucleotide_frequency=$(bc <<< "scale = 4; `expr $T_nucleotide_frequency/$T_background_frequency`")
+
+		echo $A_normalized_nucleotide_frequency >> $A_normalized_nucleotide_frequencies
+		echo $C_normalized_nucleotide_frequency >> $C_normalized_nucleotide_frequencies
+		echo $G_normalized_nucleotide_frequency >> $G_normalized_nucleotide_frequencies
+		echo $T_normalized_nucleotide_frequency >> $T_normalized_nucleotide_frequencies
+
+		if [ -e "$Normalized_Frequencies" ]; then
+    			rm $Normalized_Frequencies
+		fi
+
+		paste $A_normalized_nucleotide_frequencies $C_normalized_nucleotide_frequencies $G_normalized_nucleotide_frequencies $T_normalized_nucleotide_frequencies >> $Normalized_Nucleotide_Frequencies
+
+		#Create new folder, "data," to store output nucleotide frequency data files
+		data=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/$sample-Data
+
+		#Create folder only if it does not already exist
+		if [[ ! -d $data ]];
+		then
+        		mkdir $data
+		fi
+	done
+done
