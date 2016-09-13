@@ -118,6 +118,8 @@ mv temporary $coordinates_negative_1
 #Location of input FASTA file
 fasta=$directory/ribose-seq/reference/$subset.fa
 
+background=$output2/$reference.$subset.Background-Nucleotide-Frequencies.txt
+
 #Location of output directory
 output2=$directory/ribose-seq/results/Background-Nucleotide-Frequencies
 
@@ -142,10 +144,10 @@ C_background_frequency=$(bc <<< "scale = 4; `expr $C_background_count/$total_bac
 G_background_frequency=$(bc <<< "scale = 4; `expr $G_background_count/$total_background_count`")
 T_background_frequency=$(bc <<< "scale = 4; `expr $T_background_count/$total_background_count`")
 	
-echo "A Background Frequency: $A_background_frequency" >> $output2/$reference.$subset.Nucleotide-Frequencies.txt
-echo "C Background Frequency: $C_background_frequency" >> $output2/$reference.$subset.Nucleotide-Frequencies.txt
-echo "G Background Frequency: $G_background_frequency" >> $output2/$reference.$subset.Nucleotide-Frequencies.txt
-echo "T Background Frequency: $T_background_frequency" >> $output2/$reference.$subset.Nucleotide-Frequencies.txt
+echo "A Background Frequency: $A_background_frequency" >> $background
+echo "C Background Frequency: $C_background_frequency" >> $background
+echo "G Background Frequency: $G_background_frequency" >> $background
+echo "T Background Frequency: $T_background_frequency" >> $background
 
 ##############################################################################################################################
 #STEP 4: Calculate Ribonucleotide Frequencies
