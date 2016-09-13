@@ -310,7 +310,7 @@ do
 
 				for i in {1..100};
 				do
-					awk -v field=$i '{ print $field }' $columns > $output/$sample.column.$i.$location.$subset.txt
+					awk -v field=$i '{ print $field }' $columns > $output4/$sample.column.$i.$location.$subset.txt
 				done
 		done
 done
