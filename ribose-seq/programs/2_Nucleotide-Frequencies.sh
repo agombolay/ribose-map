@@ -68,11 +68,11 @@ seqtk seq -A $fastq > $fasta
 #Location of output files
 bed=$output1/$sample.aligned-reads.bed
 sam=$output1/$sample.aligned-reads.sam
-coordinate_information=$output1/$sample.ribonucleotide-coordinate-information.bed
-coordinates_positive_0=$output1/$sample.ribonucleotide-coordinates.positive.0-based.txt
-coordinates_negative_0=$output1/$sample.ribonucleotide-coordinates.negative.0-based.txt
-coordinates_positive_1=$output1/$sample.ribonucleotide-coordinates.positive.1-based.txt
-coordinates_negative_1=$output1/$sample.ribonucleotide-coordinates.negative.1-based.txt
+readCoordinates=$output1/$sample.read-coordinates.bed
+coordinates_positive_0=$output1/$sample.rNMP-coordinates.positive.0-based.txt
+coordinates_negative_0=$output1/$sample.rNMP-coordinates.negative.0-based.txt
+coordinates_positive_1=$output1/$sample.rNMP-coordinates.positive.1-based.txt
+coordinates_negative_1=$output1/$sample.rNMP-coordinates.negative.1-based.txt
 	
 #COORDINATES (0-BASED) of SEQUENCING READS
 
@@ -83,7 +83,7 @@ bedtools bamtobed -i $bam > $bed
 samtools view $bam > $sam
 
 #Extract aligned read coordinates, sequences, and strands from BED and SAM files
-paste $bed $sam | awk -v "OFS=\t" '{print $1, $2, $3, $16, $6}' > $coordinate_information
+paste $bed $sam | awk -v "OFS=\t" '{print $1, $2, $3, $16, $6}' > $readCoordinates
 
 #0-BASED COORDINATES OF rNMPs:
 #Obtain positions of rNMPs (3’ end of aligned read) for positive strand:
