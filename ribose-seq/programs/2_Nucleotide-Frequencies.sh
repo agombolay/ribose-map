@@ -69,10 +69,10 @@ seqtk seq -A $fastq > $fasta
 bed=$output1/$sample.aligned-reads.bed
 sam=$output1/$sample.aligned-reads.sam
 readCoordinates=$output1/$sample.read-coordinates.bed
-coordinates_positive_0=$output1/$sample.rNMP-coordinates.positive.0-based.txt
-coordinates_negative_0=$output1/$sample.rNMP-coordinates.negative.0-based.txt
-coordinates_positive_1=$output1/$sample.rNMP-coordinates.positive.1-based.txt
-coordinates_negative_1=$output1/$sample.rNMP-coordinates.negative.1-based.txt
+positiveCoordinates0=$output1/$sample.rNMP-coordinates.positive.0-based.txt
+negativeCoordinates0=$output1/$sample.rNMP-coordinates.negative.0-based.txt
+positiveCoordinates1=$output1/$sample.rNMP-coordinates.positive.1-based.txt
+negativeCoordinates1=$output1/$sample.rNMP-coordinates.negative.1-based.txt
 	
 #COORDINATES (0-BASED) of SEQUENCING READS
 
@@ -87,29 +87,29 @@ paste $bed $sam | awk -v "OFS=\t" '{print $1, $2, $3, $16, $6}' > $readCoordinat
 
 #0-BASED COORDINATES OF rNMPs:
 #Obtain positions of rNMPs (3’ end of aligned read) for positive strand:
-bedtools genomecov -3 -strand + -bg -ibam $bam > $coordinates_positive_0
+bedtools genomecov -3 -strand + -bg -ibam $bam > $positiveCoordinates0
 
 #Obtain positions of rNMPs (3’ end of aligned read) for negative strand:
-bedtools genomecov -3 -strand - -bg -ibam $bam > $coordinates_negative_0
+bedtools genomecov -3 -strand - -bg -ibam $bam > $negativeCoordinates0
 
 #1-BASED COORDINATES OF	rNMPs:
 #Obtain positions of rNMPs (3’ end of aligned read) for positive strand:
-bedtools genomecov -3 -strand + -d -ibam $bam > $coordinates_positive_1
-
-#Remove rows where genome coverage equals 0
-awk '$3 != 0' $coordinates_positive_1 > temporary
-
-#Change filename back to original
-mv temporary $coordinates_positive_1
+bedtools genomecov -3 -strand + -d -ibam $bam > $positiveCoordinates1
 
 #Obtain positions of rNMPs (3’ end of aligned read) for negative strand:
-bedtools genomecov -3 -strand - -d -ibam $bam > $coordinates_negative_1
+bedtools genomecov -3 -strand - -d -ibam $bam > $negativeCoordinates1
 
 #Remove rows where genome coverage equals 0
-awk '$3 != 0' $coordinates_negative_1 > temporary
+awk '$3 != 0' $positiveCoordinates1 > temporary1.txt
+
+#Remove rows where genome coverage equals 0
+awk '$3 != 0' $negativeCoordinates1 > temporary2.txt
 
 #Change filename back to original
-mv temporary $coordinates_negative_1
+mv temporary1.txt $positiveCoordinates1
+
+#Change filename back to original
+mv temporary2.txt $negativeCoordinates1
 
 ##############################################################################################################################
 #STEP 3: Calculate Background Frequencies
@@ -157,13 +157,13 @@ rm $output1/$sample.$reference.$subset.ribonucleotide-frequencies.txt
 #Print only ribonucleotides of genome subset to output file
 #Whole genome subset
 if [[ $subset == "sacCer2" ]]; then
-	awk -v "OFS=\t" '{print $4, $5}' $coordinate_information > temporary.txt
+	awk -v "OFS=\t" '{print $4, $5}' $readCoordinates > temporary.txt
 #Mitochondria subset
 elif [[ $subset == "mitochondria" ]]; then
-    	grep 'chrM' $coordinate_information | awk -v "OFS=\t" '{print $4, $5}' - > temporary.txt
+    	grep 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary.txt
 #Nuclear subset
 elif [[ $subset == "nuclear" ]]; then
-	grep -v 'chrM' $coordinate_information | awk -v "OFS=\t" '{print $4, $5}' - > temporary.txt
+	grep -v 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary.txt
 fi
 
 #Print only ribonucleotides (3' end of read (end for + strand and start for - strand)) to output file
