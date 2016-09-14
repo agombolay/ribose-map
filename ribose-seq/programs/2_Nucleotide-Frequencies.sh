@@ -157,7 +157,7 @@ frequencies=$output1/$sample.$reference.$subset.rNMP-frequencies.txt
 #Remove file if it already exists
 rm $frequencies $list
 
-#Print only ribonucleotides of genome subset to output file
+#Select only ribonucleotides of genome subset:
 #Whole genome subset
 if [[ $subset == "sacCer2" ]]; then
 	awk -v "OFS=\t" '{print $4, $5}' $readCoordinates > temporary.txt
@@ -169,11 +169,11 @@ elif [[ $subset == "nuclear" ]]; then
 	grep -v 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary.txt
 fi
 
-#Print only ribonucleotides (3' end of read:
-#Print ribonucleotides for positive strands (located at end of sequence)
+#Print only ribonucleotides (3' end of read):
+#Ribonucleotides on positive strands (located at end of sequence)
 awk '$2 == "+" {print substr($0,length($0)-2)}' temporary.txt > $list
 
-#Print ribonucleotides for negative strands (located at beginning of sequence)
+#Ribonucleotides on negative strands (located at beginning of sequence)
 awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2}' temporary.txt >> $list
 
 #Calculate count of each ribonucleotide
