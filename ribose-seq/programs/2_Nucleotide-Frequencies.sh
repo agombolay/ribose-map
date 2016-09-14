@@ -126,18 +126,22 @@ background=$output2/$reference.$subset.Background-dNTP-Frequencies.txt
 #Remove file if it already exists
 rm $background
 
+#Calculate counts of each nucleotide
 A_backgroundCount=$(grep -v '>' $fasta | grep -o 'A' - | wc -l)
 C_backgroundCount=$(grep -v '>' $fasta | grep -o 'C' - | wc -l)
 G_backgroundCount=$(grep -v '>' $fasta | grep -o 'G' - | wc -l)
 T_backgroundCount=$(grep -v '>' $fasta | grep -o 'T' - | wc -l)
 
+#Calculate total number of nucleotides
 total_backgroundCount=$(($A_backgroundCount+$C_backgroundCount+$G_backgroundCount+$T_backgroundCount))
 
+#Calculate frequency of each nucleotide
 A_backgroundFrequency=$(bc <<< "scale = 4; `expr $A_backgroundCount/$total_backgroundCount`")
 C_backgroundFrequency=$(bc <<< "scale = 4; `expr $C_backgroundCount/$total_backgroundCount`")
 G_backgroundFrequency=$(bc <<< "scale = 4; `expr $G_backgroundCount/$total_backgroundCount`")
 T_backgroundFrequency=$(bc <<< "scale = 4; `expr $T_backgroundCount/$total_backgroundCount`")
-	
+
+#Print nucleotide frequencies to output file
 echo "A Background Frequency: $A_backgroundFrequency" >> $background
 echo "C Background Frequency: $C_backgroundFrequency" >> $background
 echo "G Background Frequency: $G_backgroundFrequency" >> $background
@@ -146,8 +150,12 @@ echo "T Background Frequency: $T_backgroundFrequency" >> $background
 ##############################################################################################################################
 #STEP 4: Calculate Ribonucleotide Frequencies
 
+#Location of output files
+list=$output1/$sample.rNMP-list.$subset.txt
+frequencies=$output1/$sample.$reference.$subset.rNMP-frequencies.txt
+
 #Remove file if it already exists
-rm $output1/$sample.$reference.$subset.ribonucleotide-frequencies.txt
+rm $frequencies $list
 
 #Print only ribonucleotides of genome subset to output file
 #Whole genome subset
@@ -161,40 +169,36 @@ elif [[ $subset == "nuclear" ]]; then
 	grep -v 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary.txt
 fi
 
-#Print only ribonucleotides (3' end of read (end for + strand and start for - strand)) to output file
-
+#Print only ribonucleotides (3' end of read:
 #Print ribonucleotides for positive strands (located at end of sequence)
-awk '$2 == "+" {print substr($0,length($0)-2)}' temporary.txt > $output1/$sample.ribonucleotide-list.$subset.txt
+awk '$2 == "+" {print substr($0,length($0)-2)}' temporary.txt > $list
 
 #Print ribonucleotides for negative strands (located at beginning of sequence)
-awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2}' temporary.txt >> $output1/$sample.ribonucleotide-list.$subset.txt
+awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2}' temporary.txt >> $list
 
-#Calculate count of "A" ribonucleotides
-A_rNMP_count=$(awk '$1 == "A" && $2 == "+" || $1 == "T" && $2 == "-" {print $1, $2}' $output1/$sample.ribonucleotide-list.$subset.txt | wc -l)
+#Calculate count of each ribonucleotide
+A_riboCount=$(awk '$1 == "A" && $2 == "+" || $1 == "T" && $2 == "-" {print $1, $2}' $list | wc -l)
+C_riboCount=$(awk '$1 == "C" && $2 == "+" || $1 == "G" && $2 == "-" {print $1, $2}' $list | wc -l)
+G_riboCount=$(awk '$1 == "G" && $2 == "+" || $1 == "C" && $2 == "-" {print $1, $2}' $list | wc -l)
+U_riboCount=$(awk '$1 == "T" && $2 == "+" || $1 == "A" && $2 == "-" {print $1, $2}' $list | wc -l)
 
-#Calculate count of "C"	ribonucleotides
-C_rNMP_count=$(awk '$1 == "C" && $2 == "+" || $1 == "G" && $2 == "-" {print $1, $2}' $output1/$sample.ribonucleotide-list.$subset.txt | wc -l)
+#Calculate total number of ribonucleotides
+total_riboCount=$(($A_riboCount+$C_riboCount+$G_riboCount+$U_riboCount))
 
-#Calculate count of "G"	ribonucleotides
-G_rNMP_count=$(awk '$1 == "G" && $2 == "+" || $1 == "C" && $2 == "-" {print $1, $2}' $output1/$sample.ribonucleotide-list.$subset.txt | wc -l)
+#Calculate raw frequency of each ribonucleotide
+A_rawFrequency=$(bc <<< "scale = 4; `expr $A_riboCount/$total_riboCount`")
+C_rawFrequency=$(bc <<< "scale = 4; `expr $C_riboCount/$total_riboCount`")
+G_rawFrequency=$(bc <<< "scale = 4; `expr $G_riboCount/$total_riboCount`")
+U_rawFrequency=$(bc <<< "scale = 4; `expr $U_riboCount/$total_riboCount`")
 
-#Calculate count of "U"	ribonucleotides
-U_rNMP_count=$(awk '$1 == "T" && $2 == "+" || $1 == "A" && $2 == "-" {print $1, $2}' $output1/$sample.ribonucleotide-list.$subset.txt | wc -l)
+#Calculate normalized frequency of each ribonucleotide
+A_riboFrequency=$(bc <<< "scale = 4; `expr $A_rawFrequency/$A_backgroundFrequency`")
+C_riboFrequency=$(bc <<< "scale = 4; `expr $C_rawFrequency/$C_backgroundFrequency`")
+G_riboFrequency=$(bc <<< "scale = 4; `expr $G_rawFrequency/$G_backgroundFrequency`")
+U_riboFrequency=$(bc <<< "scale = 4; `expr $U_rawFrequency/$T_backgroundFrequency`")
 
-total_rNMP_count=$(($A_rNMP_count+$C_rNMP_count+$G_rNMP_count+$U_rNMP_count))
-
-A_rNMP_raw_frequency=$(bc <<< "scale = 4; `expr $A_rNMP_count/$total_rNMP_count`")
-C_rNMP_raw_frequency=$(bc <<< "scale = 4; `expr $C_rNMP_count/$total_rNMP_count`")
-G_rNMP_raw_frequency=$(bc <<< "scale = 4; `expr $G_rNMP_count/$total_rNMP_count`")
-U_rNMP_raw_frequency=$(bc <<< "scale = 4; `expr $U_rNMP_count/$total_rNMP_count`")
-		
-A_rNMP_frequency=$(bc <<< "scale = 4; `expr $A_rNMP_raw_frequency/$A_background_frequency`")
-C_rNMP_frequency=$(bc <<< "scale = 4; `expr $C_rNMP_raw_frequency/$C_background_frequency`")
-G_rNMP_frequency=$(bc <<< "scale = 4; `expr $G_rNMP_raw_frequency/$G_background_frequency`")
-U_rNMP_frequency=$(bc <<< "scale = 4; `expr $U_rNMP_raw_frequency/$T_background_frequency`")
-
-echo "$A_rNMP_frequency $C_rNMP_frequency $G_rNMP_frequency $U_rNMP_frequency" \
-| column  > $output1/$sample.$reference.$subset.ribonucleotide-frequencies.txt
+#Print ribonucleotide frequencies to output file
+echo "$A_riboFrequency $C_riboFrequency $G_riboFrequency $U_riboFrequency" | column  > $frequencies
 
 rm temporary.txt
 
