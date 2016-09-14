@@ -14,8 +14,7 @@ function usage () {
 }
 
 #Use getopts function to create the command-line options ([-i], [-s], [-r], [-d], and [-h])
-while getopts "i:s:r:d:h" opt;
-do
+while getopts "i:s:r:d:h" opt; do
     case $opt in
         #Specify input as arrays to allow multiple input arguments
         i ) sample=($OPTARG) ;;
@@ -29,8 +28,7 @@ do
 done
 
 #Exit program if user specifies [-h]
-if [ "$1" == "-h" ];
-then
+if [ "$1" == "-h" ]; then
         exit
 fi
 
@@ -50,15 +48,18 @@ bam=$directory1/$sample.bam
 output1=$directory2/Ribonucleotides/$subset
 
 #Create directory for output if it does not already exist
-if [[ ! -d $output1 ]];
-then
+if [[ ! -d $output1 ]]; then
 	mkdir -p $output1
 fi
-	
+
+#Location of output files	
 fastq=$output1/$sample.aligned-reads.fastq
 fasta=$output1/$sample.aligned-reads.fasta
 
+#Convert BAM file to FASTQ
 samtools bam2fq $bam > $fastq
+
+#Convert FASTQ file to FASTA
 seqtk seq -A $fastq > $fasta
 
 ##############################################################################################################################
@@ -75,26 +76,24 @@ coordinates_negative_1=$output1/$sample.ribonucleotide-coordinates.negative.1-ba
 	
 #COORDINATES (0-BASED) of SEQUENCING READS
 
-#Covert file from BAM to BED format using BEDtools software
+#Covert BAM file to BED format
 bedtools bamtobed -i $bam > $bed
 
-#Convert file from BAM to SAM format using SAMtools software
+#Convert BAM file to SAM format
 samtools view $bam > $sam
 
-#Extract read coordinates, sequences, and strands from BED and SAM files and save it to new file
+#Extract aligned read coordinates, sequences, and strands from BED and SAM files
 paste $bed $sam | awk -v "OFS=\t" '{print $1, $2, $3, $16, $6}' > $coordinate_information
 
-#0-BASED COORDINATES OF rNMPs
-
-#Obtain positions of rNMPs (3’ end of each mapped read) for positive strand:
+#0-BASED COORDINATES OF rNMPs:
+#Obtain positions of rNMPs (3’ end of aligned read) for positive strand:
 bedtools genomecov -3 -strand + -bg -ibam $bam > $coordinates_positive_0
 
-#Obtain positions of rNMPs (3’ end of each mapped read) for negative strand:
+#Obtain positions of rNMPs (3’ end of aligned read) for negative strand:
 bedtools genomecov -3 -strand - -bg -ibam $bam > $coordinates_negative_0
 
-#1-BASED COORDINATES OF	rNMPs
-
-#Obtain positions of rNMPs (3’ end of each mapped read) for positive strand:
+#1-BASED COORDINATES OF	rNMPs:
+#Obtain positions of rNMPs (3’ end of aligned read) for positive strand:
 bedtools genomecov -3 -strand + -d -ibam $bam > $coordinates_positive_1
 
 #Remove rows where genome coverage equals 0
@@ -103,7 +102,7 @@ awk '$3 != 0' $coordinates_positive_1 > temporary
 #Change filename back to original
 mv temporary $coordinates_positive_1
 
-#Obtain positions of rNMPs (3’ end of each mapped read) for negative strand:
+#Obtain positions of rNMPs (3’ end of aligned read) for negative strand:
 bedtools genomecov -3 -strand - -d -ibam $bam > $coordinates_negative_1
 
 #Remove rows where genome coverage equals 0
@@ -122,8 +121,7 @@ fasta=$directory/ribose-seq/reference/$subset.fa
 output2=$directory/ribose-seq/results/Background-Nucleotide-Frequencies
 
 #Create directory for output if it does not already exist
-if [[ ! -d $output2 ]];
-then
+if [[ ! -d $output2 ]]; then
 	mkdir -p $output2
 fi
 
@@ -158,16 +156,13 @@ rm $output1/$sample.$reference.$subset.ribonucleotide-frequencies.txt
 
 #Print only ribonucleotides of genome subset to output file
 #Whole genome subset
-if [[ $subset == "sacCer2" ]];
-then
+if [[ $subset == "sacCer2" ]]; then
 	awk -v "OFS=\t" '{print $4, $5}' $coordinate_information > temporary.txt
 #Mitochondria subset
-elif [[ $subset == "mitochondria" ]];
-then
+elif [[ $subset == "mitochondria" ]]; then
     	grep 'chrM' $coordinate_information | awk -v "OFS=\t" '{print $4, $5}' - > temporary.txt
 #Nuclear subset
-elif [[ $subset == "nuclear" ]];
-then
+elif [[ $subset == "nuclear" ]]; then
 	grep -v 'chrM' $coordinate_information | awk -v "OFS=\t" '{print $4, $5}' - > temporary.txt
 fi
 
@@ -215,8 +210,7 @@ rm temporary.txt
 output3=$directory2/Nucleotides/$subset
 
 #Create directory for output if it does not already exist
-if [[ ! -d $output3 ]];
-then
+if [[ ! -d $output3 ]]; then
     	mkdir -p $output3
 fi	
 
@@ -264,10 +258,8 @@ bedtools getfasta -fi $directory/ribose-seq/reference/$reference.fa -bed $Downst
 
 locations="upstream downstream"
 
-for location in ${locations[@]};
-do
-	for file in "$output3/$sample.$location.sequences.tab";
-	do
+for location in ${locations[@]}; do
+	for file in "$output3/$sample.$location.sequences.tab"; do
 		#Location of output directory
 		output4=$directory2/Nucleotides/$subset/Columns/$location
 
@@ -286,14 +278,11 @@ do
 		sequences=$output4/sequences/$sample.$location.sequences.$subset.raw.txt
 		columns=$output4/sequences/$sample.$location.sequences.$subset.columns.txt
 
-		if [ $subset == "sacCer2" ];
-		then
+		if [ $subset == "sacCer2" ]; then
 			cat $file > $selection
-		elif [ $subset == "mitochondria" ];
-		then
+		elif [ $subset == "mitochondria" ]; then
 			grep 'chrM' $file > $selection
-		elif [ $subset == "nuclear" ];
-		then
+		elif [ $subset == "nuclear" ]; then
 			grep -v 'chrM' $file > $selection
 		fi
 
@@ -303,8 +292,7 @@ do
 		#Insert tabs between each nucleotide
 		cat $sequences | sed 's/.../& /2g;s/./& /g' > $columns
 
-		for i in {1..100};
-		do
+		for i in {1..100}; do
 			awk -v field=$i '{ print $field }' $columns > $output4/$sample.column.$i.$location.$subset.txt
 		done
 	done
@@ -324,8 +312,7 @@ fi
 #Remove old .txt files
 rm $output5/*.txt
 
-for location in ${locations[@]};
-do
+for location in ${locations[@]}; do
 	A_dNTP_frequencies=$output5/A_normalized_nucleotide_frequencies.$subset.$location.txt
 	C_dNTP_frequencies=$output5/C_normalized_nucleotide_frequencies.$subset.$location.txt
 	G_dNTP_frequencies=$output5/G_normalized_nucleotide_frequencies.$subset.$location.txt
@@ -334,8 +321,7 @@ do
 		
 	input=$directory2/Nucleotides/$subset/Columns/$location/$sample*.txt
 	
-	for file in ${input[@]};
-	do
+	for file in ${input[@]}; do
 		A_dNTP_count=$(grep -v '>' $file | grep -o 'A' - | wc -l)
 		C_dNTP_count=$(grep -v '>' $file | grep -o 'C' - | wc -l)
 		G_dNTP_count=$(grep -v '>' $file | grep -o 'G' - | wc -l)
