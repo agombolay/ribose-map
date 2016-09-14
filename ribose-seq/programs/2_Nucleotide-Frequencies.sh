@@ -32,16 +32,17 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
+
 #Location of "Alignment" directory
 directory1=$directory/ribose-seq/results/$reference/$sample/Alignment
 
-#Location of "Nucleotide-Frequencies" directory
-directory2=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies
+#Location of "dNTP-Frequencies" directory
+directory2=$directory/ribose-seq/results/$reference/$sample/dNTP-Frequencies
 
 ##############################################################################################################################
-#STEP 1: Covert BAM file to FASTA format
+#STEP 1: Covert BAM alignment file to FASTA format
 
-#Location of input BAM file
+#Location of input file
 bam=$directory1/$sample.bam
 
 #Location of output directory
@@ -63,7 +64,7 @@ samtools bam2fq $bam > $fastq
 seqtk seq -A $fastq > $fasta
 
 ##############################################################################################################################
-#STEP 2: Obtain Ribonucleotide Coordinates
+#STEP 2: Obtain rNMP coordinates from aligned reads
 
 #Location of output files
 bed=$output1/$sample.aligned-reads.bed
@@ -74,8 +75,7 @@ negativeCoordinates0=$output1/$sample.rNMP-coordinates.negative.0-based.txt
 positiveCoordinates1=$output1/$sample.rNMP-coordinates.positive.1-based.txt
 negativeCoordinates1=$output1/$sample.rNMP-coordinates.negative.1-based.txt
 	
-#COORDINATES (0-BASED) of SEQUENCING READS
-
+#0-BASED COORDINATES of READS:
 #Covert BAM file to BED format
 bedtools bamtobed -i $bam > $bed
 
@@ -112,41 +112,36 @@ mv temporary1.txt $positiveCoordinates1
 mv temporary2.txt $negativeCoordinates1
 
 ##############################################################################################################################
-#STEP 3: Calculate Background Frequencies
+#STEP 3: Calculate background dNTP frequencies of reference genome
 
 #Location of input file
 fasta=$directory/ribose-seq/reference/$subset.fa
 
 #Location of output directory
-output2=$directory/ribose-seq/results/Background-Nucleotide-Frequencies
-
-#Create directory for output if it does not already exist
-if [[ ! -d $output2 ]]; then
-	mkdir -p $output2
-fi
+output2=$directory/ribose-seq/results/Background-dNTP-Frequencies
 
 #Location of output file
-background=$output2/$reference.$subset.Background-Nucleotide-Frequencies.txt
+background=$output2/$reference.$subset.Background-dNTP-Frequencies.txt
 
 #Remove file if it already exists
 rm $background
 
-A_background_count=$(grep -v '>' $fasta | grep -o 'A' - | wc -l)
-C_background_count=$(grep -v '>' $fasta | grep -o 'C' - | wc -l)
-G_background_count=$(grep -v '>' $fasta | grep -o 'G' - | wc -l)
-T_background_count=$(grep -v '>' $fasta | grep -o 'T' - | wc -l)
+A_backgroundCount=$(grep -v '>' $fasta | grep -o 'A' - | wc -l)
+C_backgroundCount=$(grep -v '>' $fasta | grep -o 'C' - | wc -l)
+G_backgroundCount=$(grep -v '>' $fasta | grep -o 'G' - | wc -l)
+T_backgroundCount=$(grep -v '>' $fasta | grep -o 'T' - | wc -l)
 
-total_background_count=$(($A_background_count+$C_background_count+$G_background_count+$T_background_count))
+total_backgroundCount=$(($A_backgroundCount+$C_backgroundCount+$G_backgroundCount+$T_backgroundCount))
 
-A_background_frequency=$(bc <<< "scale = 4; `expr $A_background_count/$total_background_count`")
-C_background_frequency=$(bc <<< "scale = 4; `expr $C_background_count/$total_background_count`")
-G_background_frequency=$(bc <<< "scale = 4; `expr $G_background_count/$total_background_count`")
-T_background_frequency=$(bc <<< "scale = 4; `expr $T_background_count/$total_background_count`")
+A_backgroundFrequency=$(bc <<< "scale = 4; `expr $A_backgroundCount/$total_backgroundCount`")
+C_backgroundFrequency=$(bc <<< "scale = 4; `expr $C_backgroundCount/$total_backgroundCount`")
+G_backgroundFrequency=$(bc <<< "scale = 4; `expr $G_backgroundCount/$total_backgroundCount`")
+T_backgroundFrequency=$(bc <<< "scale = 4; `expr $T_backgroundCount/$total_backgroundCount`")
 	
-echo "A Background Frequency: $A_background_frequency" >> $background
-echo "C Background Frequency: $C_background_frequency" >> $background
-echo "G Background Frequency: $G_background_frequency" >> $background
-echo "T Background Frequency: $T_background_frequency" >> $background
+echo "A Background Frequency: $A_backgroundFrequency" >> $background
+echo "C Background Frequency: $C_backgroundFrequency" >> $background
+echo "G Background Frequency: $G_backgroundFrequency" >> $background
+echo "T Background Frequency: $T_backgroundFrequency" >> $background
 
 ##############################################################################################################################
 #STEP 4: Calculate Ribonucleotide Frequencies
