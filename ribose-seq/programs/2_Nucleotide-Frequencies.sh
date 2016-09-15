@@ -385,21 +385,21 @@ fi
 rm $output6/*.txt
 
 #Print values -100 to 100
-seq -100 1 100 > temporary1.txt
+seq -100 1 100 > temporary1
 
 #Combine files containing rNMP and dNTP frequencies into one file
 cat $output5/$sample.dNTP-frequencies.$reference.$subset.upstream.txt $frequencies \
-$output5/$sample.dNTP-frequencies.$reference.$subset.downstream.txt >> temporary2.txt
+$output5/$sample.dNTP-frequencies.$reference.$subset.downstream.txt >> temporary2
 
-#Merge two files into final TXT file
-paste temporary1.txt temporary2.txt > temporary3.txt
+#Save files to one combined TXT file
+paste temporary1.txt temporary2 > temporary3
 
 #Add Header to beginning of TXT file 
 echo "Position A C G U/T" | awk '{print $1,"\t",$2,"\t",$3,"\t",$4,"\t",$5}' \
-| cat - temporary3.txt > temp && mv temp temporary3.txt
+| cat - temporary3 > temporary4 && mv temporary4 temporary3
 
 #Make sure file is tab-delimited
-column -t temporary3.txt > $dataset
+column -t temporary3 > $dataset
 
 #Remove temporary files
-rm temporary1.txt temporary2.txt temporary3.txt
+rm temporary1 temporary2 temporary3
