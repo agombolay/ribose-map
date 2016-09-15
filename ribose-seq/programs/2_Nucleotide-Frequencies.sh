@@ -316,10 +316,10 @@ rm $output5/*.txt
 for location in ${locations[@]}; do
 
 	#Location of output files (indivdiual base frequencies)
-	A_baseFrequencies=$output5/A_frequencies.$reference.$subset.$location.txt
-	C_baseFrequencies=$output5/C_frequencies.$reference.$subset.$location.txt
-	G_baseFrequencies=$output5/G_frequencies.$reference.$subset.$location.txt
-	T_baseFrequencies=$output5/T_frequencies.$reference.$subset.$location.txt
+	A_baseFrequencies=$output5/A_dNTP-frequencies.$reference.$subset.$location.txt
+	C_baseFrequencies=$output5/C_dNTP-frequencies.$reference.$subset.$location.txt
+	G_baseFrequencies=$output5/G_dNTP-frequencies.$reference.$subset.$location.txt
+	T_baseFrequencies=$output5/T_dNTP-frequencies.$reference.$subset.$location.txt
 
 	#Location of output file (combined base frequencies)
 	baseFrequencies=$output5/$sample.dNTP-frequencies.$reference.$subset.$location.txt
