@@ -191,7 +191,7 @@ U_rawRiboFrequency=$(echo "scale = 4; $U_riboCount/$total_riboCount" | bc | awk 
 A_riboFrequency=$(echo "scale = 4; $A_rawRiboFrequency/$A_backgroundFrequency" | bc | awk '{printf "%.3f\n", $0}')
 C_riboFrequency=$(echo "scale = 4; $C_rawRiboFrequency/$C_backgroundFrequency" | bc | awk '{printf "%.3f\n", $0}')
 G_riboFrequency=$(echo "scale = 4; $G_rawRiboFrequency/$G_backgroundFrequency" | bc | awk '{printf "%.3f\n", $0}')
-U_riboFrequency=$(echo "scale = 4; $U_rawRiboFrequency/$U_backgroundFrequency" | bc | awk '{printf "%.3f\n", $0}')
+U_riboFrequency=$(echo "scale = 4; $U_rawRiboFrequency/$T_backgroundFrequency" | bc | awk '{printf "%.3f\n", $0}')
 
 #Save normalized frequencies of rNMPs to TXT file
 echo -e "$A_riboFrequency\t$C_riboFrequency\t$G_riboFrequency\t$U_riboFrequency" > $frequencies
