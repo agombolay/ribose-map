@@ -290,9 +290,11 @@ for location in ${locations[@]}; do
 		#Insert tabs between each nucleotide
 		cat $sequences | sed 's/.../& /2g;s/./& /g' > $columns
 
-		#Save dNTPs
 		for i in {1..100}; do
-			awk -v field=$i '{ print $field }' $columns > $output4/$sample.column.$i.$location.$subset.txt
+			#Location of output files
+			lists=$output4/$sample.column.$i.$location.$reference.$subset.txt
+			#Save lists of dNTPs at each +/- 100 downstream/upstream position
+			awk -v field=$i '{ print $field }' $columns > $lists
 		done
 	done
 done
