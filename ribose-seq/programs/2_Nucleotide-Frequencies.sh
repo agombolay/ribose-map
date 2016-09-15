@@ -359,7 +359,7 @@ done
 #Location of output directory
 output6=$directory2/Datasets/$subset
 
-#Location of final output dataset containing rNMP and dNTP frequencies
+#Location of final output TXT file containing rNMP and dNTP frequencies
 dataset=$output6/$sample.nucleotide-frequencies-dataset.$reference.$subset.txt
 
 #Create directory for output if it does not already exist
@@ -391,4 +391,4 @@ echo -e "\tA\tC\tG\tU/T" > temporary4; cat temporary3 >> temporary4;
 column -t temporary4 > $dataset
 
 #Remove temporary files
-rm temporary1 temporary2 temporary3
+#rm temporary1 temporary2 temporary3
