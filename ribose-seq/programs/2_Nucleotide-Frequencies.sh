@@ -381,7 +381,7 @@ cat $output5/$sample.dNTP-frequencies.$reference.$subset.upstream.txt $frequenci
 $output5/$sample.dNTP-frequencies.$reference.$subset.downstream.txt >> temporary2
 
 #Save files to one combined TXT file
-paste temporary1.txt temporary2 > temporary3
+paste temporary1 temporary2 > temporary3
 
 #Add Header to beginning of TXT file 
 echo "Position A C G U/T" | awk '{print $1,"\t",$2,"\t",$3,"\t",$4,"\t",$5}' \
