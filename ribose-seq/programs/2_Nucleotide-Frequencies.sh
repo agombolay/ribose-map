@@ -307,7 +307,7 @@ if [[ ! -d $output5 ]]; then
     	mkdir -p $output5
 fi
 		
-#Remove old .txt files
+#Remove old files
 rm $output5/*.txt
 
 for location in ${locations[@]}; do
