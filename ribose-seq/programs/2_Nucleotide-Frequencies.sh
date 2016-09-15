@@ -301,6 +301,9 @@ rm $output5/*.txt
 
 for location in ${locations[@]}; do
 
+	#Location of input files
+	input=$directory2/Nucleotides/$subset/Columns/$location/$sample*.txt
+	
 	#Location of output files (indivdiual base frequencies)
 	A_baseFrequencies=$output5/A_dNTP-frequencies.$reference.$subset.$location.txt
 	C_baseFrequencies=$output5/C_dNTP-frequencies.$reference.$subset.$location.txt
@@ -309,9 +312,6 @@ for location in ${locations[@]}; do
 
 	#Location of output file (combined base frequencies)
 	baseFrequencies=$output5/$sample.dNTP-frequencies.$reference.$subset.$location.txt
-
-	#Location of input files
-	input=$directory2/Nucleotides/$subset/Columns/$location/$sample*.txt
 	
 	#Calculate dNTP frequencies for each +/- 100 downstream/upstream position
 	for file in ${input[@]}; do
@@ -381,7 +381,7 @@ $output5/$sample.dNTP-frequencies.$reference.$subset.downstream.txt >> temporary
 paste temporary1 temporary2 > temporary3
 
 #Add Header to beginning of TXT file 
-echo -e "\t A C G U/T" | awk '{print $1,"\t",$2,"\t",$3,"\t",$4,"\t",$5}' \
+echo "A C G U/T" | awk '{print "\t",$1,"\t",$2,"\t",$3,"\t",$4,"\t",$5}' \
 | cat - temporary3 > temporary4 && mv temporary4 temporary3
 
 #Make sure file is tab-delimited
