@@ -362,7 +362,7 @@ for location in ${locations[@]}; do
     			rm $baseFrequencies
 		fi
 
-		#Combine frequencies of +/- 100 downstream/upstream dNTPs from rNMPs into one file
+		#Save frequencies of +/- 100 downstream/upstream dNTPs from rNMPs in one combined TXT file
 		paste $A_baseFrequency $C_baseFrequency $G_baseFrequency $T_baseFrequency >> $baseFrequencies
 	done
 done
