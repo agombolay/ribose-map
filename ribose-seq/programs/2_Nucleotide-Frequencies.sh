@@ -383,7 +383,7 @@ cat $upstreamBaseFrequencies $frequencies $downstreamBaseFrequencies >> temporar
 #Save files to one combined TXT file
 paste temporary1 temporary2 > temporary3
 
-#Add Header to beginning of TXT file 
+#Add header line containing nucleotides to beginning of file 
 echo -e "\tA\tC\tG\tU/T" > $dataset; cat temporary3 >> $dataset;
 
 #Remove temporary files
