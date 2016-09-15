@@ -386,9 +386,11 @@ paste temporary1 temporary2 > temporary3
 
 echo -e "\tA\tC\tG\tU/T" > temporary4; cat temporary3 >> temporary4;
 
+mv temporary4 $dataset
+
 #Make sure file is tab-delimited
 #column -t temporary3 > $dataset
-column -t temporary4 > $dataset
+#column -t temporary4 > $dataset
 
 #Remove temporary files
 #rm temporary1 temporary2 temporary3
