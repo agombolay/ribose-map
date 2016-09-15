@@ -32,6 +32,8 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
+#Location of "Reference" directory
+directory0=$directory/ribose-seq/reference/
 
 #Location of "Alignment" directory
 directory1=$directory/ribose-seq/results/$reference/$sample/Alignment
@@ -115,7 +117,7 @@ mv temporary2.txt $negativeCoordinates1
 #STEP 3: Calculate background dNTP frequencies of reference genome
 
 #Location of input file
-fasta=$directory/ribose-seq/reference/$subset.fa
+referenceFasta=$directory0/$subset.fa
 
 #Location of output directory
 output2=$directory/ribose-seq/results/Background-dNTP-Frequencies
@@ -127,10 +129,10 @@ background=$output2/$reference.$subset.Background-dNTP-Frequencies.txt
 rm $background
 
 #Calculate counts of each nucleotide
-A_backgroundCount=$(grep -v '>' $fasta | grep -o 'A' - | wc -l)
-C_backgroundCount=$(grep -v '>' $fasta | grep -o 'C' - | wc -l)
-G_backgroundCount=$(grep -v '>' $fasta | grep -o 'G' - | wc -l)
-T_backgroundCount=$(grep -v '>' $fasta | grep -o 'T' - | wc -l)
+A_backgroundCount=$(grep -v '>' $referenceFasta | grep -o 'A' - | wc -l)
+C_backgroundCount=$(grep -v '>' $referenceFasta | grep -o 'C' - | wc -l)
+G_backgroundCount=$(grep -v '>' $referenceFasta | grep -o 'G' - | wc -l)
+T_backgroundCount=$(grep -v '>' $referenceFasta | grep -o 'T' - | wc -l)
 
 #Calculate total number of nucleotides
 total_backgroundCount=$(($A_backgroundCount+$C_backgroundCount+$G_backgroundCount+$T_backgroundCount))
@@ -151,8 +153,8 @@ echo "T Background Frequency: $T_backgroundFrequency" >> $background
 #STEP 4: Calculate Ribonucleotide Frequencies
 
 #Location of output files
-list=$output1/$sample.rNMP-list.$subset.txt
-frequencies=$output1/$sample.$reference.$subset.rNMP-frequencies.txt
+list=$output1/$sample.rNMP-list.$reference.$subset.txt
+frequencies=$output1/$sample.rNMP-frequencies.$reference.$subset.txt
 
 #Remove file if it already exists
 rm $frequencies $list
@@ -200,10 +202,14 @@ U_riboFrequency=$(bc <<< "scale = 4; `expr $U_rawFrequency/$T_backgroundFrequenc
 #Print ribonucleotide frequencies to output file
 echo "$A_riboFrequency $C_riboFrequency $G_riboFrequency $U_riboFrequency" | column  > $frequencies
 
+#Remove temporary file
 rm temporary.txt
 
 ##############################################################################################################################
-#STEP 5: Obtain coordinates of +/- 100 downstream/upstream nucleotides from rNMPs
+#STEP 5: Obtain coordinates and sequences of +/- 100 downstream/upstream dNTPs from rNMPs
+
+#Location of input file
+referenceBED=$directory0/$reference.bed
 
 #Location of output directory
 output3=$directory2/Nucleotides/$subset
@@ -214,18 +220,16 @@ if [[ ! -d $output3 ]]; then
 fi	
 
 #Location of output files
-coordinates=$output1/$sample.ribonucleotide-coordinates.bed
+coordinates=$output1/$sample.rNMP-coordinates.bed
+upstreamIntervals=$output3/$sample.upstream-intervals.bed
+upstreamSequences=$output3/$sample.upstream-sequences.tab
+downstreamIntervals=$output3/$sample.downstream-intervals.bed
+downstreamSequences=$output3/$sample.downstream-sequences.tab
 
-Upstream_Intervals=$output3/$sample.upstream-intervals.bed
-Downstream_Intervals=$output3/$sample.downstream-intervals.bed
-
-Upstream_Sequences=$output3/$sample.upstream-sequences.tab
-Downstream_Sequences=$output3/$sample.downstream-sequences.tab
-
-temporary1=$output3/temporary.bed
+temporary1=$output3/temporary1.bed
 temporary2=$output3/temporary2.bed
 
-#Obtain positions of rNMPs (3’ end of each mapped read)
+#Obtain positions of rNMPs (3’ end of aligned reads)
 bedtools genomecov -3 -bg -ibam $bam > $coordinates
 
 #Remove column containing coverage values
@@ -234,31 +238,29 @@ awk '!($4="")' $coordinates > $temporary1
 #Then, change file back to its original name
 mv $temporary1 $coordinates
 
-#Make columns of BED file tab-delimited
+#Make sure file is tab-delimited
 sed 's/ \+/\t/g' $coordinates > $temporary2
 
 #Then, change file back to its original name
 mv $temporary2 $coordinates
 
-#Obtain coordinates of sacCer2 sequences that are 100 bp upstream of each rNMP position:
-bedtools flank -i $coordinates -g $directory/ribose-seq/reference/$reference.bed -l 100 -r 0 > $Upstream_Intervals
+#Obtain coordinates of +/- 100 downstream/upstream dNTPs from rNMPs:
+bedtools flank -i $coordinates -g $referenceBED -l 100 -r 0 > $upstreamIntervals
+bedtools flank -i $coordinates -g $referenceBED -l 0 -r 100 > $downstreamIntervals
 
-#Obtain coordinates of sacCer2 sequences that are 100 bp downstream of each rNMP position:
-bedtools flank -i $coordinates -g $directory/ribose-seq/reference/$reference.bed -l 0 -r 100 > $Downstream_Intervals
-
-#Obtain sequences of sacCer2 coordinates from above that are 100 bp upstream of each rNMP position:
-bedtools getfasta -fi $directory/ribose-seq/reference/$reference.fa -bed $Upstream_Intervals -tab -fo $Upstream_Sequences
-
-#Obtain sequences of sacCer2 coordinates from above that are 100 bp downstream of each rNMP position:
-bedtools getfasta -fi $directory/ribose-seq/reference/$reference.fa -bed $Downstream_Intervals -tab -fo $Downstream_Sequences
+#Obtain sequences of +/- 100 downstream/upstream dNTPs from rNMPs:
+bedtools getfasta -fi $referenceFasta -bed $upstreamIntervals -tab -fo $upstreamSequences
+bedtools getfasta -fi $referenceFasta -bed $downstreamIntervals -tab -fo $downstreamSequences
 
 ##############################################################################################################################
-#STEP 6: Output upstream and downstream flanking sequences into tabular format for processing
+#STEP 6: Output sequences of +/- 100 downstream/upstream dNTPs from rNMPs into tabular format
 
 locations="upstream downstream"
 
 for location in ${locations[@]}; do
+
 	for file in "$output3/$sample.$location.sequences.tab"; do
+		
 		#Location of output directory
 		output4=$directory2/Nucleotides/$subset/Columns/$location
 
@@ -273,9 +275,9 @@ for location in ${locations[@]}; do
         	fi
 
 		#Location of output files
-		selection=$output4/sequences/$sample.$location.sequences.$subset.txt
-		sequences=$output4/sequences/$sample.$location.sequences.$subset.raw.txt
-		columns=$output4/sequences/$sample.$location.sequences.$subset.columns.txt
+		selection=$output4/sequences/$sample.$location-sequences.$subset.txt
+		sequences=$output4/sequences/$sample.$location-sequences.$subset.raw.txt
+		columns=$output4/sequences/$sample.$location-sequences.$subset.columns.txt
 
 		if [ $subset == "sacCer2" ]; then
 			cat $file > $selection
@@ -298,7 +300,7 @@ for location in ${locations[@]}; do
 done
 
 ##############################################################################################################################
-#STEP 7: Calculate frequencies of +/- 100 downstream/upstream nucleotides from ribonucleotides
+#STEP 7: Calculate frequencies of +/- 100 downstream/upstream dNTPs from rNMPs
 
 #Location of output directory
 output5=$directory2/Nucleotides/$subset/Raw-Data
@@ -312,15 +314,18 @@ fi
 rm $output5/*.txt
 
 for location in ${locations[@]}; do
-	A_dNTP_frequencies=$output5/A_normalized_nucleotide_frequencies.$subset.$location.txt
-	C_dNTP_frequencies=$output5/C_normalized_nucleotide_frequencies.$subset.$location.txt
-	G_dNTP_frequencies=$output5/G_normalized_nucleotide_frequencies.$subset.$location.txt
-	T_dNTP_frequencies=$output5/T_normalized_nucleotide_frequencies.$subset.$location.txt
-	dNTP_Frequencies=$output5/$sample.Normalized_Nucleotide_Frequencies.$subset.$location.txt
+
+	A_dNTP_frequencies=$output5/A_dNTP-frequencies.$reference.$subset.$location.txt
+	C_dNTP_frequencies=$output5/C_dNTP-frequencies.$reference.$subset.$location.txt
+	G_dNTP_frequencies=$output5/G_dNTP-frequencies.$reference.$subset.$location.txt
+	T_dNTP_frequencies=$output5/T_dNTP-frequencies.$reference.$subset.$location.txt
+	
+	dNTP_Frequencies=$output5/$sample.dNTP-frequencies.$reference.$subset.$location.txt
 		
 	input=$directory2/Nucleotides/$subset/Columns/$location/$sample*.txt
 	
 	for file in ${input[@]}; do
+	
 		A_dNTP_count=$(grep -v '>' $file | grep -o 'A' - | wc -l)
 		C_dNTP_count=$(grep -v '>' $file | grep -o 'C' - | wc -l)
 		G_dNTP_count=$(grep -v '>' $file | grep -o 'G' - | wc -l)
@@ -328,15 +333,15 @@ for location in ${locations[@]}; do
 
 		total_dNTP_count=$(($A_dNTP_count+$C_dNTP_count+$G_dNTP_count+$T_dNTP_count))
 	
-		A_dNTP_raw_frequency=$(bc <<< "scale = 4; `expr $A_dNTP_count/$total_dNTP_count`")
-		C_dNTP_raw_frequency=$(bc <<< "scale = 4; `expr $C_dNTP_count/$total_dNTP_count`")
-		G_dNTP_raw_frequency=$(bc <<< "scale = 4; `expr $G_dNTP_count/$total_dNTP_count`")
-		T_dNTP_raw_frequency=$(bc <<< "scale = 4; `expr $T_dNTP_count/$total_dNTP_count`")
+		A_dNTP_rawFrequency=$(bc <<< "scale = 4; `expr $A_dNTP_count/$total_dNTP_count`")
+		C_dNTP_rawFrequency=$(bc <<< "scale = 4; `expr $C_dNTP_count/$total_dNTP_count`")
+		G_dNTP_rawFrequency=$(bc <<< "scale = 4; `expr $G_dNTP_count/$total_dNTP_count`")
+		T_dNTP_rawFrequency=$(bc <<< "scale = 4; `expr $T_dNTP_count/$total_dNTP_count`")
 
-		A_dNTP_frequency=$(bc <<< "scale = 4; `expr $A_dNTP_raw_frequency/$A_background_frequency`")
-        	C_dNTP_frequency=$(bc <<< "scale = 4; `expr $C_dNTP_raw_frequency/$C_background_frequency`")
-        	G_dNTP_frequency=$(bc <<< "scale = 4; `expr $G_dNTP_raw_frequency/$G_background_frequency`")
-        	T_dNTP_frequency=$(bc <<< "scale = 4; `expr $T_dNTP_raw_frequency/$T_background_frequency`")
+		A_dNTP_frequency=$(bc <<< "scale = 4; `expr $A_dNTP_rawFrequency/$A_backgroundFrequency`")
+        	C_dNTP_frequency=$(bc <<< "scale = 4; `expr $C_dNTP_rawFrequency/$C_backgroundFrequency`")
+        	G_dNTP_frequency=$(bc <<< "scale = 4; `expr $G_dNTP_rawFrequency/$G_backgroundFrequency`")
+        	T_dNTP_frequency=$(bc <<< "scale = 4; `expr $T_dNTP_rawFrequency/$T_backgroundFrequency`")
 
 		echo $A_dNTP_frequency >> $A_dNTP_frequencies
 		echo $C_dNTP_frequency >> $C_dNTP_frequencies
@@ -352,10 +357,13 @@ for location in ${locations[@]}; do
 done
 
 ##############################################################################################################################
-#STEP 8: Create .txt file containing the output nucleotide frequencies data values for plotting
+#STEP 8: Create dataset file containing nucleotide frequencies needed for plotting
 
 #Location of output directory
 output6=$directory2/Datasets/$subset
+
+#Location of output file
+dataset=$output6/$sample.nucleotide-frequencies-dataset.$subset.txt
 
 #Create directory for output if it does not already exist
 if [[ ! -d $output6 ]]; then
@@ -368,12 +376,10 @@ rm $output6/*.txt
 #Print values -100 to 100
 seq -100 1 100 > temporary1.txt
 
-#Combine upstream and downstream normalized nucleotide frequency files and ribonucleotide frequency files
+#Combine nucleotide frequency files
 cat $output5/$sample.Normalized_Nucleotide_Frequencies.$subset.upstream.txt \
 $output1/$sample.$reference.$subset.ribonucleotide-frequencies.txt \
 $output5/$sample.Normalized_Nucleotide_Frequencies.$subset.downstream.txt >> temporary2.txt
-
-dataset=$output6/$sample.Nucleotide_Frequency_Dataset.$subset.txt
 
 #Merge two files into final .txt file
 paste temporary1.txt temporary2.txt > temporary3.txt
@@ -382,7 +388,8 @@ paste temporary1.txt temporary2.txt > temporary3.txt
 echo "Position A C G U/T" | awk '{print $1,"\t",$2,"\t",$3,"\t",$4,"\t",$5}' \
 | cat - temporary3.txt > temp && mv temp temporary3.txt
 
-#Make sure data values are arranged in columns
+#Make sure file is tab-delimited
 column -t temporary3.txt > $dataset
 
+#Remove temporary files
 rm temporary1.txt temporary2.txt temporary3.txt
