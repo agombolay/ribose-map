@@ -150,7 +150,7 @@ echo "G Background Frequency: $G_backgroundFrequency" >> $background
 echo "T Background Frequency: $T_backgroundFrequency" >> $background
 
 ##############################################################################################################################
-#STEP 4: Calculate Ribonucleotide Frequencies
+#STEP 4: Calculate rNMP Frequencies
 
 #Location of output files
 list=$output1/$sample.rNMP-list.$reference.$subset.txt
