@@ -324,25 +324,31 @@ for location in ${locations[@]}; do
 	#Location of input files
 	input=$directory2/Nucleotides/$subset/Columns/$location/$sample*.txt
 	
+	#Calculate dNTP frequencies for each +/- 100 downstream/upstream position
 	for file in ${input[@]}; do
 	
+		#Calculate count of each dNTP
 		A_baseCount=$(grep -v '>' $file | grep -o 'A' - | wc -l)
 		C_baseCount=$(grep -v '>' $file | grep -o 'C' - | wc -l)
 		G_baseCount=$(grep -v '>' $file | grep -o 'G' - | wc -l)
 		T_baseCount=$(grep -v '>' $file | grep -o 'T' - | wc -l)
 
+		#Calculate total number of dNTPs
 		total_baseCount=$(($A_baseCount+$C_baseCount+$G_baseCount+$T_baseCount))
 	
+		#Calculate raw frequencies of dNTPs
 		A_rawBaseFrequency=$(bc <<< "scale = 4; `expr $A_dNTP_count/$total_baseCount`")
 		C_rawBaseFrequency=$(bc <<< "scale = 4; `expr $C_dNTP_count/$total_baseCount`")
 		G_rawBaseFrequency=$(bc <<< "scale = 4; `expr $G_dNTP_count/$total_baseCount`")
 		T_rawBaseFrequency=$(bc <<< "scale = 4; `expr $T_dNTP_count/$total_baseCount`")
 
+		#Calculate normalized frequencies of dNTPs
 		A_baseFrequency=$(bc <<< "scale = 4; `expr $A_rawBaseFrequency/$A_backgroundFrequency`")
         	C_baseFrequency=$(bc <<< "scale = 4; `expr $C_rawBaseFrequency/$C_backgroundFrequency`")
         	G_baseFrequency=$(bc <<< "scale = 4; `expr $G_rawBaseFrequency/$G_backgroundFrequency`")
         	T_baseFrequency=$(bc <<< "scale = 4; `expr $T_rawBaseFrequency/$T_backgroundFrequency`")
 
+		#Save normalized frequencies of dNTPs to TXT file
 		echo $A_baseFrequency >> $A_baseFrequencies
 		echo $C_baseFrequency >> $C_baseFrequencies
 		echo $G_baseFrequency >> $G_baseFrequencies
@@ -372,7 +378,7 @@ if [[ ! -d $output6 ]]; then
     	mkdir -p $output6
 fi
 
-#Remove old .txt files
+#Remove old files
 rm $output6/*.txt
 
 #Print values -100 to 100
@@ -382,10 +388,10 @@ seq -100 1 100 > temporary1.txt
 cat $output5/$sample.dNTP-frequencies.$reference.$subset.upstream.txt $frequencies \
 $output5/$sample.dNTP-frequencies.$reference.$subset.downstream.txt >> temporary2.txt
 
-#Merge two files into final .txt file
+#Merge two files into final TXT file
 paste temporary1.txt temporary2.txt > temporary3.txt
 
-#Add Header to beginning of .txt file 
+#Add Header to beginning of TXT file 
 echo "Position A C G U/T" | awk '{print $1,"\t",$2,"\t",$3,"\t",$4,"\t",$5}' \
 | cat - temporary3.txt > temp && mv temp temporary3.txt
 
