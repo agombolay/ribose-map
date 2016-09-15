@@ -226,9 +226,6 @@ upstreamSequences=$output3/$sample.upstream-sequences.tab
 downstreamIntervals=$output3/$sample.downstream-intervals.bed
 downstreamSequences=$output3/$sample.downstream-sequences.tab
 
-temporary1=$output3/temporary1.bed
-temporary2=$output3/temporary2.bed
-
 #Obtain positions of rNMPs (3’ end of aligned reads)
 bedtools genomecov -3 -bg -ibam $bam > $coordinates
 
