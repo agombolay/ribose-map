@@ -111,7 +111,7 @@ awk '$3 != 0' $negativeCoordinates1 > temporary2 && mv temporary2 $negativeCoord
 #STEP 3: Calculate background dNTP frequencies of reference genome
 
 #Location of input file
-referenceFasta=$directory0/$subset.fa
+referenceFasta1=$directory0/$subset.fa
 
 #Location of output directory
 output2=$directory/ribose-seq/results/Background-dNTP-Frequencies
@@ -123,10 +123,10 @@ background=$output2/$reference.$subset.Background-dNTP-Frequencies.txt
 rm $background
 
 #Calculate counts of each dNTP
-A_backgroundCount=$(grep -v '>' $referenceFasta | grep -o 'A' - | wc -l)
-C_backgroundCount=$(grep -v '>' $referenceFasta | grep -o 'C' - | wc -l)
-G_backgroundCount=$(grep -v '>' $referenceFasta | grep -o 'G' - | wc -l)
-T_backgroundCount=$(grep -v '>' $referenceFasta | grep -o 'T' - | wc -l)
+A_backgroundCount=$(grep -v '>' $referenceFasta1 | grep -o 'A' - | wc -l)
+C_backgroundCount=$(grep -v '>' $referenceFasta1 | grep -o 'C' - | wc -l)
+G_backgroundCount=$(grep -v '>' $referenceFasta1 | grep -o 'G' - | wc -l)
+T_backgroundCount=$(grep -v '>' $referenceFasta1 | grep -o 'T' - | wc -l)
 
 #Calculate total number of dNTPs
 total_backgroundCount=$(($A_backgroundCount+$C_backgroundCount+$G_backgroundCount+$T_backgroundCount))
@@ -202,8 +202,9 @@ rm temporary
 ##############################################################################################################################
 #STEP 5: Obtain coordinates and sequences of +/- 100 downstream/upstream dNTPs from rNMPs
 
-#Location of input file
+#Location of input files
 referenceBED=$directory0/$reference.bed
+referenceFasta1=$directory0/$reference.fa
 
 #Location of output directory
 output3=$directory2/Nucleotides/$subset
@@ -234,8 +235,8 @@ bedtools flank -i $coordinates -g $referenceBED -l 100 -r 0 > $upstreamIntervals
 bedtools flank -i $coordinates -g $referenceBED -l 0 -r 100 > $downstreamIntervals
 
 #Obtain sequences of +/- 100 downstream/upstream dNTPs from rNMPs:
-bedtools getfasta -fi $referenceFasta -bed $upstreamIntervals -tab -fo $upstreamSequences
-bedtools getfasta -fi $referenceFasta -bed $downstreamIntervals -tab -fo $downstreamSequences
+bedtools getfasta -fi $referenceFasta2 -bed $upstreamIntervals -tab -fo $upstreamSequences
+bedtools getfasta -fi $referenceFasta2 -bed $downstreamIntervals -tab -fo $downstreamSequences
 
 ##############################################################################################################################
 #STEP 6: Output sequences of +/- 100 downstream/upstream dNTPs from rNMPs into tabular format
