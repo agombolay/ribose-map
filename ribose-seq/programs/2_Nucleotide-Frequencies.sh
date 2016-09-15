@@ -207,7 +207,7 @@ referenceBED=$directory0/$reference.bed
 referenceFasta2=$directory0/$reference.fa
 
 #Location of output directory
-output3=$directory2/Nucleotides/$subset
+output3=$directory2/dNTPs/$subset
 
 #Create directory for output if it does not already exist
 if [[ ! -d $output3 ]]; then
