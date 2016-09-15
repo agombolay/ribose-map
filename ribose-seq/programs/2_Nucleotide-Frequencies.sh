@@ -242,7 +242,7 @@ locations="upstream downstream"
 
 for location in ${locations[@]}; do
 
-	for file in "$output3/$sample.$location-sequences.tab"; do
+	for file in $output3/$sample.$location-sequences.tab; do
 		
 		#Location of output directory
 		output4=$directory2/Nucleotides/$subset/Columns/$location
