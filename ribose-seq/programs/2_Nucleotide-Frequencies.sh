@@ -171,35 +171,35 @@ elif [[ $subset == "nuclear" ]]; then
 	grep -v 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary.txt
 fi
 
-#Print only ribonucleotides (3' end of read):
-#Ribonucleotides on positive strands (located at end of sequence)
+#Print only rNMPs (3' end of reads):
+#rNMPs on positive strands (located at end of sequence)
 awk '$2 == "+" {print substr($0,length($0)-2)}' temporary.txt > $list
 
-#Ribonucleotides on negative strands (located at beginning of sequence)
+#rNMPs on negative strands (located at beginning of sequence)
 awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2}' temporary.txt >> $list
 
-#Calculate count of each ribonucleotide
+#Calculate count of each rNMPs
 A_riboCount=$(awk '$1 == "A" && $2 == "+" || $1 == "T" && $2 == "-" {print $1, $2}' $list | wc -l)
 C_riboCount=$(awk '$1 == "C" && $2 == "+" || $1 == "G" && $2 == "-" {print $1, $2}' $list | wc -l)
 G_riboCount=$(awk '$1 == "G" && $2 == "+" || $1 == "C" && $2 == "-" {print $1, $2}' $list | wc -l)
 U_riboCount=$(awk '$1 == "T" && $2 == "+" || $1 == "A" && $2 == "-" {print $1, $2}' $list | wc -l)
 
-#Calculate total number of ribonucleotides
+#Calculate total number of rNMPs
 total_riboCount=$(($A_riboCount+$C_riboCount+$G_riboCount+$U_riboCount))
 
-#Calculate raw frequency of each ribonucleotide
+#Calculate raw frequency of each rNMP
 A_rawRiboFrequency=$(bc <<< "scale = 4; `expr $A_riboCount/$total_riboCount`")
 C_rawRiboFrequency=$(bc <<< "scale = 4; `expr $C_riboCount/$total_riboCount`")
 G_rawRiboFrequency=$(bc <<< "scale = 4; `expr $G_riboCount/$total_riboCount`")
 U_rawRiboFrequency=$(bc <<< "scale = 4; `expr $U_riboCount/$total_riboCount`")
 
-#Calculate normalized frequency of each ribonucleotide
+#Calculate normalized frequency of each rNMP
 A_riboFrequency=$(bc <<< "scale = 4; `expr $A_rawRiboFrequency/$A_backgroundFrequency`")
 C_riboFrequency=$(bc <<< "scale = 4; `expr $C_rawRiboFrequency/$C_backgroundFrequency`")
 G_riboFrequency=$(bc <<< "scale = 4; `expr $G_rawRiboFrequency/$G_backgroundFrequency`")
 U_riboFrequency=$(bc <<< "scale = 4; `expr $U_rawRiboFrequency/$T_backgroundFrequency`")
 
-#Print ribonucleotide frequencies to output file
+#Save frequencies of rNMPs to TXT file
 echo "$A_riboFrequency $C_riboFrequency $G_riboFrequency $U_riboFrequency" | column  > $frequencies
 
 #Remove temporary file
