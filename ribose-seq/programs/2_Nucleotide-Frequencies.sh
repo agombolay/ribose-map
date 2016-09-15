@@ -227,16 +227,16 @@ bedtools genomecov -3 -bg -ibam $bam > $coordinates
 #Print only columns containing coordinates (eliminate column containing coverage values)
 awk -v "OFS=\t" '{print $1, $2, $3}' $coordinates > temporary1 && mv temporary1 $coordinates
 
-#Obtain coordinates of +/- 100 downstream/upstream dNTPs from rNMPs:
+#Obtain coordinates of dNTPs located +/- 100 bp downstream/upstream from rNMPs:
 bedtools flank -i $coordinates -g $referenceBED -l 100 -r 0 > $upstreamIntervals
 bedtools flank -i $coordinates -g $referenceBED -l 0 -r 100 > $downstreamIntervals
 
-#Obtain sequences of +/- 100 downstream/upstream dNTPs from rNMPs:
+#Obtain sequences of dNTPs located +/- 100 bp downstream/upstream from rNMPs:
 bedtools getfasta -fi $referenceFasta2 -bed $upstreamIntervals -tab -fo $upstreamSequences
 bedtools getfasta -fi $referenceFasta2 -bed $downstreamIntervals -tab -fo $downstreamSequences
 
 ##############################################################################################################################
-#STEP 6: Tabulate sequences of +/- 100 downstream/upstream dNTPs from rNMPs
+#STEP 6: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
 locations="upstream downstream"
 
