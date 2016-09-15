@@ -377,7 +377,7 @@ rm $output6/*.txt
 #Print values -100 to 100
 seq -100 1 100 > temporary1
 
-#Save files containing rNMP and upstream/downstream dNTP frequencies into one file
+#Save files containing rNMP and upstream/downstream dNTP frequencies to one file
 cat $upstreamBaseFrequencies $frequencies $downstreamBaseFrequencies >> temporary2
 
 #Save files to one combined TXT file
