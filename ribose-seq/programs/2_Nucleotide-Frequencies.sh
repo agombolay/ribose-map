@@ -386,5 +386,8 @@ paste temporary1 temporary2 > temporary3
 #Add header line containing nucleotides to beginning of file 
 echo -e "\tA\tC\tG\tU/T" > $dataset; cat temporary3 >> $dataset;
 
+#Make file tab-delimited
+columns -t $dataset
+
 #Remove temporary files
 rm temporary1 temporary2 temporary3
