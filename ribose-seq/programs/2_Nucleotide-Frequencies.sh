@@ -137,7 +137,7 @@ C_backgroundFrequency=$(echo "scale = 5; $C_backgroundCount/$total_backgroundCou
 G_backgroundFrequency=$(echo "scale = 5; $G_backgroundCount/$total_backgroundCount" | bc | awk '{printf "%.5f\n", $0}')
 T_backgroundFrequency=$(echo "scale = 5; $T_backgroundCount/$total_backgroundCount" | bc | awk '{printf "%.5f\n", $0}')
 
-#Save frequencies of dNTP to TXT file
+#Save frequencies of dNTPs to TXT file
 echo "A Background Frequency: $A_backgroundFrequency" >> $background
 echo "C Background Frequency: $C_backgroundFrequency" >> $background
 echo "G Background Frequency: $G_backgroundFrequency" >> $background
@@ -147,8 +147,8 @@ echo "T Background Frequency: $T_backgroundFrequency" >> $background
 #STEP 4: Calculate rNMP Frequencies
 
 #Location of output files
-list=$output1/$sample.rNMP-list.$reference.$subset.txt
-frequencies=$output1/$sample.rNMP-frequencies.$reference.$subset.txt
+riboList=$output1/$sample.rNMP-list.$reference.$subset.txt
+riboFrequencies=$output1/$sample.rNMP-frequencies.$reference.$subset.txt
 
 #Remove files if they already exist
 rm $frequencies $list
@@ -167,16 +167,16 @@ fi
 
 #Print only rNMPs (3' end of reads):
 #rNMPs on positive strands (located at end of sequence)
-awk '$2 == "+" {print substr($0,length($0)-2)}' temporary > $list
+awk '$2 == "+" {print substr($0,length($0)-2)}' temporary > $riboList
 
 #rNMPs on negative strands (located at beginning of sequence)
-awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2}' temporary >> $list
+awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2}' temporary >> $riboList
 
 #Calculate count of each rNMP
-A_riboCount=$(awk '$1 == "A" && $2 == "+" || $1 == "T" && $2 == "-" {print $1, $2}' $list | wc -l)
-C_riboCount=$(awk '$1 == "C" && $2 == "+" || $1 == "G" && $2 == "-" {print $1, $2}' $list | wc -l)
-G_riboCount=$(awk '$1 == "G" && $2 == "+" || $1 == "C" && $2 == "-" {print $1, $2}' $list | wc -l)
-U_riboCount=$(awk '$1 == "T" && $2 == "+" || $1 == "A" && $2 == "-" {print $1, $2}' $list | wc -l)
+A_riboCount=$(awk '$1 == "A" && $2 == "+" || $1 == "T" && $2 == "-" {print $1, $2}' $riboList | wc -l)
+C_riboCount=$(awk '$1 == "C" && $2 == "+" || $1 == "G" && $2 == "-" {print $1, $2}' $riboList | wc -l)
+G_riboCount=$(awk '$1 == "G" && $2 == "+" || $1 == "C" && $2 == "-" {print $1, $2}' $riboList | wc -l)
+U_riboCount=$(awk '$1 == "T" && $2 == "+" || $1 == "A" && $2 == "-" {print $1, $2}' $riboList | wc -l)
 
 #Calculate total number of rNMPs
 total_riboCount=$(($A_riboCount+$C_riboCount+$G_riboCount+$U_riboCount))
@@ -194,7 +194,7 @@ G_riboFrequency=$(echo "scale = 5; $G_rawRiboFrequency/$G_backgroundFrequency" |
 U_riboFrequency=$(echo "scale = 5; $U_rawRiboFrequency/$T_backgroundFrequency" | bc | awk '{printf "%.5f\n", $0}')
 
 #Save normalized frequencies of rNMPs to TXT file
-echo -e "$A_riboFrequency\t$C_riboFrequency\t$G_riboFrequency\t$U_riboFrequency" > $frequencies
+echo -e "$A_riboFrequency\t$C_riboFrequency\t$G_riboFrequency\t$U_riboFrequency" > $riboFrequencies
 
 #Remove temporary file
 rm temporary
@@ -375,7 +375,7 @@ rm $output6/*.txt
 seq -100 1 100 > temporary1
 
 #Save files containing rNMP and upstream/downstream dNTP frequencies to one file
-cat $upstreamBaseFrequencies $frequencies $downstreamBaseFrequencies >> temporary2
+cat $upstreamBaseFrequencies $riboFrequencies $downstreamBaseFrequencies >> temporary2
 
 #Save files to one combined TXT file
 paste temporary1 temporary2 > temporary3
