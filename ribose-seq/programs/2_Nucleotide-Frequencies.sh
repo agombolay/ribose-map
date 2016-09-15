@@ -272,9 +272,9 @@ for location in ${locations[@]}; do
         	fi
 
 		#Location of output files
-		selection=$output4/sequences/$sample.$location-sequences.$subset.txt
-		sequences=$output4/sequences/$sample.$location-sequences.$subset.raw.txt
-		columns=$output4/sequences/$sample.$location-sequences.$subset.columns.txt
+		selection=$output4/sequences/$sample.$location-sequences.$reference.$subset.txt
+		sequences=$output4/sequences/$sample.$location-sequences.$reference.$subset.raw.txt
+		columns=$output4/sequences/$sample.$location-sequences.$reference.$subset.columns.txt
 
 		if [ $subset == "sacCer2" ]; then
 			cat $file > $selection
