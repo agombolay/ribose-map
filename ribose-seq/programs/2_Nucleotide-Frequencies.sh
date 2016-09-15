@@ -156,7 +156,7 @@ echo "T Background Frequency: $T_backgroundFrequency" >> $background
 list=$output1/$sample.rNMP-list.$reference.$subset.txt
 frequencies=$output1/$sample.rNMP-frequencies.$reference.$subset.txt
 
-#Remove file if it already exists
+#Remove files if they already exist
 rm $frequencies $list
 
 #Select only ribonucleotides of genome subset:
