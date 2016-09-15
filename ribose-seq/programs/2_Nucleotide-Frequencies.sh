@@ -381,7 +381,7 @@ $output5/$sample.dNTP-frequencies.$reference.$subset.downstream.txt >> temporary
 paste temporary1 temporary2 > temporary3
 
 #Add Header to beginning of TXT file 
-echo -e "' \t ' A C G U/T" | awk '{print $1,"\t",$2,"\t",$3,"\t",$4,"\t",$5}' \
+echo -e "\t A C G U/T" | awk '{print $1,"\t",$2,"\t",$3,"\t",$4,"\t",$5}' \
 | cat - temporary3 > temporary4 && mv temporary4 temporary3
 
 #Make sure file is tab-delimited
