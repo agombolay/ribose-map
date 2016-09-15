@@ -159,7 +159,7 @@ frequencies=$output1/$sample.rNMP-frequencies.$reference.$subset.txt
 #Remove files if they already exist
 rm $frequencies $list
 
-#Select only ribonucleotides of genome subset:
+#Select only rNMPs in subset:
 #Whole genome subset
 if [[ $subset == "sacCer2" ]]; then
 	awk -v "OFS=\t" '{print $4, $5}' $readCoordinates > temporary.txt
