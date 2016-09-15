@@ -102,16 +102,10 @@ bedtools genomecov -3 -strand + -d -ibam $bam > $positiveCoordinates1
 bedtools genomecov -3 -strand - -d -ibam $bam > $negativeCoordinates1
 
 #Remove rows where genome coverage equals 0
-awk '$3 != 0' $positiveCoordinates1 > temporary1.txt
+awk '$3 != 0' $positiveCoordinates1 > temporary1 && mv temporary1 $positiveCoordinates1
 
 #Remove rows where genome coverage equals 0
-awk '$3 != 0' $negativeCoordinates1 > temporary2.txt
-
-#Change filename back to original
-mv temporary1.txt $positiveCoordinates1
-
-#Change filename back to original
-mv temporary2.txt $negativeCoordinates1
+awk '$3 != 0' $negativeCoordinates1 > temporary2 && mv temporary2 $negativeCoordinates1
 
 ##############################################################################################################################
 #STEP 3: Calculate background dNTP frequencies of reference genome
@@ -162,21 +156,21 @@ rm $frequencies $list
 #Select only rNMPs in subset:
 #Whole genome subset
 if [[ $subset == "sacCer2" ]]; then
-	awk -v "OFS=\t" '{print $4, $5}' $readCoordinates > temporary.txt
+	awk -v "OFS=\t" '{print $4, $5}' $readCoordinates > temporary
 #Mitochondria subset
 elif [[ $subset == "mitochondria" ]]; then
-    	grep 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary.txt
+    	grep 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary
 #Nuclear subset
 elif [[ $subset == "nuclear" ]]; then
-	grep -v 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary.txt
+	grep -v 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary
 fi
 
 #Print only rNMPs (3' end of reads):
 #rNMPs on positive strands (located at end of sequence)
-awk '$2 == "+" {print substr($0,length($0)-2)}' temporary.txt > $list
+awk '$2 == "+" {print substr($0,length($0)-2)}' temporary > $list
 
 #rNMPs on negative strands (located at beginning of sequence)
-awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2}' temporary.txt >> $list
+awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2}' temporary >> $list
 
 #Calculate count of each rNMP
 A_riboCount=$(awk '$1 == "A" && $2 == "+" || $1 == "T" && $2 == "-" {print $1, $2}' $list | wc -l)
@@ -203,7 +197,7 @@ U_riboFrequency=$(bc <<< "scale = 4; `expr $U_rawRiboFrequency/$T_backgroundFreq
 echo "$A_riboFrequency $C_riboFrequency $G_riboFrequency $U_riboFrequency" | column  > $frequencies
 
 #Remove temporary file
-rm temporary.txt
+rm temporary
 
 ##############################################################################################################################
 #STEP 5: Obtain coordinates and sequences of +/- 100 downstream/upstream dNTPs from rNMPs
@@ -230,16 +224,10 @@ downstreamSequences=$output3/$sample.downstream-sequences.tab
 bedtools genomecov -3 -bg -ibam $bam > $coordinates
 
 #Remove column containing coverage values
-awk '!($4="")' $coordinates > $temporary1
+awk '!($4="")' $coordinates > temporary1
 
-#Then, change file back to its original name
-mv $temporary1 $coordinates
-
-#Make sure file is tab-delimited
-sed 's/ \+/\t/g' $coordinates > $temporary2
-
-#Then, change file back to its original name
-mv $temporary2 $coordinates
+#Make file tab-delimited and change filename back to its original name
+sed 's/ \+/\t/g' temporary1 > temporary2 && mv temporary2 $coordinates
 
 #Obtain coordinates of +/- 100 downstream/upstream dNTPs from rNMPs:
 bedtools flank -i $coordinates -g $referenceBED -l 100 -r 0 > $upstreamIntervals
@@ -374,7 +362,7 @@ done
 output6=$directory2/Datasets/$subset
 
 #Location of final output dataset containing rNMP and dNTP frequencies
-dataset=$output6/$sample.nucleotide-frequencies.$reference.$subset.txt
+dataset=$output6/$sample.nucleotide-frequencies-dataset.$reference.$subset.txt
 
 #Create directory for output if it does not already exist
 if [[ ! -d $output6 ]]; then
