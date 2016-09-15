@@ -311,8 +311,8 @@ for location in ${locations[@]}; do
 	baseFrequencies=$output5/$sample.dNTP-frequencies.$reference.$subset.$location.txt
 	
 	#Calculate dNTP frequencies for each +/- 100 downstream/upstream position
-	for file in "$directory2/Nucleotides/$subset/Columns/$location/$sample*.txt"; do
-	
+	for file in $directory2/Nucleotides/$subset/Columns/$location/$sample*.txt; do
+
 		#Calculate count of each dNTP
 		A_baseCount=$(grep -v '>' $file | grep -o 'A' - | wc -l)
 		C_baseCount=$(grep -v '>' $file | grep -o 'C' - | wc -l)
