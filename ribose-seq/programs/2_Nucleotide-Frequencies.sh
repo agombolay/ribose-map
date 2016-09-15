@@ -328,10 +328,10 @@ for location in ${locations[@]}; do
 		total_baseCount=$(($A_baseCount+$C_baseCount+$G_baseCount+$T_baseCount))
 	
 		#Calculate raw frequencies of dNTPs
-		A_rawBaseFrequency=$(bc <<< "scale = 4; `expr $A_dNTP_count/$total_baseCount`")
-		C_rawBaseFrequency=$(bc <<< "scale = 4; `expr $C_dNTP_count/$total_baseCount`")
-		G_rawBaseFrequency=$(bc <<< "scale = 4; `expr $G_dNTP_count/$total_baseCount`")
-		T_rawBaseFrequency=$(bc <<< "scale = 4; `expr $T_dNTP_count/$total_baseCount`")
+		A_rawBaseFrequency=$(bc <<< "scale = 4; `expr $A_baseCount/$total_baseCount`")
+		C_rawBaseFrequency=$(bc <<< "scale = 4; `expr $C_baseCount/$total_baseCount`")
+		G_rawBaseFrequency=$(bc <<< "scale = 4; `expr $G_baseCount/$total_baseCount`")
+		T_rawBaseFrequency=$(bc <<< "scale = 4; `expr $T_baseCount/$total_baseCount`")
 
 		#Calculate normalized frequencies of dNTPs
 		A_baseFrequency=$(bc <<< "scale = 4; `expr $A_rawBaseFrequency/$A_backgroundFrequency`")
