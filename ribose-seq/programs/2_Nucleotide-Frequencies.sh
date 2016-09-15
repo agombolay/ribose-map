@@ -204,7 +204,7 @@ rm temporary
 
 #Location of input files
 referenceBED=$directory0/$reference.bed
-referenceFasta1=$directory0/$reference.fa
+referenceFasta2=$directory0/$reference.fa
 
 #Location of output directory
 output3=$directory2/Nucleotides/$subset
