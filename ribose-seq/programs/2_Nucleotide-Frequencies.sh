@@ -143,7 +143,7 @@ C_backgroundFrequency=$(bc <<< "scale = 4; `expr $C_backgroundCount/$total_backg
 G_backgroundFrequency=$(bc <<< "scale = 4; `expr $G_backgroundCount/$total_backgroundCount`")
 T_backgroundFrequency=$(bc <<< "scale = 4; `expr $T_backgroundCount/$total_backgroundCount`")
 
-#Print nucleotide frequencies to output file
+#Save nucleotide frequencies to TXT file
 echo "A Background Frequency: $A_backgroundFrequency" >> $background
 echo "C Background Frequency: $C_backgroundFrequency" >> $background
 echo "G Background Frequency: $G_backgroundFrequency" >> $background
