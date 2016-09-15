@@ -132,10 +132,10 @@ T_backgroundCount=$(grep -v '>' $referenceFasta1 | grep -o 'T' - | wc -l)
 total_backgroundCount=$(($A_backgroundCount+$C_backgroundCount+$G_backgroundCount+$T_backgroundCount))
 
 #Calculate frequency of each dNTP
-A_backgroundFrequency=$(bc <<< "scale = 4; `expr $A_backgroundCount/$total_backgroundCount`")
-C_backgroundFrequency=$(bc <<< "scale = 4; `expr $C_backgroundCount/$total_backgroundCount`")
-G_backgroundFrequency=$(bc <<< "scale = 4; `expr $G_backgroundCount/$total_backgroundCount`")
-T_backgroundFrequency=$(bc <<< "scale = 4; `expr $T_backgroundCount/$total_backgroundCount`")
+A_backgroundFrequency=$(echo "scale = 4; $A_backgroundCount/$total_backgroundCount" | bc | awk '{printf "%.3f\n", $0}')
+C_backgroundFrequency=$(echo "scale = 4; $C_backgroundCount/$total_backgroundCount" | bc | awk '{printf "%.3f\n", $0}')
+G_backgroundFrequency=$(echo "scale = 4; $G_backgroundCount/$total_backgroundCount" | bc | awk '{printf "%.3f\n", $0}')
+T_backgroundFrequency=$(echo "scale = 4; $T_backgroundCount/$total_backgroundCount" | bc | awk '{printf "%.3f\n", $0}')
 
 #Save frequencies of dNTP to TXT file
 echo "A Background Frequency: $A_backgroundFrequency" >> $background
@@ -182,16 +182,16 @@ U_riboCount=$(awk '$1 == "T" && $2 == "+" || $1 == "A" && $2 == "-" {print $1, $
 total_riboCount=$(($A_riboCount+$C_riboCount+$G_riboCount+$U_riboCount))
 
 #Calculate raw frequency of each rNMP
-A_rawRiboFrequency=$(bc <<< "scale = 4; `expr $A_riboCount/$total_riboCount`")
-C_rawRiboFrequency=$(bc <<< "scale = 4; `expr $C_riboCount/$total_riboCount`")
-G_rawRiboFrequency=$(bc <<< "scale = 4; `expr $G_riboCount/$total_riboCount`")
-U_rawRiboFrequency=$(bc <<< "scale = 4; `expr $U_riboCount/$total_riboCount`")
+A_rawRiboFrequency=$(echo "scale = 4; $A_riboCount/$total_riboCount" | bc | awk '{printf "%.3f\n", $0}')
+C_rawRiboFrequency=$(echo "scale = 4; $C_riboCount/$total_riboCount" | bc | awk '{printf "%.3f\n", $0}')
+G_rawRiboFrequency=$(echo "scale = 4; $G_riboCount/$total_riboCount" | bc | awk '{printf "%.3f\n", $0}')
+U_rawRiboFrequency=$(echo "scale = 4; $U_riboCount/$total_riboCount" | bc | awk '{printf "%.3f\n", $0}')
 
 #Calculate normalized frequency of each rNMP
-A_riboFrequency=$(bc <<< "scale = 4; `expr $A_rawRiboFrequency/$A_backgroundFrequency`")
-C_riboFrequency=$(bc <<< "scale = 4; `expr $C_rawRiboFrequency/$C_backgroundFrequency`")
-G_riboFrequency=$(bc <<< "scale = 4; `expr $G_rawRiboFrequency/$G_backgroundFrequency`")
-U_riboFrequency=$(bc <<< "scale = 4; `expr $U_rawRiboFrequency/$T_backgroundFrequency`")
+A_riboFrequency=$(echo "scale = 4; $A_rawRiboFrequency/$A_backgroundFrequency" | bc | awk '{printf "%.3f\n", $0}')
+C_riboFrequency=$(echo "scale = 4; $C_rawRiboFrequency/$C_backgroundFrequency" | bc | awk '{printf "%.3f\n", $0}')
+G_riboFrequency=$(echo "scale = 4; $G_rawRiboFrequency/$G_backgroundFrequency" | bc | awk '{printf "%.3f\n", $0}')
+U_riboFrequency=$(echo "scale = 4; $U_rawRiboFrequency/$U_backgroundFrequency" | bc | awk '{printf "%.3f\n", $0}')
 
 #Save normalized frequencies of rNMPs to TXT file
 echo -e "$A_riboFrequency\t$C_riboFrequency\t$G_riboFrequency\t$U_riboFrequency" > $frequencies
@@ -326,17 +326,17 @@ for location in ${locations[@]}; do
 		total_baseCount=$(($A_baseCount+$C_baseCount+$G_baseCount+$T_baseCount))
 	
 		#Calculate raw frequencies of dNTPs
-		A_rawBaseFrequency=$(bc <<< "scale = 4; `expr $A_baseCount/$total_baseCount`")
-		C_rawBaseFrequency=$(bc <<< "scale = 4; `expr $C_baseCount/$total_baseCount`")
-		G_rawBaseFrequency=$(bc <<< "scale = 4; `expr $G_baseCount/$total_baseCount`")
-		T_rawBaseFrequency=$(bc <<< "scale = 4; `expr $T_baseCount/$total_baseCount`")
+		A_rawBaseFrequency=$(echo "scale = 4; $A_baseCount/$total_baseCount" | bc | awk '{printf "%.3f\n", $0}')
+		C_rawBaseFrequency=$(echo "scale = 4; $C_baseCount/$total_baseCount" | bc | awk '{printf "%.3f\n", $0}')
+		G_rawBaseFrequency=$(echo "scale = 4; $G_baseCount/$total_baseCount" | bc | awk '{printf "%.3f\n", $0}')
+		T_rawBaseFrequency=$(echo "scale = 4; $T_baseCount/$total_baseCount" | bc | awk '{printf "%.3f\n", $0}')
 
 		#Calculate normalized frequencies of dNTPs
-		A_baseFrequency=$(bc <<< "scale = 4; `expr $A_rawBaseFrequency/$A_backgroundFrequency`")
-        	C_baseFrequency=$(bc <<< "scale = 4; `expr $C_rawBaseFrequency/$C_backgroundFrequency`")
-        	G_baseFrequency=$(bc <<< "scale = 4; `expr $G_rawBaseFrequency/$G_backgroundFrequency`")
-        	T_baseFrequency=$(bc <<< "scale = 4; `expr $T_rawBaseFrequency/$T_backgroundFrequency`")
-
+		A_baseFrequency=$(echo "scale = 4; $A_rawBaseFrequency/$A_backgroundFrequency" | bc | awk '{printf "%.3f\n", $0}')
+		C_baseFrequency=$(echo "scale = 4; $C_rawBaseFrequency/$C_backgroundFrequency" | bc | awk '{printf "%.3f\n", $0}')
+		G_baseFrequency=$(echo "scale = 4; $G_rawBaseFrequency/$G_backgroundFrequency" | bc | awk '{printf "%.3f\n", $0}')
+		T_baseFrequency=$(echo "scale = 4; $T_rawBaseFrequency/$T_backgroundFrequency" | bc | awk '{printf "%.3f\n", $0}')
+		
 		#Save normalized frequencies of dNTPs to TXT file
 		echo $A_baseFrequency >> $A_baseFrequencies
 		echo $C_baseFrequency >> $C_baseFrequencies
