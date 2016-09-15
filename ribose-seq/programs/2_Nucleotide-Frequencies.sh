@@ -48,7 +48,7 @@ directory2=$directory/ribose-seq/results/$reference/$sample/dNTP-Frequencies
 bam=$directory1/$sample.bam
 
 #Location of output directory
-output1=$directory2/Ribonucleotides/$subset
+output1=$directory2/rNMPs/$subset
 
 #Create directory for output if it does not already exist
 if [[ ! -d $output1 ]]; then
