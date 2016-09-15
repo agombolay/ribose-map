@@ -356,6 +356,10 @@ done
 ##############################################################################################################################
 #STEP 8: Create dataset file containing nucleotide frequencies needed for plotting
 
+#Location of input files
+upstreamBaseFrequencies=$output5/$sample.dNTP-frequencies.$reference.$subset.upstream.txt
+downstreamBaseFrequencies=$output5/$sample.dNTP-frequencies.$reference.$subset.downstream.txt
+	
 #Location of output directory
 output6=$directory2/Datasets/$subset
 
@@ -373,11 +377,8 @@ rm $output6/*.txt
 #Print values -100 to 100
 seq -100 1 100 > temporary1
 
-#Combine files containing rNMP and dNTP frequencies into one file
-#cat $output5/$sample.dNTP-frequencies.$reference.$subset.*stream.txt $frequencies \
-#$output5/$sample.dNTP-frequencies.$reference.$subset.downstream.txt >> temporary2
-
-cat $output5/$sample.dNTP-frequencies.$reference.$subset.*stream.txt $frequencies >> temporary2
+#Save files containing rNMP and upstream/downstream dNTP frequencies into one file
+cat $upstreamBaseFrequencies $frequencies $downstreamBaseFrequencies >> temporary2
 
 #Save files to one combined TXT file
 paste temporary1 temporary2 > temporary3
