@@ -286,7 +286,7 @@ for location in ${locations[@]}; do
 done
 
 ##############################################################################################################################
-#STEP 7: Calculate frequencies of +/- 100 downstream/upstream dNTPs from rNMPs
+#STEP 7: Calculate frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
 #Location of output directory
 output5=$directory2/Nucleotides/$subset/Raw-Data
