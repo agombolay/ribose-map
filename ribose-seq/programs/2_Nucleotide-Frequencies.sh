@@ -374,8 +374,10 @@ rm $output6/*.txt
 seq -100 1 100 > temporary1
 
 #Combine files containing rNMP and dNTP frequencies into one file
-cat $output5/$sample.dNTP-frequencies.$reference.$subset.upstream.txt $frequencies \
-$output5/$sample.dNTP-frequencies.$reference.$subset.downstream.txt >> temporary2
+#cat $output5/$sample.dNTP-frequencies.$reference.$subset.*stream.txt $frequencies \
+#$output5/$sample.dNTP-frequencies.$reference.$subset.downstream.txt >> temporary2
+
+cat $output5/$sample.dNTP-frequencies.$reference.$subset.*stream.txt $frequencies >> temporary2
 
 #Save files to one combined TXT file
 paste temporary1 temporary2 > temporary3
