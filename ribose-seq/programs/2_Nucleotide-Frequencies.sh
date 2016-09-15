@@ -194,7 +194,8 @@ G_riboFrequency=$(bc <<< "scale = 4; `expr $G_rawRiboFrequency/$G_backgroundFreq
 U_riboFrequency=$(bc <<< "scale = 4; `expr $U_rawRiboFrequency/$T_backgroundFrequency`")
 
 #Save normalized frequencies of rNMPs to TXT file
-echo "$A_riboFrequency $C_riboFrequency $G_riboFrequency $U_riboFrequency" | column  > $frequencies
+#echo "$A_riboFrequency $C_riboFrequency $G_riboFrequency $U_riboFrequency" | column  > $frequencies
+echo "$A_riboFrequency $C_riboFrequency $G_riboFrequency $U_riboFrequency" | awk -v "OFS=\t" '{print $1, $2, $3, $4}' > $frequencies
 
 #Remove temporary file
 rm temporary
