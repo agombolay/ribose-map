@@ -188,16 +188,16 @@ U_riboCount=$(awk '$1 == "T" && $2 == "+" || $1 == "A" && $2 == "-" {print $1, $
 total_riboCount=$(($A_riboCount+$C_riboCount+$G_riboCount+$U_riboCount))
 
 #Calculate raw frequency of each ribonucleotide
-A_rawFrequency=$(bc <<< "scale = 4; `expr $A_riboCount/$total_riboCount`")
-C_rawFrequency=$(bc <<< "scale = 4; `expr $C_riboCount/$total_riboCount`")
-G_rawFrequency=$(bc <<< "scale = 4; `expr $G_riboCount/$total_riboCount`")
-U_rawFrequency=$(bc <<< "scale = 4; `expr $U_riboCount/$total_riboCount`")
+A_rawRiboFrequency=$(bc <<< "scale = 4; `expr $A_riboCount/$total_riboCount`")
+C_rawRiboFrequency=$(bc <<< "scale = 4; `expr $C_riboCount/$total_riboCount`")
+G_rawRiboFrequency=$(bc <<< "scale = 4; `expr $G_riboCount/$total_riboCount`")
+U_rawRiboFrequency=$(bc <<< "scale = 4; `expr $U_riboCount/$total_riboCount`")
 
 #Calculate normalized frequency of each ribonucleotide
-A_riboFrequency=$(bc <<< "scale = 4; `expr $A_rawFrequency/$A_backgroundFrequency`")
-C_riboFrequency=$(bc <<< "scale = 4; `expr $C_rawFrequency/$C_backgroundFrequency`")
-G_riboFrequency=$(bc <<< "scale = 4; `expr $G_rawFrequency/$G_backgroundFrequency`")
-U_riboFrequency=$(bc <<< "scale = 4; `expr $U_rawFrequency/$T_backgroundFrequency`")
+A_riboFrequency=$(bc <<< "scale = 4; `expr $A_rawRiboFrequency/$A_backgroundFrequency`")
+C_riboFrequency=$(bc <<< "scale = 4; `expr $C_rawRiboFrequency/$C_backgroundFrequency`")
+G_riboFrequency=$(bc <<< "scale = 4; `expr $G_rawRiboFrequency/$G_backgroundFrequency`")
+U_riboFrequency=$(bc <<< "scale = 4; `expr $U_rawRiboFrequency/$T_backgroundFrequency`")
 
 #Print ribonucleotide frequencies to output file
 echo "$A_riboFrequency $C_riboFrequency $G_riboFrequency $U_riboFrequency" | column  > $frequencies
@@ -315,44 +315,49 @@ rm $output5/*.txt
 
 for location in ${locations[@]}; do
 
-	A_dNTP_frequencies=$output5/A_dNTP-frequencies.$reference.$subset.$location.txt
-	C_dNTP_frequencies=$output5/C_dNTP-frequencies.$reference.$subset.$location.txt
-	G_dNTP_frequencies=$output5/G_dNTP-frequencies.$reference.$subset.$location.txt
-	T_dNTP_frequencies=$output5/T_dNTP-frequencies.$reference.$subset.$location.txt
-	
-	dNTP_Frequencies=$output5/$sample.dNTP-frequencies.$reference.$subset.$location.txt
-		
+	#Location of output files (indivdiual base frequencies)
+	A_baseFrequencies=$output5/A_frequencies.$reference.$subset.$location.txt
+	C_baseFrequencies=$output5/C_frequencies.$reference.$subset.$location.txt
+	G_baseFrequencies=$output5/G_frequencies.$reference.$subset.$location.txt
+	T_baseFrequencies=$output5/T_frequencies.$reference.$subset.$location.txt
+
+	#Location of output file (combined base frequencies)
+	baseFrequencies=$output5/$sample.dNTP-frequencies.$reference.$subset.$location.txt
+
+	#Location of input files
 	input=$directory2/Nucleotides/$subset/Columns/$location/$sample*.txt
 	
 	for file in ${input[@]}; do
 	
-		A_dNTP_count=$(grep -v '>' $file | grep -o 'A' - | wc -l)
-		C_dNTP_count=$(grep -v '>' $file | grep -o 'C' - | wc -l)
-		G_dNTP_count=$(grep -v '>' $file | grep -o 'G' - | wc -l)
-		T_dNTP_count=$(grep -v '>' $file | grep -o 'T' - | wc -l)
+		A_baseCount=$(grep -v '>' $file | grep -o 'A' - | wc -l)
+		C_baseCount=$(grep -v '>' $file | grep -o 'C' - | wc -l)
+		G_baseCount=$(grep -v '>' $file | grep -o 'G' - | wc -l)
+		T_baseCount=$(grep -v '>' $file | grep -o 'T' - | wc -l)
 
-		total_dNTP_count=$(($A_dNTP_count+$C_dNTP_count+$G_dNTP_count+$T_dNTP_count))
+		total_baseCount=$(($A_baseCount+$C_baseCount+$G_baseCount+$T_baseCount))
 	
-		A_dNTP_rawFrequency=$(bc <<< "scale = 4; `expr $A_dNTP_count/$total_dNTP_count`")
-		C_dNTP_rawFrequency=$(bc <<< "scale = 4; `expr $C_dNTP_count/$total_dNTP_count`")
-		G_dNTP_rawFrequency=$(bc <<< "scale = 4; `expr $G_dNTP_count/$total_dNTP_count`")
-		T_dNTP_rawFrequency=$(bc <<< "scale = 4; `expr $T_dNTP_count/$total_dNTP_count`")
+		A_rawBaseFrequency=$(bc <<< "scale = 4; `expr $A_dNTP_count/$total_baseCount`")
+		C_rawBaseFrequency=$(bc <<< "scale = 4; `expr $C_dNTP_count/$total_baseCount`")
+		G_rawBaseFrequency=$(bc <<< "scale = 4; `expr $G_dNTP_count/$total_baseCount`")
+		T_rawBaseFrequency=$(bc <<< "scale = 4; `expr $T_dNTP_count/$total_baseCount`")
 
-		A_dNTP_frequency=$(bc <<< "scale = 4; `expr $A_dNTP_rawFrequency/$A_backgroundFrequency`")
-        	C_dNTP_frequency=$(bc <<< "scale = 4; `expr $C_dNTP_rawFrequency/$C_backgroundFrequency`")
-        	G_dNTP_frequency=$(bc <<< "scale = 4; `expr $G_dNTP_rawFrequency/$G_backgroundFrequency`")
-        	T_dNTP_frequency=$(bc <<< "scale = 4; `expr $T_dNTP_rawFrequency/$T_backgroundFrequency`")
+		A_baseFrequency=$(bc <<< "scale = 4; `expr $A_rawBaseFrequency/$A_backgroundFrequency`")
+        	C_baseFrequency=$(bc <<< "scale = 4; `expr $C_rawBaseFrequency/$C_backgroundFrequency`")
+        	G_baseFrequency=$(bc <<< "scale = 4; `expr $G_rawBaseFrequency/$G_backgroundFrequency`")
+        	T_baseFrequency=$(bc <<< "scale = 4; `expr $T_rawBaseFrequency/$T_backgroundFrequency`")
 
-		echo $A_dNTP_frequency >> $A_dNTP_frequencies
-		echo $C_dNTP_frequency >> $C_dNTP_frequencies
-		echo $G_dNTP_frequency >> $G_dNTP_frequencies
-		echo $T_dNTP_frequency >> $T_dNTP_frequencies
+		echo $A_baseFrequency >> $A_baseFrequencies
+		echo $C_baseFrequency >> $C_baseFrequencies
+		echo $G_baseFrequency >> $G_baseFrequencies
+		echo $T_baseFrequency >> $T_baseFrequencies
 
-		if [ -e "$dNTP_Frequencies" ]; then
-    			rm $dNTP_Frequencies
+		#Remove old file if it already exists
+		if [ -e "$baseFrequencies" ]; then
+    			rm $baseFrequencies
 		fi
 
-		paste $A_dNTP_frequencies $C_dNTP_frequencies $G_dNTP_frequencies $T_dNTP_frequencies >> $dNTP_Frequencies
+		#Combine frequencies of +/- 100 downstream/upstream dNTPs from rNMPs into one file
+		paste $A_baseFrequency $C_baseFrequency $G_baseFrequency $T_baseFrequency >> $baseFrequencies
 	done
 done
 
@@ -362,8 +367,8 @@ done
 #Location of output directory
 output6=$directory2/Datasets/$subset
 
-#Location of output file
-dataset=$output6/$sample.nucleotide-frequencies-dataset.$subset.txt
+#Location of final output dataset containing rNMP and dNTP frequencies
+dataset=$output6/$sample.nucleotide-frequencies.$reference.$subset.txt
 
 #Create directory for output if it does not already exist
 if [[ ! -d $output6 ]]; then
@@ -376,10 +381,9 @@ rm $output6/*.txt
 #Print values -100 to 100
 seq -100 1 100 > temporary1.txt
 
-#Combine nucleotide frequency files
-cat $output5/$sample.Normalized_Nucleotide_Frequencies.$subset.upstream.txt \
-$output1/$sample.$reference.$subset.ribonucleotide-frequencies.txt \
-$output5/$sample.Normalized_Nucleotide_Frequencies.$subset.downstream.txt >> temporary2.txt
+#Combine files containing rNMP and dNTP frequencies into one file
+cat $output5/$sample.dNTP-frequencies.$reference.$subset.upstream.txt $frequencies \
+$output5/$sample.dNTP-frequencies.$reference.$subset.downstream.txt >> temporary2.txt
 
 #Merge two files into final .txt file
 paste temporary1.txt temporary2.txt > temporary3.txt
