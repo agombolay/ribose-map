@@ -50,7 +50,7 @@ bam=$directory1/$sample.bam
 #Location of output directory
 output1=$directory2/rNMPs/$subset
 
-#Create directory for output if it does not already exist
+#Create directory if it does not already exist
 if [[ ! -d $output1 ]]; then
 	mkdir -p $output1
 fi
@@ -209,7 +209,7 @@ referenceFasta2=$directory0/$reference.fa
 #Location of output directory
 output3=$directory2/dNTPs/$subset
 
-#Create directory for output if it does not already exist
+#Create directory if it does not already exist
 if [[ ! -d $output3 ]]; then
     	mkdir -p $output3
 fi	
@@ -247,12 +247,12 @@ for location in ${locations[@]}; do
 		#Location of output directory
 		output4=$directory2/Nucleotides/$subset/Columns/$location
 
-		#Create directory for output if it does not already exist
+		#Create directory if it does not already exist
 		if [[ ! -d $output4 ]]; then
     			mkdir -p $output4
 		fi
 
-		#Create directory for output if it does not already exist
+		#Create directory if it does not already exist
 		if [[ ! -d $output4/sequences ]]; then
                 	mkdir -p $output4/sequences
         	fi
@@ -291,7 +291,7 @@ done
 #Location of output directory
 output5=$directory2/Nucleotides/$subset/Raw-Data
 
-#Create directory for output if it does not already exist
+#Create directory if it does not already exist
 if [[ ! -d $output5 ]]; then
     	mkdir -p $output5
 fi
@@ -360,7 +360,7 @@ downstreamBaseFrequencies=$output5/$sample.dNTP-frequencies.$reference.$subset.d
 #Location of output directory
 output6=$directory2/Datasets/$subset
 
-#Create directory for output if it does not already exist
+#Create directory if it does not already exist
 if [[ ! -d $output6 ]]; then
     	mkdir -p $output6
 fi
