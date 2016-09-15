@@ -128,22 +128,22 @@ background=$output2/$reference.$subset.Background-dNTP-Frequencies.txt
 #Remove file if it already exists
 rm $background
 
-#Calculate counts of each nucleotide
+#Calculate counts of each dNTP
 A_backgroundCount=$(grep -v '>' $referenceFasta | grep -o 'A' - | wc -l)
 C_backgroundCount=$(grep -v '>' $referenceFasta | grep -o 'C' - | wc -l)
 G_backgroundCount=$(grep -v '>' $referenceFasta | grep -o 'G' - | wc -l)
 T_backgroundCount=$(grep -v '>' $referenceFasta | grep -o 'T' - | wc -l)
 
-#Calculate total number of nucleotides
+#Calculate total number of dNTPs
 total_backgroundCount=$(($A_backgroundCount+$C_backgroundCount+$G_backgroundCount+$T_backgroundCount))
 
-#Calculate frequency of each nucleotide
+#Calculate frequency of each dNTP
 A_backgroundFrequency=$(bc <<< "scale = 4; `expr $A_backgroundCount/$total_backgroundCount`")
 C_backgroundFrequency=$(bc <<< "scale = 4; `expr $C_backgroundCount/$total_backgroundCount`")
 G_backgroundFrequency=$(bc <<< "scale = 4; `expr $G_backgroundCount/$total_backgroundCount`")
 T_backgroundFrequency=$(bc <<< "scale = 4; `expr $T_backgroundCount/$total_backgroundCount`")
 
-#Save nucleotide frequencies to TXT file
+#Save frequencies of dNTP to TXT file
 echo "A Background Frequency: $A_backgroundFrequency" >> $background
 echo "C Background Frequency: $C_backgroundFrequency" >> $background
 echo "G Background Frequency: $G_backgroundFrequency" >> $background
