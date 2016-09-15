@@ -225,7 +225,8 @@ downstreamSequences=$output3/$sample.downstream-sequences.tab
 bedtools genomecov -3 -bg -ibam $bam > $coordinates
 
 #Remove column containing coverage values
-awk '!($4="")' $coordinates | sed 's/ \+/\t/g' - > temporary1 && mv temporary1 $coordinates
+#awk '!($4="")' $coordinates | sed 's/ \+/\t/g' - > temporary1 && mv temporary1 $coordinates
+awk -v "OFS=\t" '{print $1, $2, $3}' $coordinates > temporary1 && mv temporary1 $coordinates
 
 #Obtain coordinates of +/- 100 downstream/upstream dNTPs from rNMPs:
 bedtools flank -i $coordinates -g $referenceBED -l 100 -r 0 > $upstreamIntervals
