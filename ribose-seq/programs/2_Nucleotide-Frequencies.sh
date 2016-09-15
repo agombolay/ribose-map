@@ -296,7 +296,7 @@ if [[ ! -d $output5 ]]; then
     	mkdir -p $output5
 fi
 		
-#Remove old files
+#Remove old files if they already exist
 rm $output5/*.txt
 
 for location in ${locations[@]}; do
@@ -368,7 +368,7 @@ fi
 #Location of output file
 dataset=$output6/$sample.nucleotide-frequencies-dataset.$reference.$subset.txt
 
-#Remove old files
+#Remove old files if they already exist
 rm $output6/*.txt
 
 #Print values -100 to 100
