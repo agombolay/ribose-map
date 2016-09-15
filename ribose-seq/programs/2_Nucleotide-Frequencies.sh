@@ -278,9 +278,9 @@ for location in ${locations[@]}; do
 
 		for i in {1..100}; do
 			#Location of output files
-			lists=$output4/$sample.column.$i.$location.$reference.$subset.txt
-			#Save lists of dNTPs at each +/- 100 downstream/upstream position
-			awk -v field=$i '{ print $field }' $columns > $lists
+			baseLists=$output4/$sample.column.$i.$location.$reference.$subset.txt
+			#Save lists of dNTPs at each +/- 100 bp downstream/upstream position
+			awk -v field=$i '{ print $field }' $columns > $baseLists
 		done
 	done
 done
