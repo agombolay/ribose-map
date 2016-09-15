@@ -360,13 +360,13 @@ downstreamBaseFrequencies=$output5/$sample.dNTP-frequencies.$reference.$subset.d
 #Location of output directory
 output6=$directory2/Datasets/$subset
 
-#Location of final output TXT file containing rNMP and dNTP frequencies
-dataset=$output6/$sample.nucleotide-frequencies-dataset.$reference.$subset.txt
-
 #Create directory for output if it does not already exist
 if [[ ! -d $output6 ]]; then
     	mkdir -p $output6
 fi
+
+#Location of output file
+dataset=$output6/$sample.nucleotide-frequencies-dataset.$reference.$subset.txt
 
 #Remove old files
 rm $output6/*.txt
