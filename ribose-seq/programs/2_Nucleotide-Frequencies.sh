@@ -178,7 +178,7 @@ awk '$2 == "+" {print substr($0,length($0)-2)}' temporary.txt > $list
 #rNMPs on negative strands (located at beginning of sequence)
 awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2}' temporary.txt >> $list
 
-#Calculate count of each rNMPs
+#Calculate count of each rNMP
 A_riboCount=$(awk '$1 == "A" && $2 == "+" || $1 == "T" && $2 == "-" {print $1, $2}' $list | wc -l)
 C_riboCount=$(awk '$1 == "C" && $2 == "+" || $1 == "G" && $2 == "-" {print $1, $2}' $list | wc -l)
 G_riboCount=$(awk '$1 == "G" && $2 == "+" || $1 == "C" && $2 == "-" {print $1, $2}' $list | wc -l)
