@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #Author: Alli Gombolay
-#This program calculates the ribonucleotide frequencies located at 3' position of input BED file
+#This program calculates the rNMP frequencies (3' position of aligned reads) and dNTPs located +/- 100 bp from the rNMPs
 
 #COMMAND LINE OPTIONS
 
