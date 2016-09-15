@@ -236,7 +236,7 @@ bedtools getfasta -fi $referenceFasta2 -bed $upstreamIntervals -tab -fo $upstrea
 bedtools getfasta -fi $referenceFasta2 -bed $downstreamIntervals -tab -fo $downstreamSequences
 
 ##############################################################################################################################
-#STEP 6: Output sequences of +/- 100 downstream/upstream dNTPs from rNMPs into tabular format
+#STEP 6: Tabulate sequences of +/- 100 downstream/upstream dNTPs from rNMPs
 
 locations="upstream downstream"
 
