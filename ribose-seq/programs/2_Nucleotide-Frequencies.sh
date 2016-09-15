@@ -151,7 +151,7 @@ riboList=$output1/$sample.rNMP-list.$reference.$subset.txt
 riboFrequencies=$output1/$sample.rNMP-frequencies.$reference.$subset.txt
 
 #Remove files if they already exist
-rm $frequencies $list
+rm $riboFrequencies $riboList
 
 #Select only rNMPs in subset:
 #Whole genome subset
