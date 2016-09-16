@@ -239,7 +239,7 @@ for location in ${locations[@]}; do
 	for file in $output3/$sample.$location-sequences.tab; do
 		
 		#Location of output directory
-		output4=$directory2/Nucleotides/$subset/Columns/$location
+		output4=$directory2/dNTPs/$subset/Columns/$location
 
 		#Create directories if they do not already exist
 		if [[ ! -d $output4 && $output4/sequences ]]; then
