@@ -278,7 +278,7 @@ done
 #STEP 7: Calculate frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
 #Location of output directory
-output5=$directory2/Nucleotides/$subset/Raw-Data
+output5=$directory2/dNTPs/$subset/Raw-Data
 
 #Create directory if it does not already exist
 if [[ ! -d $output5 ]]; then
@@ -300,7 +300,7 @@ for location in ${locations[@]}; do
 	baseFrequencies=$output5/$sample.dNTP-frequencies.$reference.$subset.$location.txt
 	
 	#Calculate dNTP frequencies for each +/- 100 downstream/upstream position
-	for file in $directory2/Nucleotides/$subset/Columns/$location/$sample*.txt; do
+	for file in $directory2/dNTPs/$subset/Columns/$location/$sample*.txt; do
 
 		#Calculate count of each dNTP
 		A_baseCount=$(grep -v '>' $file | grep -o 'A' - | wc -l)
