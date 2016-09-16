@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #Author: Alli Gombolay
-#This program calculates the rNMP frequencies (3' position of aligned reads) and dNTPs located +/- 100 bp from the rNMPs
+#This program calculates rNMP frequencies (3' position of aligned reads) and dNTPs located +/- 100 base pairs from rNMPs
 
 #COMMAND LINE OPTIONS
 
@@ -247,15 +247,10 @@ for location in ${locations[@]}; do
 		#Location of output directory
 		output4=$directory2/Nucleotides/$subset/Columns/$location
 
-		#Create directory if it does not already exist
-		if [[ ! -d $output4 ]]; then
-    			mkdir -p $output4
+		#Create directories if they do not already exist
+		if [[ ! -d $output4 && $output4/sequences ]]; then
+    			mkdir -p $output4 $output4/sequences
 		fi
-
-		#Create directory if it does not already exist
-		if [[ ! -d $output4/sequences ]]; then
-                	mkdir -p $output4/sequences
-        	fi
 
 		#Location of output files
 		selection=$output4/sequences/$sample.$location-sequences.$reference.$subset.txt
