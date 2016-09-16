@@ -38,7 +38,7 @@ directory0=$directory/ribose-seq/reference/
 #Location of "Alignment" directory
 directory1=$directory/ribose-seq/results/$reference/$sample/Alignment
 
-#Location of "dNTP-Frequencies" directory
+#Location of "Nucleotide-Frequencies" directory
 directory2=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies
 
 ##############################################################################################################################
