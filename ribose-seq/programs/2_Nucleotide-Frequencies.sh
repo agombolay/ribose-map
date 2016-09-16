@@ -88,12 +88,12 @@ samtools view $bam > $sam
 paste $bed $sam | awk -v "OFS=\t" '{print $1, $2, $3, $16, $6}' > $readCoordinates
 
 #0-BASED COORDINATES OF rNMPs:
-#Obtain positions of rNMPs (3’ end of aligned read):
+#Obtain coordinates of rNMPs (3’ end of aligned read):
 bedtools genomecov -3 -strand + -bg -ibam $bam > $positiveCoordinates0
 bedtools genomecov -3 -strand - -bg -ibam $bam > $negativeCoordinates0
 
 #1-BASED COORDINATES OF	rNMPs:
-#Obtain positions of rNMPs (3’ end of aligned read):
+#Obtain coordinates of rNMPs (3’ end of aligned read):
 bedtools genomecov -3 -strand + -d -ibam $bam > $positiveCoordinates1
 bedtools genomecov -3 -strand - -d -ibam $bam > $negativeCoordinates1
 
