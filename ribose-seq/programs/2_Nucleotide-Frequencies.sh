@@ -354,14 +354,11 @@ if [[ ! -d $output6 ]]; then
     	mkdir -p $output6
 fi
 
-#Remove old file if it already exists
-rm $dataset
-
 #Location of output file
 dataset=$output6/$sample.nucleotide-frequencies-dataset.$reference.$subset.txt
 
-#Remove old files if they already exist
-rm $output6/*.txt
+#Remove old file if it already exists
+rm $dataset
 
 #Print values -100 to 100
 seq -100 1 100 > temporary1
