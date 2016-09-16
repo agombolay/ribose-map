@@ -39,7 +39,7 @@ directory0=$directory/ribose-seq/reference/
 directory1=$directory/ribose-seq/results/$reference/$sample/Alignment
 
 #Location of "dNTP-Frequencies" directory
-directory2=$directory/ribose-seq/results/$reference/$sample/dNTP-Frequencies
+directory2=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies
 
 ##############################################################################################################################
 #STEP 1: Covert BAM alignment file to FASTA format
