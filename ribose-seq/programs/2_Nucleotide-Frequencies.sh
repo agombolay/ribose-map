@@ -32,7 +32,7 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
-#Run each user-specified sample through the program
+#Calculate nucleotide frequencies for each sample
 for sample in ${sample[@]}; do
 
 	#Location of "Reference" directory
@@ -235,8 +235,10 @@ for sample in ${sample[@]}; do
 ##############################################################################################################################
 	#STEP 6: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
+	#Names of dNTPs located +/- 100 base pairs from rNMPs
 	locations="upstream downstream"
 
+	#Tabulate data files of upstream/downstream dNTP sequences
 	for location in ${locations[@]}; do
 
 		for file in $output3/$sample.$location-sequences.tab; do
