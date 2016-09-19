@@ -44,7 +44,7 @@ for sample in ${sample[@]}; do
 	#Location of "Nucleotide-Frequencies" directory
 	directory2=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies
 
-##############################################################################################################################
+##########################################################################################################################################
 	#STEP 1: Covert BAM alignment file to FASTA format
 
 	#Location of input file
@@ -68,7 +68,7 @@ for sample in ${sample[@]}; do
 	#Convert FASTQ file to FASTA
 	seqtk seq -A $fastq > $fasta
 
-##############################################################################################################################
+##########################################################################################################################################
 	#STEP 2: Obtain rNMP coordinates from aligned reads
 
 	#Location of output files
@@ -104,7 +104,7 @@ for sample in ${sample[@]}; do
 	awk '$3 != 0' $positiveCoordinates1 > temporary1 && mv temporary1 $positiveCoordinates1
 	awk '$3 != 0' $negativeCoordinates1 > temporary2 && mv temporary2 $negativeCoordinates1
 
-##############################################################################################################################
+##########################################################################################################################################
 	#STEP 3: Calculate background dNTP frequencies of reference genome
 
 	#Location of input file
@@ -140,7 +140,7 @@ for sample in ${sample[@]}; do
 	echo "G Background Frequency: $G_backgroundFrequency" >> $background
 	echo "T Background Frequency: $T_backgroundFrequency" >> $background
 
-##############################################################################################################################
+##########################################################################################################################################
 	#STEP 4: Calculate rNMP Frequencies
 
 	#Location of output files
@@ -196,7 +196,7 @@ for sample in ${sample[@]}; do
 	#Remove temporary file
 	rm temporary
 
-##############################################################################################################################
+##########################################################################################################################################
 	#STEP 5: Obtain coordinates and sequences of +/- 100 downstream/upstream dNTPs from rNMPs
 
 	#Location of input files
@@ -232,7 +232,7 @@ for sample in ${sample[@]}; do
 	bedtools getfasta -fi $referenceFasta2 -bed $upstreamIntervals -tab -fo $upstreamSequences
 	bedtools getfasta -fi $referenceFasta2 -bed $downstreamIntervals -tab -fo $downstreamSequences
 
-##############################################################################################################################
+##########################################################################################################################################
 	#STEP 6: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
 	#Names of dNTPs located +/- 100 base pairs from rNMPs
@@ -279,7 +279,7 @@ for sample in ${sample[@]}; do
 		done
 	done
 
-##############################################################################################################################
+##########################################################################################################################################
 	#STEP 7: Calculate frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
 	#Location of output directory
@@ -344,7 +344,7 @@ for sample in ${sample[@]}; do
 		done
 	done
 
-##############################################################################################################################
+##########################################################################################################################################
 	#STEP 8: Create dataset file containing nucleotide frequencies needed for plotting
 
 	#Location of input files
