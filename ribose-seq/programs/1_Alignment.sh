@@ -16,8 +16,7 @@ function usage () {
 }
 
 #Use getopts function to create the command-line options ([-i], [-b], [-d], [-v], and [-h])
-while getopts "i:b:d:v:h" opt;
-do
+while getopts "i:b:d:v:h" opt; do
     case $opt in
         #Specify input as arrays to allow multiple input arguments
         i ) fastq=($OPTARG) ;;
@@ -31,14 +30,12 @@ do
 done
 
 #Exit program if user specifies [-h]
-if [ "$1" == "-h" ];
-then
+if [ "$1" == "-h" ]; then
         exit
 fi
 
 #Align all of the input sequence data to the specified reference genome
-for samples in ${fastq[@]};
-do
+for samples in ${fastq[@]}; do
 	
 	#Extract sample names from filepaths
 	filename=$(basename "${samples}")
@@ -60,8 +57,7 @@ do
 	output=$directory/ribose-seq/results/$index/$samples/Alignment/
 
 	#Create directory for output if it does not already exist
-	if [[ ! -d $output ]];
-	then
+	if [[ ! -d $output ]]; then
     		mkdir -p $output
 	fi
 
@@ -97,12 +93,10 @@ do
 	#2. Align UMI trimmed reads to reference genome and output alignment statistics
 	#zcat $umiTrimmed | bowtie -m 1 --sam $index --un $samples.unmappedReads --max $samples.extraReads - 2> $statistics 1> $intermediateSAM
 	
-	if [ $version == "1" ];
-	then
+	if [ $version == "1" ]; then
 		zcat $umiTrimmed | bowtie -m 1 --sam $index - 2> $statistics 1> $intermediateSAM
 	
-	elif [ $version == "2" ];
-        then
+	elif [ $version == "2" ]; then
 		zcat $umiTrimmed | bowtie2 -x $index - 2> $statistics 1> $intermediateSAM
 	fi
 
