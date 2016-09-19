@@ -32,6 +32,8 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
+for sample in ${sample[@]}; do
+
 #Location of "Reference" directory
 directory0=$directory/ribose-seq/reference/
 
@@ -374,3 +376,5 @@ echo -e "\tA\tC\tG\tU/T" > $dataset; cat temporary3 >> $dataset;
 
 #Remove temporary files
 rm temporary1 temporary2 temporary3
+
+done
