@@ -47,8 +47,6 @@ for sample in ${fastq[@]}; do
 	#Location of FASTQ files
 	fastq=$directory0/$sample.fastq
 	
-	echo $fastq
-
 	#OUTPUT
 	#Location of output directory
 	output=$directory/ribose-seq/results/$index/$sample/Alignment/
