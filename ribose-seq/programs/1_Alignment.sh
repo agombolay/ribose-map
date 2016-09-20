@@ -34,15 +34,19 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
+#Location of FASTQ files
+files=$path/$fastq
+
 #Align FASTQ files to reference genome
-for sample in ${fastq[@]}; do
+#for sample in ${fastq[@]}; do
+for files in ${files[@]}; do
 	
 	#Extract sample names from filepaths
-	filename=$(basename "${sample}")
-	sample="${filename%.*}"
+	#filename=$(basename "${sample}")
+	#sample="${filename%.*}"
 	
 	#Extract input directory from filepaths
-	inputDirectory=$(dirname "${fastq}")
+	#inputDirectory=$(dirname "${fastq}")
 	
 	#VARIABLE SPECIFICATION
 	#Length of Unique Molecular Identifiers (UMI)
@@ -50,7 +54,7 @@ for sample in ${fastq[@]}; do
 
 	#INPUT
 	#Location of FASTQ files
-	input=$inputDirectory/$sample.fastq
+	#input=$inputDirectory/$sample.fastq
 
 	#OUTPUT
 	#Location of output directory
@@ -84,8 +88,9 @@ for sample in ${fastq[@]}; do
 	#ALIGNMENT
 
 	#Reverse complement reads
-	seqtk seq -r $input > $reverseComplement
-	
+	#seqtk seq -r $input > $reverseComplement
+	seqtk seq -r $files > $reverseComplement
+
 	#1. Trim UMI from 3' ends of reads; compress file
 	umitools trim --end 3 $reverseComplement $UMI | gzip -c > $umiTrimmed
 
