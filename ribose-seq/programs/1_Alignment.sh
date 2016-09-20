@@ -16,11 +16,12 @@ function usage () {
 }
 
 #Use getopts function to create the command-line options ([-i], [-b], [-d], [-v], and [-h])
-while getopts "i:b:d:v:h" opt; do
+while getopts "i:p:b:d:v:h" opt; do
     case $opt in
         #Specify input as arrays to allow multiple input arguments
         i ) fastq=($OPTARG) ;;
 	#Specify input as variable to allow only one input argument
+	p ) path=$OPTARG ;;
 	b ) index=$OPTARG ;;
 	v ) version=$OPTARG ;;
 	d ) directory=$OPTARG ;;
