@@ -40,11 +40,13 @@ files=$path/$fastq
 
 #Align FASTQ files to reference genome
 #for sample in ${fastq[@]}; do
-for files in ${files[@]}; do
+for file in ${files[@]}; do
 	
 	#Extract sample names from filepaths
 	#filename=$(basename "${sample}")
 	#sample="${filename%.*}"
+	filename=$(basename "${file}")
+	sample="${filename%.*}"
 	
 	#Extract input directory from filepaths
 	#inputDirectory=$(dirname "${fastq}")
