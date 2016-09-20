@@ -35,11 +35,11 @@ if [ "$1" == "-h" ]; then
 fi
 
 #Align all of the input sequence data to the specified reference genome
-for samples in ${fastq[@]}; do
+for sample in ${fastq[@]}; do
 	
 	#Extract sample names from filepaths
-	filename=$(basename "${samples}")
-	samples="${filename%.*}"
+	filename=$(basename "${sample}")
+	sample="${filename%.*}"
 	
 	#Extract input directories from filepaths
 	inputDirectory=$(dirname "${fastq}")
@@ -50,11 +50,11 @@ for samples in ${fastq[@]}; do
 
 	#INPUT
 	#Location of raw sequencing files
-	input=$inputDirectory/$samples.fastq
+	input=$inputDirectory/$sample.fastq
 
 	#OUTPUT
 	#Location of output "ribose-seq" alignment directory
-	output=$directory/ribose-seq/results/$index/$samples/Alignment/
+	output=$directory/ribose-seq/results/$index/$sample/Alignment/
 
 	#Create directory for output if it does not already exist
 	if [[ ! -d $output ]]; then
@@ -62,22 +62,22 @@ for samples in ${fastq[@]}; do
 	fi
 
 	#Location of reverse complement files of input FASTQ files
-	reverseComplement=$output/$samples.reverse.complement.fastq
+	reverseComplement=$output/$sample.reverse.complement.fastq
 
 	#Location of files with trimmed UMI
-	umiTrimmed=$output/$samples.umiTrimmed.fastq.gz
+	umiTrimmed=$output/$sample.umiTrimmed.fastq.gz
 
 	#Intermediate files
-	intermediateSAM=$output/$samples.intermediate.sam
-	intermediateBAM=$output/$samples.intermediate.bam
+	intermediateSAM=$output/$sample.intermediate.sam
+	intermediateBAM=$output/$sample.intermediate.bam
 
-	sortedBAM=$output/$samples.sorted.bam
+	sortedBAM=$output/$sample.sorted.bam
 
 	#Final BAM files
-	finalBAM=$output/$samples.bam
+	finalBAM=$output/$sample.bam
 
 	#Output file of Bowtie alignment statistics
-	statistics=$output/$samples.statistics.txt
+	statistics=$output/$sample.statistics.txt
 
 	#BED file
 	BED=$output/$samples.bed.gz
