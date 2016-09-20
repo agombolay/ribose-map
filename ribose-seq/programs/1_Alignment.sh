@@ -34,43 +34,42 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
-#Align all of the input sequence data to the specified reference genome
+#Align FASTQ files to reference genome
 for sample in ${fastq[@]}; do
 	
 	#Extract sample names from filepaths
 	filename=$(basename "${sample}")
 	sample="${filename%.*}"
 	
-	#Extract input directories from filepaths
+	#Extract input directory from filepaths
 	inputDirectory=$(dirname "${fastq}")
 	
 	#VARIABLE SPECIFICATION
-	#Length of UMI (Unique Molecular Identifiers)
+	#Length of Unique Molecular Identifiers (UMI)
 	UMI=NNNNNNNN
 
 	#INPUT
-	#Location of raw sequencing files
+	#Location of FASTQ files
 	input=$inputDirectory/$sample.fastq
 
 	#OUTPUT
-	#Location of output "ribose-seq" alignment directory
+	#Location of output directory
 	output=$directory/ribose-seq/results/$index/$sample/Alignment/
 
-	#Create directory for output if it does not already exist
+	#Create directory if it does not already exist
 	if [[ ! -d $output ]]; then
     		mkdir -p $output
 	fi
 
-	#Location of reverse complement files of input FASTQ files
+	#Location of reverse complemented FASTQ files 
 	reverseComplement=$output/$sample.reverse.complement.fastq
 
-	#Location of files with trimmed UMI
+	#Location of UMI trimmed FASTQ files
 	umiTrimmed=$output/$sample.umiTrimmed.fastq.gz
 
 	#Intermediate files
 	intermediateSAM=$output/$sample.intermediate.sam
 	intermediateBAM=$output/$sample.intermediate.bam
-
 	sortedBAM=$output/$sample.sorted.bam
 
 	#Final BAM files
