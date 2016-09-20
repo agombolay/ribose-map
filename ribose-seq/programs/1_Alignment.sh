@@ -39,31 +39,23 @@ fi
 files=$path/$fastq
 
 #Align FASTQ files to reference genome
-#for sample in ${fastq[@]}; do
-for file in ${files[@]}; do
-	
-	#Extract sample names from filepaths
-	#filename=$(basename "${sample}")
-	#sample="${filename%.*}"
-	filename=$(basename "${file}")
+for sample in ${fastq[@]}; do
+
+	#Extract names from filepaths
+	filename=$(basename "${sample}")
 	sample="${filename%.*}"
 	
-	#Extract input directory from filepaths
-	#inputDirectory=$(dirname "${fastq}")
+	#Extract directory from filepaths
+	directory0=$(dirname "${fastq}")
 	
-	#VARIABLE SPECIFICATION
-	#Length of Unique Molecular Identifiers (UMI)
-	UMI=NNNNNNNN
-
-	#INPUT
 	#Location of FASTQ files
-	#input=$inputDirectory/$sample.fastq
+	fastq=$directory0/$sample.fastq
 
 	#OUTPUT
 	#Location of output directory
 	output=$directory/ribose-seq/results/$index/$sample/Alignment/
 
-	#Create directory if it does not already exist
+	#Create directory if not present
 	if [[ ! -d $output ]]; then
     		mkdir -p $output
 	fi
@@ -88,46 +80,32 @@ for file in ${files[@]}; do
 	#BED file
 	BED=$output/$samples.bed.gz
 
-	#ALIGNMENT
+	#Length of Unique Molecular Identifiers (UMI)
+	UMI=NNNNNNNN
 
+##############################################################################################################################
 	#Reverse complement reads
-	#seqtk seq -r $input > $reverseComplement
-	seqtk seq -r $files > $reverseComplement
+	seqtk seq -r $fastq > $reverseComplement
 
 	#1. Trim UMI from 3' ends of reads; compress file
 	umitools trim --end 3 $reverseComplement $UMI | gzip -c > $umiTrimmed
 
-	#2. Align UMI trimmed reads to reference genome and output alignment statistics
-	#zcat $umiTrimmed | bowtie -m 1 --sam $index --un $samples.unmappedReads --max $samples.extraReads - 2> $statistics 1> $intermediateSAM
-	
-	#Align reads with Bowtie version 1 or Bowtie version 2
+	#2. Align reads to reference genome with Bowtie version 1 or 2
+	#Bash: "-": standard input; "2>": Redirect standard error; "1>": Redirect standard output
+	#Bowtie: "-m 1": Return only unique reads; "--sam": Print alignment results in SAM format
 	if [ $version == "1" ]; then
 		zcat $umiTrimmed | bowtie -m 1 --sam $index - 2> $statistics 1> $intermediateSAM
-	
 	elif [ $version == "2" ]; then
 		zcat $umiTrimmed | bowtie2 -x $index - 2> $statistics 1> $intermediateSAM
 	fi
 
-	#Bash functions used above:
-	#"-": standard input
-	#2>: Redirect standard error to file
-	#1>: Redirect standard output to file
-	
-	#Bowtie options used above:
-	#"-m 1": Return only unique reads
-	#"--sam": Print alignment results in SAM format
-	#reference: Basename of Bowtie index to be searched
-	
-	#Convert SAM files to BAM files
-	#samtools view -bS $intermediateSAM > $intermediateBAM
-	samtools view -ShuF4 $intermediateSAM > $intermediateBAM
-	
-	#SAMtools options used above:
+	#Convert SAM file to BAM
 	#"-S": Input in SAM format
 	#"-h": Include header in output
 	#"-u": Output as uncompressed BAM
 	#"-F4": Do not output unmapped reads
-
+	samtools view -ShuF4 $intermediateSAM > $intermediateBAM
+	
 	#Sort intermediate BAM files
 	samtools sort $intermediateBAM > $sortedBAM
 
@@ -140,16 +118,4 @@ for file in ${files[@]}; do
 	#Index final BAM files
 	samtools index $finalBAM
 	
-	#Ask the user if he/she would like to delete all of the intermediate files
-	#echo "Would you like to delete all of the intermediate files for $samples? [y/n]"
-	
-	#"answer" is the variable representing the user's answer
-	#read answer
-	
-	#If the user answers "y," then remove the specified files
-	#if [ $answer == "y" ];
-        #then
-        #	rm $umiTrimmed $intermediateSAM $intermediateBAM $sortedBAM;
-        #fi
-
 done
