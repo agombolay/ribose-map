@@ -62,10 +62,10 @@ for sample in ${fastq[@]}; do
 	fi
 
 	#Location of reverse complemented FASTQ files 
-	reverseComplement=$output/$sample.reverse.complement.fastq
+	reverseComplement=$output/$sample.reverse-complement.fastq
 
 	#Location of UMI trimmed FASTQ files
-	umiTrimmed=$output/$sample.umiTrimmed.fastq.gz
+	umiTrimmed=$output/$sample.UMI-trimmed.fastq.gz
 
 	#Intermediate files
 	intermediateSAM=$output/$sample.intermediate.sam
@@ -75,23 +75,24 @@ for sample in ${fastq[@]}; do
 	#Final BAM files
 	finalBAM=$output/$sample.bam
 
-	#Output file of Bowtie alignment statistics
-	statistics=$output/$sample.statistics.txt
+	#File containing Bowtie alignment statistics
+	statistics=$output/$sample.Alignment-Statistics.txt
 
 	#BED file
 	BED=$output/$samples.bed.gz
 
 	#ALIGNMENT
 
-	#Obtain reverse complement of input FASTQ files
+	#Reverse complement reads
 	seqtk seq -r $input > $reverseComplement
 	
-	#1. Trim UMI from 3' ends of reads and compress output files
+	#1. Trim UMI from 3' ends of reads; compress file
 	umitools trim --end 3 $reverseComplement $UMI | gzip -c > $umiTrimmed
 
 	#2. Align UMI trimmed reads to reference genome and output alignment statistics
 	#zcat $umiTrimmed | bowtie -m 1 --sam $index --un $samples.unmappedReads --max $samples.extraReads - 2> $statistics 1> $intermediateSAM
 	
+	#Align reads with Bowtie version 1 or Bowtie version 2
 	if [ $version == "1" ]; then
 		zcat $umiTrimmed | bowtie -m 1 --sam $index - 2> $statistics 1> $intermediateSAM
 	
@@ -125,7 +126,7 @@ for sample in ${fastq[@]}; do
 	#Index sorted BAM files
 	samtools index $sortedBAM
 	
-	#3. De-duplicate reads based on UMI's and compress BED files
+	#3. De-duplicate reads based on UMIs; compress file
 	umitools rmdup $sortedBAM $finalBAM | gzip -c > $BED
 	
 	#Index final BAM files
