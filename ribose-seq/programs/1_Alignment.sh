@@ -84,13 +84,13 @@ for sample in ${fastq[@]}; do
 	UMI=NNNNNNNN
 
 #############################################################################################################################
-	#Reverse complement reads
+	#1. Reverse complement reads
 	seqtk seq -r $fastq > $reverseComplement
 
-	#1. Trim UMI from 3' ends of reads; compress file
+	#2. Trim UMI from 3' ends of reads; compress file
 	umitools trim --end 3 $reverseComplement $UMI | gzip -c > $umiTrimmed
 
-	#2. Align reads to reference genome with Bowtie version 1 or 2
+	#3. Align reads to reference genome with Bowtie version 1 or 2
 	#Bash: "-": standard input; "2>": Redirect standard error; "1>": Redirect standard output
 	#Bowtie: "-m 1": Return only unique reads; "--sam": Print alignment results in SAM format
 	if [ $version == "1" ]; then
@@ -99,23 +99,21 @@ for sample in ${fastq[@]}; do
 		zcat $umiTrimmed | bowtie2 -x $index - 2> $statistics 1> $intermediateSAM
 	fi
 
-	#Convert SAM file to BAM
-	#"-S": Input in SAM format
-	#"-h": Include header in output
-	#"-u": Output as uncompressed BAM
-	#"-F4": Do not output unmapped reads
+	#4. Convert SAM file to BAM
+	#SAMtools: #"-S": Input format is SAM; "-h": Include header in output;
+	#"-u": Output as uncompressed BAM; #"-F4": Do not output unmapped reads
 	samtools view -ShuF4 $intermediateSAM > $intermediateBAM
 	
-	#Sort intermediate BAM files
+	#5. Sort intermediate BAM files
 	samtools sort $intermediateBAM > $sortedBAM
 
-	#Index sorted BAM files
+	#6. Index sorted BAM files
 	samtools index $sortedBAM
 	
-	#3. De-duplicate reads based on UMIs; compress file
+	#7. De-duplicate reads based on UMIs; compress file
 	umitools rmdup $sortedBAM $finalBAM | gzip -c > $BED
 	
-	#Index final BAM files
+	#8. Index final BAM files
 	samtools index $finalBAM
 	
 done
