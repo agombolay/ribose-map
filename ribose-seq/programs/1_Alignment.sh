@@ -19,7 +19,7 @@ function usage () {
 while getopts "i:b:d:v:h" opt; do
     case $opt in
         #Specify input as arrays to allow multiple input arguments
-        i ) fastq=($OPTARG) ;;
+        i ) fastq=("$OPTARG") ;;
 	#Specify input as variable to allow only one input argument
 	b ) index=$OPTARG ;;
 	v ) version=$OPTARG ;;
@@ -34,22 +34,8 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
-for sample in ${fastq[@]}; do
-	#Extract names from filepaths
-	filename=$(basename "${sample}")
-	sample="${filename%.*}"
-	
-	#Extract directory from filepaths
-	directory0=$(dirname "${fastq}")
-	
-	#Location of FASTQ files
-	fastq=$directory0/$sample.fastq
-
-	echo $fastq
-done
-
 #Align FASTQ files to reference genome
-for sample in ${fastq[@]}; do
+for sample in "${fastq[@]}"; do
 
 	#Extract names from filepaths
 	filename=$(basename "${sample}")
