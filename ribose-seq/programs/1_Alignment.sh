@@ -28,6 +28,7 @@ while getopts "i:b:d:v:h" opt; do
         h ) usage ;;
     esac
 done
+shift $((OPTIND -1))
 
 #Exit program if user specifies [-h]
 if [ "$1" == "-h" ]; then
