@@ -19,7 +19,7 @@ function usage () {
 while getopts "i:b:d:v:h" opt; do
     case $opt in
         #Specify input as arrays to allow multiple input arguments
-        i ) fastq=($OPTARG);;
+        i ) fastq=($OPTARG) ;;
 	#Specify input as variable to allow only one input argument
 	b ) index=$OPTARG ;;
 	v ) version=$OPTARG ;;
@@ -44,9 +44,9 @@ for sample in ${fastq[@]}; do
 	directory0=$(dirname "${fastq}")
 	
 	#Location of FASTQ files
-	fastq=$directory0/$sample.fastq
+	reads=$directory0/$sample.fastq
 
-	echo $fastq
+	echo $reads
 	echo $sample
 	echo "Alignment of $sample to reference genome is complete"
 done
@@ -62,7 +62,7 @@ for sample in ${fastq[@]}; do
 	directory0=$(dirname "${fastq}")
 	
 	#Location of FASTQ files
-	fastq=$directory0/$sample.fastq
+	reads=$directory0/$sample.fastq
 	
 	#OUTPUT
 	#Location of output directory
@@ -98,7 +98,7 @@ for sample in ${fastq[@]}; do
 
 #############################################################################################################################
 	#1. Reverse complement reads
-	seqtk seq -r $fastq > $reverseComplement
+	seqtk seq -r $reads > $reverseComplement
 
 	#2. Trim UMI from 3' ends of reads; compress file
 	umitools trim --end 3 $reverseComplement $UMI | gzip -c > $umiTrimmed
