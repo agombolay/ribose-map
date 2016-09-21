@@ -381,3 +381,5 @@ for sample in ${sample[@]}; do
 	rm temporary1 temporary2 temporary3
 
 done
+
+echo "Calculation of nucleotide frequencies for $sample is complete"
