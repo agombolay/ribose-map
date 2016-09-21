@@ -48,6 +48,7 @@ for sample in ${fastq[@]}; do
 
 	echo $fastq
 	echo $sample
+	echo "Alignment of $sample to reference genome is complete"
 done
 
 #Align FASTQ files to reference genome
