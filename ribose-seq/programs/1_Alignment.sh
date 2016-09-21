@@ -114,4 +114,4 @@ for sample in ${fastq[@]}; do
 	
 done
 
-echo "Alignment of $sample to $index is complete"
+echo "Alignment of $sample to reference genome is complete"
