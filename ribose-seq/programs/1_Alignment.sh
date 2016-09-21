@@ -47,6 +47,8 @@ for sample in ${files[@]}; do
 	reads=$directory0/$sample.fastq
 
 	echo $reads
+	
+	echo "hello, $reads"
 
 done
 
