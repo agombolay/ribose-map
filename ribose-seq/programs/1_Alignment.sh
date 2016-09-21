@@ -113,7 +113,7 @@ for sample in ${fastq[@]}; do
 	
 	#8. Index final BAM files
 	samtools index $finalBAM
+
+	echo "Alignment of $sample to reference genome is complete"
 	
 done
-
-echo "Alignment of $sample to reference genome is complete"
