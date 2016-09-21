@@ -19,7 +19,9 @@ function usage () {
 while getopts "i:b:d:v:h" opt; do
     case $opt in
         #Specify input as arrays to allow multiple input arguments
-        i ) fastq=("$OPTARG") ;;
+        set -f
+        IFS=' '
+        i ) fastq=($OPTARG) ;;
 	#Specify input as variable to allow only one input argument
 	b ) index=$OPTARG ;;
 	v ) version=$OPTARG ;;
