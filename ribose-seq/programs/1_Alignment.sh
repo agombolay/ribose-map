@@ -46,7 +46,8 @@ for sample in ${fastq[@]}; do
 	#Location of FASTQ files
 	fastq=$directory0/$sample.fastq
 
-	echo $fastq $sample
+	echo $fastq
+	echo $sample
 done
 
 #Align FASTQ files to reference genome
