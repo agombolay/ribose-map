@@ -34,6 +34,8 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
+echo ${fastq[@]}
+
 #Align FASTQ files to reference genome
 for sample in ${fastq[@]}; do
 
