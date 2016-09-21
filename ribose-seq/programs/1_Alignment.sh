@@ -17,9 +17,9 @@ function usage () {
 
 #Use getopts function to create the command-line options ([-i], [-b], [-d], [-v], and [-h])
 while getopts "b:d:v:h" opt; do
-    case $opt in
+    case "$opt" in
         #Specify input as arrays to allow multiple input arguments
-        #i ) fastq=($OPTARG) ;;
+        i ) files=$OPTARG ;;
 	#Specify input as variable to allow only one input argument
 	b ) index=$OPTARG ;;
 	v ) version=$OPTARG ;;
@@ -28,14 +28,13 @@ while getopts "b:d:v:h" opt; do
         h ) usage ;;
     esac
 done
-shift $(( OPTIND - 1 ))
 
 #Exit program if user specifies [-h]
 if [ "$1" == "-h" ]; then
         exit
 fi
 
-for sample in "$@"; do
+for sample in $files; do
 
 	#Extract names from filepaths
 	filename=$(basename "${sample}")
@@ -53,7 +52,7 @@ done
 
 #Align FASTQ files to reference genome
 #for sample in ${fastq[@]}; do
-for sample in "$@"; do
+for sample in $files; do
 
 	#Extract names from filepaths
 	filename=$(basename "${sample}")
