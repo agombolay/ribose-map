@@ -37,7 +37,7 @@ if [ "$1" == "-h" ]; then
 fi
 
 #Align FASTQ files to reference genome
-for sample in "${fastq[@]}"; do
+for sample in ${fastq[@]}; do
 
 	#Extract names from filepaths
 	filename=$(basename "${sample}")
