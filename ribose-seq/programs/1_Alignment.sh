@@ -34,26 +34,7 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
-for sample in ${files[@]}; do
-
-	#Extract names from filepaths
-	filename=$(basename "${sample}")
-	sample="${filename%.*}"
-	
-	#Extract directory from filepaths
-	directory0=$(dirname "${files}")
-	
-	#Location of FASTQ files
-	reads=$directory0/$sample.fastq
-
-	echo $reads
-	
-	echo "hello, $reads"
-
-done
-
 #Align FASTQ files to reference genome
-#for sample in ${fastq[@]}; do
 for sample in ${files[@]}; do
 
 	#Extract names from filepaths
