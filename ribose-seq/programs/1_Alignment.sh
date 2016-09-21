@@ -59,7 +59,7 @@ for sample in ${files[@]}; do
 	sample="${filename%.*}"
 	
 	#Extract directory from filepaths
-	directory0=$(dirname "${files[@]}")
+	directory0=$(dirname "${files}")
 	
 	#Location of FASTQ files
 	reads=$directory0/$sample.fastq
