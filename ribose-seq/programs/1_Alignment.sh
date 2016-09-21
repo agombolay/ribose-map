@@ -113,3 +113,5 @@ for sample in ${fastq[@]}; do
 	samtools index $finalBAM
 	
 done
+
+echo "Alignment of $sample to $index is complete"
