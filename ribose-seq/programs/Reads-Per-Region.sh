@@ -45,7 +45,6 @@ do
 	#INPUT
 	#Location of input files
 	input=$inputDirectory/$samples.bam
-	echo $input
 
 	#OUTPUT
 	#Location of output files
