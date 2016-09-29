@@ -11,7 +11,7 @@
 
 #Usage statement of the program
 function usage () {
-	echo "Usage: 9_Reads-Per-Region.sh [-i] 'BAM' [-h]
+	echo "Usage: Reads-Per-Region.sh [-i] 'BAM' [-h]
 		-i Filepath of BAM files ('/path/to/FS1.bam' etc.)"
 }
 
@@ -45,6 +45,7 @@ do
 	#INPUT
 	#Location of input files
 	input=$inputDirectory/$samples.bam
+	echo $input
 
 	#OUTPUT
 	#Location of output files
