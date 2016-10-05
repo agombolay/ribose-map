@@ -361,7 +361,8 @@ for sample in ${sample[@]}; do
 
 	#Location of output file
 	dataset=$output6/$sample.nucleotide-frequencies-dataset.$reference.$subset.txt
-
+	zoomed=$output6/$sample.nucleotide-frequencies-zoomed.$reference.$subset.txt
+	
 	#Remove old file if it already exists
 	rm $dataset
 
@@ -376,9 +377,15 @@ for sample in ${sample[@]}; do
 
 	#Add header line containing nucleotides to beginning of file 
 	echo -e "\tA\tC\tG\tU/T" > $dataset; cat temporary3 >> $dataset;
+	
+	#Smaller dataset
+	seq -15 1 15 > temporary4
+	head -117 $dataset | tail -31 > temporary5
+	paste temporary4 temporary5 > temporary6
+	echo -e "\tA\tC\tG\tU/T" > $zoomed; cat temporary6 >> $zoomed;
 
 	#Remove temporary files
-	rm temporary1 temporary2 temporary3
+	rm temporary1 temporary2 temporary3 temporary4 temporary5 temporary6
 
 	echo "Calculation of nucleotide frequencies for $sample is complete"
 
