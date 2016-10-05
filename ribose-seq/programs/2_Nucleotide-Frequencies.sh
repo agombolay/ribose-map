@@ -379,13 +379,11 @@ for sample in ${sample[@]}; do
 	echo -e "\tA\tC\tG\tU/T" > $dataset; cat temporary3 >> $dataset;
 	
 	#Smaller dataset
-	seq -15 1 15 > temporary4
-	head -117 $dataset | tail -31 > temporary5
-	paste temporary4 temporary5 > temporary6
-	echo -e "\tA\tC\tG\tU/T" > $zoomed; cat temporary6 >> $zoomed;
+	head -117 $dataset | tail -31 > temporary4
+	echo -e "\tA\tC\tG\tU/T" > $zoomed; cat temporary4 >> $zoomed;
 
 	#Remove temporary files
-	rm temporary1 temporary2 temporary3 temporary4 temporary5 temporary6
+	rm temporary1 temporary2 temporary3 temporary4
 
 	echo "Calculation of nucleotide frequencies for $sample is complete"
 
