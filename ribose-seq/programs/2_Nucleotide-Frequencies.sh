@@ -270,7 +270,7 @@ for sample in ${sample[@]}; do
 			#Insert tabs between each nucleotide
 			cat $sequences | sed 's/.../& /2g;s/./& /g' > $columns
 
-			for i in {1..100}; do
+			for i in {1..15}; do
 				#Location of output files
 				baseLists=$output4/$sample.column.$i.$location.$reference.$subset.txt
 				#Save lists of dNTPs at each +/- 100 bp downstream/upstream position
