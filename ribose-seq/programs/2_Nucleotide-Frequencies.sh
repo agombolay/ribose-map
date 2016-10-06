@@ -152,7 +152,7 @@ for sample in ${sample[@]}; do
 
 	#Select only rNMPs in subset:
 	#Whole genome subset
-	if [ $subset == "sacCer2" ] || [ $subset == "chrM" ] || [ $subset == "eColi" ] || [ $subset == "mm9" ] || [ $subset == "hg38" ]; then
+	if [ $subset == "sacCer2" ] || [ $subset == "chrM" ] || [ $subset == "eColi" ] || [ $subset == "mm9" ] || [ $subset == "hg38" ] || [ $subset == "LL_1510A" ]; then
 		awk -v "OFS=\t" '{print $4, $5}' $readCoordinates > temporary
 	#Mitochondria subset
 	elif [[ $subset == "mitochondria" ]]; then
@@ -256,7 +256,7 @@ for sample in ${sample[@]}; do
 			sequences=$output4/sequences/$sample.$location-sequences.$reference.$subset.raw.txt
 			columns=$output4/sequences/$sample.$location-sequences.$reference.$subset.columns.txt
 
-			if [ $subset == "sacCer2" ] || [ $subset == "chrM" ] || [ $subset == "eColi" ] || [ $subset == "mm9" ] || [ $subset == "hg38" ]; then
+			if [ $subset == "sacCer2" ] || [ $subset == "chrM" ] || [ $subset == "eColi" ] || [ $subset == "mm9" ] || [ $subset == "hg38" ] || [ $subset == "LL_1510A ]; then
 				cat $file > $selection
 			elif [ $subset == "mitochondria" ]; then
 				grep 'chrM' $file > $selection
