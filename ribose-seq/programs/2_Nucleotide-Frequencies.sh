@@ -155,7 +155,7 @@ for sample in ${sample[@]}; do
 	if [ $subset == "sacCer2" ] || [ $subset == "chrM" ] || [ $subset == "eColi" ] || [ $subset == "mm9" ] || [ $subset == "hg38" ] || [ $subset == "LL_1510A" ]; then
 		awk -v "OFS=\t" '{print $4, $5}' $readCoordinates > temporary
 	#Mitochondria subset
-	elif [[ $subset == "mitochondria" ]]; then
+	elif [[ $subset == "chrM" ]]; then
     		grep 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary
 	#Nuclear subset
 	elif [[ $subset == "nuclear" ]]; then
@@ -258,7 +258,7 @@ for sample in ${sample[@]}; do
 
 			if [ $subset == "sacCer2" ] || [ $subset == "chrM" ] || [ $subset == "eColi" ] || [ $subset == "mm9" ] || [ $subset == "hg38" ] || [ $subset == "LL_1510A" ]; then
 				cat $file > $selection
-			elif [ $subset == "mitochondria" ]; then
+			elif [ $subset == "chrM" ]; then
 				grep 'chrM' $file > $selection
 			elif [ $subset == "nuclear" ]; then
 				grep -v 'chrM' $file > $selection
