@@ -317,16 +317,16 @@ for sample in ${sample[@]}; do
 			total_baseCount=$(($A_baseCount+$C_baseCount+$G_baseCount+$T_baseCount))
 	
 			#Calculate raw frequencies of dNTPs
-			A_rawBaseFrequency=$(echo "scale = 5; $A_baseCount/$total_baseCount" | bc | awk '{printf "%.5f\n", $0}')
-			C_rawBaseFrequency=$(echo "scale = 5; $C_baseCount/$total_baseCount" | bc | awk '{printf "%.5f\n", $0}')
-			G_rawBaseFrequency=$(echo "scale = 5; $G_baseCount/$total_baseCount" | bc | awk '{printf "%.5f\n", $0}')
-			T_rawBaseFrequency=$(echo "scale = 5; $T_baseCount/$total_baseCount" | bc | awk '{printf "%.5f\n", $0}')
+			A_rawBaseFrequency=$(echo "scale = 12; $A_baseCount/$total_baseCount" | bc | awk '{printf "%.12f\n", $0}')
+			C_rawBaseFrequency=$(echo "scale = 12; $C_baseCount/$total_baseCount" | bc | awk '{printf "%.12f\n", $0}')
+			G_rawBaseFrequency=$(echo "scale = 12; $G_baseCount/$total_baseCount" | bc | awk '{printf "%.12f\n", $0}')
+			T_rawBaseFrequency=$(echo "scale = 12; $T_baseCount/$total_baseCount" | bc | awk '{printf "%.12f\n", $0}')
 
 			#Calculate normalized frequencies of dNTPs
-			A_baseFrequency=$(echo "scale = 5; $A_rawBaseFrequency/$A_backgroundFrequency" | bc | awk '{printf "%.5f\n", $0}')
-			C_baseFrequency=$(echo "scale = 5; $C_rawBaseFrequency/$C_backgroundFrequency" | bc | awk '{printf "%.5f\n", $0}')
-			G_baseFrequency=$(echo "scale = 5; $G_rawBaseFrequency/$G_backgroundFrequency" | bc | awk '{printf "%.5f\n", $0}')
-			T_baseFrequency=$(echo "scale = 5; $T_rawBaseFrequency/$T_backgroundFrequency" | bc | awk '{printf "%.5f\n", $0}')
+			A_baseFrequency=$(echo "scale = 12; $A_rawBaseFrequency/$A_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
+			C_baseFrequency=$(echo "scale = 12; $C_rawBaseFrequency/$C_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
+			G_baseFrequency=$(echo "scale = 12; $G_rawBaseFrequency/$G_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
+			T_baseFrequency=$(echo "scale = 12; $T_rawBaseFrequency/$T_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
 		
 			#Save normalized frequencies of dNTPs to TXT file
 			echo $A_baseFrequency >> $A_baseFrequencies
