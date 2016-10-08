@@ -179,16 +179,16 @@ for sample in ${sample[@]}; do
 	total_riboCount=$(($A_riboCount+$C_riboCount+$G_riboCount+$U_riboCount))
 
 	#Calculate raw frequency of each rNMP
-	A_rawRiboFrequency=$(echo "scale = 5; $A_riboCount/$total_riboCount" | bc | awk '{printf "%.5f\n", $0}')
-	C_rawRiboFrequency=$(echo "scale = 5; $C_riboCount/$total_riboCount" | bc | awk '{printf "%.5f\n", $0}')
-	G_rawRiboFrequency=$(echo "scale = 5; $G_riboCount/$total_riboCount" | bc | awk '{printf "%.5f\n", $0}')
-	U_rawRiboFrequency=$(echo "scale = 5; $U_riboCount/$total_riboCount" | bc | awk '{printf "%.5f\n", $0}')
+	A_rawRiboFrequency=$(echo "scale = 12; $A_riboCount/$total_riboCount" | bc | awk '{printf "%.12f\n", $0}')
+	C_rawRiboFrequency=$(echo "scale = 12; $C_riboCount/$total_riboCount" | bc | awk '{printf "%.12f\n", $0}')
+	G_rawRiboFrequency=$(echo "scale = 12; $G_riboCount/$total_riboCount" | bc | awk '{printf "%.12f\n", $0}')
+	U_rawRiboFrequency=$(echo "scale = 12; $U_riboCount/$total_riboCount" | bc | awk '{printf "%.12f\n", $0}')
 
 	#Calculate normalized frequency of each rNMP
-	A_riboFrequency=$(echo "scale = 5; $A_rawRiboFrequency/$A_backgroundFrequency" | bc | awk '{printf "%.5f\n", $0}')
-	C_riboFrequency=$(echo "scale = 5; $C_rawRiboFrequency/$C_backgroundFrequency" | bc | awk '{printf "%.5f\n", $0}')
-	G_riboFrequency=$(echo "scale = 5; $G_rawRiboFrequency/$G_backgroundFrequency" | bc | awk '{printf "%.5f\n", $0}')
-	U_riboFrequency=$(echo "scale = 5; $U_rawRiboFrequency/$T_backgroundFrequency" | bc | awk '{printf "%.5f\n", $0}')
+	A_riboFrequency=$(echo "scale = 12; $A_rawRiboFrequency/$A_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
+	C_riboFrequency=$(echo "scale = 12; $C_rawRiboFrequency/$C_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
+	G_riboFrequency=$(echo "scale = 12; $G_rawRiboFrequency/$G_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
+	U_riboFrequency=$(echo "scale = 12; $U_rawRiboFrequency/$T_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
 
 	#Save normalized frequencies of rNMPs to TXT file
 	echo -e "$A_riboFrequency\t$C_riboFrequency\t$G_riboFrequency\t$U_riboFrequency" > $riboFrequencies
