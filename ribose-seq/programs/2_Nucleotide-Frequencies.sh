@@ -125,6 +125,11 @@ for sample in ${sample[@]}; do
 	G_backgroundCount=$(grep -v '>' $referenceFasta1 | grep -o 'G' - | wc -l)
 	T_backgroundCount=$(grep -v '>' $referenceFasta1 | grep -o 'T' - | wc -l)
 
+	echo "A Background Count: $A_backgroundCount" >> $background
+	echo "C Background Count: $C_backgroundCount" >> $background
+	echo "G Background Count: $G_backgroundCount" >> $background
+	echo "T Background Count: $T_backgroundCount" >> $background
+	
 	#Calculate total number of dNTPs
 	total_backgroundCount=$(($A_backgroundCount+$C_backgroundCount+$G_backgroundCount+$T_backgroundCount))
 
