@@ -61,12 +61,15 @@ for sample in ${sample[@]}; do
 	#Location of output files	
 	fastq=$output1/$sample.aligned-reads.fastq
 	fasta=$output1/$sample.aligned-reads.fasta
+	reverseComplement=$output1/$sample.reverse-complement.fastq
 
 	#Convert BAM file to FASTQ
 	samtools bam2fq $bam > $fastq
 
+	seqtk seq -r $fastq > $reverseComplement
+	
 	#Convert FASTQ file to FASTA
-	seqtk seq -A $fastq > $fasta
+	seqtk seq -A $reverseComplement > $fasta
 
 ##########################################################################################################################################
 	#STEP 2: Obtain rNMP coordinates from aligned reads
