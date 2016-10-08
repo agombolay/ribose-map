@@ -129,10 +129,10 @@ for sample in ${sample[@]}; do
 	total_backgroundCount=$(($A_backgroundCount+$C_backgroundCount+$G_backgroundCount+$T_backgroundCount))
 
 	#Calculate frequency of each dNTP
-	A_backgroundFrequency=$(echo "scale = 5; $A_backgroundCount/$total_backgroundCount" | bc | awk '{printf "%.5f\n", $0}')
-	C_backgroundFrequency=$(echo "scale = 5; $C_backgroundCount/$total_backgroundCount" | bc | awk '{printf "%.5f\n", $0}')
-	G_backgroundFrequency=$(echo "scale = 5; $G_backgroundCount/$total_backgroundCount" | bc | awk '{printf "%.5f\n", $0}')
-	T_backgroundFrequency=$(echo "scale = 5; $T_backgroundCount/$total_backgroundCount" | bc | awk '{printf "%.5f\n", $0}')
+	A_backgroundFrequency=$(echo "scale = 12; $A_backgroundCount/$total_backgroundCount" | bc | awk '{printf "%.12f\n", $0}')
+	C_backgroundFrequency=$(echo "scale = 12; $C_backgroundCount/$total_backgroundCount" | bc | awk '{printf "%.12f\n", $0}')
+	G_backgroundFrequency=$(echo "scale = 12; $G_backgroundCount/$total_backgroundCount" | bc | awk '{printf "%.12f\n", $0}')
+	T_backgroundFrequency=$(echo "scale = 12; $T_backgroundCount/$total_backgroundCount" | bc | awk '{printf "%.12f\n", $0}')
 
 	#Save frequencies of dNTPs to TXT file
 	echo "A Background Frequency: $A_backgroundFrequency" >> $background
