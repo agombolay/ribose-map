@@ -270,13 +270,14 @@ for sample in ${sample[@]}; do
 	#STEP 6: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
 	#Names of dNTPs located +/- 100 base pairs from rNMPs
-	locations="upstream downstream"
-	strand="positive negative"
+	#locations="upstream downstream"
+	#strand="positive negative"
 
 	#Tabulate data files of upstream/downstream dNTP sequences
-	for location in ${locations[@]}; do
+	#for location in ${locations[@]}; do
 
-		for file in $output3/$sample.$location-sequences.$strand.fa; do
+		#for file in $output3/$sample.$location-sequences.$strand.fa; do
+		for file in $positiveUpstreamSequences; do
 		
 			#Location of output directory
 			output4=$directory2/dNTPs/$subset/Columns/$location
@@ -300,7 +301,7 @@ for sample in ${sample[@]}; do
 			#fi
 
 			if [ $subset == "chrM" ]; then
-				grep -A 1 chrM $file > $output4/test.$location.$strand
+				grep -A 1 chrM $file > test
 			fi			
 			#Print sequences to new file
 			#awk -v "OFS=\t" '{print $2}' $selection > $sequences
