@@ -250,8 +250,8 @@ for sample in ${sample[@]}; do
 	bedtools flank -i $negativeCoordinates -g $referenceBED -l 0 -r 100 > $negativeDownstreamIntervals
 
 	#Obtain sequences of dNTPs located +/- 100 bp downstream/upstream from rNMPs:
-	bedtools getfasta -fi $referenceFasta2 -bed $positiveUpstreamIntervals -tab -fo $positiveUpstreamSequences
-	bedtools getfasta -fi $referenceFasta2 -bed $positiveDownstreamIntervals -tab -fo $positiveDownstreamSequences
+	bedtools getfasta -fi $referenceFasta2 -bed $positiveUpstreamIntervals -fo $positiveUpstreamSequences
+	bedtools getfasta -fi $referenceFasta2 -bed $positiveDownstreamIntervals -fo $positiveDownstreamSequences
 	
 	#Obtain sequences of dNTPs located +/- 100 bp downstream/upstream from rNMPs:
 	bedtools getfasta -fi $referenceFasta2 -bed $negativeUpstreamIntervals -tab -fo $negativeUpstreamSequences
