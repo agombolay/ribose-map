@@ -299,8 +299,9 @@ for sample in ${sample[@]}; do
 			fi
 
 			#Print sequences to new file
-			awk -v "OFS=\t" '{print $2}' $selection > $sequences
-
+			#awk -v "OFS=\t" '{print $2}' $selection > $sequences
+			grep -v '>' $selection > $sequences
+			
 			#Insert tabs between each nucleotide
 			cat $sequences | sed 's/.../& /2g;s/./& /g' > $columns
 
