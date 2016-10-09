@@ -228,6 +228,8 @@ for sample in ${sample[@]}; do
 	#downstreamIntervals=$output3/$sample.downstream-intervals.bed
 	downstreamSequences=$output3/$sample.downstream-sequences.tab
 
+	rm $upstreamSequences $downstreamSequences
+	
 	#Obtain positions of rNMPs (3’ end of aligned reads)
 	bedtools genomecov -3 -bg -ibam $bam > $coordinates
 
@@ -261,7 +263,7 @@ for sample in ${sample[@]}; do
 	cat $negativeUpstreamSequences|rev > temporary5 && mv temporary5 $negativeUpstreamSequences
 	cat $negativeDownstreamSequences|rev > temporary6 && mv temporary6 $negativeDownstreamSequences
 	
-	rm temporary3 temporary4 temporary5 temporary6 $upstreamSequences $downstreamSequences
+	rm temporary3 temporary4 temporary5 temporary6
 	
 	cat $positiveUpstreamSequences $negativeUpstreamSequences >> $upstreamSequences
 	cat $positiveDownstreamSequences $negativeDownstreamSequences >> $downstreamSequences
