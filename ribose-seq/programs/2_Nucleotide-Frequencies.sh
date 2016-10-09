@@ -302,7 +302,7 @@ for sample in ${sample[@]}; do
 			if [ $subset == "sacCer2" ] || [ $subset == "eColi" ] || [ $subset == "mm9" ] || [ $subset == "hg38" ] || [ $subset == "LL_1510A" ]; then
 				cat $file > $selection
 			elif [ $subset == "chrM" ]; then
-				samtools faidx $file chrM > $selection
+				grep -A 1 chrM $file > $selection
 			elif [ $subset == "nuclear" ]; then
 				samtools faidx $file chrM > $selection
 			fi			
