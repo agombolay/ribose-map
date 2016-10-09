@@ -298,6 +298,8 @@ for sample in ${sample[@]}; do
 				grep -v 'chrM' $file > $selection
 			fi
 
+			samtools faidx $file 2micron chr1 chr2 > human_selected.fa
+			
 			#Print sequences to new file
 			#awk -v "OFS=\t" '{print $2}' $selection > $sequences
 			grep -v '>' $selection > $sequences
