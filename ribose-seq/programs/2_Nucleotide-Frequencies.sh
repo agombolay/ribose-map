@@ -266,11 +266,11 @@ for sample in ${sample[@]}; do
 	#cat $negativeUpstreamSequences|rev > temporary5 && mv temporary5 $negativeUpstreamSequences
 	#cat $negativeDownstreamSequences|rev > temporary6 && mv temporary6 $negativeDownstreamSequences
 	
-	cat temporary3|rev > temporary5 
-	cat temporary4|rev > temporary6
+	#cat temporary3|rev > temporary5 
+	#cat temporary4|rev > temporary6
 		
-	cat $positiveUpstreamSequences temporary5 >> $upstreamSequences
-	cat $positiveDownstreamSequences temporary6 >> $downstreamSequences
+	#cat $positiveUpstreamSequences temporary5 >> $upstreamSequences
+	#cat $positiveDownstreamSequences temporary6 >> $downstreamSequences
 
 ##########################################################################################################################################
 	#STEP 6: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
