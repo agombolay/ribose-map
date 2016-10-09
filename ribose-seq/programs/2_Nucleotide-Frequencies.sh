@@ -224,9 +224,9 @@ for sample in ${sample[@]}; do
 	negativeUpstreamSequences=$output3/$sample.upstream-sequences.negative.tab
 	negativeDownstreamSequences=$output3/$sample.downstream-sequences.negative.tab
 	#upstreamIntervals=$output3/$sample.upstream-intervals.bed
-	#upstreamSequences=$output3/$sample.upstream-sequences.tab
+	upstreamSequences=$output3/$sample.upstream-sequences.tab
 	#downstreamIntervals=$output3/$sample.downstream-intervals.bed
-	#downstreamSequences=$output3/$sample.downstream-sequences.tab
+	downstreamSequences=$output3/$sample.downstream-sequences.tab
 
 	#Obtain positions of rNMPs (3’ end of aligned reads)
 	bedtools genomecov -3 -bg -ibam $bam > $coordinates
@@ -261,6 +261,11 @@ for sample in ${sample[@]}; do
 	echo $negativeUpstreamSequences|rev > temporary5 && mv temporary5 $negativeUpstreamSequences
 	echo $negativeDownstreamSequences|rev > temporary6 && mv temporary6 $negativeDownstreamSequences
 	
+	rm temporary3 temporary4 temporary5 temporary6 $upstreamSequences $downstreamSequences
+	
+	cat $positiveUpstreamSequences $negativeUpstreamSequences >> $upstreamSequences
+	cat $positiveDownstreamSequences $negativeDownstreamSequences >> $downstreamSequences
+
 ##########################################################################################################################################
 	#STEP 6: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
