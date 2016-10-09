@@ -302,13 +302,13 @@ for sample in ${sample[@]}; do
 			if [ $subset == "sacCer2" ] || [ $subset == "eColi" ] || [ $subset == "mm9" ] || [ $subset == "hg38" ] || [ $subset == "LL_1510A" ]; then
 				cat $file > $selection
 			elif [ $subset == "chrM" ]; then
-				grep -A 1 chrM $file > $selection
+				grep -A 1 chrM $file > test
 			elif [ $subset == "nuclear" ]; then
 				samtools faidx $file chrM > $selection
 			fi			
 			#Print sequences to new file
 			#awk -v "OFS=\t" '{print $2}' $selection > $sequences
-			grep -v '>' $selection > $sequences
+			#grep -v '>' $selection > $sequences
 			
 			#Insert tabs between each nucleotide
 			cat $sequences | sed 's/.../& /2g;s/./& /g' > $columns
