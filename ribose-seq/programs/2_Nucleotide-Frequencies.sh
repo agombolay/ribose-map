@@ -254,8 +254,8 @@ for sample in ${sample[@]}; do
 	bedtools getfasta -fi $referenceFasta2 -bed $positiveDownstreamIntervals -fo $positiveDownstreamSequences
 	
 	#Obtain sequences of dNTPs located +/- 100 bp downstream/upstream from rNMPs:
-	bedtools getfasta -fi $referenceFasta2 -bed $negativeUpstreamIntervals -tab -fo $negativeUpstreamSequences
-	bedtools getfasta -fi $referenceFasta2 -bed $negativeDownstreamIntervals -tab -fo $negativeDownstreamSequences
+	bedtools getfasta -fi $referenceFasta2 -bed $negativeUpstreamIntervals -fo $negativeUpstreamSequences
+	bedtools getfasta -fi $referenceFasta2 -bed $negativeDownstreamIntervals -fo $negativeDownstreamSequences
 	
 	#seqtk seq -r $negativeUpstreamSequences > temporary3 && mv temporary3 $negativeUpstreamSequences
 	#seqtk seq -r $negativeDownstreamSequences > temporary4 && mv temporary4 $negativeDownstreamSequences
