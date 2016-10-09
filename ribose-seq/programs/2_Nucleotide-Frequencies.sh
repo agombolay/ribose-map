@@ -213,10 +213,20 @@ for sample in ${sample[@]}; do
 
 	#Location of output files
 	coordinates=$output1/$sample.rNMP-coordinates.bed
-	upstreamIntervals=$output3/$sample.upstream-intervals.bed
-	upstreamSequences=$output3/$sample.upstream-sequences.tab
-	downstreamIntervals=$output3/$sample.downstream-intervals.bed
-	downstreamSequences=$output3/$sample.downstream-sequences.tab
+	positiveCoordinates=$output1/$sample.rNMP-coordinates.positive.bed
+	negativeCoordinates=$output1/$sample.rNMP-coordinates.negative.bed
+	positiveUpstreamIntervals=$output3/$sample.upstream-intervals.positive.bed
+	positiveDownstreamIntervals=$output3/$sample.downstream-intervals.positive.bed
+	negativeUpstreamIntervals=$output3/$sample.upstream-intervals.negative.bed
+	negativeDownstreamIntervals=$output3/$sample.downstream-intervals.negative.bed
+	positiveUpstreamSequences=$output3/$sample.upstream-sequences.positive.tab
+	positiveDownstreamSequences=$output3/$sample.downstream-sequences.positive.tab
+	negativeUpstreamSequences=$output3/$sample.upstream-sequences.negative.tab
+	negativeDownstreamSequences=$output3/$sample.downstream-sequences.negative.tab
+	#upstreamIntervals=$output3/$sample.upstream-intervals.bed
+	#upstreamSequences=$output3/$sample.upstream-sequences.tab
+	#downstreamIntervals=$output3/$sample.downstream-intervals.bed
+	#downstreamSequences=$output3/$sample.downstream-sequences.tab
 
 	#Obtain positions of rNMPs (3’ end of aligned reads)
 	bedtools genomecov -3 -bg -ibam $bam > $coordinates
@@ -224,21 +234,33 @@ for sample in ${sample[@]}; do
 	#Print only columns containing coordinates (eliminate column containing coverage values)
 	awk -v "OFS=\t" '{print $1, $2, $3}' $coordinates > temporary1 && mv temporary1 $coordinates
 
-	paste $coordinates $readCoordinates | awk -v "OFS=\t" '{print $1, $2, $3, $8}' > temporary2 && mv temporary2 $coordinates
+	paste $coordinates $readCoordinates | awk -v "OFS=\t" '{print $1, $2, $3, $8}' > temporary2 \
+	&& mv temporary2 $coordinates
 	
 	awk '$4 == "+" {print $1, $2, $3, $4}' $coordinates > $positiveCoordinates
 	awk '$4 == "-" {print $1, $2, $3, $4}' $coordinates > $negativeCoordinates
-	#Obtain coordinates of dNTPs located +/- 100 bp downstream/upstream from rNMPs:
-	bedtools flank -i $positiveCoordinates -g $referenceBED -l 100 -r 0 > $upstreamIntervals
-	bedtools flank -i $positiveCoordinates -g $referenceBED -l 0 -r 100 > $downstreamIntervals
 	
-	bedtools flank -i $negativeCoordinates -g $referenceBED -l 100 -r 0 > $upstreamIntervals
-	bedtools flank -i $negativeCoordinates -g $referenceBED -l 0 -r 100 > $downstreamIntervals
+	#Obtain coordinates of dNTPs located +/- 100 bp downstream/upstream from rNMPs:
+	bedtools flank -i $positiveCoordinates -g $referenceBED -l 100 -r 0 > $positiveUpstreamIntervals
+	bedtools flank -i $positiveCoordinates -g $referenceBED -l 0 -r 100 > $positiveDownstreamIntervals
+	
+	bedtools flank -i $negativeCoordinates -g $referenceBED -l 100 -r 0 > $negativeUpstreamIntervals
+	bedtools flank -i $negativeCoordinates -g $referenceBED -l 0 -r 100 > $negativeDownstreamIntervals
 
 	#Obtain sequences of dNTPs located +/- 100 bp downstream/upstream from rNMPs:
-	bedtools getfasta -fi $referenceFasta2 -bed $upstreamIntervals -tab -fo $upstreamSequences
-	bedtools getfasta -fi $referenceFasta2 -bed $downstreamIntervals -tab -fo $downstreamSequences
+	bedtools getfasta -fi $referenceFasta2 -bed $positiveUpstreamIntervals -tab -fo $positiveUpstreamSequences
+	bedtools getfasta -fi $referenceFasta2 -bed $positiveDownstreamIntervals -tab -fo $positiveDownstreamSequences
+	
+	#Obtain sequences of dNTPs located +/- 100 bp downstream/upstream from rNMPs:
+	bedtools getfasta -fi $referenceFasta2 -bed $negativeUpstreamIntervals -tab -fo $negativeUpstreamSequences
+	bedtools getfasta -fi $referenceFasta2 -bed $negativeDownstreamIntervals -tab -fo $negativeDownstreamSequences
+	
+	seqtk seq -r $negativeUpstreamSequences > temporary3 && mv temporary3 $negativeUpstreamSequences
+	seqtk seq -r $negativeDownstreamSequences > temporary4 && mv temporary4 $negativeDownstreamSequences
 
+	echo $negativeUpstreamSequences|rev > temporary5 && mv temporary5 $negativeUpstreamSequences
+	echo $negativeDownstreamSequences|rev > temporary6 && mv temporary6 $negativeDownstreamSequences
+	
 ##########################################################################################################################################
 	#STEP 6: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
