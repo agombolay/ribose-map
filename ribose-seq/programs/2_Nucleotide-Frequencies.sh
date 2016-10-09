@@ -219,10 +219,10 @@ for sample in ${sample[@]}; do
 	positiveDownstreamIntervals=$output3/$sample.downstream-intervals.positive.bed
 	negativeUpstreamIntervals=$output3/$sample.upstream-intervals.negative.bed
 	negativeDownstreamIntervals=$output3/$sample.downstream-intervals.negative.bed
-	positiveUpstreamSequences=$output3/$sample.upstream-sequences.positive.tab
-	positiveDownstreamSequences=$output3/$sample.downstream-sequences.positive.tab
-	negativeUpstreamSequences=$output3/$sample.upstream-sequences.negative.tab
-	negativeDownstreamSequences=$output3/$sample.downstream-sequences.negative.tab
+	positiveUpstreamSequences=$output3/$sample.upstream-sequences.positive.fa
+	positiveDownstreamSequences=$output3/$sample.downstream-sequences.positive.fa
+	negativeUpstreamSequences=$output3/$sample.upstream-sequences.negative.fa
+	negativeDownstreamSequences=$output3/$sample.downstream-sequences.negative.fa
 	#upstreamIntervals=$output3/$sample.upstream-intervals.bed
 	upstreamSequences=$output3/$sample.upstream-sequences.tab
 	#downstreamIntervals=$output3/$sample.downstream-intervals.bed
@@ -257,25 +257,26 @@ for sample in ${sample[@]}; do
 	bedtools getfasta -fi $referenceFasta2 -bed $negativeUpstreamIntervals -fo $negativeUpstreamSequences
 	bedtools getfasta -fi $referenceFasta2 -bed $negativeDownstreamIntervals -fo $negativeDownstreamSequences
 	
-	seqtk seq -r $negativeUpstreamSequences > temporary3 && mv temporary3 $negativeUpstreamSequences
-	seqtk seq -r $negativeDownstreamSequences > temporary4 && mv temporary4 $negativeDownstreamSequences
+	#seqtk seq -r $negativeUpstreamSequences > temporary3 && mv temporary3 $negativeUpstreamSequences
+	#seqtk seq -r $negativeDownstreamSequences > temporary4 && mv temporary4 $negativeDownstreamSequences
 	
-	cat $negativeUpstreamSequences|rev > temporary5 && mv temporary5 $negativeUpstreamSequences
-	cat $negativeDownstreamSequences|rev > temporary6 && mv temporary6 $negativeDownstreamSequences
+	#cat $negativeUpstreamSequences|rev > temporary5 && mv temporary5 $negativeUpstreamSequences
+	#cat $negativeDownstreamSequences|rev > temporary6 && mv temporary6 $negativeDownstreamSequences
 		
-	cat $positiveUpstreamSequences $negativeUpstreamSequences >> $upstreamSequences
-	cat $positiveDownstreamSequences $negativeDownstreamSequences >> $downstreamSequences
+	#cat $positiveUpstreamSequences $negativeUpstreamSequences >> $upstreamSequences
+	#cat $positiveDownstreamSequences $negativeDownstreamSequences >> $downstreamSequences
 
 ##########################################################################################################################################
 	#STEP 6: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
 	#Names of dNTPs located +/- 100 base pairs from rNMPs
 	locations="upstream downstream"
+	strand="positive negative"
 
 	#Tabulate data files of upstream/downstream dNTP sequences
 	for location in ${locations[@]}; do
 
-		for file in $output3/$sample.$location-sequences.tab; do
+		for file in $output3/$sample.$location-sequences.$strand.fa; do
 		
 			#Location of output directory
 			output4=$directory2/dNTPs/$subset/Columns/$location
@@ -290,16 +291,21 @@ for sample in ${sample[@]}; do
 			sequences=$output4/sequences/$sample.$location-sequences.$reference.$subset.raw.txt
 			columns=$output4/sequences/$sample.$location-sequences.$reference.$subset.columns.txt
 
+			#if [ $subset == "sacCer2" ] || [ $subset == "eColi" ] || [ $subset == "mm9" ] || [ $subset == "hg38" ] || [ $subset == "LL_1510A" ]; then
+			#	cat $file > $selection
+			#elif [ $subset == "chrM" ]; then
+			#	grep 'chrM' $file > $selection
+			#elif [ $subset == "nuclear" ]; then
+			#	grep -v 'chrM' $file > $selection
+			#fi
+
 			if [ $subset == "sacCer2" ] || [ $subset == "eColi" ] || [ $subset == "mm9" ] || [ $subset == "hg38" ] || [ $subset == "LL_1510A" ]; then
 				cat $file > $selection
 			elif [ $subset == "chrM" ]; then
-				grep 'chrM' $file > $selection
+				samtools faidx $file chrM > $selection
 			elif [ $subset == "nuclear" ]; then
-				grep -v 'chrM' $file > $selection
-			fi
-
-			samtools faidx $file 2micron chr1 chr2 > human_selected.fa
-			
+				samtools faidx $file chrM > $selection
+			fi			
 			#Print sequences to new file
 			#awk -v "OFS=\t" '{print $2}' $selection > $sequences
 			grep -v '>' $selection > $sequences
