@@ -257,14 +257,12 @@ for sample in ${sample[@]}; do
 	bedtools getfasta -fi $referenceFasta2 -bed $negativeUpstreamIntervals -tab -fo $negativeUpstreamSequences
 	bedtools getfasta -fi $referenceFasta2 -bed $negativeDownstreamIntervals -tab -fo $negativeDownstreamSequences
 	
-	#seqtk seq -r $negativeUpstreamSequences > temporary3 && mv temporary3 $negativeUpstreamSequences
-	#seqtk seq -r $negativeDownstreamSequences > temporary4 && mv temporary4 $negativeDownstreamSequences
+	seqtk seq -r $negativeUpstreamSequences > temporary3 && mv temporary3 $negativeUpstreamSequences
+	seqtk seq -r $negativeDownstreamSequences > temporary4 && mv temporary4 $negativeDownstreamSequences
 
-	#cat $negativeUpstreamSequences|rev > temporary5 && mv temporary5 $negativeUpstreamSequences
-	#cat $negativeDownstreamSequences|rev > temporary6 && mv temporary6 $negativeDownstreamSequences
-	
-	#rm temporary3 temporary4 temporary5 temporary6
-	
+	cat $negativeUpstreamSequences|rev > temporary5 && mv temporary5 $negativeUpstreamSequences
+	cat $negativeDownstreamSequences|rev > temporary6 && mv temporary6 $negativeDownstreamSequences
+		
 	cat $positiveUpstreamSequences $negativeUpstreamSequences >> $upstreamSequences
 	cat $positiveDownstreamSequences $negativeDownstreamSequences >> $downstreamSequences
 
