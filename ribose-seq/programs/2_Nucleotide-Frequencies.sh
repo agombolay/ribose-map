@@ -257,20 +257,14 @@ for sample in ${sample[@]}; do
 	bedtools getfasta -fi $referenceFasta2 -bed $negativeUpstreamIntervals -fo $negativeUpstreamSequences
 	bedtools getfasta -fi $referenceFasta2 -bed $negativeDownstreamIntervals -fo $negativeDownstreamSequences
 	
-	#seqtk seq -r $negativeUpstreamSequences > temporary3 && mv temporary3 $negativeUpstreamSequences
-	#seqtk seq -r $negativeDownstreamSequences > temporary4 && mv temporary4 $negativeDownstreamSequences
-
-	seqtk seq -r $negativeUpstreamSequences > file1
-	seqtk seq -r $negativeDownstreamSequences > file2
+	seqtk seq -r $negativeUpstreamSequences > temporary3 && mv temporary3 $negativeUpstreamSequences
+	seqtk seq -r $negativeDownstreamSequences > temporary4 && mv temporary4 $negativeDownstreamSequences
 	
-	#cat $negativeUpstreamSequences|rev > temporary5 && mv temporary5 $negativeUpstreamSequences
-	#cat $negativeDownstreamSequences|rev > temporary6 && mv temporary6 $negativeDownstreamSequences
-	
-	#cat temporary3|rev > temporary5 
-	#cat temporary4|rev > temporary6
+	cat $negativeUpstreamSequences|rev > temporary5 && mv temporary5 $negativeUpstreamSequences
+	cat $negativeDownstreamSequences|rev > temporary6 && mv temporary6 $negativeDownstreamSequences
 		
-	#cat $positiveUpstreamSequences temporary5 >> $upstreamSequences
-	#cat $positiveDownstreamSequences temporary6 >> $downstreamSequences
+	cat $positiveUpstreamSequences temporary5 >> $upstreamSequences
+	cat $positiveDownstreamSequences temporary6 >> $downstreamSequences
 
 ##########################################################################################################################################
 	#STEP 6: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
