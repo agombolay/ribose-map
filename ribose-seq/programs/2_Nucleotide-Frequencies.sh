@@ -270,14 +270,14 @@ for sample in ${sample[@]}; do
 	#STEP 6: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
 	#Names of dNTPs located +/- 100 base pairs from rNMPs
-	#locations="upstream downstream"
-	#strand="positive negative"
+	locations="upstream downstream"
+	strand="positive negative"
 
 	#Tabulate data files of upstream/downstream dNTP sequences
-	#for location in ${locations[@]}; do
+	for location in ${locations[@]}; do
 
-		#for file in $output3/$sample.$location-sequences.$strand.fa; do
-		for file in $positiveUpstreamSequences; do
+		for file in $output3/$sample.$location-sequences.$strand.fa; do
+		#for file in $positiveUpstreamSequences; do
 		
 			#Location of output directory
 			output4=$directory2/dNTPs/$subset/Columns/$location
