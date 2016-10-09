@@ -299,12 +299,8 @@ for sample in ${sample[@]}; do
 			#	grep -v 'chrM' $file > $selection
 			#fi
 
-			if [ $subset == "sacCer2" ] || [ $subset == "eColi" ] || [ $subset == "mm9" ] || [ $subset == "hg38" ] || [ $subset == "LL_1510A" ]; then
-				cat $file > $selection
-			elif [ $subset == "chrM" ]; then
-				grep -A 1 chrM $file > test.$location.$strand
-			elif [ $subset == "nuclear" ]; then
-				samtools faidx $file chrM > $selection
+			if [ $subset == "chrM" ]; then
+				grep -A 1 chrM $file > $output4/test.$location.$strand
 			fi			
 			#Print sequences to new file
 			#awk -v "OFS=\t" '{print $2}' $selection > $sequences
