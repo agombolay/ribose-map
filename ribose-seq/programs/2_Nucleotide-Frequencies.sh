@@ -224,9 +224,16 @@ for sample in ${sample[@]}; do
 	#Print only columns containing coordinates (eliminate column containing coverage values)
 	awk -v "OFS=\t" '{print $1, $2, $3}' $coordinates > temporary1 && mv temporary1 $coordinates
 
+	paste $coordinates $readCoordinates | awk -v "OFS=\t" '{print $1, $2, $3, $8}' > temporary2 && mv temporary2 $coordinates
+	
+	awk '$4 == "+" {print $1, $2, $3, $4}' $coordinates > $positiveCoordinates
+	awk '$4 == "-" {print $1, $2, $3, $4}' $coordinates > $negativeCoordinates
 	#Obtain coordinates of dNTPs located +/- 100 bp downstream/upstream from rNMPs:
-	bedtools flank -i $coordinates -g $referenceBED -l 100 -r 0 > $upstreamIntervals
-	bedtools flank -i $coordinates -g $referenceBED -l 0 -r 100 > $downstreamIntervals
+	bedtools flank -i $positiveCoordinates -g $referenceBED -l 100 -r 0 > $upstreamIntervals
+	bedtools flank -i $positiveCoordinates -g $referenceBED -l 0 -r 100 > $downstreamIntervals
+	
+	bedtools flank -i $negativeCoordinates -g $referenceBED -l 100 -r 0 > $upstreamIntervals
+	bedtools flank -i $negativeCoordinates -g $referenceBED -l 0 -r 100 > $downstreamIntervals
 
 	#Obtain sequences of dNTPs located +/- 100 bp downstream/upstream from rNMPs:
 	bedtools getfasta -fi $referenceFasta2 -bed $upstreamIntervals -tab -fo $upstreamSequences
