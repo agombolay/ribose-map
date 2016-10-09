@@ -258,8 +258,8 @@ for sample in ${sample[@]}; do
 	seqtk seq -r $negativeUpstreamSequences > temporary3 && mv temporary3 $negativeUpstreamSequences
 	seqtk seq -r $negativeDownstreamSequences > temporary4 && mv temporary4 $negativeDownstreamSequences
 
-	echo $negativeUpstreamSequences|rev > temporary5 && mv temporary5 $negativeUpstreamSequences
-	echo $negativeDownstreamSequences|rev > temporary6 && mv temporary6 $negativeDownstreamSequences
+	cat $negativeUpstreamSequences|rev > temporary5 && mv temporary5 $negativeUpstreamSequences
+	cat $negativeDownstreamSequences|rev > temporary6 && mv temporary6 $negativeDownstreamSequences
 	
 	rm temporary3 temporary4 temporary5 temporary6 $upstreamSequences $downstreamSequences
 	
