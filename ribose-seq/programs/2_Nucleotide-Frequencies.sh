@@ -239,8 +239,8 @@ for sample in ${sample[@]}; do
 	paste $coordinates $readCoordinates | awk -v "OFS=\t" '{print $1, $2, $3, $8}' > temporary2 \
 	&& mv temporary2 $coordinates
 	
-	awk '$4 == "+" {print $1, $2, $3, $4}' $coordinates > $positiveCoordinates
-	awk '$4 == "-" {print $1, $2, $3, $4}' $coordinates > $negativeCoordinates
+	awk '$4 == "+" {print $1, $2, $3}' $coordinates > $positiveCoordinates
+	awk '$4 == "-" {print $1, $2, $3}' $coordinates > $negativeCoordinates
 	
 	#Obtain coordinates of dNTPs located +/- 100 bp downstream/upstream from rNMPs:
 	bedtools flank -i $positiveCoordinates -g $referenceBED -l 100 -r 0 > $positiveUpstreamIntervals
