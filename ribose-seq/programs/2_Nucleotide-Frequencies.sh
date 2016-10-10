@@ -339,6 +339,7 @@ for sample in ${sample[@]}; do
 	done
 
 ##########################################################################################################################################
+<<DOC
 	#STEP 7: Calculate frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
 	#Location of output directory
@@ -447,3 +448,4 @@ for sample in ${sample[@]}; do
 	echo "Calculation of nucleotide frequencies for $sample is complete"
 
 done
+DOC
