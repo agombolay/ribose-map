@@ -324,8 +324,8 @@ for sample in ${sample[@]}; do
 				cat temporary3.negative.upstream|rev > temporary4.negative.upstream
 				cat temporary3.negative.downstream|rev > temporary4.negative.downstream
 				
-				#cat test4.upstream.positive.txt test4.upstream.negative.txt > test5.upstream
-				#cat test4.downstream.positive.txt test4.downstream.negative.txt > test6.downstream
+				cat temporary2.positive.upstream temporary4.negative.upstream > upstream
+				cat temporary2.positive.downstream temporary4.negative.downstream > downstream
 			
 				#Insert tabs between each nucleotide
 				#cat test5.upstream | sed 's/.../& /2g;s/./& /g' > $columns
