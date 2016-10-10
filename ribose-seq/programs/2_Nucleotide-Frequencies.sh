@@ -277,21 +277,20 @@ for sample in ${sample[@]}; do
 	for location in ${locations[@]}; do
 		for strand in ${strands[@]}; do
 		
-		for file in $output3/$sample.$location-sequences.$strand.fa; do
-		#for file in $positiveUpstreamSequences; do
+			for file in $output3/$sample.$location-sequences.$strand.fa; do
 		
-			#Location of output directory
-			output4=$directory2/dNTPs/$subset/Columns/$location
+				#Location of output directory
+				output4=$directory2/dNTPs/$subset/Columns/$location
 
-			#Create directories if they do not already exist
-			if [[ ! -d $output4 && $output4/sequences ]]; then
-    				mkdir -p $output4 $output4/sequences
-			fi
+				#Create directories if they do not already exist
+				if [[ ! -d $output4 && $output4/sequences ]]; then
+    					mkdir -p $output4 $output4/sequences
+				fi
 
-			#Location of output files
-			selection=$output4/sequences/$sample.$location-sequences.$reference.$subset.txt
-			sequences=$output4/sequences/$sample.$location-sequences.$reference.$subset.raw.txt
-			columns=$output4/sequences/$sample.$location-sequences.$reference.$subset.columns.txt
+				#Location of output files
+				selection=$output4/sequences/$sample.$location-sequences.$reference.$subset.txt
+				sequences=$output4/sequences/$sample.$location-sequences.$reference.$subset.raw.txt
+				columns=$output4/sequences/$sample.$location-sequences.$reference.$subset.columns.txt
 
 			#if [ $subset == "sacCer2" ] || [ $subset == "eColi" ] || [ $subset == "mm9" ] || [ $subset == "hg38" ] || [ $subset == "LL_1510A" ]; then
 			#	cat $file > $selection
@@ -301,9 +300,14 @@ for sample in ${sample[@]}; do
 			#	grep -v 'chrM' $file > $selection
 			#fi
 
-			if [ $subset == "chrM" ]; then
-				grep -A 1 chrM $file > test.$location.$strand.txt
-			fi			
+				#Select only reads located in mitochondrial DNA
+				if [ $subset == "chrM" ]; then
+					grep -A 1 chrM $file > test1.$location.$strand.txt
+				fi
+				
+				#Select only reads (eliminate header lines in file)
+				grep -v '>' test.$location.$strand.txt > test2.$location.$strand.txt
+				
 			#Print sequences to new file
 			#awk -v "OFS=\t" '{print $2}' $selection > $sequences
 			#grep -v '>' $selection > $sequences
