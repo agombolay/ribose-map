@@ -271,11 +271,12 @@ for sample in ${sample[@]}; do
 
 	#Names of dNTPs located +/- 100 base pairs from rNMPs
 	locations="upstream downstream"
-	strand="positive negative"
+	strands="positive negative"
 
 	#Tabulate data files of upstream/downstream dNTP sequences
 	for location in ${locations[@]}; do
-
+		for strands in ${strand[@]}; do
+		
 		for file in $output3/$sample.$location-sequences.$strand.fa; do
 		#for file in $positiveUpstreamSequences; do
 		
@@ -301,7 +302,7 @@ for sample in ${sample[@]}; do
 			#fi
 
 			if [ $subset == "chrM" ]; then
-				grep -A 1 chrM $file > test.$location.$stran.txt
+				grep -A 1 chrM $file > test.$location.$strand.txt
 			fi			
 			#Print sequences to new file
 			#awk -v "OFS=\t" '{print $2}' $selection > $sequences
