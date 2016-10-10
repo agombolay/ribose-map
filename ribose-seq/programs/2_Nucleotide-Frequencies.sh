@@ -321,7 +321,8 @@ for sample in ${sample[@]}; do
 				grep -v '>' temporary2.negative.downstream > temporary3.negative.downstream
 				
 				#Reverse direction of upstream/downstream sequences on - strand
-				#cat temporary2.negative.strand|rev > temporary3.negative.strand
+				cat temporary3.negative.upstream|rev > temporary4.negative.upstream
+				cat temporary3.negative.downstream|rev > temporary4.negative.downstream
 				
 				#cat test4.upstream.positive.txt test4.upstream.negative.txt > test5.upstream
 				#cat test4.downstream.positive.txt test4.downstream.negative.txt > test6.downstream
