@@ -312,6 +312,9 @@ for sample in ${sample[@]}; do
 				
 				cat test3.$location.$strand.txt|rev > test4.$location.$strand.txt
 				
+				cat test4.upstream.positive.txt test4.upstream.negative.txt >> test5.upstream
+				cat test4.downstream.positive.txt test4.downstream.negative.txt >> test6.downstream
+
 			#Print sequences to new file
 			#awk -v "OFS=\t" '{print $2}' $selection > $sequences
 			#grep -v '>' $selection > $sequences
