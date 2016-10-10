@@ -444,4 +444,4 @@ for sample in ${sample[@]}; do
 
 	#echo "Calculation of nucleotide frequencies for $sample is complete"
 
-#done
+done
