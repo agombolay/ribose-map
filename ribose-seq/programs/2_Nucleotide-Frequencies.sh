@@ -288,9 +288,9 @@ for sample in ${sample[@]}; do
 				fi
 
 				#Location of output files
-				sequences=$output4/sequences/$sample.$location-sequences.$strand.$reference.$subset.fa
-				positiveStrand=$output4/sequences/$sample.$location-sequences.positive.$reference.$subset.fa
-				negativeStrand=$output4/sequences/$sample.$location-sequences.negative.$reference.$subset.fa
+				#sequences=$output4/sequences/$sample.$location-sequences.$strand.$reference.$subset.fa
+				#positiveStrand=$output4/sequences/$sample.$location-sequences.positive.$reference.$subset.fa
+				#negativeStrand=$output4/sequences/$sample.$location-sequences.negative.$reference.$subset.fa
 				
 				#sequences=$output4/sequences/$sample.$location-sequences.$reference.$subset.raw.txt
 				#columns=$output4/sequences/$sample.$location-sequences.$reference.$subset.columns.txt
@@ -305,24 +305,28 @@ for sample in ${sample[@]}; do
 
 				#Select only reads located in mitochondrial DNA
 				if [ $subset == "chrM" ]; then
-					grep -A 1 chrM $file > $sequences
+					grep -A 1 chrM $positiveUpstreamSequences > temp1
+					grep -A 1 chrM $positiveDownstreamSequences > temp2
+					grep -A 1 chrM $negativeUpstreamSequences > temp3
+					grep -A 1 chrM $negativeDownstreamSequences > temp4
 				fi
 				
 				#Reverse complement upstream/downstream sequences on - strand
-				seqtk seq -r $negativeStrand > temporary1.negative.strand
+				seqtk seq -r temp3 > temporary4
+				seqtk seq -r temp5 > temporary6
 
 				#Output only sequences in FASTA file (exclude all header lines)
-				grep -v '>' $negativeStrand > temporary2.negative.strand
-				grep -v '>' $positiveStrand > temporary2.positive.strand
+				#grep -v '>' $negativeStrand > temporary2.negative.strand
+				#grep -v '>' $positiveStrand > temporary2.positive.strand
 				
 				#Reverse direction of upstream/downstream sequences on - strand
-				cat temporary2.negative.strand|rev > temporary3.negative.strand
+				#cat temporary2.negative.strand|rev > temporary3.negative.strand
 				
 				#cat test4.upstream.positive.txt test4.upstream.negative.txt > test5.upstream
 				#cat test4.downstream.positive.txt test4.downstream.negative.txt > test6.downstream
 			
 				#Insert tabs between each nucleotide
-				cat test5.upstream | sed 's/.../& /2g;s/./& /g' > $columns
+				#cat test5.upstream | sed 's/.../& /2g;s/./& /g' > $columns
 
 				for i in {1..100}; do
 					#Location of output files
