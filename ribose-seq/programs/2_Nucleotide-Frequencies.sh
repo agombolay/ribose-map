@@ -306,7 +306,7 @@ for sample in ${sample[@]}; do
 				fi
 				
 				#Select only reads (eliminate header lines in file)
-				grep -v '>' test.$location.$strand.txt > test2.$location.$strand.txt
+				grep -v '>' test1.$location.$strand.txt > test2.$location.$strand.txt
 				
 				seqtk seq -r test2.$location.$strand.txt > test3.$location.$strand.txt
 				cat test3.$location.$strand.txt|rev > test4.$location.$strand.txt
