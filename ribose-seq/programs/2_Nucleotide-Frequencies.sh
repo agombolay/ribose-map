@@ -301,7 +301,7 @@ for sample in ${sample[@]}; do
 			#fi
 
 			if [ $subset == "chrM" ]; then
-				grep -A 1 chrM $file > test.txt
+				grep -A 1 chrM $file > test.$location.$stran.txt
 			fi			
 			#Print sequences to new file
 			#awk -v "OFS=\t" '{print $2}' $selection > $sequences
