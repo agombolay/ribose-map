@@ -280,15 +280,15 @@ for sample in ${sample[@]}; do
 			for file in $output3/$sample.$location-sequences.$strand.fa; do
 		
 				#Location of output directory
-				output4=$directory2/dNTPs/$subset/Columns/$location
+				#output4=$directory2/dNTPs/$subset/Columns/$location
 
 				#Create directories if they do not already exist
-				if [[ ! -d $output4 && $output4/sequences ]]; then
-    					mkdir -p $output4 $output4/sequences
-				fi
+				#if [[ ! -d $output4 && $output4/sequences ]]; then
+    				#	mkdir -p $output4 $output4/sequences
+				#fi
 
 				#Location of output files
-				#sequences=$output4/sequences/$sample.$location-sequences.$strand.$reference.$subset.fa
+				sequences=$output4/sequences/$sample.$location-sequences.$strand.$reference.$subset.fa
 				#positiveStrand=$output4/sequences/$sample.$location-sequences.positive.$reference.$subset.fa
 				#negativeStrand=$output4/sequences/$sample.$location-sequences.negative.$reference.$subset.fa
 				
@@ -305,10 +305,7 @@ for sample in ${sample[@]}; do
 
 				#Select only reads located in mitochondrial DNA
 				if [ $subset == "chrM" ]; then
-					grep -A 1 chrM $positiveUpstreamSequences > temp1
-					grep -A 1 chrM $positiveDownstreamSequences > temp2
-					grep -A 1 chrM $negativeUpstreamSequences > temp3
-					grep -A 1 chrM $negativeDownstreamSequences > temp4
+					grep -A 1 chrM $file > $sequences
 				fi
 				
 				#Reverse complement upstream/downstream sequences on - strand
@@ -328,12 +325,12 @@ for sample in ${sample[@]}; do
 				#Insert tabs between each nucleotide
 				#cat test5.upstream | sed 's/.../& /2g;s/./& /g' > $columns
 
-				for i in {1..100}; do
+				#for i in {1..100}; do
 					#Location of output files
-					baseLists=$output4/$sample.column.$i.$location.$reference.$subset.txt
+				#	baseLists=$output4/$sample.column.$i.$location.$reference.$subset.txt
 					#Save lists of dNTPs at each +/- 100 bp downstream/upstream position
-					awk -v field=$i '{ print $field }' $columns > $baseLists
-				done
+				#	awk -v field=$i '{ print $field }' $columns > $baseLists
+				#done
 			done
 		done
 	done
