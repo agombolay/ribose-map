@@ -305,10 +305,11 @@ for sample in ${sample[@]}; do
 					grep -A 1 chrM $file > test1.$location.$strand.fa
 				fi
 				
+				seqtk seq -r test1.$location.$strand.fa > test2.$location.$strand.fa
+
 				#Select only reads (eliminate header lines in file)
-				grep -v '>' test1.$location.$strand.fa > test2.$location.$strand.fa
+				grep -v '>' test2.$location.$strand.fa > test3.$location.$strand.txt
 				
-				seqtk seq -r test2.$location.$strand.fa > test3.$location.$strand.txt
 				cat test3.$location.$strand.txt|rev > test4.$location.$strand.txt
 				
 			#Print sequences to new file
