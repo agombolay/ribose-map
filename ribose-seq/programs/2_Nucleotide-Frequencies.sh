@@ -286,7 +286,6 @@ for sample in ${sample[@]}; do
 				#fi
 
 				#Location of output files
-				#sequences=$output4/sequences/$sample.$location-sequences.$strand.$reference.$subset.fa
 				#positiveStrand=$output4/sequences/$sample.$location-sequences.positive.$reference.$subset.fa
 				#negativeStrand=$output4/sequences/$sample.$location-sequences.negative.$reference.$subset.fa
 				
@@ -303,15 +302,15 @@ for sample in ${sample[@]}; do
 
 				#Select only reads located in mitochondrial DNA
 				if [ $subset == "chrM" ]; then
-					grep -A 1 chrM $positiveUpstreamSequences > temp1
-					grep -A 1 chrM $negativeUpstreamSequences > temp2
-					grep -A 1 chrM $positiveDownstreamSequences > temp3
-					grep -A 1 chrM $negativeDownstreamSequences > temp4
+					grep -A 1 chrM $positiveUpstreamSequences > temporary1
+					grep -A 1 chrM $negativeUpstreamSequences > temporary2
+					grep -A 1 chrM $positiveDownstreamSequences > temporary3
+					grep -A 1 chrM $negativeDownstreamSequences > temporary4
 				fi
 				
 				#Reverse complement upstream/downstream sequences on - strand
-				#seqtk seq -r temp3 > temporary4
-				#seqtk seq -r temp5 > temporary6
+				seqtk seq -r temporary2 > temporary5
+				seqtk seq -r temporary4 > temporary6
 
 				#Output only sequences in FASTA file (exclude all header lines)
 				#grep -v '>' $negativeStrand > temporary2.negative.strand
