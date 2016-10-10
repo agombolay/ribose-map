@@ -288,46 +288,49 @@ for sample in ${sample[@]}; do
 				fi
 
 				#Location of output files
-				selection=$output4/sequences/$sample.$location-sequences.$reference.$subset.txt
-				sequences=$output4/sequences/$sample.$location-sequences.$reference.$subset.raw.txt
-				columns=$output4/sequences/$sample.$location-sequences.$reference.$subset.columns.txt
+				sequences=$output4/sequences/$sample.$location-sequences.$strand.$reference.$subset.fa
+				positiveStrand=$output4/sequences/$sample.$location-sequences.positive.$reference.$subset.fa
+				negativeStrand=$output4/sequences/$sample.$location-sequences.negative.$reference.$subset.fa
+				
+				#sequences=$output4/sequences/$sample.$location-sequences.$reference.$subset.raw.txt
+				#columns=$output4/sequences/$sample.$location-sequences.$reference.$subset.columns.txt
 
-			#if [ $subset == "sacCer2" ] || [ $subset == "eColi" ] || [ $subset == "mm9" ] || [ $subset == "hg38" ] || [ $subset == "LL_1510A" ]; then
-			#	cat $file > $selection
-			#elif [ $subset == "chrM" ]; then
-			#	grep 'chrM' $file > $selection
-			#elif [ $subset == "nuclear" ]; then
-			#	grep -v 'chrM' $file > $selection
-			#fi
+				#if [ $subset == "sacCer2" ] || [ $subset == "eColi" ] || [ $subset == "mm9" ] || [ $subset == "hg38" ] || [ $subset == "LL_1510A" ]; then
+				#	cat $file > $selection
+				#elif [ $subset == "chrM" ]; then
+				#	grep 'chrM' $file > $selection
+				#elif [ $subset == "nuclear" ]; then
+				#	grep -v 'chrM' $file > $selection
+				#fi
 
 				#Select only reads located in mitochondrial DNA
 				if [ $subset == "chrM" ]; then
-					grep -A 1 chrM $file > test1.$location.$strand.fa
+					grep -A 1 chrM $file > $sequences
 				fi
 				
-				seqtk seq -r test1.$location.$strand.fa > test2.$location.$strand.fa
+				#Reverse complement upstream/downstream sequences on - strand
+				seqtk seq -r $negativeStrand > temporary1.negative.strand
 
-				#Select only reads (eliminate header lines in file)
-				grep -v '>' test2.$location.$strand.fa > test3.$location.$strand.txt
+				#Output only sequences in FASTA file (exclude all header lines)
+				grep -v '>' $negativeStrand > temporary2.negative.strand
+				grep -v '>' $positiveStrand > temporary2.positive.strand
 				
-				cat test3.$location.$strand.txt|rev > test4.$location.$strand.txt
+				#Reverse direction of upstream/downstream sequences on - strand
+				cat temporary2.negative.strand|rev > temporary3.negative.strand
 				
-				cat test4.upstream.positive.txt test4.upstream.negative.txt > test5.upstream
-				cat test4.downstream.positive.txt test4.downstream.negative.txt > test6.downstream
-
-			#Print sequences to new file
-			#awk -v "OFS=\t" '{print $2}' $selection > $sequences
+				#cat test4.upstream.positive.txt test4.upstream.negative.txt > test5.upstream
+				#cat test4.downstream.positive.txt test4.downstream.negative.txt > test6.downstream
 			
-			#Insert tabs between each nucleotide
-			cat $sequences | sed 's/.../& /2g;s/./& /g' > $columns
+				#Insert tabs between each nucleotide
+				cat test5.upstream | sed 's/.../& /2g;s/./& /g' > $columns
 
-			for i in {1..100}; do
-				#Location of output files
-				baseLists=$output4/$sample.column.$i.$location.$reference.$subset.txt
-				#Save lists of dNTPs at each +/- 100 bp downstream/upstream position
-				awk -v field=$i '{ print $field }' $columns > $baseLists
+				for i in {1..100}; do
+					#Location of output files
+					baseLists=$output4/$sample.column.$i.$location.$reference.$subset.txt
+					#Save lists of dNTPs at each +/- 100 bp downstream/upstream position
+					awk -v field=$i '{ print $field }' $columns > $baseLists
+				done
 			done
-		done
 		done
 	done
 
