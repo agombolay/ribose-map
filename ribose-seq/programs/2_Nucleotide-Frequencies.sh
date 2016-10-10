@@ -308,6 +308,9 @@ for sample in ${sample[@]}; do
 				#Select only reads (eliminate header lines in file)
 				grep -v '>' test.$location.$strand.txt > test2.$location.$strand.txt
 				
+				seqtk seq -r test2.$location.$strand.txt > temporary1 && mv temporary1 test2.$location.$strand.txt
+				cat test2.$location.$strand.txt|rev > temporary2 && mv temporary2 test2.$location.$strand.txt
+				
 			#Print sequences to new file
 			#awk -v "OFS=\t" '{print $2}' $selection > $sequences
 			#grep -v '>' $selection > $sequences
