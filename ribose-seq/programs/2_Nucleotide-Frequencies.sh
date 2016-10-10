@@ -213,19 +213,21 @@ for sample in ${sample[@]}; do
 
 	#Location of output files
 	coordinates=$output1/$sample.rNMP-coordinates.bed
+	
 	positiveCoordinates=$output1/$sample.rNMP-coordinates.positive.bed
 	negativeCoordinates=$output1/$sample.rNMP-coordinates.negative.bed
+	
 	positiveUpstreamIntervals=$output3/$sample.upstream-intervals.positive.bed
 	positiveDownstreamIntervals=$output3/$sample.downstream-intervals.positive.bed
 	negativeUpstreamIntervals=$output3/$sample.upstream-intervals.negative.bed
 	negativeDownstreamIntervals=$output3/$sample.downstream-intervals.negative.bed
+	
 	positiveUpstreamSequences=$output3/$sample.upstream-sequences.positive.fa
 	positiveDownstreamSequences=$output3/$sample.downstream-sequences.positive.fa
 	negativeUpstreamSequences=$output3/$sample.upstream-sequences.negative.fa
 	negativeDownstreamSequences=$output3/$sample.downstream-sequences.negative.fa
-	#upstreamIntervals=$output3/$sample.upstream-intervals.bed
+	
 	upstreamSequences=$output3/$sample.upstream-sequences.tab
-	#downstreamIntervals=$output3/$sample.downstream-intervals.bed
 	downstreamSequences=$output3/$sample.downstream-sequences.tab
 
 	rm $upstreamSequences $downstreamSequences
