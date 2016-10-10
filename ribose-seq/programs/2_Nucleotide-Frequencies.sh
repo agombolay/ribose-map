@@ -302,19 +302,21 @@ for sample in ${sample[@]}; do
 
 				#Select only reads located in mitochondrial DNA
 				if [ $subset == "chrM" ]; then
-					grep -A 1 chrM $positiveUpstreamSequences > temporary1
-					grep -A 1 chrM $negativeUpstreamSequences > temporary2
-					grep -A 1 chrM $positiveDownstreamSequences > temporary3
-					grep -A 1 chrM $negativeDownstreamSequences > temporary4
+					grep -A 1 chrM $positiveUpstreamSequences > temporary1.positive.upstream
+					grep -A 1 chrM $negativeUpstreamSequences > temporary1.negative.upstream
+					grep -A 1 chrM $positiveDownstreamSequences > temporary1.positive.downstream
+					grep -A 1 chrM $negativeDownstreamSequences > temporary1.negative.downstream
 				fi
 				
 				#Reverse complement upstream/downstream sequences on - strand
-				seqtk seq -r temporary2 > temporary5
-				seqtk seq -r temporary4 > temporary6
+				seqtk seq -r temporary1.negative.upstream > temporary2.negative.upstream
+				seqtk seq -r temporary1.negative.downstream > temporary2.negative.downstream
 
 				#Output only sequences in FASTA file (exclude all header lines)
-				#grep -v '>' $negativeStrand > temporary2.negative.strand
-				#grep -v '>' $positiveStrand > temporary2.positive.strand
+				grep -v '>' temporary1.positive.upstream > temporary2.positive.upstream
+				grep -v '>' temporary2.negative.upstream > temporary3.negative.upstream
+				grep -v '>' temporary1.positive.downstream > temporary2.positive.downstream
+				grep -v '>' temporary2.negative.downstream > temporary3.negative.downstream
 				
 				#Reverse direction of upstream/downstream sequences on - strand
 				#cat temporary2.negative.strand|rev > temporary3.negative.strand
