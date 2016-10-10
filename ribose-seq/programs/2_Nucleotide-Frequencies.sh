@@ -336,113 +336,112 @@ for sample in ${sample[@]}; do
 	done
 
 ##########################################################################################################################################
-<<DOC
+
 	#STEP 7: Calculate frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
 	#Location of output directory
-	output5=$directory2/dNTPs/$subset/Raw-Data
+	#output5=$directory2/dNTPs/$subset/Raw-Data
 
 	#Create directory if it does not already exist
-	if [[ ! -d $output5 ]]; then
-		mkdir -p $output5
-	fi
+	#if [[ ! -d $output5 ]]; then
+	#	mkdir -p $output5
+	#fi
 		
 	#Remove old files if they already exist
-	rm $output5/*.txt
+	#rm $output5/*.txt
 
-	for location in ${locations[@]}; do
+	#for location in ${locations[@]}; do
 
 		#Location of output files (indivdiual base frequencies)
-		A_baseFrequencies=$output5/A_dNTP-frequencies.$reference.$subset.$location.txt
-		C_baseFrequencies=$output5/C_dNTP-frequencies.$reference.$subset.$location.txt
-		G_baseFrequencies=$output5/G_dNTP-frequencies.$reference.$subset.$location.txt
-		T_baseFrequencies=$output5/T_dNTP-frequencies.$reference.$subset.$location.txt
+		#A_baseFrequencies=$output5/A_dNTP-frequencies.$reference.$subset.$location.txt
+		#C_baseFrequencies=$output5/C_dNTP-frequencies.$reference.$subset.$location.txt
+		#G_baseFrequencies=$output5/G_dNTP-frequencies.$reference.$subset.$location.txt
+		#T_baseFrequencies=$output5/T_dNTP-frequencies.$reference.$subset.$location.txt
 
 		#Location of output file (combined base frequencies)
-		baseFrequencies=$output5/$sample.dNTP-frequencies.$reference.$subset.$location.txt
+		#baseFrequencies=$output5/$sample.dNTP-frequencies.$reference.$subset.$location.txt
 	
 		#Calculate dNTP frequencies for each +/- 100 downstream/upstream position
-		for file in $directory2/dNTPs/$subset/Columns/$location/$sample*.txt; do
+		#for file in $directory2/dNTPs/$subset/Columns/$location/$sample*.txt; do
 
 			#Calculate count of each dNTP
-			A_baseCount=$(grep -v '>' $file | grep -o 'A' - | wc -l)
-			C_baseCount=$(grep -v '>' $file | grep -o 'C' - | wc -l)
-			G_baseCount=$(grep -v '>' $file | grep -o 'G' - | wc -l)
-			T_baseCount=$(grep -v '>' $file | grep -o 'T' - | wc -l)
+			#A_baseCount=$(grep -v '>' $file | grep -o 'A' - | wc -l)
+			#C_baseCount=$(grep -v '>' $file | grep -o 'C' - | wc -l)
+			#G_baseCount=$(grep -v '>' $file | grep -o 'G' - | wc -l)
+			#T_baseCount=$(grep -v '>' $file | grep -o 'T' - | wc -l)
 
 			#Calculate total number of dNTPs
-			total_baseCount=$(($A_baseCount+$C_baseCount+$G_baseCount+$T_baseCount))
+			#total_baseCount=$(($A_baseCount+$C_baseCount+$G_baseCount+$T_baseCount))
 	
 			#Calculate raw frequencies of dNTPs
-			A_rawBaseFrequency=$(echo "scale = 12; $A_baseCount/$total_baseCount" | bc | awk '{printf "%.12f\n", $0}')
-			C_rawBaseFrequency=$(echo "scale = 12; $C_baseCount/$total_baseCount" | bc | awk '{printf "%.12f\n", $0}')
-			G_rawBaseFrequency=$(echo "scale = 12; $G_baseCount/$total_baseCount" | bc | awk '{printf "%.12f\n", $0}')
-			T_rawBaseFrequency=$(echo "scale = 12; $T_baseCount/$total_baseCount" | bc | awk '{printf "%.12f\n", $0}')
+			#A_rawBaseFrequency=$(echo "scale = 12; $A_baseCount/$total_baseCount" | bc | awk '{printf "%.12f\n", $0}')
+			#C_rawBaseFrequency=$(echo "scale = 12; $C_baseCount/$total_baseCount" | bc | awk '{printf "%.12f\n", $0}')
+			#G_rawBaseFrequency=$(echo "scale = 12; $G_baseCount/$total_baseCount" | bc | awk '{printf "%.12f\n", $0}')
+			#T_rawBaseFrequency=$(echo "scale = 12; $T_baseCount/$total_baseCount" | bc | awk '{printf "%.12f\n", $0}')
 
 			#Calculate normalized frequencies of dNTPs
-			A_baseFrequency=$(echo "scale = 12; $A_rawBaseFrequency/$A_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
-			C_baseFrequency=$(echo "scale = 12; $C_rawBaseFrequency/$C_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
-			G_baseFrequency=$(echo "scale = 12; $G_rawBaseFrequency/$G_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
-			T_baseFrequency=$(echo "scale = 12; $T_rawBaseFrequency/$T_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
+			#A_baseFrequency=$(echo "scale = 12; $A_rawBaseFrequency/$A_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
+			#C_baseFrequency=$(echo "scale = 12; $C_rawBaseFrequency/$C_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
+			#G_baseFrequency=$(echo "scale = 12; $G_rawBaseFrequency/$G_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
+			#T_baseFrequency=$(echo "scale = 12; $T_rawBaseFrequency/$T_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
 		
 			#Save normalized frequencies of dNTPs to TXT file
-			echo $A_baseFrequency >> $A_baseFrequencies
-			echo $C_baseFrequency >> $C_baseFrequencies
-			echo $G_baseFrequency >> $G_baseFrequencies
-			echo $T_baseFrequency >> $T_baseFrequencies
+			#echo $A_baseFrequency >> $A_baseFrequencies
+			#echo $C_baseFrequency >> $C_baseFrequencies
+			#echo $G_baseFrequency >> $G_baseFrequencies
+			#echo $T_baseFrequency >> $T_baseFrequencies
 
 			#Remove old file if it already exists
-			if [ -e "$baseFrequencies" ]; then
-    				rm $baseFrequencies
-			fi
+			#if [ -e "$baseFrequencies" ]; then
+    			#	rm $baseFrequencies
+			#fi
 
 			#Save frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs to one TXT file
-			paste $A_baseFrequencies $C_baseFrequencies $G_baseFrequencies $T_baseFrequencies >> $baseFrequencies
-		done
-	done
+			#paste $A_baseFrequencies $C_baseFrequencies $G_baseFrequencies $T_baseFrequencies >> $baseFrequencies
+		#done
+	#done
 
 ##########################################################################################################################################
 	#STEP 8: Create dataset file containing nucleotide frequencies needed for plotting
 
 	#Location of input files
-	upstreamBaseFrequencies=$output5/$sample.dNTP-frequencies.$reference.$subset.upstream.txt
-	downstreamBaseFrequencies=$output5/$sample.dNTP-frequencies.$reference.$subset.downstream.txt
+	#upstreamBaseFrequencies=$output5/$sample.dNTP-frequencies.$reference.$subset.upstream.txt
+	#downstreamBaseFrequencies=$output5/$sample.dNTP-frequencies.$reference.$subset.downstream.txt
 	
 	#Location of output directory
-	output6=$directory2/Datasets/$subset
+	#output6=$directory2/Datasets/$subset
 
 	#Create directory if it does not already exist
-	if [[ ! -d $output6 ]]; then
-    		mkdir -p $output6
-	fi
+	#if [[ ! -d $output6 ]]; then
+    	#	mkdir -p $output6
+	#fi
 
 	#Location of output file
-	dataset=$output6/$sample.nucleotide-frequencies-dataset.$reference.$subset.txt
-	zoomed=$output6/$sample.nucleotide-frequencies-zoomed.$reference.$subset.txt
+	#dataset=$output6/$sample.nucleotide-frequencies-dataset.$reference.$subset.txt
+	#zoomed=$output6/$sample.nucleotide-frequencies-zoomed.$reference.$subset.txt
 	
 	#Remove old file if it already exists
-	rm $dataset
+	#rm $dataset
 
 	#Print values -100 to 100
-	seq -100 1 100 > temporary1
+	#seq -100 1 100 > temporary1
 
 	#Save files containing rNMP and upstream/downstream dNTP frequencies to one file
-	cat $upstreamBaseFrequencies $riboFrequencies $downstreamBaseFrequencies >> temporary2
+	#cat $upstreamBaseFrequencies $riboFrequencies $downstreamBaseFrequencies >> temporary2
 
 	#Save files to one combined TXT file
-	paste temporary1 temporary2 > temporary3
+	#paste temporary1 temporary2 > temporary3
 
 	#Add header line containing nucleotides to beginning of file 
-	echo -e "\tA\tC\tG\tU/T" > $dataset; cat temporary3 >> $dataset;
+	#echo -e "\tA\tC\tG\tU/T" > $dataset; cat temporary3 >> $dataset;
 	
 	#Smaller dataset
-	head -117 $dataset | tail -31 > temporary4
-	echo -e "\tA\tC\tG\tU/T" > $zoomed; cat temporary4 >> $zoomed;
+	#head -117 $dataset | tail -31 > temporary4
+	#echo -e "\tA\tC\tG\tU/T" > $zoomed; cat temporary4 >> $zoomed;
 
 	#Remove temporary files
-	rm temporary1 temporary2 temporary3 temporary4
+	#rm temporary1 temporary2 temporary3 temporary4
 
-	echo "Calculation of nucleotide frequencies for $sample is complete"
+	#echo "Calculation of nucleotide frequencies for $sample is complete"
 
-done
-DOC
+#done
