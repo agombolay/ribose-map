@@ -332,7 +332,7 @@ for sample in ${sample[@]}; do
 					#Save lists of dNTPs at each +/- 100 bp downstream/upstream position
 				#	awk -v field=$i '{ print $field }' $columns > $baseLists
 				#done
-			done
+			
 		done
 	done
 
