@@ -275,7 +275,7 @@ for sample in ${sample[@]}; do
 
 	#Tabulate data files of upstream/downstream dNTP sequences
 	for location in ${locations[@]}; do
-		for strands in ${strand[@]}; do
+		for strand in ${strands[@]}; do
 		
 		for file in $output3/$sample.$location-sequences.$strand.fa; do
 		#for file in $positiveUpstreamSequences; do
