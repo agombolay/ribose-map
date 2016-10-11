@@ -218,13 +218,13 @@ for sample in ${sample[@]}; do
 	negativeCoordinates=$output1/$sample.rNMP-coordinates.negative.bed
 	
 	positiveUpstreamIntervals=$output3/$sample.upstream-intervals.positive.bed
-	positiveDownstreamIntervals=$output3/$sample.downstream-intervals.positive.bed
 	negativeUpstreamIntervals=$output3/$sample.upstream-intervals.negative.bed
+	positiveDownstreamIntervals=$output3/$sample.downstream-intervals.positive.bed
 	negativeDownstreamIntervals=$output3/$sample.downstream-intervals.negative.bed
 	
 	positiveUpstreamSequences=$output3/$sample.upstream-sequences.positive.fa
-	positiveDownstreamSequences=$output3/$sample.downstream-sequences.positive.fa
 	negativeUpstreamSequences=$output3/$sample.upstream-sequences.negative.fa
+	positiveDownstreamSequences=$output3/$sample.downstream-sequences.positive.fa
 	negativeDownstreamSequences=$output3/$sample.downstream-sequences.negative.fa
 		
 	#Obtain positions of rNMPs (3’ end of aligned reads)
@@ -254,6 +254,7 @@ for sample in ${sample[@]}; do
 	bedtools getfasta -fi $referenceFasta2 -bed $negativeUpstreamIntervals -fo $negativeUpstreamSequences
 	bedtools getfasta -fi $referenceFasta2 -bed $negativeDownstreamIntervals -fo $negativeDownstreamSequences
 
+	rm temporary1 temporary2
 ##########################################################################################################################################
 	#STEP 6: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
