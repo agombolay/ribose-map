@@ -309,7 +309,7 @@ for sample in ${sample[@]}; do
 				sequences1=$output4/$sample.upstream-sequences.$reference.$subset.txt
 				sequences2=$output4/$sample.downstream-sequences.$reference.$subset.txt
 	
-				rm $upstreamSequences $downstreamSequences
+				rm $sequences1 $sequences2
 				
 				#Combine upstream (+/-) and downstream (+/-) sequences into two files
 				cat temporary2.positive.upstream temporary4.negative.upstream > $sequences1
