@@ -269,16 +269,13 @@ for sample in ${sample[@]}; do
     	mkdir -p $output4 $output5 $output6 $output7
 	#fi
 				
-	#if [ $subset == "sacCer2" ] || [ $subset == "eColi" ] || [ $subset == "mm9" ] || [ $subset == "hg38" ] || [ $subset == "LL_1510A" ]; then
-	#	cat $file > $selection
-	#elif [ $subset == "chrM" ]; then
-	#	grep 'chrM' $file > $selection
-	#elif [ $subset == "nuclear" ]; then
-	#	grep -v 'chrM' $file > $selection
-	#fi
-
+	if [ $subset == "sacCer2" ] || [ $subset == "eColi" ] || [ $subset == "mm9" ] || [ $subset == "hg38" ] || [ $subset == "LL_1510A" ]; then
+		cat $positiveUpstreamSequences > temporary1.positive.upstream
+		cat $negativeUpstreamSequences > temporary1.negative.upstream
+		cat $positiveDownstreamSequences > temporary1.positive.downstream
+		cat $negativeDownstreamSequences > temporary1.negative.downstream
 	#Select only reads located in nuclear DNA
-	if [ $subset == "nuclear" ]; then
+	elif [ $subset == "nuclear" ]; then
 		(grep -A 1 '>2micron' $positiveUpstreamSequences && grep -P -A 1 '>chr(?!M)' $positiveUpstreamSequences) > temporary1.positive.upstream
 		(grep -A 1 '>2micron' $negativeUpstreamSequences && grep -P -A 1 '>chr(?!M)' $positiveUpstreamSequences) > temporary1.negative.upstream
 		(grep -A 1 '>2micron' $positiveDownstreamSequences && grep -P -A 1 '>chr(?!M)' $positiveUpstreamSequences) > temporary1.positive.downstream
