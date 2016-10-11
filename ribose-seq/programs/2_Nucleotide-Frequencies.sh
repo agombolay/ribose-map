@@ -241,17 +241,16 @@ for sample in ${sample[@]}; do
 	
 	#Obtain coordinates of dNTPs located +/- 100 bp downstream/upstream from rNMPs:
 	bedtools flank -i $positiveCoordinates -g $referenceBED -l 100 -r 0 > $positiveUpstreamIntervals
-	bedtools flank -i $positiveCoordinates -g $referenceBED -l 0 -r 100 > $positiveDownstreamIntervals
-	
 	bedtools flank -i $negativeCoordinates -g $referenceBED -l 100 -r 0 > $negativeUpstreamIntervals
+	
+	bedtools flank -i $positiveCoordinates -g $referenceBED -l 0 -r 100 > $positiveDownstreamIntervals
 	bedtools flank -i $negativeCoordinates -g $referenceBED -l 0 -r 100 > $negativeDownstreamIntervals
 
 	#Obtain sequences of dNTPs located +/- 100 bp downstream/upstream from rNMPs:
 	bedtools getfasta -fi $referenceFasta2 -bed $positiveUpstreamIntervals -fo $positiveUpstreamSequences
-	bedtools getfasta -fi $referenceFasta2 -bed $positiveDownstreamIntervals -fo $positiveDownstreamSequences
-	
-	#Obtain sequences of dNTPs located +/- 100 bp downstream/upstream from rNMPs:
 	bedtools getfasta -fi $referenceFasta2 -bed $negativeUpstreamIntervals -fo $negativeUpstreamSequences
+	
+	bedtools getfasta -fi $referenceFasta2 -bed $positiveDownstreamIntervals -fo $positiveDownstreamSequences
 	bedtools getfasta -fi $referenceFasta2 -bed $negativeDownstreamIntervals -fo $negativeDownstreamSequences
 
 	rm temporary1 temporary2
