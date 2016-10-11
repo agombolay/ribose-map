@@ -257,83 +257,72 @@ for sample in ${sample[@]}; do
 ##########################################################################################################################################
 	#STEP 6: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
-	#Locations of dNTPs in relation to rNMPs
-	#locations="upstream downstream"
-
-	#Strands of DNA on which dNTPs are located
-	#strands="positive negative"
 	
-	#Tabulate data files of upstream/downstream dNTP sequences
-	#for location in ${locations[@]}; do
-		
-		#for strand in ${strands[@]}; do
-		
-				#Location of output directory
-				output4=$directory2/dNTPs/$subset/Columns/upstream
-				output5=$directory2/dNTPs/$subset/Columns/downstream
-				output6=$directory2/dNTPs/$subset/Columns/upstream/sequences
-				output7=$directory2/dNTPs/$subset/Columns/downstream/sequences
+	#Location of output directory
+	output4=$directory2/dNTPs/$subset/Columns/upstream
+	output5=$directory2/dNTPs/$subset/Columns/downstream
+	output6=$directory2/dNTPs/$subset/Columns/upstream/sequences
+	output7=$directory2/dNTPs/$subset/Columns/downstream/sequences
 				
-				#Create directories if they do not already exist
-				if [[ ! -d $output4 && $output5 && $output6 && $output7 ]]; then
-    					mkdir -p $output4 $output5 $output6 &&$ output7
-				fi
+	#Create directories if they do not already exist
+	if [[ ! -d $output4 && $output5 && $output6 && $output7 ]]; then
+    		mkdir -p $output4 $output5 $output6 &&$ output7
+	fi
 				
-				#if [ $subset == "sacCer2" ] || [ $subset == "eColi" ] || [ $subset == "mm9" ] || [ $subset == "hg38" ] || [ $subset == "LL_1510A" ]; then
-				#	cat $file > $selection
-				#elif [ $subset == "chrM" ]; then
-				#	grep 'chrM' $file > $selection
-				#elif [ $subset == "nuclear" ]; then
-				#	grep -v 'chrM' $file > $selection
-				#fi
+	#if [ $subset == "sacCer2" ] || [ $subset == "eColi" ] || [ $subset == "mm9" ] || [ $subset == "hg38" ] || [ $subset == "LL_1510A" ]; then
+	#	cat $file > $selection
+	#elif [ $subset == "chrM" ]; then
+	#	grep 'chrM' $file > $selection
+	#elif [ $subset == "nuclear" ]; then
+	#	grep -v 'chrM' $file > $selection
+	#fi
 
-				#Select only reads located in mitochondrial DNA
-				if [ $subset == "chrM" ]; then
-					grep -A 1 chrM $positiveUpstreamSequences > temporary1.positive.upstream
-					grep -A 1 chrM $negativeUpstreamSequences > temporary1.negative.upstream
-					grep -A 1 chrM $positiveDownstreamSequences > temporary1.positive.downstream
-					grep -A 1 chrM $negativeDownstreamSequences > temporary1.negative.downstream
-				fi
+	#Select only reads located in mitochondrial DNA
+	if [ $subset == "chrM" ]; then
+		grep -A 1 chrM $positiveUpstreamSequences > temporary1.positive.upstream
+		grep -A 1 chrM $negativeUpstreamSequences > temporary1.negative.upstream
+		grep -A 1 chrM $positiveDownstreamSequences > temporary1.positive.downstream
+		grep -A 1 chrM $negativeDownstreamSequences > temporary1.negative.downstream
+	fi
 				
-				#Reverse complement upstream/downstream sequences on - strand
-				seqtk seq -r temporary1.negative.upstream > temporary2.negative.upstream
-				seqtk seq -r temporary1.negative.downstream > temporary2.negative.downstream
+	#Reverse complement upstream/downstream sequences on - strand
+	seqtk seq -r temporary1.negative.upstream > temporary2.negative.upstream
+	seqtk seq -r temporary1.negative.downstream > temporary2.negative.downstream
 
-				#Output only sequences in FASTA file (exclude all header lines)
-				grep -v '>' temporary1.positive.upstream > temporary2.positive.upstream
-				grep -v '>' temporary2.negative.upstream > temporary3.negative.upstream
-				grep -v '>' temporary1.positive.downstream > temporary2.positive.downstream
-				grep -v '>' temporary2.negative.downstream > temporary3.negative.downstream
+	#Output only sequences in FASTA file (exclude all header lines)
+	grep -v '>' temporary1.positive.upstream > temporary2.positive.upstream
+	grep -v '>' temporary2.negative.upstream > temporary3.negative.upstream
+	grep -v '>' temporary1.positive.downstream > temporary2.positive.downstream
+	grep -v '>' temporary2.negative.downstream > temporary3.negative.downstream
 				
-				#Reverse direction of upstream/downstream sequences on - strand
-				cat temporary3.negative.upstream|rev > temporary4.negative.upstream
-				cat temporary3.negative.downstream|rev > temporary4.negative.downstream
+	#Reverse direction of upstream/downstream sequences on - strand
+	cat temporary3.negative.upstream|rev > temporary4.negative.upstream
+	cat temporary3.negative.downstream|rev > temporary4.negative.downstream
 				
-				sequences1=$output6/$sample.upstream-sequences.$reference.$subset.txt
-				sequences2=$output7/$sample.downstream-sequences.$reference.$subset.txt
+	sequences1=$output6/$sample.upstream-sequences.$reference.$subset.txt
+	sequences2=$output7/$sample.downstream-sequences.$reference.$subset.txt
 	
-				rm $sequences1 $sequences2
+	rm $sequences1 $sequences2
 				
-				#Combine upstream (+/-) and downstream (+/-) sequences into two files
-				cat temporary2.positive.upstream temporary4.negative.upstream > $sequences1
-				cat temporary2.positive.downstream temporary4.negative.downstream > $sequences2
+	#Combine upstream (+/-) and downstream (+/-) sequences into two files
+	cat temporary2.positive.upstream temporary4.negative.upstream > $sequences1
+	cat temporary2.positive.downstream temporary4.negative.downstream > $sequences2
 			
-				columns1=$output6/$sample.upstream-sequences.$reference.$subset.tab
-				columns2=$output7/$sample.downstream-sequences.$reference.$subset.tab
+	columns1=$output6/$sample.upstream-sequences.$reference.$subset.tab
+	columns2=$output7/$sample.downstream-sequences.$reference.$subset.tab
 				
-				#Insert tabs between each nucleotide
-				cat $sequences1 | sed 's/.../& /2g;s/./& /g' > $columns1
-				cat $sequences2 | sed 's/.../& /2g;s/./& /g' > $columns2
+	#Insert tabs between each nucleotide
+	cat $sequences1 | sed 's/.../& /2g;s/./& /g' > $columns1
+	cat $sequences2 | sed 's/.../& /2g;s/./& /g' > $columns2
 
-				#for i in {1..100}; do
-					#Location of output files
-				#	baseLists=$output4/$sample.column.$i.$location.$reference.$subset.txt
-					#Save lists of dNTPs at each +/- 100 bp downstream/upstream position
-				#	awk -v field=$i '{ print $field }' $columns > $baseLists
-				#done
-			
-		#done
-	#done
+	for i in {1..100}; do
+		#Location of output files
+		lists1=$output4/$sample.column.$i.upstream.$reference.$subset.txt
+		lists2=$output5/$sample.column.$i.downstream.$reference.$subset.txt
+		#Save lists of dNTPs at each +/- 100 bp downstream/upstream position
+		awk -v field=$i '{ print $field }' $columns1 > $lists1
+		awk -v field=$i '{ print $field }' $columns2 > $lists2
+	done
 
 ##########################################################################################################################################
 
