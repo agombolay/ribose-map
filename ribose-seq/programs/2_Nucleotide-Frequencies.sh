@@ -394,43 +394,41 @@ for sample in ${sample[@]}; do
 	#STEP 8: Create dataset file containing nucleotide frequencies needed for plotting
 
 	#Location of input files
-	#upstreamBaseFrequencies=$output5/$sample.dNTP-frequencies.$reference.$subset.upstream.txt
-	#downstreamBaseFrequencies=$output5/$sample.dNTP-frequencies.$reference.$subset.downstream.txt
+	upstreamBaseFrequencies=$output5/$sample.dNTP-frequencies.$reference.$subset.upstream.txt
+	downstreamBaseFrequencies=$output5/$sample.dNTP-frequencies.$reference.$subset.downstream.txt
 	
 	#Location of output directory
-	#output6=$directory2/Datasets/$subset
+	output6=$directory2/Datasets/$subset
 
 	#Create directory if it does not already exist
-	#if [[ ! -d $output6 ]]; then
-    	#	mkdir -p $output6
-	#fi
+    	mkdir -p $output6
 
 	#Location of output file
-	#dataset=$output6/$sample.nucleotide-frequencies-dataset.$reference.$subset.txt
-	#zoomed=$output6/$sample.nucleotide-frequencies-zoomed.$reference.$subset.txt
+	dataset=$output6/$sample.nucleotide-frequencies-dataset.$reference.$subset.txt
+	zoomed=$output6/$sample.nucleotide-frequencies-zoomed.$reference.$subset.txt
 	
 	#Remove old file if it already exists
-	#rm $dataset
+	rm $dataset
 
 	#Print values -100 to 100
-	#seq -100 1 100 > temporary1
+	seq -100 1 100 > temporary1
 
 	#Save files containing rNMP and upstream/downstream dNTP frequencies to one file
-	#cat $upstreamBaseFrequencies $riboFrequencies $downstreamBaseFrequencies >> temporary2
+	cat $upstreamBaseFrequencies $riboFrequencies $downstreamBaseFrequencies >> temporary2
 
 	#Save files to one combined TXT file
-	#paste temporary1 temporary2 > temporary3
+	paste temporary1 temporary2 > temporary3
 
 	#Add header line containing nucleotides to beginning of file 
-	#echo -e "\tA\tC\tG\tU/T" > $dataset; cat temporary3 >> $dataset;
+	echo -e "\tA\tC\tG\tU/T" > $dataset; cat temporary3 >> $dataset;
 	
 	#Smaller dataset
-	#head -117 $dataset | tail -31 > temporary4
-	#echo -e "\tA\tC\tG\tU/T" > $zoomed; cat temporary4 >> $zoomed;
+	head -117 $dataset | tail -31 > temporary4
+	echo -e "\tA\tC\tG\tU/T" > $zoomed; cat temporary4 >> $zoomed;
 
 	#Remove temporary files
-	#rm temporary1 temporary2 temporary3 temporary4
+	rm temporary1 temporary2 temporary3 temporary4
 
-	#echo "Calculation of nucleotide frequencies for $sample is complete"
+	echo "Calculation of nucleotide frequencies for $sample is complete"
 
 done
