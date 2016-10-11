@@ -259,22 +259,25 @@ for sample in ${sample[@]}; do
 	#STEP 6: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
 	#Locations of dNTPs in relation to rNMPs
-	locations="upstream downstream"
+	#locations="upstream downstream"
 
 	#Strands of DNA on which dNTPs are located
-	strands="positive negative"
+	#strands="positive negative"
 	
 	#Tabulate data files of upstream/downstream dNTP sequences
-	for location in ${locations[@]}; do
+	#for location in ${locations[@]}; do
 		
-		for strand in ${strands[@]}; do
+		#for strand in ${strands[@]}; do
 		
 				#Location of output directory
-				output4=$directory2/dNTPs/$subset/Columns/$location
-
+				output4=$directory2/dNTPs/$subset/Columns/upstream
+				output5=$directory2/dNTPs/$subset/Columns/downstream
+				output6=$directory2/dNTPs/$subset/Columns/upstream/sequences
+				output7=$directory2/dNTPs/$subset/Columns/downstream/sequences
+				
 				#Create directories if they do not already exist
-				if [[ ! -d $output4 && $output4/sequences ]]; then
-    					mkdir -p $output4 $output4/sequences
+				if [[ ! -d $output4 && $output5 && $output6 && $output7 ]]; then
+    					mkdir -p $output4 $output5 $output6 &&$ output7
 				fi
 				
 				#if [ $subset == "sacCer2" ] || [ $subset == "eColi" ] || [ $subset == "mm9" ] || [ $subset == "hg38" ] || [ $subset == "LL_1510A" ]; then
@@ -307,8 +310,8 @@ for sample in ${sample[@]}; do
 				cat temporary3.negative.upstream|rev > temporary4.negative.upstream
 				cat temporary3.negative.downstream|rev > temporary4.negative.downstream
 				
-				sequences1=$output4/sequences/$sample.upstream-sequences.$reference.$subset.txt
-				sequences2=$output4/sequences/$sample.downstream-sequences.$reference.$subset.txt
+				sequences1=$output6/$sample.upstream-sequences.$reference.$subset.txt
+				sequences2=$output7/$sample.downstream-sequences.$reference.$subset.txt
 	
 				rm $sequences1 $sequences2
 				
@@ -316,8 +319,8 @@ for sample in ${sample[@]}; do
 				cat temporary2.positive.upstream temporary4.negative.upstream > $sequences1
 				cat temporary2.positive.downstream temporary4.negative.downstream > $sequences2
 			
-				columns1=$output4/sequences/$sample.upstream-sequences.$reference.$subset.tab
-				columns2=$output4/sequences/$sample.downstream-sequences.$reference.$subset.tab
+				columns1=$output6/$sample.upstream-sequences.$reference.$subset.tab
+				columns2=$output7/$sample.downstream-sequences.$reference.$subset.tab
 				
 				#Insert tabs between each nucleotide
 				cat $sequences1 | sed 's/.../& /2g;s/./& /g' > $columns1
