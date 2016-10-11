@@ -306,8 +306,8 @@ for sample in ${sample[@]}; do
 				cat temporary3.negative.upstream|rev > temporary4.negative.upstream
 				cat temporary3.negative.downstream|rev > temporary4.negative.downstream
 				
-				sequences1=$output4/$sample.upstream-sequences.$reference.$subset.txt
-				sequences2=$output4/$sample.downstream-sequences.$reference.$subset.txt
+				sequences1=$output4/sequences/$sample.upstream-sequences.$reference.$subset.txt
+				sequences2=$output4/sequences/$sample.downstream-sequences.$reference.$subset.txt
 	
 				rm $sequences1 $sequences2
 				
