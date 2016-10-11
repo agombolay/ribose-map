@@ -265,9 +265,9 @@ for sample in ${sample[@]}; do
 	output7=$directory2/dNTPs/$subset/Columns/downstream/sequences
 				
 	#Create directories if they do not already exist
-	if [[ ! -d $output4 && $output5 && $output6 && $output7 ]]; then
+	#if [[ ! -d $output4 && $output5 && $output6 && $output7 ]]; then
     		mkdir -p $output4 $output5 $output6 &&$ output7
-	fi
+	#fi
 				
 	#if [ $subset == "sacCer2" ] || [ $subset == "eColi" ] || [ $subset == "mm9" ] || [ $subset == "hg38" ] || [ $subset == "LL_1510A" ]; then
 	#	cat $file > $selection
