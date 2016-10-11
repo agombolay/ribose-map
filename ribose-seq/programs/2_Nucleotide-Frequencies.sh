@@ -228,14 +228,13 @@ for sample in ${sample[@]}; do
 	negativeDownstreamSequences=$output3/$sample.downstream-sequences.negative.fa
 		
 	#Obtain positions of rNMPs (3’ end of aligned reads)
-	bedtools genomecov -3 -bg -ibam $bam > $coordinates
+	bedtools genomecov -3 -bg -ibam $bam > temporary1
 
 	#Print only columns containing coordinates (eliminate column containing coverage values)
-	awk -v "OFS=\t" '{print $1, $2, $3}' $coordinates > temporary1 && mv temporary1 $coordinates
+	awk -v "OFS=\t" '{print $1, $2, $3}' temporary1 > temporary2
 
-	#Combine 
-	paste $coordinates $readCoordinates | awk -v "OFS=\t" '{print $1, $2, $3, $8}' > temporary2 \
-	&& mv temporary2 $coordinates
+	#Combine rNMP coordiantes with strand information in tabular format (i.e., 2micron 94 95 +)
+	paste temporary2 $readCoordinates | awk -v "OFS=\t" '{print $1, $2, $3, $8}' > $coordinates
 	
 	awk -v "OFS=\t" '$4 == "+" {print $1, $2, $3, $4}' $coordinates > $positiveCoordinates
 	awk -v "OFS=\t" '$4 == "-" {print $1, $2, $3, $4}' $coordinates > $negativeCoordinates
