@@ -424,7 +424,7 @@ for sample in ${sample[@]}; do
 	
 	#Smaller dataset
 	head -117 $dataset | tail -31 > temporary4
-	echo -e "\tA\tC\tG\tU/T" > $zoomed; cat temporary4 >> $zoomed;
+	echo -e "\tA\t\tC\t\tG\t\tU/T" > $zoomed; cat temporary4 >> $zoomed;
 
 	#Remove temporary files
 	rm temporary1 temporary2 temporary3 temporary4
