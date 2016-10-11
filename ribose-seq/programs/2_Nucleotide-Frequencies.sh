@@ -316,8 +316,8 @@ for sample in ${sample[@]}; do
 				cat temporary2.positive.upstream temporary4.negative.upstream > $sequences1
 				cat temporary2.positive.downstream temporary4.negative.downstream > $sequences2
 			
-				columns1=$output4/sequences/$sample.upstream-sequences.$reference.$subset.columns.tab
-				columns2=$output4/sequences/$sample.downstream-sequences.$reference.$subset.columns.tab
+				columns1=$output4/sequences/$sample.upstream-sequences.$reference.$subset.tab
+				columns2=$output4/sequences/$sample.downstream-sequences.$reference.$subset.tab
 				
 				#Insert tabs between each nucleotide
 				cat $sequences1 | sed 's/.../& /2g;s/./& /g' > $columns1
