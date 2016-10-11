@@ -233,6 +233,7 @@ for sample in ${sample[@]}; do
 	#Print only columns containing coordinates (eliminate column containing coverage values)
 	awk -v "OFS=\t" '{print $1, $2, $3}' $coordinates > temporary1 && mv temporary1 $coordinates
 
+	#Combine 
 	paste $coordinates $readCoordinates | awk -v "OFS=\t" '{print $1, $2, $3, $8}' > temporary2 \
 	&& mv temporary2 $coordinates
 	
