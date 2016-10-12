@@ -286,10 +286,10 @@ for sample in ${sample[@]}; do
 		(grep -A 1 '>2micron' $negativeDownstreamSequences && grep -P -A 1 '>chr(?!M)' $positiveUpstreamSequences) > temporary1.negative.downstream
 	#Select only reads located in mitochondrial DNA
 	elif [ $subset == "chrM" ]; then
-		grep -A 1 chrM $positiveUpstreamSequences > temporary1.positive.upstream
-		grep -A 1 chrM $negativeUpstreamSequences > temporary1.negative.upstream
-		grep -A 1 chrM $positiveDownstreamSequences > temporary1.positive.downstream
-		grep -A 1 chrM $negativeDownstreamSequences > temporary1.negative.downstream
+		grep -A 1 '>chrM' $positiveUpstreamSequences > temporary1.positive.upstream
+		grep -A 1 '>chrM' $negativeUpstreamSequences > temporary1.negative.upstream
+		grep -A 1 '>chrM' $positiveDownstreamSequences > temporary1.positive.downstream
+		grep -A 1 '>chrM' $negativeDownstreamSequences > temporary1.negative.downstream
 	fi
 				
 	#Reverse complement upstream/downstream sequences on negative strand
