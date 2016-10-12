@@ -415,7 +415,7 @@ for sample in ${sample[@]}; do
 	zoomed=$output6/$sample.nucleotide-frequencies-zoomed.$reference.$subset.txt
 	
 	#Remove old file if it already exists
-	rm $dataset
+	rm $dataset $zoomed
 
 	#Print values -100 to 100
 	#seq -100 1 100 > temporary1
