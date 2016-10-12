@@ -428,7 +428,7 @@ for sample in ${sample[@]}; do
 	paste temporary1 temporary2 > temporary3
 
 	#Add header line containing nucleotides to beginning of file 
-	echo -e "\tA\tC\tG\tU/T" > $dataset; cat temporary3 >> $dataset;
+	echo -e "\tA\t\tC\t\tG\t\tU/T" > $dataset; cat temporary3 >> $dataset;
 	
 	#Smaller dataset
 	#head -117 $dataset | tail -31 > temporary4
