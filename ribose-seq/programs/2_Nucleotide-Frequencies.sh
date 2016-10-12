@@ -108,7 +108,7 @@ for sample in ${sample[@]}; do
 	#STEP 3: Calculate background dNTP frequencies of reference genome
 
 	#Location of input file
-	referenceFasta1=$directory0/$subset.fa
+	referenceFasta1=$directory0/$reference.fa
 
 	#Location of output directory
 	output2=$directory/ribose-seq/results/Background-dNTP-Frequencies
