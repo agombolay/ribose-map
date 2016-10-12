@@ -85,6 +85,7 @@ for sample in ${files[@]}; do
 
 	#2. Trim UMI from 3' ends of reads; compress file
 	umitools trim --end 3 $reverseComplement $UMI | gzip -c > $umiTrimmed
+	#umitools trim --end 5 $reads $UMI | gzip -c > $umiTrimmed
 
 	#3. Align reads to reference genome with Bowtie version 1 or 2
 	#Bash: "-": standard input; "2>": Redirect standard error; "1>": Redirect standard output
