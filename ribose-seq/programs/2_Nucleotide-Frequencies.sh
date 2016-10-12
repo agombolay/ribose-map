@@ -240,11 +240,13 @@ for sample in ${sample[@]}; do
 	awk -v "OFS=\t" '$4 == "-" {print $1, $2, $3, $4}' $coordinates > $negativeCoordinates
 	
 	#Obtain coordinates of dNTPs located +/- 100 bp downstream/upstream from rNMPs:
+	#Note: For positive strands, left = upstream. For negative strands, right = upstream
 	bedtools flank -i $positiveCoordinates -g $referenceBED -l 100 -r 0 > $positiveUpstreamIntervals
-	bedtools flank -i $negativeCoordinates -g $referenceBED -l 100 -r 0 > $negativeUpstreamIntervals
+	bedtools flank -i $negativeCoordinates -g $referenceBED -l 0 -r 100 > $negativeUpstreamIntervals
 	
+	#Note: For positive strands, right = downstream. For negative strands, left = downstream
 	bedtools flank -i $positiveCoordinates -g $referenceBED -l 0 -r 100 > $positiveDownstreamIntervals
-	bedtools flank -i $negativeCoordinates -g $referenceBED -l 0 -r 100 > $negativeDownstreamIntervals
+	bedtools flank -i $negativeCoordinates -g $referenceBED -l 100 -r 0 > $negativeDownstreamIntervals
 
 	#Obtain sequences of dNTPs located +/- 100 bp downstream/upstream from rNMPs:
 	bedtools getfasta -fi $referenceFasta2 -bed $positiveUpstreamIntervals -fo $positiveUpstreamSequences
@@ -257,7 +259,6 @@ for sample in ${sample[@]}; do
 ##########################################################################################################################################
 	#STEP 6: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
-	
 	#Location of output directory
 	output4=$directory2/dNTPs/$subset/Columns/upstream
 	output5=$directory2/dNTPs/$subset/Columns/downstream
@@ -288,7 +289,7 @@ for sample in ${sample[@]}; do
 		grep -A 1 chrM $negativeDownstreamSequences > temporary1.negative.downstream
 	fi
 				
-	#Reverse complement upstream/downstream sequences on - strand
+	#Reverse complement upstream/downstream sequences on negative strand
 	seqtk seq -r temporary1.negative.upstream > temporary2.negative.upstream
 	seqtk seq -r temporary1.negative.downstream > temporary2.negative.downstream
 
@@ -298,7 +299,7 @@ for sample in ${sample[@]}; do
 	grep -v '>' temporary1.positive.downstream > temporary2.positive.downstream
 	grep -v '>' temporary2.negative.downstream > temporary3.negative.downstream
 				
-	#Reverse direction of upstream/downstream sequences on - strand
+	#Reverse upstream/downstream sequences on negative strand
 	cat temporary3.negative.upstream|rev > temporary4.negative.upstream
 	cat temporary3.negative.downstream|rev > temporary4.negative.downstream
 				
