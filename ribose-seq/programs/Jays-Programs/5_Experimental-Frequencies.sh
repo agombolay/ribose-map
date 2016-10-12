@@ -48,9 +48,9 @@ arguments=("" "--only-chrom chrM" "--ignore-chrom chrM" "--only-chrom 2micron")
 #"--only-chrom 2micron"=Only 2micron plasmid ("only-2micron")
 #"--ignore-chrom chrM"= Nuclear chromosomes and 2micron plasmid ("no-mito")
 
-input=$directory/ribose-seq/results/$samples/alignment
+input=$directory/ribose-seq/results/$reference/$samples/Alignment
 
-output=$directory/ribose-seq/results/$samples/nucleotideFrequencies
+output=$directory/ribose-seq/results/$reference/$samples/nucleotideFrequencies
 
 if [[ ! -d $output ]]; then
     mkdir -p $output
@@ -83,14 +83,14 @@ do
 
         	if [[ $mode == "only-mitochondria" ]];
         	then
-            		BackgroundFrequencies="$directory/ribose-seq/results/backgroundNucleotideFrequencies/$reference.chrM.nucleotide.frequencies.tab"
+            		BackgroundFrequencies="$directory/ribose-seq/results/Background-Nucleotide-Frequencies/$reference.chrM.nucleotide.frequencies.tab"
         
         	elif [[ $mode == "only-2micron" ]];
         	then
-            		BackgroundFrequencies="$directory/ribose-seq/results/backgroundNucleotideFrequencies/$reference.2micron.nucleotide.frequencies.tab"
+            		BackgroundFrequencies="$directory/ribose-seq/results/Background-Nucleotide-Frequencies/$reference.2micron.nucleotide.frequencies.tab"
         
         	else
-            		BackgroundFrequencies="$directory/ribose-seq/results/backgroundNucleotideFrequencies/$reference.genome.nucleotide.frequencies.tab"
+            		BackgroundFrequencies="$directory/ribose-seq/results/Background-Nucleotide-Frequencies/$reference.genome.nucleotide.frequencies.tab"
         	fi
 
         	#Signals need to be reverse complemented since sequence is reverse complement of the captured strand
