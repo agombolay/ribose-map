@@ -239,19 +239,21 @@ for sample in ${sample[@]}; do
 	awk -v "OFS=\t" '$4 == "+" {print $1, $2, $3, $4}' $coordinates > $positiveCoordinates
 	awk -v "OFS=\t" '$4 == "-" {print $1, $2, $3, $4}' $coordinates > $negativeCoordinates
 	
-	#Obtain coordinates of dNTPs located +/- 100 bp downstream/upstream from rNMPs:
+	#Obtain coordinates of dNTPs located 100 bp upstream from rNMPs:
 	#Note: For positive strands, left = upstream. For negative strands, right = upstream
 	bedtools flank -i $positiveCoordinates -g $referenceBED -l 100 -r 0 > $positiveUpstreamIntervals
 	bedtools flank -i $negativeCoordinates -g $referenceBED -l 0 -r 100 > $negativeUpstreamIntervals
 	
+	#Obtain coordinates of dNTPs located 100 bp downstream from rNMPs:
 	#Note: For positive strands, right = downstream. For negative strands, left = downstream
 	bedtools flank -i $positiveCoordinates -g $referenceBED -l 0 -r 100 > $positiveDownstreamIntervals
 	bedtools flank -i $negativeCoordinates -g $referenceBED -l 100 -r 0 > $negativeDownstreamIntervals
 
-	#Obtain sequences of dNTPs located +/- 100 bp downstream/upstream from rNMPs:
+	#Obtain sequences of dNTPs located 100 bp upstream from rNMPs:
 	bedtools getfasta -fi $referenceFasta2 -bed $positiveUpstreamIntervals -fo $positiveUpstreamSequences
 	bedtools getfasta -fi $referenceFasta2 -bed $negativeUpstreamIntervals -fo $negativeUpstreamSequences
 	
+	#Obtain sequences of dNTPs located 100 bp downstream from rNMPs:
 	bedtools getfasta -fi $referenceFasta2 -bed $positiveDownstreamIntervals -fo $positiveDownstreamSequences
 	bedtools getfasta -fi $referenceFasta2 -bed $negativeDownstreamIntervals -fo $negativeDownstreamSequences
 
