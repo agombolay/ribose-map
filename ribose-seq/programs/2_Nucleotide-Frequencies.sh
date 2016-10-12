@@ -293,18 +293,18 @@ for sample in ${sample[@]}; do
 	fi
 				
 	#Reverse complement upstream/downstream sequences on negative strand
-	seqtk seq -r temporary1.negative.upstream > $output3/temporary2.negative.upstream
-	seqtk seq -r temporary1.negative.downstream > $output3/temporary2.negative.downstream
+	seqtk seq -r $output3/temporary1.negative.upstream > $output3/temporary2.negative.upstream
+	seqtk seq -r $output3/temporary1.negative.downstream > $output3/temporary2.negative.downstream
 
 	#Output only sequences in FASTA file (exclude all header lines)
-	grep -v '>' temporary1.positive.upstream > $output3/temporary2.positive.upstream
-	grep -v '>' temporary2.negative.upstream > $output3/temporary3.negative.upstream
-	grep -v '>' temporary1.positive.downstream > $output3/temporary2.positive.downstream
-	grep -v '>' temporary2.negative.downstream > $output3/temporary3.negative.downstream
+	grep -v '>' $output3/temporary1.positive.upstream > $output3/temporary2.positive.upstream
+	grep -v '>' $output3/temporary2.negative.upstream > $output3/temporary3.negative.upstream
+	grep -v '>' $output3/temporary1.positive.downstream > $output3/temporary2.positive.downstream
+	grep -v '>' $output3/temporary2.negative.downstream > $output3/temporary3.negative.downstream
 				
 	#Reverse upstream/downstream sequences on negative strand
-	cat temporary3.negative.upstream|rev > $output3/temporary4.negative.upstream
-	cat temporary3.negative.downstream|rev > $output3/temporary4.negative.downstream
+	cat $output3/temporary3.negative.upstream|rev > $output3/temporary4.negative.upstream
+	cat $output3/temporary3.negative.downstream|rev > $output3/temporary4.negative.downstream
 				
 	sequences1=$output6/$sample.upstream-sequences.$reference.$subset.txt
 	sequences2=$output7/$sample.downstream-sequences.$reference.$subset.txt
@@ -312,8 +312,8 @@ for sample in ${sample[@]}; do
 	rm $sequences1 $sequences2
 				
 	#Combine upstream (+/-) and downstream (+/-) sequences into two files
-	cat temporary2.positive.upstream temporary4.negative.upstream > $sequences1
-	cat temporary2.positive.downstream temporary4.negative.downstream > $sequences2
+	cat $output3/temporary2.positive.upstream $output3/temporary4.negative.upstream > $sequences1
+	cat $output3/temporary2.positive.downstream $output3/temporary4.negative.downstream > $sequences2
 			
 	columns1=$output6/$sample.upstream-sequences.$reference.$subset.tab
 	columns2=$output7/$sample.downstream-sequences.$reference.$subset.tab
