@@ -269,7 +269,8 @@ for sample in ${sample[@]}; do
 	#if [[ ! -d $output4 && $output5 && $output6 && $output7 ]]; then
     	mkdir -p $output4 $output5 $output6 $output7
 	#fi
-				
+	
+	#Select all reads located in genomic DNA
 	if [ $subset == "sacCer2" ] || [ $subset == "eColi" ] || [ $subset == "mm9" ] || [ $subset == "hg38" ] || [ $subset == "LL_1510A" ]; then
 		cat $positiveUpstreamSequences > temporary1.positive.upstream
 		cat $negativeUpstreamSequences > temporary1.negative.upstream
