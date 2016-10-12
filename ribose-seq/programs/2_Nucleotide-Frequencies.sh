@@ -205,9 +205,7 @@ for sample in ${sample[@]}; do
 	output3=$directory2/dNTPs/$subset
 
 	#Create directory if it does not already exist
-	if [[ ! -d $output3 ]]; then
-    		mkdir -p $output3
-	fi	
+    	mkdir -p $output3	
 
 	#Location of output files
 	coordinates=$output1/$sample.rNMP-coordinates.bed
