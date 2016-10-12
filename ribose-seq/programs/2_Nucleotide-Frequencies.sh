@@ -111,6 +111,9 @@ for sample in ${sample[@]}; do
 	#Location of output directory
 	output2=$directory/ribose-seq/results/Background-dNTP-Frequencies
 
+	#Create directory if it does not already exist
+	mkdir -p $output2
+
 	#Location of output file
 	background=$output2/$reference.$subset.Background-dNTP-Frequencies.txt
 
