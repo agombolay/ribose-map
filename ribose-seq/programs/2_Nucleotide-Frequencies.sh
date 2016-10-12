@@ -200,8 +200,8 @@ for sample in ${sample[@]}; do
 	#STEP 5: Obtain coordinates and sequences of +/- 100 downstream/upstream dNTPs from rNMPs
 
 	#Location of input files
-	referenceBED=$directory0/$subset.bed
-	referenceFasta2=$directory0/$subset.fa
+	referenceBED=$directory0/$reference.bed
+	referenceFasta2=$directory0/$reference.fa
 
 	#Location of output directory
 	output3=$directory2/dNTPs/$subset
