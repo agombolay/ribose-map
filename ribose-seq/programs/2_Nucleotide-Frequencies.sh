@@ -54,9 +54,7 @@ for sample in ${sample[@]}; do
 	output1=$directory2/rNMPs/$subset
 
 	#Create directory if it does not already exist
-	if [[ ! -d $output1 ]]; then
-		mkdir -p $output1
-	fi
+	mkdir -p $output1
 
 	#Location of output files	
 	fastq=$output1/$sample.aligned-reads.fastq
