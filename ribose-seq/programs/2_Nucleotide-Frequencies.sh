@@ -322,7 +322,7 @@ for sample in ${sample[@]}; do
 	cat $sequences1 | sed 's/.../& /2g;s/./& /g' > $columns1
 	cat $sequences2 | sed 's/.../& /2g;s/./& /g' > $columns2
 
-	for i in {1..100}; do
+	for i in {1..2}; do
 		#Location of output files
 		lists1=$output4/$sample.column.$i.upstream.$reference.$subset.txt
 		lists2=$output5/$sample.column.$i.downstream.$reference.$subset.txt
@@ -418,8 +418,9 @@ for sample in ${sample[@]}; do
 	rm $dataset
 
 	#Print values -100 to 100
-	seq -100 1 100 > temporary1
-
+	#seq -100 1 100 > temporary1
+	seq -2 1 2 > temporary1
+	
 	#Save files containing rNMP and upstream/downstream dNTP frequencies to one file
 	cat $upstreamBaseFrequencies $riboFrequencies $downstreamBaseFrequencies >> temporary2
 
@@ -430,8 +431,8 @@ for sample in ${sample[@]}; do
 	echo -e "\tA\tC\tG\tU/T" > $dataset; cat temporary3 >> $dataset;
 	
 	#Smaller dataset
-	head -117 $dataset | tail -31 > temporary4
-	echo -e "\tA\t\tC\t\tG\t\tU/T" > $zoomed; cat temporary4 >> $zoomed;
+	#head -117 $dataset | tail -31 > temporary4
+	#echo -e "\tA\t\tC\t\tG\t\tU/T" > $zoomed; cat temporary4 >> $zoomed;
 
 	#Remove temporary files
 	rm temporary1 temporary2 temporary3 temporary4
