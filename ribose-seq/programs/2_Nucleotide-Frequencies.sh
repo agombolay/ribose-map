@@ -241,13 +241,13 @@ for sample in ${sample[@]}; do
 	
 	#Obtain coordinates of dNTPs located 100 bp upstream from rNMPs:
 	#Note: For positive strands, left = upstream. For negative strands, right = upstream
-	bedtools flank -i $positiveCoordinates -g $referenceBED -l 100 -r 0 > $positiveUpstreamIntervals
-	bedtools flank -i $negativeCoordinates -g $referenceBED -l 0 -r 100 > $negativeUpstreamIntervals
+	bedtools flank -i $positiveCoordinates -g $referenceBED -l 2 -r 0 > $positiveUpstreamIntervals
+	bedtools flank -i $negativeCoordinates -g $referenceBED -l 0 -r 2 > $negativeUpstreamIntervals
 	
 	#Obtain coordinates of dNTPs located 100 bp downstream from rNMPs:
 	#Note: For positive strands, right = downstream. For negative strands, left = downstream
-	bedtools flank -i $positiveCoordinates -g $referenceBED -l 0 -r 100 > $positiveDownstreamIntervals
-	bedtools flank -i $negativeCoordinates -g $referenceBED -l 100 -r 0 > $negativeDownstreamIntervals
+	bedtools flank -i $positiveCoordinates -g $referenceBED -l 0 -r 2 > $positiveDownstreamIntervals
+	bedtools flank -i $negativeCoordinates -g $referenceBED -l 2 -r 0 > $negativeDownstreamIntervals
 
 	#Obtain sequences of dNTPs located 100 bp upstream from rNMPs:
 	bedtools getfasta -fi $referenceFasta2 -bed $positiveUpstreamIntervals -fo $positiveUpstreamSequences
