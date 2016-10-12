@@ -274,37 +274,37 @@ for sample in ${sample[@]}; do
 	
 	#Select all reads located in genomic DNA
 	if [ $subset == "sacCer2" ] || [ $subset == "eColi" ] || [ $subset == "mm9" ] || [ $subset == "hg38" ] || [ $subset == "LL_1510A" ]; then
-		cat $positiveUpstreamSequences > temporary1.positive.upstream
-		cat $negativeUpstreamSequences > temporary1.negative.upstream
-		cat $positiveDownstreamSequences > temporary1.positive.downstream
-		cat $negativeDownstreamSequences > temporary1.negative.downstream
+		cat $positiveUpstreamSequences > $output3/temporary1.positive.upstream
+		cat $negativeUpstreamSequences > $output3/temporary1.negative.upstream
+		cat $positiveDownstreamSequences > $output3/temporary1.positive.downstream
+		cat $negativeDownstreamSequences > $output3/temporary1.negative.downstream
 	#Select only reads located in nuclear DNA
 	elif [ $subset == "nuclear" ]; then
-		(grep -A 1 '>2micron' $positiveUpstreamSequences && grep -P -A 1 '>chr(?!M)' $positiveUpstreamSequences) > temporary1.positive.upstream
-		(grep -A 1 '>2micron' $negativeUpstreamSequences && grep -P -A 1 '>chr(?!M)' $positiveUpstreamSequences) > temporary1.negative.upstream
-		(grep -A 1 '>2micron' $positiveDownstreamSequences && grep -P -A 1 '>chr(?!M)' $positiveUpstreamSequences) > temporary1.positive.downstream
-		(grep -A 1 '>2micron' $negativeDownstreamSequences && grep -P -A 1 '>chr(?!M)' $positiveUpstreamSequences) > temporary1.negative.downstream
+		(grep -A 1 '>2micron' $positiveUpstreamSequences && grep -P -A 1 '>chr(?!M)' $positiveUpstreamSequences) > $output3/temporary1.positive.upstream
+		(grep -A 1 '>2micron' $negativeUpstreamSequences && grep -P -A 1 '>chr(?!M)' $positiveUpstreamSequences) > $output3/temporary1.negative.upstream
+		(grep -A 1 '>2micron' $positiveDownstreamSequences && grep -P -A 1 '>chr(?!M)' $positiveUpstreamSequences) > $output3/temporary1.positive.downstream
+		(grep -A 1 '>2micron' $negativeDownstreamSequences && grep -P -A 1 '>chr(?!M)' $positiveUpstreamSequences) > $output3/temporary1.negative.downstream
 	#Select only reads located in mitochondrial DNA
 	elif [ $subset == "chrM" ]; then
-		grep -A 1 '>chrM' $positiveUpstreamSequences > temporary1.positive.upstream
-		grep -A 1 '>chrM' $negativeUpstreamSequences > temporary1.negative.upstream
-		grep -A 1 '>chrM' $positiveDownstreamSequences > temporary1.positive.downstream
-		grep -A 1 '>chrM' $negativeDownstreamSequences > temporary1.negative.downstream
+		grep -A 1 '>chrM' $positiveUpstreamSequences > $output3/temporary1.positive.upstream
+		grep -A 1 '>chrM' $negativeUpstreamSequences > $output3/temporary1.negative.upstream
+		grep -A 1 '>chrM' $positiveDownstreamSequences > $output3/temporary1.positive.downstream
+		grep -A 1 '>chrM' $negativeDownstreamSequences > $output3/temporary1.negative.downstream
 	fi
 				
 	#Reverse complement upstream/downstream sequences on negative strand
-	seqtk seq -r temporary1.negative.upstream > temporary2.negative.upstream
-	seqtk seq -r temporary1.negative.downstream > temporary2.negative.downstream
+	seqtk seq -r temporary1.negative.upstream > $output3/temporary2.negative.upstream
+	seqtk seq -r temporary1.negative.downstream > $output3/temporary2.negative.downstream
 
 	#Output only sequences in FASTA file (exclude all header lines)
-	grep -v '>' temporary1.positive.upstream > temporary2.positive.upstream
-	grep -v '>' temporary2.negative.upstream > temporary3.negative.upstream
-	grep -v '>' temporary1.positive.downstream > temporary2.positive.downstream
-	grep -v '>' temporary2.negative.downstream > temporary3.negative.downstream
+	grep -v '>' temporary1.positive.upstream > $output3/temporary2.positive.upstream
+	grep -v '>' temporary2.negative.upstream > $output3/temporary3.negative.upstream
+	grep -v '>' temporary1.positive.downstream > $output3/temporary2.positive.downstream
+	grep -v '>' temporary2.negative.downstream > $output3/temporary3.negative.downstream
 				
 	#Reverse upstream/downstream sequences on negative strand
-	cat temporary3.negative.upstream|rev > temporary4.negative.upstream
-	cat temporary3.negative.downstream|rev > temporary4.negative.downstream
+	cat temporary3.negative.upstream|rev > $output3/temporary4.negative.upstream
+	cat temporary3.negative.downstream|rev > $output3/temporary4.negative.downstream
 				
 	sequences1=$output6/$sample.upstream-sequences.$reference.$subset.txt
 	sequences2=$output7/$sample.downstream-sequences.$reference.$subset.txt
