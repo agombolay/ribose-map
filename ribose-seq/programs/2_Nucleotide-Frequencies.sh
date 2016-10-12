@@ -118,7 +118,7 @@ for sample in ${sample[@]}; do
 	background=$output2/$reference.$subset.Background-dNTP-Frequencies.txt
 
 	#Remove file if it already exists
-	rm $background
+	[[ -f $background ]] && rm "$background"
 
 	#Calculate counts of each dNTP
 	A_backgroundCount=$(grep -v '>' $referenceFasta1 | grep -o 'A' - | wc -l)
