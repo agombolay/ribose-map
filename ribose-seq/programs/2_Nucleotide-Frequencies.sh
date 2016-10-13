@@ -56,6 +56,9 @@ for sample in ${sample[@]}; do
 	#Create directory if it does not already exist
 	mkdir -p $output1
 
+	#Remove previously created files so new files are created
+	rm -f $output1/*.txt
+	
 	#Location of output files	
 	fastq=$output1/$sample.aligned-reads.fastq
 	fasta=$output1/$sample.aligned-reads.fasta
@@ -150,9 +153,6 @@ for sample in ${sample[@]}; do
 	riboList=$output1/$sample.rNMP-list.$reference.$subset.txt
 	riboFrequencies=$output1/$sample.rNMP-frequencies.$reference.$subset.txt
 
-	#Remove previously created files so new files are created
-	rm -f $output1/*.txt
-	
 	#Select all reads located in genomic DNA
 	if [ $subset != "nuclear" ] || [ $subset != "chrM" ]; then
 		awk -v "OFS=\t" '{print $4, $5}' $readCoordinates > temporary
