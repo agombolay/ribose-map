@@ -215,7 +215,9 @@ for sample in ${sample[@]}; do
 	output3=$directory2/dNTPs/$subset
 
 	#Create directory if it does not already exist
-    	mkdir -p $output3	
+    	mkdir -p $output3
+	
+	rm $output3/*
 
 	#Location of output files
 	coordinates=$output1/$sample.rNMP-coordinates.bed
@@ -281,9 +283,11 @@ for sample in ${sample[@]}; do
 	
 	#Remove previously created files so new files are created
 	#if [ -e "$output3/temporary*" ]; then
-    		rm $output3/temporary*
-		rm $output4/*.txt
-		rm $output5/*.txt
+		rm $output3/*
+		rm $output4/*
+		rm $output5/*
+		rm $output6/*
+		rm $output7/*
 	#fi
 	
 	#Select all reads located in genomic DNA
@@ -365,7 +369,7 @@ for sample in ${sample[@]}; do
 
 	#Remove previously created files so new files are created
 	#if [ -e "$output5/*.txt" ]; then
-    		rm $output8/*.txt
+    		rm $output8/*
 	#fi
 
 	for location in ${locations[@]}; do
@@ -422,14 +426,14 @@ for sample in ${sample[@]}; do
 	downstreamBaseFrequencies=$output8/$sample.dNTP-frequencies.$reference.$subset.downstream.txt
 	
 	#Location of output directory
-	output6=$directory2/Datasets/$subset
+	output9=$directory2/Datasets/$subset
 
 	#Create directory if it does not already exist
-    	mkdir -p $output6
+    	mkdir -p $output9
 
 	#Location of output file
-	dataset=$output6/$sample.nucleotide-frequencies-dataset.$reference.$subset.txt
-	zoomed=$output6/$sample.nucleotide-frequencies-zoomed.$reference.$subset.txt
+	dataset=$output9/$sample.nucleotide-frequencies-dataset.$reference.$subset.txt
+	zoomed=$output9/$sample.nucleotide-frequencies-zoomed.$reference.$subset.txt
 	
 	#Remove previously created file so new file is created
 	#if [ -e "$dataset" ]; then
