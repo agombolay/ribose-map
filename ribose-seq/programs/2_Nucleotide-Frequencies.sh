@@ -283,7 +283,6 @@ for sample in ${sample[@]}; do
 	
 	#Remove previously created files so new files are created
 	#if [ -e "$output3/temporary*" ]; then
-		rm $output3/*
 		rm $output4/*
 		rm $output5/*
 		rm $output6/*
