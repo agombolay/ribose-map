@@ -305,7 +305,7 @@ for sample in ${sample[@]}; do
 				
 	#Reverse upstream/downstream sequences on negative strand
 	cat $output3/temporary3.negative.upstream|rev > $output3/temporary4.negative.upstream
-	#cat $output3/temporary3.negative.downstream|rev > $output3/temporary4.negative.downstream
+	cat $output3/temporary3.negative.downstream|rev > $output3/temporary4.negative.downstream
 	cat $output3/temporary2.positive.upstream|rev > $output3/temporary3.positive.upstream
 		
 	sequences1=$output6/$sample.upstream-sequences.$reference.$subset.txt
