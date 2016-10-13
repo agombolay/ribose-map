@@ -409,7 +409,7 @@ for sample in ${sample[@]}; do
 
 			#Remove previously created file so new file is created
 			#if [ -e "$flankingFrequencies" ]; then
-    				rm $flankingFrequencies
+    				#rm $flankingFrequencies
 			#fi
 	
 			#Save frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs to one TXT file
