@@ -118,9 +118,7 @@ for sample in ${sample[@]}; do
 	background=$output2/$reference.$subset.Background-dNTP-Frequencies.txt
 
 	#Remove previously created files so new files are created
-	if [ -f $output2/*.txt ]; then
-		rm $output2/*.txt
-	fi
+	rm -f $output2/*.txt
 	
 	#Calculate counts of each dNTP
 	A_backgroundCount=$(grep -v '>' $referenceFasta1 | grep -o 'A' - | wc -l)
@@ -151,9 +149,7 @@ for sample in ${sample[@]}; do
 	riboFrequencies=$output1/$sample.rNMP-frequencies.$reference.$subset.txt
 
 	#Remove previously created files so new files are created
-	if [ -f $output1/*.txt ]; then
-		rm $output1/*.txt
-	fi
+	rm -f $output1/*.txt
 	
 	#Select all reads located in genomic DNA
 	if [ $subset != "nuclear" ] || [ $subset != "chrM" ]; then
@@ -198,7 +194,7 @@ for sample in ${sample[@]}; do
 	echo -e "$A_riboFrequency\t$C_riboFrequency\t$G_riboFrequency\t$U_riboFrequency" > $riboFrequencies
 
 	#Remove temporary file
-	rm temporary
+	rm -f temporary
 
 ##########################################################################################################################################
 	#STEP 5: Obtain coordinates and sequences of +/- 100 downstream/upstream dNTPs from rNMPs
@@ -260,8 +256,8 @@ for sample in ${sample[@]}; do
 	bedtools getfasta -fi $referenceFasta2 -bed $negativeDownstreamIntervals -fo $negativeDownstreamSequences
 
 	#Remove temporary files
-	rm temporary1
-	rm temporary2
+	rm -f temporary1
+	rm -f temporary2
 	
 ##########################################################################################################################################
 	#STEP 6: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
@@ -276,21 +272,10 @@ for sample in ${sample[@]}; do
     	mkdir -p $output4 $output5 $output6 $output7
 	
 	#Remove previously created files so new files are created
-	if [ -f $output4/*.txt ]; then
-		rm $output4/*.txt
-	fi
-	
-	if [ -f $output5/*.txt ]; then
-		rm $output5/*.txt
-	fi
-	
-	if [ -f $output6/*.txt ]; then
-		rm $output6/*.txt
-	fi
-	
-	if [ -f $output7/*.txt ]; then
-		rm $output7/*.txt
-	fi
+	rm -f $output4/*.txt	
+	rm -f $output5/*.txt
+	rm -f $output6/*.txt
+	rm -f $output7/*.txt
 	
 	#Select all reads located in genomic DNA
 	if [ $subset != "nuclear" ] || [ $subset != "chrM" ]; then
@@ -361,9 +346,7 @@ for sample in ${sample[@]}; do
 	mkdir -p $output8
 
 	#Remove previously created files so new files are created
-    	if [ -f $output8/*.txt ]; then
-		rm $output8/*.txt
-	fi
+	rm -f $output8/*.txt
 	
 	for location in ${locations[@]}; do
 
@@ -429,9 +412,7 @@ for sample in ${sample[@]}; do
 	zoomed=$output9/$sample.nucleotide-frequencies-zoomed.$reference.$subset.txt
 	
 	#Remove previously created files so new ones are created
-	if [ -f $output9/*.txt ]; then
-		rm $output9/*.txt
-	fi
+	rm -f $output9/*.txt
 	
 	#Print values -100 to 100
 	#seq -100 1 100 > temporary1
