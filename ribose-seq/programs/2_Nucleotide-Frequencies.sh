@@ -424,8 +424,12 @@ for sample in ${sample[@]}; do
 	zoomed=$output9/$sample.nucleotide-frequencies-zoomed.$reference.$subset.txt
 	
 	#Remove previously created files so new ones are created
-	if [ -e "$dataset" ]; then rm $dataset fi
-	if [ -e "$zoomed" ]; then rm $zoomed fi
+	if [ -e "$dataset" ]; then
+		rm $dataset
+	fi
+	if [ -e "$zoomed" ]; then
+		rm $zoomed
+	fi
 
 	#Print values -100 to 100
 	#seq -100 1 100 > temporary1
