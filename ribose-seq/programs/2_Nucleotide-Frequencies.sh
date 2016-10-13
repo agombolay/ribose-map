@@ -314,7 +314,7 @@ for sample in ${sample[@]}; do
 	#Combine upstream (+/-) and downstream (+/-) sequences into two files
 	#cat $output3/temporary2.positive.upstream $output3/temporary4.negative.upstream > $sequences1
 	cat $output3/temporary3.positive.upstream $output3/temporary4.negative.upstream > $sequences1
-	cat $output3/temporary2.positive.downstream $output3/temporary4.negative.downstream > $sequences2
+	cat $output3/temporary2.positive.downstream $output3/temporary3.negative.downstream > $sequences2
 			
 	columns1=$output6/$sample.upstream-sequences.$reference.$subset.tab
 	columns2=$output7/$sample.downstream-sequences.$reference.$subset.tab
