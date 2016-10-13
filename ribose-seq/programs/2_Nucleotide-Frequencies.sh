@@ -358,7 +358,7 @@ for sample in ${sample[@]}; do
 		flankingFrequencies=$output8/$sample.dNTP-frequencies.$reference.$subset.$location.txt
 	
 		#Calculate dNTP frequencies for each +/- 100 downstream/upstream position
-		for file in $directory2/dNTPs/$subset/Columns/upstream/$sample*.txt; do
+		for file in $directory2/dNTPs/$subset/Columns/$location/$sample*.txt; do
 
 			#Calculate count of each dNTP
 			A_flankingCount=$(grep -v '>' $file | grep -o 'A' - | wc -l)
