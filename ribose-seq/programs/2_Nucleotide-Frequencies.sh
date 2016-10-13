@@ -362,9 +362,9 @@ for sample in ${sample[@]}; do
 	mkdir -p $output5
 
 	#Remove previously created files so new files are created
-	if [ -e "$output5/*.txt" ]; then
+	#if [ -e "$output5/*.txt" ]; then
     		rm $output5/*.txt
-	fi
+	#fi
 
 	for location in ${locations[@]}; do
 
@@ -408,9 +408,9 @@ for sample in ${sample[@]}; do
 			echo $T_flankingFrequency >> $T_flankingFrequencies
 
 			#Remove previously created file so new file is created
-			if [ -e "$flankingFrequencies" ]; then
+			#if [ -e "$flankingFrequencies" ]; then
     				rm $flankingFrequencies
-			fi
+			#fi
 	
 			#Save frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs to one TXT file
 			paste $A_flankingFrequencies $C_flankingFrequencies $G_flankingFrequencies $T_flankingFrequencies >> $flankingFrequencies
