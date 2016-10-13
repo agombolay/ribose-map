@@ -118,9 +118,9 @@ for sample in ${sample[@]}; do
 	background=$output2/$reference.$subset.Background-dNTP-Frequencies.txt
 
 	#Remove previously created files so new files are created
-	if [ -e "$background" ]; then
+	#if [ -e "$background" ]; then
     		rm $background
-	fi
+	#fi
 
 	#Calculate counts of each dNTP
 	A_backgroundCount=$(grep -v '>' $referenceFasta1 | grep -o 'A' - | wc -l)
@@ -151,13 +151,13 @@ for sample in ${sample[@]}; do
 	riboFrequencies=$output1/$sample.rNMP-frequencies.$reference.$subset.txt
 
 	#Remove previously created files so new files are created
-	if [ -e "$riboFrequencies" ]; then
+	#if [ -e "$riboFrequencies" ]; then
     		rm $riboFrequencies
-	fi
+	#fi
 	
-	if [ -e "$riboList" ]; then
+	#if [ -e "$riboList" ]; then
     		rm $riboList
-	fi
+	#fi
 
 	#Select all reads located in genomic DNA
 	if [ $subset != "nuclear" ] || [ $subset != "chrM" ]; then
@@ -280,9 +280,9 @@ for sample in ${sample[@]}; do
     	mkdir -p $output4 $output5 $output6 $output7
 	
 	#Remove previously created files so new files are created
-	if [ -e "$output3/temporary*" ]; then
+	#if [ -e "$output3/temporary*" ]; then
     		rm $output3/temporary*
-	fi
+	#fi
 	
 	#Select all reads located in genomic DNA
 	if [ $subset != "nuclear" ] || [ $subset != "chrM" ]; then
@@ -322,13 +322,13 @@ for sample in ${sample[@]}; do
 	sequences2=$output7/$sample.downstream-sequences.$reference.$subset.txt
 	
 	#Remove previously created files so new files are created
-	if [ -e "$sequences1" ]; then
+	#if [ -e "$sequences1" ]; then
     		rm $sequences1
-	fi
+	#fi
 	
-	if [ -e "$sequences2" ]; then
+	#if [ -e "$sequences2" ]; then
     		rm $sequences2
-	fi
+	#fi
 				
 	#Combine upstream (+/-) and downstream (+/-) sequences into two files
 	cat $output3/temporary2.positive.upstream $output3/temporary4.negative.upstream > $sequences1
@@ -435,13 +435,13 @@ for sample in ${sample[@]}; do
 	zoomed=$output6/$sample.nucleotide-frequencies-zoomed.$reference.$subset.txt
 	
 	#Remove previously created file so new file is created
-	if [ -e "$dataset" ]; then
+	#if [ -e "$dataset" ]; then
     		rm $dataset
-	fi
+	#fi
 	
-	if [ -e "$zoomed" ]; then
+	#if [ -e "$zoomed" ]; then
     		rm $zoomed
-	fi
+	#fi
 
 	#Print values -100 to 100
 	#seq -100 1 100 > temporary1
