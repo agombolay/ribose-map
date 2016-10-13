@@ -152,11 +152,11 @@ for sample in ${sample[@]}; do
 	riboFrequencies=$output1/$sample.rNMP-frequencies.$reference.$subset.txt
 
 	#Select all reads located in genomic DNA
-	#if [ $subset != "nuclear" ] || [ $subset != "chrM" ]; then
-		#awk -v "OFS=\t" '{print $4, $5}' $readCoordinates > temporary
+	if [ $subset != "nuclear" ] || [ $subset != "chrM" ]; then
+		awk -v "OFS=\t" '{print $4, $5}' $readCoordinates > temporary
 	#Select only reads located in nuclear DNA
 	if [ $subset == "nuclear" ]; then
-		grep -v 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary
+		grep -v 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary | wc -l
 	#Select only reads located in mitochondrial DNA
 	elif [ $subset == "chrM" ]; then
     		grep 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary
@@ -164,7 +164,7 @@ for sample in ${sample[@]}; do
 
 	#Print only rNMPs (3' end of reads):
 	#rNMPs on positive strands (located at end of sequence)
-	awk '$2 == "+" {print substr($0,length($0)-2)}' temporary > $riboList
+	awk '$2 == "+" {print substr($0,length($0)-2)}' temporary > $riboList | wc -l
 
 	#rNMPs on negative strands (located at beginning of sequence)
 	awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2}' temporary >> $riboList
@@ -274,11 +274,11 @@ for sample in ${sample[@]}; do
 	rm -f $output4/*.txt $output5/*.txt $output6/*.txt $output7/*.txt
 	
 	#Select all reads located in genomic DNA
-	#if [ $subset != "nuclear" ] || [ $subset != "chrM" ]; then
-	#	cat $positiveUpstreamSequences > $output3/temporary1.positive.upstream
-	#	cat $negativeUpstreamSequences > $output3/temporary1.negative.upstream
-	#	cat $positiveDownstreamSequences > $output3/temporary1.positive.downstream
-	#	cat $negativeDownstreamSequences > $output3/temporary1.negative.downstream
+	if [ $subset != "nuclear" ] || [ $subset != "chrM" ]; then
+		cat $positiveUpstreamSequences > $output3/temporary1.positive.upstream
+		cat $negativeUpstreamSequences > $output3/temporary1.negative.upstream
+		cat $positiveDownstreamSequences > $output3/temporary1.positive.downstream
+		cat $negativeDownstreamSequences > $output3/temporary1.negative.downstream
 	#Select only reads located in nuclear DNA
 	if [ $subset == "nuclear" ]; then
 		(grep -A 1 '>2micron' $positiveUpstreamSequences && grep -P -A 1 '>chr(?!M)' $positiveUpstreamSequences) > $output3/temporary1.positive.upstream
