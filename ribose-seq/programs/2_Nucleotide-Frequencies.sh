@@ -356,26 +356,26 @@ for sample in ${sample[@]}; do
 	locations="upstream downstream"
 	
 	#Location of output directory
-	output5=$directory2/dNTPs/$subset/Raw-Data
+	output8=$directory2/dNTPs/$subset/Raw-Data
 
 	#Create directory if it does not already exist
-	mkdir -p $output5
+	mkdir -p $output8
 
 	#Remove previously created files so new files are created
 	#if [ -e "$output5/*.txt" ]; then
-    		rm $output5/*.txt
+    		rm $output8/*.txt
 	#fi
 
 	for location in ${locations[@]}; do
 
 		#Location of output files (indivdiual base frequencies)
-		A_flankingFrequencies=$output5/A_dNTP-frequencies.$reference.$subset.$location.txt
-		C_flankingFrequencies=$output5/C_dNTP-frequencies.$reference.$subset.$location.txt
-		G_flankingFrequencies=$output5/G_dNTP-frequencies.$reference.$subset.$location.txt
-		T_flankingFrequencies=$output5/T_dNTP-frequencies.$reference.$subset.$location.txt
+		A_flankingFrequencies=$output8/A_dNTP-frequencies.$reference.$subset.$location.txt
+		C_flankingFrequencies=$output8/C_dNTP-frequencies.$reference.$subset.$location.txt
+		G_flankingFrequencies=$output8/G_dNTP-frequencies.$reference.$subset.$location.txt
+		T_flankingFrequencies=$output8/T_dNTP-frequencies.$reference.$subset.$location.txt
 
 		#Location of output file (combined base frequencies)
-		flankingFrequencies=$output5/$sample.dNTP-frequencies.$reference.$subset.$location.txt
+		flankingFrequencies=$output8/$sample.dNTP-frequencies.$reference.$subset.$location.txt
 	
 		#Calculate dNTP frequencies for each +/- 100 downstream/upstream position
 		for file in $directory2/dNTPs/$subset/Columns/$location/$sample*.txt; do
