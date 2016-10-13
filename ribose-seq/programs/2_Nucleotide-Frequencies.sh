@@ -148,8 +148,9 @@ for sample in ${sample[@]}; do
 	riboList=$output1/$sample.rNMP-list.$reference.$subset.txt
 	riboFrequencies=$output1/$sample.rNMP-frequencies.$reference.$subset.txt
 
-	#Remove files if they already exist
-	rm $riboFrequencies $riboList
+	#Remove previously created files so new files are created
+	[[ -f $riboFrequencies ]] && rm "$riboFrequencies"
+	[[ -f $riboList ]] && rm "$$riboList"
 
 	#Select only rNMPs in subset:
 	#Whole genome subset
@@ -256,7 +257,10 @@ for sample in ${sample[@]}; do
 	bedtools getfasta -fi $referenceFasta2 -bed $positiveDownstreamIntervals -fo $positiveDownstreamSequences
 	bedtools getfasta -fi $referenceFasta2 -bed $negativeDownstreamIntervals -fo $negativeDownstreamSequences
 
-	rm temporary1 temporary2
+	#Remove temporary files
+	rm temporary1
+	rm temporary2
+	
 ##########################################################################################################################################
 	#STEP 6: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
@@ -269,7 +273,8 @@ for sample in ${sample[@]}; do
 	#Create directories if they do not already exist
     	mkdir -p $output4 $output5 $output6 $output7
 	
-	rm $output3/temporary*
+	#Remove previously created files so new files are created
+	[[ -f $output3/temporary* ]] && rm "$output3/temporary*"
 	
 	#Select all reads located in genomic DNA
 	if [ $subset == "sacCer2" ] || [ $subset == "eColi" ] || [ $subset == "mm9" ] || [ $subset == "hg38" ] || [ $subset == "LL_1510A" ]; then
@@ -308,7 +313,9 @@ for sample in ${sample[@]}; do
 	sequences1=$output6/$sample.upstream-sequences.$reference.$subset.txt
 	sequences2=$output7/$sample.downstream-sequences.$reference.$subset.txt
 	
-	rm $sequences1 $sequences2
+	#Remove previously created files so new files are created
+	[[ -f $sequences1 ]] && rm "$sequences1"
+	[[ -f $sequences2 ]] && rm "$sequences2"
 				
 	#Combine upstream (+/-) and downstream (+/-) sequences into two files
 	cat $output3/temporary2.positive.upstream $output3/temporary4.negative.upstream > $sequences1
@@ -386,11 +393,9 @@ for sample in ${sample[@]}; do
 			echo $G_baseFrequency >> $G_baseFrequencies
 			echo $T_baseFrequency >> $T_baseFrequencies
 
-			#Remove old file if it already exists
-			if [ -e "$baseFrequencies" ]; then
-    				rm $baseFrequencies
-			fi
-
+			#Remove previously created file so new file is created
+			[[ -f $baseFrequencies ]] && rm "$baseFrequencies"
+	
 			#Save frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs to one TXT file
 			paste $A_baseFrequencies $C_baseFrequencies $G_baseFrequencies $T_baseFrequencies >> $baseFrequencies
 		done
@@ -413,8 +418,9 @@ for sample in ${sample[@]}; do
 	dataset=$output6/$sample.nucleotide-frequencies-dataset.$reference.$subset.txt
 	zoomed=$output6/$sample.nucleotide-frequencies-zoomed.$reference.$subset.txt
 	
-	#Remove old file if it already exists
-	rm $dataset $zoomed
+	#Remove previously created file so new file is created
+	[[ -f $dataset ]] && rm "$dataset"
+	[[ -f $zoomed ]] && rm "$zoomed"
 
 	#Print values -100 to 100
 	#seq -100 1 100 > temporary1
