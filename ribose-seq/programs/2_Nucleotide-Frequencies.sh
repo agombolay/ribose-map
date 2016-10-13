@@ -382,10 +382,10 @@ for sample in ${sample[@]}; do
 			T_flankingFrequency=$(echo "scale = 12; $T_rawFlankingFrequency/$T_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
 		
 			#Save normalized frequencies of dNTPs to TXT file
-			echo $A_flankingFrequency >> $A_flankingFrequencies
-			echo $C_flankingFrequency >> $C_flankingFrequencies
-			echo $G_flankingFrequency >> $G_flankingFrequencies
-			echo $T_flankingFrequency >> $T_flankingFrequencies
+			echo $A_flankingFrequency | tac - >> $A_flankingFrequencies
+			echo $C_flankingFrequency | tac - >> $C_flankingFrequencies
+			echo $G_flankingFrequency | tac - >> $G_flankingFrequencies
+			echo $T_flankingFrequency | tac - >> $T_flankingFrequencies
 
 			#Save frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs to one TXT file
 			paste $A_flankingFrequencies $C_flankingFrequencies $G_flankingFrequencies $T_flankingFrequencies > $flankingFrequencies
