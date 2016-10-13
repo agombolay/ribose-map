@@ -432,7 +432,7 @@ for sample in ${sample[@]}; do
 	#echo -e "\tA\t\tC\t\tG\t\tU/T" > $zoomed; cat temporary4 >> $zoomed;
 
 	#Remove temporary files
-	rm temporary1 temporary2 temporary3 temporary4
+	rm -f temporary1 temporary2 temporary3 temporary4
 
 	echo "Calculation of nucleotide frequencies for $sample is complete"
 
