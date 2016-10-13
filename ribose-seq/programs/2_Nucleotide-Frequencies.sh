@@ -8,7 +8,7 @@
 function usage () {
 	echo "Usage: 5_Ribonucleotide-Frequencies.sh [-i] 'Sample' [-r] 'Reference' [-s] 'Subset' [-d] 'Directory' [-h]
 	-i Sample name (FS1, etc.)
-	-s Subset of genome (sacCer2, nuclear, mitochondria)
+	-s Subset of genome (genome, nuclear, or chrM)
 	-r Reference genome assembly version (sacCer2, etc.)
 	-d Local directory ('/projects/home/agombolay3/data/repository/Ribose-seq-Project')"
 }
@@ -153,7 +153,7 @@ for sample in ${sample[@]}; do
 	[[ -f $riboList ]] && rm "$riboList"
 
 	#Select all reads located in genomic DNA
-	if [ $subset == "sacCer2" ] || [ $subset == "eColi" ] || [ $subset == "mm9" ] || [ $subset == "hg38" ] || [ $subset == "LL_1510A" ]; then
+	if [ $subset == "genome" ]; then
 		awk -v "OFS=\t" '{print $4, $5}' $readCoordinates > temporary
 	#Select only reads located in nuclear DNA
 	elif [ $subset == "nuclear" ]; then
