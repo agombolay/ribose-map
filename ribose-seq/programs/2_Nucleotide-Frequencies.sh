@@ -118,7 +118,7 @@ for sample in ${sample[@]}; do
 	background=$output2/$reference.$subset.Background-dNTP-Frequencies.txt
 
 	#Remove previously created files so new files are created
-	if [ -e "$output2/*.txt" ]; then
+	if [ -f "$output2/*.txt" ]; then
 		rm $output2/*.txt
 	fi
 	
@@ -151,7 +151,7 @@ for sample in ${sample[@]}; do
 	riboFrequencies=$output1/$sample.rNMP-frequencies.$reference.$subset.txt
 
 	#Remove previously created files so new files are created
-	if [ -e "$output1/*.txt" ]; then
+	if [ -f "$output1/*.txt" ]; then
 		rm $output1/*.txt
 	fi
 	
@@ -276,19 +276,19 @@ for sample in ${sample[@]}; do
     	mkdir -p $output4 $output5 $output6 $output7
 	
 	#Remove previously created files so new files are created
-	if [ -e "$output4/*.txt" ]; then
+	if [ -f "$output4/*.txt" ]; then
 		rm $output4/*.txt
 	fi
 	
-	if [ -e "$output5/*.txt" ]; then
+	if [ -f "$output5/*.txt" ]; then
 		rm $output5/*.txt
 	fi
 	
-	if [ -e "$output6/*.txt" ]; then
+	if [ -f "$output6/*.txt" ]; then
 		rm $output6/*.txt
 	fi
 	
-	if [ -e "$output7/*.txt" ]; then
+	if [ -f "$output7/*.txt" ]; then
 		rm $output7/*.txt
 	fi
 	
@@ -361,7 +361,7 @@ for sample in ${sample[@]}; do
 	mkdir -p $output8
 
 	#Remove previously created files so new files are created
-    	if [ -e "$output8/*.txt" ]; then
+    	if [ -f "$output8/*.txt" ]; then
 		rm $output8/*.txt
 	fi
 	
@@ -429,7 +429,7 @@ for sample in ${sample[@]}; do
 	zoomed=$output9/$sample.nucleotide-frequencies-zoomed.$reference.$subset.txt
 	
 	#Remove previously created files so new ones are created
-	if [ -e "$output9/*.txt" ]; then
+	if [ -f "$output9/*.txt" ]; then
 		rm $output9/*.txt
 	fi
 	
