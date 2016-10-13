@@ -153,7 +153,7 @@ for sample in ${sample[@]}; do
 	[[ -f $riboList ]] && rm "$riboList"
 
 	#Select all reads located in genomic DNA
-	if [ $subset == "genome" ]; then
+	if [ $subset != "nuclear" ] || [ $subset != "chrM" ]; then
 		awk -v "OFS=\t" '{print $4, $5}' $readCoordinates > temporary
 	#Select only reads located in nuclear DNA
 	elif [ $subset == "nuclear" ]; then
@@ -276,7 +276,7 @@ for sample in ${sample[@]}; do
 	[[ -f $output3/temporary* ]] && rm "$output3/temporary*"
 	
 	#Select all reads located in genomic DNA
-	if [ $subset == "sacCer2" ] || [ $subset == "eColi" ] || [ $subset == "mm9" ] || [ $subset == "hg38" ] || [ $subset == "LL_1510A" ]; then
+	if [ $subset != "nuclear" ] || [ $subset != "chrM" ]; then
 		cat $positiveUpstreamSequences > $output3/temporary1.positive.upstream
 		cat $negativeUpstreamSequences > $output3/temporary1.negative.upstream
 		cat $positiveDownstreamSequences > $output3/temporary1.positive.downstream
