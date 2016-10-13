@@ -474,5 +474,4 @@ for sample in ${sample[@]}; do
 	rm -f temporary1 temporary2 temporary3 temporary4
 
 	echo "Calculation of nucleotide frequencies for $sample is complete"
-
 done
