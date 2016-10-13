@@ -256,8 +256,7 @@ for sample in ${sample[@]}; do
 	bedtools getfasta -fi $referenceFasta2 -bed $negativeDownstreamIntervals -fo $negativeDownstreamSequences
 
 	#Remove temporary files
-	rm -f temporary1
-	rm -f temporary2
+	rm -f temporary1 temporary2
 	
 ##########################################################################################################################################
 	#STEP 6: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
@@ -272,10 +271,7 @@ for sample in ${sample[@]}; do
     	mkdir -p $output4 $output5 $output6 $output7
 	
 	#Remove previously created files so new files are created
-	rm -f $output4/*.txt	
-	rm -f $output5/*.txt
-	rm -f $output6/*.txt
-	rm -f $output7/*.txt
+	rm -f $output4/*.txt $output5/*.txt $output6/*.txt $output7/*.txt
 	
 	#Select all reads located in genomic DNA
 	if [ $subset != "nuclear" ] || [ $subset != "chrM" ]; then
