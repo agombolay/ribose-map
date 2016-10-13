@@ -118,8 +118,10 @@ for sample in ${sample[@]}; do
 	background=$output2/$reference.$subset.Background-dNTP-Frequencies.txt
 
 	#Remove previously created files so new files are created
-	rm $output2/*.txt
-
+	if [ -e "$output2/*.txt" ]; then
+		rm $output2/*.txt
+	fi
+	
 	#Calculate counts of each dNTP
 	A_backgroundCount=$(grep -v '>' $referenceFasta1 | grep -o 'A' - | wc -l)
 	C_backgroundCount=$(grep -v '>' $referenceFasta1 | grep -o 'C' - | wc -l)
@@ -149,8 +151,10 @@ for sample in ${sample[@]}; do
 	riboFrequencies=$output1/$sample.rNMP-frequencies.$reference.$subset.txt
 
 	#Remove previously created files so new files are created
-	rm $output1/*.txt
-
+	if [ -e "$output1/*.txt" ]; then
+		rm $output1/*.txt
+	fi
+	
 	#Select all reads located in genomic DNA
 	if [ $subset != "nuclear" ] || [ $subset != "chrM" ]; then
 		awk -v "OFS=\t" '{print $4, $5}' $readCoordinates > temporary
@@ -272,10 +276,21 @@ for sample in ${sample[@]}; do
     	mkdir -p $output4 $output5 $output6 $output7
 	
 	#Remove previously created files so new files are created
-	rm $output4/*.txt
-	rm $output5/*.txt
-	rm $output6/*.txt
-	rm $output7/*.txt
+	if [ -e "$output4/*.txt" ]; then
+		rm $output4/*.txt
+	fi
+	
+	if [ -e "$output5/*.txt" ]; then
+		rm $output5/*.txt
+	fi
+	
+	if [ -e "$output6/*.txt" ]; then
+		rm $output6/*.txt
+	fi
+	
+	if [ -e "$output7/*.txt" ]; then
+		rm $output7/*.txt
+	fi
 	
 	#Select all reads located in genomic DNA
 	if [ $subset != "nuclear" ] || [ $subset != "chrM" ]; then
@@ -346,8 +361,10 @@ for sample in ${sample[@]}; do
 	mkdir -p $output8
 
 	#Remove previously created files so new files are created
-    	rm $output8/*.txt
-
+    	if [ -e "$output8/*.txt" ]; then
+		rm $output8/*.txt
+	fi
+	
 	for location in ${locations[@]}; do
 
 		#Location of output files (indivdiual base frequencies)
@@ -412,8 +429,10 @@ for sample in ${sample[@]}; do
 	zoomed=$output9/$sample.nucleotide-frequencies-zoomed.$reference.$subset.txt
 	
 	#Remove previously created files so new ones are created
-	rm $output9/*.txt
-
+	if [ -e "$output9/*.txt" ]; then
+		rm $output9/*.txt
+	fi
+	
 	#Print values -100 to 100
 	#seq -100 1 100 > temporary1
 	seq -2 1 2 > temporary1
