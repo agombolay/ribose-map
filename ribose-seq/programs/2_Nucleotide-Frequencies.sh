@@ -152,16 +152,15 @@ for sample in ${sample[@]}; do
 	[[ -f $riboFrequencies ]] && rm "$riboFrequencies"
 	[[ -f $riboList ]] && rm "$riboList"
 
-	#Select only rNMPs in subset:
-	#Whole genome subset
+	#Select all reads located in genomic DNA
 	if [ $subset == "sacCer2" ] || [ $subset == "eColi" ] || [ $subset == "mm9" ] || [ $subset == "hg38" ] || [ $subset == "LL_1510A" ]; then
 		awk -v "OFS=\t" '{print $4, $5}' $readCoordinates > temporary
-	#Mitochondria subset
-	elif [ $subset == "chrM" ]; then
-    		grep 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary
-	#Nuclear subset
+	#Select only reads located in nuclear DNA
 	elif [ $subset == "nuclear" ]; then
 		grep -v 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary
+	#Select only reads located in mitochondrial DNA
+	elif [ $subset == "chrM" ]; then
+    		grep 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary
 	fi
 
 	#Print only rNMPs (3' end of reads):
