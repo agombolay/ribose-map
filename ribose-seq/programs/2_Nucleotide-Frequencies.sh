@@ -162,6 +162,8 @@ for sample in ${sample[@]}; do
     		grep 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary
 	fi
 
+	wc -l temporary
+	
 	#Print only rNMPs (3' end of reads):
 	#rNMPs on positive strands (located at end of sequence)
 	awk '$2 == "+" {print substr($0,length($0)-2)}' temporary > $riboList
