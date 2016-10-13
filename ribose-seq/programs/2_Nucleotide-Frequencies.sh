@@ -152,7 +152,7 @@ for sample in ${sample[@]}; do
 	riboFrequencies=$output1/$sample.rNMP-frequencies.$reference.$subset.txt
 
 	#Select all reads located in genomic DNA
-	if [ $subset != "nuclear" ] || [ $subset != "chrM" ]; then
+	if [ $subset == "sacCer2" ]; then
 		awk -v "OFS=\t" '{print $4, $5}' $readCoordinates > temporary
 	#Select only reads located in nuclear DNA
 	elif [ $subset == "nuclear" ]; then
@@ -276,7 +276,7 @@ for sample in ${sample[@]}; do
 	rm -f $output4/*.txt $output5/*.txt $output6/*.txt $output7/*.txt
 	
 	#Select all reads located in genomic DNA
-	if [ $subset != "nuclear" ] || [ $subset != "chrM" ]; then
+	if [ $subset == "sacCer2" ]; then
 		cat $positiveUpstreamSequences > $output3/temporary1.positive.upstream
 		cat $negativeUpstreamSequences > $output3/temporary1.negative.upstream
 		cat $positiveDownstreamSequences > $output3/temporary1.positive.downstream
