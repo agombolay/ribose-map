@@ -383,9 +383,13 @@ for sample in ${sample[@]}; do
 		
 			#Save normalized frequencies of dNTPs to TXT file
 			echo $A_flankingFrequency >> $A_flankingFrequencies
+			tac $A_flankingFrequencies > temporary1 && mv $A_flankingFrequencies
 			echo $C_flankingFrequency >> $C_flankingFrequencies
+			tac $C_flankingFrequencies > temporary2 && mv $C_flankingFrequencies
 			echo $G_flankingFrequency >> $G_flankingFrequencies
+			tac $G_flankingFrequencies > temporary3 && mv $G_flankingFrequencies
 			echo $T_flankingFrequency >> $T_flankingFrequencies
+			tac $T_flankingFrequencies > temporary4 && mv $T_flankingFrequencies
 
 			#Save frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs to one TXT file
 			paste $A_flankingFrequencies $C_flankingFrequencies $G_flankingFrequencies $T_flankingFrequencies > $flankingFrequencies
