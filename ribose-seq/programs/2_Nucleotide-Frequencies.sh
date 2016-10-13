@@ -282,6 +282,8 @@ for sample in ${sample[@]}; do
 	#Remove previously created files so new files are created
 	#if [ -e "$output3/temporary*" ]; then
     		rm $output3/temporary*
+		rm $output4/*.txt
+		rm $output5/*.txt
 	#fi
 	
 	#Select all reads located in genomic DNA
