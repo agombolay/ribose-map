@@ -421,8 +421,8 @@ for sample in ${sample[@]}; do
 	#STEP 8: Create dataset file containing nucleotide frequencies needed for plotting
 
 	#Location of input files
-	upstreamBaseFrequencies=$output5/$sample.dNTP-frequencies.$reference.$subset.upstream.txt
-	downstreamBaseFrequencies=$output5/$sample.dNTP-frequencies.$reference.$subset.downstream.txt
+	upstreamBaseFrequencies=$output8/$sample.dNTP-frequencies.$reference.$subset.upstream.txt
+	downstreamBaseFrequencies=$output8/$sample.dNTP-frequencies.$reference.$subset.downstream.txt
 	
 	#Location of output directory
 	output6=$directory2/Datasets/$subset
