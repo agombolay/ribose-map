@@ -323,15 +323,6 @@ for sample in ${sample[@]}; do
 				
 	sequences1=$output6/$sample.upstream-sequences.$reference.$subset.txt
 	sequences2=$output7/$sample.downstream-sequences.$reference.$subset.txt
-	
-	#Remove previously created files so new files are created
-	#if [ -e "$sequences1" ]; then
-    		#rm $sequences1
-	#fi
-	
-	#if [ -e "$sequences2" ]; then
-    		#rm $sequences2
-	#fi
 				
 	#Combine upstream (+/-) and downstream (+/-) sequences into two files
 	cat $output3/temporary2.positive.upstream $output3/temporary4.negative.upstream > $sequences1
@@ -432,14 +423,9 @@ for sample in ${sample[@]}; do
 	dataset=$output9/$sample.nucleotide-frequencies-dataset.$reference.$subset.txt
 	zoomed=$output9/$sample.nucleotide-frequencies-zoomed.$reference.$subset.txt
 	
-	#Remove previously created file so new file is created
-	#if [ -e "$dataset" ]; then
-    		rm $dataset
-	#fi
-	
-	#if [ -e "$zoomed" ]; then
-    		rm $zoomed
-	#fi
+	#Remove previously created files so new ones are created
+	if [ -e "$dataset" ]; then rm $dataset fi
+	if [ -e "$zoomed" ]; then rm $zoomed fi
 
 	#Print values -100 to 100
 	#seq -100 1 100 > temporary1
