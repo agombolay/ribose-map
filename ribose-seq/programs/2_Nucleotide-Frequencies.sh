@@ -335,8 +335,6 @@ for sample in ${sample[@]}; do
 ##########################################################################################################################################
 	#STEP 7: Calculate frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
-	locations="upstream downstream"
-	
 	#Location of output directory
 	output8=$directory2/dNTPs/$subset/Raw-Data
 
@@ -346,54 +344,95 @@ for sample in ${sample[@]}; do
 	#Remove previously created files so new files are created
 	rm -f $output8/*.txt
 	
-	for location in ${locations[@]}; do
+	#Location of output files (indivdiual base frequencies)
+	A_flankingUpstreamFrequencies=$output8/A_dNTP-frequencies.$reference.$subset.upstream.txt
+	C_flankingUpstreamFrequencies=$output8/C_dNTP-frequencies.$reference.$subset.upstream.txt
+	G_flankingUpstreamFrequencies=$output8/G_dNTP-frequencies.$reference.$subset.upstream.txt
+	T_flankingUpstreamFrequencies=$output8/T_dNTP-frequencies.$reference.$subset.upstream.txt
 
-		#Location of output files (indivdiual base frequencies)
-		A_flankingFrequencies=$output8/A_dNTP-frequencies.$reference.$subset.$location.txt
-		C_flankingFrequencies=$output8/C_dNTP-frequencies.$reference.$subset.$location.txt
-		G_flankingFrequencies=$output8/G_dNTP-frequencies.$reference.$subset.$location.txt
-		T_flankingFrequencies=$output8/T_dNTP-frequencies.$reference.$subset.$location.txt
-
-		#Location of output file (combined base frequencies)
-		flankingFrequencies=$output8/$sample.dNTP-frequencies.$reference.$subset.$location.txt
+	#Location of output file (combined base frequencies)
+	flankingUpstreamFrequencies=$output8/$sample.dNTP-frequencies.$reference.$subset.upstream.txt
 	
-		#Calculate dNTP frequencies for each +/- 100 downstream/upstream position
-		for file in $directory2/dNTPs/$subset/Columns/$location/$sample*.txt; do
+	#Calculate dNTP frequencies for each 100 upstream position
+	for file in $directory2/dNTPs/$subset/Columns/upstream/$sample*.txt; do
 
-			#Calculate count of each dNTP
-			A_flankingCount=$(grep -v '>' $file | grep -o 'A' - | wc -l)
-			C_flankingCount=$(grep -v '>' $file | grep -o 'C' - | wc -l)
-			G_flankingCount=$(grep -v '>' $file | grep -o 'G' - | wc -l)
-			T_flankingCount=$(grep -v '>' $file | grep -o 'T' - | wc -l)
+		#Calculate count of each dNTP
+		A_flankingUpstreamCount=$(grep -v '>' $file | grep -o 'A' - | wc -l)
+		C_flankingUpstreamCount=$(grep -v '>' $file | grep -o 'C' - | wc -l)
+		G_flankingUpstreamCount=$(grep -v '>' $file | grep -o 'G' - | wc -l)
+		T_flankingUpstreamCount=$(grep -v '>' $file | grep -o 'T' - | wc -l)
 
-			#Calculate total number of dNTPs
-			total_flankingCount=$(($A_flankingCount+$C_flankingCount+$G_flankingCount+$T_flankingCount))
+		#Calculate total number of dNTPs
+		total_flankingUpstreamCount=$(($A_flankingUpstreamCount+$C_flankingUpstreamCount+$G_flankingUpstreamCount+$T_flankingUpstreamCount))
 	
-			#Calculate raw frequencies of dNTPs
-			A_rawFlankingFrequency=$(echo "scale = 12; $A_flankingCount/$total_flankingCount" | bc | awk '{printf "%.12f\n", $0}')
-			C_rawFlankingFrequency=$(echo "scale = 12; $C_flankingCount/$total_flankingCount" | bc | awk '{printf "%.12f\n", $0}')
-			G_rawFlankingFrequency=$(echo "scale = 12; $G_flankingCount/$total_flankingCount" | bc | awk '{printf "%.12f\n", $0}')
-			T_rawFlankingFrequency=$(echo "scale = 12; $T_flankingCount/$total_flankingCount" | bc | awk '{printf "%.12f\n", $0}')
+		#Calculate raw frequencies of dNTPs
+		A_rawFlankingUpstreamFrequency=$(echo "scale = 12; $A_flankingUpstreamCount/$total_flankingUpstreamCount" | bc | awk '{printf "%.12f\n", $0}')
+		C_rawFlankingUpstreamFrequency=$(echo "scale = 12; $C_flankingUpstreamCount/$total_flankingUpstreamCount" | bc | awk '{printf "%.12f\n", $0}')
+		G_rawFlankingUpstreamFrequency=$(echo "scale = 12; $G_flankingUpstreamCount/$total_flankingUpstreamCount" | bc | awk '{printf "%.12f\n", $0}')
+		T_rawFlankingUpstreamFrequency=$(echo "scale = 12; $T_flankingUpstreamCount/$total_flankingUpstreamCount" | bc | awk '{printf "%.12f\n", $0}')
 
-			#Calculate normalized frequencies of dNTPs
-			A_flankingFrequency=$(echo "scale = 12; $A_rawFlankingFrequency/$A_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
-			C_flankingFrequency=$(echo "scale = 12; $C_rawFlankingFrequency/$C_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
-			G_flankingFrequency=$(echo "scale = 12; $G_rawFlankingFrequency/$G_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
-			T_flankingFrequency=$(echo "scale = 12; $T_rawFlankingFrequency/$T_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
+		#Calculate normalized frequencies of dNTPs
+		A_flankingUpstreamFrequency=$(echo "scale = 12; $A_rawFlankingUpstreamFrequency/$A_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
+		C_flankingUpstreamFrequency=$(echo "scale = 12; $C_rawFlankingUpstreamFrequency/$C_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
+		G_flankingUpstreamFrequency=$(echo "scale = 12; $G_rawFlankingUpstreamFrequency/$G_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
+		T_flankingUpstreamFrequency=$(echo "scale = 12; $T_rawFlankingUpstreamFrequency/$T_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
 		
-			#Save normalized frequencies of dNTPs to TXT file
-			echo $A_flankingFrequency >> $A_flankingFrequencies
-			tac $A_flankingFrequencies > temporary1 && mv temporary1 $A_flankingFrequencies
-			echo $C_flankingFrequency >> $C_flankingFrequencies
-			tac $C_flankingFrequencies > temporary2 && mv temporary2 $C_flankingFrequencies
-			echo $G_flankingFrequency >> $G_flankingFrequencies
-			tac $G_flankingFrequencies > temporary3 && mv temporary3 $G_flankingFrequencies
-			echo $T_flankingFrequency >> $T_flankingFrequencies
-			tac $T_flankingFrequencies > temporary4 && mv temporary4 $T_flankingFrequencies
+		#Save normalized frequencies of dNTPs to TXT file
+		echo $A_flankingUpstreamFrequency >> $A_flankingUpstreamFrequencies
+		echo $C_flankingUpstreamFrequency >> $C_flankingUpstreamFrequencies
+		echo $G_flankingUpstreamFrequency >> $G_flankingUpstreamFrequencies
+		echo $T_flankingUpstreamFrequency >> $T_flankingUpstreamFrequencies
+		
+		tac $G_flankingUpstreamFrequencies > temporary3 && mv temporary3 $G_flankingUpstreamFrequencies
+		tac $A_flankingUpstreamFrequencies > temporary2 && mv temporary2 $A_flankingUpstreamFrequencies
+		tac $C_flankingUpstreamFrequencies > temporary2 && mv temporary2 $C_flankingUpstreamFrequencies
+		tac $T_flankingUpstreamFrequencies > temporary4 && mv temporary4 $T_flankingUpstreamFrequencies
 
-			#Save frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs to one TXT file
-			paste $A_flankingFrequencies $C_flankingFrequencies $G_flankingFrequencies $T_flankingFrequencies > $flankingFrequencies
-		done
+		#Save frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs to one TXT file
+		paste $A_flankingUpstreamFrequencies $C_flankingUpstreamFrequencies $G_flankingUpstreamFrequencies $T_flankingUpstreamFrequencies > $flankingUpstreamFrequencies
+	done
+	
+	#Location of output files (indivdiual base frequencies)
+	A_flankingDownstreamFrequencies=$output8/A_dNTP-frequencies.$reference.$subset.downstream.txt
+	C_flankingDownstreamFrequencies=$output8/C_dNTP-frequencies.$reference.$subset.downstream.txt
+	G_flankingDownstreamFrequencies=$output8/G_dNTP-frequencies.$reference.$subset.downstream.txt
+	T_flankingDownstreamFrequencies=$output8/T_dNTP-frequencies.$reference.$subset.downstream.txt
+
+	#Location of output file (combined base frequencies)
+	flankingDownstreamFrequencies=$output8/$sample.dNTP-frequencies.$reference.$subset.downstream.txt
+	
+	#Calculate dNTP frequencies for each 100 downstream position
+	for file in $directory2/dNTPs/$subset/Columns/downstream/$sample*.txt; do
+
+		#Calculate count of each dNTP
+		A_flankingDownstreamCount=$(grep -v '>' $file | grep -o 'A' - | wc -l)
+		C_flankingDownstreamCount=$(grep -v '>' $file | grep -o 'C' - | wc -l)
+		G_flankingDownstreamCount=$(grep -v '>' $file | grep -o 'G' - | wc -l)
+		T_flankingDownstreamCount=$(grep -v '>' $file | grep -o 'T' - | wc -l)
+
+		#Calculate total number of dNTPs
+		total_flankingDownstreamCount=$(($A_flankingDownstreamCount+$C_flankingDownstreamCount+$G_flankingDownstreamCount+$T_flankingDownstreamCount))
+	
+		#Calculate raw frequencies of dNTPs
+		A_rawFlankingDownstreamFrequency=$(echo "scale = 12; $A_flankingDownstreamCount/$total_flankingDownstreamCount" | bc | awk '{printf "%.12f\n", $0}')
+		C_rawFlankingDownstreamFrequency=$(echo "scale = 12; $C_flankingDownstreamCount/$total_flankingDownstreamCount" | bc | awk '{printf "%.12f\n", $0}')
+		G_rawFlankingDownstreamFrequency=$(echo "scale = 12; $G_flankingDownstreamCount/$total_flankingDownstreamCount" | bc | awk '{printf "%.12f\n", $0}')
+		T_rawFlankingDownstreamFrequency=$(echo "scale = 12; $T_flankingDownstreamCount/$total_flankingDownstreamCount" | bc | awk '{printf "%.12f\n", $0}')
+
+		#Calculate normalized frequencies of dNTPs
+		A_flankingDownstreamFrequency=$(echo "scale = 12; $A_rawFlankingDownstreamFrequency/$A_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
+		C_flankingDownstreamFrequency=$(echo "scale = 12; $C_rawFlankingDownstreamFrequency/$C_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
+		G_flankingDownstreamFrequency=$(echo "scale = 12; $G_rawFlankingDownstreamFrequency/$G_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
+		T_flankingDownstreamFrequency=$(echo "scale = 12; $T_rawFlankingDownstreamFrequency/$T_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
+		
+		#Save normalized frequencies of dNTPs to TXT file
+		echo $A_flankingDownstreamFrequency >> $A_flankingDownstreamFrequencies
+		echo $C_flankingDownstreamFrequency >> $C_flankingDownstreamFrequencies
+		echo $G_flankingDownstreamFrequency >> $G_flankingDownstreamFrequencies
+		echo $T_flankingDownstreamFrequency >> $T_flankingDownstreamFrequencies
+
+		#Save frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs to one TXT file
+		paste $A_flankingDownstreamFrequencies $C_flankingDownstreamFrequencies $G_flankingDownstreamFrequencies $T_flankingDownstreamFrequencies > $flankingDownstreamFrequencies
 	done
 
 ##########################################################################################################################################
