@@ -326,11 +326,11 @@ for sample in ${sample[@]}; do
 	
 	#Remove previously created files so new files are created
 	#if [ -e "$sequences1" ]; then
-    		rm $sequences1
+    		#rm $sequences1
 	#fi
 	
 	#if [ -e "$sequences2" ]; then
-    		rm $sequences2
+    		#rm $sequences2
 	#fi
 				
 	#Combine upstream (+/-) and downstream (+/-) sequences into two files
