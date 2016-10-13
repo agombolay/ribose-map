@@ -95,13 +95,11 @@ for sample in ${sample[@]}; do
 	#Obtain coordinates of rNMPs (3’ end of aligned read):
 	bedtools genomecov -3 -strand + -bg -ibam $bam > $positiveCoordinates0
 	bedtools genomecov -3 -strand - -bg -ibam $bam > $negativeCoordinates0
-	cat $positiveCoordinates0
 	
 	#1-BASED COORDINATES OF	rNMPs:
 	#Obtain coordinates of rNMPs (3’ end of aligned read):
 	bedtools genomecov -3 -strand + -d -ibam $bam > $positiveCoordinates1
 	bedtools genomecov -3 -strand - -d -ibam $bam > $negativeCoordinates1
-	cat $positiveCoordinates1
 	
 	#Remove rows where genome coverage equals 0
 	awk '$3 != 0' $positiveCoordinates1 > temporary1 && mv temporary1 $positiveCoordinates1
