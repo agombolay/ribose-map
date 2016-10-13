@@ -118,7 +118,9 @@ for sample in ${sample[@]}; do
 	background=$output2/$reference.$subset.Background-dNTP-Frequencies.txt
 
 	#Remove previously created files so new files are created
-	[[ -f $background ]] && rm "$background"
+	if [ -e "$background" ]; then
+    		rm $background
+	fi
 
 	#Calculate counts of each dNTP
 	A_backgroundCount=$(grep -v '>' $referenceFasta1 | grep -o 'A' - | wc -l)
@@ -149,8 +151,9 @@ for sample in ${sample[@]}; do
 	riboFrequencies=$output1/$sample.rNMP-frequencies.$reference.$subset.txt
 
 	#Remove previously created files so new files are created
-	[[ -f $riboFrequencies ]] && rm "$riboFrequencies"
-	[[ -f $riboList ]] && rm "$riboList"
+	if [ -e "$riboFrequencies" "$riboList" ]; then
+    		rm $riboFrequencies $riboList
+	fi
 
 	#Select all reads located in genomic DNA
 	if [ $subset != "nuclear" ] || [ $subset != "chrM" ]; then
@@ -273,7 +276,9 @@ for sample in ${sample[@]}; do
     	mkdir -p $output4 $output5 $output6 $output7
 	
 	#Remove previously created files so new files are created
-	[[ -f $output3/temporary* ]] && rm "$output3/temporary*"
+	if [ -e "$output3/temporary*" ]; then
+    		rm $output3/temporary*
+	fi
 	
 	#Select all reads located in genomic DNA
 	if [ $subset != "nuclear" ] || [ $subset != "chrM" ]; then
@@ -313,8 +318,9 @@ for sample in ${sample[@]}; do
 	sequences2=$output7/$sample.downstream-sequences.$reference.$subset.txt
 	
 	#Remove previously created files so new files are created
-	[[ -f $sequences1 ]] && rm "$sequences1"
-	[[ -f $sequences2 ]] && rm "$sequences2"
+	if [ -e "$sequences1" "$sequences2" ]; then
+    		rm $sequences1 $sequences2
+	fi
 				
 	#Combine upstream (+/-) and downstream (+/-) sequences into two files
 	cat $output3/temporary2.positive.upstream $output3/temporary4.negative.upstream > $sequences1
@@ -348,7 +354,9 @@ for sample in ${sample[@]}; do
 	mkdir -p $output5
 
 	#Remove previously created files so new files are created
-	[[ -f $output5/*.txt ]] && rm "$output5/*.txt"
+	if [ -e "$output5/*.txt" ]; then
+    		rm $output5/*.txt
+	fi
 
 	for location in ${locations[@]}; do
 
@@ -392,7 +400,9 @@ for sample in ${sample[@]}; do
 			echo $T_flankingFrequency >> $T_flankingFrequencies
 
 			#Remove previously created file so new file is created
-			[[ -f $baseFrequencies ]] && rm "$baseFrequencies"
+			if [ -e "$flankingFrequencies" ]; then
+    				rm $flankingFrequencies
+			fi
 	
 			#Save frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs to one TXT file
 			paste $A_flankingFrequencies $C_flankingFrequencies $G_flankingFrequencies $T_flankingFrequencies >> $flankingFrequencies
@@ -417,8 +427,9 @@ for sample in ${sample[@]}; do
 	zoomed=$output6/$sample.nucleotide-frequencies-zoomed.$reference.$subset.txt
 	
 	#Remove previously created file so new file is created
-	[[ -f $dataset ]] && rm "$dataset"
-	[[ -f $zoomed ]] && rm "$zoomed"
+	if [ -e "$dataset" "$zoomed" ]; then
+    		rm $dataset $zoomed
+	fi
 
 	#Print values -100 to 100
 	#seq -100 1 100 > temporary1
