@@ -117,7 +117,7 @@ for sample in ${sample[@]}; do
 	#Location of output file
 	background=$output2/$reference.$subset.Background-dNTP-Frequencies.txt
 
-	#Remove file if it already exists
+	#Remove previously created files so new files are created
 	[[ -f $background ]] && rm "$background"
 
 	#Calculate counts of each dNTP
@@ -150,7 +150,7 @@ for sample in ${sample[@]}; do
 
 	#Remove previously created files so new files are created
 	[[ -f $riboFrequencies ]] && rm "$riboFrequencies"
-	[[ -f $riboList ]] && rm "$$riboList"
+	[[ -f $riboList ]] && rm "$riboList"
 
 	#Select only rNMPs in subset:
 	#Whole genome subset
