@@ -151,8 +151,12 @@ for sample in ${sample[@]}; do
 	riboFrequencies=$output1/$sample.rNMP-frequencies.$reference.$subset.txt
 
 	#Remove previously created files so new files are created
-	if [ -e "$riboFrequencies" "$riboList" ]; then
-    		rm $riboFrequencies $riboList
+	if [ -e "$riboFrequencies" ]; then
+    		rm $riboFrequencies
+	fi
+	
+	if [ -e "$riboList" ]; then
+    		rm $riboList
 	fi
 
 	#Select all reads located in genomic DNA
@@ -318,8 +322,12 @@ for sample in ${sample[@]}; do
 	sequences2=$output7/$sample.downstream-sequences.$reference.$subset.txt
 	
 	#Remove previously created files so new files are created
-	if [ -e "$sequences1" "$sequences2" ]; then
-    		rm $sequences1 $sequences2
+	if [ -e "$sequences1" ]; then
+    		rm $sequences1
+	fi
+	
+	if [ -e "$sequences2" ]; then
+    		rm $sequences2
 	fi
 				
 	#Combine upstream (+/-) and downstream (+/-) sequences into two files
@@ -427,8 +435,12 @@ for sample in ${sample[@]}; do
 	zoomed=$output6/$sample.nucleotide-frequencies-zoomed.$reference.$subset.txt
 	
 	#Remove previously created file so new file is created
-	if [ -e "$dataset" "$zoomed" ]; then
-    		rm $dataset $zoomed
+	if [ -e "$dataset" ]; then
+    		rm $dataset
+	fi
+	
+	if [ -e "$zoomed" ]; then
+    		rm $zoomed
 	fi
 
 	#Print values -100 to 100
