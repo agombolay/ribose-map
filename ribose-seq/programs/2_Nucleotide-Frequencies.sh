@@ -163,8 +163,6 @@ for sample in ${sample[@]}; do
 	else
 		awk -v "OFS=\t" '{print $4, $5}' $readCoordinates > temporary
 	fi
-
-	wc -l temporary
 	
 	#Print only rNMPs (3' end of reads):
 	#rNMPs on positive strands (located at end of sequence)
