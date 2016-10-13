@@ -156,7 +156,7 @@ for sample in ${sample[@]}; do
 		awk -v "OFS=\t" '{print $4, $5}' $readCoordinates > temporary
 	#Select only reads located in nuclear DNA
 	if [ $subset == "nuclear" ]; then
-		grep -v 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary | wc -l
+		grep -v 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary
 	#Select only reads located in mitochondrial DNA
 	elif [ $subset == "chrM" ]; then
     		grep 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary
@@ -164,7 +164,7 @@ for sample in ${sample[@]}; do
 
 	#Print only rNMPs (3' end of reads):
 	#rNMPs on positive strands (located at end of sequence)
-	awk '$2 == "+" {print substr($0,length($0)-2)}' temporary > $riboList | wc -l
+	awk '$2 == "+" {print substr($0,length($0)-2)}' temporary > $riboList
 
 	#rNMPs on negative strands (located at beginning of sequence)
 	awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2}' temporary >> $riboList
