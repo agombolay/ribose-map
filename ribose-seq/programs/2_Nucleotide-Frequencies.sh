@@ -155,7 +155,7 @@ for sample in ${sample[@]}; do
 	if [ $subset != "nuclear" ] || [ $subset != "chrM" ]; then
 		awk -v "OFS=\t" '{print $4, $5}' $readCoordinates > temporary
 	#Select only reads located in nuclear DNA
-	if [ $subset == "nuclear" ]; then
+	elif [ $subset == "nuclear" ]; then
 		grep -v 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary
 	#Select only reads located in mitochondrial DNA
 	elif [ $subset == "chrM" ]; then
@@ -280,7 +280,7 @@ for sample in ${sample[@]}; do
 		cat $positiveDownstreamSequences > $output3/temporary1.positive.downstream
 		cat $negativeDownstreamSequences > $output3/temporary1.negative.downstream
 	#Select only reads located in nuclear DNA
-	if [ $subset == "nuclear" ]; then
+	elif [ $subset == "nuclear" ]; then
 		(grep -A 1 '>2micron' $positiveUpstreamSequences && grep -P -A 1 '>chr(?!M)' $positiveUpstreamSequences) > $output3/temporary1.positive.upstream
 		(grep -A 1 '>2micron' $negativeUpstreamSequences && grep -P -A 1 '>chr(?!M)' $positiveUpstreamSequences) > $output3/temporary1.negative.upstream
 		(grep -A 1 '>2micron' $positiveDownstreamSequences && grep -P -A 1 '>chr(?!M)' $positiveUpstreamSequences) > $output3/temporary1.positive.downstream
