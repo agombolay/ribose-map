@@ -241,13 +241,13 @@ for sample in ${sample[@]}; do
 	
 	#Obtain coordinates of dNTPs located 100 bp upstream from rNMPs:
 	#Note: For positive strands, left = upstream. For negative strands, right = upstream
-	bedtools flank -i $positiveCoordinates -g $referenceBED -l 2 -r 0 > $positiveUpstreamIntervals
-	bedtools flank -i $negativeCoordinates -g $referenceBED -l 0 -r 2 > $negativeUpstreamIntervals
+	bedtools flank -i $positiveCoordinates -g $referenceBED -l 100 -r 0 > $positiveUpstreamIntervals
+	bedtools flank -i $negativeCoordinates -g $referenceBED -l 0 -r 100 > $negativeUpstreamIntervals
 	
 	#Obtain coordinates of dNTPs located 100 bp downstream from rNMPs:
 	#Note: For positive strands, right = downstream. For negative strands, left = downstream
-	bedtools flank -i $positiveCoordinates -g $referenceBED -l 0 -r 2 > $positiveDownstreamIntervals
-	bedtools flank -i $negativeCoordinates -g $referenceBED -l 2 -r 0 > $negativeDownstreamIntervals
+	bedtools flank -i $positiveCoordinates -g $referenceBED -l 0 -r 100 > $positiveDownstreamIntervals
+	bedtools flank -i $negativeCoordinates -g $referenceBED -l 100 -r 0 > $negativeDownstreamIntervals
 
 	#Obtain sequences of dNTPs located 100 bp upstream from rNMPs:
 	bedtools getfasta -fi $referenceFasta2 -bed $positiveUpstreamIntervals -fo $positiveUpstreamSequences
@@ -328,7 +328,7 @@ for sample in ${sample[@]}; do
 	cat $sequences1 | sed 's/.../& /2g;s/./& /g' > $columns1
 	cat $sequences2 | sed 's/.../& /2g;s/./& /g' > $columns2
 
-	for i in {1..2}; do
+	for i in {1..100}; do
 		#Location of output files
 		lists1=$output4/$sample.column.$i.upstream.$reference.$subset.txt
 		lists2=$output5/$sample.column.$i.downstream.$reference.$subset.txt
@@ -462,7 +462,7 @@ for sample in ${sample[@]}; do
 	
 	#Print values -100 to 100
 	#seq -100 1 100 > temporary1
-	seq -2 1 2 > temporary1
+	seq -100 1 100 > temporary1
 	
 	#Save files containing rNMP and upstream/downstream dNTP frequencies to one file
 	cat $upstreamBaseFrequencies $riboFrequencies $downstreamBaseFrequencies >> temporary2
