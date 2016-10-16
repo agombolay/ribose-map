@@ -60,8 +60,8 @@ for sample in ${sample[@]}; do
 	rm -f $output1/*.txt
 	
 	#Location of output files	
-	fastq=$output1/$sample.aligned-reads.fastq
-	fasta=$output1/$sample.aligned-reads.fasta
+	fastq=$output1/$sample.aligned-reads.fq
+	fasta=$output1/$sample.aligned-reads.fa
 
 	#Convert BAM file to FASTQ
 	samtools bam2fq $bam > $fastq
@@ -77,40 +77,22 @@ for sample in ${sample[@]}; do
 
 	#Location of output files
 	bed=$output1/$sample.aligned-reads.bed
-	#reads=$output1/$sample.aligned-reads.fasta
 	readCoordinates=$output1/$sample.read-coordinates.bed
 	coordinates0=$output1/$sample.rNMP-coordinates.0-based.txt
-	positiveCoordinates0=$output1/$sample.rNMP-coordinates.positive.0-based.txt
-	negativeCoordinates0=$output1/$sample.rNMP-coordinates.negative.0-based.txt
-	positiveCoordinates1=$output1/$sample.rNMP-coordinates.positive.1-based.txt
-	negativeCoordinates1=$output1/$sample.rNMP-coordinates.negative.1-based.txt
 	
 	#0-BASED COORDINATES of READS:
 	#Covert BAM file to BED format
 	bedtools bamtobed -i $bam > $bed
-
-	#Convert BAM file to SAM format
-	#samtools view $bam > $sam
 	
 	#Extract aligned read coordinates, sequences, and strands from BED and SAM files
-	#paste $bed $sam | awk -v "OFS=\t" '{print $1, $2, $3, $16, $6}' > $readCoordinates
 	paste $bed $fasta | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $readCoordinates
 	
 	#0-BASED COORDINATES OF rNMPs:
 	#Obtain coordinates of rNMPs (3’ end of aligned read):
-	#bedtools genomecov -3 -strand + -bg -ibam $bam > $positiveCoordinates0
-	#bedtools genomecov -3 -strand - -bg -ibam $bam > $negativeCoordinates0
 	bedtools genomecov -3 -bg -ibam $bam > $coordinates0
-	paste $coordinates0 $bed | awk -v "OFS=\t" '{print $1, $2, $3, $4, $8, $10}' > temporary && mv temporary $coordinates0
-		
-	#1-BASED COORDINATES OF	rNMPs:
-	#Obtain coordinates of rNMPs (3’ end of aligned read):
-	#bedtools genomecov -3 -strand + -d -ibam $bam > $positiveCoordinates1
-	#bedtools genomecov -3 -strand - -d -ibam $bam > $negativeCoordinates1
 	
-	#Remove rows where genome coverage equals 0
-	#awk '$3 != 0' $positiveCoordinates1 > temporary1 && mv temporary1 $positiveCoordinates1
-	#awk '$3 != 0' $negativeCoordinates1 > temporary2 && mv temporary2 $negativeCoordinates1
+	paste $coordinates0 $bed | awk -v "OFS=\t" '{print $1, $2, $3, $4, $8, $10}' > temporary \
+	&& mv temporary $coordinates0
 
 ##########################################################################################################################################
 	#STEP 3: Calculate background dNTP frequencies of reference genome
@@ -155,39 +137,23 @@ for sample in ${sample[@]}; do
 	#STEP 4: Calculate rNMP Frequencies
 
 	#Location of output files
-	#riboList=$output1/$sample.rNMP-list.$reference.$subset.txt
-	riboFrequencies=$output1/$sample.rNMP-frequencies.$reference.$subset.txt
+	riboSequences1=$output1/$sample.rNMP-Sequences.$reference.$subset.fa
+	riboSequences2=$output1/$sample.rNMP-Sequences.$reference.$subset.txt
+	riboFrequencies=$output1/$sample.rNMP-frequencies.$reference.$subset.txt	
 
-	#Select only reads located in nuclear DNA
-	#if [ $subset == "nuclear" ]; then
-		#grep -v 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary
-	#Select only reads located in mitochondrial DNA
-	#elif [ $subset == "chrM" ]; then
-    		#grep 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary
-	#Select all reads located in genomic DNA
-	#else
-		#awk -v "OFS=\t" '{print $6}' $readCoordinates > temporary
-	#fi
-	
-	riboSequences1=$output1/rNMP-Sequences.fasta
-	riboSequences2=$output1/rNMP-Sequences.txt
-	
 	bedtools getfasta -s -fi $referenceFasta1 -bed $coordinates0 -fo $riboSequences1
-	grep -v '>' $riboSequences1 > $riboSequences2
-
-	#Print only rNMPs (3' end of reads):
-	#rNMPs on positive strands (located at end of sequence)
-	#awk '$2 == "+" {print substr($0,length($0)-2)}' temporary > $riboList
-	#awk '{print substr($0,length($0))}' temporary > $riboList
+	#grep -v '>' $riboSequences1 > $riboSequences2
 	
-	#rNMPs on negative strands (located at beginning of sequence)
-	#awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2}' temporary >> $riboList
-
-	#Calculate count of each rNMP
-	#A_riboCount=$(awk '$1 == "A" && $2 == "+" || $1 == "T" && $2 == "-" {print $1, $2}' $riboList | wc -l)
-	#C_riboCount=$(awk '$1 == "C" && $2 == "+" || $1 == "G" && $2 == "-" {print $1, $2}' $riboList | wc -l)
-	#G_riboCount=$(awk '$1 == "G" && $2 == "+" || $1 == "C" && $2 == "-" {print $1, $2}' $riboList | wc -l)
-	#U_riboCount=$(awk '$1 == "T" && $2 == "+" || $1 == "A" && $2 == "-" {print $1, $2}' $riboList | wc -l)
+	#Select only reads located in nuclear DNA
+	if [ $subset == "nuclear" ]; then
+		(grep -A 1 '>2micron' $riboSequences1 && grep -P -A 1 '>chr(?!M)' $riboSequences1) > $riboSequences2
+	#Select only reads located in mitochondrial DNA
+	elif [ $subset == "chrM" ]; then
+		grep -A 1 '>chrM' $riboSequences1 > $riboSequences2
+	#Select all reads located in genomic DNA
+	else
+		cat $riboSequences1 > $riboSequences2
+fi
 
 	A_riboCount=$(awk '$1 == "A" {print $1, $2}' $riboSequences2 | wc -l)
 	C_riboCount=$(awk '$1 == "C" {print $1, $2}' $riboSequences2 | wc -l)
