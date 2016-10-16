@@ -243,9 +243,14 @@ for sample in ${sample[@]}; do
 	
 	upstreamIntervals=$output3/$sample.upstream-intervals.bed
 	downstreamIntervals=$output3/$sample.downstream-intervals.bed
+	upstreamSequences=$output3/$sample.upstream-sequences.fa
+	downstreamSequences=$output3/$sample.downstream-sequences.fa
 	
 	bedtools flank -i $coordinates0 -s -g $referenceBED -l 100 -r 0 > $upstreamIntervals
 	bedtools flank -i $coordinates0 -s -g $referenceBED -l 0 -r 100 > $downstreamIntervals
+
+	bedtools getfasta -s -fi $referenceFasta1 -bed $upstreamIntervals -fo $upstreamSequences
+	bedtools getfasta -s -fi $referenceFasta1 -bed $upstreamIntervals -fo $downstreamSequences
 
 ##########################################################################################################################################
 	#STEP 6: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
