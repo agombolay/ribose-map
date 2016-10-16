@@ -170,10 +170,11 @@ for sample in ${sample[@]}; do
 	
 	#Print only rNMPs (3' end of reads):
 	#rNMPs on positive strands (located at end of sequence)
+	#awk '$2 == "+" {print substr($0,length($0)-2)}' temporary > $riboList
 	awk '$2 == "+" {print substr($0,length($0)-2)}' temporary > $riboList
-
+	
 	#rNMPs on negative strands (located at beginning of sequence)
-	awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2}' temporary >> $riboList
+	#awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2}' temporary >> $riboList
 
 	#Calculate count of each rNMP
 	A_riboCount=$(awk '$1 == "A" && $2 == "+" || $1 == "T" && $2 == "-" {print $1, $2}' $riboList | wc -l)
