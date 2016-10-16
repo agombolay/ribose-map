@@ -74,7 +74,7 @@ for sample in ${sample[@]}; do
 
 	#Location of output files
 	bed=$output1/$sample.aligned-reads.bed
-	sam=$output1/$sample.aligned-reads.sam
+	reads=$output1/$sample.aligned-reads.fasta
 	readCoordinates=$output1/$sample.read-coordinates.bed
 	positiveCoordinates0=$output1/$sample.rNMP-coordinates.positive.0-based.txt
 	negativeCoordinates0=$output1/$sample.rNMP-coordinates.negative.0-based.txt
@@ -86,11 +86,13 @@ for sample in ${sample[@]}; do
 	bedtools bamtobed -i $bam > $bed
 
 	#Convert BAM file to SAM format
-	samtools view $bam > $sam
-
+	#samtools view $bam > $sam
+	grep -v '>' $fasta > $reads
+	
 	#Extract aligned read coordinates, sequences, and strands from BED and SAM files
-	paste $bed $sam | awk -v "OFS=\t" '{print $1, $2, $3, $16, $6}' > $readCoordinates
-
+	#paste $bed $sam | awk -v "OFS=\t" '{print $1, $2, $3, $16, $6}' > $readCoordinates
+	paste $bed $reads | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $readCoordinates
+	
 	#0-BASED COORDINATES OF rNMPs:
 	#Obtain coordinates of rNMPs (3’ end of aligned read):
 	bedtools genomecov -3 -strand + -bg -ibam $bam > $positiveCoordinates0
