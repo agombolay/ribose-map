@@ -102,7 +102,7 @@ for sample in ${sample[@]}; do
 	#bedtools genomecov -3 -strand - -bg -ibam $bam > $negativeCoordinates0
 	bedtools genomecov -3 -bg -ibam $bam > $coordinates0
 	paste $coordinates0 $bed | awk -v "OFS=\t" '{print $1, $2, $3, $4, $8, $10}' > temporary && mv temporary $coordinates0
-	
+		
 	#1-BASED COORDINATES OF	rNMPs:
 	#Obtain coordinates of rNMPs (3’ end of aligned read):
 	#bedtools genomecov -3 -strand + -d -ibam $bam > $positiveCoordinates1
@@ -159,20 +159,24 @@ for sample in ${sample[@]}; do
 	riboFrequencies=$output1/$sample.rNMP-frequencies.$reference.$subset.txt
 
 	#Select only reads located in nuclear DNA
-	if [ $subset == "nuclear" ]; then
+	#if [ $subset == "nuclear" ]; then
 		grep -v 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary
 	#Select only reads located in mitochondrial DNA
-	elif [ $subset == "chrM" ]; then
+	#elif [ $subset == "chrM" ]; then
     		grep 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary
 	#Select all reads located in genomic DNA
-	else
+	#else
 		awk -v "OFS=\t" '{print $6}' $readCoordinates > temporary
-	fi
+	#fi
 	
+	riboSequences=$output1/riboSequences.fasta
+	bedtools getfasta -s -fi $subset.fa -bed $coordinates0 -fo $riboSequences
+	grep -v '>' $riboSequences > temporary && mv temporary $riboSequences
+
 	#Print only rNMPs (3' end of reads):
 	#rNMPs on positive strands (located at end of sequence)
 	#awk '$2 == "+" {print substr($0,length($0)-2)}' temporary > $riboList
-	awk '{print substr($0,length($0))}' temporary > $riboList
+	#awk '{print substr($0,length($0))}' temporary > $riboList
 	
 	#rNMPs on negative strands (located at beginning of sequence)
 	#awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2}' temporary >> $riboList
@@ -183,10 +187,10 @@ for sample in ${sample[@]}; do
 	#G_riboCount=$(awk '$1 == "G" && $2 == "+" || $1 == "C" && $2 == "-" {print $1, $2}' $riboList | wc -l)
 	#U_riboCount=$(awk '$1 == "T" && $2 == "+" || $1 == "A" && $2 == "-" {print $1, $2}' $riboList | wc -l)
 
-	A_riboCount=$(awk '$1 == "A" {print $1, $2}' $riboList | wc -l)
-	C_riboCount=$(awk '$1 == "C" {print $1, $2}' $riboList | wc -l)
-	G_riboCount=$(awk '$1 == "G" {print $1, $2}' $riboList | wc -l)
-	U_riboCount=$(awk '$1 == "T" {print $1, $2}' $riboList | wc -l)
+	A_riboCount=$(awk '$1 == "A" {print $1, $2}' $riboSequences | wc -l)
+	C_riboCount=$(awk '$1 == "C" {print $1, $2}' $riboSequences | wc -l)
+	G_riboCount=$(awk '$1 == "G" {print $1, $2}' $riboSequences | wc -l)
+	U_riboCount=$(awk '$1 == "T" {print $1, $2}' $riboSequences | wc -l)
 	
 	#Calculate total number of rNMPs
 	total_riboCount=$(($A_riboCount+$C_riboCount+$G_riboCount+$U_riboCount))
