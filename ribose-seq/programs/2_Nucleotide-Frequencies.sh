@@ -154,7 +154,7 @@ for sample in ${sample[@]}; do
 		cat $riboSequences1 > $riboSequences2
 	fi
 
-	grep -v '>' riboSequences2 > temporary && mv temporary $riboSequences2
+	grep -v '>' $riboSequences2 > temporary && mv temporary $riboSequences2
 	
 	A_riboCount=$(awk '$1 == "A" {print $1, $2}' $riboSequences2 | wc -l)
 	C_riboCount=$(awk '$1 == "C" {print $1, $2}' $riboSequences2 | wc -l)
