@@ -169,9 +169,10 @@ for sample in ${sample[@]}; do
 		awk -v "OFS=\t" '{print $6}' $readCoordinates > temporary
 	#fi
 	
-	riboSequences=$output1/riboSequences.fasta
-	bedtools getfasta -s -fi $subset.fa -bed $coordinates0 -fo $riboSequences
-	grep -v '>' $riboSequences > temporary && mv temporary $riboSequences
+	riboSequences1=$output1/riboSequences.fasta
+	riboSequences2=$output1/riboSequences.txt
+	bedtools getfasta -s -fi $subset.fa -bed $coordinates0 -fo $riboSequences1
+	grep -v '>' $riboSequences > $riboSequences2
 
 	#Print only rNMPs (3' end of reads):
 	#rNMPs on positive strands (located at end of sequence)
