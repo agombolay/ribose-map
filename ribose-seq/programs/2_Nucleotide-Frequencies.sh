@@ -68,13 +68,16 @@ for sample in ${sample[@]}; do
 
 	#Convert FASTQ file to FASTA
 	seqtk seq -A $fastq > $fasta
-
+	
+	#
+	grep -v '>' $fasta > temporary && mv temporary $fasta
+	
 ##########################################################################################################################################
 	#STEP 2: Obtain rNMP coordinates from aligned reads
 
 	#Location of output files
 	bed=$output1/$sample.aligned-reads.bed
-	reads=$output1/$sample.aligned-reads.fasta
+	#reads=$output1/$sample.aligned-reads.fasta
 	readCoordinates=$output1/$sample.read-coordinates.bed
 	positiveCoordinates0=$output1/$sample.rNMP-coordinates.positive.0-based.txt
 	negativeCoordinates0=$output1/$sample.rNMP-coordinates.negative.0-based.txt
