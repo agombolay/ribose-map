@@ -165,7 +165,7 @@ for sample in ${sample[@]}; do
     		grep 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary
 	#Select all reads located in genomic DNA
 	else
-		awk -v "OFS=\t" '{print $4, $5}' $readCoordinates > temporary
+		awk -v "OFS=\t" '{print $6}' $readCoordinates > temporary
 	fi
 	
 	#Print only rNMPs (3' end of reads):
