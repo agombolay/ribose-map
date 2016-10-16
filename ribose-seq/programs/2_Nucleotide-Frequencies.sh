@@ -90,11 +90,10 @@ for sample in ${sample[@]}; do
 
 	#Convert BAM file to SAM format
 	#samtools view $bam > $sam
-	grep -v '>' $fasta > $reads
 	
 	#Extract aligned read coordinates, sequences, and strands from BED and SAM files
 	#paste $bed $sam | awk -v "OFS=\t" '{print $1, $2, $3, $16, $6}' > $readCoordinates
-	paste $bed $reads | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $readCoordinates
+	paste $bed $fasta | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $readCoordinates
 	
 	#0-BASED COORDINATES OF rNMPs:
 	#Obtain coordinates of rNMPs (3’ end of aligned read):
