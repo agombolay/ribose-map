@@ -69,7 +69,7 @@ for sample in ${sample[@]}; do
 	#Convert FASTQ file to FASTA
 	seqtk seq -A $fastq > $fasta
 	
-	#
+	#Output only sequences in FASTA file (exclude all header lines)
 	grep -v '>' $fasta > temporary && mv temporary $fasta
 	
 ##########################################################################################################################################
