@@ -286,7 +286,7 @@ for sample in ${sample[@]}; do
 	sequences2=$output7/$sample.downstream-sequences.$reference.$subset.txt
 	
 	grep -v '>' temporary1 > $sequences1
-	grep -v '>' temporary1 > $sequences2
+	grep -v '>' temporary2 > $sequences2
 	
 	#Reverse complement upstream/downstream sequences on negative strand
 	#seqtk seq -r $output3/temporary1.negative.upstream > $output3/temporary2.negative.upstream
