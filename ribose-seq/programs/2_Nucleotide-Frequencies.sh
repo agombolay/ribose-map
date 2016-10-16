@@ -189,10 +189,10 @@ for sample in ${sample[@]}; do
 	#G_riboCount=$(awk '$1 == "G" && $2 == "+" || $1 == "C" && $2 == "-" {print $1, $2}' $riboList | wc -l)
 	#U_riboCount=$(awk '$1 == "T" && $2 == "+" || $1 == "A" && $2 == "-" {print $1, $2}' $riboList | wc -l)
 
-	A_riboCount=$(awk '$1 == "A" {print $1, $2}' $riboSequences | wc -l)
-	C_riboCount=$(awk '$1 == "C" {print $1, $2}' $riboSequences | wc -l)
-	G_riboCount=$(awk '$1 == "G" {print $1, $2}' $riboSequences | wc -l)
-	U_riboCount=$(awk '$1 == "T" {print $1, $2}' $riboSequences | wc -l)
+	A_riboCount=$(awk '$1 == "A" {print $1, $2}' $riboSequences2 | wc -l)
+	C_riboCount=$(awk '$1 == "C" {print $1, $2}' $riboSequences2 | wc -l)
+	G_riboCount=$(awk '$1 == "G" {print $1, $2}' $riboSequences2 | wc -l)
+	U_riboCount=$(awk '$1 == "T" {print $1, $2}' $riboSequences2 | wc -l)
 	
 	#Calculate total number of rNMPs
 	total_riboCount=$(($A_riboCount+$C_riboCount+$G_riboCount+$U_riboCount))
