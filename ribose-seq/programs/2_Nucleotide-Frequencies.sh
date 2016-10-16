@@ -153,7 +153,7 @@ for sample in ${sample[@]}; do
 	#Select all reads located in genomic DNA
 	else
 		cat $riboSequences1 > $riboSequences2
-fi
+	fi
 
 	A_riboCount=$(awk '$1 == "A" {print $1, $2}' $riboSequences2 | wc -l)
 	C_riboCount=$(awk '$1 == "C" {print $1, $2}' $riboSequences2 | wc -l)
@@ -177,9 +177,6 @@ fi
 
 	#Save normalized frequencies of rNMPs to TXT file
 	echo -e "$A_riboFrequency\t$C_riboFrequency\t$G_riboFrequency\t$U_riboFrequency" > $riboFrequencies
-
-	#Remove temporary file
-	rm -f temporary
 
 ##########################################################################################################################################
 	#STEP 5: Obtain coordinates and sequences of +/- 100 downstream/upstream dNTPs from rNMPs
