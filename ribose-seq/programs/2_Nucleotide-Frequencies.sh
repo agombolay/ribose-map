@@ -193,54 +193,60 @@ for sample in ${sample[@]}; do
     	mkdir -p $output3
 
 	#Location of output files
-	coordinates=$output1/$sample.rNMP-coordinates.bed
+	#coordinates=$output1/$sample.rNMP-coordinates.bed
 	
-	positiveCoordinates=$output1/$sample.rNMP-coordinates.positive.bed
-	negativeCoordinates=$output1/$sample.rNMP-coordinates.negative.bed
+	#positiveCoordinates=$output1/$sample.rNMP-coordinates.positive.bed
+	#negativeCoordinates=$output1/$sample.rNMP-coordinates.negative.bed
 	
-	positiveUpstreamIntervals=$output3/$sample.upstream-intervals.positive.bed
-	negativeUpstreamIntervals=$output3/$sample.upstream-intervals.negative.bed
-	positiveDownstreamIntervals=$output3/$sample.downstream-intervals.positive.bed
-	negativeDownstreamIntervals=$output3/$sample.downstream-intervals.negative.bed
+	#positiveUpstreamIntervals=$output3/$sample.upstream-intervals.positive.bed
+	#negativeUpstreamIntervals=$output3/$sample.upstream-intervals.negative.bed
+	#positiveDownstreamIntervals=$output3/$sample.downstream-intervals.positive.bed
+	#negativeDownstreamIntervals=$output3/$sample.downstream-intervals.negative.bed
 	
-	positiveUpstreamSequences=$output3/$sample.upstream-sequences.positive.fa
-	negativeUpstreamSequences=$output3/$sample.upstream-sequences.negative.fa
-	positiveDownstreamSequences=$output3/$sample.downstream-sequences.positive.fa
-	negativeDownstreamSequences=$output3/$sample.downstream-sequences.negative.fa
+	#positiveUpstreamSequences=$output3/$sample.upstream-sequences.positive.fa
+	#negativeUpstreamSequences=$output3/$sample.upstream-sequences.negative.fa
+	#positiveDownstreamSequences=$output3/$sample.downstream-sequences.positive.fa
+	#negativeDownstreamSequences=$output3/$sample.downstream-sequences.negative.fa
 		
 	#Obtain positions of rNMPs (3’ end of aligned reads)
-	bedtools genomecov -3 -bg -ibam $bam > temporary1
+	#bedtools genomecov -3 -bg -ibam $bam > temporary1
 
 	#Print only columns containing coordinates (eliminate column containing coverage values)
-	awk -v "OFS=\t" '{print $1, $2, $3}' temporary1 > temporary2
+	#awk -v "OFS=\t" '{print $1, $2, $3}' temporary1 > temporary2
 
 	#Combine rNMP coordiantes with strand information in tabular format (i.e., 2micron 94 95 +)
-	paste temporary2 $readCoordinates | awk -v "OFS=\t" '{print $1, $2, $3, $8}' > $coordinates
+	#paste temporary2 $readCoordinates | awk -v "OFS=\t" '{print $1, $2, $3, $8}' > $coordinates
 	
-	awk -v "OFS=\t" '$4 == "+" {print $1, $2, $3, $4}' $coordinates > $positiveCoordinates
-	awk -v "OFS=\t" '$4 == "-" {print $1, $2, $3, $4}' $coordinates > $negativeCoordinates
+	#awk -v "OFS=\t" '$4 == "+" {print $1, $2, $3, $4}' $coordinates > $positiveCoordinates
+	#awk -v "OFS=\t" '$4 == "-" {print $1, $2, $3, $4}' $coordinates > $negativeCoordinates
 	
 	#Obtain coordinates of dNTPs located 100 bp upstream from rNMPs:
 	#Note: For positive strands, left = upstream. For negative strands, right = upstream
-	bedtools flank -i $positiveCoordinates -g $referenceBED -l 100 -r 0 > $positiveUpstreamIntervals
-	bedtools flank -i $negativeCoordinates -g $referenceBED -l 0 -r 100 > $negativeUpstreamIntervals
+	#bedtools flank -i $positiveCoordinates -g $referenceBED -l 100 -r 0 > $positiveUpstreamIntervals
+	#bedtools flank -i $negativeCoordinates -g $referenceBED -l 0 -r 100 > $negativeUpstreamIntervals
 	
 	#Obtain coordinates of dNTPs located 100 bp downstream from rNMPs:
 	#Note: For positive strands, right = downstream. For negative strands, left = downstream
-	bedtools flank -i $positiveCoordinates -g $referenceBED -l 0 -r 100 > $positiveDownstreamIntervals
-	bedtools flank -i $negativeCoordinates -g $referenceBED -l 100 -r 0 > $negativeDownstreamIntervals
+	#bedtools flank -i $positiveCoordinates -g $referenceBED -l 0 -r 100 > $positiveDownstreamIntervals
+	#bedtools flank -i $negativeCoordinates -g $referenceBED -l 100 -r 0 > $negativeDownstreamIntervals
 
 	#Obtain sequences of dNTPs located 100 bp upstream from rNMPs:
-	bedtools getfasta -fi $referenceFasta2 -bed $positiveUpstreamIntervals -fo $positiveUpstreamSequences
-	bedtools getfasta -fi $referenceFasta2 -bed $negativeUpstreamIntervals -fo $negativeUpstreamSequences
+	#bedtools getfasta -fi $referenceFasta2 -bed $positiveUpstreamIntervals -fo $positiveUpstreamSequences
+	#bedtools getfasta -fi $referenceFasta2 -bed $negativeUpstreamIntervals -fo $negativeUpstreamSequences
 	
 	#Obtain sequences of dNTPs located 100 bp downstream from rNMPs:
-	bedtools getfasta -fi $referenceFasta2 -bed $positiveDownstreamIntervals -fo $positiveDownstreamSequences
-	bedtools getfasta -fi $referenceFasta2 -bed $negativeDownstreamIntervals -fo $negativeDownstreamSequences
+	#bedtools getfasta -fi $referenceFasta2 -bed $positiveDownstreamIntervals -fo $positiveDownstreamSequences
+	#bedtools getfasta -fi $referenceFasta2 -bed $negativeDownstreamIntervals -fo $negativeDownstreamSequences
 
 	#Remove temporary files
-	rm -f temporary1 temporary2
+	#rm -f temporary1 temporary2
 	
+	upstreamIntervals=$output3/$sample.upstream-intervals.bed
+	downstreamIntervals=$output3/$sample.downstream-intervals.bed
+	
+	bedtools flank -i $coordinates0 -s -g $referenceBED -l 100 -r 0 > $upstreamIntervals
+	bedtools flank -i $coordinates0 -s -g $referenceBED -l 0 -r 100 > $downstreamIntervals
+
 ##########################################################################################################################################
 	#STEP 6: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
