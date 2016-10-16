@@ -151,15 +151,13 @@ for sample in ${sample[@]}; do
 	riboList=$output1/$sample.rNMP-list.$reference.$subset.txt
 	riboFrequencies=$output1/$sample.rNMP-frequencies.$reference.$subset.txt
 
-	#Select all reads located in genomic DNA
-	#if [ $subset == "sacCer2" ]; then
-	#	awk -v "OFS=\t" '{print $4, $5}' $readCoordinates > temporary
 	#Select only reads located in nuclear DNA
 	if [ $subset == "nuclear" ]; then
 		grep -v 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary
 	#Select only reads located in mitochondrial DNA
 	elif [ $subset == "chrM" ]; then
     		grep 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary
+	#Select all reads located in genomic DNA
 	else
 		awk -v "OFS=\t" '{print $4, $5}' $readCoordinates > temporary
 	fi
@@ -275,12 +273,6 @@ for sample in ${sample[@]}; do
 	#Remove previously created files so new files are created
 	rm -f $output4/*.txt $output5/*.txt $output6/*.txt $output7/*.txt
 	
-	#Select all reads located in genomic DNA
-	#if [ $subset == "sacCer2" ]; then
-	#	cat $positiveUpstreamSequences > $output3/temporary1.positive.upstream
-	#	cat $negativeUpstreamSequences > $output3/temporary1.negative.upstream
-	#	cat $positiveDownstreamSequences > $output3/temporary1.positive.downstream
-	#	cat $negativeDownstreamSequences > $output3/temporary1.negative.downstream
 	#Select only reads located in nuclear DNA
 	if [ $subset == "nuclear" ]; then
 		(grep -A 1 '>2micron' $positiveUpstreamSequences && grep -P -A 1 '>chr(?!M)' $positiveUpstreamSequences) > $output3/temporary1.positive.upstream
@@ -293,6 +285,7 @@ for sample in ${sample[@]}; do
 		grep -A 1 '>chrM' $negativeUpstreamSequences > $output3/temporary1.negative.upstream
 		grep -A 1 '>chrM' $positiveDownstreamSequences > $output3/temporary1.positive.downstream
 		grep -A 1 '>chrM' $negativeDownstreamSequences > $output3/temporary1.negative.downstream
+	#Select all reads located in genomic DNA
 	else
 		cat $positiveUpstreamSequences > $output3/temporary1.positive.upstream
 		cat $negativeUpstreamSequences > $output3/temporary1.negative.upstream
@@ -461,7 +454,6 @@ for sample in ${sample[@]}; do
 	rm -f $output9/*.txt
 	
 	#Print values -100 to 100
-	#seq -100 1 100 > temporary1
 	seq -100 1 100 > temporary1
 	
 	#Save files containing rNMP and upstream/downstream dNTP frequencies to one file
@@ -474,8 +466,8 @@ for sample in ${sample[@]}; do
 	echo -e "\tA\tC\tG\tU/T" > $dataset; cat temporary3 >> $dataset;
 	
 	#Smaller dataset
-	#head -117 $dataset | tail -31 > temporary4
-	#echo -e "\tA\t\tC\t\tG\t\tU/T" > $zoomed; cat temporary4 >> $zoomed;
+	head -117 $dataset | tail -31 > temporary4
+	echo -e "\tA\t\tC\t\tG\t\tU/T" > $zoomed; cat temporary4 >> $zoomed;
 
 	#Remove temporary files
 	rm -f temporary1 temporary2 temporary3 temporary4
