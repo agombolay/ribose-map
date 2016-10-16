@@ -156,10 +156,10 @@ for sample in ${sample[@]}; do
 
 	grep -v '>' $riboSequences2 > temporary && mv temporary $riboSequences2
 	
-	A_riboCount=$(awk '$1 == "A" {print $1, $2}' $riboSequences2 | wc -l)
-	C_riboCount=$(awk '$1 == "C" {print $1, $2}' $riboSequences2 | wc -l)
-	G_riboCount=$(awk '$1 == "G" {print $1, $2}' $riboSequences2 | wc -l)
-	U_riboCount=$(awk '$1 == "T" {print $1, $2}' $riboSequences2 | wc -l)
+	A_riboCount=$(awk '$1 == "A"' $riboSequences2 | wc -l)
+	C_riboCount=$(awk '$1 == "C"' $riboSequences2 | wc -l)
+	G_riboCount=$(awk '$1 == "G"' $riboSequences2 | wc -l)
+	U_riboCount=$(awk '$1 == "T"' $riboSequences2 | wc -l)
 	
 	#Calculate total number of rNMPs
 	total_riboCount=$(($A_riboCount+$C_riboCount+$G_riboCount+$U_riboCount))
