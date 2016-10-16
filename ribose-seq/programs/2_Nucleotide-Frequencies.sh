@@ -79,6 +79,7 @@ for sample in ${sample[@]}; do
 	bed=$output1/$sample.aligned-reads.bed
 	#reads=$output1/$sample.aligned-reads.fasta
 	readCoordinates=$output1/$sample.read-coordinates.bed
+	coordinates0=$output1/$sample.rNMP-coordinates.0-based.txt
 	positiveCoordinates0=$output1/$sample.rNMP-coordinates.positive.0-based.txt
 	negativeCoordinates0=$output1/$sample.rNMP-coordinates.negative.0-based.txt
 	positiveCoordinates1=$output1/$sample.rNMP-coordinates.positive.1-based.txt
@@ -97,8 +98,9 @@ for sample in ${sample[@]}; do
 	
 	#0-BASED COORDINATES OF rNMPs:
 	#Obtain coordinates of rNMPs (3’ end of aligned read):
-	bedtools genomecov -3 -strand + -bg -ibam $bam > $positiveCoordinates0
-	bedtools genomecov -3 -strand - -bg -ibam $bam > $negativeCoordinates0
+	#bedtools genomecov -3 -strand + -bg -ibam $bam > $positiveCoordinates0
+	#bedtools genomecov -3 -strand - -bg -ibam $bam > $negativeCoordinates0
+	bedtools genomecov -3 -bg -ibam $bam > $coordinates0
 	
 	#1-BASED COORDINATES OF	rNMPs:
 	#Obtain coordinates of rNMPs (3’ end of aligned read):
