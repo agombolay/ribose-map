@@ -177,11 +177,16 @@ for sample in ${sample[@]}; do
 	#awk -v "OFS=\t" '$2 == "-" {print substr($0,0,1), $2}' temporary >> $riboList
 
 	#Calculate count of each rNMP
-	A_riboCount=$(awk '$1 == "A" && $2 == "+" || $1 == "T" && $2 == "-" {print $1, $2}' $riboList | wc -l)
-	C_riboCount=$(awk '$1 == "C" && $2 == "+" || $1 == "G" && $2 == "-" {print $1, $2}' $riboList | wc -l)
-	G_riboCount=$(awk '$1 == "G" && $2 == "+" || $1 == "C" && $2 == "-" {print $1, $2}' $riboList | wc -l)
-	U_riboCount=$(awk '$1 == "T" && $2 == "+" || $1 == "A" && $2 == "-" {print $1, $2}' $riboList | wc -l)
+	#A_riboCount=$(awk '$1 == "A" && $2 == "+" || $1 == "T" && $2 == "-" {print $1, $2}' $riboList | wc -l)
+	#C_riboCount=$(awk '$1 == "C" && $2 == "+" || $1 == "G" && $2 == "-" {print $1, $2}' $riboList | wc -l)
+	#G_riboCount=$(awk '$1 == "G" && $2 == "+" || $1 == "C" && $2 == "-" {print $1, $2}' $riboList | wc -l)
+	#U_riboCount=$(awk '$1 == "T" && $2 == "+" || $1 == "A" && $2 == "-" {print $1, $2}' $riboList | wc -l)
 
+	A_riboCount=$(awk '$1 == "A" {print $1, $2}' $riboList | wc -l)
+	C_riboCount=$(awk '$1 == "C" {print $1, $2}' $riboList | wc -l)
+	G_riboCount=$(awk '$1 == "G" {print $1, $2}' $riboList | wc -l)
+	U_riboCount=$(awk '$1 == "T" {print $1, $2}' $riboList | wc -l)
+	
 	#Calculate total number of rNMPs
 	total_riboCount=$(($A_riboCount+$C_riboCount+$G_riboCount+$U_riboCount))
 
