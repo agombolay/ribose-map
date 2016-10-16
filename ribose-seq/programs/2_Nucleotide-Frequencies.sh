@@ -142,7 +142,6 @@ for sample in ${sample[@]}; do
 	riboFrequencies=$output1/$sample.rNMP-frequencies.$reference.$subset.txt	
 
 	bedtools getfasta -s -fi $referenceFasta1 -bed $coordinates0 -fo $riboSequences1
-	#grep -v '>' $riboSequences1 > $riboSequences2
 	
 	#Select only reads located in nuclear DNA
 	if [ $subset == "nuclear" ]; then
@@ -155,6 +154,8 @@ for sample in ${sample[@]}; do
 		cat $riboSequences1 > $riboSequences2
 	fi
 
+	grep -v '>' riboSequences2 > temporary && mv temporary $riboSequences2
+	
 	A_riboCount=$(awk '$1 == "A" {print $1, $2}' $riboSequences2 | wc -l)
 	C_riboCount=$(awk '$1 == "C" {print $1, $2}' $riboSequences2 | wc -l)
 	G_riboCount=$(awk '$1 == "G" {print $1, $2}' $riboSequences2 | wc -l)
