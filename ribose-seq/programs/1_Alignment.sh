@@ -9,7 +9,7 @@
 #Usage statement of the program
 function usage () {
 	echo "Usage: 1_Alignment.sh [-i] 'FASTQ' [-b] 'Index' [-v] 'Bowtie Version' [-d] 'Directory' [-h]
-		-i Filepaths of input FASTQ files ('/path/to/*.fastq' etc.) 
+		-i Filepaths of input FASTQ files (/path/to/*.fastq etc.) 
 		-b Basename of Bowtie index to be searched (sacCer2, chrM, ecoli, hg38, etc.)
 		-v Version of Bowtie program to use (Version 1 = Bowtie1; Version 2 = Bowtie2)
 		-d Local directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
