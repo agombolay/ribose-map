@@ -173,7 +173,7 @@ for sample in ${sample[@]}; do
 	riboSequences2=$output1/rNMP-Sequences.txt
 	
 	bedtools getfasta -s -fi $referenceFasta1 -bed $coordinates0 -fo $riboSequences1
-	grep -v '>' $riboSequences > $riboSequences2
+	grep -v '>' $riboSequences1 > $riboSequences2
 
 	#Print only rNMPs (3' end of reads):
 	#rNMPs on positive strands (located at end of sequence)
