@@ -155,22 +155,23 @@ for sample in ${sample[@]}; do
 	#STEP 4: Calculate rNMP Frequencies
 
 	#Location of output files
-	riboList=$output1/$sample.rNMP-list.$reference.$subset.txt
+	#riboList=$output1/$sample.rNMP-list.$reference.$subset.txt
 	riboFrequencies=$output1/$sample.rNMP-frequencies.$reference.$subset.txt
 
 	#Select only reads located in nuclear DNA
 	#if [ $subset == "nuclear" ]; then
-		grep -v 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary
+		#grep -v 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary
 	#Select only reads located in mitochondrial DNA
 	#elif [ $subset == "chrM" ]; then
-    		grep 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary
+    		#grep 'chrM' $readCoordinates | awk -v "OFS=\t" '{print $4, $5}' - > temporary
 	#Select all reads located in genomic DNA
 	#else
-		awk -v "OFS=\t" '{print $6}' $readCoordinates > temporary
+		#awk -v "OFS=\t" '{print $6}' $readCoordinates > temporary
 	#fi
 	
-	riboSequences1=$output1/riboSequences.fasta
-	riboSequences2=$output1/riboSequences.txt
+	riboSequences1=$output1/rNMP-Sequences.fasta
+	riboSequences2=$output1/rNMP-Sequences.txt
+	
 	bedtools getfasta -s -fi $subset.fa -bed $coordinates0 -fo $riboSequences1
 	grep -v '>' $riboSequences > $riboSequences2
 
