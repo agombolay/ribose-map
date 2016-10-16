@@ -241,10 +241,11 @@ for sample in ${sample[@]}; do
 	#Remove temporary files
 	#rm -f temporary1 temporary2
 	
-	upstreamIntervals=$output3/$sample.upstream-intervals.bed
-	downstreamIntervals=$output3/$sample.downstream-intervals.bed
-	upstreamSequences=$output3/$sample.upstream-sequences.fa
-	downstreamSequences=$output3/$sample.downstream-sequences.fa
+	upstreamSequences=$output3/$sample.upstream-sequences.$reference.$subset.fa
+	upstreamIntervals=$output3/$sample.upstream-intervals.$reference.$subset.bed
+	
+	downstreamSequences=$output3/$sample.downstream-sequences.$reference.$subset.fa
+	downstreamIntervals=$output3/$sample.downstream-intervals.$reference.$subset.bed
 	
 	bedtools flank -i $coordinates0 -s -g $referenceBED -l 100 -r 0 > $upstreamIntervals
 	bedtools flank -i $coordinates0 -s -g $referenceBED -l 0 -r 100 > $downstreamIntervals
@@ -288,32 +289,32 @@ for sample in ${sample[@]}; do
 	fi
 				
 	#Reverse complement upstream/downstream sequences on negative strand
-	seqtk seq -r $output3/temporary1.negative.upstream > $output3/temporary2.negative.upstream
-	seqtk seq -r $output3/temporary1.negative.downstream > $output3/temporary2.negative.downstream
+	#seqtk seq -r $output3/temporary1.negative.upstream > $output3/temporary2.negative.upstream
+	#seqtk seq -r $output3/temporary1.negative.downstream > $output3/temporary2.negative.downstream
 
 	#Output only sequences in FASTA file (exclude all header lines)
-	grep -v '>' $output3/temporary1.positive.upstream > $output3/temporary2.positive.upstream
-	grep -v '>' $output3/temporary2.negative.upstream > $output3/temporary3.negative.upstream
-	grep -v '>' $output3/temporary1.positive.downstream > $output3/temporary2.positive.downstream
-	grep -v '>' $output3/temporary2.negative.downstream > $output3/temporary3.negative.downstream
+	#grep -v '>' $output3/temporary1.positive.upstream > $output3/temporary2.positive.upstream
+	#grep -v '>' $output3/temporary2.negative.upstream > $output3/temporary3.negative.upstream
+	#grep -v '>' $output3/temporary1.positive.downstream > $output3/temporary2.positive.downstream
+	#grep -v '>' $output3/temporary2.negative.downstream > $output3/temporary3.negative.downstream
 				
 	#Reverse upstream/downstream sequences on negative strand
-	cat $output3/temporary3.negative.upstream|rev > $output3/temporary4.negative.upstream
-	cat $output3/temporary2.positive.upstream|rev > $output3/temporary3.positive.upstream
+	#cat $output3/temporary3.negative.upstream|rev > $output3/temporary4.negative.upstream
+	#cat $output3/temporary2.positive.upstream|rev > $output3/temporary3.positive.upstream
 		
-	sequences1=$output6/$sample.upstream-sequences.$reference.$subset.txt
-	sequences2=$output7/$sample.downstream-sequences.$reference.$subset.txt
+	#sequences1=$output6/$sample.upstream-sequences.$reference.$subset.txt
+	#sequences2=$output7/$sample.downstream-sequences.$reference.$subset.txt
 				
 	#Combine upstream (+/-) and downstream (+/-) sequences into two files
-	cat $output3/temporary3.positive.upstream $output3/temporary4.negative.upstream > $sequences1
-	cat $output3/temporary2.positive.downstream $output3/temporary3.negative.downstream > $sequences2
+	#cat $output3/temporary3.positive.upstream $output3/temporary4.negative.upstream > $sequences1
+	#cat $output3/temporary2.positive.downstream $output3/temporary3.negative.downstream > $sequences2
 			
 	columns1=$output6/$sample.upstream-sequences.$reference.$subset.tab
 	columns2=$output7/$sample.downstream-sequences.$reference.$subset.tab
 				
 	#Insert tabs between each nucleotide
-	cat $sequences1 | sed 's/.../& /2g;s/./& /g' > $columns1
-	cat $sequences2 | sed 's/.../& /2g;s/./& /g' > $columns2
+	#cat $sequences1 | sed 's/.../& /2g;s/./& /g' > $columns1
+	#cat $sequences2 | sed 's/.../& /2g;s/./& /g' > $columns2
 
 	for i in {1..100}; do
 		#Location of output files
