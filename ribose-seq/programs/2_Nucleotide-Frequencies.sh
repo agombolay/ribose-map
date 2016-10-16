@@ -141,7 +141,7 @@ for sample in ${sample[@]}; do
 	riboSequences2=$output1/$sample.rNMP-Sequences.$reference.$subset.txt
 	riboFrequencies=$output1/$sample.rNMP-frequencies.$reference.$subset.txt	
 
-	bedtools getfasta -s -fi $referenceFasta1 -bed $coordinates0 -fo $riboSequences1
+	bedtools getfasta -s -fi $referenceFasta2 -bed $coordinates0 -fo $riboSequences1
 	
 	#Select only reads located in nuclear DNA
 	if [ $subset == "nuclear" ]; then
