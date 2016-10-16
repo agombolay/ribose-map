@@ -10,7 +10,7 @@ function usage () {
 	-i Sample name (FS1, etc.)
 	-s Subset of genome (sacCer2, nuclear, chrM, etc.)
 	-r Reference genome assembly version (sacCer2, etc.)
-	-d Local directory ('/projects/home/agombolay3/data/repository/Ribose-seq-Project')"
+	-d Local directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
 }
 
 #Use getopts function to create the command-line options ([-i], [-s], [-r], [-d], and [-h])
