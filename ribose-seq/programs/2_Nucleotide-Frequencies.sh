@@ -101,7 +101,7 @@ for sample in ${sample[@]}; do
 	#bedtools genomecov -3 -strand + -bg -ibam $bam > $positiveCoordinates0
 	#bedtools genomecov -3 -strand - -bg -ibam $bam > $negativeCoordinates0
 	bedtools genomecov -3 -bg -ibam $bam > $coordinates0
-	#paste $coordinates0 $bed | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $readCoordinates
+	paste $coordinates0 $bed | awk -v "OFS=\t" '{print $1, $2, $3, $4, $8, $10}' > temporary && mv temporary $coordinates0
 	
 	#1-BASED COORDINATES OF	rNMPs:
 	#Obtain coordinates of rNMPs (3’ end of aligned read):
