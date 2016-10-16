@@ -270,24 +270,24 @@ for sample in ${sample[@]}; do
 	
 	#Select only reads located in nuclear DNA
 	if [ $subset == "nuclear" ]; then
-		(grep -A 1 '>2micron' $positiveUpstreamSequences && grep -P -A 1 '>chr(?!M)' $positiveUpstreamSequences) > $output3/temporary1.positive.upstream
-		(grep -A 1 '>2micron' $negativeUpstreamSequences && grep -P -A 1 '>chr(?!M)' $positiveUpstreamSequences) > $output3/temporary1.negative.upstream
-		(grep -A 1 '>2micron' $positiveDownstreamSequences && grep -P -A 1 '>chr(?!M)' $positiveUpstreamSequences) > $output3/temporary1.positive.downstream
-		(grep -A 1 '>2micron' $negativeDownstreamSequences && grep -P -A 1 '>chr(?!M)' $positiveUpstreamSequences) > $output3/temporary1.negative.downstream
+		(grep -A 1 '>2micron' $upstreamSequences && grep -P -A 1 '>chr(?!M)' $upstreamSequences) > temporary1
+		(grep -A 1 '>2micron' $downstreamSequences && grep -P -A 1 '>chr(?!M)' $downstreamSequences) > temporary2
 	#Select only reads located in mitochondrial DNA
 	elif [ $subset == "chrM" ]; then
-		grep -A 1 '>chrM' $positiveUpstreamSequences > $output3/temporary1.positive.upstream
-		grep -A 1 '>chrM' $negativeUpstreamSequences > $output3/temporary1.negative.upstream
-		grep -A 1 '>chrM' $positiveDownstreamSequences > $output3/temporary1.positive.downstream
-		grep -A 1 '>chrM' $negativeDownstreamSequences > $output3/temporary1.negative.downstream
+		grep -A 1 '>chrM' $upstreamSequences > temporary1
+		grep -A 1 '>chrM' $downstreamSequences > temporary2
 	#Select all reads located in genomic DNA
 	else
-		cat $positiveUpstreamSequences > $output3/temporary1.positive.upstream
-		cat $negativeUpstreamSequences > $output3/temporary1.negative.upstream
-		cat $positiveDownstreamSequences > $output3/temporary1.positive.downstream
-		cat $negativeDownstreamSequences > $output3/temporary1.negative.downstream
+		cat $upstreamSequences > temporary1
+		cat $downstreamSequences > temporary2
 	fi
-				
+			
+	sequences1=$output6/$sample.upstream-sequences.$reference.$subset.txt
+	sequences2=$output7/$sample.downstream-sequences.$reference.$subset.txt
+	
+	grep -v '>' temporary1 > $sequences1
+	grep -v '>' temporary1 > $sequences2
+	
 	#Reverse complement upstream/downstream sequences on negative strand
 	#seqtk seq -r $output3/temporary1.negative.upstream > $output3/temporary2.negative.upstream
 	#seqtk seq -r $output3/temporary1.negative.downstream > $output3/temporary2.negative.downstream
@@ -313,8 +313,8 @@ for sample in ${sample[@]}; do
 	columns2=$output7/$sample.downstream-sequences.$reference.$subset.tab
 				
 	#Insert tabs between each nucleotide
-	#cat $sequences1 | sed 's/.../& /2g;s/./& /g' > $columns1
-	#cat $sequences2 | sed 's/.../& /2g;s/./& /g' > $columns2
+	cat $sequences1 | sed 's/.../& /2g;s/./& /g' > $columns1
+	cat $sequences2 | sed 's/.../& /2g;s/./& /g' > $columns2
 
 	for i in {1..100}; do
 		#Location of output files
