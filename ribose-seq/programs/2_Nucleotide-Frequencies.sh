@@ -85,13 +85,13 @@ for sample in ${sample[@]}; do
 	bedtools bamtobed -i $bam > $bed
 	
 	#Extract aligned read coordinates, sequences, and strands from BED and SAM files
-	#paste $bed $fasta | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $readCoordinates
+	paste $bed $fasta | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $readCoordinates
 	
 	#0-BASED COORDINATES OF rNMPs:
 	#Obtain coordinates of rNMPs (3’ end of aligned read):
-	bedtools genomecov -3 -bg -ibam $bam > $coordinates0
+	#bedtools genomecov -3 -bg -ibam $bam > $coordinates0
 	
-	paste $coordinates0 $bed | awk -v "OFS=\t" '{print $1, $2, $3, $4, $8, $10}' > temporary
+	#paste $coordinates0 $bed | awk -v "OFS=\t" '{print $1, $2, $3, $4, $8, $10}' > temporary
 	#&& mv temporary $coordinates0
 	
 
@@ -144,7 +144,7 @@ for sample in ${sample[@]}; do
 
 	referenceFasta2=$directory0/$reference.fa
 
-	bedtools getfasta -s -fi $referenceFasta2 -bed $coordinates0 -fo $riboSequences1
+	#bedtools getfasta -s -fi $referenceFasta2 -bed $coordinates0 -fo $riboSequences1
 	
 	#Select only reads located in nuclear DNA
 	if [ $subset == "nuclear" ]; then
@@ -158,6 +158,8 @@ for sample in ${sample[@]}; do
 	fi
 
 	grep -v '>' $riboSequences2 > temporary && mv temporary $riboSequences2
+	
+	#awk '$2 == "+" {print substr($0,length($0)-2)}' temporary > $riboList
 	
 	A_riboCount=$(awk '$1 == "A"' $riboSequences2 | wc -l)
 	C_riboCount=$(awk '$1 == "C"' $riboSequences2 | wc -l)
