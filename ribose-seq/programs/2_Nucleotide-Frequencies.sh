@@ -143,13 +143,13 @@ for sample in ${sample[@]}; do
 	
 	#Select only reads located in nuclear DNA
 	if [ $subset == "nuclear" ]; then
-		grep -v 'chrM' $readCoordinates > temporary
+		grep -v 'chrM' $readInformation > temporary
 	#Select only reads located in mitochondrial DNA
 	elif [ $subset == "chrM" ]; then
-		grep 'chrM' $readCoordinates > temporary
+		grep 'chrM' $readInformation > temporary
 	#Select all reads located in genomic DNA
 	else
-		cat $readCoordinates > temporary
+		cat $readInformation > temporary
 	fi
 	
 	awk '$2 == "+" {print substr($0,length($0)-2)}' temporary > $riboSequences
