@@ -159,7 +159,7 @@ for sample in ${sample[@]}; do
 	#Select only reads located in mitochondrial DNA
 	elif [ $subset == "chrM" ]; then
 		grep 'chrM' $readInformation > temporary
-	Select all reads located in genomic DNA
+	#Select all reads located in genomic DNA
 	else
 		cat $readInformation > temporary
 	fi
