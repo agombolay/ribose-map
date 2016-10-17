@@ -79,18 +79,22 @@ for sample in ${sample[@]}; do
 	bed=$output1/$sample.aligned-reads.bed
 	readCoordinates=$output1/$sample.read-coordinates.bed
 	readInformation=$output1/$sample.read-information.bed
+	riboCoverage=$output1/$sample.rNMP-coverage.0-based.txt
 	coordinates0=$output1/$sample.rNMP-coordinates.0-based.txt
 	
 	#0-BASED COORDINATES of READS:
 	#Covert BAM file to BED format
 	bedtools bamtobed -i $bam > $bed
 	
-	bedtools genomecov -3 -bg -ibam $bam > $coordinates0
+	bedtools genomecov -3 -bg -ibam $bam > $riboCoverage
 	
 	#Extract aligned read coordinates, sequences, and strands from BED and SAM files
-	paste $bed $fasta | awk -v "OFS=\t" '{print $1, $2, $3}' > $readCoordinates
 	paste $bed $fasta | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $readInformation
-
+	
+	awk '$5 == "+" {print ($3 - 1), $3}' $readInformation > temporary1
+	awk '$5 == "-" {print $2, ($2 + 1)}' $readInformation > temporary2
+	cat temporary1 temporary2 > $coordinates0
+	
 ##########################################################################################################################################
 	#STEP 3: Calculate background dNTP frequencies of reference genome
 
