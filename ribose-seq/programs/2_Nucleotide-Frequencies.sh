@@ -86,14 +86,6 @@ for sample in ${sample[@]}; do
 	
 	#Extract aligned read coordinates, sequences, and strands from BED and SAM files
 	paste $bed $fasta | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $readCoordinates
-	
-	#0-BASED COORDINATES OF rNMPs:
-	#Obtain coordinates of rNMPs (3’ end of aligned read):
-	#bedtools genomecov -3 -bg -ibam $bam > $coordinates0
-	
-	#paste $coordinates0 $bed | awk -v "OFS=\t" '{print $1, $2, $3, $4, $8, $10}' > temporary
-	#&& mv temporary $coordinates0
-	
 
 ##########################################################################################################################################
 	#STEP 3: Calculate background dNTP frequencies of reference genome
@@ -138,33 +130,28 @@ for sample in ${sample[@]}; do
 	#STEP 4: Calculate rNMP Frequencies
 
 	#Location of output files
-	riboSequences1=$output1/$sample.rNMP-Sequences.$reference.$subset.fa
-	riboSequences2=$output1/$sample.rNMP-Sequences.$reference.$subset.txt
+	riboSequences=$output1/$sample.rNMP-Sequences.$reference.$subset.txt
 	riboFrequencies=$output1/$sample.rNMP-frequencies.$reference.$subset.txt	
 
 	referenceFasta2=$directory0/$reference.fa
-
-	#bedtools getfasta -s -fi $referenceFasta2 -bed $coordinates0 -fo $riboSequences1
 	
 	#Select only reads located in nuclear DNA
 	if [ $subset == "nuclear" ]; then
-		(grep -A 1 '>2micron' $riboSequences1 && grep -P -A 1 '>chr(?!M)' $riboSequences1) > $riboSequences2
+		grep -v 'chrM' $readCoordinates > temporary
 	#Select only reads located in mitochondrial DNA
 	elif [ $subset == "chrM" ]; then
-		grep -A 1 '>chrM' $riboSequences1 > $riboSequences2
+		grep 'chrM' $readCoordinates > temporary
 	#Select all reads located in genomic DNA
 	else
-		cat $riboSequences1 > $riboSequences2
+		cat $readCoordinates > temporary
 	fi
-
-	grep -v '>' $riboSequences2 > temporary && mv temporary $riboSequences2
 	
-	#awk '$2 == "+" {print substr($0,length($0)-2)}' temporary > $riboList
+	awk '$2 == "+" {print substr($0,length($0)-2)}' temporary > $riboSequences
 	
-	A_riboCount=$(awk '$1 == "A"' $riboSequences2 | wc -l)
-	C_riboCount=$(awk '$1 == "C"' $riboSequences2 | wc -l)
-	G_riboCount=$(awk '$1 == "G"' $riboSequences2 | wc -l)
-	U_riboCount=$(awk '$1 == "T"' $riboSequences2 | wc -l)
+	A_riboCount=$(awk '$1 == "A"' $riboSequences | wc -l)
+	C_riboCount=$(awk '$1 == "C"' $riboSequences | wc -l)
+	G_riboCount=$(awk '$1 == "G"' $riboSequences | wc -l)
+	U_riboCount=$(awk '$1 == "T"' $riboSequences | wc -l)
 	
 	#Calculate total number of rNMPs
 	total_riboCount=$(($A_riboCount+$C_riboCount+$G_riboCount+$U_riboCount))
