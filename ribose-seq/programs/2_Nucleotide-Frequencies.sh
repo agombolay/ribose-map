@@ -91,8 +91,8 @@ for sample in ${sample[@]}; do
 	#Extract aligned read coordinates, sequences, and strands from BED and SAM files
 	paste $bed $fasta | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $readInformation
 	
-	awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3}' $readInformation > sunny1
-	awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1)}' $readInformation > sunny2
+	awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, $5}' $readInformation > sunny1
+	awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), $5}' $readInformation > sunny2
 	cat sunny1 sunny2 > $coordinates0
 	
 ##########################################################################################################################################
