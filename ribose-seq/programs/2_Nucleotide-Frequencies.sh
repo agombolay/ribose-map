@@ -152,7 +152,7 @@ for sample in ${sample[@]}; do
 		cat $readInformation > temporary
 	fi
 	
-	awk '$2 == "+" {print substr($0,length($0)-2)}' temporary > $riboSequences
+	awk '{print substr($0,length($0))}' temporary > $riboSequences
 	
 	A_riboCount=$(awk '$1 == "A"' $riboSequences | wc -l)
 	C_riboCount=$(awk '$1 == "C"' $riboSequences | wc -l)
