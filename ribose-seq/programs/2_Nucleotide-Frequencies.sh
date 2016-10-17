@@ -202,54 +202,6 @@ for sample in ${sample[@]}; do
 	#Create directory if it does not already exist
     	mkdir -p $output3
 
-	#Location of output files
-	#coordinates=$output1/$sample.rNMP-coordinates.bed
-	
-	#positiveCoordinates=$output1/$sample.rNMP-coordinates.positive.bed
-	#negativeCoordinates=$output1/$sample.rNMP-coordinates.negative.bed
-	
-	#positiveUpstreamIntervals=$output3/$sample.upstream-intervals.positive.bed
-	#negativeUpstreamIntervals=$output3/$sample.upstream-intervals.negative.bed
-	#positiveDownstreamIntervals=$output3/$sample.downstream-intervals.positive.bed
-	#negativeDownstreamIntervals=$output3/$sample.downstream-intervals.negative.bed
-	
-	#positiveUpstreamSequences=$output3/$sample.upstream-sequences.positive.fa
-	#negativeUpstreamSequences=$output3/$sample.upstream-sequences.negative.fa
-	#positiveDownstreamSequences=$output3/$sample.downstream-sequences.positive.fa
-	#negativeDownstreamSequences=$output3/$sample.downstream-sequences.negative.fa
-		
-	#Obtain positions of rNMPs (3’ end of aligned reads)
-	#bedtools genomecov -3 -bg -ibam $bam > temporary1
-
-	#Print only columns containing coordinates (eliminate column containing coverage values)
-	#awk -v "OFS=\t" '{print $1, $2, $3}' temporary1 > temporary2
-
-	#Combine rNMP coordiantes with strand information in tabular format (i.e., 2micron 94 95 +)
-	#paste temporary2 $readCoordinates | awk -v "OFS=\t" '{print $1, $2, $3, $8}' > $coordinates
-	
-	#awk -v "OFS=\t" '$4 == "+" {print $1, $2, $3, $4}' $coordinates > $positiveCoordinates
-	#awk -v "OFS=\t" '$4 == "-" {print $1, $2, $3, $4}' $coordinates > $negativeCoordinates
-	
-	#Obtain coordinates of dNTPs located 100 bp upstream from rNMPs:
-	#Note: For positive strands, left = upstream. For negative strands, right = upstream
-	#bedtools flank -i $positiveCoordinates -g $referenceBED -l 100 -r 0 > $positiveUpstreamIntervals
-	#bedtools flank -i $negativeCoordinates -g $referenceBED -l 0 -r 100 > $negativeUpstreamIntervals
-	
-	#Obtain coordinates of dNTPs located 100 bp downstream from rNMPs:
-	#Note: For positive strands, right = downstream. For negative strands, left = downstream
-	#bedtools flank -i $positiveCoordinates -g $referenceBED -l 0 -r 100 > $positiveDownstreamIntervals
-	#bedtools flank -i $negativeCoordinates -g $referenceBED -l 100 -r 0 > $negativeDownstreamIntervals
-
-	#Obtain sequences of dNTPs located 100 bp upstream from rNMPs:
-	#bedtools getfasta -fi $referenceFasta2 -bed $positiveUpstreamIntervals -fo $positiveUpstreamSequences
-	#bedtools getfasta -fi $referenceFasta2 -bed $negativeUpstreamIntervals -fo $negativeUpstreamSequences
-	
-	#Obtain sequences of dNTPs located 100 bp downstream from rNMPs:
-	#bedtools getfasta -fi $referenceFasta2 -bed $positiveDownstreamIntervals -fo $positiveDownstreamSequences
-	#bedtools getfasta -fi $referenceFasta2 -bed $negativeDownstreamIntervals -fo $negativeDownstreamSequences
-
-	#Remove temporary files
-	#rm -f temporary1 temporary2
 	referenceFasta2=$directory0/$reference.fa
 
 	upstreamSequences=$output3/$sample.upstream-sequences.$reference.$subset.fa
@@ -278,20 +230,6 @@ for sample in ${sample[@]}; do
 	
 	#Remove previously created files so new files are created
 	rm -f $output4/*.txt $output5/*.txt $output6/*.txt $output7/*.txt
-	
-	#Select only reads located in nuclear DNA
-	#if [ $subset == "nuclear" ]; then
-	#	(grep -A 1 '>2micron' $upstreamSequences && grep -P -A 1 '>chr(?!M)' $upstreamSequences) > temporary1
-	#	(grep -A 1 '>2micron' $downstreamSequences && grep -P -A 1 '>chr(?!M)' $downstreamSequences) > temporary2
-	#Select only reads located in mitochondrial DNA
-	#elif [ $subset == "chrM" ]; then
-	#	grep -A 1 '>chrM' $upstreamSequences > temporary1
-	#	grep -A 1 '>chrM' $downstreamSequences > temporary2
-	#Select all reads located in genomic DNA
-	#else
-	#	cat $upstreamSequences > temporary1
-	#	cat $downstreamSequences > temporary2
-	#fi
 			
 	sequences1=$output6/$sample.upstream-sequences.$reference.$subset.txt
 	sequences2=$output7/$sample.downstream-sequences.$reference.$subset.txt
@@ -299,27 +237,6 @@ for sample in ${sample[@]}; do
 	grep -v '>' $upstreamSequences > $sequences1
 	grep -v '>' $downstreamSequences > $sequences2
 	
-	#Reverse complement upstream/downstream sequences on negative strand
-	#seqtk seq -r $output3/temporary1.negative.upstream > $output3/temporary2.negative.upstream
-	#seqtk seq -r $output3/temporary1.negative.downstream > $output3/temporary2.negative.downstream
-
-	#Output only sequences in FASTA file (exclude all header lines)
-	#grep -v '>' $output3/temporary1.positive.upstream > $output3/temporary2.positive.upstream
-	#grep -v '>' $output3/temporary2.negative.upstream > $output3/temporary3.negative.upstream
-	#grep -v '>' $output3/temporary1.positive.downstream > $output3/temporary2.positive.downstream
-	#grep -v '>' $output3/temporary2.negative.downstream > $output3/temporary3.negative.downstream
-				
-	#Reverse upstream/downstream sequences on negative strand
-	#cat $output3/temporary3.negative.upstream|rev > $output3/temporary4.negative.upstream
-	#cat $output3/temporary2.positive.upstream|rev > $output3/temporary3.positive.upstream
-		
-	#sequences1=$output6/$sample.upstream-sequences.$reference.$subset.txt
-	#sequences2=$output7/$sample.downstream-sequences.$reference.$subset.txt
-				
-	#Combine upstream (+/-) and downstream (+/-) sequences into two files
-	#cat $output3/temporary3.positive.upstream $output3/temporary4.negative.upstream > $sequences1
-	#cat $output3/temporary2.positive.downstream $output3/temporary3.negative.downstream > $sequences2
-			
 	columns1=$output6/$sample.upstream-sequences.$reference.$subset.tab
 	columns2=$output7/$sample.downstream-sequences.$reference.$subset.tab
 				
@@ -442,10 +359,6 @@ for sample in ${sample[@]}; do
 ##########################################################################################################################################
 	#STEP 8: Create dataset file containing nucleotide frequencies needed for plotting
 
-	#Location of input files
-	#upstreamBaseFrequencies=$output8/$sample.dNTP-frequencies.$reference.$subset.upstream.txt
-	#downstreamBaseFrequencies=$output8/$sample.dNTP-frequencies.$reference.$subset.downstream.txt
-	
 	#Location of output directory
 	output9=$directory2/Datasets/$subset
 
