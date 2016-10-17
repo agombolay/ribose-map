@@ -142,6 +142,8 @@ for sample in ${sample[@]}; do
 	riboSequences2=$output1/$sample.rNMP-Sequences.$reference.$subset.txt
 	riboFrequencies=$output1/$sample.rNMP-frequencies.$reference.$subset.txt	
 
+	referenceFasta2=$directory0/$reference.fa
+
 	bedtools getfasta -s -fi $referenceFasta2 -bed $coordinates0 -fo $riboSequences1
 	
 	#Select only reads located in nuclear DNA
@@ -185,7 +187,7 @@ for sample in ${sample[@]}; do
 
 	#Location of input files
 	referenceBED=$directory0/$reference.bed
-	referenceFasta2=$directory0/$reference.fa
+	#referenceFasta2=$directory0/$reference.fa
 
 	#Location of output directory
 	output3=$directory2/dNTPs/$subset
