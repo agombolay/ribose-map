@@ -81,6 +81,7 @@ for sample in ${sample[@]}; do
 	readInformation=$output1/$sample.read-information.bed
 	riboCoverage=$output1/$sample.rNMP-coverage.0-based.txt
 	coordinates0=$output1/$sample.rNMP-coordinates.0-based.txt
+	coordinates0Subset=$output1/$sample.rNMP-coordinates.0-based.subset.txt
 	
 	#0-BASED COORDINATES of READS:
 	#Covert BAM file to BED format
@@ -94,6 +95,17 @@ for sample in ${sample[@]}; do
 	awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $readInformation > sunny1
 	awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $readInformation > sunny2
 	cat sunny1 sunny2 > $coordinates0
+	
+	#Select only reads located in nuclear DNA
+	if [ $subset == "nuclear" ]; then
+		grep -v 'chrM' $coordinates0 > coordinates0Subset
+	#Select only reads located in mitochondrial DNA
+	elif [ $subset == "chrM" ]; then
+		grep 'chrM' $coordinates0 > coordinates0Subset
+	#Select all reads located in genomic DNA
+	else
+		cat $coordinates0 > coordinates0Subset
+	fi
 	
 ##########################################################################################################################################
 	#STEP 3: Calculate background dNTP frequencies of reference genome
@@ -147,7 +159,7 @@ for sample in ${sample[@]}; do
 	#Select only reads located in mitochondrial DNA
 	elif [ $subset == "chrM" ]; then
 		grep 'chrM' $readInformation > temporary
-	#Select all reads located in genomic DNA
+	Select all reads located in genomic DNA
 	else
 		cat $readInformation > temporary
 	fi
@@ -246,8 +258,8 @@ for sample in ${sample[@]}; do
 	downstreamSequences=$output3/$sample.downstream-sequences.$reference.$subset.fa
 	downstreamIntervals=$output3/$sample.downstream-intervals.$reference.$subset.bed
 	
-	bedtools flank -i $coordinates0 -s -g $referenceBED -l 100 -r 0 > $upstreamIntervals
-	bedtools flank -i $coordinates0 -s -g $referenceBED -l 0 -r 100 > $downstreamIntervals
+	bedtools flank -i $coordinates0Subset -s -g $referenceBED -l 100 -r 0 > $upstreamIntervals
+	bedtools flank -i $coordinates0Subset -s -g $referenceBED -l 0 -r 100 > $downstreamIntervals
 
 	bedtools getfasta -s -fi $referenceFasta2 -bed $upstreamIntervals -fo $upstreamSequences
 	bedtools getfasta -s -fi $referenceFasta2 -bed $upstreamIntervals -fo $downstreamSequences
@@ -268,24 +280,24 @@ for sample in ${sample[@]}; do
 	rm -f $output4/*.txt $output5/*.txt $output6/*.txt $output7/*.txt
 	
 	#Select only reads located in nuclear DNA
-	if [ $subset == "nuclear" ]; then
-		(grep -A 1 '>2micron' $upstreamSequences && grep -P -A 1 '>chr(?!M)' $upstreamSequences) > temporary1
-		(grep -A 1 '>2micron' $downstreamSequences && grep -P -A 1 '>chr(?!M)' $downstreamSequences) > temporary2
+	#if [ $subset == "nuclear" ]; then
+	#	(grep -A 1 '>2micron' $upstreamSequences && grep -P -A 1 '>chr(?!M)' $upstreamSequences) > temporary1
+	#	(grep -A 1 '>2micron' $downstreamSequences && grep -P -A 1 '>chr(?!M)' $downstreamSequences) > temporary2
 	#Select only reads located in mitochondrial DNA
-	elif [ $subset == "chrM" ]; then
-		grep -A 1 '>chrM' $upstreamSequences > temporary1
-		grep -A 1 '>chrM' $downstreamSequences > temporary2
+	#elif [ $subset == "chrM" ]; then
+	#	grep -A 1 '>chrM' $upstreamSequences > temporary1
+	#	grep -A 1 '>chrM' $downstreamSequences > temporary2
 	#Select all reads located in genomic DNA
-	else
-		cat $upstreamSequences > temporary1
-		cat $downstreamSequences > temporary2
-	fi
+	#else
+	#	cat $upstreamSequences > temporary1
+	#	cat $downstreamSequences > temporary2
+	#fi
 			
 	sequences1=$output6/$sample.upstream-sequences.$reference.$subset.txt
 	sequences2=$output7/$sample.downstream-sequences.$reference.$subset.txt
 	
-	grep -v '>' temporary1 > $sequences1
-	grep -v '>' temporary2 > $sequences2
+	grep -v '>' $upstreamSequences > $sequences1
+	grep -v '>' $downstreamSequences > $sequences2
 	
 	#Reverse complement upstream/downstream sequences on negative strand
 	#seqtk seq -r $output3/temporary1.negative.upstream > $output3/temporary2.negative.upstream
