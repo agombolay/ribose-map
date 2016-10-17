@@ -84,6 +84,8 @@ for sample in ${sample[@]}; do
 	#Covert BAM file to BED format
 	bedtools bamtobed -i $bam > $bed
 	
+	bedtools genomecov -3 -bg -ibam $bam > $coordinates0
+	
 	#Extract aligned read coordinates, sequences, and strands from BED and SAM files
 	paste $bed $fasta | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $readCoordinates
 
