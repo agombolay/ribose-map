@@ -93,6 +93,7 @@ for sample in ${sample[@]}; do
 	
 	paste $coordinates0 $bed | awk -v "OFS=\t" '{print $1, $2, $3, $4, $8, $10}' > temporary \
 	&& mv temporary $coordinates0
+	
 
 ##########################################################################################################################################
 	#STEP 3: Calculate background dNTP frequencies of reference genome
