@@ -98,13 +98,13 @@ for sample in ${sample[@]}; do
 	
 	#Select only reads located in nuclear DNA
 	if [ $subset == "nuclear" ]; then
-		grep -v 'chrM' $coordinates0 > coordinates0Subset
+		grep -v 'chrM' $coordinates0 > $coordinates0Subset
 	#Select only reads located in mitochondrial DNA
 	elif [ $subset == "chrM" ]; then
-		grep 'chrM' $coordinates0 > coordinates0Subset
+		grep 'chrM' $coordinates0 > $coordinates0Subset
 	#Select all reads located in genomic DNA
 	else
-		cat $coordinates0 > coordinates0Subset
+		cat $coordinates0 > $coordinates0Subset
 	fi
 	
 ##########################################################################################################################################
