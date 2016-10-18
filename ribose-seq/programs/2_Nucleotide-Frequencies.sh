@@ -92,17 +92,20 @@ for sample in ${sample[@]}; do
 	#Extract aligned read coordinates, sequences, and strands from BED and SAM files
 	paste $bed $fasta | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $readInformation
 	
-	awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $readInformation > sunny1
-	awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $readInformation > sunny2
-	cat sunny1 sunny2 > $coordinates0
+	#Determine rNMP coordinates from reads aligned to positive strand
+	awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $readInformation > positive-reads.txt
 	
-	#Select only reads located in nuclear DNA
+	#Determine rNMP coordinates from reads aligned to negative strand
+	awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $readInformation > negative-reads.txt
+	cat positive-reads.txt negative-reads.txt > $coordinates0
+	
+	#Select only rNMP coordinates located in nuclear DNA
 	if [ $subset == "nuclear" ]; then
 		grep -v 'chrM' $coordinates0 > $coordinates0Subset
-	#Select only reads located in mitochondrial DNA
+	#Select only rNMP coordinates located in mitochondrial DNA
 	elif [ $subset == "chrM" ]; then
 		grep 'chrM' $coordinates0 > $coordinates0Subset
-	#Select all reads located in genomic DNA
+	#Select all rNMP coordinates located in genomic DNA
 	else
 		cat $coordinates0 > $coordinates0Subset
 	fi
@@ -164,8 +167,10 @@ for sample in ${sample[@]}; do
 		cat $readInformation > temporary
 	fi
 	
+	#Extract rNMP sequences from 3' end of aligned reads
 	awk '{print substr($0,length($0))}' temporary > $riboSequences
 	
+	#Calculate counts of rNMPs
 	A_riboCount=$(awk '$1 == "A"' $riboSequences | wc -l)
 	C_riboCount=$(awk '$1 == "C"' $riboSequences | wc -l)
 	G_riboCount=$(awk '$1 == "G"' $riboSequences | wc -l)
@@ -194,7 +199,7 @@ for sample in ${sample[@]}; do
 
 	#Location of input files
 	referenceBED=$directory0/$reference.bed
-	#referenceFasta2=$directory0/$reference.fa
+	referenceFasta2=$directory0/$reference.fa
 
 	#Location of output directory
 	output3=$directory2/dNTPs/$subset
@@ -202,17 +207,17 @@ for sample in ${sample[@]}; do
 	#Create directory if it does not already exist
     	mkdir -p $output3
 
-	referenceFasta2=$directory0/$reference.fa
-
+	#Location of output files
 	upstreamSequences=$output3/$sample.upstream-sequences.$reference.$subset.fa
 	upstreamIntervals=$output3/$sample.upstream-intervals.$reference.$subset.bed
-	
 	downstreamSequences=$output3/$sample.downstream-sequences.$reference.$subset.fa
 	downstreamIntervals=$output3/$sample.downstream-intervals.$reference.$subset.bed
 	
+	#Obtain coordinates of upstream/downstream sequences based on rNMP coordinates
 	bedtools flank -i $coordinates0Subset -s -g $referenceBED -l 100 -r 0 > $upstreamIntervals
 	bedtools flank -i $coordinates0Subset -s -g $referenceBED -l 0 -r 100 > $downstreamIntervals
 
+	#Obtain sequences of upstream/downstream coordinates
 	bedtools getfasta -s -fi $referenceFasta2 -bed $upstreamIntervals -fo $upstreamSequences
 	bedtools getfasta -s -fi $referenceFasta2 -bed $downstreamIntervals -fo $downstreamSequences
 
