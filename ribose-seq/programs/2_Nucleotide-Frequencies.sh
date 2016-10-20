@@ -242,6 +242,8 @@ for sample in ${sample[@]}; do
 	grep -v '>' $upstreamSequences > $sequences1
 	grep -v '>' $downstreamSequences > $sequences2
 	
+	cat $sequences1|rev > temporary && mv temporary $sequences1
+	
 	columns1=$output6/$sample.upstream-sequences.$reference.$subset.tab
 	columns2=$output7/$sample.downstream-sequences.$reference.$subset.tab
 				
