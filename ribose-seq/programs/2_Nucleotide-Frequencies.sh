@@ -238,11 +238,12 @@ for sample in ${sample[@]}; do
 			
 	sequences1=$output6/$sample.upstream-sequences.$reference.$subset.txt
 	sequences2=$output7/$sample.downstream-sequences.$reference.$subset.txt
+	sequences1Reversed=$output6/$sample.upstream-sequences.$reference.$subset.reversed.txt
 	
 	grep -v '>' $upstreamSequences > $sequences1
 	grep -v '>' $downstreamSequences > $sequences2
 	
-	cat $sequences1|rev > temporary && mv temporary $sequences1
+	cat $sequences1|rev > $sequences1Reversed
 	
 	columns1=$output6/$sample.upstream-sequences.$reference.$subset.tab
 	columns2=$output7/$sample.downstream-sequences.$reference.$subset.tab
