@@ -249,7 +249,7 @@ for sample in ${sample[@]}; do
 	columns2=$output7/$sample.downstream-sequences.$reference.$subset.tab
 				
 	#Insert tabs between each nucleotide
-	cat $sequences1 | sed 's/.../& /2g;s/./& /g' > $columns1
+	cat $sequences1Reversed | sed 's/.../& /2g;s/./& /g' > $columns1
 	cat $sequences2 | sed 's/.../& /2g;s/./& /g' > $columns2
 
 	for i in {1..2}; do
