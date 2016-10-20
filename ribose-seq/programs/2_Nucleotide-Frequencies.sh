@@ -194,6 +194,7 @@ for sample in ${sample[@]}; do
 	#Save normalized frequencies of rNMPs to TXT file
 	echo -e "$A_riboFrequency\t$C_riboFrequency\t$G_riboFrequency\t$U_riboFrequency" > $riboFrequencies
 
+	rm temporary
 ##########################################################################################################################################
 	#STEP 5: Obtain coordinates and sequences of +/- 100 downstream/upstream dNTPs from rNMPs
 
