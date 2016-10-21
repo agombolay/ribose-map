@@ -332,7 +332,7 @@ for sample in ${sample[@]}; do
 	downstreamFrequencies=$output8/$sample.dNTP-frequencies.$reference.$subset.downstream.txt
 	
 	#Calculate dNTP frequencies for each 100 downstream position
-	for file in $directory2/dNTPs/$subset/Columns/downstream/$sample*.txt; do
+	for file in `ls -v $directory2/dNTPs/$subset/Columns/downstream/$sample*.txt`; do
 
 		#Calculate count of each dNTP
 		A_downstreamCount=$(grep -v '>' $file | grep -o 'A' - | wc -l)
