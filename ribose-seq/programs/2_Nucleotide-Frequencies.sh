@@ -216,8 +216,8 @@ for sample in ${sample[@]}; do
 	downstreamIntervals=$output3/$sample.downstream-intervals.$reference.$subset.bed
 	
 	#Obtain coordinates of upstream/downstream sequences based on rNMP coordinates
-	bedtools flank -i $coordinates0Subset -s -g $referenceBED -l 10 -r 0 > $upstreamIntervals
-	bedtools flank -i $coordinates0Subset -s -g $referenceBED -l 0 -r 10 > $downstreamIntervals
+	bedtools flank -i $coordinates0Subset -s -g $referenceBED -l 9 -r 0 > $upstreamIntervals
+	bedtools flank -i $coordinates0Subset -s -g $referenceBED -l 0 -r 9 > $downstreamIntervals
 
 	#Obtain sequences of upstream/downstream coordinates
 	bedtools getfasta -s -fi $referenceFasta2 -bed $upstreamIntervals -fo $upstreamSequences
@@ -254,7 +254,7 @@ for sample in ${sample[@]}; do
 	cat $sequences1Reversed | sed 's/.../& /2g;s/./& /g' > $columns1
 	cat $sequences2 | sed 's/.../& /2g;s/./& /g' > $columns2
 
-	for i in {1..10}; do
+	for i in {1..9}; do
 		#Location of output files
 		lists1=$output4/$sample.column.$i.upstream.$reference.$subset.txt
 		lists2=$output5/$sample.column.$i.downstream.$reference.$subset.txt
@@ -382,7 +382,7 @@ for sample in ${sample[@]}; do
 	rm -f $output9/*.txt
 	
 	#Print values -100 to 100
-	seq -10 1 10 > temporary1
+	seq -9 1 9 > temporary1
 	
 	#Save files containing rNMP and upstream/downstream dNTP frequencies to one file
 	cat $upstreamFrequencies $riboFrequencies $downstreamFrequencies >> temporary2
