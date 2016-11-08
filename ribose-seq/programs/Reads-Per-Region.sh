@@ -56,6 +56,7 @@ do
 	#Select only chromosomes of interest (Remove reads that align to unidentified regions of genome)
 	grep -v 'chr[a-zA-Z0-9]\+_[a-zA-Z0-9]\+' temporary.txt | grep -v '*' | grep -v 'chrEBV' > $output
 	
+	cat $output | awk '{sum+=$2} END{print "Total=",sum}'
 	grep -v 'chrM' $output | awk '{sum+=$2} END{print "Nuclear=",sum}'
 	grep 'chrM' $output | awk '{sum+=$2} END{print "Mitochondria=",sum}'
 
