@@ -51,18 +51,18 @@ do
 	output=$inputDirectory/$samples.Reads-Per-Region.txt
 
 	#Extract number of reads per chromosome and save output
-	samtools idxstats $input | cut -f 1,3
+	samtools idxstats $input | cut -f 1,3 > $output
 	
 	#Select only chromosomes of interest (Remove reads that align to unidentified regions of genome)
 	#grep -v 'chr[a-zA-Z0-9]\+_[a-zA-Z0-9]\+' temporary.txt | grep -v '*' | grep -v 'chrEBV' > $output
 	
 	#Calculate total number of reads in genome
-	#cat $output | awk '{sum+=$2} END{print "Total =",sum}'
+	cat $output | awk '{sum+=$2} END{print "Total =",sum}'
 	
 	#Calculate number of reads that align to chromosomes
-	#grep -v 'chrM' $output | awk '{sum+=$2} END{print "Nuclear =",sum}'
+	grep -v 'chrM' $output | awk '{sum+=$2} END{print "Nuclear =",sum}'
 	
 	#Calculate number of reads that align to mitochondria
-	#grep 'chrM' $output | awk '{sum+=$2} END{print "Mitochondria =",sum}'
+	grep 'chrM' $output | awk '{sum+=$2} END{print "Mitochondria =",sum}'
 	
 done
