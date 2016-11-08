@@ -51,7 +51,7 @@ do
 	output=$inputDirectory/$samples.Reads-Per-Region.txt
 
 	#Extract number of reads per chromosome and save output
-	samtools idxstats $input | cut -f 1,3 > $output
+	samtools idxstats $input | cut -f 1,3
 	
 	#Select only chromosomes of interest (Remove reads that align to unidentified regions of genome)
 	#grep -v 'chr[a-zA-Z0-9]\+_[a-zA-Z0-9]\+' temporary.txt | grep -v '*' | grep -v 'chrEBV' > $output
@@ -66,6 +66,3 @@ do
 	#grep 'chrM' $output | awk '{sum+=$2} END{print "Mitochondria =",sum}'
 	
 done
-
-#Remove temporary file
-rm temporary.txt
