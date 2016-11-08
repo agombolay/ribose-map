@@ -48,7 +48,7 @@ do
 
 	#OUTPUT
 	#Location of output files
-	output=$inputDirectory/$samples.Reads-Per-Region.genome.txt
+	output=$inputDirectory/$samples.Reads-Per-Region.txt
 
 	#Extract number of reads per chromosome and save output
 	samtools idxstats $input | cut -f 1,3 > temporary.txt
