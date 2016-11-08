@@ -113,7 +113,7 @@ for sample in ${files[@]}; do
 	#8. Index final BAM files
 	samtools index $finalBAM
 
-	if [ $index == "hg38" ] || [ $index == "mm9" ]; then
+	if [ $index == "hg38" ]; then
 		#Convert SAM to BAM file for processing
 		samtools view -h -o $sample.temporary.sam $finalBAM
 	
