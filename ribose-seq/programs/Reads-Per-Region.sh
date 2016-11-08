@@ -57,13 +57,13 @@ do
 	grep -v 'chr[a-zA-Z0-9]\+_[a-zA-Z0-9]\+' temporary.txt | grep -v '*' | grep -v 'chrEBV' > $output
 	
 	#Calculate total number of reads in genome
-	cat $output | awk '{sum+=$2} END{print "Total=",sum}'
+	cat $output | awk '{sum+=$2} END{print "Total =",sum}'
 	
 	#Calculate number of reads that align to chromosomes
-	grep -v 'chrM' $output | awk '{sum+=$2} END{print "Nuclear=",sum}'
+	grep -v 'chrM' $output | awk '{sum+=$2} END{print "Nuclear =",sum}'
 	
 	#Calculate number of reads that align to mitochondria
-	grep 'chrM' $output | awk '{sum+=$2} END{print "Mitochondria=",sum}'
+	grep 'chrM' $output | awk '{sum+=$2} END{print "Mitochondria =",sum}'
 	
 done
 
