@@ -51,6 +51,9 @@ do
 	output=$inputDirectory/$samples.Reads-Per-Region.txt
 
 	#Extract number of reads per chromosome and save output
-	samtools idxstats $input | cut -f 1,3
+	samtools idxstats $input | cut -f 1,3 > temporary.txt
+	
+	#Select only chromosomes of interest (Remove reads that align to unidentified regions of genome)
+	grep -v 'chr[a-zA-Z0-9]\+_[a-zA-Z0-9]\+' temporary.txt | grep -v '*' | grep -v 'chrEBV' > $output
 
 done
