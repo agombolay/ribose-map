@@ -113,17 +113,19 @@ for sample in ${files[@]}; do
 	#8. Index final BAM files
 	samtools index $finalBAM
 
-	#Convert SAM to BAM file for processing
-	samtools view -h -o $sample.temporary.sam $finalBAM
+	if [ $index == "hg38" ]; then
+		#Convert SAM to BAM file for processing
+		samtools view -h -o $sample.temporary.sam $finalBAM
 	
-	#Remove reads that align to any unidentified/ambiguous regions of genome
-	sed '/chrEBV/d;/random/d;/chrUn/d' $sample.temporary.sam > $sample.filtered.sam
+		#Remove reads that align to any unidentified/ambiguous regions of genome
+		sed '/chrEBV/d;/random/d;/chrUn/d' $sample.temporary.sam > $sample.filtered.sam
 	
-	#Convert SAM to BAM file
-	samtools view -Sb $sample.filtered.sam > $sample.filtered.bam
+		#Convert SAM to BAM file
+		samtools view -Sb $sample.filtered.sam > $sample.filtered.bam
 	
-	#Index filtered BAM file
-	samtools index $sample_filtered.bam
+		#Index filtered BAM file
+		samtools index $sample.filtered.bam
+	fi
 	
 	#Notify user that the alignment step is complete
 	echo "Alignment of $sample to $index reference genome is complete"
