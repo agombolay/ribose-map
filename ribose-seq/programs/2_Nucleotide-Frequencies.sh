@@ -81,7 +81,7 @@ for sample in ${sample[@]}; do
 	readCoordinates=$output1/$sample.read-coordinates.bed
 	readInformation=$output1/$sample.read-information.bed
 	coordinates0=$output1/$sample.rNMP-coordinates.0-based.txt
-	coordinates0Subset=$output1/$sample.rNMP-coordinates.0-based.subset.txt
+	coordinates0Subset=$output1/$sample.rNMP-coordinates.0-based.$subset.txt
 	
 	#Covert BAM file to BED format
 	bedtools bamtobed -i $bam > $bed
