@@ -69,6 +69,9 @@ for sample in ${files[@]}; do
 
 	#Final BAM files
 	finalBAM=$output/$sample.bam
+	
+	#Filtered final BAM files
+	filteredBAM=$output/$sample.filtered.bam
 
 	#File containing Bowtie alignment statistics
 	statistics=$output/$sample.Alignment-Statistics.txt
@@ -113,7 +116,7 @@ for sample in ${files[@]}; do
 	#8. Index final BAM files
 	samtools index $finalBAM
 
-	if [ $index == "hg38" ]; then
+	if [ $index == "hg38" ] || [ $index == "mm9" ]; then
 		#Convert SAM to BAM file for processing
 		samtools view -h -o $sample.temporary.sam $finalBAM
 	
@@ -121,13 +124,14 @@ for sample in ${files[@]}; do
 		sed '/chrEBV/d;/random/d;/chrUn/d' $sample.temporary.sam > $sample.filtered.sam
 	
 		#Convert SAM to BAM file
-		samtools view -Sb $sample.filtered.sam > $sample.filtered.bam
+		samtools view -Sb $sample.filtered.sam > $filteredBAM
 	
 		#Index filtered BAM file
-		samtools index $sample.filtered.bam
+		samtools index $filteredBAM
 	fi
 	
 	#Notify user that the alignment step is complete
 	echo "Alignment of $sample to $index reference genome is complete"
-	
+
+	rm $sample.temporary.sam $sample.filtered.sam
 done
