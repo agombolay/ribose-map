@@ -113,6 +113,7 @@ for sample in ${files[@]}; do
 	#8. Index final BAM files
 	#samtools index $finalBAM
 
+	#Select only reads that align to known regions of human and mouse genomes
 	if [ $index == "hg38" ] || [ $index == "mm9" ]; then
 		#7. De-duplicate reads based on UMIs; compress file
 		umitools rmdup $sortedBAM $sample.temporary.bam | gzip -c > $BED
