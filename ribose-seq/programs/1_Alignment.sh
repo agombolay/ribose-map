@@ -69,9 +69,6 @@ for sample in ${files[@]}; do
 
 	#Final BAM files
 	finalBAM=$output/$sample.bam
-	
-	#Filtered final BAM files
-	filteredBAM=$output/$sample.filtered.bam
 
 	#File containing Bowtie alignment statistics
 	statistics=$output/$sample.Alignment-Statistics.txt
@@ -111,27 +108,40 @@ for sample in ${files[@]}; do
 	samtools index $sortedBAM
 	
 	#7. De-duplicate reads based on UMIs; compress file
-	umitools rmdup $sortedBAM $finalBAM | gzip -c > $BED
+	#umitools rmdup $sortedBAM $finalBAM | gzip -c > $BED
 	
 	#8. Index final BAM files
-	samtools index $finalBAM
+	#samtools index $finalBAM
 
 	if [ $index == "hg38" ] || [ $index == "mm9" ]; then
-		#Convert SAM to BAM file for processing
-		samtools view -h -o $sample.temporary.sam $finalBAM
+		#7. De-duplicate reads based on UMIs; compress file
+		umitools rmdup $sortedBAM $sample.temporary.bam | gzip -c > $BED
+	
+		#8. Index final BAM files
+		samtools index $sample.temporary.bam
+		
+		#Convert BAM to SAM file for processing
+		samtools view -h -o $sample.temporary.sam $sample.temporary.bam
 	
 		#Remove reads that align to any unidentified/ambiguous regions of genome
 		sed '/chrEBV/d;/random/d;/chrUn/d' $sample.temporary.sam > $sample.filtered.sam
 	
 		#Convert SAM to BAM file
-		samtools view -Sb $sample.filtered.sam > $filteredBAM
+		samtools view -Sb $sample.filtered.sam > $finalBAM
 	
 		#Index filtered BAM file
-		samtools index $filteredBAM
+		samtools index $finalBAM
+		
+	else
+		#7. De-duplicate reads based on UMIs; compress file
+		umitools rmdup $sortedBAM $finalBAM | gzip -c > $BED
+	
+		#8. Index final BAM files
+		samtools index $finalBAM
 	fi
 	
 	#Notify user that the alignment step is complete
 	echo "Alignment of $sample to $index reference genome is complete"
 
-	rm $sample.temporary.sam $sample.filtered.sam
+	rm $sample.temporary.bam $sample.temporary.sam $sample.filtered.sam
 done
