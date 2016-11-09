@@ -131,7 +131,6 @@ for sample in ${files[@]}; do
 	
 		#Index filtered BAM file
 		samtools index $finalBAM
-		
 	else
 		#7. De-duplicate reads based on UMIs; compress file
 		umitools rmdup $sortedBAM $finalBAM | gzip -c > $BED
