@@ -37,6 +37,11 @@ fi
 referenceBED=$directory/ribose-seq/reference/$reference.bed
 riboCoordinates=$sample.rNMP-coordinates.0-based.$subset.bed
 
+#Output directory
+output=$directory/ribose-seq/reference/
+
+mkdir -p $output
+
 #Output files
 binnedData=$sample.binned.data.bed
 referenceWindows=$output/$reference.windows.bed
