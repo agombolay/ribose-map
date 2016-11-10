@@ -36,16 +36,10 @@ fi
 
 #Align FASTQ files to reference genome
 for sample in ${files[@]}; do
-
-	#Extract names from filepaths
-	filename=$(basename "${sample}")
-	sample="${filename%.*}"
 	
-	#Extract directory from filepaths
-	directory0=$(dirname "${files}")
-	
+	#INPUT
 	#Location of FASTQ files
-	reads=$directory0/$sample.fastq
+	reads=$directory/Sequencing-Results/$sample.fastq
 	
 	#OUTPUT
 	#Location of output directory
