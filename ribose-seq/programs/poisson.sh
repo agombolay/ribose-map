@@ -33,8 +33,17 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
+#Input
+coordinates0=$sample.rNMP-coordinates.0-based.$subset.bed
+referenceBED=$directory/ribose-seq/reference/$reference.bed
+
+#Output
+binnedData=$sample.binned.data.bed
+referenceWindows=$output/$reference.windows.bed
+sortedBED=$sample.rNMP-coordinates.0-based.$subset.sorted.bed
+
 #Separate genome into 2.5 kb windows
-bedtools makewindows -g /projects/home/agombolay3/data/repository/Ribose-seq-Project/ribose-seq/reference/$reference.bed -w 2500 > $reference.windows.bed
+bedtools makewindows -g $directory/ribose-seq/reference/$reference.bed -w 2500 > $reference.windows.bed
 
 #Sort BED file of rNMP coordinates (sort first and second columns of file)
 sort -k1,1 -k2,2n $sample.rNMP-coordinates.0-based.$subset.bed > $sample.rNMP-coordinates.0-based.$subset.sorted.bed
