@@ -40,6 +40,7 @@ riboCoordinates=$sample.rNMP-coordinates.0-based.$subset.bed
 #Output directory
 output=$directory/ribose-seq/reference/
 
+#Create directory if not present
 mkdir -p $output
 
 #Output files
