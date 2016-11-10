@@ -137,5 +137,5 @@ for sample in ${files[@]}; do
 	echo "Alignment of $sample to $index reference genome is complete"
 
 	#Remove intermediate/temporary files from directory (not necessary to keep anymore)
-	rm $sortedBAM $intermediateBAM $sample.temporary.bam $sample.temporary.sam $sample.filtered.sam
+	rm $sortedBAM $intermediateSAM $intermediateBAM $sample.temporary.bam $sample.temporary.sam $sample.filtered.sam
 done
