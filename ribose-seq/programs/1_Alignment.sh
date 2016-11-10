@@ -40,7 +40,7 @@ for sample in ${sample[@]}; do
 	#INPUT
 	#Location of FASTQ files
 	reads=$directory/Sequencing-Results/$sample.fastq
-	echo $reads
+	
 	#OUTPUT
 	#Location of output directory
 	output=$directory/ribose-seq/results/$index/$sample/Alignment/
