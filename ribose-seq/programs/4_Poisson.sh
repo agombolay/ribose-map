@@ -67,6 +67,6 @@ if [ $subset == "nuclear" ]; then
 	#For nuclear data, remove mitochondria data
 	grep -v 'chrM' $binnedData > temporary && mv temporary $binnedData
 elif [ $subset == "chrM" ]; then
-	#For nuclear data, remove nuclear data
+	#For mitochondria data, remove nuclear data
 	grep 'chrM' $binnedData > temporary && mv temporary $binnedData
 fi
