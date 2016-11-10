@@ -78,10 +78,12 @@ for sample in ${sample[@]}; do
 	#Location of output files
 	bed=$output1/$sample.aligned-reads.bed
 	coverage=$output1/$sample.rNMP-coverage.0-based.txt
+	
 	readCoordinates=$output1/$sample.read-coordinates.bed
 	readInformation=$output1/$sample.read-information.bed
-	coordinates0=$output1/$sample.rNMP-coordinates.0-based.bed
-	coordinates0Subset=$output1/$sample.rNMP-coordinates.0-based.$subset.bed
+	
+	riboCoordinates1=$output1/$sample.rNMP-coordinates.0-based.genome.bed
+	riboCoordinates2=$output1/$sample.rNMP-coordinates.0-based.$subset.bed
 	
 	#Covert BAM file to BED format
 	bedtools bamtobed -i $bam > $bed
@@ -97,17 +99,17 @@ for sample in ${sample[@]}; do
 	
 	#Determine rNMP coordinates from reads aligned to negative strand
 	awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $readInformation > negative-reads.txt
-	cat positive-reads.txt negative-reads.txt > $coordinates0
+	cat positive-reads.txt negative-reads.txt > $riboCoordinates1
 	
 	#Select only rNMP coordinates located in nuclear DNA
 	if [ $subset == "nuclear" ]; then
-		grep -v 'chrM' $coordinates0 > $coordinates0Subset
+		grep -v 'chrM' $riboCoordinates1 > $riboCoordinates2
 	#Select only rNMP coordinates located in mitochondrial DNA
 	elif [ $subset == "chrM" ]; then
-		grep 'chrM' $coordinates0 > $coordinates0Subset
+		grep 'chrM' $riboCoordinates1 > $riboCoordinates2
 	#Select all rNMP coordinates located in genomic DNA
 	else
-		cat $coordinates0 > $coordinates0Subset
+		cat $riboCoordinates1 > $riboCoordinates2
 	fi
 	
 	#Remove intermediate files
