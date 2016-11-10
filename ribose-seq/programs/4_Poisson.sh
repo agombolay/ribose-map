@@ -65,8 +65,8 @@ bedtools intersect -a $referenceWindows -b $sortedBED -c -sorted -nonamecheck > 
 #Select only data of interest
 if [ $subset == "nuclear" ]; then
 	#For nuclear data, remove mitochondria data
-	grep -v 'chrM' > temporary && mv temporary $binnedData
+	grep -v 'chrM' $binnedData > temporary && mv temporary $binnedData
 elif [ $subset == "chrM" ]; then
 	#For nuclear data, remove nuclear data
-	grep 'chrM' > temporary && mv temporary $binnedData
+	grep 'chrM' $binnedData > temporary && mv temporary $binnedData
 fi
