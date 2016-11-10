@@ -32,17 +32,6 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
-for sample in ${files[@]}; do
-	
-	#Extract names from filepaths
-	filename=$(basename "${sample}")
-	sample="${filename%.*}"
-	
-	#Extract directory from filepaths
-	directorySample=$(dirname "${files}")
-	echo $sample
-done
-
 #Calculate nucleotide frequencies for each sample
 for sample in ${files[@]}; do
 	
