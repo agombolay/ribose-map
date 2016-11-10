@@ -17,7 +17,7 @@ function usage () {
 while getopts "i:s:r:d:h" opt; do
     case $opt in
         #Specify input as arrays to allow multiple input arguments
-        i ) files=($OPTARG) ;;
+        i ) sample=($OPTARG) ;;
 	#Specify input as variable to allow only one input argument
 	s ) subset=$OPTARG ;;
 	r ) reference=$OPTARG ;;
