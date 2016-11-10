@@ -37,11 +37,12 @@ fi
 referenceBED=$directory/ribose-seq/reference/$reference.bed
 riboCoordinates=$sample.rNMP-coordinates.0-based.$subset.bed
 
-#Output directory
-output=$directory/ribose-seq/reference/
+#Output directories
+output1=$directory/ribose-seq/reference/
+output2=$directory/ribose-seq/results/$reference/$sample/Poisson
 
 #Create directory if not present
-mkdir -p $output
+mkdir -p $output1 $output2
 
 #Output files
 binnedData=$sample.binned.data.bed
