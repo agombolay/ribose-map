@@ -110,6 +110,7 @@ for sample in ${sample[@]}; do
 		cat $coordinates0 > $coordinates0Subset
 	fi
 	
+	#Remove intermediate files
 	rm positive-reads.txt negative-reads.txt
 ##########################################################################################################################################
 	#STEP 3: Calculate background dNTP frequencies of reference genome
