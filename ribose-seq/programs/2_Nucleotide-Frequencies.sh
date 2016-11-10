@@ -34,7 +34,7 @@ fi
 
 #Calculate nucleotide frequencies for each sample
 for sample in ${sample[@]}; do
-
+	echo $sample
 	#Location of "Reference" directory
 	directory0=$directory/ribose-seq/reference/
 
