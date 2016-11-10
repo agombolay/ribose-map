@@ -49,6 +49,7 @@ for sample in ${sample[@]}; do
 
 	#Location of input file
 	bam=$directory1/$sample.bam
+	echo $bam
 
 	#Location of output directory
 	output1=$directory2/rNMPs/$subset
