@@ -33,20 +33,20 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
-#Input
-coordinates0=$sample.rNMP-coordinates.0-based.$subset.bed
+#Input files
 referenceBED=$directory/ribose-seq/reference/$reference.bed
+riboCoordinates=$sample.rNMP-coordinates.0-based.$subset.bed
 
-#Output
+#Output files
 binnedData=$sample.binned.data.bed
 referenceWindows=$output/$reference.windows.bed
 sortedBED=$sample.rNMP-coordinates.0-based.$subset.sorted.bed
 
-#Separate genome into 2.5 kb windows
-bedtools makewindows -g $directory/ribose-seq/reference/$reference.bed -w 2500 > $reference.windows.bed
+#Separate reference genome into 2.5 kb (2,500 bp) windows
+bedtools makewindows -g $referenceBED -w 2500 > $referenceWindows
 
-#Sort BED file of rNMP coordinates (sort first and second columns of file)
-sort -k1,1 -k2,2n $sample.rNMP-coordinates.0-based.$subset.bed > $sample.rNMP-coordinates.0-based.$subset.sorted.bed
+#Sort BED file of ribonucleotide coordinates
+sort -k1,1 -k2,2n $riboCoordinates > $sortedBED
 
-#Determine intersect regions of the two BED files and then bin data
-bedtools intersect -a $reference.windows.bed -b $sample.rNMP-coordinates.0-based.$subset.sorted.bed -c -sorted -nonamecheck > $sample.binned.data.bed
+#Determine regions of the two BED files that intersect with each other and then bin data
+bedtools intersect -a $referenceWindows -b $sortedBED -c -sorted -nonamecheck > $binnedData
