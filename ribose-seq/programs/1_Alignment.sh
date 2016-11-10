@@ -109,19 +109,19 @@ for sample in ${files[@]}; do
 	#"hg38"=human genome reference genome; "mm9"=mouse genome reference genome
 	if [ $index == "hg38" ] || [ $index == "mm9" ]; then
 		#7. De-duplicate reads based on UMIs; compress file
-		umitools rmdup $sortedBAM $sample.temporary.bam | gzip -c > $BED
+		umitools rmdup $sortedBAM temporary.bam | gzip -c > $BED
 	
 		#8. Index final BAM files
-		samtools index $sample.temporary.bam
+		samtools index temporary.bam
 		
 		#Convert BAM to SAM file for processing
-		samtools view -h -o $sample.temporary.sam $sample.temporary.bam
+		samtools view -h -o temporary.sam temporary.bam
 	
-		#Remove reads that align to any unidentified/ambiguous regions of genome
-		sed '/chrEBV/d;/random/d;/chrUn/d' $sample.temporary.sam > $sample.filtered.sam
+		#Remove reads that align to unidentified regions of genome
+		sed '/chrEBV/d;/random/d;/chrUn/d' temporary.sam > filtered.sam
 	
 		#Convert SAM to BAM file
-		samtools view -Sb $sample.filtered.sam > $finalBAM
+		samtools view -Sb filtered.sam > $finalBAM
 	
 		#Index filtered BAM file
 		samtools index $finalBAM
@@ -137,5 +137,5 @@ for sample in ${files[@]}; do
 	echo "Alignment of $sample to $index reference genome is complete"
 
 	#Clean up diretory by removing intermediate and temporary files from directory (not necessary to keep)
-	rm $sortedBAM $sortedBAM.bai $intermediateSAM $intermediateBAM $sample.temporary.bam $sample.temporary.sam $sample.filtered.sam
+	rm $sortedBAM $sortedBAM.bai $intermediateSAM $intermediateBAM temporary.bam temporary.sam filtered.sam
 done
