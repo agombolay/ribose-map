@@ -80,8 +80,8 @@ for sample in ${sample[@]}; do
 	coverage=$output1/$sample.rNMP-coverage.0-based.txt
 	readCoordinates=$output1/$sample.read-coordinates.bed
 	readInformation=$output1/$sample.read-information.bed
-	coordinates0=$output1/$sample.rNMP-coordinates.0-based.txt
-	coordinates0Subset=$output1/$sample.rNMP-coordinates.0-based.$subset.txt
+	coordinates0=$output1/$sample.rNMP-coordinates.0-based.bed
+	coordinates0Subset=$output1/$sample.rNMP-coordinates.0-based.$subset.bed
 	
 	#Covert BAM file to BED format
 	bedtools bamtobed -i $bam > $bed
@@ -110,6 +110,7 @@ for sample in ${sample[@]}; do
 		cat $coordinates0 > $coordinates0Subset
 	fi
 	
+	#Remove intermediate files
 	rm positive-reads.txt negative-reads.txt
 ##########################################################################################################################################
 	#STEP 3: Calculate background dNTP frequencies of reference genome
