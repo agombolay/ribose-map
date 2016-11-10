@@ -75,8 +75,10 @@ for sample in ${files[@]}; do
 	#1. Reverse complement reads
 	seqtk seq -r $reads > $reverseComplement
 
-	#2. Trim UMI from 3' ends of reads; compress file
+	#2. Alli's Version: Trim UMI from 3' ends of reads; compress file
 	umitools trim --end 3 $reverseComplement $UMI | gzip -c > $umiTrimmed
+	
+	#Alternative Version: Trim UMI from 5' ends of reads
 	#umitools trim --end 5 $reads $UMI | gzip -c > $umiTrimmed
 
 	#3. Align reads to reference genome with Bowtie version 1 or 2
