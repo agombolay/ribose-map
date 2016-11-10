@@ -45,9 +45,9 @@ output2=$directory/ribose-seq/results/$reference/$sample/Poisson
 mkdir -p $output1 $output2
 
 #Output files
-binnedData=$sample.binned.data.bed
-referenceWindows=$output/$reference.windows.bed
-sortedBED=$sample.rNMP-coordinates.0-based.$subset.sorted.bed
+binnedData=$output2/$sample.binned.data.bed
+referenceWindows=$output1/$reference.windows.bed
+sortedBED=$output2/$sample.rNMP-coordinates.0-based.$subset.sorted.bed
 
 #Separate reference genome into 2.5 kb (2,500 bp) windows
 bedtools makewindows -g $referenceBED -w 2500 > $referenceWindows
