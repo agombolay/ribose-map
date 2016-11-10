@@ -132,10 +132,11 @@ for sample in ${files[@]}; do
 		#8. Index final BAM files
 		samtools index $finalBAM
 	fi
+
+	#Remove intermediate and temporary files from directory
+	rm $sortedBAM $sortedBAM.bai $intermediateSAM $intermediateBAM \
+	temporary.bam temporary.bam.bai temporary.sam filtered.sam
 	
 	#Notify user that the alignment step is complete
 	echo "Alignment of $sample to $index reference genome is complete"
-
-	#Clean up diretory by removing intermediate and temporary files from directory (not necessary to keep)
-	rm $sortedBAM $sortedBAM.bai $intermediateSAM $intermediateBAM temporary.bam temporary.bam.bai temporary.sam filtered.sam
 done
