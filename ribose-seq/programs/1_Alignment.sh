@@ -52,9 +52,7 @@ for sample in ${files[@]}; do
 	output=$directory/ribose-seq/results/$index/$sample/Alignment/
 
 	#Create directory if not present
-	if [[ ! -d $output ]]; then
-    		mkdir -p $output
-	fi
+    	mkdir -p $output
 
 	#Location of reverse complemented FASTQ files 
 	reverseComplement=$output/$sample.reverse-complement.fastq
