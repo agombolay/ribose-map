@@ -219,8 +219,8 @@ for sample in ${sample[@]}; do
 	downstreamIntervals=$output3/$sample.downstream-intervals.$reference.$subset.bed
 	
 	#Obtain coordinates of upstream/downstream sequences based on rNMP coordinates
-	bedtools flank -i $coordinates0Subset -s -g $referenceBED -l 100 -r 0 > $upstreamIntervals
-	bedtools flank -i $coordinates0Subset -s -g $referenceBED -l 0 -r 100 > $downstreamIntervals
+	bedtools flank -i $riboCoordinates2 -s -g $referenceBED -l 100 -r 0 > $upstreamIntervals
+	bedtools flank -i $riboCoordinates2 -s -g $referenceBED -l 0 -r 100 > $downstreamIntervals
 
 	#Obtain sequences of upstream/downstream coordinates
 	bedtools getfasta -s -fi $referenceFasta2 -bed $upstreamIntervals -fo $upstreamSequences
