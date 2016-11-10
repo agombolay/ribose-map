@@ -32,14 +32,20 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
+#Location of "Reference" directory
+directory0=$directory/ribose-seq/reference/
+
+#Location of "Alignment" directory
+directory1=$directory/ribose-seq/results/$reference/$sample/Alignment
+
 #Calculate nucleotide frequencies for each sample
-for sample in ${sample[@]}; do
+for sample in ${directory1[@]}; do
 	
 	#Location of "Reference" directory
-	directory0=$directory/ribose-seq/reference/
+	#directory0=$directory/ribose-seq/reference/
 
 	#Location of "Alignment" directory
-	directory1=$directory/ribose-seq/results/$reference/$sample/Alignment
+	#directory1=$directory/ribose-seq/results/$reference/$sample/Alignment
 
 	#Location of "Nucleotide-Frequencies" directory
 	directory2=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies
