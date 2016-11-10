@@ -17,7 +17,7 @@ function usage () {
 while getopts "i:s:r:d:h" opt; do
     case $opt in
         #Specify input as arrays to allow multiple input arguments
-        i ) sample=($OPTARG) ;;
+        i ) files=($OPTARG) ;;
 	#Specify input as variable to allow only one input argument
 	s ) subset=$OPTARG ;;
 	r ) reference=$OPTARG ;;
@@ -32,9 +32,28 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
-#Calculate nucleotide frequencies for each sample
-for sample in ${sample[@]}; do
+for sample in ${files[@]}; do
+	
+	#Extract names from filepaths
+	filename=$(basename "${sample}")
+	sample="${filename%.*}"
+	
+	#Extract directory from filepaths
+	directorySample=$(dirname "${files}")
 	echo $sample
+done
+
+#Calculate nucleotide frequencies for each sample
+for sample in ${files[@]}; do
+	
+	#Extract names from filepaths
+	filename=$(basename "${sample}")
+	sample="${filename%.*}"
+	
+	#Extract directory from filepaths
+	directorySample=$(dirname "${files}")
+	echo $sample
+	
 	#Location of "Reference" directory
 	directory0=$directory/ribose-seq/reference/
 
