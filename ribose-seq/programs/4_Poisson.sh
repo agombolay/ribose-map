@@ -33,9 +33,13 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
+#Input directories
+directory1=$directory/ribose-seq/reference/
+directory2=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/rNMPs/$subset/
+
 #Input files
-referenceBED=$directory/ribose-seq/reference/$reference.bed
-riboCoordinates=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/rNMPs/$subset/$sample.rNMP-coordinates.0-based.$subset.bed
+referenceBED=$directory1/$reference.bed
+riboCoordinates=$directory2/$sample.rNMP-coordinates.0-based.$subset.bed
 
 #Output directories
 output1=$directory/ribose-seq/reference/
