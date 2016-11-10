@@ -61,3 +61,12 @@ sort -k1,1 -k2,2n $riboCoordinates > $sortedBED
 
 #Determine regions of the two BED files that intersect with each other and then bin data
 bedtools intersect -a $referenceWindows -b $sortedBED -c -sorted -nonamecheck > $binnedData
+
+#Select only data of interest
+if [ $subset == 'nuclear' ]; then
+	#For nuclear data, remove mitochondria data
+	grep -v 'chrM' > temporary && mv temporary $binnedData
+elif [ $subset == 'chrM' ]; then
+	#For nuclear data, remove nuclear data
+	grep 'chrM' > temporary && mv temporary $binnedData
+fi
