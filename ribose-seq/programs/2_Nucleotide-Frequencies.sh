@@ -33,15 +33,7 @@ if [ "$1" == "-h" ]; then
 fi
 
 #Calculate nucleotide frequencies for each sample
-for sample in ${files[@]}; do
-	
-	#Extract names from filepaths
-	filename=$(basename "${sample}")
-	sample="${filename%.*}"
-	
-	#Extract directory from filepaths
-	directorySample=$(dirname "${files}")
-	echo $sample
+for sample in ${sample[@]}; do
 	
 	#Location of "Reference" directory
 	directory0=$directory/ribose-seq/reference/
