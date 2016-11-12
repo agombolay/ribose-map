@@ -53,19 +53,6 @@ for sample in ${sample[@]}; do
 	#Remove previously created files so new files are created
 	rm -f $output1/*.txt
 	
-	#Location of output files	
-	fastq=$output1/$sample.aligned-reads.fq
-	fasta=$output1/$sample.aligned-reads.fa
-
-	#Convert BAM file to FASTQ
-	samtools bam2fq $bam > $fastq
-
-	#Convert FASTQ file to FASTA
-	seqtk seq -A $fastq > $fasta
-	
-	#Output only sequences in FASTA file (exclude all header lines)
-	grep -v '>' $fasta > temporary && mv temporary $fasta
-	
 ##########################################################################################################################################
 	#STEP 2: Obtain rNMP coordinates from aligned reads
 
