@@ -109,11 +109,11 @@ for sample in ${sample[@]}; do
 	if [ $reference == "sacCer2" ] && [ $subset == "nuclear" ] ; then
 		#Select only nuclear DNA and output to new file
 		samtools faidx $referenceFasta 2micron chrI chrII chrIII chrIV chrV chrVI chrVII \
-		chrVIII chrIX chrX chrXI chrXII chrXIII chrXIV chrXV chrXVI > nuclear.fa
+		chrVIII chrIX chrX chrXI chrXII chrXIII chrXIV chrXV chrXVI > sacCer2.nuclear.fa
 	
 	elif [ $reference == "sacCer2" ] && [ $subset == "chrM" ] ; then
 		#Select only mitochondrial DNA and output to new file
-		samtools faidx $referenceFasta chrM > mitochondria.fa
+		samtools faidx $referenceFasta chrM > sacCer2.chrM.fa
 	fi
 	
 	#Calculate counts of each dNTP
