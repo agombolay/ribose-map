@@ -38,9 +38,6 @@ for sample in ${sample[@]}; do
 	#Location of "Alignment" directory
 	directory1=$directory/ribose-seq/results/$reference/$sample/Alignment
 
-	#Location of "Nucleotide-Frequencies" directory
-	directory2=$directory/ribose-seq/results/$reference/$sample/rNMP-Coordinates
-
 ##########################################################################################################################################
 	#STEP 1: Covert BAM alignment file to FASTA format
 
@@ -48,13 +45,13 @@ for sample in ${sample[@]}; do
 	bam=$directory1/$sample.bam
 
 	#Location of output directory
-	output=$directory2/$subset
+	output=$directory/ribose-seq/results/$reference/$sample/rNMP-Coordinates/$subset
 
 	#Create directory if it does not already exist
 	mkdir -p $output
 
 	#Remove any older versions of the output files
-	rm -f $output/*.txt
+	rm -f $doutput/*.txt
 	
 	#Location of output files	
 	fastq=$output/$sample.aligned-reads.fq
