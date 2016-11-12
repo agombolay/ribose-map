@@ -44,10 +44,6 @@ for sample in ${sample[@]}; do
 ##########################################################################################################################################
 	#STEP 1: Covert BAM alignment file to FASTA format
 
-	#Location of input file
-	bam=$directory1/$sample.bam
-	echo $bam
-
 	#Location of output directory
 	output1=$directory2/rNMPs/$subset
 
