@@ -35,39 +35,27 @@ fi
 #Calculate nucleotide frequencies for each sample
 for sample in ${sample[@]}; do
 	
-	#Location of "Reference" directory
-	directory0=$directory/ribose-seq/reference/
-
 	#Location of "Nucleotide-Frequencies" directory
 	directory2=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies
 
+##########################################################################################################################################
+	#STEP 1: Calculate background dNTP frequencies of reference genome
+
+	#Location of input file
+	referenceFasta1=$directory/ribose-seq/reference/$subset.fa
+
 	#Location of output directory
-	output1=$directory2/rNMPs/$subset
+	output1=$directory/ribose-seq/results/Background-dNTP-Frequencies
 
 	#Create directory if it does not already exist
 	mkdir -p $output1
 
 	#Remove previously created files so new files are created
 	rm -f $output1/*.txt
-
-##########################################################################################################################################
-	#STEP 1: Calculate background dNTP frequencies of reference genome
-
-	#Location of input file
-	referenceFasta1=$directory0/$subset.fa
-
-	#Location of output directory
-	output2=$directory/ribose-seq/results/Background-dNTP-Frequencies
-
-	#Create directory if it does not already exist
-	mkdir -p $output2
-
-	#Location of output file
-	background=$output2/$reference.$subset.Background-dNTP-Frequencies.txt
-
-	#Remove previously created files so new files are created
-	rm -f $output2/*.txt
 	
+	#Location of output file
+	background=$output1/$reference.$subset.Background-dNTP-Frequencies.txt
+
 	#Calculate counts of each dNTP
 	A_backgroundCount=$(grep -v '>' $referenceFasta1 | grep -o 'A' - | wc -l)
 	C_backgroundCount=$(grep -v '>' $referenceFasta1 | grep -o 'C' - | wc -l)
@@ -90,10 +78,19 @@ for sample in ${sample[@]}; do
 	echo "T Background Frequency: $T_backgroundFrequency" >> $background
 
 ##########################################################################################################################################
-	#STEP 4: Calculate rNMP Frequencies
+	#STEP 2: Calculate rNMP Frequencies
 
 	#Location of input file
 	readInformation=$output1/$sample.read-information.bed
+	
+	#Location of output directory
+	output2=$directory2/rNMPs/$subset
+
+	#Create directory if it does not already exist
+	mkdir -p $output2
+
+	#Remove previously created files so new files are created
+	rm -f $output2/*.txt
 
 	#Location of output files
 	riboSequences=$output1/$sample.rNMP-Sequences.$reference.$subset.txt
@@ -137,13 +134,15 @@ for sample in ${sample[@]}; do
 	#Save normalized frequencies of rNMPs to TXT file
 	echo -e "$A_riboFrequency\t$C_riboFrequency\t$G_riboFrequency\t$U_riboFrequency" > $riboFrequencies
 
+	#Remove temporary file
 	rm temporary
+	
 ##########################################################################################################################################
 	#STEP 5: Obtain coordinates and sequences of +/- 100 downstream/upstream dNTPs from rNMPs
 
 	#Location of input files
-	referenceBED=$directory0/$reference.bed
-	referenceFasta2=$directory0/$reference.fa
+	referenceBED=$directory/ribose-seq/reference/$reference.bed
+	referenceFasta2=$directory/ribose-seq/reference/$reference.fa
 	riboCoordinates2=$output1/$sample.rNMP-coordinates.0-based.$subset.bed
 
 	#Location of output directory
