@@ -53,7 +53,7 @@ for sample in ${sample[@]}; do
 	#Create directory if it does not already exist
 	mkdir -p $output1
 
-	#Remove previously created files so new files are created
+	#Remove any older versions of the output files
 	rm -f $output1/*.txt
 	
 	#Location of output files	
