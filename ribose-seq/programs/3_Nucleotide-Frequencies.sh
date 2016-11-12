@@ -50,9 +50,6 @@ for sample in ${sample[@]}; do
 	#Remove previously created files so new files are created
 	rm -f $output1/*.txt
 
-	readInformation=$output1/$sample.read-information.bed
-	riboCoordinates2=$output1/$sample.rNMP-coordinates.0-based.$subset.bed
-
 ##########################################################################################################################################
 	#STEP 3: Calculate background dNTP frequencies of reference genome
 
@@ -94,6 +91,9 @@ for sample in ${sample[@]}; do
 
 ##########################################################################################################################################
 	#STEP 4: Calculate rNMP Frequencies
+
+	#Location of input files
+	readInformation=$output1/$sample.read-information.bed
 
 	#Location of output files
 	riboSequences=$output1/$sample.rNMP-Sequences.$reference.$subset.txt
@@ -144,6 +144,7 @@ for sample in ${sample[@]}; do
 	#Location of input files
 	referenceBED=$directory0/$reference.bed
 	referenceFasta2=$directory0/$reference.fa
+	riboCoordinates2=$output1/$sample.rNMP-coordinates.0-based.$subset.bed
 
 	#Location of output directory
 	output3=$directory2/dNTPs/$subset
