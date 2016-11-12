@@ -35,14 +35,10 @@ fi
 #Calculate nucleotide frequencies for each sample
 for sample in ${sample[@]}; do
 
-	#Location of "Alignment" directory
-	directory1=$directory/ribose-seq/results/$reference/$sample/Alignment
-
-##########################################################################################################################################
 	#STEP 1: Covert BAM alignment file to FASTA format
 
 	#Location of input file
-	bam=$directory1/$sample.bam
+	bam=$directory/ribose-seq/results/$reference/$sample/Alignment/$sample.bam
 
 	#Location of output directory
 	output=$directory/ribose-seq/results/$reference/$sample/rNMP-Coordinates/$subset
