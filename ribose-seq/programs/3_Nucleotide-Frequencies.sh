@@ -35,9 +35,6 @@ fi
 #Calculate nucleotide frequencies for each sample
 for sample in ${sample[@]}; do
 	
-	#Location of main output directory
-	frequencies=$directory/ribose-seq/results/$reference/$sample/Frequencies
-	
 ##########################################################################################################################################
 	#STEP 1: Calculate background dNTP frequencies of reference genome
 
@@ -81,7 +78,10 @@ for sample in ${sample[@]}; do
 	#STEP 2: Calculate rNMP Frequencies
 
 	#Location of input file
-	readInformation=$output1/$sample.read-information.bed
+	readInformation=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.read-information.bed
+	
+	#Location of main output directory
+	frequencies=$directory/ribose-seq/results/$reference/$sample/Frequencies
 	
 	#Location of sub-output directory
 	output2=$frequencies/rNMPs/$subset
