@@ -34,24 +34,76 @@ fi
 
 #Calculate nucleotide frequencies for each sample
 for sample in ${sample[@]}; do
-	
-##########################################################################################################################################
-	#STEP 1: Calculate background dNTP frequencies of reference genome
 
-	#Location of input file
-	referenceFasta1=$directory/ribose-seq/reference/$subset.fa
+##########################################################################################################################################
+	#Input/Output
+	
+	#Location of input files
+	referenceBED=$directory/ribose-seq/reference/$reference.bed
+	referenceFasta=$directory/ribose-seq/reference/$reference.fa
+	
+	readInformation=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.read-information.bed
+	riboCoordinates2=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.bed
 
 	#Location of output directory
 	output1=$directory/ribose-seq/results/Background-Frequencies
+	
+	output2=$directory/ribose-seq/results/$reference/$sample/Frequencies/rNMPs/$subset
+	output3=$directory/ribose-seq/results/$reference/$sample/Frequencies/dNTPs/$subset
+	
+	output4=$directory/ribose-seq/results/$reference/$sample/Frequencies/dNTPs/$subset/Columns/upstream
+	output5=$directory/ribose-seq/results/$reference/$sample/Frequencies/dNTPs/$subset/Columns/downstream
+	
+	output6=$directory/ribose-seq/results/$reference/$sample/Frequencies/dNTPs/$subset/Columns/upstream/sequences
+	output7=$directory/ribose-seq/results/$reference/$sample/Frequencies/dNTPs/$subset/Columns/downstream/sequences
+	
+	output8=$directory/ribose-seq/results/$reference/$sample/Frequencies/dNTPs/$subset/Raw-Data
+	output9=$directory/ribose-seq/results/$reference/$sample/Frequencies/Datasets/$subset
 
 	#Create directory if it does not already exist
-	mkdir -p $output1
+	mkdir -p $output1 $output2 $output3 $output4 $output5 $output6 $output7 $output8 $output9
 
 	#Remove any older versions of the output files
-	rm -f $output1/*.txt
+	rm -f $output[1-9]/*.txt $output2/*.txt $output4/*.txt $output5/*.txt $output6/*.txt $output7/*.txt $output8/*.txt $output9/*.txt
 	
-	#Location of output file
+	#Location of output files
 	background=$output1/Background-Frequencies.$reference.$subset.txt
+	
+	riboSequences=$output2/$sample.rNMP-Sequences.$reference.$subset.txt
+	riboFrequencies=$output2/$sample.rNMP-frequencies.$reference.$subset.txt
+	
+	upstreamSequences=$output3/$sample.upstream-sequences.$reference.$subset.fa
+	upstreamIntervals=$output3/$sample.upstream-intervals.$reference.$subset.bed
+	
+	downstreamSequences=$output3/$sample.downstream-sequences.$reference.$subset.fa
+	downstreamIntervals=$output3/$sample.downstream-intervals.$reference.$subset.bed
+	
+	sequences1=$output6/$sample.upstream-sequences.$reference.$subset.txt
+	sequences2=$output7/$sample.downstream-sequences.$reference.$subset.txt
+	reversed=$output6/$sample.upstream-sequences.$reference.$subset.reversed.txt
+	
+	columns1=$output6/$sample.upstream-sequences.$reference.$subset.tab
+	columns2=$output7/$sample.downstream-sequences.$reference.$subset.tab
+		
+	#Location of output files (indivdiual base frequencies)
+	A_upstreamFrequencies=$output8/A_dNTP-frequencies.$reference.$subset.upstream.txt
+	C_upstreamFrequencies=$output8/C_dNTP-frequencies.$reference.$subset.upstream.txt
+	G_upstreamFrequencies=$output8/G_dNTP-frequencies.$reference.$subset.upstream.txt
+	T_upstreamFrequencies=$output8/T_dNTP-frequencies.$reference.$subset.upstream.txt
+
+	A_downstreamFrequencies=$output8/A_dNTP-frequencies.$reference.$subset.downstream.txt
+	C_downstreamFrequencies=$output8/C_dNTP-frequencies.$reference.$subset.downstream.txt
+	G_downstreamFrequencies=$output8/G_dNTP-frequencies.$reference.$subset.downstream.txt
+	T_downstreamFrequencies=$output8/T_dNTP-frequencies.$reference.$subset.downstream.txt
+
+	upstreamFrequencies=$output8/$sample.dNTP-frequencies.$reference.$subset.upstream.txt
+	downstreamFrequencies=$output8/$sample.dNTP-frequencies.$reference.$subset.downstream.txt
+	
+	dataset=$output9/$sample.nucleotide-frequencies-dataset.$reference.$subset.txt
+	zoomed=$output9/$sample.nucleotide-frequencies-zoomed.$reference.$subset.txt
+		
+##########################################################################################################################################
+	#STEP 1: Calculate background dNTP frequencies of reference genome
 
 	#Calculate counts of each dNTP
 	A_backgroundCount=$(grep -v '>' $referenceFasta1 | grep -o 'A' - | wc -l)
@@ -77,25 +129,6 @@ for sample in ${sample[@]}; do
 ##########################################################################################################################################
 	#STEP 2: Calculate rNMP Frequencies
 
-	#Location of input file
-	readInformation=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.read-information.bed
-	
-	#Location of main output directory
-	frequencies=$directory/ribose-seq/results/$reference/$sample/Frequencies
-	
-	#Location of sub-output directory
-	output2=$frequencies/rNMPs/$subset
-
-	#Create directory if it does not already exist
-	mkdir -p $output2
-
-	#Remove any older versions of the output files
-	rm -f $output2/*.txt
-
-	#Location of output files
-	riboSequences=$output2/$sample.rNMP-Sequences.$reference.$subset.txt
-	riboFrequencies=$output2/$sample.rNMP-frequencies.$reference.$subset.txt	
-	
 	#Select only reads located in nuclear DNA
 	if [ $subset == "nuclear" ]; then
 		grep -v 'chrM' $readInformation > temporary
@@ -138,25 +171,8 @@ for sample in ${sample[@]}; do
 	rm temporary
 	
 ##########################################################################################################################################
-	#STEP 5: Obtain coordinates and sequences of +/- 100 downstream/upstream dNTPs from rNMPs
+	#STEP 3: Obtain coordinates and sequences of +/- 100 downstream/upstream dNTPs from rNMPs
 
-	#Location of input files
-	referenceBED=$directory/ribose-seq/reference/$reference.bed
-	referenceFasta2=$directory/ribose-seq/reference/$reference.fa
-	riboCoordinates2=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.0-based.$subset.bed
-
-	#Location of output directory
-	output3=$nucFreqDirectory/dNTPs/$subset
-
-	#Create directory if it does not already exist
-    	mkdir -p $output3
-
-	#Location of output files
-	upstreamSequences=$output3/$sample.upstream-sequences.$reference.$subset.fa
-	upstreamIntervals=$output3/$sample.upstream-intervals.$reference.$subset.bed
-	downstreamSequences=$output3/$sample.downstream-sequences.$reference.$subset.fa
-	downstreamIntervals=$output3/$sample.downstream-intervals.$reference.$subset.bed
-	
 	#Obtain coordinates of upstream/downstream sequences based on rNMP coordinates
 	bedtools flank -i $riboCoordinates2 -s -g $referenceBED -l 100 -r 0 > $upstreamIntervals
 	bedtools flank -i $riboCoordinates2 -s -g $referenceBED -l 0 -r 100 > $downstreamIntervals
@@ -166,34 +182,17 @@ for sample in ${sample[@]}; do
 	bedtools getfasta -s -fi $referenceFasta2 -bed $downstreamIntervals -fo $downstreamSequences
 
 ##########################################################################################################################################
-	#STEP 6: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
+	#STEP 4: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
-	#Location of output directory
-	output4=$nucFreqDirectory/dNTPs/$subset/Columns/upstream
-	output5=$nucFreqDirectory/dNTPs/$subset/Columns/downstream
-	output6=$nucFreqDirectory/dNTPs/$subset/Columns/upstream/sequences
-	output7=$nucFreqDirectory/dNTPs/$subset/Columns/downstream/sequences
-				
-	#Create directories if they do not already exist
-    	mkdir -p $output4 $output5 $output6 $output7
-	
-	#Remove previously created files so new files are created
-	rm -f $output4/*.txt $output5/*.txt $output6/*.txt $output7/*.txt
-			
-	sequences1=$output6/$sample.upstream-sequences.$reference.$subset.txt
-	sequences2=$output7/$sample.downstream-sequences.$reference.$subset.txt
-	sequences1Reversed=$output6/$sample.upstream-sequences.$reference.$subset.reversed.txt
-	
+	#Extract sequences from FASTA files
 	grep -v '>' $upstreamSequences > $sequences1
 	grep -v '>' $downstreamSequences > $sequences2
 	
-	cat $sequences1|rev > $sequences1Reversed
-	
-	columns1=$output6/$sample.upstream-sequences.$reference.$subset.tab
-	columns2=$output7/$sample.downstream-sequences.$reference.$subset.tab
+	#Reverse order of upstream nucleotides
+	cat $sequences1|rev > $reversed
 				
 	#Insert tabs between each nucleotide
-	cat $sequences1Reversed | sed 's/.../& /2g;s/./& /g' > $columns1
+	cat $reversed | sed 's/.../& /2g;s/./& /g' > $columns1
 	cat $sequences2 | sed 's/.../& /2g;s/./& /g' > $columns2
 
 	for i in {1..100}; do
@@ -206,26 +205,8 @@ for sample in ${sample[@]}; do
 	done
 
 ##########################################################################################################################################
-	#STEP 7: Calculate frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
+	#STEP 5: Calculate frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
-	#Location of output directory
-	output8=$nucFreqDirectory/dNTPs/$subset/Raw-Data
-
-	#Create directory if it does not already exist
-	mkdir -p $output8
-
-	#Remove previously created files so new files are created
-	rm -f $output8/*.txt
-	
-	#Location of output files (indivdiual base frequencies)
-	A_upstreamFrequencies=$output8/A_dNTP-frequencies.$reference.$subset.upstream.txt
-	C_upstreamFrequencies=$output8/C_dNTP-frequencies.$reference.$subset.upstream.txt
-	G_upstreamFrequencies=$output8/G_dNTP-frequencies.$reference.$subset.upstream.txt
-	T_upstreamFrequencies=$output8/T_dNTP-frequencies.$reference.$subset.upstream.txt
-
-	#Location of output file (combined base frequencies)
-	upstreamFrequencies=$output8/$sample.dNTP-frequencies.$reference.$subset.upstream.txt
-	
 	#Calculate dNTP frequencies for each 100 upstream position
 	for file in `ls -v $nucFreqDirectory/dNTPs/$subset/Columns/upstream/$sample*.txt`; do
 
@@ -264,15 +245,6 @@ for sample in ${sample[@]}; do
 		
 	done
 	
-	#Location of output files (indivdiual base frequencies)
-	A_downstreamFrequencies=$output8/A_dNTP-frequencies.$reference.$subset.downstream.txt
-	C_downstreamFrequencies=$output8/C_dNTP-frequencies.$reference.$subset.downstream.txt
-	G_downstreamFrequencies=$output8/G_dNTP-frequencies.$reference.$subset.downstream.txt
-	T_downstreamFrequencies=$output8/T_dNTP-frequencies.$reference.$subset.downstream.txt
-
-	#Location of output file (combined base frequencies)
-	downstreamFrequencies=$output8/$sample.dNTP-frequencies.$reference.$subset.downstream.txt
-	
 	#Calculate dNTP frequencies for each 100 downstream position
 	for file in `ls -v $nucFreqDirectory/dNTPs/$subset/Columns/downstream/$sample*.txt`; do
 
@@ -308,21 +280,8 @@ for sample in ${sample[@]}; do
 	done
 
 ##########################################################################################################################################
-	#STEP 8: Create dataset file containing nucleotide frequencies needed for plotting
+	#STEP 6: Create dataset file containing nucleotide frequencies needed for plotting
 
-	#Location of output directory
-	output9=$nucFreqDirectory/Datasets/$subset
-
-	#Create directory if it does not already exist
-    	mkdir -p $output9
-
-	#Location of output file
-	dataset=$output9/$sample.nucleotide-frequencies-dataset.$reference.$subset.txt
-	zoomed=$output9/$sample.nucleotide-frequencies-zoomed.$reference.$subset.txt
-	
-	#Remove previously created files so new ones are created
-	rm -f $output9/*.txt
-	
 	#Print values -100 to 100
 	seq -100 1 100 > temporary1
 	
