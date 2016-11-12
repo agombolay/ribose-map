@@ -231,9 +231,10 @@ for sample in ${sample[@]}; do
 		echo $T_upstreamFrequency >> $T_upstreamFrequencies
 
 		#Save frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs to one TXT file
-		paste $A_upstreamFrequencies $C_upstreamFrequencies $G_upstreamFrequencies $T_upstreamFrequencies > $upstreamFrequencies
+		paste $A_upstreamFrequencies $C_upstreamFrequencies $G_upstreamFrequencies $T_upstreamFrequencies \
+		> $upstreamFrequencies
 	
-		#Reverse order of frequencies so ordered from -100 --> -1
+		#Reverse order of nucleotide frequencies so ordered from -100 --> -1
 		tac $upstreamFrequencies > temporary && mv temporary $upstreamFrequencies
 		
 	done
@@ -265,6 +266,7 @@ for sample in ${sample[@]}; do
 		#Save frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs to one TXT file
 		paste $A_downstreamFrequencies $C_downstreamFrequencies $G_downstreamFrequencies $T_downstreamFrequencies \
 		> $downstreamFrequencies
+	
 	done
 
 ##########################################################################################################################################
