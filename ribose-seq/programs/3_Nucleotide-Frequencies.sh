@@ -60,10 +60,10 @@ for sample in ${sample[@]}; do
 	output8=$directory/ribose-seq/results/$reference/$sample/Frequencies/Datasets/$subset
 
 	#Create directories if they do not already exist
-	mkdir -p $output{1-8}
+	mkdir -p $output{1..8}
 
 	#Remove any older versions of the output files
-	rm -f $output{1-8}/*.txt
+	rm -f $output{1..8}/*.txt
 	
 	#Location of output files
 	background=$output1/Background-Frequencies.$reference.$subset.txt
