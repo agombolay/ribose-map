@@ -51,7 +51,7 @@ for sample in ${sample[@]}; do
 	rm -f $output1/*.txt
 
 ##########################################################################################################################################
-	#STEP 3: Calculate background dNTP frequencies of reference genome
+	#STEP 1: Calculate background dNTP frequencies of reference genome
 
 	#Location of input file
 	referenceFasta1=$directory0/$subset.fa
