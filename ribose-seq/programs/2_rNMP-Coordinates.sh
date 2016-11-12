@@ -42,7 +42,7 @@ for sample in ${sample[@]}; do
 	bam=$directory/ribose-seq/results/$reference/$sample/Alignment/$sample.bam
 
 	#Location of output directory
-	output=$directory/ribose-seq/results/$reference/$sample/rNMP-Coordinates/$subset
+	output=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset
 
 	#Create directory if it does not already exist
 	mkdir -p $output
