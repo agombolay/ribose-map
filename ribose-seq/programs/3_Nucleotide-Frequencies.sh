@@ -216,19 +216,13 @@ for sample in ${sample[@]}; do
 		T_upstreamCount=$(grep -o 'T' $file | wc -l)
 
 		#Calculate total number of dNTPs
-		total_upstreamCount=$(($A_upstreamCount+$C_upstreamCount+$G_upstreamCount+$T_upstreamCount))
-	
-		#Calculate raw frequencies of dNTPs
-		A_rawUpstreamFrequency=$(echo "scale = 12; $A_upstreamCount/$total_upstreamCount" | bc | awk '{printf "%.12f\n", $0}')
-		C_rawUpstreamFrequency=$(echo "scale = 12; $C_upstreamCount/$total_upstreamCount" | bc | awk '{printf "%.12f\n", $0}')
-		G_rawUpstreamFrequency=$(echo "scale = 12; $G_upstreamCount/$total_upstreamCount" | bc | awk '{printf "%.12f\n", $0}')
-		T_rawUpstreamFrequency=$(echo "scale = 12; $T_upstreamCount/$total_upstreamCount" | bc | awk '{printf "%.12f\n", $0}')
+		total3=$(($A_upstreamCount+$C_upstreamCount+$G_upstreamCount+$T_upstreamCount))
 
 		#Calculate normalized frequencies of dNTPs
-		A_upstreamFrequency=$(echo "scale = 12; $A_rawUpstreamFrequency/$A_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
-		C_upstreamFrequency=$(echo "scale = 12; $C_rawUpstreamFrequency/$C_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
-		G_upstreamFrequency=$(echo "scale = 12; $G_rawUpstreamFrequency/$G_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
-		T_upstreamFrequency=$(echo "scale = 12; $T_rawUpstreamFrequency/$T_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
+		A_upstreamFrequency=$(echo "scale = 12; ($A_upstreamCount/$total3)/$A_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
+		C_upstreamFrequency=$(echo "scale = 12; ($C_upstreamCount/$total3)/$C_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
+		G_upstreamFrequency=$(echo "scale = 12; ($G_upstreamCount/$total3)/$G_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
+		T_upstreamFrequency=$(echo "scale = 12; ($T_upstreamCount/$total3)/$T_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
 		
 		#Save normalized frequencies of dNTPs to TXT file
 		echo $A_upstreamFrequency >> $A_upstreamFrequencies
@@ -254,19 +248,13 @@ for sample in ${sample[@]}; do
 		T_downstreamCount=$(grep -v '>' $file | grep -o 'T' - | wc -l)
 
 		#Calculate total number of dNTPs
-		total_downstreamCount=$(($A_downstreamCount+$C_downstreamCount+$G_downstreamCount+$T_downstreamCount))
+		total4=$(($A_downstreamCount+$C_downstreamCount+$G_downstreamCount+$T_downstreamCount))
 	
-		#Calculate raw frequencies of dNTPs
-		A_rawDownstreamFrequency=$(echo "scale = 12; $A_downstreamCount/$total_downstreamCount" | bc | awk '{printf "%.12f\n", $0}')
-		C_rawDownstreamFrequency=$(echo "scale = 12; $C_downstreamCount/$total_downstreamCount" | bc | awk '{printf "%.12f\n", $0}')
-		G_rawDownstreamFrequency=$(echo "scale = 12; $G_downstreamCount/$total_downstreamCount" | bc | awk '{printf "%.12f\n", $0}')
-		T_rawDownstreamFrequency=$(echo "scale = 12; $T_downstreamCount/$total_downstreamCount" | bc | awk '{printf "%.12f\n", $0}')
-
 		#Calculate normalized frequencies of dNTPs
-		A_downstreamFrequency=$(echo "scale = 12; $A_rawDownstreamFrequency/$A_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
-		C_downstreamFrequency=$(echo "scale = 12; $C_rawDownstreamFrequency/$C_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
-		G_downstreamFrequency=$(echo "scale = 12; $G_rawDownstreamFrequency/$G_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
-		T_downstreamFrequency=$(echo "scale = 12; $T_rawDownstreamFrequency/$T_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
+		A_downstreamFrequency=$(echo "scale = 12; ($A_downstreamCount/$total4)/$A_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
+		C_downstreamFrequency=$(echo "scale = 12; ($C_downstreamCount/$total4)/$C_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
+		G_downstreamFrequency=$(echo "scale = 12; ($G_downstreamCount/$total4)/$G_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
+		T_downstreamFrequency=$(echo "scale = 12; ($T_downstreamCount/$total4)/$T_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
 		
 		#Save normalized frequencies of dNTPs to TXT file
 		echo $A_downstreamFrequency >> $A_downstreamFrequencies
@@ -275,7 +263,8 @@ for sample in ${sample[@]}; do
 		echo $T_downstreamFrequency >> $T_downstreamFrequencies
 
 		#Save frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs to one TXT file
-		paste $A_downstreamFrequencies $C_downstreamFrequencies $G_downstreamFrequencies $T_downstreamFrequencies > $downstreamFrequencies
+		paste $A_downstreamFrequencies $C_downstreamFrequencies $G_downstreamFrequencies $T_downstreamFrequencies \
+		> $downstreamFrequencies
 	done
 
 ##########################################################################################################################################
