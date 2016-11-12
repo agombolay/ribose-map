@@ -129,8 +129,7 @@ for sample in ${sample[@]}; do
 	T_backgroundFrequency=$(echo "scale = 12; $T_backgroundCount/$total_backgroundCount" | bc | awk '{printf "%.12f\n", $0}')
 
 	#Save frequencies of dNTPs to TXT file
-	echo -e "A\tC\tG\tU/T" > $background
-	echo -e "$A_riboFrequency\t$C_riboFrequency\t$G_riboFrequency\t$U_riboFrequency" >> $background
+	echo -e "A\tC\tG\tU/T\n$A_riboFrequency\t$C_riboFrequency\t$G_riboFrequency\t$U_riboFrequency" > $background
 
 ##########################################################################################################################################
 	#STEP 2: Calculate rNMP Frequencies
