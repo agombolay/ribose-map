@@ -104,6 +104,16 @@ for sample in ${sample[@]}; do
 ##########################################################################################################################################
 	#STEP 1: Calculate background dNTP frequencies of reference genome
 
+	#Index reference FASTA file
+	samtools faidx $referenceFasta
+	
+	#Select only nuclear DNA and output to new file
+	samtools faidx $referenceFasta 2micron chrI chrII chrIII chrIV chrV chrVI chrVII \
+	chrVIII chrIX chrX chrXI chrXII chrXIII chrXIV chrXV chrXVI > nuclear.fa
+	
+	#Select only mitochondrial DNA and output to new file
+	samtools faidx $referenceFasta chrM > mitochondria.fa
+	
 	#Calculate counts of each dNTP
 	A_backgroundCount=$(grep -v '>' $referenceFasta1 | grep -o 'A' - | wc -l)
 	C_backgroundCount=$(grep -v '>' $referenceFasta1 | grep -o 'C' - | wc -l)
