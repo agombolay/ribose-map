@@ -106,18 +106,21 @@ for sample in ${sample[@]}; do
 	#Index reference FASTA file
 	samtools faidx $referenceFasta
 	
-	#Select only nuclear DNA and output to new file
-	samtools faidx $referenceFasta 2micron chrI chrII chrIII chrIV chrV chrVI chrVII \
-	chrVIII chrIX chrX chrXI chrXII chrXIII chrXIV chrXV chrXVI > nuclear.fa
+	if [ $reference == "sacCer2" ] && [ $subset == "nuclear" ] ; then
+		#Select only nuclear DNA and output to new file
+		samtools faidx $referenceFasta 2micron chrI chrII chrIII chrIV chrV chrVI chrVII \
+		chrVIII chrIX chrX chrXI chrXII chrXIII chrXIV chrXV chrXVI > nuclear.fa
 	
-	#Select only mitochondrial DNA and output to new file
-	samtools faidx $referenceFasta chrM > mitochondria.fa
+	elif [ $reference == "sacCer2" ] && [ $subset == "chrM" ] ; then
+		#Select only mitochondrial DNA and output to new file
+		samtools faidx $referenceFasta chrM > mitochondria.fa
+	fi
 	
 	#Calculate counts of each dNTP
-	A_backgroundCount=$(grep -v '>' $referenceFasta1 | grep -o 'A' - | wc -l)
-	C_backgroundCount=$(grep -v '>' $referenceFasta1 | grep -o 'C' - | wc -l)
-	G_backgroundCount=$(grep -v '>' $referenceFasta1 | grep -o 'G' - | wc -l)
-	T_backgroundCount=$(grep -v '>' $referenceFasta1 | grep -o 'T' - | wc -l)
+	A_backgroundCount=$(grep -v '>' $referenceFasta | grep -o 'A' - | wc -l)
+	C_backgroundCount=$(grep -v '>' $referenceFasta | grep -o 'C' - | wc -l)
+	G_backgroundCount=$(grep -v '>' $referenceFasta | grep -o 'G' - | wc -l)
+	T_backgroundCount=$(grep -v '>' $referenceFasta | grep -o 'T' - | wc -l)
 	
 	#Calculate total number of dNTPs
 	total1=$(($A_backgroundCount+$C_backgroundCount+$G_backgroundCount+$T_backgroundCount))
