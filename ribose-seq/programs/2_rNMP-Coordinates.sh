@@ -32,7 +32,7 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
-#Calculate rNMP coordinates for each sample
+#Determine rNMP coordinates for each sample
 for sample in ${sample[@]}; do
 
 #############################################################################################################################
