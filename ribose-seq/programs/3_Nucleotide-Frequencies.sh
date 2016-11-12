@@ -42,7 +42,7 @@ for sample in ${sample[@]}; do
 	referenceFasta1=$directory/ribose-seq/reference/$subset.fa
 
 	#Location of output directory
-	output1=$directory/ribose-seq/results/Background-dNTP-Frequencies
+	output1=$directory/ribose-seq/results/Background-Frequencies
 
 	#Create directory if it does not already exist
 	mkdir -p $output1
