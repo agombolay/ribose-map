@@ -92,7 +92,7 @@ for sample in ${sample[@]}; do
 ##########################################################################################################################################
 	#STEP 4: Calculate rNMP Frequencies
 
-	#Location of input files
+	#Location of input file
 	readInformation=$output1/$sample.read-information.bed
 
 	#Location of output files
