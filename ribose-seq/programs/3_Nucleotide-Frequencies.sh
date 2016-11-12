@@ -49,7 +49,7 @@ for sample in ${sample[@]}; do
 	output1=$directory/ribose-seq/results/Background-Frequencies
 	
 	output2=$directory/ribose-seq/results/$reference/$sample/Frequencies/rNMPs/$subset
-	output3=$directory/ribose-seq/results/$reference/$sample/Frequencies/dNTPs/$subset
+	output3=$directory/ribose-seq/results/$reference/$sample/Frequencies/dNTPs/$subset/Results
 	
 	output4=$directory/ribose-seq/results/$reference/$sample/Frequencies/dNTPs/$subset/Columns/upstream
 	output5=$directory/ribose-seq/results/$reference/$sample/Frequencies/dNTPs/$subset/Columns/downstream
@@ -57,14 +57,13 @@ for sample in ${sample[@]}; do
 	output6=$directory/ribose-seq/results/$reference/$sample/Frequencies/dNTPs/$subset/Columns/upstream/sequences
 	output7=$directory/ribose-seq/results/$reference/$sample/Frequencies/dNTPs/$subset/Columns/downstream/sequences
 	
-	output8=$directory/ribose-seq/results/$reference/$sample/Frequencies/dNTPs/$subset/Raw-Data
-	output9=$directory/ribose-seq/results/$reference/$sample/Frequencies/Datasets/$subset
+	output8=$directory/ribose-seq/results/$reference/$sample/Frequencies/Datasets/$subset
 
 	#Create directories if they do not already exist
-	mkdir -p $output{1-9}
+	mkdir -p $output{1-8}
 
 	#Remove any older versions of the output files
-	rm -f $output{1-9}/*.txt
+	rm -f $output{1-8}/*.txt
 	
 	#Location of output files
 	background=$output1/Background-Frequencies.$reference.$subset.txt
@@ -85,21 +84,21 @@ for sample in ${sample[@]}; do
 	columns1=$output6/$sample.upstream-sequences.$reference.$subset.tab
 	columns2=$output7/$sample.downstream-sequences.$reference.$subset.tab
 		
-	A_upstreamFrequencies=$output8/A_dNTP-frequencies.$reference.$subset.upstream.txt
-	C_upstreamFrequencies=$output8/C_dNTP-frequencies.$reference.$subset.upstream.txt
-	G_upstreamFrequencies=$output8/G_dNTP-frequencies.$reference.$subset.upstream.txt
-	T_upstreamFrequencies=$output8/T_dNTP-frequencies.$reference.$subset.upstream.txt
+	A_upstreamFrequencies=$output3/A_dNTP-frequencies.$reference.$subset.upstream.txt
+	C_upstreamFrequencies=$output3/C_dNTP-frequencies.$reference.$subset.upstream.txt
+	G_upstreamFrequencies=$output3/G_dNTP-frequencies.$reference.$subset.upstream.txt
+	T_upstreamFrequencies=$output3/T_dNTP-frequencies.$reference.$subset.upstream.txt
 
-	A_downstreamFrequencies=$output8/A_dNTP-frequencies.$reference.$subset.downstream.txt
-	C_downstreamFrequencies=$output8/C_dNTP-frequencies.$reference.$subset.downstream.txt
-	G_downstreamFrequencies=$output8/G_dNTP-frequencies.$reference.$subset.downstream.txt
-	T_downstreamFrequencies=$output8/T_dNTP-frequencies.$reference.$subset.downstream.txt
+	A_downstreamFrequencies=$output3/A_dNTP-frequencies.$reference.$subset.downstream.txt
+	C_downstreamFrequencies=$output3/C_dNTP-frequencies.$reference.$subset.downstream.txt
+	G_downstreamFrequencies=$output3/G_dNTP-frequencies.$reference.$subset.downstream.txt
+	T_downstreamFrequencies=$output3/T_dNTP-frequencies.$reference.$subset.downstream.txt
 
-	upstreamFrequencies=$output8/$sample.dNTP-frequencies.$reference.$subset.upstream.txt
-	downstreamFrequencies=$output8/$sample.dNTP-frequencies.$reference.$subset.downstream.txt
+	upstreamFrequencies=$output3/$sample.dNTP-frequencies.$reference.$subset.upstream.txt
+	downstreamFrequencies=$output3/$sample.dNTP-frequencies.$reference.$subset.downstream.txt
 	
-	dataset=$output9/$sample.nucleotide-frequencies-dataset.$reference.$subset.txt
-	zoomed=$output9/$sample.nucleotide-frequencies-zoomed.$reference.$subset.txt
+	dataset=$output8/$sample.nucleotide-frequencies-dataset.$reference.$subset.txt
+	zoomed=$output8/$sample.nucleotide-frequencies-zoomed.$reference.$subset.txt
 		
 ##########################################################################################################################################
 	#STEP 1: Calculate background dNTP frequencies of reference genome
