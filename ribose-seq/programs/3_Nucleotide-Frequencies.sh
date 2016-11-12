@@ -35,6 +35,9 @@ fi
 #Calculate nucleotide frequencies for each sample
 for sample in ${sample[@]}; do
 	
+	#Location of main output directory
+	frequencies=$directory/ribose-seq/results/$reference/$sample/Frequencies
+	
 ##########################################################################################################################################
 	#STEP 1: Calculate background dNTP frequencies of reference genome
 
@@ -47,11 +50,11 @@ for sample in ${sample[@]}; do
 	#Create directory if it does not already exist
 	mkdir -p $output1
 
-	#Remove previously created files so new files are created
+	#Remove any older versions of the output files
 	rm -f $output1/*.txt
 	
 	#Location of output file
-	background=$output1/$reference.$subset.Background-dNTP-Frequencies.txt
+	background=$output1/Background-Frequencies.$reference.$subset.txt
 
 	#Calculate counts of each dNTP
 	A_backgroundCount=$(grep -v '>' $referenceFasta1 | grep -o 'A' - | wc -l)
@@ -80,17 +83,14 @@ for sample in ${sample[@]}; do
 	#Location of input file
 	readInformation=$output1/$sample.read-information.bed
 	
-	#Location of "Nucleotide-Frequencies" directory
-	frequencies=$directory/ribose-seq/results/$reference/$sample/Frequencies
-	
-	#Location of output directory
-	output2=$nucFreqDirectory/rNMPs/$subset
+	#Location of sub-output directory
+	output2=$frequencies/rNMPs/$subset
 
 	#Create directory if it does not already exist
-	mkdir -p $nucFreqDirectory
+	mkdir -p $output2
 
-	#Remove previously created files so new files are created
-	rm -f $nucFreqDirectory/*.txt
+	#Remove any older versions of the output files
+	rm -f $output2/*.txt
 
 	#Location of output files
 	riboSequences=$output2/$sample.rNMP-Sequences.$reference.$subset.txt
