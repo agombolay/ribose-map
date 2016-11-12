@@ -76,7 +76,7 @@ for sample in ${sample[@]}; do
 	#Covert BAM file to BED format
 	bedtools bamtobed -i $bam > $bed
 	
-	#Obtain genome coverage of aligned reads
+	#Obtain coverage of 3' positions of reads
 	bedtools genomecov -3 -bg -ibam $bam > $coverage
 	
 	#Extract read coordinates, sequences, and strands from BED and SAM files
