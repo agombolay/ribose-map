@@ -41,9 +41,6 @@ for sample in ${sample[@]}; do
 	#Location of "Nucleotide-Frequencies" directory
 	directory2=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies
 
-##########################################################################################################################################
-	#STEP 1: Covert BAM alignment file to FASTA format
-
 	#Location of output directory
 	output1=$directory2/rNMPs/$subset
 
@@ -52,49 +49,10 @@ for sample in ${sample[@]}; do
 
 	#Remove previously created files so new files are created
 	rm -f $output1/*.txt
-	
-##########################################################################################################################################
-	#STEP 2: Obtain rNMP coordinates from aligned reads
 
-	#Location of output files
-	bed=$output1/$sample.aligned-reads.bed
-	coverage=$output1/$sample.rNMP-coverage.0-based.txt
-	
-	readCoordinates=$output1/$sample.read-coordinates.bed
 	readInformation=$output1/$sample.read-information.bed
-	
-	riboCoordinates1=$output1/$sample.rNMP-coordinates.0-based.genome.bed
 	riboCoordinates2=$output1/$sample.rNMP-coordinates.0-based.$subset.bed
-	
-	#Covert BAM file to BED format
-	bedtools bamtobed -i $bam > $bed
-	
-	#Obtain genome coverage of aligned reads
-	bedtools genomecov -3 -bg -ibam $bam > $coverage
-	
-	#Extract aligned read coordinates, sequences, and strands from BED and SAM files
-	paste $bed $fasta | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $readInformation
-	
-	#Determine rNMP coordinates from reads aligned to positive strand
-	awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $readInformation > positive-reads.txt
-	
-	#Determine rNMP coordinates from reads aligned to negative strand
-	awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $readInformation > negative-reads.txt
-	cat positive-reads.txt negative-reads.txt > $riboCoordinates1
-	
-	#Select only rNMP coordinates located in nuclear DNA
-	if [ $subset == "nuclear" ]; then
-		grep -v 'chrM' $riboCoordinates1 > $riboCoordinates2
-	#Select only rNMP coordinates located in mitochondrial DNA
-	elif [ $subset == "chrM" ]; then
-		grep 'chrM' $riboCoordinates1 > $riboCoordinates2
-	#Select all rNMP coordinates located in genomic DNA
-	else
-		cat $riboCoordinates1 > $riboCoordinates2
-	fi
-	
-	#Remove intermediate files
-	rm positive-reads.txt negative-reads.txt
+
 ##########################################################################################################################################
 	#STEP 3: Calculate background dNTP frequencies of reference genome
 
