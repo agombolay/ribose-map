@@ -143,7 +143,7 @@ for sample in ${sample[@]}; do
 	#Location of input files
 	referenceBED=$directory/ribose-seq/reference/$reference.bed
 	referenceFasta2=$directory/ribose-seq/reference/$reference.fa
-	riboCoordinates2=$output1/$sample.rNMP-coordinates.0-based.$subset.bed
+	riboCoordinates2=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.0-based.$subset.bed
 
 	#Location of output directory
 	output3=$nucFreqDirectory/dNTPs/$subset
