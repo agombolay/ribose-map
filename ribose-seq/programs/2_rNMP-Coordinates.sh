@@ -75,10 +75,7 @@ for sample in ${sample[@]}; do
 	#Location of output files
 	bed=$output/$sample.aligned-reads.bed
 	coverage=$output/$sample.rNMP-coverage.0-based.txt
-	
-	readCoordinates=$output/$sample.read-coordinates.bed
 	readInformation=$output/$sample.read-information.bed
-	
 	riboCoordinates1=$output/$sample.rNMP-coordinates.0-based.genome.bed
 	riboCoordinates2=$output/$sample.rNMP-coordinates.0-based.$subset.bed
 	
