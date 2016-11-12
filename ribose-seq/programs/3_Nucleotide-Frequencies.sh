@@ -300,6 +300,7 @@ for sample in ${sample[@]}; do
 	#Remove temporary files
 	rm -f temporary1 temporary2 temporary3 temporary4
 
+	#Let the user know the program is has finished running
 	echo "Calculation of nucleotide frequencies for $sample is complete"
 
 done
