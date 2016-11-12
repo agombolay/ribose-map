@@ -45,7 +45,7 @@ for sample in ${sample[@]}; do
 	readInformation=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.read-information.bed
 	riboCoordinates2=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.bed
 
-	#Location of output directory
+	#Location of output directories
 	output1=$directory/ribose-seq/results/Background-Frequencies
 	
 	output2=$directory/ribose-seq/results/$reference/$sample/Frequencies/rNMPs/$subset
@@ -60,7 +60,7 @@ for sample in ${sample[@]}; do
 	output8=$directory/ribose-seq/results/$reference/$sample/Frequencies/dNTPs/$subset/Raw-Data
 	output9=$directory/ribose-seq/results/$reference/$sample/Frequencies/Datasets/$subset
 
-	#Create directory if it does not already exist
+	#Create directories if they do not already exist
 	mkdir -p $output1 $output2 $output3 $output4 $output5 $output6 $output7 $output8 $output9
 
 	#Remove any older versions of the output files
@@ -85,7 +85,6 @@ for sample in ${sample[@]}; do
 	columns1=$output6/$sample.upstream-sequences.$reference.$subset.tab
 	columns2=$output7/$sample.downstream-sequences.$reference.$subset.tab
 		
-	#Location of output files (indivdiual base frequencies)
 	A_upstreamFrequencies=$output8/A_dNTP-frequencies.$reference.$subset.upstream.txt
 	C_upstreamFrequencies=$output8/C_dNTP-frequencies.$reference.$subset.upstream.txt
 	G_upstreamFrequencies=$output8/G_dNTP-frequencies.$reference.$subset.upstream.txt
