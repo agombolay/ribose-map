@@ -284,7 +284,7 @@ for sample in ${sample[@]}; do
 	#Print values -100 to 100
 	seq -100 1 100 > temporary1
 	
-	#Save files containing rNMP and upstream/downstream dNTP frequencies to one file
+	#Save files containing rNMP and upstream/downstream dNTP frequencies to file
 	cat $upstreamFrequencies $riboFrequencies $downstreamFrequencies >> temporary2
 
 	#Save files to one combined TXT file
@@ -293,7 +293,7 @@ for sample in ${sample[@]}; do
 	#Add header line containing nucleotides to beginning of file 
 	echo -e "\tA\tC\tG\tU/T" > $dataset; cat temporary3 >> $dataset;
 	
-	#Smaller dataset
+	#Smaller dataset (-15 nt to +15 nt)
 	head -117 $dataset | tail -31 > temporary4
 	echo -e "\tA\tC\tG\tU/T" > $zoomed; cat temporary4 >> $zoomed;
 
