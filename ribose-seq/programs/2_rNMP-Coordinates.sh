@@ -35,6 +35,7 @@ fi
 #Calculate nucleotide frequencies for each sample
 for sample in ${sample[@]}; do
 
+#############################################################################################################################
 	#STEP 1: Covert BAM alignment file to FASTA format
 
 	#Location of input file
@@ -62,7 +63,7 @@ for sample in ${sample[@]}; do
 	#Extract sequences from FASTA file
 	grep -v '>' $fasta > temporary && mv temporary $fasta
 	
-##########################################################################################################################################
+#############################################################################################################################
 	#STEP 2: Obtain rNMP coordinates from aligned reads
 
 	#Location of output files
