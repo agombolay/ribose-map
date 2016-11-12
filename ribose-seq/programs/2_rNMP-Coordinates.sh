@@ -32,7 +32,7 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
-#Calculate nucleotide frequencies for each sample
+#Calculate rNMP coordinates for each sample
 for sample in ${sample[@]}; do
 
 #############################################################################################################################
