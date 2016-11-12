@@ -39,7 +39,7 @@ for sample in ${sample[@]}; do
 	directory1=$directory/ribose-seq/results/$reference/$sample/Alignment
 
 	#Location of "Nucleotide-Frequencies" directory
-	directory2=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies
+	directory2=$directory/ribose-seq/results/$reference/$sample/rNMP-Coordinates
 
 ##########################################################################################################################################
 	#STEP 1: Covert BAM alignment file to FASTA format
@@ -48,17 +48,17 @@ for sample in ${sample[@]}; do
 	bam=$directory1/$sample.bam
 
 	#Location of output directory
-	output1=$directory2/rNMPs/$subset
+	output=$directory2/$subset
 
 	#Create directory if it does not already exist
-	mkdir -p $output1
+	mkdir -p $output
 
 	#Remove any older versions of the output files
-	rm -f $output1/*.txt
+	rm -f $output/*.txt
 	
 	#Location of output files	
-	fastq=$output1/$sample.aligned-reads.fq
-	fasta=$output1/$sample.aligned-reads.fa
+	fastq=$output/$sample.aligned-reads.fq
+	fasta=$output/$sample.aligned-reads.fa
 
 	#Convert BAM file to FASTQ
 	samtools bam2fq $bam > $fastq
@@ -73,8 +73,8 @@ for sample in ${sample[@]}; do
 	#STEP 2: Obtain rNMP coordinates from aligned reads
 
 	#Location of output files
-	bed=$output1/$sample.aligned-reads.bed
-	coverage=$output1/$sample.rNMP-coverage.0-based.txt
+	bed=$output/$sample.aligned-reads.bed
+	coverage=$output/$sample.rNMP-coverage.0-based.txt
 	
 	readCoordinates=$output1/$sample.read-coordinates.bed
 	readInformation=$output1/$sample.read-information.bed
