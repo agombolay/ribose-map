@@ -43,7 +43,7 @@ for sample in ${sample[@]}; do
 	referenceFasta=$directory/ribose-seq/reference/$reference.fa
 	
 	readInformation=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.read-information.bed
-	riboCoordinates2=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.bed
+	riboCoordinates2=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.$subset.bed
 
 	#Location of output directories
 	output1=$directory/ribose-seq/results/Background-Frequencies
