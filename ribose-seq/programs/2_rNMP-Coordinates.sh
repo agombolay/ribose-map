@@ -82,10 +82,10 @@ for sample in ${sample[@]}; do
 	#Extract read coordinates, sequences, and strands from BED and SAM files
 	paste $bed $fasta | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $readInformation
 	
-	#Determine rNMP coordinates from reads aligned to positive strand
+	#Determine rNMP coordinates from reads aligned to positive strand of DNA
 	awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $readInformation > positive-reads.txt
 	
-	#Determine rNMP coordinates from reads aligned to negative strand
+	#Determine rNMP coordinates from reads aligned to negative strand of DNA
 	awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $readInformation > negative-reads.txt
 	
 	#Combine reads on both strands (+ and -) into one file
