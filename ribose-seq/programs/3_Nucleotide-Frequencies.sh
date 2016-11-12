@@ -36,7 +36,7 @@ fi
 for sample in ${sample[@]}; do
 	
 	#Location of "Nucleotide-Frequencies" directory
-	directory2=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies
+	nucFreqDirectory=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies
 
 ##########################################################################################################################################
 	#STEP 1: Calculate background dNTP frequencies of reference genome
@@ -84,17 +84,17 @@ for sample in ${sample[@]}; do
 	readInformation=$output1/$sample.read-information.bed
 	
 	#Location of output directory
-	output2=$directory2/rNMPs/$subset
+	output2=$nucFreqDirectory/rNMPs/$subset
 
 	#Create directory if it does not already exist
-	mkdir -p $output2
+	mkdir -p $nucFreqDirectory
 
 	#Remove previously created files so new files are created
-	rm -f $output2/*.txt
+	rm -f $nucFreqDirectory/*.txt
 
 	#Location of output files
-	riboSequences=$output1/$sample.rNMP-Sequences.$reference.$subset.txt
-	riboFrequencies=$output1/$sample.rNMP-frequencies.$reference.$subset.txt	
+	riboSequences=$output2/$sample.rNMP-Sequences.$reference.$subset.txt
+	riboFrequencies=$output2/$sample.rNMP-frequencies.$reference.$subset.txt	
 	
 	#Select only reads located in nuclear DNA
 	if [ $subset == "nuclear" ]; then
@@ -146,7 +146,7 @@ for sample in ${sample[@]}; do
 	riboCoordinates2=$output1/$sample.rNMP-coordinates.0-based.$subset.bed
 
 	#Location of output directory
-	output3=$directory2/dNTPs/$subset
+	output3=$nucFreqDirectory/dNTPs/$subset
 
 	#Create directory if it does not already exist
     	mkdir -p $output3
@@ -169,10 +169,10 @@ for sample in ${sample[@]}; do
 	#STEP 6: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
 	#Location of output directory
-	output4=$directory2/dNTPs/$subset/Columns/upstream
-	output5=$directory2/dNTPs/$subset/Columns/downstream
-	output6=$directory2/dNTPs/$subset/Columns/upstream/sequences
-	output7=$directory2/dNTPs/$subset/Columns/downstream/sequences
+	output4=$nucFreqDirectory/dNTPs/$subset/Columns/upstream
+	output5=$nucFreqDirectory/dNTPs/$subset/Columns/downstream
+	output6=$nucFreqDirectory/dNTPs/$subset/Columns/upstream/sequences
+	output7=$nucFreqDirectory/dNTPs/$subset/Columns/downstream/sequences
 				
 	#Create directories if they do not already exist
     	mkdir -p $output4 $output5 $output6 $output7
@@ -209,7 +209,7 @@ for sample in ${sample[@]}; do
 	#STEP 7: Calculate frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
 	#Location of output directory
-	output8=$directory2/dNTPs/$subset/Raw-Data
+	output8=$nucFreqDirectory/dNTPs/$subset/Raw-Data
 
 	#Create directory if it does not already exist
 	mkdir -p $output8
@@ -227,7 +227,7 @@ for sample in ${sample[@]}; do
 	upstreamFrequencies=$output8/$sample.dNTP-frequencies.$reference.$subset.upstream.txt
 	
 	#Calculate dNTP frequencies for each 100 upstream position
-	for file in `ls -v $directory2/dNTPs/$subset/Columns/upstream/$sample*.txt`; do
+	for file in `ls -v $nucFreqDirectory/dNTPs/$subset/Columns/upstream/$sample*.txt`; do
 
 		#Calculate count of each dNTP
 		A_upstreamCount=$(grep -o 'A' $file | wc -l)
@@ -274,7 +274,7 @@ for sample in ${sample[@]}; do
 	downstreamFrequencies=$output8/$sample.dNTP-frequencies.$reference.$subset.downstream.txt
 	
 	#Calculate dNTP frequencies for each 100 downstream position
-	for file in `ls -v $directory2/dNTPs/$subset/Columns/downstream/$sample*.txt`; do
+	for file in `ls -v $nucFreqDirectory/dNTPs/$subset/Columns/downstream/$sample*.txt`; do
 
 		#Calculate count of each dNTP
 		A_downstreamCount=$(grep -v '>' $file | grep -o 'A' - | wc -l)
@@ -311,7 +311,7 @@ for sample in ${sample[@]}; do
 	#STEP 8: Create dataset file containing nucleotide frequencies needed for plotting
 
 	#Location of output directory
-	output9=$directory2/Datasets/$subset
+	output9=$nucFreqDirectory/Datasets/$subset
 
 	#Create directory if it does not already exist
     	mkdir -p $output9
