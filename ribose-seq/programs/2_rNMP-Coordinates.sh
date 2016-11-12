@@ -114,4 +114,6 @@ for sample in ${sample[@]}; do
 	fi
 	
 	#Remove intermediate files
-rm positive-reads.txt negative-reads.txt
+	rm positive-reads.txt negative-reads.txt
+	
+done
