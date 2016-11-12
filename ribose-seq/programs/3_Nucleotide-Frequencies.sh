@@ -128,7 +128,7 @@ for sample in ${sample[@]}; do
 	G_backgroundFrequency=$(echo "scale = 12; $G_backgroundCount/$total_backgroundCount" | bc | awk '{printf "%.12f\n", $0}')
 	T_backgroundFrequency=$(echo "scale = 12; $T_backgroundCount/$total_backgroundCount" | bc | awk '{printf "%.12f\n", $0}')
 
-	#Save frequencies of dNTPs to TXT file
+	#Save frequencies of background dNTPs in the reference FASTA file to TXT file
 	echo -e "A\tC\tG\tU/T\n$A_riboFrequency\t$C_riboFrequency\t$G_riboFrequency\t$U_riboFrequency" > $background
 
 ##########################################################################################################################################
