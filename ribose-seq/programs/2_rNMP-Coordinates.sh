@@ -66,7 +66,7 @@ for sample in ${sample[@]}; do
 	#Convert FASTQ file to FASTA
 	seqtk seq -A $fastq > $fasta
 	
-	#Output only sequences in FASTA file (exclude all header lines)
+	#Extract sequences from FASTA file
 	grep -v '>' $fasta > temporary && mv temporary $fasta
 	
 ##########################################################################################################################################
@@ -96,6 +96,8 @@ for sample in ${sample[@]}; do
 	
 	#Determine rNMP coordinates from reads aligned to negative strand
 	awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $readInformation > negative-reads.txt
+	
+	#Combine reads on both strands (+ and -) into one file
 	cat positive-reads.txt negative-reads.txt > $riboCoordinates1
 	
 	#Select only rNMP coordinates located in nuclear DNA
