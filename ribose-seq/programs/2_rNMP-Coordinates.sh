@@ -55,11 +55,11 @@ for sample in ${sample[@]}; do
 	fasta=$output/$sample.aligned-reads.fa
 	
 	bed=$output/$sample.aligned-reads.bed
-	coverage=$output/$sample.rNMP-coverage.0-based.txt
+	coverage=$output/$sample.rNMP-coverage.txt
 	readInformation=$output/$sample.read-information.bed
 	
-	riboCoordinates1=$output/$sample.rNMP-coordinates.0-based.genome.bed
-	riboCoordinates2=$output/$sample.rNMP-coordinates.0-based.$subset.bed
+	riboCoordinates1=$output/$sample.rNMP-coordinates.genome.bed
+	riboCoordinates2=$output/$sample.rNMP-coordinates.$subset.bed
 	
 #############################################################################################################################
 	#STEP 1: Covert BAM alignment file to FASTA format
