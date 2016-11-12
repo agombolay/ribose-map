@@ -211,7 +211,7 @@ for sample in ${sample[@]}; do
 	#STEP 5: Calculate frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
 	#Calculate frequencies at each position
-	for file in `ls -v $output6/$sample*.txt`; do
+	for file in `ls -v $output4/$sample*.txt`; do
 
 		#Calculate count of each dNTP
 		A_upstreamCount=$(grep -o 'A' $file | wc -l)
@@ -244,7 +244,7 @@ for sample in ${sample[@]}; do
 	done
 	
 	#Calculate frequencies at each position
-	for file in `ls -v $output7/$sample*.txt`; do
+	for file in `ls -v $output5/$sample*.txt`; do
 
 		#Calculate count of each dNTP
 		A_downstreamCount=$(grep -v '>' $file | grep -o 'A' - | wc -l)
