@@ -206,8 +206,8 @@ for sample in ${sample[@]}; do
 ##########################################################################################################################################
 	#STEP 5: Calculate frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
-	#Calculate dNTP frequencies for each 100 upstream position
-	for file in `ls -v $nucFreqDirectory/dNTPs/$subset/Columns/upstream/$sample*.txt`; do
+	#Calculate frequencies at each position
+	for file in `ls -v $output6/$sample*.txt`; do
 
 		#Calculate count of each dNTP
 		A_upstreamCount=$(grep -o 'A' $file | wc -l)
