@@ -76,11 +76,11 @@ for sample in ${sample[@]}; do
 	bed=$output/$sample.aligned-reads.bed
 	coverage=$output/$sample.rNMP-coverage.0-based.txt
 	
-	readCoordinates=$output1/$sample.read-coordinates.bed
-	readInformation=$output1/$sample.read-information.bed
+	readCoordinates=$output/$sample.read-coordinates.bed
+	readInformation=$output/$sample.read-information.bed
 	
-	riboCoordinates1=$output1/$sample.rNMP-coordinates.0-based.genome.bed
-	riboCoordinates2=$output1/$sample.rNMP-coordinates.0-based.$subset.bed
+	riboCoordinates1=$output/$sample.rNMP-coordinates.0-based.genome.bed
+	riboCoordinates2=$output/$sample.rNMP-coordinates.0-based.$subset.bed
 	
 	#Covert BAM file to BED format
 	bedtools bamtobed -i $bam > $bed
