@@ -215,14 +215,11 @@ for sample in ${sample[@]}; do
 		T_upstreamFreq=$(echo "scale = 12; ($T_upstreamCount/$total3)/$T_backgroundFreq" | bc | awk '{printf "%.12f\n", $0}')
 		
 		#Save normalized frequencies of dNTPs to TXT file
-		#echo $A_upstreamFreq >> A_frequencies1.txt; echo $C_upstreamFreq >> C_frequencies1.txt
+		echo $A_upstreamFreq >> A_frequencies1.txt; echo $C_upstreamFreq >> C_frequencies1.txt
 		echo $G_upstreamFreq >> G_frequencies1.txt; echo $T_upstreamFreq >> T_frequencies1.txt
 			
-		#Save frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs to one TXT file
-		upstreamFrequencies=$(paste <(for i in "${A_upstreamFreq[@]}"; do echo $i; done) <(for i in "${C_upstreamFreq[@]}"; do echo $i; done) G_frequencies1.txt T_frequencies1.txt | tac -)
-
-		#Reverse order of nucleotide frequencies so ordered from -100 --> -1
-		#tac $upstreamFrequencies > temporary && mv temporary $upstreamFrequencies
+		#Save upstream dNTP frequencies to one TXT file and reverse order of frequencies so ordered from -100 --> -1
+		upstreamFrequencies=$(paste A_frequencies1.txt C_frequencies1.txt G_frequencies1.txt T_frequencies1.txt | tac -)
 		
 	done
 
