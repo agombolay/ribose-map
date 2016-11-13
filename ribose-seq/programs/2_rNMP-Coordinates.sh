@@ -58,7 +58,6 @@ for sample in ${sample[@]}; do
 	bed=$output/$sample.aligned-reads.bed
 	coverage=$output/$sample.rNMP-coverage.txt
 	readInformation=$output/$sample.read-information.bed
-	
 	riboCoordinates=$output/$sample.rNMP-coordinates.bed
 
 #############################################################################################################################
