@@ -58,16 +58,16 @@ for sample in ${sample[@]}; do
 	#STEP 1: Extract sequences from BAM alignment file
 
 	#Convert BAM to FASTA file then extract sequences from FASTA
-	#samtools bam2fq $bam | seqtk seq -A - | grep -v '>' - > $sequences
+	samtools bam2fq $bam | seqtk seq -A - | grep -v '>' - > $sequences
 
 #############################################################################################################################
 	#STEP 2: Obtain rNMP coordinates from aligned reads
 
 	#Covert BAM file to BED format
-	#bedtools bamtobed -i $bam > $bed
+	bedtools bamtobed -i $bam > $bed
 	
 	#Extract read coordinates, sequences, and strands from BED and FASTA files
-	#paste $bed $sequences | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $reads
+	paste $bed $sequences | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $reads
 	
 	#Determine rNMP coordinates from reads aligned to positive strand of DNA
 	#awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $reads > positiveReads
