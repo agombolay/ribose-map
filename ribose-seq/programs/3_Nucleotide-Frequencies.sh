@@ -42,8 +42,8 @@ for sample in ${sample[@]}; do
 	referenceBED=$directory/ribose-seq/reference/$reference.bed
 	referenceFasta=$directory/ribose-seq/reference/$reference.fa
 	
-	readInformation=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.read-information.bed
-	riboCoordinates2=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.$subset.bed
+	reads=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.read-information.bed
+	coordinates=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.bed
 
 	#Location of output directories
 	output1=$directory/ribose-seq/results/Background-Frequencies
@@ -130,13 +130,13 @@ for sample in ${sample[@]}; do
 
 	#Select only reads located in nuclear DNA
 	if [ $subset == "nuclear" ]; then
-		grep -v 'chrM' $readInformation > temporary
+		grep -v 'chrM' $reads > temporary
 	#Select only reads located in mitochondrial DNA
 	elif [ $subset == "chrM" ]; then
-		grep 'chrM' $readInformation > temporary
+		grep 'chrM' $reads > temporary
 	#Select all reads located in genomic DNA
 	else
-		cat $readInformation > temporary
+		cat $reads > temporary
 	fi
 	
 	#Extract rNMP sequences from 3' end of aligned reads
