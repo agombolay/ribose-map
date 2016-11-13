@@ -150,7 +150,6 @@ for sample in ${sample[@]}; do
 	U_riboFreq=$(echo "scale = 12; ($U_riboCount/$total2)/$T_backgroundFreq" | bc | awk '{printf "%.12f\n", $0}')
 
 	#Save normalized frequencies of rNMPs to TXT file
-	#echo -e "$A_riboFreq\t$C_riboFreq\t$G_riboFreq\t$U_riboFreq" > $riboFrequencies
 	riboFrequencies=$(echo -e "$A_riboFreq\t$C_riboFreq\t$G_riboFreq\t$U_riboFreq")
 	
 ##########################################################################################################################################
