@@ -53,8 +53,7 @@ for sample in ${sample[@]}; do
 	#Location of output files	
 	fastq=$output/$sample.aligned-reads.fq; fasta=$output/$sample.aligned-reads.fa;
 	sequences=$output/$sample.sequences.txt; bed=$output/$sample.aligned-reads.bed;
-	readInformation=$output/$sample.read-information.bed
-	riboCoordinates=$output/$sample.rNMP-coordinates.bed
+	reads=$output/$sample.read-information.bed; coordinates=$output/$sample.rNMP-coordinates.bed
 
 #############################################################################################################################
 	#STEP 1: Covert BAM alignment file to FASTA format
@@ -75,23 +74,23 @@ for sample in ${sample[@]}; do
 	bedtools bamtobed -i $bam > $bed
 	
 	#Extract read coordinates, sequences, and strands from BED and FASTA files
-	paste $bed $sequences | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $readInformation
+	paste $bed $sequences | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $reads
 	
 	#Determine rNMP coordinates from reads aligned to positive strand of DNA
-	positiveReads=$(awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $readInformation)
+	positiveReads=$(awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $reads)
 
 	#Determine rNMP coordinates from reads aligned to negative strand of DNA
-	negativeReads=$(awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $readInformation)
+	negativeReads=$(awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $reads)
 
 	#Select only rNMP coordinates located in nuclear DNA
 	if [ $subset == "nuclear" ]; then
-		echo "$positiveReads $negativeReads" | grep -v 'chrM' - > $riboCoordinates
+		echo "$positiveReads $negativeReads" | grep -v 'chrM' - > $coordinates
 	#Select only rNMP coordinates located in mitochondrial DNA
 	elif [ $subset == "chrM" ]; then
-		echo "$positiveReads $negativeReads" | grep 'chrM' - > $riboCoordinates
+		echo "$positiveReads $negativeReads" | grep 'chrM' - > $coordinates
 	#Select all rNMP coordinates located in genomic DNA
 	else
-		echo "$positiveReads $negativeReads" > $riboCoordinates
+		echo "$positiveReads $negativeReads" > $coordinates
 	fi
 	
 done
