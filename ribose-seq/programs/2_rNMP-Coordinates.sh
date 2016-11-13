@@ -71,7 +71,6 @@ for sample in ${sample[@]}; do
 	seqtk seq -A $fastq > $fasta
 	
 	#Extract sequences from FASTA file
-	#grep -v '>' $fasta > temporary && mv temporary $fasta
 	grep -v '>' $fasta > $sequences
 
 #############################################################################################################################
