@@ -209,8 +209,8 @@ for sample in ${sample[@]}; do
 		total3=$(($A_upstreamCount+$C_upstreamCount+$G_upstreamCount+$T_upstreamCount))
 
 		#Calculate normalized frequencies of dNTPs
-		A_upstreamFreq+=$(echo "scale = 12; ($A_upstreamCount/$total3)/$A_backgroundFreq" | bc | awk '{printf "%.12f\n", $0}')
-		C_upstreamFreq+=$(echo "scale = 12; ($C_upstreamCount/$total3)/$C_backgroundFreq" | bc | awk '{printf "%.12f\n", $0}')
+		A_upstreamFreq=$(echo "scale = 12; ($A_upstreamCount/$total3)/$A_backgroundFreq" | bc | awk '{printf "%.12f\n", $0}')
+		C_upstreamFreq=$(echo "scale = 12; ($C_upstreamCount/$total3)/$C_backgroundFreq" | bc | awk '{printf "%.12f\n", $0}')
 		G_upstreamFreq=$(echo "scale = 12; ($G_upstreamCount/$total3)/$G_backgroundFreq" | bc | awk '{printf "%.12f\n", $0}')
 		T_upstreamFreq=$(echo "scale = 12; ($T_upstreamCount/$total3)/$T_backgroundFreq" | bc | awk '{printf "%.12f\n", $0}')
 		
