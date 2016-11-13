@@ -59,10 +59,11 @@ for sample in ${sample[@]}; do
 	#STEP 1: Covert BAM alignment file to FASTA format
 
 	#Convert BAM file to FASTQ
-	samtools bam2fq $bam > $fastq
-
+	#samtools bam2fq $bam > $fastq
+	samtools bam2fq $bam | seqtk seq -A - > $fasta
+	
 	#Convert FASTQ file to FASTA
-	seqtk seq -A $fastq > $fasta
+	#seqtk seq -A $fastq > $fasta
 	
 	#Extract sequences from FASTA file
 	grep -v '>' $fasta > $sequences
