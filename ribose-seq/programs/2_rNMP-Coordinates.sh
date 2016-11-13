@@ -51,12 +51,8 @@ for sample in ${sample[@]}; do
 	rm -f $output/{*.txt,*.bed,*.fa,*.fq}
 	
 	#Location of output files	
-	fastq=$output/$sample.aligned-reads.fq
-	fasta=$output/$sample.aligned-reads.fa
-	sequences=$output/$sample.sequences.txt
-	
-	bed=$output/$sample.aligned-reads.bed
-	coverage=$output/$sample.rNMP-coverage.txt
+	fastq=$output/$sample.aligned-reads.fq; fasta=$output/$sample.aligned-reads.fa;
+	sequences=$output/$sample.sequences.txt; bed=$output/$sample.aligned-reads.bed;
 	readInformation=$output/$sample.read-information.bed
 	riboCoordinates=$output/$sample.rNMP-coordinates.bed
 
@@ -77,9 +73,6 @@ for sample in ${sample[@]}; do
 
 	#Covert BAM file to BED format
 	bedtools bamtobed -i $bam > $bed
-	
-	#Obtain coverage of 3' positions of reads
-	bedtools genomecov -3 -bg -ibam $bam > $coverage
 	
 	#Extract read coordinates, sequences, and strands from BED and FASTA files
 	paste $bed $sequences | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $readInformation
