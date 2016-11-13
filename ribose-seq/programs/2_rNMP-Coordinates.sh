@@ -96,16 +96,16 @@ for sample in ${sample[@]}; do
 	
 	#Select only rNMP coordinates located in nuclear DNA
 	if [ $subset == "nuclear" ]; then
-		cat positive-reads.txt negative-reads.txt | grep -v 'chrM' - > $riboCoordinates1
-		#grep -v 'chrM' $riboCoordinates1 > $riboCoordinates2
+		#cat positive-reads.txt negative-reads.txt | grep -v 'chrM' - > $riboCoordinates1
+		grep -v 'chrM' $riboCoordinates1 > $riboCoordinates2
 	#Select only rNMP coordinates located in mitochondrial DNA
 	elif [ $subset == "chrM" ]; then
-		cat positive-reads.txt negative-reads.txt | grep 'chrM' - > $riboCoordinates1
-		#grep 'chrM' $riboCoordinates1 > $riboCoordinates2
+		#cat positive-reads.txt negative-reads.txt | grep 'chrM' - > $riboCoordinates1
+		grep 'chrM' $riboCoordinates1 > $riboCoordinates2
 	#Select all rNMP coordinates located in genomic DNA
 	else
-		cat positive-reads.txt negative-reads.txt > $riboCoordinates1
-		#cat $riboCoordinates1 > $riboCoordinates2
+		#cat positive-reads.txt negative-reads.txt > $riboCoordinates1
+		cat $riboCoordinates1 > $riboCoordinates2
 	fi
 	
 	#Remove intermediate files
