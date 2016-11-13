@@ -35,7 +35,7 @@ fi
 #Calculate nucleotide frequencies for each sample
 for sample in ${sample[@]}; do
 
-##########################################################################################################################################
+#############################################################################################################################
 	#Input/Output
 	
 	#Location of input files
@@ -85,7 +85,7 @@ for sample in ${sample[@]}; do
 	dataset=$output8/$sample.nucleotide-frequencies-dataset.$reference.$subset.txt
 	zoomed=$output8/$sample.nucleotide-frequencies-zoomed.$reference.$subset.txt
 		
-##########################################################################################################################################
+############################################################################################################################
 	#STEP 1: Calculate background dNTP frequencies of reference genome
 
 	#Index reference FASTA file
@@ -119,7 +119,7 @@ for sample in ${sample[@]}; do
 	#Save frequencies of dNTPs in the reference FASTA file (background frequencies) to TXT file
 	echo -e "A\tC\tG\tU/T\n$A_Frequency0\t$C_Frequency0\t$G_Frequency0\t$U_Frequency0" > $background
 
-##########################################################################################################################################
+############################################################################################################################
 	#STEP 2: Calculate rNMP Frequencies
 
 	#Extract rNMP sequences
@@ -152,7 +152,7 @@ for sample in ${sample[@]}; do
 	#Save normalized frequencies of rNMPs together
 	riboFrequencies=$(echo -e "$A_Frequency1\t$C_Frequency1\t$G_Frequency1\t$U_Frequency1")
 	
-##########################################################################################################################################
+############################################################################################################################
 	#STEP 3: Obtain coordinates and sequences of +/- 100 downstream/upstream dNTPs from rNMPs
 
 	#Obtain coordinates of upstream/downstream sequences based on rNMP coordinates
@@ -163,7 +163,7 @@ for sample in ${sample[@]}; do
 	bedtools getfasta -s -fi $referenceFasta2 -bed $upstreamIntervals -fo $upstreamSequences
 	bedtools getfasta -s -fi $referenceFasta2 -bed $downstreamIntervals -fo $downstreamSequences
 
-##########################################################################################################################################
+############################################################################################################################
 	#STEP 4: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
 	#Extract sequences from FASTA files
