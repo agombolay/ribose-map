@@ -246,7 +246,7 @@ for sample in ${sample[@]}; do
 		echo $G_downstreamFreq >> G_frequencies2.txt; echo $T_downstreamFreq >> T_frequencies2.txt
 		
 		#Save upstream dNTP frequencies to one TXT file (frequencies will be ordered from +1 --> +100)
-		downstreamFrequencies=$(paste A_frequencies2.txt C_frequencies2.txt G_frequencies2.txt T_frequencies2.txt))
+		downstreamFrequencies=$(paste A_frequencies2.txt C_frequencies2.txt G_frequencies2.txt T_frequencies2.txt)
 	
 	done
 
