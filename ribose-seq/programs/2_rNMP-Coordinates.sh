@@ -82,14 +82,15 @@ for sample in ${sample[@]}; do
 	#Determine rNMP coordinates from reads aligned to negative strand of DNA
 	negativeReads=$(awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $reads)
 
-	#Select only rNMP coordinates located in nuclear DNA
+	#Obtain rNMP coordinates
 	if [ $subset == "nuclear" ]; then
+		#Select only rNMP coordinates located in nuclear DNA
 		echo "$positiveReads $negativeReads" | grep -v 'chrM' - > $coordinates
-	#Select only rNMP coordinates located in mitochondrial DNA
 	elif [ $subset == "chrM" ]; then
+		#Select only rNMP coordinates located in mitochondrial DNA
 		echo "$positiveReads $negativeReads" | grep 'chrM' - > $coordinates
-	#Select all rNMP coordinates located in genomic DNA
 	else
+		#Select all rNMP coordinates located in genomic DNA
 		echo "$positiveReads $negativeReads" > $coordinates
 	fi
 	
