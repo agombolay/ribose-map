@@ -84,16 +84,6 @@ for sample in ${sample[@]}; do
 	columns1=$output6/$sample.upstream-sequences.$reference.$subset.tab
 	columns2=$output7/$sample.downstream-sequences.$reference.$subset.tab
 		
-	A_upstreamFrequencies=$output3/A_dNTP-frequencies.$reference.$subset.upstream.txt
-	C_upstreamFrequencies=$output3/C_dNTP-frequencies.$reference.$subset.upstream.txt
-	G_upstreamFrequencies=$output3/G_dNTP-frequencies.$reference.$subset.upstream.txt
-	T_upstreamFrequencies=$output3/T_dNTP-frequencies.$reference.$subset.upstream.txt
-
-	A_downstreamFrequencies=$output3/A_dNTP-frequencies.$reference.$subset.downstream.txt
-	C_downstreamFrequencies=$output3/C_dNTP-frequencies.$reference.$subset.downstream.txt
-	G_downstreamFrequencies=$output3/G_dNTP-frequencies.$reference.$subset.downstream.txt
-	T_downstreamFrequencies=$output3/T_dNTP-frequencies.$reference.$subset.downstream.txt
-
 	upstreamFrequencies=$output3/$sample.dNTP-frequencies.$reference.$subset.upstream.txt
 	downstreamFrequencies=$output3/$sample.dNTP-frequencies.$reference.$subset.downstream.txt
 	
@@ -229,12 +219,11 @@ for sample in ${sample[@]}; do
 		T_upstreamFrequency=$(echo "scale = 12; ($T_upstreamCount/$total3)/$T_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
 		
 		#Save normalized frequencies of dNTPs to TXT file
-		echo $A_upstreamFrequency >> $A_upstreamFrequencies; echo $C_upstreamFrequency >> $C_upstreamFrequencies
-		echo $G_upstreamFrequency >> $G_upstreamFrequencies; echo $T_upstreamFrequency >> $T_upstreamFrequencies
+		echo $A_upstreamFrequency >> A_frequencies1.txt; echo $C_upstreamFrequency >> C_frequencies1.txt
+		echo $G_upstreamFrequency >> G_frequencies1.txt; echo $T_upstreamFrequency >> T_frequencies1.txt
 			
 		#Save frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs to one TXT file
-		paste $A_upstreamFrequencies $C_upstreamFrequencies $G_upstreamFrequencies $T_upstreamFrequencies \
-		> $upstreamFrequencies
+		paste A_frequencies1.txt C_frequencies1.txt G_frequencies1.txt T_frequencies1.txt > $upstreamFrequencies
 	
 		#Reverse order of nucleotide frequencies so ordered from -100 --> -1
 		tac $upstreamFrequencies > temporary && mv temporary $upstreamFrequencies
@@ -260,15 +249,17 @@ for sample in ${sample[@]}; do
 		T_downstreamFrequency=$(echo "scale = 12; ($T_downstreamCount/$total4)/$T_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
 		
 		#Save normalized frequencies of dNTPs to TXT file
-		echo $A_downstreamFrequency >> $A_downstreamFrequencies; echo $C_downstreamFrequency >> $C_downstreamFrequencies
-		echo $G_downstreamFrequency >> $G_downstreamFrequencies; echo $T_downstreamFrequency >> $T_downstreamFrequencies
+		echo $A_downstreamFrequency >> A_frequencies2.txt; echo $C_downstreamFrequency >> C_frequencies2.txt
+		echo $G_downstreamFrequency >> G_frequencies2.txt; echo $T_downstreamFrequency >> T_frequencies2.txt
 		
 		#Save frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs to one TXT file
-		paste $A_downstreamFrequencies $C_downstreamFrequencies $G_downstreamFrequencies $T_downstreamFrequencies \
-		> $downstreamFrequencies
+		paste A_frequencies2.txt C_frequencies2.txt G_frequencies2.txt T_frequencies2.txt > $downstreamFrequencies
 	
 	done
 
+	#Remove intermediate files
+	rm A_frequencies{1..2}.txt C_frequencies{1..2}.txt G_frequencies{1..2}.txt T_frequencies{1..2}.txt
+	
 ##########################################################################################################################################
 	#STEP 6: Create dataset file containing nucleotide frequencies needed for plotting
 
