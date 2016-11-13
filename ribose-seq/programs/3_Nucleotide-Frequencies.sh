@@ -129,20 +129,17 @@ for sample in ${sample[@]}; do
 ##########################################################################################################################################
 	#STEP 2: Calculate rNMP Frequencies
 
-	#Select only reads located in nuclear DNA
+	#Extract rNMP sequences
 	if [ $subset == "nuclear" ]; then
-		#grep -v 'chrM' $reads > temporary
+		#Select only reads located in nuclear DNA and extract rNMP sequences
 		grep -v 'chrM' $reads | awk '{print substr($0,length($0))}' - > $riboSequences
-	#Select only reads located in mitochondrial DNA
 	elif [ $subset == "chrM" ]; then
-		grep 'chrM' $reads > temporary
-	#Select all reads located in genomic DNA
+		#Select only reads located in mitochondrial DNA and extract rNMP sequences
+		grep 'chrM' $reads | awk '{print substr($0,length($0))}' - > $riboSequences
 	else
-		cat $reads > temporary
+		#Select all reads located in genomic DNA and extract rNMP sequences
+		cat $reads | awk '{print substr($0,length($0))}' - > $riboSequences
 	fi
-	
-	#Extract rNMP sequences from 3' end of aligned reads
-	#awk '{print substr($0,length($0))}' temporary > $riboSequences
 	
 	#Calculate counts of rNMPs
 	A_riboCount=$(awk '$1 == "A"' $riboSequences | wc -l)
