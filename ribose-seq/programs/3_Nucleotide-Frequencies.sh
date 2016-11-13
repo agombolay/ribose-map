@@ -170,14 +170,15 @@ for sample in ${sample[@]}; do
 	#STEP 4: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
 	#Extract sequences from FASTA files
-	grep -v '>' $upstreamSequences > $sequences1
+	grep -v '>' $upstreamSequences | rev > $sequences1
 	grep -v '>' $downstreamSequences > $sequences2
 	
 	#Reverse order of upstream nucleotides
-	cat $sequences1|rev > $reversed
+	#cat $sequences1|rev > $reversed
 				
 	#Insert tabs between each nucleotide
-	cat $reversed | sed 's/.../& /2g;s/./& /g' > $columns1
+	#cat $reversed | sed 's/.../& /2g;s/./& /g' > $columns1
+	cat $sequences1 | sed 's/.../& /2g;s/./& /g' > $columns1
 	cat $sequences2 | sed 's/.../& /2g;s/./& /g' > $columns2
 
 	for i in {1..100}; do
