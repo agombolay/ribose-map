@@ -90,9 +90,6 @@ for sample in ${sample[@]}; do
 	#Determine rNMP coordinates from reads aligned to negative strand of DNA
 	awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $readInformation > negative-reads.txt
 	
-	#Combine reads on both strands (+ and -) into one file
-	#cat positive-reads.txt negative-reads.txt > $riboCoordinates1
-	
 	#Select only rNMP coordinates located in nuclear DNA
 	if [ $subset == "nuclear" ]; then
 		cat positive-reads.txt negative-reads.txt | grep -v 'chrM' - > $riboCoordinates
