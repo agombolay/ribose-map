@@ -117,13 +117,13 @@ for sample in ${sample[@]}; do
 	total1=$(($A_backgroundCount+$C_backgroundCount+$G_backgroundCount+$T_backgroundCount))
 
 	#Calculate frequency of each dNTP
-	A_backgroundFrequency=$(echo "scale = 12; $A_backgroundCount/$total1" | bc | awk '{printf "%.12f\n", $0}')
-	C_backgroundFrequency=$(echo "scale = 12; $C_backgroundCount/$total1" | bc | awk '{printf "%.12f\n", $0}')
-	G_backgroundFrequency=$(echo "scale = 12; $G_backgroundCount/$total1" | bc | awk '{printf "%.12f\n", $0}')
-	T_backgroundFrequency=$(echo "scale = 12; $T_backgroundCount/$total1" | bc | awk '{printf "%.12f\n", $0}')
+	A_backgroundFreq=$(echo "scale = 12; $A_backgroundCount/$total1" | bc | awk '{printf "%.12f\n", $0}')
+	C_backgroundFreq=$(echo "scale = 12; $C_backgroundCount/$total1" | bc | awk '{printf "%.12f\n", $0}')
+	G_backgroundFreq=$(echo "scale = 12; $G_backgroundCount/$total1" | bc | awk '{printf "%.12f\n", $0}')
+	T_backgroundFreq=$(echo "scale = 12; $T_backgroundCount/$total1" | bc | awk '{printf "%.12f\n", $0}')
 
 	#Save frequencies of background dNTPs in the reference FASTA file to TXT file
-	echo -e "A\tC\tG\tU/T\n$A_backgroundFrequency\t$C_backgroundFrequency\t$G_backgroundFrequency\t$U_backgroundFrequency" > $background
+	echo -e "A\tC\tG\tU/T\n$A_backgroundFreq\t$C_backgroundFreq\t$G_backgroundFreq\t$U_backgroundFreq" > $background
 
 ##########################################################################################################################################
 	#STEP 2: Calculate rNMP Frequencies
