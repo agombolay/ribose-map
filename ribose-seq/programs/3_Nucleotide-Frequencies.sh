@@ -256,7 +256,7 @@ for sample in ${sample[@]}; do
 	rm A_frequencies{1..2}.txt C_frequencies{1..2}.txt G_frequencies{1..2}.txt T_frequencies{1..2}.txt
 	
 ##########################################################################################################################################
-	#STEP 6: Create dataset file containing nucleotide frequencies needed for plotting
+	#STEP 6: Create dataset file containing nucleotide frequencies for plotting
 
 	#Save files containing rNMP and upstream/downstream dNTP frequencies to file
 	cat $upstreamFrequencies $riboFrequencies $downstreamFrequencies >> temporary1
