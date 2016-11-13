@@ -58,11 +58,8 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#STEP 1: Covert BAM alignment file to FASTA format
 
-	#Convert BAM file to FASTQ then FASTA file
-	#samtools bam2fq $bam | seqtk seq -A - > $fasta
+	#Convert BAM to FASTA file then extract sequences from FASTA
 	samtools bam2fq $bam | seqtk seq -A - | grep -v '>' - > $sequences
-	#Extract sequences from FASTA file
-	#grep -v '>' $fasta > $sequences
 
 #############################################################################################################################
 	#STEP 2: Obtain rNMP coordinates from aligned reads
