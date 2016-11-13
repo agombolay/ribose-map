@@ -70,7 +70,7 @@ for sample in ${sample[@]}; do
 	background=$output1/Background-Frequencies.$reference.$subset.txt
 	
 	riboSequences=$output2/$sample.rNMP-Sequences.$reference.$subset.txt
-	riboFrequencies=$output2/$sample.rNMP-frequencies.$reference.$subset.txt
+	#riboFrequencies=$output2/$sample.rNMP-frequencies.$reference.$subset.txt
 	
 	upstreamSequences=$output3/$sample.upstream-sequences.$reference.$subset.fa
 	upstreamIntervals=$output3/$sample.upstream-intervals.$reference.$subset.bed
@@ -156,7 +156,8 @@ for sample in ${sample[@]}; do
 	U_riboFreq=$(echo "scale = 12; ($U_riboCount/$total2)/$T_backgroundFreq" | bc | awk '{printf "%.12f\n", $0}')
 
 	#Save normalized frequencies of rNMPs to TXT file
-	echo -e "$A_riboFreq\t$C_riboFreq\t$G_riboFreq\t$U_riboFreq" > $riboFrequencies
+	#echo -e "$A_riboFreq\t$C_riboFreq\t$G_riboFreq\t$U_riboFreq" > $riboFrequencies
+	riboFrequencies=$(echo -e "$A_riboFreq\t$C_riboFreq\t$G_riboFreq\t$U_riboFreq")
 	
 ##########################################################################################################################################
 	#STEP 3: Obtain coordinates and sequences of +/- 100 downstream/upstream dNTPs from rNMPs
