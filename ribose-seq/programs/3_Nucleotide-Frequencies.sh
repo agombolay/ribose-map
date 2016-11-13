@@ -263,7 +263,7 @@ for sample in ${sample[@]}; do
 	#Save files containing rNMP and upstream/downstream dNTP frequencies to file
 	#cat $upstreamFrequencies $riboFrequencies $downstreamFrequencies > temporary1
 	#echo "$upstreamFrequencies" <(echo "$riboFrequencies") $downstreamFrequencies > temporary1
-	echo "$upstreamFrequencies"
+	cat <(echo "$upstreamFrequencies")
 	
 	#Add positions and header line 
 	echo -e "\tA\tC\tG\tU/T" > $dataset
