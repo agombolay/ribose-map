@@ -85,7 +85,7 @@ for sample in ${sample[@]}; do
 	dataset=$output8/$sample.nucleotide-frequencies-dataset.$reference.$subset.txt
 	zoomed=$output8/$sample.nucleotide-frequencies-zoomed.$reference.$subset.txt
 		
-############################################################################################################################
+#############################################################################################################################
 	#STEP 1: Calculate background dNTP frequencies of reference genome
 
 	#Index reference FASTA file
@@ -119,7 +119,7 @@ for sample in ${sample[@]}; do
 	#Save frequencies of dNTPs in the reference FASTA file (background frequencies) to TXT file
 	echo -e "A\tC\tG\tU/T\n$A_Frequency0\t$C_Frequency0\t$G_Frequency0\t$U_Frequency0" > $background
 
-############################################################################################################################
+#############################################################################################################################
 	#STEP 2: Calculate rNMP Frequencies
 
 	#Extract rNMP sequences
@@ -152,7 +152,7 @@ for sample in ${sample[@]}; do
 	#Save normalized frequencies of rNMPs together
 	riboFrequencies=$(echo -e "$A_Frequency1\t$C_Frequency1\t$G_Frequency1\t$U_Frequency1")
 	
-############################################################################################################################
+#############################################################################################################################
 	#STEP 3: Obtain coordinates and sequences of +/- 100 downstream/upstream dNTPs from rNMPs
 
 	#Obtain coordinates of upstream/downstream sequences based on rNMP coordinates
@@ -163,7 +163,7 @@ for sample in ${sample[@]}; do
 	bedtools getfasta -s -fi $referenceFasta2 -bed $upstreamIntervals -fo $upstreamSequences
 	bedtools getfasta -s -fi $referenceFasta2 -bed $downstreamIntervals -fo $downstreamSequences
 
-############################################################################################################################
+#############################################################################################################################
 	#STEP 4: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
 	#Extract sequences from FASTA files
@@ -184,7 +184,7 @@ for sample in ${sample[@]}; do
 		awk -v field=$i '{ print $field }' $columns2 > $lists2
 	done
 
-############################################################################################################################
+#############################################################################################################################
 	#STEP 5: Calculate frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
 	#Calculate frequencies at each position
@@ -206,11 +206,11 @@ for sample in ${sample[@]}; do
 		T_Frequency2=$(echo "scale = 12; ($T_Count2/$total2)/$T_Frequency0" | bc | awk '{printf "%.12f\n", $0}')
 		
 		#Save normalized dNTPs frequencies to TXT file
-		echo $A_Frequency2 >> A_frequencies2.txt; echo $C_Frequency2 >> C_frequencies2.txt
-		echo $G_Frequency2 >> G_frequencies2.txt; echo $T_Frequency2 >> T_frequencies2.txt
+		echo $A_Frequency2 >> A_frequency2.txt; echo $C_Frequency2 >> C_frequency2.txt
+		echo $G_Frequency2 >> G_frequency2.txt; echo $T_Frequency2 >> T_frequency2.txt
 			
-		#Save upstream dNTP frequencies together and reverse order of the frequencies so ordered from -100 --> -1
-		upstreamFrequencies=$(paste A_frequencies2.txt C_frequencies2.txt G_frequencies2.txt T_frequencies2.txt | tac -)
+		#Save upstream dNTP frequencies together and reverse order of frequencies so ordered from -100 --> -1
+		upstreamFrequencies=$(paste A_frequency2.txt C_frequency2.txt G_frequency2.txt T_frequency2.txt | tac -)
 		
 	done
 
@@ -233,18 +233,18 @@ for sample in ${sample[@]}; do
 		T_Frequency3=$(echo "scale = 12; ($T_Count3/$total3)/$T_Frequency0" | bc | awk '{printf "%.12f\n", $0}')
 		
 		#Save normalized dNTPs frequencies to TXT file
-		echo $A_Frequency3 >> A_frequencies3.txt; echo $C_Frequency3 >> C_frequencies3.txt
-		echo $G_Frequency3 >> G_frequencies3.txt; echo $T_Frequency3 >> T_frequencies3.txt
+		echo $A_Frequency3 >> A_frequency3.txt; echo $C_Frequency3 >> C_frequency3.txt
+		echo $G_Frequency3 >> G_frequency3.txt; echo $T_Frequency3 >> T_frequency3.txt
 		
-		#Save upstream dNTP frequencies together (frequencies will be ordered from +1 --> +100 in output)
-		downstreamFrequencies=$(paste A_frequencies3.txt C_frequencies3.txt G_frequencies3.txt T_frequencies3.txt)
+		#Save upstream dNTP frequencies together (frequencies will be ordered from +1 --> +100)
+		downstreamFrequencies=$(paste A_frequency3.txt C_frequency3.txt G_frequency3.txt T_frequency3.txt)
 	
 	done
 
 	#Remove intermediate files
-	rm A_frequencies{1..2}.txt C_frequencies{1..2}.txt G_frequencies{1..2}.txt T_frequencies{1..2}.txt
+	rm A_frequency{2..3}.txt C_frequency{2..3}.txt G_frequency{2..3}.txt T_frequency{2..3}.txt
 	
-############################################################################################################################
+#############################################################################################################################
 	#STEP 6: Create dataset file containing nucleotide frequencies for plotting
 
 	#Combine rNMP frequencies and upstream and downstream dNTP frequencies in appropriate order
