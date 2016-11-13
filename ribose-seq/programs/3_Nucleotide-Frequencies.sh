@@ -258,27 +258,19 @@ for sample in ${sample[@]}; do
 ##########################################################################################################################################
 	#STEP 6: Create dataset file containing nucleotide frequencies needed for plotting
 
-	#Print values -100 to 100
-	#seq -100 1 100 > temporary1
-	positions=$(seq -100 1 100)
-	
 	#Save files containing rNMP and upstream/downstream dNTP frequencies to file
-	cat $upstreamFrequencies $riboFrequencies $downstreamFrequencies >> temporary2
-
-	#Save files to one combined TXT file
-	#paste temporary1 temporary2 > temporary3
-
-	#Add header line containing nucleotides to beginning of file 
-	#echo -e "\tA\tC\tG\tU/T" > $dataset; cat temporary3 >> $dataset;
+	cat $upstreamFrequencies $riboFrequencies $downstreamFrequencies >> temporary1
+	
+	#Add positions and header line 
 	echo -e "\tA\tC\tG\tU/T" > $dataset
-	paste <(echo "$positions") <(cat temporary2) >> $dataset
+	paste <(echo "$(seq -100 1 100)") <(cat temporary1) >> $dataset
 
 	#Smaller dataset (-15 nt to +15 nt)
-	head -117 $dataset | tail -31 > temporary4
-	echo -e "\tA\tC\tG\tU/T" > $zoomed; cat temporary4 >> $zoomed;
+	head -117 $dataset | tail -31 > temporary2
+	echo -e "\tA\tC\tG\tU/T" > $zoomed; cat temporary2 >> $zoomed
 
 	#Remove temporary files
-	rm -f temporary1 temporary2 temporary3 temporary4
+	rm -f temporary{1..2}
 
 	#Let the user know the program is has finished running
 	echo "Calculation of nucleotide frequencies for $sample is complete"
