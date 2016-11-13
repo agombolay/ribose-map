@@ -262,7 +262,7 @@ for sample in ${sample[@]}; do
 	#Add positions and header line 
 	#echo -e "\tA\tC\tG\tU/T" > $dataset
 	#paste <(echo "$(seq -100 1 100)") <(cat <(echo "$data1")) > $dataset
-	echo -e "\tA\tC\tG\tU/T" | paste <(echo "$(seq -100 1 100)") <(cat <(echo "$data1")) >> $dataset
+	echo -e "\tA\tC\tG\tU/T" > $dataset && paste <(echo "$(seq -100 1 100)") <(cat <(echo "$data1")) >> $dataset
 
 	#Smaller dataset (-15 nt to +15 nt)
 	#head -117 $dataset | tail -31 > temporary2
