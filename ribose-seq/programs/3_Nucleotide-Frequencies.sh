@@ -237,7 +237,7 @@ for sample in ${sample[@]}; do
 		#Save frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs to one TXT file
 		#paste $A_upstreamFrequencies $C_upstreamFrequencies $G_upstreamFrequencies $T_upstreamFrequencies \
 		#> $upstreamFrequencies
-		printf "${$A_upstreamFrequency}\t ${$C_upstreamFrequency}\t ${$G_upstreamFrequency}\t ${$T_upstreamFrequency}\n" \
+		printf "$A_upstreamFrequency\t $C_upstreamFrequency\t $G_upstreamFrequency\t $T_upstreamFrequency" \
 		> $upstreamFrequencies
 	
 		#Reverse order of nucleotide frequencies so ordered from -100 --> -1
