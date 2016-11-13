@@ -84,32 +84,23 @@ for sample in ${sample[@]}; do
 	bedtools genomecov -3 -bg -ibam $bam > $coverage
 	
 	#Extract read coordinates, sequences, and strands from BED and FASTA files
-	#paste $bed $fasta | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $readInformation
 	paste $bed $sequences | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $readInformation
 	
 	#Determine rNMP coordinates from reads aligned to positive strand of DNA
-	#awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $readInformation > positive-reads.txt
 	positiveReads=$(awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $readInformation)
 
 	#Determine rNMP coordinates from reads aligned to negative strand of DNA
-	#awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $readInformation > negative-reads.txt
 	negativeReads=$(awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $readInformation)
 
 	#Select only rNMP coordinates located in nuclear DNA
 	if [ $subset == "nuclear" ]; then
-		#cat positive-reads.txt negative-reads.txt | grep -v 'chrM' - > $riboCoordinates
 		echo -e "\v$positiveReads \v$negativeReads" | grep -v 'chrM' - > $riboCoordinates
 	#Select only rNMP coordinates located in mitochondrial DNA
 	elif [ $subset == "chrM" ]; then
-		#cat positive-reads.txt negative-reads.txt | grep 'chrM' - > $riboCoordinates
 		echo -e "\v$positiveReads \v$negativeReads" | grep 'chrM' - > $riboCoordinates
 	#Select all rNMP coordinates located in genomic DNA
 	else
-		#cat positive-reads.txt negative-reads.txt > $riboCoordinates
 		echo -e "\v$positiveReads \v$negativeReads" > $riboCoordinates
 	fi
-	
-	#Remove intermediate files
-	#rm positive-reads.txt negative-reads.txt
 	
 done
