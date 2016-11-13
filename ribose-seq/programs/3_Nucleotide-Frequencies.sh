@@ -167,8 +167,8 @@ for sample in ${sample[@]}; do
 	#STEP 3: Obtain coordinates and sequences of +/- 100 downstream/upstream dNTPs from rNMPs
 
 	#Obtain coordinates of upstream/downstream sequences based on rNMP coordinates
-	bedtools flank -i $riboCoordinates2 -s -g $referenceBED -l 100 -r 0 > $upstreamIntervals
-	bedtools flank -i $riboCoordinates2 -s -g $referenceBED -l 0 -r 100 > $downstreamIntervals
+	bedtools flank -i $coordinates -s -g $referenceBED -l 100 -r 0 > $upstreamIntervals
+	bedtools flank -i $coordinates -s -g $referenceBED -l 0 -r 100 > $downstreamIntervals
 
 	#Obtain sequences of upstream/downstream coordinates
 	bedtools getfasta -s -fi $referenceFasta -bed $upstreamIntervals -fo $upstreamSequences
