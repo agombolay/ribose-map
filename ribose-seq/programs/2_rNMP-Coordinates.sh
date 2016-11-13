@@ -69,12 +69,6 @@ for sample in ${sample[@]}; do
 	#Extract read coordinates, sequences, and strands from BED and FASTA files
 	paste $bed $sequences | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $reads
 	
-	#Determine rNMP coordinates from reads aligned to positive strand of DNA
-	#awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $reads > positiveReads
-
-	#Determine rNMP coordinates from reads aligned to negative strand of DNA
-	#awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $reads > negativeReads
-
 	#Obtain rNMP coordinates
 	if [ $subset == "nuclear" ]; then
 		#Select only rNMP coordinates located in nuclear DNA
