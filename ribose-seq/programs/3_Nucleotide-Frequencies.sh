@@ -265,7 +265,7 @@ for sample in ${sample[@]}; do
 
 	#Smaller dataset (-15 nt to +15 nt)
 	#head -117 $dataset | tail -31 > temporary2
-	data2=$(head -117 $dataset | tail -31)
+	data2=$(head -116 $dataset | tail -31)
 	#echo -e "\tA\tC\tG\tU/T" > $zoomed; cat temporary2 > $zoomed
 	echo -e "\tA\tC\tG\tU/T" > $zoomed; cat <(echo "$data2") > $zoomed
 
