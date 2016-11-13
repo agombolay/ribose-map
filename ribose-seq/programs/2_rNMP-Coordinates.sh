@@ -51,12 +51,11 @@ for sample in ${sample[@]}; do
 	rm -f $output/{*.txt,*.bed,*.fa,*.fq}
 	
 	#Location of output files	
-	fasta=$output/$sample.aligned-reads.fa;
 	sequences=$output/$sample.sequences.txt; bed=$output/$sample.aligned-reads.bed;
 	reads=$output/$sample.read-information.bed; coordinates=$output/$sample.rNMP-coordinates.bed
 
 #############################################################################################################################
-	#STEP 1: Covert BAM alignment file to FASTA format
+	#STEP 1: Extract sequences from BAM alignment file
 
 	#Convert BAM to FASTA file then extract sequences from FASTA
 	samtools bam2fq $bam | seqtk seq -A - | grep -v '>' - > $sequences
