@@ -58,9 +58,7 @@ for sample in ${sample[@]}; do
 	coverage=$output/$sample.rNMP-coverage.txt
 	readInformation=$output/$sample.read-information.bed
 	
-	#riboCoordinates1=$output/$sample.rNMP-coordinates.genome.bed
-	#riboCoordinates2=$output/$sample.rNMP-coordinates.$subset.bed
-	riboCoordinates1=$output/$sample.rNMP-coordinates.bed
+	riboCoordinates=$output/$sample.rNMP-coordinates.bed
 
 #############################################################################################################################
 	#STEP 1: Covert BAM alignment file to FASTA format
@@ -97,16 +95,13 @@ for sample in ${sample[@]}; do
 	
 	#Select only rNMP coordinates located in nuclear DNA
 	if [ $subset == "nuclear" ]; then
-		cat positive-reads.txt negative-reads.txt | grep -v 'chrM' - > $riboCoordinates1
-		#grep -v 'chrM' $riboCoordinates1 > $riboCoordinates2
+		cat positive-reads.txt negative-reads.txt | grep -v 'chrM' - > $riboCoordinates
 	#Select only rNMP coordinates located in mitochondrial DNA
 	elif [ $subset == "chrM" ]; then
-		cat positive-reads.txt negative-reads.txt | grep 'chrM' - > $riboCoordinates1
-		#grep 'chrM' $riboCoordinates1 > $riboCoordinates2
+		cat positive-reads.txt negative-reads.txt | grep 'chrM' - > $riboCoordinates
 	#Select all rNMP coordinates located in genomic DNA
 	else
-		cat positive-reads.txt negative-reads.txt > $riboCoordinates1
-		#cat $riboCoordinates1 > $riboCoordinates2
+		cat positive-reads.txt negative-reads.txt > $riboCoordinates
 	fi
 	
 	#Remove intermediate files
