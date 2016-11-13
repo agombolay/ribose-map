@@ -40,7 +40,8 @@ for sample in ${sample[@]}; do
 	
 	#Location of input files
 	referenceBED=$directory/ribose-seq/reference/$reference.bed
-	referenceFasta=$directory/ribose-seq/reference/$reference.fa
+	referenceFasta1=$directory/ribose-seq/reference/$reference.fa
+	referenceFasta2=$directory/ribose-seq/reference/$reference.$subset.fa
 	
 	reads=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.read-information.bed
 	coordinates=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.bed
@@ -94,23 +95,23 @@ for sample in ${sample[@]}; do
 	#STEP 1: Calculate background dNTP frequencies of reference genome
 
 	#Index reference FASTA file
-	samtools faidx $referenceFasta
+	samtools faidx $referenceFasta1
 	
 	if [ $reference == "sacCer2" ] && [ $subset == "nuclear" ] ; then
 		#Select only nuclear DNA and output to new file
-		samtools faidx $referenceFasta 2micron chrI chrII chrIII chrIV chrV chrVI chrVII \
-		chrVIII chrIX chrX chrXI chrXII chrXIII chrXIV chrXV chrXVI > sacCer2.nuclear.fa
+		samtools faidx $referenceFasta1 2micron chrI chrII chrIII chrIV chrV chrVI chrVII \
+		chrVIII chrIX chrX chrXI chrXII chrXIII chrXIV chrXV chrXVI > $referenceFasta2
 	
 	elif [ $reference == "sacCer2" ] && [ $subset == "chrM" ] ; then
 		#Select only mitochondrial DNA and output to new file
-		samtools faidx $referenceFasta chrM > sacCer2.chrM.fa
+		samtools faidx $referenceFasta1 chrM > $referenceFasta2
 	fi
 	
 	#Calculate counts of each dNTP
-	A_backgroundCount=$(grep -v '>' $referenceFasta | grep -o 'A' - | wc -l)
-	C_backgroundCount=$(grep -v '>' $referenceFasta | grep -o 'C' - | wc -l)
-	G_backgroundCount=$(grep -v '>' $referenceFasta | grep -o 'G' - | wc -l)
-	T_backgroundCount=$(grep -v '>' $referenceFasta | grep -o 'T' - | wc -l)
+	A_backgroundCount=$(grep -v '>' $referenceFasta2 | grep -o 'A' - | wc -l)
+	C_backgroundCount=$(grep -v '>' $referenceFasta2 | grep -o 'C' - | wc -l)
+	G_backgroundCount=$(grep -v '>' $referenceFasta2 | grep -o 'G' - | wc -l)
+	T_backgroundCount=$(grep -v '>' $referenceFasta2 | grep -o 'T' - | wc -l)
 	
 	#Calculate total number of dNTPs
 	total1=$(($A_backgroundCount+$C_backgroundCount+$G_backgroundCount+$T_backgroundCount))
