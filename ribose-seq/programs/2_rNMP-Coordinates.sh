@@ -98,7 +98,7 @@ for sample in ${sample[@]}; do
 		echo -e "\v$positiveReads \v$negativeReads" | grep 'chrM' - > $riboCoordinates
 	#Select all rNMP coordinates located in genomic DNA
 	else
-		echo -e "\v$positiveReads \v$negativeReads" > $riboCoordinates
+		echo -e "\v$positiveReads $negativeReads" > $riboCoordinates
 	fi
 	
 done
