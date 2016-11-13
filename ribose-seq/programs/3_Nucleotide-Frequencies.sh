@@ -184,7 +184,7 @@ for sample in ${sample[@]}; do
 		awk -v field=$i '{ print $field }' $columns2 > $lists2
 	done
 
-##########################################################################################################################################
+############################################################################################################################
 	#STEP 5: Calculate frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
 	#Calculate frequencies at each position
