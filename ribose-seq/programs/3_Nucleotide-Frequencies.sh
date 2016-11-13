@@ -214,7 +214,7 @@ for sample in ${sample[@]}; do
 		G_upstreamFreq=$(echo "scale = 12; ($G_upstreamCount/$total3)/$G_backgroundFreq" | bc | awk '{printf "%.12f\n", $0}')
 		T_upstreamFreq=$(echo "scale = 12; ($T_upstreamCount/$total3)/$T_backgroundFreq" | bc | awk '{printf "%.12f\n", $0}')
 		
-		#Save normalized frequencies of dNTPs to TXT file
+		#Save normalized dNTPs frequencies to TXT file
 		echo $A_upstreamFreq >> A_frequencies1.txt; echo $C_upstreamFreq >> C_frequencies1.txt
 		echo $G_upstreamFreq >> G_frequencies1.txt; echo $T_upstreamFreq >> T_frequencies1.txt
 			
@@ -241,12 +241,12 @@ for sample in ${sample[@]}; do
 		G_downstreamFreq=$(echo "scale = 12; ($G_downstreamCount/$total4)/$G_backgroundFreq" | bc | awk '{printf "%.12f\n", $0}')
 		T_downstreamFreq=$(echo "scale = 12; ($T_downstreamCount/$total4)/$T_backgroundFreq" | bc | awk '{printf "%.12f\n", $0}')
 		
-		#Save normalized frequencies of dNTPs to TXT file
+		#Save normalized dNTPs frequencies to TXT file
 		echo $A_downstreamFreq >> A_frequencies2.txt; echo $C_downstreamFreq >> C_frequencies2.txt
 		echo $G_downstreamFreq >> G_frequencies2.txt; echo $T_downstreamFreq >> T_frequencies2.txt
 		
-		#Save frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs to one TXT file
-		paste A_frequencies2.txt C_frequencies2.txt G_frequencies2.txt T_frequencies2.txt > $downstreamFrequencies
+		#Save upstream dNTP frequencies to one TXT file (frequencies will be ordered from +1 --> +100)
+		downstreamFrequencies=$(paste A_frequencies2.txt C_frequencies2.txt G_frequencies2.txt T_frequencies2.txt))
 	
 	done
 
@@ -257,8 +257,7 @@ for sample in ${sample[@]}; do
 	#STEP 6: Create dataset file containing nucleotide frequencies for plotting
 
 	#Save files containing rNMP and upstream/downstream dNTP frequencies to file
-	#cat $upstreamFrequencies $riboFrequencies $downstreamFrequencies > temporary1
-	cat <(echo "$upstreamFrequencies") <(echo "$riboFrequencies") $downstreamFrequencies > temporary1
+	cat <(echo "$upstreamFrequencies") <(echo "$riboFrequencies") <(echo "$downstreamFrequencies") > temporary1
 	
 	#Add positions and header line 
 	echo -e "\tA\tC\tG\tU/T" > $dataset
