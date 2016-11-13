@@ -234,7 +234,7 @@ for sample in ${sample[@]}; do
 		#echo $G_upstreamFrequency >> $G_upstreamFrequencies
 		#echo $T_upstreamFrequency >> $T_upstreamFrequencies
 		
-		echo "$A_upstreamFrequency\t $C_upstreamFrequency\t $G_upstreamFrequency\t  $T_upstreamFrequency" >> $upstreamFrequencies
+		echo -e "$A_upstreamFrequency\t $C_upstreamFrequency\t $G_upstreamFrequency\t  $T_upstreamFrequency" >> $upstreamFrequencies
 	
 		#Save frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs to one TXT file
 		#paste $A_upstreamFrequencies $C_upstreamFrequencies $G_upstreamFrequencies $T_upstreamFrequencies \
