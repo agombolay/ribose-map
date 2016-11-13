@@ -79,7 +79,6 @@ for sample in ${sample[@]}; do
 	
 	sequences1=$output6/$sample.upstream-sequences.$reference.$subset.txt
 	sequences2=$output7/$sample.downstream-sequences.$reference.$subset.txt
-	reversed=$output6/$sample.upstream-sequences.$reference.$subset.reversed.txt
 	
 	columns1=$output6/$sample.upstream-sequences.$reference.$subset.tab
 	columns2=$output7/$sample.downstream-sequences.$reference.$subset.tab
@@ -170,14 +169,11 @@ for sample in ${sample[@]}; do
 	#STEP 4: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
 	#Extract sequences from FASTA files
+	#Reverse order of upstream nucleotides
 	grep -v '>' $upstreamSequences | rev > $sequences1
 	grep -v '>' $downstreamSequences > $sequences2
-	
-	#Reverse order of upstream nucleotides
-	#cat $sequences1|rev > $reversed
 				
 	#Insert tabs between each nucleotide
-	#cat $reversed | sed 's/.../& /2g;s/./& /g' > $columns1
 	cat $sequences1 | sed 's/.../& /2g;s/./& /g' > $columns1
 	cat $sequences2 | sed 's/.../& /2g;s/./& /g' > $columns2
 
