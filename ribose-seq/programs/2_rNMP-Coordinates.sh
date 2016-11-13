@@ -48,7 +48,7 @@ for sample in ${sample[@]}; do
 	mkdir -p $output
 	
 	#Remove any older versions of the output files
-	rm -f $output/*.txt
+	rm -f $output/{*.txt,.bed,.fa,.fq}
 	
 	#Location of output files	
 	fastq=$output/$sample.aligned-reads.fq
