@@ -69,11 +69,15 @@ for sample in ${sample[@]}; do
 	#Extract read coordinates, sequences, and strands from BED and FASTA files
 	paste $bed $sequences | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $reads
 	
+	positiveReads=$(awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $reads)
+	negativeReads=$(awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $reads)
+		
 	#Obtain rNMP coordinates
 	if [ $subset == "nuclear" ]; then
 		#Select only rNMP coordinates located in nuclear DNA
-		awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $reads | grep -v 'chrM' - | cat - > $coordinates
-		awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $reads | grep -v 'chrM' - | cat - >> $coordinates
+		#awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $reads | grep -v 'chrM' - | cat - > $coordinates
+		#awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $reads | grep -v 'chrM' - | cat - >> $coordinates
+		cat <(echo "$positiveReads") <(echo "$negativeReads") | grep -v 'chrM' - > $coordinates
 	elif [ $subset == "chrM" ]; then
 		#Select only rNMP coordinates located in mitochondrial DNA
 		awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $reads | grep 'chrM' - | cat - > $coordinates
