@@ -53,6 +53,7 @@ for sample in ${sample[@]}; do
 	#Location of output files	
 	fastq=$output/$sample.aligned-reads.fq
 	fasta=$output/$sample.aligned-reads.fa
+	sequences=$output/$sample.sequences.txt
 	
 	bed=$output/$sample.aligned-reads.bed
 	coverage=$output/$sample.rNMP-coverage.txt
@@ -71,7 +72,7 @@ for sample in ${sample[@]}; do
 	
 	#Extract sequences from FASTA file
 	#grep -v '>' $fasta > temporary && mv temporary $fasta
-	sequences=$(grep -v '>' $fasta)
+	grep -v '>' $fasta > $sequences
 
 #############################################################################################################################
 	#STEP 2: Obtain rNMP coordinates from aligned reads
