@@ -244,7 +244,7 @@ for sample in ${sample[@]}; do
 	#Remove intermediate files
 	rm A_frequencies{1..2}.txt C_frequencies{1..2}.txt G_frequencies{1..2}.txt T_frequencies{1..2}.txt
 	
-##########################################################################################################################################
+############################################################################################################################
 	#STEP 6: Create dataset file containing nucleotide frequencies for plotting
 
 	#Combine rNMP frequencies and upstream and downstream dNTP frequencies in appropriate order
