@@ -172,8 +172,8 @@ for sample in ${sample[@]}; do
 	bedtools flank -i $coordinates -s -g $referenceBED -l 0 -r 100 > $downstreamIntervals
 
 	#Obtain sequences of upstream/downstream coordinates
-	bedtools getfasta -s -fi $referenceFasta -bed $upstreamIntervals -fo $upstreamSequences
-	bedtools getfasta -s -fi $referenceFasta -bed $downstreamIntervals -fo $downstreamSequences
+	bedtools getfasta -s -fi $referenceFasta2 -bed $upstreamIntervals -fo $upstreamSequences
+	bedtools getfasta -s -fi $referenceFasta2 -bed $downstreamIntervals -fo $downstreamSequences
 
 ##########################################################################################################################################
 	#STEP 4: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
