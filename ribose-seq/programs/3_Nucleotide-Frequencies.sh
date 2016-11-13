@@ -221,7 +221,7 @@ for sample in ${sample[@]}; do
 		#Save frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs to one TXT file
 		#upstreamFrequencies=$(paste <(echo "$A_upstreamFreq") <(echo "$C_upstreamFreq") G_frequencies1.txt T_frequencies1.txt | tac -)
 		#upstreamFrequencies=$(paste <(echo "$A_upstreamFreq") <(echo "$C_upstreamFreq") <(echo "$G_upstreamFreq") <(echo "$T_upstreamFreq") | tac -)
-		upstreamFrequencies=$(paste <(echo "$A_upstreamFreq") <(echo "$C_upstreamFreq") G_frequencies1.txt T_frequencies1.txt | tac -)
+		upstreamFrequencies=$(paste <(echo "${A_upstreamFreq[@]}") <(echo "${C_upstreamFreq[@]}") G_frequencies1.txt T_frequencies1.txt | tac -)
 
 		#Reverse order of nucleotide frequencies so ordered from -100 --> -1
 		#tac $upstreamFrequencies > temporary && mv temporary $upstreamFrequencies
