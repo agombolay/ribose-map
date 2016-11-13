@@ -99,8 +99,8 @@ for sample in ${sample[@]}; do
 	
 	if [ $reference == "sacCer2" ] && [ $subset == "nuclear" ] ; then
 		#Select only nuclear DNA and output to new file
-		referenceFasta2=$(samtools faidx $referenceFasta1 2micron chrI chrII chrIII chrIV chrV chrVI chrVII \
-		chrVIII chrIX chrX chrXI chrXII chrXIII chrXIV chrXV chrXVI)
+		samtools faidx $referenceFasta1 2micron chrI chrII chrIII chrIV chrV chrVI chrVII \
+		chrVIII chrIX chrX chrXI chrXII chrXIII chrXIV chrXV chrXVI > referenceFasta2
 	
 	elif [ $reference == "sacCer2" ] && [ $subset == "chrM" ] ; then
 		#Select only mitochondrial DNA and output to new file
@@ -131,7 +131,8 @@ for sample in ${sample[@]}; do
 
 	#Select only reads located in nuclear DNA
 	if [ $subset == "nuclear" ]; then
-		grep -v 'chrM' $reads > temporary
+		#grep -v 'chrM' $reads > temporary
+		grep -v 'chrM' $reads | awk '{print substr($0,length($0))}' - > $riboSequences
 	#Select only reads located in mitochondrial DNA
 	elif [ $subset == "chrM" ]; then
 		grep 'chrM' $reads > temporary
@@ -141,7 +142,7 @@ for sample in ${sample[@]}; do
 	fi
 	
 	#Extract rNMP sequences from 3' end of aligned reads
-	awk '{print substr($0,length($0))}' temporary > $riboSequences
+	#awk '{print substr($0,length($0))}' temporary > $riboSequences
 	
 	#Calculate counts of rNMPs
 	A_riboCount=$(awk '$1 == "A"' $riboSequences | wc -l)
