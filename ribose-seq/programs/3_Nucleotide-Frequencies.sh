@@ -270,8 +270,9 @@ for sample in ${sample[@]}; do
 
 	#Add header line containing nucleotides to beginning of file 
 	#echo -e "\tA\tC\tG\tU/T" > $dataset; cat temporary3 >> $dataset;
-	echo -e "\tA\tC\tG\tU/T\n$positions" > $dataset; cat temporary2 >> $dataset;
-	
+	echo -e "\tA\tC\tG\tU/T" > $dataset
+	paste <(echo "$positions") <(cat temporary2) >> $dataset
+
 	#Smaller dataset (-15 nt to +15 nt)
 	head -117 $dataset | tail -31 > temporary4
 	echo -e "\tA\tC\tG\tU/T" > $zoomed; cat temporary4 >> $zoomed;
