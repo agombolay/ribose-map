@@ -123,8 +123,7 @@ for sample in ${sample[@]}; do
 	T_backgroundFrequency=$(echo "scale = 12; $T_backgroundCount/$total1" | bc | awk '{printf "%.12f\n", $0}')
 
 	#Save frequencies of background dNTPs in the reference FASTA file to TXT file
-	echo -e "A\tC\tG\tU/T\n$A_backgroundFrequency\t$C_backgroundFrequency\t$G_backgroundFrequency\t$U_backgroundFrequency" \
-	> $background
+	echo -e "A\tC\tG\tU/T\n$A_backgroundFrequency\t$C_backgroundFrequency\t$G_backgroundFrequency\t$U_backgroundFrequency" > $background
 
 ##########################################################################################################################################
 	#STEP 2: Calculate rNMP Frequencies
@@ -158,9 +157,6 @@ for sample in ${sample[@]}; do
 
 	#Save normalized frequencies of rNMPs to TXT file
 	echo -e "$A_riboFrequency\t$C_riboFrequency\t$G_riboFrequency\t$U_riboFrequency" > $riboFrequencies
-
-	#Remove temporary file
-	rm temporary
 	
 ##########################################################################################################################################
 	#STEP 3: Obtain coordinates and sequences of +/- 100 downstream/upstream dNTPs from rNMPs
