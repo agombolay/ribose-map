@@ -70,24 +70,25 @@ for sample in ${sample[@]}; do
 	paste $bed $sequences | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $reads
 	
 	#Determine rNMP coordinates from reads aligned to positive strand of DNA
-	#positiveReads=$(awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $reads)
-	awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $reads > positiveReads
+	#awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $reads > positiveReads
 
 	#Determine rNMP coordinates from reads aligned to negative strand of DNA
-	#negativeReads=$(awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $reads)
-	awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $reads > negativeReads
+	#awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $reads > negativeReads
 
 	#Obtain rNMP coordinates
 	if [ $subset == "nuclear" ]; then
 		#Select only rNMP coordinates located in nuclear DNA
-		echo "$positiveReads $negativeReads" | grep -v 'chrM' - > $coordinates
+		#echo "$positiveReads $negativeReads" | grep -v 'chrM' - > $coordinates
 	elif [ $subset == "chrM" ]; then
 		#Select only rNMP coordinates located in mitochondrial DNA
-		echo "$positiveReads $negativeReads" | grep 'chrM' - > $coordinates
+		#echo "$positiveReads $negativeReads" | grep 'chrM' - > $coordinates
 	else
 		#Select all rNMP coordinates located in genomic DNA
 		#echo "$positiveReads $negativeReads" > $coordinates
-		cat positiveReads negativeReads > $coordinates
+		#cat positiveReads negativeReads > $coordinates
+		positiveReads=$(awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $reads)
+		negativeReads=$(awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $reads)
+		echo $positiveReads
 	fi
 	
 done
