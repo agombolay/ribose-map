@@ -51,22 +51,18 @@ for sample in ${sample[@]}; do
 	rm -f $output/{*.txt,*.bed,*.fa,*.fq}
 	
 	#Location of output files	
-	fastq=$output/$sample.aligned-reads.fq; fasta=$output/$sample.aligned-reads.fa;
+	fasta=$output/$sample.aligned-reads.fa;
 	sequences=$output/$sample.sequences.txt; bed=$output/$sample.aligned-reads.bed;
 	reads=$output/$sample.read-information.bed; coordinates=$output/$sample.rNMP-coordinates.bed
 
 #############################################################################################################################
 	#STEP 1: Covert BAM alignment file to FASTA format
 
-	#Convert BAM file to FASTQ
-	#samtools bam2fq $bam > $fastq
-	samtools bam2fq $bam | seqtk seq -A - > $fasta
-	
-	#Convert FASTQ file to FASTA
-	#seqtk seq -A $fastq > $fasta
-	
+	#Convert BAM file to FASTQ then FASTA file
+	#samtools bam2fq $bam | seqtk seq -A - > $fasta
+	samtools bam2fq $bam | seqtk seq -A - | grep -v '>' - > $sequences
 	#Extract sequences from FASTA file
-	grep -v '>' $fasta > $sequences
+	#grep -v '>' $fasta > $sequences
 
 #############################################################################################################################
 	#STEP 2: Obtain rNMP coordinates from aligned reads
