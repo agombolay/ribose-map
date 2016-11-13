@@ -92,13 +92,13 @@ for sample in ${sample[@]}; do
 
 	#Select only rNMP coordinates located in nuclear DNA
 	if [ $subset == "nuclear" ]; then
-		echo $positiveReads $negativeReads | grep -v 'chrM' - > $riboCoordinates
+		echo "$positiveReads $negativeReads" | grep -v 'chrM' - > $riboCoordinates
 	#Select only rNMP coordinates located in mitochondrial DNA
 	elif [ $subset == "chrM" ]; then
-		echo -e "\v$positiveReads \v$negativeReads" | grep 'chrM' - > $riboCoordinates
+		echo "$positiveReads $negativeReads" | grep 'chrM' - > $riboCoordinates
 	#Select all rNMP coordinates located in genomic DNA
 	else
-		echo -e "\v$positiveReads $negativeReads" > $riboCoordinates
+		echo "$positiveReads $negativeReads" > $riboCoordinates
 	fi
 	
 done
