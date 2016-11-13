@@ -68,7 +68,6 @@ for sample in ${sample[@]}; do
 	
 	#Location of output files
 	background=$output1/Background-Frequencies.$reference.$subset.txt
-	
 	riboSequences=$output2/$sample.rNMP-Sequences.$reference.$subset.txt
 	
 	upstreamSequences=$output3/$sample.upstream-sequences.$reference.$subset.fa
