@@ -66,7 +66,7 @@ for sample in ${sample[@]}; do
 	#Covert BAM file to BED format
 	bedtools bamtobed -i $bam > $bed
 	
-	#Extract read coordinates, sequences, and strands from BED and FASTA files
+	#Extract read coordinates, sequences, and strand information
 	paste $bed $sequences | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $reads
 	
 	#Obtain coordinates of rNMPs located on positive strand of DNA
@@ -77,13 +77,13 @@ for sample in ${sample[@]}; do
 		
 	#Filter coordinates by region
 	if [ $subset == "nuclear" ]; then
-		#Select only rNMP coordinates located in nuclear DNA
+		#Combine +/- rNMP coordinates and select rNMP coordinates located in nuclear DNA
 		cat <(echo "$positiveReads") <(echo "$negativeReads") | grep -v 'chrM' - > $coordinates
 	elif [ $subset == "chrM" ]; then
-		#Select only rNMP coordinates located in mitochondrial DNA
+		#Combine +/- rNMP coordinates and select rNMP coordinates located in mito DNA
 		cat <(echo "$positiveReads") <(echo "$negativeReads") | grep 'chrM' - > $coordinates
 	else
-		#Select all rNMP coordinates located in genomic DNA
+		#Combine +/- rNMP coordinates and select all rNMP coordinates
 		cat <(echo "$positiveReads") <(echo "$negativeReads") > $coordinates
 	fi
 	
