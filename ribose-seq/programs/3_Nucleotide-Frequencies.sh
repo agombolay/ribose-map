@@ -229,10 +229,8 @@ for sample in ${sample[@]}; do
 		T_upstreamFrequency=$(echo "scale = 12; ($T_upstreamCount/$total3)/$T_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
 		
 		#Save normalized frequencies of dNTPs to TXT file
-		echo $A_upstreamFrequency >> $A_upstreamFrequencies
-		echo $C_upstreamFrequency >> $C_upstreamFrequencies
-		echo $G_upstreamFrequency >> $G_upstreamFrequencies
-		echo $T_upstreamFrequency >> $T_upstreamFrequencies
+		echo $A_upstreamFrequency >> $A_upstreamFrequencies; echo $C_upstreamFrequency >> $C_upstreamFrequencies
+		echo $G_upstreamFrequency >> $G_upstreamFrequencies; echo $T_upstreamFrequency >> $T_upstreamFrequencies
 			
 		#Save frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs to one TXT file
 		paste $A_upstreamFrequencies $C_upstreamFrequencies $G_upstreamFrequencies $T_upstreamFrequencies \
@@ -262,10 +260,8 @@ for sample in ${sample[@]}; do
 		T_downstreamFrequency=$(echo "scale = 12; ($T_downstreamCount/$total4)/$T_backgroundFrequency" | bc | awk '{printf "%.12f\n", $0}')
 		
 		#Save normalized frequencies of dNTPs to TXT file
-		echo $A_downstreamFrequency >> $A_downstreamFrequencies
-		echo $C_downstreamFrequency >> $C_downstreamFrequencies
-		echo $G_downstreamFrequency >> $G_downstreamFrequencies
-		echo $T_downstreamFrequency >> $T_downstreamFrequencies
+		echo $A_downstreamFrequency >> $A_downstreamFrequencies; echo $C_downstreamFrequency >> $C_downstreamFrequencies
+		echo $G_downstreamFrequency >> $G_downstreamFrequencies; echo $T_downstreamFrequency >> $T_downstreamFrequencies
 		
 		#Save frequencies of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs to one TXT file
 		paste $A_downstreamFrequencies $C_downstreamFrequencies $G_downstreamFrequencies $T_downstreamFrequencies \
