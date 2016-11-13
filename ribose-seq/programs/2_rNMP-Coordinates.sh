@@ -84,8 +84,8 @@ for sample in ${sample[@]}; do
 		echo "$positiveReads $negativeReads" | grep 'chrM' - > $coordinates
 	else
 		#Select all rNMP coordinates located in genomic DNA
-		awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $reads | cat - > $coordinates
-		awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $reads | cat - >> $coordinates
+		#awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $reads | cat - > $coordinates
+		awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $reads | cat - > $coordinates
 	fi
 	
 done
