@@ -70,7 +70,6 @@ for sample in ${sample[@]}; do
 	background=$output1/Background-Frequencies.$reference.$subset.txt
 	
 	riboSequences=$output2/$sample.rNMP-Sequences.$reference.$subset.txt
-	#riboFrequencies=$output2/$sample.rNMP-frequencies.$reference.$subset.txt
 	
 	upstreamSequences=$output3/$sample.upstream-sequences.$reference.$subset.fa
 	upstreamIntervals=$output3/$sample.upstream-intervals.$reference.$subset.bed
@@ -84,10 +83,7 @@ for sample in ${sample[@]}; do
 	
 	columns1=$output6/$sample.upstream-sequences.$reference.$subset.tab
 	columns2=$output7/$sample.downstream-sequences.$reference.$subset.tab
-		
-	upstreamFrequencies=$output3/$sample.dNTP-frequencies.$reference.$subset.upstream.txt
-	downstreamFrequencies=$output3/$sample.dNTP-frequencies.$reference.$subset.downstream.txt
-	
+
 	dataset=$output8/$sample.nucleotide-frequencies-dataset.$reference.$subset.txt
 	zoomed=$output8/$sample.nucleotide-frequencies-zoomed.$reference.$subset.txt
 		
