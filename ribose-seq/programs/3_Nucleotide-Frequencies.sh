@@ -260,7 +260,8 @@ for sample in ${sample[@]}; do
 	#STEP 6: Create dataset file containing nucleotide frequencies for plotting
 
 	#Save files containing rNMP and upstream/downstream dNTP frequencies to file
-	cat $upstreamFrequencies $riboFrequencies $downstreamFrequencies > temporary1
+	#cat $upstreamFrequencies $riboFrequencies $downstreamFrequencies > temporary1
+	cat $upstreamFrequencies <(echo "$riboFrequencies") $downstreamFrequencies > temporary1
 	
 	#Add positions and header line 
 	echo -e "\tA\tC\tG\tU/T" > $dataset
