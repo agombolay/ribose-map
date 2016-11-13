@@ -88,7 +88,7 @@ for sample in ${sample[@]}; do
 		#cat positiveReads negativeReads > $coordinates
 		positiveReads=$(awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $reads)
 		negativeReads=$(awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $reads)
-		printf "$positiveReads" > file.bed
+		printf "$positiveReads $negativeReads" > file.bed
 	fi
 	
 done
