@@ -263,13 +263,8 @@ for sample in ${sample[@]}; do
 	echo -e "\tA\tC\tG\tU/T" > $dataset && paste <(echo "$(seq -100 1 100)") <(cat <(echo "$data1")) >> $dataset
 
 	#Smaller dataset (-15 nt to +15 nt)
-	#head -117 $dataset | tail -31 > temporary2
 	data2=$(head -117 $dataset | tail -31)
-	#echo -e "\tA\tC\tG\tU/T" > $zoomed; cat temporary2 > $zoomed
 	echo -e "\tA\tC\tG\tU/T" > $zoomed && cat <(echo "$data2") >> $zoomed
-
-	#Remove temporary files
-	#rm -f temporary{1..2}
 
 	#Let the user know the program is has finished running
 	echo "Calculation of nucleotide frequencies for $sample is complete"
