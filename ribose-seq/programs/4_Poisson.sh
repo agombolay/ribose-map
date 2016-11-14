@@ -35,7 +35,7 @@ fi
 
 #Input files
 referenceBED=$directory/ribose-seq/reference/$reference.bed
-riboCoordinates=$directory/ribose-seq/results/$reference/$sample/Frequencies/rNMPs/$subset/$sample.rNMP-coordinates.bed
+riboCoordinates=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.bed
 
 #Output directories
 output1=$directory/ribose-seq/reference/
