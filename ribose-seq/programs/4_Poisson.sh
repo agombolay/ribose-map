@@ -55,16 +55,13 @@ bedtools makewindows -g $referenceBED -w 2500 > $referenceWindows
 #Sort BED file of ribonucleotide coordinates
 sort -k1,1 -k2,2n $riboCoordinates > $sortedBED
 
-#Determine regions of the two BED files that intersect with each other and then bin data
-#bedtools intersect -a $referenceWindows -b $sortedBED -c -sorted -nonamecheck > $binnedData
-
 #Select only data of interest
 if [ $subset == "nuclear" ]; then
 	#For nuclear data, remove mitochondria data
-	#grep -v 'chrM' $binnedData > temporary && mv temporary $binnedData
+	#Determine regions of the two BED files that intersect with one another and count number of overlaps
 	bedtools intersect -a $referenceWindows -b $sortedBED -c -sorted -nonamecheck | grep -v 'chrM' - > $binnedData
 elif [ $subset == "chrM" ]; then
 	#For mitochondria data, remove nuclear data
-	#grep 'chrM' $binnedData > temporary && mv temporary $binnedData
+	#Determine regions of the two BED files that intersect with one another and count number of overlaps
 	bedtools intersect -a $referenceWindows -b $sortedBED -c -sorted -nonamecheck | grep 'chrM' - > $binnedData
 fi
