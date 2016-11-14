@@ -33,13 +33,9 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
-#Input directories
-directory1=$directory/ribose-seq/reference/
-directory2=$directory/ribose-seq/results/$reference/$sample/Nucleotide-Frequencies/rNMPs/$subset/
-
 #Input files
-referenceBED=$directory1/$reference.bed
-riboCoordinates=$directory2/$sample.rNMP-coordinates.0-based.$subset.bed
+referenceBED=$directory/ribose-seq/reference/$reference.bed
+riboCoordinates=$directory/ribose-seq/results/$reference/$sample/Frequencies/rNMPs/$subset/$sample.rNMP-coordinates.bed
 
 #Output directories
 output1=$directory/ribose-seq/reference/
@@ -51,7 +47,7 @@ mkdir -p $output1 $output2
 #Output files
 binnedData=$output2/$sample.binned.data.bed
 referenceWindows=$output1/$reference.windows.bed
-sortedBED=$output2/$sample.rNMP-coordinates.0-based.$subset.sorted.bed
+sortedBED=$output2/$sample.rNMP-coordinates.sorted.bed
 
 #Separate reference genome into 2.5 kb (2,500 bp) windows
 bedtools makewindows -g $referenceBED -w 2500 > $referenceWindows
@@ -60,13 +56,15 @@ bedtools makewindows -g $referenceBED -w 2500 > $referenceWindows
 sort -k1,1 -k2,2n $riboCoordinates > $sortedBED
 
 #Determine regions of the two BED files that intersect with each other and then bin data
-bedtools intersect -a $referenceWindows -b $sortedBED -c -sorted -nonamecheck > $binnedData
+#bedtools intersect -a $referenceWindows -b $sortedBED -c -sorted -nonamecheck > $binnedData
 
 #Select only data of interest
 if [ $subset == "nuclear" ]; then
 	#For nuclear data, remove mitochondria data
-	grep -v 'chrM' $binnedData > temporary && mv temporary $binnedData
+	#grep -v 'chrM' $binnedData > temporary && mv temporary $binnedData
+	bedtools intersect -a $referenceWindows -b $sortedBED -c -sorted -nonamecheck | grep -v 'chrM' - > $binnedData
 elif [ $subset == "chrM" ]; then
 	#For mitochondria data, remove nuclear data
-	grep 'chrM' $binnedData > temporary && mv temporary $binnedData
+	#grep 'chrM' $binnedData > temporary && mv temporary $binnedData
+	bedtools intersect -a $referenceWindows -b $sortedBED -c -sorted -nonamecheck | grep 'chrM' - > $binnedData
 fi
