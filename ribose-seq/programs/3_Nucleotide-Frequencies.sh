@@ -41,7 +41,7 @@ for sample in ${sample[@]}; do
 	#Location of input files
 	referenceBED=$directory/ribose-seq/reference/$reference.bed
 	referenceFasta1=$directory/ribose-seq/reference/$reference.fa
-	referenceFasta2=$directory/ribose-seq/reference/$reference.$subset.fa
+	#referenceFasta2=$directory/ribose-seq/reference/$reference.$subset.fa
 	
 	reads=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.read-information.bed
 	coordinates=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.bed
