@@ -41,7 +41,7 @@ for sample in ${sample[@]}; do
 	#Location of input files
 	referenceBED=$directory/ribose-seq/reference/$reference.bed
 	referenceFasta1=$directory/ribose-seq/reference/$reference.fa
-	referenceFasta2=$directory/ribose-seq/reference/$reference.$subset.fa
+	#referenceFasta2=$directory/ribose-seq/reference/$reference.$subset.fa
 	
 	reads=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.read-information.bed
 	coordinates=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.bed
@@ -93,8 +93,8 @@ for sample in ${sample[@]}; do
 	
 	if [ $reference == "sacCer2" ] && [ $subset == "nuclear" ] ; then
 		#Select only nuclear DNA and output to new file
-		samtools faidx $referenceFasta1 2micron chrI chrII chrIII chrIV chrV \
-		chrVI chrVII chrVIII chrIX chrX chrXI chrXII chrXIII chrXIV chrXV chrXVI > $referenceFasta2
+		referenceFasta2=$(samtools faidx $referenceFasta1 2micron chrI chrII chrIII chrIV chrV \
+		chrVI chrVII chrVIII chrIX chrX chrXI chrXII chrXIII chrXIV chrXV chrXVI)
 	
 	elif [ $reference == "sacCer2" ] && [ $subset == "chrM" ] ; then
 		#Select only mitochondrial DNA and output to new file
