@@ -117,7 +117,7 @@ for sample in ${sample[@]}; do
 	T_Frequency0=$(echo "scale = 12; $T_Count0/$total0" | bc | awk '{printf "%.12f\n", $0}')
 
 	#Save frequencies of dNTPs in the reference FASTA file (background frequencies) to TXT file
-	echo -e "A\tC\tG\tU/T\n$A_Frequency0\t$C_Frequency0\t$G_Frequency0\t$U_Frequency0" > $background
+	echo -e "A\tC\tG\tU/T\n$A_Frequency0\t$C_Frequency0\t$G_Frequency0\t$T_Frequency0" > $background
 
 #############################################################################################################################
 	#STEP 2: Calculate rNMP Frequencies
