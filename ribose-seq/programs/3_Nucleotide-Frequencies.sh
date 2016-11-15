@@ -93,7 +93,7 @@ for sample in ${sample[@]}; do
 	
 	if [ $reference == "sacCer2" ] && [ $subset == "nuclear" ] ; then
 		#Select only nuclear DNA and output to new file
-		samtools faidx $referenceFasta1 2micron chrI chrII chrIII chrIV chrV 
+		samtools faidx $referenceFasta1 2micron chrI chrII chrIII chrIV chrV \
 		chrVI chrVII chrVIII chrIX chrX chrXI chrXII chrXIII chrXIV chrXV chrXVI > $referenceFasta2
 	
 	elif [ $reference == "sacCer2" ] && [ $subset == "chrM" ] ; then
