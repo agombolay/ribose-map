@@ -89,19 +89,15 @@ for sample in ${sample[@]}; do
 	#STEP 1: Calculate background dNTP frequencies of reference genome
 
 	#Index reference FASTA file
-	#samtools faidx $referenceFasta1
+	samtools faidx $referenceFasta1
 	
 	if [ $reference == "sacCer2" ] && [ $subset == "nuclear" ] ; then
 		#Select only nuclear DNA and output to new file
 		samtools faidx $referenceFasta1 2micron chrI chrII chrIII chrIV chrV chrVI chrVII \
 		chrVIII chrIX chrX chrXI chrXII chrXIII chrXIV chrXV chrXVI > $referenceFasta2
-	
 	elif [ $reference == "sacCer2" ] && [ $subset == "chrM" ] ; then
 		#Select only mitochondrial DNA and output to new file
 		samtools faidx $referenceFasta1 chrM > $referenceFasta2
-
-	elif [ $reference == "sacCer2" ] && [ $subset == "genome" ] ; then
-		samtools faidx $referenceFasta1 > $referenceFasta2
 	fi
 	
 	#Calculate counts of each dNTP
