@@ -108,7 +108,7 @@ for sample in ${sample[@]}; do
 	T_Count0=$(grep -v '>' $referenceFasta2 | grep -o 'T' - | wc -l)
 	
 	#Calculate total number of dNTPs
-	total1=$(($A_Count1+$C_Count1+$G_Count1+$T_Count1))
+	total0=$(($A_Count1+$C_Count1+$G_Count1+$T_Count1))
 
 	#Calculate frequency of each dNTP
 	A_Frequency0=$(echo "scale = 12; $A_Count0/$total0" | bc | awk '{printf "%.12f\n", $0}')
