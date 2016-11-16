@@ -106,7 +106,7 @@ for sample in ${sample[@]}; do
 		samtools faidx $referenceFasta1 chrM > $referenceFasta2
 	elif [ $subset == "genome" ] ; then
 		#Select all genomic DNA and output to new file
-		mv $referenceFasta1 $referenceFasta2
+		cp $referenceFasta1 $referenceFasta2
 		samtools faidx $referenceFasta2
 	fi
 
