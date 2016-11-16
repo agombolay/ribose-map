@@ -105,6 +105,7 @@ for sample in ${sample[@]}; do
 		#Select only mitochondrial DNA and output to new file
 		samtools faidx $referenceFasta1 chrM > $referenceFasta2
 	elif [ $subset == "genome" ] ; then
+		#Select all genomic DNA and output to new file
 		samtools faidx $referenceFasta1 > $referenceFasta2
 	fi
 	
