@@ -8,7 +8,7 @@
 function usage () {
 	echo "Usage: 5_Ribonucleotide-Frequencies.sh [-i] 'Sample' [-r] 'Reference' [-s] 'Subset' [-d] 'Directory' [-h]
 	-i Sample name (FS1, etc.)
-	-s Subset of genome (sacCer2, nuclear, chrM, etc.)
+	-s Subset of genome (genome, nuclear, chrM, etc.)
 	-r Reference genome assembly version (sacCer2, etc.)
 	-d Local directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
 }
