@@ -50,7 +50,8 @@ for sample in ${sample[@]}; do
 	#Remove any older versions of the output files
 	rm -f $output/{*.txt,*.bed,*.fa,*.fq}
 	
-	#Location of output files	
+	#Location of output files
+	sorted=$output/$sample.rNMP-coordinates.sorted.bed
 	sequences=$output/$sample.sequences.txt; bed=$output/$sample.aligned-reads.bed;
 	reads=$output/$sample.read-information.bed; coordinates=$output/$sample.rNMP-coordinates.bed
 
@@ -87,5 +88,6 @@ for sample in ${sample[@]}; do
 		cat <(echo "$positiveReads") <(echo "$negativeReads") > $coordinates
 	fi
 	
+	#Sort ribonucleotide coordinates
 	sort -k1,1 -k2,2n $coordinates > $sorted
 done
