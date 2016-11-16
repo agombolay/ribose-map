@@ -48,7 +48,7 @@ mkdir -p $output1 $output2
 binned=$output2/$sample.binned.data.bed
 windows=$output1/$reference.windows.bed
 
-#Separate reference genome into 2.5 kb (2,500 bp) windows
+#Separate reference genome into 2.5 kb windows
 bedtools makewindows -g $bed -w 2500 > $windows
 
 #Select only data of interest
