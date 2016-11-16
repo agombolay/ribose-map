@@ -35,7 +35,7 @@ fi
 
 #Input files
 referenceBED=$directory/ribose-seq/reference/$reference.bed
-riboCoordinates=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.bed
+coordinates=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.bed
 
 #Output directories
 output1=$directory/ribose-seq/reference/
@@ -52,8 +52,8 @@ sortedBED=$output2/$sample.rNMP-coordinates.sorted.bed
 #Separate reference genome into 2.5 kb (2,500 bp) windows
 bedtools makewindows -g $referenceBED -w 2500 > $referenceWindows
 
-#Sort BED file of ribonucleotide coordinates
-sort -k1,1 -k2,2n $riboCoordinates > $sortedBED
+#Sort ribonucleotide coordinates
+sort -k1,1 -k2,2n $coordinates > $sortedBED
 
 #Select only data of interest
 if [ $subset == "nuclear" ]; then
