@@ -35,7 +35,7 @@ fi
 
 #Input files
 referenceBED=$directory/ribose-seq/reference/$reference.bed
-coordinates=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.bed
+sorted=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.sorted.bed
 
 #Output directories
 output1=$directory/ribose-seq/reference/
@@ -47,21 +47,17 @@ mkdir -p $output1 $output2
 #Output files
 binnedData=$output2/$sample.binned.data.bed
 referenceWindows=$output1/$reference.windows.bed
-sortedBED=$output2/$sample.rNMP-coordinates.sorted.bed
 
 #Separate reference genome into 2.5 kb (2,500 bp) windows
 bedtools makewindows -g $referenceBED -w 2500 > $referenceWindows
-
-#Sort ribonucleotide coordinates
-sort -k1,1 -k2,2n $coordinates > $sortedBED
 
 #Select only data of interest
 if [ $subset == "nuclear" ]; then
 	#For nuclear data, remove mitochondria data
 	#Determine regions of the two BED files that intersect with one another and count number of overlaps
-	bedtools intersect -a $referenceWindows -b $sortedBED -c -sorted -nonamecheck | grep -v 'chrM' - > $binnedData
+	bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck | grep -v 'chrM' - > $binnedData
 elif [ $subset == "chrM" ]; then
 	#For mitochondria data, remove nuclear data
 	#Determine regions of the two BED files that intersect with one another and count number of overlaps
-	bedtools intersect -a $referenceWindows -b $sortedBED -c -sorted -nonamecheck | grep 'chrM' - > $binnedData
+	bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck | grep 'chrM' - > $binnedData
 fi
