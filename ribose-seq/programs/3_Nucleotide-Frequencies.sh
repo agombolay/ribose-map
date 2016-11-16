@@ -108,6 +108,9 @@ for sample in ${sample[@]}; do
 		#Select all genomic DNA and output to new file
 		samtools faidx $referenceFasta1 > $referenceFasta2
 	fi
+
+	#Index reference FASTA file
+	samtools faidx $referenceFasta2
 	
 	#Calculate counts of each dNTP
 	A_Count0=$(grep -v '>' $referenceFasta2 | grep -o 'A' - | wc -l)
