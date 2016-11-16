@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #Author: Alli Gombolay
-#This program bins rNMPs into 2.5kb windows in reference genome
+#This program counts the number of rNMPs in each 2.5kb window of the reference genome
 
 #COMMAND LINE OPTIONS
 
