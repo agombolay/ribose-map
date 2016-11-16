@@ -87,4 +87,5 @@ for sample in ${sample[@]}; do
 		cat <(echo "$positiveReads") <(echo "$negativeReads") > $coordinates
 	fi
 	
+	sort -k1,1 -k2,2n $coordinates > $sorted
 done
