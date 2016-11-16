@@ -53,11 +53,11 @@ bedtools makewindows -g $bed -w 2500 > $windows
 
 #Select only data of interest
 if [ $subset == "nuclear" ]; then
-	#For nuclear data, remove mitochondria data
+	#Select only nuclear DNA regions
 	#Determine regions of BED files that intersect and count number of overlaps
 	bedtools intersect -a $windows -b $sorted -c -sorted -nonamecheck | grep -v 'chrM' - > $binned
 elif [ $subset == "chrM" ]; then
-	#For mitochondria data, remove nuclear data
+	#Select only mitochondrial DNA regions
 	#Determine regions of BED files that intersect and count number of overlaps
 	bedtools intersect -a $windows -b $sorted -c -sorted -nonamecheck | grep 'chrM' - > $binned
 fi
