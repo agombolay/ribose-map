@@ -63,7 +63,7 @@ elif [ $subset == "chrM" ]; then
 fi
 
 for i in {1..10}; do
-	awk '$4 >= ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}'
+	awk '$4 >= ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}' | awk '{ SUM += $1; print $1} END { print SUM }'
 done
 
 #total1=$(awk '$4 >= 1'  $binned | awk '{sum+=$4} END{print sum}')
