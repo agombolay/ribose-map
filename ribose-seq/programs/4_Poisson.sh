@@ -63,7 +63,7 @@ elif [ $subset == "chrM" ]; then
 fi
 
 
-greater1=$(awk '$4 >= 1'  $binned | awk '{sum+=$4})
+greater1=$(awk '$4 >= 1'  $binned | awk '{sum+=$4}')
 echo $greater1
 
 awk '$4 >= 2'  $binned | awk '{sum+=$4} END{print sum}' > greater2
