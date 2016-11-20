@@ -63,8 +63,7 @@ elif [ $subset == "chrM" ]; then
 fi
 
 for i in {1..10}; do
-	total$i=$(awk '$4 >= $i'  $binned | awk '{sum+=$4} END{print sum}')
-	echo total$i
+	total=$(awk '$4 >= $i'  $binned | awk '{sum+=$4} END{print sum}')
 done
 
 #total1=$(awk '$4 >= 1'  $binned | awk '{sum+=$4} END{print sum}')
