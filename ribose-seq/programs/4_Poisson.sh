@@ -63,13 +63,13 @@ elif [ $subset == "chrM" ]; then
 fi
 
 
-awk '$4 >= 1'  $binned
-awk '$4 >= 2'  $binned
-awk '$4 >= 3'  $binned
-awk '$4 >= 4'  $binned
-awk '$4 >= 5'  $binned
-awk '$4 >= 6'  $binned
-awk '$4 >= 7'  $binned
-awk '$4 >= 8'  $binned
-awk '$4 >= 9'  $binned
-awk '$4 >= 10'  $binned
+awk '$4 >= 1'  $binned | awk '{sum+=$4} END{print sum}' > greater1
+awk '$4 >= 2'  $binned | awk '{sum+=$4} END{print sum}' > greater2
+awk '$4 >= 3'  $binned | awk '{sum+=$4} END{print sum}' > greater3
+awk '$4 >= 4'  $binned | awk '{sum+=$4} END{print sum}' > greater4
+awk '$4 >= 5'  $binned | awk '{sum+=$4} END{print sum}' > greater5
+awk '$4 >= 6'  $binned | awk '{sum+=$4} END{print sum}' > greater6
+awk '$4 >= 7'  $binned | awk '{sum+=$4} END{print sum}' > greater7
+awk '$4 >= 8'  $binned | awk '{sum+=$4} END{print sum}' > greater8
+awk '$4 >= 9'  $binned | awk '{sum+=$4} END{print sum}' > greater9
+awk '$4 >= 10'  $binned | awk '{sum+=$4} END{print sum}' > greater10
