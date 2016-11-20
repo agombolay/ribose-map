@@ -62,8 +62,8 @@ elif [ $subset == "chrM" ]; then
 	bedtools intersect -a $windows -b $sorted -c -sorted -nonamecheck | grep 'chrM' - > $binned
 fi
 
-for i in {1..10}; do
-	total=$(awk -v field=$i '$4 >= $field'  $binned | awk '{sum+=$4} END{print sum}')
+for i in {1}; do
+	total=$(awk '$4 >= $i'  $binned | awk '{sum+=$4} END{print sum}')
 	echo $total
 done
 
