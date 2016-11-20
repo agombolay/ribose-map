@@ -61,3 +61,15 @@ elif [ $subset == "chrM" ]; then
 	#Determine regions of BED files that intersect and count number of overlaps
 	bedtools intersect -a $windows -b $sorted -c -sorted -nonamecheck | grep 'chrM' - > $binned
 fi
+
+
+awk '$4 >= 1'  $binned
+awk '$4 >= 2'  $binned
+awk '$4 >= 3'  $binned
+awk '$4 >= 4'  $binned
+awk '$4 >= 5'  $binned
+awk '$4 >= 6'  $binned
+awk '$4 >= 7'  $binned
+awk '$4 >= 8'  $binned
+awk '$4 >= 9'  $binned
+awk '$4 >= 10'  $binned
