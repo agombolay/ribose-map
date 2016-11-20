@@ -64,7 +64,7 @@ fi
 
 
 greater1=$(awk '$4 >= 1'  $binned | awk '{sum+=$4}')
-echo $greater1
+cat <(echo $greater1)
 
 awk '$4 >= 2'  $binned | awk '{sum+=$4} END{print sum}' > greater2
 awk '$4 >= 3'  $binned | awk '{sum+=$4} END{print sum}' > greater3
