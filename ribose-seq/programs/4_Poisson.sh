@@ -65,7 +65,7 @@ fi
 sum=0
 for i in {1..10}; do
 	total1=$(awk '$4 >= ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}')
-	total2=$(($sum+$total1))
+	total2+=$(($sum+$total1))
 done
 echo "$total2"
 #total1=$(awk '$4 >= 1'  $binned | awk '{sum+=$4} END{print sum}')
