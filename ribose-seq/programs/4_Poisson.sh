@@ -63,19 +63,21 @@ elif [ $subset == "chrM" ]; then
 fi
 
 for i in {1..10}; do
-	echo $i
+	total$i=$(awk '$4 >= $i'  $binned | awk '{sum+=$4} END{print sum}')
+	echo total$i
 done
-total1=$(awk '$4 >= 1'  $binned | awk '{sum+=$4} END{print sum}')
-total2=$(awk '$4 >= 2'  $binned | awk '{sum+=$4} END{print sum}')
-total3=$(awk '$4 >= 3'  $binned | awk '{sum+=$4} END{print sum}')
-total4=$(awk '$4 >= 4'  $binned | awk '{sum+=$4} END{print sum}')
-total5=$(awk '$4 >= 5'  $binned | awk '{sum+=$4} END{print sum}')
-total6=$(awk '$4 >= 6'  $binned | awk '{sum+=$4} END{print sum}')
-total7=$(awk '$4 >= 7'  $binned | awk '{sum+=$4} END{print sum}')
-total8=$(awk '$4 >= 8'  $binned | awk '{sum+=$4} END{print sum}')
-total9=$(awk '$4 >= 9'  $binned | awk '{sum+=$4} END{print sum}')
-total10=$(awk '$4 >= 10'  $binned | awk '{sum+=$4} END{print sum}')
 
-total=$(($total1+$total2+$total3+$total4+$total5+$total6+$total7+$total8+$total9+$total10))
+#total1=$(awk '$4 >= 1'  $binned | awk '{sum+=$4} END{print sum}')
+#total2=$(awk '$4 >= 2'  $binned | awk '{sum+=$4} END{print sum}')
+#total3=$(awk '$4 >= 3'  $binned | awk '{sum+=$4} END{print sum}')
+#total4=$(awk '$4 >= 4'  $binned | awk '{sum+=$4} END{print sum}')
+#total5=$(awk '$4 >= 5'  $binned | awk '{sum+=$4} END{print sum}')
+#total6=$(awk '$4 >= 6'  $binned | awk '{sum+=$4} END{print sum}')
+#total7=$(awk '$4 >= 7'  $binned | awk '{sum+=$4} END{print sum}')
+#total8=$(awk '$4 >= 8'  $binned | awk '{sum+=$4} END{print sum}')
+#total9=$(awk '$4 >= 9'  $binned | awk '{sum+=$4} END{print sum}')
+#total10=$(awk '$4 >= 10'  $binned | awk '{sum+=$4} END{print sum}')
 
-echo $total
+#total=$(($total1+$total2+$total3+$total4+$total5+$total6+$total7+$total8+$total9+$total10))
+
+#echo $total
