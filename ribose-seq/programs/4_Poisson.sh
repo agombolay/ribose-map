@@ -64,6 +64,7 @@ fi
 
 for i in {1..10}; do
 	total=$(awk '$4 >= $i'  $binned | awk '{sum+=$4} END{print sum}')
+	echo $total
 done
 
 #total1=$(awk '$4 >= 1'  $binned | awk '{sum+=$4} END{print sum}')
