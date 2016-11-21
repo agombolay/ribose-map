@@ -77,4 +77,4 @@ for i in {1..9}; do
 	
 done
 #( IFS=$'\n'; echo "${proportions[*]}" )
-echo $sum
+echo $total
