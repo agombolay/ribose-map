@@ -79,6 +79,6 @@ done
 for value in ${proportions[*]}; do
 	final+=($(echo "scale = 12; (1-$value)" | bc | awk '{printf "%.12f\n", $0}'))
 done
-
-( IFS=$'\n'; echo "${final[*]}" )
-echo $total
+( IFS=$'\n'; echo "${counts1[*]}" )
+#( IFS=$'\n'; echo "${final[*]}" )
+#echo $total
