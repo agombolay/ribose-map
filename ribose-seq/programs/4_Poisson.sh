@@ -62,7 +62,7 @@ elif [ $subset == "chrM" ]; then
 	bedtools intersect -a $windows -b $sorted -c -sorted -nonamecheck | grep 'chrM' - > $binned
 fi
 
-total=0
+sum=0
 proportions=()
 counts0=$(awk '$4 == 0' FS15.trimmed.v1.binned.data.bed | wc -l)
 echo $counts0
