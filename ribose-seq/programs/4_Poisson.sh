@@ -77,5 +77,7 @@ for value in $counts0 ${counts1[*]}; do
 done
 ( IFS=$'\n'; echo "${proportions[*]}" )
 
-final=$((1-${proportions[*]}))
-echo $final
+for value in ${proportions[*]}; do
+	final=$((1-$value))
+	echo $final
+done
