@@ -79,6 +79,6 @@ done
 
 one=1
 for value in ${proportions[*]}; do
-	final=$(echo "scale = 12; ($one-$value)" | bc | awk '{printf "%.12f\n", $0}'))
+	final=$(echo "scale = 12; ($one-$value)" | bc | awk '{printf "%.12f\n", $0}')
 	echo $final
 done
