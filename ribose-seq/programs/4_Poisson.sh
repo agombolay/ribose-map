@@ -69,13 +69,13 @@ counts0=$(awk '$4 == 0' FS15.trimmed.v1.binned.data.bed | wc -l)
 for i in {1..9}; do
 	(( sum+=$(awk '$4 == ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}') ))
 	counts1=$(awk '$4 == ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}')
-	#echo $counts1
+	echo $counts1
 	
 	total=$(($counts0+$sum))
-	#echo $total
+	echo $total
 	for value in ${counts1[*]}; do
 		proportions=$(echo "scale = 12; ($value/$total)" | bc | awk '{printf "%.12f\n", $0}')
-		echo $proportions
+		#echo $proportions
 	done
 done
 #( IFS=$'\n'; echo "${proportions[*]}" )
