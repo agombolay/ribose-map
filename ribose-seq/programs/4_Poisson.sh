@@ -70,9 +70,10 @@ for i in {1..9}; do
 	(( variable+=$(awk '$4 == ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}') ))
 	counts1=$(awk '$4 == ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}')
 	
+	total=$(($counts0+$variable))
+	echo $total
+		
 	for value in ${counts1[*]}; do
-		total=$(($counts0+$variable))
-		echo $total
 		proportions=$(echo "scale = 12; ($value/$total)" | bc | awk '{printf "%.12f\n", $0}')
 		echo $proportions
 	done
