@@ -65,5 +65,8 @@ fi
 total=0
 for i in {1..10}; do
 	(( total+=$(awk '$4 >= ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}') ))
+	count=$(awk '$4 >= ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}')
+	proportion=$(echo "scale = 12; ($count/$total)" | bc | awk '{printf "%.12f\n", $0}')
+	echo $proportion
 done
 echo "$total"
