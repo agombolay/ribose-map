@@ -78,5 +78,5 @@ for i in {1..9}; do
 	done
 done
 ( IFS=$'\n'; echo "${proportions[*]}" )
-( IFS=$'\n'; echo "${counts1[*]}" )
-echo $total
+#( IFS=$'\n'; echo "${counts1[*]}" )
+#echo $total
