@@ -65,11 +65,11 @@ fi
 sum=0
 proportions=()
 counts0=$(awk '$4 == 0' FS15.trimmed.v1.binned.data.bed | wc -l)
-echo $counts0
+#echo $counts0
 for i in {1..9}; do
 	(( sum+=$(awk '$4 == ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}') ))
 	counts1=$(awk '$4 == ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}')
-	#echo $counts1
+	echo $counts1
 	
 	total=$(($counts0+$sum))
 	#echo $total
