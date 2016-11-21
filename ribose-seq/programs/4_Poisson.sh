@@ -71,11 +71,10 @@ for i in {1..9}; do
 	counts1+=($(awk '$4 == ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}'))	
 done
 total=$(($counts0+$variable))
-echo $total
-#( IFS=$'\n'; echo "${proportions[*]}" )
-( IFS=$'\n'; echo "${counts1[*]}" )
+#( IFS=$'\n'; echo "${counts1[*]}" )
 
 for value in $counts0 ${counts1[*]}; do
 	proportions=$(echo "scale = 12; ($value/$total)" | bc | awk '{printf "%.12f\n", $0}')
-	echo $proportions
+	#echo $proportions
 done
+( IFS=$'\n'; echo "${proportions[*]}" )
