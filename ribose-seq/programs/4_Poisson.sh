@@ -78,6 +78,6 @@ done
 ( IFS=$'\n'; echo "${proportions[*]}" )
 
 for value in ${proportions[*]}; do
-	final=$((1-$value))
-	echo $final
+	#final=$((1-$value))
+	echo $value
 done
