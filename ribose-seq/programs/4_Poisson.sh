@@ -67,17 +67,3 @@ for i in {1..10}; do
 	(( total+=$(awk '$4 >= ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}') ))
 done
 echo "$total"
-
-total1=$(awk '$4 >= 1'  $binned | awk '{sum+=$4} END{print sum}')
-total2=$(awk '$4 >= 2'  $binned | awk '{sum+=$4} END{print sum}')
-total3=$(awk '$4 >= 3'  $binned | awk '{sum+=$4} END{print sum}')
-total4=$(awk '$4 >= 4'  $binned | awk '{sum+=$4} END{print sum}')
-total5=$(awk '$4 >= 5'  $binned | awk '{sum+=$4} END{print sum}')
-total6=$(awk '$4 >= 6'  $binned | awk '{sum+=$4} END{print sum}')
-total7=$(awk '$4 >= 7'  $binned | awk '{sum+=$4} END{print sum}')
-total8=$(awk '$4 >= 8'  $binned | awk '{sum+=$4} END{print sum}')
-total9=$(awk '$4 >= 9'  $binned | awk '{sum+=$4} END{print sum}')
-total10=$(awk '$4 >= 10'  $binned | awk '{sum+=$4} END{print sum}')
-
-total2=$(($total1+$total2+$total3+$total4+$total5+$total6+$total7+$total8+$total9+$total10))
-echo $total2
