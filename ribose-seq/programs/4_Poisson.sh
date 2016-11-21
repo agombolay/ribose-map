@@ -82,4 +82,4 @@ done
 echo $counts0
 ( IFS=$'\n'; echo "${counts1[*]}" )
 #( IFS=$'\n'; echo "${final[*]}" )
-#echo $total
+echo $total
