@@ -72,6 +72,7 @@ for i in {1..9}; do
 	
 	for value in ${counts1[*]}; do
 		total=$(($counts0+$variable))
+		echo $total
 		proportions=$(echo "scale = 12; ($value/$total)" | bc | awk '{printf "%.12f\n", $0}')
 		echo $proportions
 	done
