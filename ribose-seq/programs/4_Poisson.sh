@@ -82,5 +82,5 @@ for value in ${proportions[*]}; do
 done
 echo $counts0
 ( IFS=$'\n'; echo "${counts1[*]}" )
-#( IFS=$'\n'; echo "${final[*]}" )
+( IFS=$'\n'; echo "${final[*]}" )
 echo $total
