@@ -69,4 +69,4 @@ for i in {1..10}; do
 	count=$(awk '$4 >= ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}')
 	proportions+=($(echo "scale = 12; ($count/$total)" | bc | awk '{printf "%.12f\n", $0}'))
 done
-echo ${proportions[*]}
+echo "${proportions[*]}"
