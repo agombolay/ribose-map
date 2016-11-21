@@ -70,3 +70,4 @@ for i in {1..10}; do
 	proportions+=($(echo "scale = 12; ($count/$total)" | bc | awk '{printf "%.12f\n", $0}'))
 done
 ( IFS=$'\n'; echo "${proportions[*]}" )
+echo $total
