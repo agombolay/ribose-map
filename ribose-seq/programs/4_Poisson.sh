@@ -81,3 +81,4 @@ for value in ${proportions[*]}; do
 done
 
 ( IFS=$'\n'; echo "${final[*]}" )
+echo $total
