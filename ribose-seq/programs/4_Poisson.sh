@@ -62,17 +62,17 @@ elif [ $subset == "chrM" ]; then
 	bedtools intersect -a $windows -b $sorted -c -sorted -nonamecheck | grep 'chrM' - > $binned
 fi
 
-sum=0
+total1=0
 proportions=()
 counts0=$(awk '$4 == 0' FS15.trimmed.v1.binned.data.bed | wc -l)
 #echo $counts0
 for i in {1..9}; do
-	(( sum+=$(awk '$4 == ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}') ))
+	(( total1+=$(awk '$4 == ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}') ))
 	counts1=$(awk '$4 == ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}')
 	echo $counts1
 	
-	total=$(($counts0+$sum))
-	echo $total
+	total2=$(($counts0+$sum))
+	echo $total2
 	for value in ${counts1[*]}; do
 		proportions=$(echo "scale = 12; ($value/$total)" | bc | awk '{printf "%.12f\n", $0}')
 		#echo $proportions
