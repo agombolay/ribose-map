@@ -68,7 +68,7 @@ counts0=$(awk '$4 == 0' FS15.trimmed.v1.binned.data.bed | wc -l)
 
 for i in {1..9}; do
 	(( variable+=$(awk '$4 == ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}') ))
-	counts1+=($(awk '$4 == ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}'))	
+	counts1=$(awk '$4 == ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}')
 	echo $counts1
 done
 
