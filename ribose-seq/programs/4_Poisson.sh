@@ -56,8 +56,7 @@ maximum=$(sort -nk 4 output | tail -1 - | awk '{print $4}')
 #Count how many positions have X number of rNMPs
 for i in $(seq 1 $maximum); do
 	numbers=$(awk '$4 == ('$i')' output | wc -l)
-	echo $numbers
-	#awk '{sum+=$1} END{print sum}' numbers
+	awk '{sum+=$1} END{print sum}' $numbers
 done
 
 #############################################################################################################################
