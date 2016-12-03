@@ -104,7 +104,7 @@ fi
 maximum=$(sort -nk 4 output | tail -1 - | awk '{print $4}')
 
 #Count how many positions have x number of rNMPs
-for i in {1..$maximum}; do
+for i in $(seq 1 $maximum); do
 	echo $i
 	#awk '$4 == ('$i')' output | wc -l
 done
