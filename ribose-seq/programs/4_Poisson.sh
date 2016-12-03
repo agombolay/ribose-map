@@ -98,6 +98,7 @@ bedtools genomecov -3 -bg -ibam $bam -g $bed | grep -v 'chrM' - > output
 elif [ $subset == "chrM" ]; then
 #Select only mitochondrial DNA regions
 bedtools genomecov -3 -bg -ibam $bam -g $bed | grep 'chrM' - > output
+fi
 
 #Determine maximum coverage value
 maximum=$(sort -nk 4 output | tail -1)
