@@ -101,7 +101,7 @@ bedtools genomecov -3 -bg -ibam $bam -g $bed | grep 'chrM' - > output
 fi
 
 #Determine maximum coverage value
-maximum=$(sort -nk 4 output | tail -1)
+maximum=$(sort -nk 4 output | tail -1 - | awk '{print $4}')
 
 #Count how many positions have x number of rNMPs
 for i in {1..$maximum}; do
