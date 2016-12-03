@@ -33,9 +33,38 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
+#############################################################################################################################
+
+#Version 1: Proportion of positions that have x number of ribos
+
 #Input files
-#bed=$directory/ribose-seq/reference/$reference.bed
-#sorted=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.sorted.bed
+bed=$directory/ribose-seq/reference/$reference.bed
+bam=$directory/ribose-seq/results/$reference/$sample/Alignment/$sample.bam
+
+#Obtain coverage at 3' positions of BAM file
+if [ $subset == "nuclear" ]; then
+#Select only nuclear DNA regions
+bedtools genomecov -3 -bg -ibam $bam -g $bed | grep -v 'chrM' - > output
+elif [ $subset == "chrM" ]; then
+#Select only mitochondrial DNA regions
+bedtools genomecov -3 -bg -ibam $bam -g $bed | grep 'chrM' - > output
+fi
+
+#Determine maximum coverage value in BED file
+maximum=$(sort -nk 4 output | tail -1 - | awk '{print $4}')
+
+#Count how many positions have X number of rNMPs
+for i in $(seq 1 $maximum); do
+	awk '$4 == ('$i')' output | wc -l
+done
+
+#############################################################################################################################
+
+#Version 2: Proportion of windows that have x number of ribos
+
+#Input files
+bed=$directory/ribose-seq/reference/$reference.bed
+sorted=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.sorted.bed
 
 #Output directories
 #output1=$directory/ribose-seq/reference/
@@ -49,18 +78,18 @@ fi
 #windows=$output1/$reference.windows.bed
 
 #Separate reference genome into 2.5 kb windows
-#bedtools makewindows -g $bed -w 2500 > $windows
+bedtools makewindows -g $bed -w 2500 > windows
 
 #Select only data of interest
-#if [ $subset == "nuclear" ]; then
+if [ $subset == "nuclear" ]; then
 	#Select only nuclear DNA regions
 	#Determine regions of BED files that intersect and count number of overlaps
-#	bedtools intersect -a $windows -b $sorted -c -sorted -nonamecheck | grep -v 'chrM' - > $binned
-#elif [ $subset == "chrM" ]; then
+	bedtools intersect -a windows -b $sorted -c -sorted -nonamecheck | grep -v 'chrM' - > binned
+elif [ $subset == "chrM" ]; then
 	#Select only mitochondrial DNA regions
 	#Determine regions of BED files that intersect and count number of overlaps
-#	bedtools intersect -a $windows -b $sorted -c -sorted -nonamecheck | grep 'chrM' - > $binned
-#fi
+	bedtools intersect -a windows -b $sorted -c -sorted -nonamecheck | grep 'chrM' - > binned
+fi
 
 #variable=0
 #proportions=()
@@ -85,25 +114,3 @@ fi
 #( IFS=$'\n'; echo "${counts1[*]}" )
 #( IFS=$'\n'; echo "${proportions[*]}" )
 #echo $total
-
-#Version 2: Proportion of positions that have x number of ribos
-
-#Obtain coverage at 3' positions of BAM file
-bam=$directory/ribose-seq/results/$reference/$sample/Alignment/$sample.bam
-bed=$directory/ribose-seq/reference/$reference.bed
-
-if [ $subset == "nuclear" ]; then
-#Select only nuclear DNA regions
-bedtools genomecov -3 -bg -ibam $bam -g $bed | grep -v 'chrM' - > output
-elif [ $subset == "chrM" ]; then
-#Select only mitochondrial DNA regions
-bedtools genomecov -3 -bg -ibam $bam -g $bed | grep 'chrM' - > output
-fi
-
-#Determine maximum coverage value
-maximum=$(sort -nk 4 output | tail -1 - | awk '{print $4}')
-
-#Count how many positions have x number of rNMPs
-for i in $(seq 1 $maximum); do
-	awk '$4 == ('$i')' output | wc -l
-done
