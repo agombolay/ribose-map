@@ -72,7 +72,7 @@ positions2=$(echo "($total-$(wc -l $coverage | awk '{print $1}' -))" | bc)
 
 echo ${positions1[*]}
 
-array1=(seq 1 13)
+array1=$(seq 1 13)
 echo $array1
 #array2=("1" "2" "3" "4")
 for i in "${!array1[@]}"; do
