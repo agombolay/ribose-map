@@ -78,4 +78,4 @@ for i in "${!array1[@]}"; do
         echo -e "${array1[i]}\t${array2[i]}"
         (( sum +=$(echo "${array1[$i]}*${array2[$i]}" | bc | awk '{printf "%.0f\n", $0}') ))
 done
-echo $sum
+echo "Total rNMPs:" $sum
