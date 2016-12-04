@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #Author: Alli Gombolay
-#This program counts the number of rNMPs in each 2.5kb window of the reference genome
+#This program counts the number of positions in the genome with 0...X number of rNMPs
 
 #COMMAND LINE OPTIONS
 
@@ -34,8 +34,6 @@ if [ "$1" == "-h" ]; then
 fi
 
 #############################################################################################################################
-
-#Version 1: Proportion of positions that have x number of ribos
 
 #Input files
 bed=$directory/ribose-seq/reference/$reference.bed
