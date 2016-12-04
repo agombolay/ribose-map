@@ -43,11 +43,15 @@ bam=$directory/ribose-seq/results/$reference/$sample/Alignment/$sample.bam
 
 #Obtain coverage at 3' positions of BAM file
 if [ $subset == "nuclear" ]; then
-#Select only nuclear DNA regions
-bedtools genomecov -3 -bg -ibam $bam -g $bed | grep -v 'chrM' - > output
+	#Select only nuclear DNA regions
+	positions=$(grep -v 'chrM' $bed | awk '{sum+=$2} END{print sum}' -)
+	bedtools genomecov -3 -bg -ibam $bam -g $bed | grep -v 'chrM' - > output
+	echo $positions
 elif [ $subset == "chrM" ]; then
-#Select only mitochondrial DNA regions
-bedtools genomecov -3 -bg -ibam $bam -g $bed | grep 'chrM' - > output
+	#Select only mitochondrial DNA regions
+	positions=$(grep -v 'chrM' $bed)
+	echo $positions
+	bedtools genomecov -3 -bg -ibam $bam -g $bed | grep 'chrM' - > output
 fi
 
 #Determine maximum coverage value in BED file
