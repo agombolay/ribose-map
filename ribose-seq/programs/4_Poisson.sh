@@ -77,19 +77,18 @@ positions2=$(echo "($positions1-$(wc -l $coverage | awk '{print $1}' -))" | bc)
 #Version 2: Proportion of windows that have x number of ribos
 
 #Input files
-bed=$directory/ribose-seq/reference/$reference.bed
 sorted=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.sorted.bed
 
 #Output directories
-#output1=$directory/ribose-seq/reference/
-#output2=$directory/ribose-seq/results/$reference/$sample/Poisson
+output1=$directory/ribose-seq/reference/
+output2=$directory/ribose-seq/results/$reference/$sample/Poisson
 
 #Create directory if not present
-#mkdir -p $output1 $output2
+mkdir -p $output1 $output2
 
 #Output files
-#binned=$output2/$sample.binned.data.bed
-#windows=$output1/$reference.windows.bed
+windows=$output1/$reference.windows.bed
+binned=$output2/$sample.binned.data.bed
 
 #Separate reference genome into 2.5 kb windows
 bedtools makewindows -g $bed -w 2500 > windows
@@ -98,11 +97,11 @@ bedtools makewindows -g $bed -w 2500 > windows
 if [ $subset == "nuclear" ]; then
 	#Select only nuclear DNA regions
 	#Determine regions of BED files that intersect and count number of overlaps
-	bedtools intersect -a windows -b $sorted -c -sorted -nonamecheck | grep -v 'chrM' - > binned
+	bedtools intersect -a windows -b $sorted -c -sorted -nonamecheck | grep -v 'chrM' - > $binned
 elif [ $subset == "chrM" ]; then
 	#Select only mitochondrial DNA regions
 	#Determine regions of BED files that intersect and count number of overlaps
-	bedtools intersect -a windows -b $sorted -c -sorted -nonamecheck | grep 'chrM' - > binned
+	bedtools intersect -a windows -b $sorted -c -sorted -nonamecheck | grep 'chrM' - > $binned
 fi
 
 #variable=0
