@@ -58,8 +58,8 @@ maximum=$(sort -nk 4 output | tail -1 - | awk '{print $4}' -)
 #Determine number of positions with rNMPs
 positions2=$(wc -l output | awk '{print $1}' -)
 
-#Determine number of positions in genome that do not have any rNMPs
-zero=$(echo "($positions1-$positions2)" | bc | awk '{printf "%.0f\n", $0}')
+#Determine number of positions in genome that have zero rNMPs
+zero=$(echo "($positions1-$positions2)" | bc | awk '{printf $0}')
 
 #Count how many positions have X number of rNMPs
 for i in $(seq 1 $maximum); do
