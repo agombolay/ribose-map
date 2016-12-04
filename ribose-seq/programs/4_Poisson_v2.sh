@@ -81,8 +81,9 @@ for i in "${!array1[@]}"; do
         echo -e "${array1[i]}\t${array2[i]}"
         (( sum +=$(echo "${array1[$i]}*${array2[$i]}" | bc) ))
 done
-echo "Total rNMPs:" $sum
 
 #Calculate lambda for Poisson Distribution (in scientific notation)
 lambda=$(echo "scale = 12; $sum/$total" | bc | awk '{printf "%e\n", $0}')
+
+echo "Total rNMPs:" $sum
 echo "Lambda:" $lambda
