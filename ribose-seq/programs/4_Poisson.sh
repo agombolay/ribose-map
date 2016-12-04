@@ -45,7 +45,6 @@ bam=$directory/ribose-seq/results/$reference/$sample/Alignment/$sample.bam
 if [ $subset == "nuclear" ]; then
 	#Select only nuclear DNA regions
 	positions1=$(grep -v 'chrM' $bed | awk '{sum+=$2} END{print sum}' -)
-	echo $positions1
 	bedtools genomecov -3 -bg -ibam $bam -g $bed | grep -v 'chrM' - > output
 elif [ $subset == "chrM" ]; then
 	#Select only mitochondrial DNA regions
@@ -56,10 +55,11 @@ fi
 #Determine maximum coverage value in BED file
 maximum=$(sort -nk 4 output | tail -1 - | awk '{print $4}' -)
 
+#Determine number of positions with rNMPs
 positions2=$(wc -l output | awk '{print $1}' -)
-echo $positions2
+
+#Determine number of positions that do not have any rNMPs
 zero=$(echo "scale = 12; ($positions1-$positions2)" | bc | awk '{printf "%.0f\n", $0}')
-echo $zero
 
 #Count how many positions have X number of rNMPs
 for i in $(seq 1 $maximum); do
