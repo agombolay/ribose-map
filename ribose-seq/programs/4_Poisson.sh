@@ -70,8 +70,8 @@ positions2=$(echo "($total-$(wc -l $coverage | awk '{print $1}' -))" | bc)
 #Print observed count data to fit to Poisson distribution
 ( IFS=$'\n'; echo -e "$positions2\n${positions1[*]}" ) > $counts1
 
-array1=($(seq 1 3))
-array2=($(seq 2 4))
+array1=($(seq 1 13))
+array2=(${positions1[*]})
 
 for i in "${!array1[@]}"; do
         echo "${array1[i]} ${array2[i]}"
