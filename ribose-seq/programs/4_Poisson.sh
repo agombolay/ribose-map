@@ -47,16 +47,18 @@ counts=$directory/ribose-seq/results/$reference/$sample/Poisson/$sample.rNMP-cou
 
 #Obtain coverage at 3' positions of BAM file
 if [ $subset == "nuclear" ]; then
-	#Select only nuclear DNA regions
+	#Calculate total number of genome positions
 	positions1=$(grep -v 'chrM' $bed | awk '{sum+=$2} END{print sum}' -)
+	#Select only nuclear DNA regions from BED file
 	bedtools genomecov -3 -bg -ibam $bam -g $bed | grep -v 'chrM' - > $coverage
 elif [ $subset == "chrM" ]; then
-	#Select only mitochondrial DNA regions
+	#Calculate total number of genome positions
 	positions1=$(grep 'chrM' $bed | awk '{print $2}' -)
+	#Select only mitochondrial DNA regions from BED file
 	bedtools genomecov -3 -bg -ibam $bam -g $bed | grep 'chrM' - > $coverage
 fi
 
-#Determine maximum coverage value in BED file
+#Determine maximum value of genome coverage in BED file
 maximum=$(sort -nk 4 $coverage | tail -1 - | awk '{print $4}' -)
 
 #Determine number of positions with rNMPs
