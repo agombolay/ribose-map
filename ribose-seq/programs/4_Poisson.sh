@@ -71,6 +71,6 @@ positions2=$(echo "($total-$(wc -l $coverage | awk '{print $1}' -))" | bc)
 ( IFS=$'\n'; echo -e "$positions2\n${positions1[*]}" ) > $counts1
 
 for i in $(seq 1 2); do
-	lambda=$(echo "scale = 12; {positions1[$i]}/2" | bc | awk '{printf "%.12f\n", $0}')
+	lambda=$(echo "scale = 12; {$positions1[$i]}/2" | bc | awk '{printf "%.12f\n", $0}')
 	echo $lambda
 done
