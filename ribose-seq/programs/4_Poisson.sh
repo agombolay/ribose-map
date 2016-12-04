@@ -49,7 +49,8 @@ if [ $subset == "nuclear" ]; then
 elif [ $subset == "chrM" ]; then
 	#Select only mitochondrial DNA regions
 	positions=$(grep -v 'chrM' $bed)
-	bedtools genomecov -3 -bg -ibam $bam -g $bed | grep 'chrM' - > output
+	echo $positions
+	#bedtools genomecov -3 -bg -ibam $bam -g $bed | grep 'chrM' - > output
 fi
 
 #Determine maximum coverage value in BED file
