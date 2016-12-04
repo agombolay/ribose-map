@@ -60,6 +60,7 @@ positions2=$(wc -l output | awk '{print $1}' -)
 
 #Determine number of positions that do not have any rNMPs
 zero=$(echo "scale = 12; ($positions1-$positions2)" | bc | awk '{printf "\n", $0}')
+echo $zero
 
 #Count how many positions have X number of rNMPs
 for i in $(seq 1 $maximum); do
