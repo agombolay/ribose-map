@@ -48,7 +48,7 @@ if [ $subset == "nuclear" ]; then
 	bedtools genomecov -3 -bg -ibam $bam -g $bed | grep -v 'chrM' - > output
 elif [ $subset == "chrM" ]; then
 	#Select only mitochondrial DNA regions
-	positions=$(grep -v 'chrM' $bed)
+	positions=$(grep 'chrM' $bed | awk '{print $2}' -)
 	echo $positions
 	#bedtools genomecov -3 -bg -ibam $bam -g $bed | grep 'chrM' - > output
 fi
