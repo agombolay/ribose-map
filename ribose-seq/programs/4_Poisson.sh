@@ -62,10 +62,10 @@ fi
 maximum=$(sort -nk 4 $coverage | tail -1 - | awk '{print $4}' -)
 
 #Determine number of positions with rNMPs
-positions2=$(wc -l $coverage | awk '{print $1}' -)
+#positions2=$(wc -l $coverage | awk '{print $1}' -)
 
 #Determine number of positions with 0 rNMPs
-zero=$(echo "($positions1-$positions2)" | bc)
+zero=$(echo "($positions1-$(wc -l $coverage | awk '{print $1}' -))" | bc)
 
 #Count how many positions have X number of rNMPs
 for i in $(seq 1 $maximum); do
