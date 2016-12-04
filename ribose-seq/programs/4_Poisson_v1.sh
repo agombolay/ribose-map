@@ -81,6 +81,6 @@ for i in "${!array1[@]}"; do
         (( sum +=$(echo "${array1[$i]}*${array2[$i]}" | bc | awk '{printf "%.0f\n", $0}') ))
 done
 echo "Total rNMPs:" $sum
-lambda=$(echo "$sum/$total" | bc | awk '{printf "%e.5f\n", $0}')
+lambda=$(echo "$sum/$total" | bc | awk '{printf "%e\n", $0}')
 
 echo "Lambda:" $lambda
