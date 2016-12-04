@@ -49,11 +49,11 @@ counts=$directory/ribose-seq/results/$reference/$sample/Poisson/$sample.rNMP-cou
 if [ $subset == "nuclear" ]; then
 	#Select only nuclear DNA regions
 	positions1=$(grep -v 'chrM' $bed | awk '{sum+=$2} END{print sum}' -)
-	bedtools genomecov -3 -bg -ibam $bam -g $bed | grep -v 'chrM' - > output
+	bedtools genomecov -3 -bg -ibam $bam -g $bed | grep -v 'chrM' - > $coverage
 elif [ $subset == "chrM" ]; then
 	#Select only mitochondrial DNA regions
 	positions1=$(grep 'chrM' $bed | awk '{print $2}' -)
-	bedtools genomecov -3 -bg -ibam $bam -g $bed | grep 'chrM' - > output
+	bedtools genomecov -3 -bg -ibam $bam -g $bed | grep 'chrM' - > $coverage
 fi
 
 #Determine maximum coverage value in BED file
