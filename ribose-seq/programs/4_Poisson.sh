@@ -72,8 +72,6 @@ positions2=$(echo "($total-$(wc -l $coverage | awk '{print $1}' -))" | bc)
 
 array=$(seq 1 2)
 for a in $(seq 0 2); do
-	echo $(seq 1 2)
-	#lambda=$(echo "scale = 12; "${positions1[@]:$a:$b}"*$array" | bc | awk '{printf "%.12f\n", $0}')
-	#echo "${positions1[@]:0:2}"
-	#echo $lambda
+	lambda=$(echo "scale = 12; ${positions1[$a]}*2" | bc | awk '{printf "%.12f\n", $0}')
+	echo $lambda
 done
