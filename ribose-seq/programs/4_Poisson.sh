@@ -46,11 +46,9 @@ if [ $subset == "nuclear" ]; then
 	#Select only nuclear DNA regions
 	positions=$(grep -v 'chrM' $bed | awk '{sum+=$2} END{print sum}' -)
 	bedtools genomecov -3 -bg -ibam $bam -g $bed | grep -v 'chrM' - > output
-	echo $positions
 elif [ $subset == "chrM" ]; then
 	#Select only mitochondrial DNA regions
 	positions=$(grep -v 'chrM' $bed)
-	echo $positions
 	bedtools genomecov -3 -bg -ibam $bam -g $bed | grep 'chrM' - > output
 fi
 
@@ -61,8 +59,6 @@ maximum=$(sort -nk 4 output | tail -1 - | awk '{print $4}')
 for i in $(seq 1 $maximum); do
 	awk '$4 == ('$i')' output | wc -l
 done
-
-#awk '{sum+=$2} END{print sum}' sacCer2.bed
 
 #############################################################################################################################
 
