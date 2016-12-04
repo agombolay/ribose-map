@@ -74,6 +74,6 @@ array1=$(seq 1 3)
 array2=$(seq 2 4)
 
 for i in "${!array1[@]}"; do
-        echo "${array1[i]} ${array2[i]}"
+        paste "${array1[i]} ${array2[i]}"
         echo "${array1[$i]}*${array2[$i]}" | bc | awk '{printf "%.12f\n", $0}'
 done
