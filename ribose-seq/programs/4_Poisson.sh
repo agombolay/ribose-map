@@ -74,6 +74,7 @@ array1=($(seq 1 $maximum))
 array2=(${positions1[*]})
 
 sum=0
+echo -e "rNMPs\tPositions"
 echo -e "0\t$positions2"
 for i in "${!array1[@]}"; do
         echo -e "${array1[i]}\t${array2[i]}"
