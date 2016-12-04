@@ -94,16 +94,16 @@ counts2=$directory/ribose-seq/results/$reference/$sample/Poisson/$sample.rNMP-wi
 #Separate reference genome into 2.5 kb windows
 bedtools makewindows -g $bed -w 2500 > $windows
 
-#Select only data of interest
+#Obtain overlapping regions of BED files
 if [ $subset == "nuclear" ]; then
-	#Select only nuclear DNA regions
-	#Determine regions of BED files that intersect and count number of overlaps
+	#Total number of windows in nuclear DNA
 	windows1=$(grep -v 'chrM' $windows | wc -l)
+	#Determine regions of BED files that intersect and count number of overlaps
 	bedtools intersect -a $windows -b $sorted -c -sorted -nonamecheck | grep -v 'chrM' - > $binned
 elif [ $subset == "chrM" ]; then
-	#Select only mitochondrial DNA regions
-	#Determine regions of BED files that intersect and count number of overlaps
+	#Total number of windows in mitochondrial DNA
 	windows1=$(grep 'chrM' $windows | wc -l)
+	#Determine regions of BED files that intersect and count number of overlaps
 	bedtools intersect -a $windows -b $sorted -c -sorted -nonamecheck | grep 'chrM' - > $binned
 fi
 
