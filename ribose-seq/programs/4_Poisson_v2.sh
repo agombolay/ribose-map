@@ -87,3 +87,58 @@ lambda=$(echo "scale = 12; $sum/$total" | bc | awk '{printf "%e\n", $0}')
 
 echo "Total rNMPs:" $sum
 echo "Lambda:" $lambda
+
+#Version 2: Proportion of windows that have x number of ribos
+
+#Input files
+bed=$directory/ribose-seq/reference/$reference.bed
+sorted=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.sorted.bed
+
+#Output directories
+#output1=$directory/ribose-seq/reference/
+#output2=$directory/ribose-seq/results/$reference/$sample/Poisson
+
+#Create directory if not present
+#mkdir -p $output1 $output2
+
+#Output files
+#binned=$output2/$sample.binned.data.bed
+#windows=$output1/$reference.windows.bed
+
+#Separate reference genome into 2.5 kb windows
+bedtools makewindows -g $bed -w 2500 > windows
+
+#Select only data of interest
+if [ $subset == "nuclear" ]; then
+	#Select only nuclear DNA regions
+	#Determine regions of BED files that intersect and count number of overlaps
+	bedtools intersect -a windows -b $sorted -c -sorted -nonamecheck | grep -v 'chrM' - > binned
+elif [ $subset == "chrM" ]; then
+	#Select only mitochondrial DNA regions
+	#Determine regions of BED files that intersect and count number of overlaps
+	bedtools intersect -a windows -b $sorted -c -sorted -nonamecheck | grep 'chrM' - > binned
+fi
+
+#variable=0
+#proportions=()
+#counts0=$(awk '$4 == 0' FS15.trimmed.v1.binned.data.bed | wc -l)
+#counts2=$(awk '$4 > 9' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}')
+
+#for i in {1..9}; do
+#	(( variable+=$(awk '$4 == ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}') ))
+#	counts1+=($(awk '$4 == ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}'))
+#done
+
+#total=$(($counts0+$variable+$counts2))
+#for value in $counts0 ${counts1[*]}; do
+#	proportions+=($(echo "scale = 12; ($value/$total)" | bc | awk '{printf "%.12f\n", $0}'))
+#done
+
+#for value in ${proportions[*]}; do
+#	final+=($(echo "scale = 12; (1-$value)" | bc | awk '{printf "%.12f\n", $0}'))
+#done
+
+#echo $counts0
+#( IFS=$'\n'; echo "${counts1[*]}" )
+#( IFS=$'\n'; echo "${proportions[*]}" )
+#echo $total
