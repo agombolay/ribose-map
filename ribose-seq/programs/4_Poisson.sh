@@ -48,12 +48,12 @@ if [ $subset == "nuclear" ]; then
 	#Calculate total number of genome positions
 	total=$(grep -v 'chrM' $bed | awk '{sum+=$2} END{print sum}' -)
 	#Select only nuclear DNA regions from BED file
-	bedtools genomecov -3 -bg -ibam $bam -g $bed | grep -v 'chrM' - > $coverage
+	bedtools genomecov -3 -dz -ibam $bam -g $bed | grep -v 'chrM' - > $coverage
 elif [ $subset == "chrM" ]; then
 	#Calculate total number of genome positions
 	total=$(grep 'chrM' $bed | awk '{print $2}' -)
 	#Select only mitochondrial DNA regions from BED file
-	bedtools genomecov -3 -bg -ibam $bam -g $bed | grep 'chrM' - > $coverage
+	bedtools genomecov -3 -dz -ibam $bam -g $bed | grep 'chrM' - > $coverage
 fi
 
 #Maximum value of genome coverage in BED file
