@@ -78,7 +78,7 @@ echo -e "rNMPs\tPositions"
 echo -e "0\t$positions2"
 for i in "${!array1[@]}"; do
         echo -e "${array1[i]}\t${array2[i]}"
-        (( sum +=$(echo "${array1[$i]}*${array2[$i]}" | bc | awk '{printf "%.0f\n"", $0}') ))
+        (( sum +=$(echo "${array1[$i]}*${array2[$i]}" | bc | awk '{printf "%.0f\n", $0}') ))
 done
 echo "Total rNMPs:" $sum
 lambda=$(echo "$sum/$total" | bc | awk '{printf "%.12f\n", $0}')
