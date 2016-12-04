@@ -74,8 +74,8 @@ array1=($(seq 1 $maximum))
 array2=(${positions1[*]})
 
 sum=0
+echo -e "0\t$positions2"
 for i in "${!array1[@]}"; do
-	echo -e "0\t$positions2"
         echo -e "${array1[i]}\t${array2[i]}"
         (( sum +=$(echo "${array1[$i]}*${array2[$i]}" | bc | awk '{printf "%.0f\n", $0}') ))
 done
