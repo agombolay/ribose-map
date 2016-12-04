@@ -71,7 +71,7 @@ for i in $(seq 1 $maximum); do
 done
 
 #Print observed count data to fit to Poisson distribution
-( IFS=$'\n'; echo "$zero ${positions3[*]}" ) > $counts
+( IFS=$'\n'; echo -e "$zero\n ${positions3[*]}" ) > $counts
 
 #############################################################################################################################
 
