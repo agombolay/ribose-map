@@ -55,7 +55,7 @@ fi
 #Determine maximum coverage value in BED file
 maximum=$(sort -nk 4 output | tail -1 - | awk '{print $4}' -)
 
-positions2=$(wc -l output)
+positions2=$(wc -l output | awk '{print $1}' -)
 echo $positions2
 #zero=$(echo "scale = 12; ($positions1-$positions2)" | bc | awk '{printf "%.12f\n", $0}')
 #echo $zero
