@@ -49,12 +49,11 @@ if [ $subset == "nuclear" ]; then
 elif [ $subset == "chrM" ]; then
 	#Select only mitochondrial DNA regions
 	positions=$(grep 'chrM' $bed | awk '{print $2}' -)
-	echo $positions
-	#bedtools genomecov -3 -bg -ibam $bam -g $bed | grep 'chrM' - > output
+	bedtools genomecov -3 -bg -ibam $bam -g $bed | grep 'chrM' - > output
 fi
 
 #Determine maximum coverage value in BED file
-maximum=$(sort -nk 4 output | tail -1 - | awk '{print $4}')
+maximum=$(sort -nk 4 output | tail -1 - | awk '{print $4}' -)
 
 #Count how many positions have X number of rNMPs
 for i in $(seq 1 $maximum); do
