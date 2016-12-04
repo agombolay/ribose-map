@@ -62,6 +62,7 @@ positions2=$(wc -l output | awk '{print $1}' -)
 zero=$(echo "($positions1-$positions2)" | bc | awk '{printf "%.0f\n", $0}')
 
 #Count how many positions have X number of rNMPs
+positions3()
 for i in $(seq 1 $maximum); do
 	positions3+=($(awk '$4 == ('$i')' output | wc -l))
 done
