@@ -46,12 +46,12 @@ counts1=$directory/ribose-seq/results/$reference/$sample/Poisson/$sample.rNMP-co
 #Obtain coverage at 3' positions of BAM file
 if [ $subset == "nuclear" ]; then
 	#Calculate total number of genome positions
-	positions1=$(grep -v 'chrM' $bed | awk '{sum+=$2} END{print sum}' -)
+	total=$(grep -v 'chrM' $bed | awk '{sum+=$2} END{print sum}' -)
 	#Select only nuclear DNA regions from BED file
 	bedtools genomecov -3 -bg -ibam $bam -g $bed | grep -v 'chrM' - > $coverage
 elif [ $subset == "chrM" ]; then
 	#Calculate total number of genome positions
-	positions1=$(grep 'chrM' $bed | awk '{print $2}' -)
+	total=$(grep 'chrM' $bed | awk '{print $2}' -)
 	#Select only mitochondrial DNA regions from BED file
 	bedtools genomecov -3 -bg -ibam $bam -g $bed | grep 'chrM' - > $coverage
 fi
@@ -61,11 +61,13 @@ maximum=$(sort -nk 4 $coverage | tail -1 - | awk '{print $4}' -)
 
 #Number of positions with X number of rNMPs
 for i in $(seq 1 $maximum); do
-	positions3+=($(awk '$4 == ('$i')' $coverage | wc -l))
+	positions1+=($(awk '$4 == ('$i')' $coverage | wc -l))
 done
 
 #Number of positions with 0 rNMPs (total positions-positions with rNMPs)
-positions2=$(echo "($positions1-$(wc -l $coverage | awk '{print $1}' -))" | bc)
+positions2=$(echo "($total-$(wc -l $coverage | awk '{print $1}' -))" | bc)
 
 #Print observed count data to fit to Poisson distribution
-( IFS=$'\n'; echo -e "$positions2\n${positions3[*]}" ) > $counts1
+( IFS=$'\n'; echo -e "$positions2\n${positions1[*]}" ) > $counts1
+
+lambda=
