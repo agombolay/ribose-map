@@ -73,6 +73,6 @@ positions2=$(echo "($total-$(wc -l $coverage | awk '{print $1}' -))" | bc)
 array1=$(seq 1 13)
 array2=${positions1[*]}
 for i in "${!array1[@]}"; do
-        echo "${array1[i]} ${array2[i]}"
-        echo "${array1[$i]}*${array2[$i]}" | bc | awk '{printf "%.12f\n", $0}'
+        echo "${array1[i]} ${array2[*]}"
+        #echo "${array1[$i]}*${array2[$i]}" | bc | awk '{printf "%.12f\n", $0}'
 done
