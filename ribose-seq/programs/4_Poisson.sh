@@ -70,10 +70,9 @@ positions2=$(echo "($total-$(wc -l $coverage | awk '{print $1}' -))" | bc)
 #Print observed count data to fit to Poisson distribution
 ( IFS=$'\n'; echo -e "$positions2\n${positions1[*]}" ) > $counts1
 
-for a,b in $(seq 0 2) $(seq 1 2); do
-	lambda=$(echo "scale = 12; ${positions1[$a]}*$b" | bc | awk '{printf "%.12f\n", $0}')
-	echo $lambda
+array1=("0" "1" "2" "3")
+array2=("1" "2" "3" "4")
+for i in "${!array1[@]}"; do
+        echo "${array1[i]} ${array2[i]}"
+        echo "${array1[$i]}*${array2[$i]}" | bc | awk '{printf "%.12f\n", $0}'
 done
-echo ${positions1[0]}
-echo ${positions1[1]}
-echo ${positions1[2]}
