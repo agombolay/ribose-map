@@ -62,7 +62,7 @@ for i in $(seq 1 $maximum); do
 	awk '$4 == ('$i')' output | wc -l
 done
 
-awk '{sum+=$2} END{print sum}' sacCer2.bed
+#awk '{sum+=$2} END{print sum}' sacCer2.bed
 
 #############################################################################################################################
 
