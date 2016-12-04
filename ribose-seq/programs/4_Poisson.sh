@@ -41,6 +41,10 @@ fi
 bed=$directory/ribose-seq/reference/$reference.bed
 bam=$directory/ribose-seq/results/$reference/$sample/Alignment/$sample.bam
 
+#Output files
+coverage=$directory/ribose-seq/results/$reference/$sample/Poisson/$sample.rNMP-coverage.bed
+counts=$directory/ribose-seq/results/$reference/$sample/Poisson/$sample.rNMP-counts.bed
+
 #Obtain coverage at 3' positions of BAM file
 if [ $subset == "nuclear" ]; then
 	#Select only nuclear DNA regions
@@ -58,7 +62,7 @@ maximum=$(sort -nk 4 output | tail -1 - | awk '{print $4}' -)
 #Determine number of positions with rNMPs
 positions2=$(wc -l output | awk '{print $1}' -)
 
-#Determine number of positions in genome that have zero rNMPs
+#Determine number of positions with 0 rNMPs
 zero=$(echo "($positions1-$positions2)" | bc)
 
 #Count how many positions have X number of rNMPs
@@ -66,8 +70,8 @@ for i in $(seq 1 $maximum); do
 	positions3+=($(awk '$4 == ('$i')' output | wc -l))
 done
 
-echo $zero
-( IFS=$'\n'; echo "${positions3[*]}" )
+#Print observed count data to fit to Poisson distribution
+echo $zero && ( IFS=$'\n'; echo "${positions3[*]}" ) > $counts
 
 #############################################################################################################################
 
