@@ -57,11 +57,11 @@ elif [ $subset == "chrM" ]; then
 fi
 
 #Maximum value of genome coverage in BED file
-maximum=$(sort -nk 4 $coverage | tail -1 - | awk '{print $4}' -)
+maximum=$(sort -nk 3 $coverage | tail -1 - | awk '{print $3}' -)
 
 #Number of positions with X number of rNMPs
 for i in $(seq 1 $maximum); do
-	positions1+=($(awk '$4 == ('$i')' $coverage | wc -l))
+	positions1+=($(awk '$3 == ('$i')' $coverage | wc -l))
 done
 
 #Number of positions with 0 rNMPs (total positions-positions with rNMPs)
