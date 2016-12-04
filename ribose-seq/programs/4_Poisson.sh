@@ -113,10 +113,9 @@ maximum=$(sort -nk 4 $binned | tail -1 - | awk '{print $4}' -)
 
 for i in $(seq 1 $maximum); do
 	counts1+=($(awk '$4 == ('$i')' $binned | wc -l))
-	echo $counts1
 done
 
 #echo $counts0
-#( IFS=$'\n'; echo "${counts1[*]}" )
+( IFS=$'\n'; echo "${counts1[*]}" )
 #( IFS=$'\n'; echo "${proportions[*]}" )
 #echo $total
