@@ -57,17 +57,17 @@ elif [ $subset == "chrM" ]; then
 fi
 
 #Determine maximum coverage value in BED file
-maximum=$(sort -nk 4 output | tail -1 - | awk '{print $4}' -)
+maximum=$(sort -nk 4 $coverage | tail -1 - | awk '{print $4}' -)
 
 #Determine number of positions with rNMPs
-positions2=$(wc -l output | awk '{print $1}' -)
+positions2=$(wc -l $coverage | awk '{print $1}' -)
 
 #Determine number of positions with 0 rNMPs
 zero=$(echo "($positions1-$positions2)" | bc)
 
 #Count how many positions have X number of rNMPs
 for i in $(seq 1 $maximum); do
-	positions3+=($(awk '$4 == ('$i')' output | wc -l))
+	positions3+=($(awk '$4 == ('$i')' $coverage | wc -l))
 done
 
 #Print observed count data to fit to Poisson distribution
