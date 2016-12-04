@@ -45,6 +45,7 @@ bam=$directory/ribose-seq/results/$reference/$sample/Alignment/$sample.bam
 if [ $subset == "nuclear" ]; then
 	#Select only nuclear DNA regions
 	positions1=$(grep -v 'chrM' $bed | awk '{sum+=$2} END{print sum}' -)
+	echo $positions1
 	bedtools genomecov -3 -bg -ibam $bam -g $bed | grep -v 'chrM' - > output
 elif [ $subset == "chrM" ]; then
 	#Select only mitochondrial DNA regions
