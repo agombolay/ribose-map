@@ -71,7 +71,7 @@ positions2=$(echo "($total-$(wc -l $coverage | awk '{print $1}' -))" | bc)
 ( IFS=$'\n'; echo -e "$positions2\n${positions1[*]}" ) > $counts1
 
 array1=$(seq 1 3)
-array2=(2 3 4)
+array2=$(seq 2 4)
 
 for i in "${!array1[@]}"; do
         echo "${array1[i]} ${array2[i]}"
