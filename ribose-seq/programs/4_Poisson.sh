@@ -43,7 +43,7 @@ bam=$directory/ribose-seq/results/$reference/$sample/Alignment/$sample.bam
 
 #Output files
 coverage=$directory/ribose-seq/results/$reference/$sample/Poisson/$sample.rNMP-coverage.bed
-counts=$directory/ribose-seq/results/$reference/$sample/Poisson/$sample.rNMP-counts.bed
+counts1=$directory/ribose-seq/results/$reference/$sample/Poisson/$sample.rNMP-counts.bed
 
 #Obtain coverage at 3' positions of BAM file
 if [ $subset == "nuclear" ]; then
@@ -70,7 +70,7 @@ done
 positions2=$(echo "($positions1-$(wc -l $coverage | awk '{print $1}' -))" | bc)
 
 #Print observed count data to fit to Poisson distribution
-( IFS=$'\n'; echo -e "$positions2\n${positions3[*]}" ) > $counts
+( IFS=$'\n'; echo -e "$positions2\n${positions3[*]}" ) > $counts1
 
 #############################################################################################################################
 
@@ -89,6 +89,7 @@ mkdir -p $output1 $output2
 #Output files
 windows=$output1/$reference.windows.bed
 binned=$output2/$sample.binned.data.bed
+counts2=$directory/ribose-seq/results/$reference/$sample/Poisson/$sample.rNMP-windows.bed
 
 #Separate reference genome into 2.5 kb windows
 bedtools makewindows -g $bed -w 2500 > $windows
@@ -97,24 +98,25 @@ bedtools makewindows -g $bed -w 2500 > $windows
 if [ $subset == "nuclear" ]; then
 	#Select only nuclear DNA regions
 	#Determine regions of BED files that intersect and count number of overlaps
-	windows1=$(grep -v 'chrM' $windows | wc -l -)
+	windows1=$(grep -v 'chrM' $windows | wc -l)
 	bedtools intersect -a $windows -b $sorted -c -sorted -nonamecheck | grep -v 'chrM' - > $binned
 elif [ $subset == "chrM" ]; then
 	#Select only mitochondrial DNA regions
 	#Determine regions of BED files that intersect and count number of overlaps
-	windows1=$(grep 'chrM' $windows | wc -l -)
+	windows1=$(grep 'chrM' $windows | wc -l)
 	bedtools intersect -a $windows -b $sorted -c -sorted -nonamecheck | grep 'chrM' - > $binned
 fi
 
+#Maximum value of rNMPs in a window of BED file
 maximum=$(sort -nk 4 $binned | tail -1 - | awk '{print $4}' -)
 
-#variable=0
-windows2=$(awk '$4 == 0' FS15.trimmed.v1.binned.data.bed | wc -l)
-#counts2=$(awk '$4 > 9' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}')
-#(( variable+=$(awk '$4 == ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}') ))
-
+#Number of windows with X number of rNMPs
 for i in $(seq 1 $maximum); do
 	counts1+=($(awk '$4 == ('$i')' $binned | wc -l))
 done
 
-( IFS=$'\n'; echo -e "$windows2\n${counts1[*]}" )
+#Number of windows with 0 rNMPs at any position in window
+windows2=$(awk '$4 == 0' FS15.trimmed.v1.binned.data.bed | wc -l)
+
+#Print observed count data to fit to Poisson distribution
+( IFS=$'\n'; echo -e "$windows2\n${counts1[*]}" ) > $counts2
