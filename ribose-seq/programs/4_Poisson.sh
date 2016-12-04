@@ -104,24 +104,17 @@ elif [ $subset == "chrM" ]; then
 	bedtools intersect -a $windows -b $sorted -c -sorted -nonamecheck | grep 'chrM' - > $binned
 fi
 
+maximum=$(sort -nk 4 $binned | tail -1 - | awk '{print $4}' -)
+
 #variable=0
-#proportions=()
 #counts0=$(awk '$4 == 0' FS15.trimmed.v1.binned.data.bed | wc -l)
 #counts2=$(awk '$4 > 9' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}')
+#(( variable+=$(awk '$4 == ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}') ))
 
-#for i in {1..9}; do
-#	(( variable+=$(awk '$4 == ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}') ))
-#	counts1+=($(awk '$4 == ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}'))
-#done
-
-#total=$(($counts0+$variable+$counts2))
-#for value in $counts0 ${counts1[*]}; do
-#	proportions+=($(echo "scale = 12; ($value/$total)" | bc | awk '{printf "%.12f\n", $0}'))
-#done
-
-#for value in ${proportions[*]}; do
-#	final+=($(echo "scale = 12; (1-$value)" | bc | awk '{printf "%.12f\n", $0}'))
-#done
+for i in $(seq 1 $maximum); do
+	counts1+=($(awk '$4 == ('$i')' $binned | wc -l))
+	echo $counts1
+done
 
 #echo $counts0
 #( IFS=$'\n'; echo "${counts1[*]}" )
