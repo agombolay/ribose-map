@@ -58,22 +58,19 @@ elif [ $subset == "chrM" ]; then
 	bedtools genomecov -3 -bg -ibam $bam -g $bed | grep 'chrM' - > $coverage
 fi
 
-#Determine maximum value of genome coverage in BED file
+#Maximum value of genome coverage in BED file
 maximum=$(sort -nk 4 $coverage | tail -1 - | awk '{print $4}' -)
 
-#Determine number of positions with rNMPs
-#positions2=$(wc -l $coverage | awk '{print $1}' -)
+#Number of positions with 0 rNMPs (total positions-positions with rNMPs)
+positions2=$(echo "($positions1-$(wc -l $coverage | awk '{print $1}' -))" | bc)
 
-#Determine number of positions with 0 rNMPs
-zero=$(echo "($positions1-$(wc -l $coverage | awk '{print $1}' -))" | bc)
-
-#Count how many positions have X number of rNMPs
+#Number of positions with X number of rNMPs
 for i in $(seq 1 $maximum); do
 	positions3+=($(awk '$4 == ('$i')' $coverage | wc -l))
 done
 
 #Print observed count data to fit to Poisson distribution
-( IFS=$'\n'; echo -e "$zero\n${positions3[*]}" ) > $counts
+( IFS=$'\n'; echo -e "$positions2\n${positions3[*]}" ) > $counts
 
 #############################################################################################################################
 
