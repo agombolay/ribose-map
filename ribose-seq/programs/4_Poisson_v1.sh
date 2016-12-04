@@ -70,17 +70,19 @@ positions2=$(echo "($total-$(wc -l $coverage | awk '{print $1}' -))" | bc)
 #Print observed count data to fit to Poisson distribution
 ( IFS=$'\n'; echo -e "$positions2\n${positions1[*]}" ) > $counts1
 
+echo -e "rNMPs\tPositions"
+echo -e "0\t$positions2"
+
 array1=($(seq 1 $maximum))
 array2=(${positions1[*]})
 
 sum=0
-echo -e "rNMPs\tPositions"
-echo -e "0\t$positions2"
 for i in "${!array1[@]}"; do
         echo -e "${array1[i]}\t${array2[i]}"
         (( sum +=$(echo "${array1[$i]}*${array2[$i]}" | bc | awk '{printf "%.0f\n", $0}') ))
 done
 echo "Total rNMPs:" $sum
-lambda=$(echo "scale = 12; $sum/$total" | bc | awk '{printf "%e\n", $0}')
 
+#Calculate lambda for Poisson Distribution (in scientific notation)
+lambda=$(echo "scale = 12; $sum/$total" | bc | awk '{printf "%e\n", $0}')
 echo "Lambda:" $lambda
