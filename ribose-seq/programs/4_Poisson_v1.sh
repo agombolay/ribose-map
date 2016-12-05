@@ -46,7 +46,7 @@ counts1=$directory/ribose-seq/results/$reference/$sample/Poisson/$sample.rNMP-co
 #Obtain coverage at 3' positions of BAM file
 if [ $subset == "nuclear" ]; then
 	#Calculate total number of genome positions
-	total=$(grep -v 'chrM' $bed | awk '{sum+=$2} END{print sum}' -)
+	total=$(grep '2micron' $bed | awk '{sum+=$2} END{print sum}' -)
 	#Select only nuclear DNA regions from BED file
 	bedtools genomecov -3 -dz -ibam $bam -g $bed | grep -v 'chrM' - > $coverage
 elif [ $subset == "chrM" ]; then
