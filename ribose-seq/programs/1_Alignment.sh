@@ -81,7 +81,7 @@ for sample in ${sample[@]}; do
 	#Convert SAM file to BAM and sort intermediate BAM file
 	#SAMtools: #"-S": Input format is SAM; "-h": Include header in output;
 	#"-u": Output as uncompressed BAM; #"-F4": Do not output unmapped reads
-	samtools view -ShuF4 $intermediateSAM | samtools sort - $sortedBAM
+	samtools view -ShuF4 $intermediateSAM | samtools sort - > $sortedBAM
 
 	#Create index file
 	samtools index $sortedBAM
