@@ -2,7 +2,6 @@
 
 #Author: Alli Gombolay
 #This program removes UMI's from reads, aligns reads to reference genome, and de-duplicates reads
-#Adapted from Jay Hesselberth's code located at https://github.com/hesselberthlab/modmap/tree/snake
 
 #COMMAND LINE OPTIONS
 
