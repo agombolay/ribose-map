@@ -118,17 +118,19 @@ for sample in ${sample[@]}; do
 	
 		#Index filtered BAM file
 		samtools index $finalBAM
+		
+		#Remove intermediate and temporary files from directory
+		rm temporary.bam temporary.bam.bai temporary.sam filtered.sam
 	else
 		#7. De-duplicate reads based on UMIs; compress file
 		umitools rmdup $sortedBAM $finalBAM | gzip -c > $BED
 	
 		#8. Index final BAM files
 		samtools index $finalBAM
+		
+		#Remove intermediate and temporary files from directory
+		rm $sortedBAM $sortedBAM.bai $intermediateSAM $intermediateBAM
 	fi
-
-	#Remove intermediate and temporary files from directory
-	#rm $sortedBAM $sortedBAM.bai $intermediateSAM $intermediateBAM \
-	#temporary.bam temporary.bam.bai temporary.sam filtered.sam
 	
 	#Notify user that the alignment step is complete
 	echo "Alignment of $sample to $index reference genome is complete"
