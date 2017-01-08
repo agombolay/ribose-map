@@ -13,7 +13,7 @@ function usage () {
 		-d Local directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
 }
 
-#Use getopts function to create the command-line options ([-i], [-b], [-d], [-v], and [-h])
+#Use getopts function to create the command-line options ([-i], [-b], [-d], and [-h])
 while getopts "i:b:d:h" opt; do
     case "$opt" in
         #Specify input as arrays to allow multiple input arguments
