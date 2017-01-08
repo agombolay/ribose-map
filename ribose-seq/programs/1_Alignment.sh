@@ -8,8 +8,8 @@
 #Usage statement of the program
 function usage () {
 	echo "Usage: 1_Alignment.sh [-i] 'FASTQ' [-b] 'Index' [-d] 'Directory' [-h]
-		-i Sample names (FS1 FS2 FS3 etc.) 
-		-b Basename of Bowtie index to be searched (sacCer2, chrM, ecoli, hg38, etc.)
+		-i Sample names (FS1.trimmed.v1 FS2.trimmed.v1 FS3.trimmed.v1 etc.) 
+		-b Basename of Bowtie2 index to be searched (sacCer2, chrM, ecoli, hg38, etc.)
 		-d Local directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
 }
 
@@ -20,7 +20,6 @@ while getopts "i:b:d:h" opt; do
         i ) sample=($OPTARG) ;;
 	#Specify input as variable to allow only one input argument
 	b ) index=$OPTARG ;;
-	#v ) version=$OPTARG ;;
 	d ) directory=$OPTARG ;;
         #If user specifies [-h], print usage statement
         h ) usage ;;
