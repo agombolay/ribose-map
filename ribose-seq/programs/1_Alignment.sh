@@ -78,15 +78,16 @@ for sample in ${sample[@]}; do
 	#Alternative Version: Trim UMI from 5' ends of reads
 	#umitools trim --end 5 $reads $UMI | gzip -c > $umiTrimmed
 
-	#3. Align reads to reference genome with Bowtie version 1 or 2
+	#3. Align reads to reference genome using Bowtie2
+	#Bash: "-": standard input; "2>": Redirect standard error; "-x": Index;
+	#"-U": Unpaired input reads; "-S": Print alignment results in SAM format
+	zcat $umiTrimmed | bowtie2 -x $index -U - -S $intermediateSAM 2> $statistics
+
+	#Alternative Version: Align reads using Bowtie version 1
 	#Bash: "-": standard input; "2>": Redirect standard error; "1>": Redirect standard output
 	#Bowtie: "-m 1": Return only unique reads; "--sam": Print alignment results in SAM format
-	#if [ $version == "1" ]; then
-	#	zcat $umiTrimmed | bowtie -m 1 --sam $index - 2> $statistics 1> $intermediateSAM
-	#elif [ $version == "2" ]; then
-	zcat $umiTrimmed | bowtie2 -x $index -U - -S $intermediateSAM 2> $statistics
-	#fi
-
+	#zcat $umiTrimmed | bowtie -m 1 --sam $index - 2> $statistics 1> $intermediateSAM
+	
 	#4. Convert SAM file to BAM
 	#SAMtools: #"-S": Input format is SAM; "-h": Include header in output;
 	#"-u": Output as uncompressed BAM; #"-F4": Do not output unmapped reads
@@ -118,20 +119,18 @@ for sample in ${sample[@]}; do
 	
 		#Index filtered BAM file
 		samtools index $finalBAM
-		
-		#Remove intermediate and temporary files from directory
-		rm temporary.bam temporary.bam.bai temporary.sam filtered.sam
 	else
 		#7. De-duplicate reads based on UMIs; compress file
 		umitools rmdup $sortedBAM $finalBAM | gzip -c > $BED
 	
 		#8. Index final BAM files
 		samtools index $finalBAM
-		
-		#Remove intermediate and temporary files from directory
-		rm $sortedBAM $sortedBAM.bai $intermediateSAM $intermediateBAM
 	fi
 	
+	#Remove intermediate and temporary files from directory
+	rm -f temporary.bam temporary.bam.bai temporary.sam filtered.sam \
+	$sortedBAM $sortedBAM.bai $intermediateSAM $intermediateBAM
+		
 	#Notify user that the alignment step is complete
 	echo "Alignment of $sample to $index reference genome is complete"
 done
