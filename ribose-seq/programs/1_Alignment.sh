@@ -31,52 +31,45 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
-#Align FASTQ files to reference genome
+#############################################################################################################################
+#Align reads to reference genome
 for sample in ${sample[@]}; do
 	
-	#INPUT
-	#Location of FASTQ files
-	reads=$directory/Sequencing-Results/$sample.fastq
+	#Input FASTQ files
+	fastq=$directory/Sequencing-Results/$sample.fastq
 	
-	#OUTPUT
-	#Location of output directory
+	#Output directory
 	output=$directory/ribose-seq/results/$index/$sample/Alignment/
 
 	#Create directory if not present
     	mkdir -p $output
 
-	#Location of reverse complemented FASTQ files 
+	#Intermediate files
+	umiTrimmed=$output/$sample.UMI-trimmed.fastq.gz; intermediateSAM=$output/$sample.intermediate.sam;
+	intermediateBAM=$output/$sample.intermediate.bam; sortedBAM=$output/$sample.sorted.bam
 	reverseComplement=$output/$sample.reverse-complement.fastq
 
-	#Location of UMI trimmed FASTQ files
-	umiTrimmed=$output/$sample.UMI-trimmed.fastq.gz
-
-	#Intermediate files
-	intermediateSAM=$output/$sample.intermediate.sam
-	intermediateBAM=$output/$sample.intermediate.bam
-	sortedBAM=$output/$sample.sorted.bam
-
-	#Final BAM files
+	#Final BAM file
 	finalBAM=$output/$sample.bam
 
-	#File containing Bowtie alignment statistics
+	#File containing Bowtie2 alignment statistics
 	statistics=$output/$sample.Alignment-Statistics.txt
 
 	#BED file
-	BED=$output/$samples.bed.gz
+	BED=$output/$sample.bed.gz
 
 	#Length of Unique Molecular Identifiers (UMI)
 	UMI=NNNNNNNN
 
 #############################################################################################################################
 	#1. Reverse complement reads
-	seqtk seq -r $reads > $reverseComplement
+	seqtk seq -r $fastq > $reverseComplement
 
 	#2. Alli's Version: Trim UMI from 3' ends of reads; compress file
 	umitools trim --end 3 $reverseComplement $UMI | gzip -c > $umiTrimmed
 	
 	#Alternative Version: Trim UMI from 5' ends of reads
-	#umitools trim --end 5 $reads $UMI | gzip -c > $umiTrimmed
+	#umitools trim --end 5 $fastq $UMI | gzip -c > $umiTrimmed
 
 	#3. Align reads to reference genome using Bowtie2
 	#Bash: "-": standard input; "2>": Redirect standard error; "-x": Index;
