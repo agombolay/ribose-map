@@ -65,7 +65,7 @@ for sample in ${sample[@]}; do
 	#1. Reverse complement reads
 	seqtk seq -r $fastq > $reverseComplement
 
-	#2. Alli's Version: Trim UMI from 3' ends of reads; compress file
+	#2. Trim UMI from 3' ends of reads; compress file
 	umitools trim --end 3 $reverseComplement $UMI | gzip -c > $umiTrimmed
 	
 	#Alternative Version: Trim UMI from 5' ends of reads
@@ -84,12 +84,12 @@ for sample in ${sample[@]}; do
 	#4. Convert SAM file to BAM
 	#SAMtools: #"-S": Input format is SAM; "-h": Include header in output;
 	#"-u": Output as uncompressed BAM; #"-F4": Do not output unmapped reads
-	samtools view -ShuF4 $intermediateSAM > $intermediateBAM
+	samtools view -ShuF4 $intermediateSAM | samtools sort - $sortedBAM
 	
-	#5. Sort intermediate BAM files
-	samtools sort $intermediateBAM > $sortedBAM
+	#5. Sort intermediate BAM file
+	#samtools sort $intermediateBAM > $sortedBAM
 
-	#6. Index sorted BAM files
+	#6. Create index file
 	samtools index $sortedBAM
 	
 	#Select only reads that align to known regions of human and mouse genomes
