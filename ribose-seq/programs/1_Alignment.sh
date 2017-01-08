@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #Author: Alli Gombolay
-#This program removes UMI's from reads, aligns reads to reference genome, and de-duplicates reads
+#This program raligns trimmed reads to reference genome using Bowtie2, and de-duplicates reads based on UMI's
 
 #COMMAND LINE OPTIONS
 
