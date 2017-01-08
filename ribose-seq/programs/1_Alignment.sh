@@ -46,20 +46,19 @@ for sample in ${sample[@]}; do
 
 	#Intermediate files
 	umiTrimmed=$output/$sample.UMI-trimmed.fastq.gz; intermediateSAM=$output/$sample.intermediate.sam;
-	intermediateBAM=$output/$sample.intermediate.bam; sortedBAM=$output/$sample.sorted.bam
-	reverseComplement=$output/$sample.reverse-complement.fastq
+	sortedBAM=$output/$sample.sorted.bam; reverseComplement=$output/$sample.reverse-complement.fastq
 
+	#UMI length
+	UMI=NNNNNNNN
+	
+	#BED file
+	BED=$output/$sample.bed.gz
+	
 	#Final BAM file
 	finalBAM=$output/$sample.bam
 
 	#File containing Bowtie2 alignment statistics
 	statistics=$output/$sample.Alignment-Statistics.txt
-
-	#BED file
-	BED=$output/$sample.bed.gz
-
-	#Length of Unique Molecular Identifiers (UMI)
-	UMI=NNNNNNNN
 
 #############################################################################################################################
 	#1. Reverse complement reads
@@ -81,49 +80,47 @@ for sample in ${sample[@]}; do
 	#Bowtie: "-m 1": Return only unique reads; "--sam": Print alignment results in SAM format
 	#zcat $umiTrimmed | bowtie -m 1 --sam $index - 2> $statistics 1> $intermediateSAM
 	
-	#4. Convert SAM file to BAM
+	#4. Convert SAM file to BAM and sort intermediate BAM file
 	#SAMtools: #"-S": Input format is SAM; "-h": Include header in output;
 	#"-u": Output as uncompressed BAM; #"-F4": Do not output unmapped reads
 	samtools view -ShuF4 $intermediateSAM | samtools sort - $sortedBAM
-	
-	#5. Sort intermediate BAM file
-	#samtools sort $intermediateBAM > $sortedBAM
 
-	#6. Create index file
+	#5. Create index file
 	samtools index $sortedBAM
 	
 	#Select only reads that align to known regions of human and mouse genomes
 	#"hg38"=human genome reference genome; "mm9"=mouse genome reference genome
 	if [ $index == "hg38" ] || [ $index == "mm9" ]; then
-		#7. De-duplicate reads based on UMIs; compress file
+		#6. De-duplicate reads based on UMIs; compress file
 		umitools rmdup $sortedBAM temporary.bam | gzip -c > $BED
 	
-		#8. Index final BAM files
+		#7. Create index file
 		samtools index temporary.bam
 		
-		#Convert BAM to SAM file for processing
+		#8. Convert BAM to SAM file for processing
 		samtools view -h -o temporary.sam temporary.bam
 	
-		#Remove reads that align to unidentified regions of genome
+		#9. Remove reads that align to unidentified genomic regions
+		#These unidentified regions include "EBV," "random," and "Un"
 		sed '/chrEBV/d;/random/d;/chrUn/d' temporary.sam > filtered.sam
 	
-		#Convert SAM to BAM file
+		#10. Convert SAM back to BAM file again
 		samtools view -Sb filtered.sam > $finalBAM
 	
-		#Index filtered BAM file
+		#11. Create index file
 		samtools index $finalBAM
 	else
-		#7. De-duplicate reads based on UMIs; compress file
+		#6. De-duplicate reads based on UMIs; compress file
 		umitools rmdup $sortedBAM $finalBAM | gzip -c > $BED
 	
-		#8. Index final BAM files
+		#7. Create index file
 		samtools index $finalBAM
 	fi
 	
-	#Remove intermediate and temporary files from directory
-	rm -f temporary.bam temporary.bam.bai temporary.sam filtered.sam \
-	$sortedBAM $sortedBAM.bai $intermediateSAM $intermediateBAM
+	#Remove intermediate and temporary files
+	rm -f temporary.bam temporary.bam.bai temporary.sam \
+	filtered.sam $sortedBAM $sortedBAM.bai $intermediateSAM
 		
-	#Notify user that the alignment step is complete
+	#Notify user that alignment step is complete for which samples
 	echo "Alignment of $sample to $index reference genome is complete"
 done
