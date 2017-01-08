@@ -8,21 +8,20 @@
 
 #Usage statement of the program
 function usage () {
-	echo "Usage: 1_Alignment.sh [-i] 'FASTQ' [-b] 'Index' [-v] 'Bowtie Version' [-d] 'Directory' [-h]
-		-i Filepaths of input FASTQ files (/path/to/*.fastq etc.) 
+	echo "Usage: 1_Alignment.sh [-i] 'FASTQ' [-b] 'Index' [-d] 'Directory' [-h]
+		-i Sample names (FS1 FS2 FS3 etc.) 
 		-b Basename of Bowtie index to be searched (sacCer2, chrM, ecoli, hg38, etc.)
-		-v Version of Bowtie program to use (Version 1 = Bowtie1; Version 2 = Bowtie2)
 		-d Local directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
 }
 
 #Use getopts function to create the command-line options ([-i], [-b], [-d], [-v], and [-h])
-while getopts "i:b:d:v:h" opt; do
+while getopts "i:b:d:h" opt; do
     case "$opt" in
         #Specify input as arrays to allow multiple input arguments
         i ) sample=($OPTARG) ;;
 	#Specify input as variable to allow only one input argument
 	b ) index=$OPTARG ;;
-	v ) version=$OPTARG ;;
+	#v ) version=$OPTARG ;;
 	d ) directory=$OPTARG ;;
         #If user specifies [-h], print usage statement
         h ) usage ;;
@@ -73,22 +72,22 @@ for sample in ${sample[@]}; do
 
 #############################################################################################################################
 	#1. Reverse complement reads
-	#seqtk seq -r $reads > $reverseComplement
+	seqtk seq -r $reads > $reverseComplement
 
 	#2. Alli's Version: Trim UMI from 3' ends of reads; compress file
-	#umitools trim --end 3 $reverseComplement $UMI | gzip -c > $umiTrimmed
+	umitools trim --end 3 $reverseComplement $UMI | gzip -c > $umiTrimmed
 	
 	#Alternative Version: Trim UMI from 5' ends of reads
-	umitools trim --end 5 $reads $UMI | gzip -c > $umiTrimmed
+	#umitools trim --end 5 $reads $UMI | gzip -c > $umiTrimmed
 
 	#3. Align reads to reference genome with Bowtie version 1 or 2
 	#Bash: "-": standard input; "2>": Redirect standard error; "1>": Redirect standard output
 	#Bowtie: "-m 1": Return only unique reads; "--sam": Print alignment results in SAM format
-	if [ $version == "1" ]; then
-		zcat $umiTrimmed | bowtie -m 1 --sam $index - 2> $statistics 1> $intermediateSAM
-	elif [ $version == "2" ]; then
-		zcat $umiTrimmed | bowtie2 -x $index - 2> $statistics 1> $intermediateSAM
-	fi
+	#if [ $version == "1" ]; then
+	#	zcat $umiTrimmed | bowtie -m 1 --sam $index - 2> $statistics 1> $intermediateSAM
+	#elif [ $version == "2" ]; then
+	zcat $umiTrimmed | bowtie2 -x $index -U - -S $intermediateSAM 2> $statistics
+	#fi
 
 	#4. Convert SAM file to BAM
 	#SAMtools: #"-S": Input format is SAM; "-h": Include header in output;
