@@ -1,5 +1,10 @@
 #!/usr/bin/env Rscript
 
+#Copyright 2016 Alli Gombolay
+#Author: Alli Lauren Gombolay
+#E-mail: alli.gombolay@gatech.edu
+#This program plots rNMP frequencies (position 0) and upstream (-100 -> -1) and downstream (+1 -> +100) nucleotide frequencies
+
 args <- commandArgs(trailingOnly = TRUE)
 file <- args[1]
 title <- args[2]
