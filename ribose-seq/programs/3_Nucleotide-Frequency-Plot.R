@@ -3,7 +3,8 @@
 #Copyright 2016 Alli Gombolay
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
-#This program plots rNMP frequencies (position 0) and upstream (-100 -> -1) and downstream (+1 -> +100) nucleotide frequencies
+#This program plots rNMP frequencies and nucleotide frequencies 100 bp upstream and downstream from rNMP
+#rNMP frequencies = position 0 on the x-axis, upstream frequencies = -100 -> -1, and downstream = +1 -> +100
 
 args <- commandArgs(trailingOnly = TRUE)
 file <- args[1]
