@@ -67,19 +67,13 @@ for sample in ${sample[@]}; do
 	#Reverse complement reads
 	seqtk seq -r $fastq > $reverseComplement
 
-	#Trim UMI from 3' ends of reads; compress file
-	umitools trim --end 3 $reverseComplement $UMI | gzip -c > $umiTrimmed
-	
-	#Alternative Version: Trim UMI from 5' ends of reads
-	#umitools trim --end 5 $fastq $UMI | gzip -c > $umiTrimmed
+	#Trim UMI from 3' ends of reads (add UMI into read name)
+	umitools trim --end 3 $reverseComplement $UMI > $umiTrimmed
 
 	#Align reads to reference genome using Bowtie2
 	#Bash: "-": standard input; "2>": Redirect standard error; "-x": Index;
 	#"-U": Unpaired input reads; "-S": Print alignment results in SAM format
 	zcat $umiTrimmed | bowtie2 -x $index -U - -S $intermediateSAM 2> $statistics
-
-	#Alternative Version: Align reads using Bowtie version 1
-	#zcat $umiTrimmed | bowtie -m 1 --sam $index - 2> $statistics 1> $intermediateSAM
 	
 	#Convert SAM file to BAM and sort intermediate BAM file
 	#SAMtools: #"-S": Input format is SAM; "-h": Include header in output;
@@ -92,8 +86,8 @@ for sample in ${sample[@]}; do
 	#Select only reads that align to known regions of human and mouse genomes
 	#"hg38"=human genome reference genome; "mm9"=mouse genome reference genome
 	if [ $index == "hg38" ] || [ $index == "mm9" ]; then
-		#De-duplicate reads based on UMIs; compress file
-		umitools rmdup $sortedBAM temporary.bam | gzip -c > $BED
+		#De-duplicate reads by saving one per UMI
+		umitools rmdup $sortedBAM temporary.bam > $BED
 	
 		#Create index file
 		samtools index temporary.bam
@@ -108,8 +102,8 @@ for sample in ${sample[@]}; do
 		#Convert SAM back to BAM file again
 		samtools view -Sb filtered.sam > $finalBAM
 	else
-		#De-duplicate reads based on UMIs; compress file
-		umitools rmdup $sortedBAM $finalBAM | gzip -c > $BED
+		#De-duplicate reads by saving one per UMI
+		umitools rmdup $sortedBAM $finalBAM > $BED
 	fi
 	
 	#Create index file
