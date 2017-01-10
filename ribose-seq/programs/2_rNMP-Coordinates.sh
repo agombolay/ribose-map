@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-#Author: Alli Gombolay
+
+#Copyright 2016 Alli Gombolay
+#Author: Alli Lauren Gombolay
+#E-mail: alli.gombolay@gatech.edu
 #This program determines the coordinates of the rNMPs (3' position of aligned reads)
 
 #COMMAND LINE OPTIONS
