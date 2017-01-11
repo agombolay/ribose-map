@@ -73,7 +73,7 @@ for sample in ${sample[@]}; do
 	#Align reads to reference genome using Bowtie2
 	#Bash: "-": standard input; "2>": Redirect standard error; "-x": Index;
 	#"-U": Unpaired input reads; "-S": Print alignment results in SAM format
-	zcat $umiTrimmed | bowtie2 -x $index -U - -S $intermediateSAM 2> $statistics
+	cat $umiTrimmed | bowtie2 -x $index -U - -S $intermediateSAM 2> $statistics
 	
 	#Convert SAM file to BAM and sort intermediate BAM file
 	#SAMtools: #"-S": Input format is SAM; "-h": Include header in output;
