@@ -71,7 +71,6 @@ for sample in ${sample[@]}; do
 	umitools trim --end 3 $reverseComplement $UMI > $umiTrimmed
 
 	#Align reads to reference genome using Bowtie2
-	#Bash: "-": standard input; "2>": Redirect standard error; "-x": Index;
 	cat $umiTrimmed | bowtie -m 1 --sam $index - 2> $statistics 1> $intermediateSAM
 	
 	#Convert SAM file to BAM and sort intermediate BAM file
