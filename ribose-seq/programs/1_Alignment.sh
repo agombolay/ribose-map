@@ -3,7 +3,7 @@
 #Copyright 2016 Alli Gombolay
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
-#This program raligns trimmed reads to reference genome using Bowtie2, and de-duplicates reads based on UMI's
+#This program raligns trimmed reads to reference genome using Bowtie, and de-duplicates reads based on UMI's
 #Note: FASTQ files must be located in the users's Sequencing-Results folder (LocalDirectory/Sequencing-Results)
 
 #COMMAND LINE OPTIONS
@@ -70,7 +70,7 @@ for sample in ${sample[@]}; do
 	#Trim UMI from 3' ends of reads (add UMI into read name)
 	umitools trim --end 3 $reverseComplement $UMI > $umiTrimmed
 
-	#Align reads to reference genome using Bowtie2
+	#Align reads to reference genome using Bowtie
 	cat $umiTrimmed | bowtie -m 1 --sam $index - 2> $statistics 1> $intermediateSAM
 	
 	#Convert SAM file to BAM and sort intermediate BAM file
