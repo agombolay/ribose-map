@@ -129,7 +129,8 @@ done
 
 echo -e "rNMPs\tWindows"
 array=$( IFS=$'\n'; echo "${windows[*]}" )
-echo -e "$(seq 0 $maximum)\t$array"
+echo $array
+#echo -e "$(seq 0 $maximum)\t$array"
 
 #variable=0
 #proportions=()
