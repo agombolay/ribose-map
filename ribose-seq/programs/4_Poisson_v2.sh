@@ -128,7 +128,8 @@ for i in $(seq 0 $maximum); do
 done
 
 echo -e "rNMPs\tWindows"
-( IFS=$'\n'; echo -e "$(seq 0 $maximum)\t${windows[*]}" )
+array=( IFS=$'\n'; echo "${windows[*]}" )
+echo -e "$(seq 0 $maximum)\t$array"
 
 #variable=0
 #proportions=()
