@@ -128,6 +128,7 @@ for i in $(seq 0 $maximum); do
 done
 
 echo -e "rNMPs\tWindows"
+( IFS=$'\n'; echo "alli" )
 ( IFS=$'\n'; echo "${windows[*]}" )
 #paste <(echo "$(seq 0 $maximum)") <(cat <(echo "${windows[*]}")) >> $dataset
 
