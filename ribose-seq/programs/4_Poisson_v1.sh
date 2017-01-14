@@ -48,7 +48,7 @@ if [ $subset == "nuclear" ]; then
 	#Calculate total number of genome positions
 	total=$(grep '2micron' $bed | awk '{sum+=$2} END{print sum}' -)
 	#Select only nuclear DNA regions from BED file
-	bedtools genomecov -3 -dz -ibam $bam -g $bed | grep '2micron' - > $coverage
+	bedtools genomecov -3 -dz -ibam $bam -g $bed | grep -v 'chrM' - > $coverage
 elif [ $subset == "chrM" ]; then
 	#Calculate total number of genome positions
 	total=$(grep 'chrM' $bed | awk '{print $2}' -)
