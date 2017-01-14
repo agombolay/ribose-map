@@ -60,33 +60,33 @@ fi
 maximum=$(sort -nk 3 $coverage | tail -1 - | awk '{print $3}' -)
 
 #Number of positions with X number of rNMPs
-for i in $(seq 1 $maximum); do
-	positions1+=($(awk '$3 == ('$i')' $coverage | wc -l))
-done
+#for i in $(seq 1 $maximum); do
+#	positions1+=($(awk '$3 == ('$i')' $coverage | wc -l))
+#done
 
 #Number of positions with 0 rNMPs (total positions-positions with rNMPs)
-positions2=$(echo "($total-$(wc -l $coverage | awk '{print $1}' -))" | bc)
+#positions2=$(echo "($total-$(wc -l $coverage | awk '{print $1}' -))" | bc)
 
 #Print observed count data to fit to Poisson distribution
-( IFS=$'\n'; echo -e "$positions2\n${positions1[*]}" ) > $counts1
+#( IFS=$'\n'; echo -e "$positions2\n${positions1[*]}" ) > $counts1
 
-echo -e "rNMPs\tPositions"
-echo -e "0\t$positions2"
+#echo -e "rNMPs\tPositions"
+#echo -e "0\t$positions2"
 
-array1=($(seq 1 $maximum))
-array2=(${positions1[*]})
+#array1=($(seq 1 $maximum))
+#array2=(${positions1[*]})
 
-sum=0
-for i in "${!array1[@]}"; do
-        echo -e "${array1[i]}\t${array2[i]}"
-        (( sum +=$(echo "${array1[$i]}*${array2[$i]}" | bc) ))
-done
+#sum=0
+#for i in "${!array1[@]}"; do
+#        echo -e "${array1[i]}\t${array2[i]}"
+#        (( sum +=$(echo "${array1[$i]}*${array2[$i]}" | bc) ))
+#done
 
 #Calculate lambda for Poisson Distribution (in scientific notation)
-lambda=$(echo "scale = 12; $sum/$total" | bc | awk '{printf "%e\n", $0}')
+#lambda=$(echo "scale = 12; $sum/$total" | bc | awk '{printf "%e\n", $0}')
 
-echo "Total rNMPs:" $sum
-echo "Lambda:" $lambda
+#echo "Total rNMPs:" $sum
+#echo "Lambda:" $lambda
 
 #Version 2: Proportion of windows that have x number of ribos
 
