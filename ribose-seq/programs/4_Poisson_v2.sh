@@ -121,14 +121,13 @@ fi
 
 #Maximum value of genome coverage in BED file
 maximum=$(sort -nk 4 binned | tail -1 - | awk '{print $4}' -)
-echo $maximum
 
 #Number of positions with X number of rNMPs
 for i in $(seq 0 $maximum); do
 	windows+=($(awk '$4 == ('$i')' binned | wc -l))
 done
 
-#echo -e "rNMPs\tPositions"
+echo -e "rNMPs\tWindows"
 ( IFS=$'\n'; echo "${windows[*]}" )
 
 #variable=0
