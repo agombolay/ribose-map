@@ -120,16 +120,13 @@ elif [ $subset == "chrM" ]; then
 fi
 
 #Maximum value of genome coverage in BED file
-maximum=$(sort -nk 3 binned | tail -1 - | awk '{print $4}' -)
+maximum=$(sort -nk 4 binned | tail -1 - | awk '{print $4}' -)
 echo $maximum
 
 #Number of positions with X number of rNMPs
 for i in $(seq 0 $maximum); do
 	positions1+=($(awk '$4 == ('$i')' binned | wc -l))
 done
-
-#Print observed count data to fit to Poisson distribution
-( IFS=$'\n'; echo -e "${positions1[*]}" ) > $counts1
 
 echo -e "rNMPs\tPositions"
 
