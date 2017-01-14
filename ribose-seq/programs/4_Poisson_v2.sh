@@ -125,10 +125,11 @@ echo $maximum
 
 #Number of positions with X number of rNMPs
 for i in $(seq 0 $maximum); do
-	positions1+=($(awk '$4 == ('$i')' binned | wc -l))
+	windows+=($(awk '$4 == ('$i')' binned | wc -l))
 done
 
-echo -e "rNMPs\tPositions"
+#echo -e "rNMPs\tPositions"
+echo -e "${windows[*]}"
 
 #variable=0
 #proportions=()
