@@ -128,7 +128,8 @@ for i in $(seq 0 $maximum); do
 done
 
 echo -e "rNMPs\tWindows"
-echo -e "$(seq 0 $maximum)\t\t$(seq 0 $maximum)"
+( IFS=$'\n'; echo "${windows[*]}" )
+#paste <(echo "$(seq 0 $maximum)") <(cat <(echo "${windows[*]}")) >> $dataset
 
 #variable=0
 #proportions=()
