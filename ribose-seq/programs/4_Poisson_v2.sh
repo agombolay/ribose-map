@@ -129,7 +129,7 @@ for i in $(seq 0 $maximum); do
 done
 
 #echo -e "rNMPs\tPositions"
-echo -e "${windows[*]}\n"
+( IFS=$'\n'; echo "${windows[*]}" )
 
 #variable=0
 #proportions=()
