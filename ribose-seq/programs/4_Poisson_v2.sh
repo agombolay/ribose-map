@@ -128,7 +128,7 @@ for i in $(seq 0 $maximum); do
 done
 
 echo -e "rNMPs\tWindows"
-array=( IFS=$'\n'; echo "${windows[*]}" )
+array=$( IFS=$'\n'; echo "${windows[*]}" )
 echo -e "$(seq 0 $maximum)\t$array"
 
 #variable=0
