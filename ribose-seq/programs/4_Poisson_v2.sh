@@ -93,8 +93,6 @@ for i in ${windows[*]}; do
 done
 
 sum=0
-echo ${values1[0]}
-echo ${values1[3]}
 seq ${values1[0]} ${values1[3]}
 
 #Proportions of windows (P(X>=x))
