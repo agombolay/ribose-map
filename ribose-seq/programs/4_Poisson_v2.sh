@@ -127,7 +127,12 @@ for i in $(seq 0 $maximum); do
 	windows+=($(awk '$4 == ('$i')' binned | wc -l))
 done
 
-paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n';echo "${windows[*]}" )) >> maybe
+paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n';echo "${windows[*]}" )) >> data1.txt
+
+for i in ${windows[*]};
+	(( number +=$(echo "$i" | bc) ))
+done
+echo ${number[*]}
 
 #variable=0
 #proportions=()
