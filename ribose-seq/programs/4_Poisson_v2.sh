@@ -99,7 +99,7 @@ done
 
 #Print proportions of windows (probability mass function and cumulative distribution)
 paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${values1[*]}" )) > $proportions1
-paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${values2[*]}" )) > $proportions2
+paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "1.0\n${values2[*]}" )) > $proportions2
 
 #Calculate lambda value (mean) for Poisson Distribution
 echo "Lambda:" $(echo "scale = 12; $(wc -l < $sorted)/$total" | bc | awk '{printf "%.5f\n", $0}')
