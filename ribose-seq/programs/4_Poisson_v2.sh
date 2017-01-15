@@ -94,7 +94,8 @@ done
 
 #Proportions of windows (P(X>=x))
 for i in ${values1[@]}; do
-	values2+=($(echo "scale = 12; (1-$i)" | bc | awk '{printf "%.12f\n", $0}'))
+	echo $i
+	#values2+=($(echo "scale = 12; (1-$i)" | bc | awk '{printf "%.12f\n", $0}'))
 done
 
 #Print proportions of windows (probability mass function and cumulative distribution)
