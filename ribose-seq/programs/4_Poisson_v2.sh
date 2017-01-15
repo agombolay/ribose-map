@@ -146,9 +146,9 @@ total=$(awk '{ SUM += $2} END { print SUM }' $counts1)
 
 #Proportions of windows (P(X=x))
 for i in ${windows[*]}; do
-	echo "scale = 12; ($i/$total)" | bc | awk '{printf "%.12f\n", $0}' >> $proportions1
+	values+=($(echo "scale = 12; ($i/$total)" | bc | awk '{printf "%.12f\n", $0}'))
 done
-
+echo ${values[*]}
 #Proportions of windows (P(X>=x))
 for i in $(awk '{print $1}' $proportions1); do
 	echo "scale = 12; (1-$i)" | bc | awk '{printf "%.12f\n", $0}' >> $proportions2
