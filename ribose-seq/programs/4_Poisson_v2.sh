@@ -165,5 +165,5 @@ done
 
 #echo $counts0
 #( IFS=$'\n'; echo "${counts1[*]}" )
-#( IFS=$'\n'; echo "${proportions[*]}" )
+( IFS=$'\n'; echo "${proportions[*]}" )
 #echo $total
