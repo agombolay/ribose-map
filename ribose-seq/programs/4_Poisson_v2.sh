@@ -127,7 +127,6 @@ for i in $(seq 0 $maximum); do
 	windows+=($(awk '$4 == ('$i')' binned | wc -l))
 done
 
-echo -e "rNMPs\tWindows"
 paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n';echo "${windows[*]}" )) >> maybe
 
 #variable=0
