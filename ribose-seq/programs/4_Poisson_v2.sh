@@ -148,14 +148,19 @@ total=$(awk '{ SUM += $2} END { print SUM }' $counts1)
 for i in ${windows[*]}; do
 	values1+=($(echo "scale = 12; ($i/$total)" | bc | awk '{printf "%.12f\n", $0}'))
 done
-paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${values1[*]}" )) > $proportions1
 
 #Proportions of windows (P(X>=x))
 for i in ${values1[*]}; do
 	values2+=($(echo "scale = 12; (1-$i)" | bc | awk '{printf "%.12f\n", $0}'))
 done
+
+#Print proportions of windows (probability mass function and cumulative distribution)
+paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${values1[*]}" )) > $proportions1
 paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${values2[*]}" )) > $proportions2
 
+#Calculate lambda for Poisson Distribution (in scientific notation)
+lambda=$(echo "scale = 12; $(wc -l < $sorted)/$total" | bc | awk '{printf "%e\n", $0}')
+echo "Lambda:" $lambda
 
 #variable=0
 #proportions=()
@@ -175,8 +180,3 @@ paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${values2[*]}" )) > 
 #for value in ${proportions[*]}; do
 #	final+=($(echo "scale = 12; (1-$value)" | bc | awk '{printf "%.12f\n", $0}'))
 #done
-
-#echo $counts0
-#( IFS=$'\n'; echo "${counts1[*]}" )
-#( IFS=$'\n'; echo "${proportions[*]}" )
-#echo $total
