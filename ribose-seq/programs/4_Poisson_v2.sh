@@ -128,10 +128,9 @@ for i in $(seq 0 $maximum); do
 done
 
 paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n';echo "${windows[*]}" )) >> data1.txt
-variable=$(wc -l data1.txt)
 
-for i in $variable; do
-	head -${i} data1.txt | tail -${i} | awk '{ SUM += $2} END { print SUM }'
+for i in $(wc -l data1.txt); do
+	head -${i} data1.txt | awk '{ SUM += $2} END { print SUM }'
 done
 
 #variable=0
