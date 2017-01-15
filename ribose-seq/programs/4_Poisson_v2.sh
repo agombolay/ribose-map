@@ -137,21 +137,21 @@ paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n';echo "${windows[*]}" )) > $
 
 #Cumulative Distribution Counts
 #Print number of windows in genomic region with greater than or equal to 0...X rNMPs
-for i in $(seq $(wc -l < $data1) -1 1); do
-	head -$(wc -l < $data1) $data1 | tail -${i} | awk '{ SUM += $2} END { print SUM }' >> $counts2
+for i in $(seq $(wc -l < $counts1) -1 1); do
+	head -$(wc -l < $counts1) $counts1 | tail -${i} | awk '{ SUM += $2} END { print SUM }' >> $counts2
 done
 
 #Total number of windows
 total=$(awk '{ SUM += $2} END { print SUM }' $data1)
 
 #Proportions of windows (P(X=x))
-for value in ${windows[*]}; do
-	proportions1+=($(echo "scale = 12; ($value/$total)" | bc | awk '{printf "%.12f\n", $0}')) > $proportions1
+for i in ${windows[*]}; do
+	proportions1+=($(echo "scale = 12; ($i/$total)" | bc | awk '{printf "%.12f\n", $0}')) >> $proportions1
 done
 
 #Proportions of windows (P(X>=x))
-for value in ${proportions[*]}; do
-	proportions2+=($(echo "scale = 12; (1-$value)" | bc | awk '{printf "%.12f\n", $0}')) > $proportions2
+for i in ${proportions1[*]}; do
+	proportions2+=($(echo "scale = 12; (1-$i)" | bc | awk '{printf "%.12f\n", $0}')) >> $proportions2
 done
 
 #variable=0
