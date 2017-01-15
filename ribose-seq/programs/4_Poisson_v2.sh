@@ -130,7 +130,7 @@ paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n';echo "${windows[*]}" )) > d
 
 #Print number of windows in genomic region with >=0...X rNMPs and save to a TXT file
 for i in $(seq $(wc -l < data1.txt) -1 1); do
-	head -$(wc -l < data1.txt) data1.txt | tail -${i} | awk '{ SUM += $2} END { print SUM }' > data2.txt
+	head -$(wc -l < data1.txt) data1.txt | tail -${i} | awk '{ SUM += $2} END { print SUM }' >> data2.txt
 done
 
 #variable=0
