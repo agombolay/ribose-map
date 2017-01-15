@@ -93,6 +93,7 @@ for i in ${windows[*]}; do
 done
 
 values3=$(unset 'values1[${#values1[@]}-1]')
+echo ${#values3[@]}
 
 #Proportions of windows (P(X>=x))
 for i in ${#values3[@]}; do
