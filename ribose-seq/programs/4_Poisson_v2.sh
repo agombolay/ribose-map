@@ -129,10 +129,7 @@ done
 
 paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n';echo "${windows[*]}" )) >> data1.txt
 
-for i in ${windows[*]};
-	(( number +=$(echo "$i") ))
-done
-echo ${number[*]}
+awk '{ sum += $2; } data1.txt END { print sum; }' "$@"
 
 #variable=0
 #proportions=()
