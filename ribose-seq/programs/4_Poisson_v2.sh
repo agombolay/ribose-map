@@ -152,9 +152,8 @@ paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${values1[*]}" )) > 
 
 #Proportions of windows (P(X>=x))
 for i in $(awk '{print $1}' $proportions1); do
-	values2+=($(echo "scale = 12; (1-$i)" | bc | awk '{printf "%.12f\n", $0}'))
+	echo "scale = 12; (1-$i)" | bc | awk '{printf "%.12f\n", $0}' >> $proportions2
 done
-paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${values2[*]}" )) > $proportions2
 
 #variable=0
 #proportions=()
