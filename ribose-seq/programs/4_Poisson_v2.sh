@@ -130,7 +130,7 @@ done
 paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n';echo "${windows[*]}" )) >> data1.txt
 
 for value in $(wc -l data1.txt); do
-	head -value data1.txt | tail -0 | awk '{ SUM += $2} END { print SUM }'
+	head -$value data1.txt | tail -0 | awk '{ SUM += $2} END { print SUM }'
 done
 
 #variable=0
