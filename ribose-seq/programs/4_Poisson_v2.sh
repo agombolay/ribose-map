@@ -150,7 +150,7 @@ for i in ${windows[*]}; do
 done
 
 #Proportions of windows (P(X>=x))
-for i in ${proportions1[*]}; do
+for i in $(awk '{print $1}' $proportions1); do
 	echo "scale = 12; (1-$i)" | bc | awk '{printf "%.12f\n", $0}' >> $proportions2
 done
 
