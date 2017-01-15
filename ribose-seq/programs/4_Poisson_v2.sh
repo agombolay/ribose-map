@@ -149,7 +149,7 @@ done
 for value in ${proportions[*]}; do
 	final+=($(echo "scale = 12; (1-$value)" | bc | awk '{printf "%.12f\n", $0}'))
 done
-
+( IFS=$'\n'; echo "${final[*]}" )
 #variable=0
 #proportions=()
 #counts0=$(awk '$4 == 0' FS15.trimmed.v1.binned.data.bed | wc -l)
@@ -171,5 +171,5 @@ done
 
 #echo $counts0
 #( IFS=$'\n'; echo "${counts1[*]}" )
-( IFS=$'\n'; echo "${proportions[*]}" )
+#( IFS=$'\n'; echo "${proportions[*]}" )
 #echo $total
