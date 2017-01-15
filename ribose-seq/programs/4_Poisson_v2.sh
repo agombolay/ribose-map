@@ -127,10 +127,10 @@ for i in $(seq 0 $maximum); do
 	windows+=($(awk '$4 == ('$i')' binned | wc -l))
 done
 
-paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n';echo "${windows[*]}" )) >> data1.txt
+paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n';echo "${windows[*]}" )) > data1.txt
 
 for i in $(seq $(wc -l < data1.txt) -1 1); do
-	head -$(wc -l < data1.txt) data1.txt | tail -${i} | awk '{ SUM += $2} END { print SUM }'
+	head -$(wc -l < data1.txt) data1.txt | tail -${i} | awk '{ SUM += $2} END { print SUM }' > data2.txt
 done
 
 #variable=0
