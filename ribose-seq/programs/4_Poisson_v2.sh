@@ -98,6 +98,7 @@ for i in ${values1[@]}; do
 	sum=$(echo $sum + $i | bc)
         echo $sum
 	#values2+=($(echo "scale = 12; (1-$i)" | bc | awk '{printf "%.12f\n", $0}'))
+	echo "scale = 12; (1-$sum)" | bc | awk '{printf "%.12f\n", $0}'
 done
 
 #Print proportions of windows (probability mass function and cumulative distribution)
