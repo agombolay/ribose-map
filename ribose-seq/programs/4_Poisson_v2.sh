@@ -92,8 +92,7 @@ for i in ${windows[*]}; do
 	values1+=($(echo "scale = 12; ($i/$total)" | bc | awk '{printf "%.12f\n", $0}'))
 done
 
-values3=$(unset 'values1[${#values1[@]}-1]')
-echo ${#values3[@]}
+echo ${#values1[@]}
 
 #Proportions of windows (P(X>=x))
 for i in ${#values3[@]}; do
