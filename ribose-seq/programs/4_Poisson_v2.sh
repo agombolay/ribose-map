@@ -62,11 +62,16 @@ bedtools makewindows -g $referenceBed -w 2500 > $referenceWindows
 #Select only data of interest
 if [ $subset == "nuclear" ]; then
 	#Determine regions of BED files that intersect and count number of overlaps (nuclear)
-	bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck | grep -v 'chrM' - > $binnedData
+	bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck | grep -v 'chrM' - \
+	| awk '{ $5 = $3 - $2 } 1' - | awk '(NR>1) && ($5 > 2500 ) ' - > $binnedData
 elif [ $subset == "chrM" ]; then
 	#Determine regions of BED files that intersect and count number of overlaps (chrM)
-	bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck | grep 'chrM' - > $binnedData
+	bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck | grep 'chrM' - \
+	| awk '{ $5 = $3 - $2 } 1' - | awk '(NR>1) && ($5 > 2500 ) ' - > $binnedData
 fi
+
+#Remove rows where window size is < 2.5 kb
+#awk '{ $5 = $3 - $2 } 1' $binnedData | awk '(NR>1) && ($5 > 2500 ) ' - > $binnedData
 
 #Maximum value of genome coverage in BED file
 maximum=$(sort -nk 4 $binnedData | tail -1 - | awk '{print $4}' -)
