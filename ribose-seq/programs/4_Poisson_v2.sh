@@ -95,28 +95,26 @@ bed=$directory/ribose-seq/reference/$reference.bed
 sorted=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.sorted.bed
 
 #Output directories
-#output1=$directory/ribose-seq/reference/
-#output2=$directory/ribose-seq/results/$reference/$sample/Poisson
+output1=$directory/ribose-seq/reference/
+output2=$directory/ribose-seq/results/$reference/$sample/Poisson
 
-#Create directory if not present
-#mkdir -p $output1 $output2
+#Create directories
+mkdir -p $output1 $output2
 
 #Output files
-#binned=$output2/$sample.binned.data.bed
-#windows=$output1/$reference.windows.bed
+binned=$output2/$sample.binned.data.bed
+windows=$output1/$reference.windows.bed
 
 #Separate reference genome into 2.5 kb windows
-bedtools makewindows -g $bed -w 2500 > windows
+bedtools makewindows -g $bed -w 2500 > $windows
 
 #Select only data of interest
 if [ $subset == "nuclear" ]; then
-	#Select only nuclear DNA regions
-	#Determine regions of BED files that intersect and count number of overlaps
-	bedtools intersect -a windows -b $sorted -c -sorted -nonamecheck | grep -v 'chrM' - > binned
+	#Determine regions of BED files that intersect and count number of overlaps (nuclear)
+	bedtools intersect -a windows -b $sorted -c -sorted -nonamecheck | grep -v 'chrM' - > $binned
 elif [ $subset == "chrM" ]; then
-	#Select only mitochondrial DNA regions
-	#Determine regions of BED files that intersect and count number of overlaps
-	bedtools intersect -a windows -b $sorted -c -sorted -nonamecheck | grep 'chrM' - > binned
+	#Determine regions of BED files that intersect and count number of overlaps (chrM)
+	bedtools intersect -a windows -b $sorted -c -sorted -nonamecheck | grep 'chrM' - > $binned
 fi
 
 #Maximum value of genome coverage in BED file
@@ -127,8 +125,10 @@ for i in $(seq 0 $maximum); do
 	windows+=($(awk '$4 == ('$i')' binned | wc -l))
 done
 
+#Print number of windows in genomic region with 0...X rNMPs and save to a TXT file
 paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n';echo "${windows[*]}" )) > data1.txt
 
+#Print number of windows in genomic region with >=0...X rNMPs and save to a TXT file
 for i in $(seq $(wc -l < data1.txt) -1 1); do
 	head -$(wc -l < data1.txt) data1.txt | tail -${i} | awk '{ SUM += $2} END { print SUM }' > data2.txt
 done
