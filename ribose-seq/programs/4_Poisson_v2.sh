@@ -89,13 +89,13 @@ total=$(awk '{ SUM += $2} END { print SUM }' $counts1)
 
 #Proportions of windows (P(X=x))
 for i in ${windows[*]}; do
-	sum=`expr $sum + $i`
-        echo $sum
 	values1+=($(echo "scale = 12; ($i/$total)" | bc | awk '{printf "%.12f\n", $0}'))
 done
 
 #Proportions of windows (P(X>=x))
 for i in ${values1[@]}; do
+	sum=`expr $sum + $i`
+        echo $sum
 	values2+=($(echo "scale = 12; (1-$i)" | bc | awk '{printf "%.12f\n", $0}'))
 done
 
