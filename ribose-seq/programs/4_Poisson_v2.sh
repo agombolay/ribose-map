@@ -92,7 +92,10 @@ for i in ${windows[*]}; do
 	values1+=($(echo "scale = 12; ($i/$total)" | bc | awk '{printf "%.12f\n", $0}'))
 done
 
-echo ${values1[0]}
+for x in {35..45}; do
+     y=`bc <<< "scale=1; $x/10"`
+     echo $y
+done
 
 sum=0
 #Proportions of windows (P(X>=x))
