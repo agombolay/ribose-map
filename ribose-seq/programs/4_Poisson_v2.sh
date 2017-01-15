@@ -102,8 +102,8 @@ output2=$directory/ribose-seq/results/$reference/$sample/Poisson
 mkdir -p $output1 $output2
 
 #Output files
-binned=$output2/$sample.binned.data.bed
-windows=$output1/$reference.windows.bed
+binnedData=$output2/$sample.binned.data.bed
+referenceWindows=$output1/$reference.windows.bed
 
 #Separate reference genome into 2.5 kb windows
 bedtools makewindows -g $bed -w 2500 > $windows
@@ -111,18 +111,18 @@ bedtools makewindows -g $bed -w 2500 > $windows
 #Select only data of interest
 if [ $subset == "nuclear" ]; then
 	#Determine regions of BED files that intersect and count number of overlaps (nuclear)
-	bedtools intersect -a windows -b $sorted -c -sorted -nonamecheck | grep -v 'chrM' - > $binned
+	bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck | grep -v 'chrM' - > $binnedData
 elif [ $subset == "chrM" ]; then
 	#Determine regions of BED files that intersect and count number of overlaps (chrM)
-	bedtools intersect -a windows -b $sorted -c -sorted -nonamecheck | grep 'chrM' - > $binned
+	bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck | grep 'chrM' - > $binnedData
 fi
 
 #Maximum value of genome coverage in BED file
-maximum=$(sort -nk 4 binned | tail -1 - | awk '{print $4}' -)
+maximum=$(sort -nk 4 $binnedData | tail -1 - | awk '{print $4}' -)
 
 #Number of positions with X number of rNMPs
 for i in $(seq 0 $maximum); do
-	windows+=($(awk '$4 == ('$i')' binned | wc -l))
+	windows+=($(awk '$4 == ('$i')' $binnedData | wc -l))
 done
 
 #Print number of windows in genomic region with 0...X rNMPs and save to a TXT file
