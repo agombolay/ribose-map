@@ -133,7 +133,7 @@ done
 
 #Probability Mass Function Counts
 #Print number of windows in genomic region with exactly 0...X rNMPs
-paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n';echo "${windows[*]}" )) > $counts1
+paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${windows[*]}" )) > $counts1
 
 #Cumulative Distribution Counts
 #Print number of windows in genomic region with greater than or equal to 0...X rNMPs
@@ -146,9 +146,9 @@ total=$(awk '{ SUM += $2} END { print SUM }' $counts1)
 
 #Proportions of windows (P(X=x))
 for i in ${windows[*]}; do
-	values+=($(echo "scale = 12; ($i/$total)" | bc | awk '{printf "%.12f\n", $0}'))
+	values+=($(echo "scale = 12; ($i/$total)" | bc | awk '{printf "%.12f\n"}'))
 done
-paste <(echo "$(seq 0 $maximum)") <(cat <( echo "${values[*]}" )) > $proportions1
+paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${values[*]}" )) > $proportions1
 
 #Proportions of windows (P(X>=x))
 for i in $(awk '{print $1}' $proportions1); do
