@@ -129,7 +129,7 @@ done
 
 paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n';echo "${windows[*]}" )) >> data1.txt
 
-for i in $(seq 108 -1 1); do
+for i in $(seq $(wc -l < data1.txt) -1 1); do
 	head -$(wc -l < data1.txt) data1.txt | tail -${i} | awk '{ SUM += $2} END { print SUM }'
 done
 
