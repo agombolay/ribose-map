@@ -129,7 +129,7 @@ done
 
 paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n';echo "${windows[*]}" )) >> data1.txt
 
-awk '{ sum += $2; } data1.txt END { print sum; }' "$@"
+awk '{ sum += $2; } END { print sum; }' "$@" data1.txt
 
 #variable=0
 #proportions=()
