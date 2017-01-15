@@ -36,7 +36,7 @@ fi
 #############################################################################################################################
 
 #Input files
-ReferenceBed=$directory/ribose-seq/reference/$reference.bed
+referenceBed=$directory/ribose-seq/reference/$reference.bed
 sorted=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.sorted.bed
 
 #Output directories
@@ -57,7 +57,7 @@ proportions1=$output2/$sample.probability-mass-function.proportions.txt
 proportions2=$output2/$sample.cumulative-distribution.proportions.txt
 
 #Separate reference genome into 2.5 kb windows
-bedtools makewindows -g $ReferenceBed -w 2500 > $referenceWindows
+bedtools makewindows -g $referenceBed -w 2500 > $referenceWindows
 
 #Select only data of interest
 if [ $subset == "nuclear" ]; then
@@ -105,22 +105,3 @@ paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${values2[*]}" )) > 
 
 #Calculate lambda value (mean) for Poisson Distribution
 echo "Lambda:" $(echo "scale = 12; $(wc -l < $sorted)/$total" | bc | awk '{printf "%.5f\n", $0}')
-
-#variable=0
-#proportions=()
-#counts0=$(awk '$4 == 0' FS15.trimmed.v1.binned.data.bed | wc -l)
-#counts2=$(awk '$4 > 9' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}')
-
-#for i in {1..9}; do
-#	(( variable+=$(awk '$4 == ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}') ))
-#	counts1+=($(awk '$4 == ('$i')' FS15.trimmed.v1.binned.data.bed | awk '{sum+=$4} END{print sum}'))
-#done
-
-#total=$(($counts0+$variable+$counts2))
-#for value in $counts0 ${counts1[*]}; do
-#	proportions+=($(echo "scale = 12; ($value/$total)" | bc | awk '{printf "%.12f\n", $0}'))
-#done
-
-#for value in ${proportions[*]}; do
-#	final+=($(echo "scale = 12; (1-$value)" | bc | awk '{printf "%.12f\n", $0}'))
-#done
