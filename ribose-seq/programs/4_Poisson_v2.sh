@@ -106,7 +106,7 @@ binnedData=$output2/$sample.binned.data.bed
 referenceWindows=$output1/$reference.windows.bed
 
 #Separate reference genome into 2.5 kb windows
-bedtools makewindows -g $bed -w 2500 > $windows
+bedtools makewindows -g $bed -w 2500 > $referenceWindows
 
 #Select only data of interest
 if [ $subset == "nuclear" ]; then
