@@ -94,7 +94,7 @@ done
 
 sum=0
 #Proportions of windows (P(X>=x))
-for i in `seq ${values1[1]} ${values1[3]}`; do
+for i in `seq 1 3`; do
 	sum=`expr $sum + $i`
         echo $sum
 	#values2+=($(echo "scale = 12; (1-$i)" | bc | awk '{printf "%.12f\n", $0}'))
