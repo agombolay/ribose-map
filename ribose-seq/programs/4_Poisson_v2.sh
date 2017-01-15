@@ -148,13 +148,13 @@ total=$(awk '{ SUM += $2} END { print SUM }' $counts1)
 for i in ${windows[*]}; do
 	values1+=($(echo "scale = 12; ($i/$total)" | bc | awk '{printf "%.12f\n", $0}'))
 done
-paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${values[*]}" )) > $proportions1
+paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${values1[*]}" )) > $proportions1
 
 #Proportions of windows (P(X>=x))
-for i in $(awk '{print $1}' $proportions1); do
+for i in ${values1[*]}; do
 	values2+=($(echo "scale = 12; (1-$i)" | bc | awk '{printf "%.12f\n", $0}'))
 done
-paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${values[*]}" )) > $proportions2
+paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${values2[*]}" )) > $proportions2
 
 
 #variable=0
