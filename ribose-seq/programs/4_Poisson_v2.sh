@@ -94,11 +94,10 @@ done
 
 sum=0
 #Proportions of windows (P(X>=x))
-for i in ${values1[@]}; do
-	echo ${values1[1]}
-	#sum=`expr $sum + $i`
-        #echo $sum
-	values2+=($(echo "scale = 12; (1-$i)" | bc | awk '{printf "%.12f\n", $0}'))
+for i in `seq ${values1[1]} ${values1[3]}`; do
+	sum=`expr $sum + $i`
+        echo $sum
+	#values2+=($(echo "scale = 12; (1-$i)" | bc | awk '{printf "%.12f\n", $0}'))
 done
 
 #Print proportions of windows (probability mass function and cumulative distribution)
