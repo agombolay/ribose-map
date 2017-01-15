@@ -138,10 +138,16 @@ for i in $(seq $(wc -l < $data1) -1 1); do
 	head -$(wc -l < $data1) $data1 | tail -${i} | awk '{ SUM += $2} END { print SUM }' >> $data2
 done
 
+#Total number of windows
 total=$(awk '{ SUM += $2} END { print SUM }' $data1)
-echo $total
+
+#Proportions of windows
 for value in ${windows[*]}; do
 	proportions+=($(echo "scale = 12; ($value/$total)" | bc | awk '{printf "%.12f\n", $0}'))
+done
+
+for value in ${proportions[*]}; do
+	final+=($(echo "scale = 12; (1-$value)" | bc | awk '{printf "%.12f\n", $0}'))
 done
 
 #variable=0
