@@ -105,8 +105,11 @@ mkdir -p $output1 $output2
 binnedData=$output2/$sample.binned.data.bed
 referenceWindows=$output1/$reference.windows.bed
 
-data1=$output2/$sample.probability-mass-function.counts.txt
-data2=$output2/$sample.cumulative-distribution.counts.txt
+counts1=$output2/$sample.probability-mass-function.counts.txt
+counts2=$output2/$sample.cumulative-distribution.counts.txt
+
+proportions1=$output2/$sample.probability-mass-function.proportions.txt
+proportions2=$output2/$sample.cumulative-distribution.proportions.txt
 
 #Separate reference genome into 2.5 kb windows
 bedtools makewindows -g $bed -w 2500 > $referenceWindows
@@ -130,26 +133,27 @@ done
 
 #Probability Mass Function Counts
 #Print number of windows in genomic region with exactly 0...X rNMPs
-paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n';echo "${windows[*]}" )) > $data1
+paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n';echo "${windows[*]}" )) > $counts1
 
 #Cumulative Distribution Counts
 #Print number of windows in genomic region with greater than or equal to 0...X rNMPs
 for i in $(seq $(wc -l < $data1) -1 1); do
-	head -$(wc -l < $data1) $data1 | tail -${i} | awk '{ SUM += $2} END { print SUM }' >> $data2
+	head -$(wc -l < $data1) $data1 | tail -${i} | awk '{ SUM += $2} END { print SUM }' >> $counts2
 done
 
 #Total number of windows
 total=$(awk '{ SUM += $2} END { print SUM }' $data1)
 
-#Proportions of windows
+#Proportions of windows (P(X=x))
 for value in ${windows[*]}; do
-	proportions+=($(echo "scale = 12; ($value/$total)" | bc | awk '{printf "%.12f\n", $0}'))
+	proportions1+=($(echo "scale = 12; ($value/$total)" | bc | awk '{printf "%.12f\n", $0}')) > $proportions1
 done
 
+#Proportions of windows (P(X>=x))
 for value in ${proportions[*]}; do
-	final+=($(echo "scale = 12; (1-$value)" | bc | awk '{printf "%.12f\n", $0}'))
+	proportions2+=($(echo "scale = 12; (1-$value)" | bc | awk '{printf "%.12f\n", $0}')) > $proportions2
 done
-( IFS=$'\n'; echo "${final[*]}" )
+
 #variable=0
 #proportions=()
 #counts0=$(awk '$4 == 0' FS15.trimmed.v1.binned.data.bed | wc -l)
