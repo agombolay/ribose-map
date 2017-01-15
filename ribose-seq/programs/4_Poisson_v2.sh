@@ -159,7 +159,9 @@ paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${values1[*]}" )) > 
 paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${values2[*]}" )) > $proportions2
 
 #Calculate lambda for Poisson Distribution (in scientific notation)
-lambda=$(echo "scale = 12; $(wc -l < $sorted)/$total" | bc | awk '{printf "%e\n", $0}')
+lambda=$(echo "scale = 12; $(wc -l < $sorted)/$total" | bc | awk '{printf "%.5f\n", $0}')
+echo $(wc -l < $sorted)
+echo $total
 echo "Lambda:" $lambda
 
 #variable=0
