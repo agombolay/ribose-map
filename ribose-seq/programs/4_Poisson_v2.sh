@@ -142,7 +142,7 @@ for i in $(seq $(wc -l < $counts1) -1 1); do
 done
 
 #Total number of windows
-total=$(awk '{ SUM += $2} END { print SUM }' $data1)
+total=$(awk '{ SUM += $2} END { print SUM }' $counts1)
 
 #Proportions of windows (P(X=x))
 for i in ${windows[*]}; do
