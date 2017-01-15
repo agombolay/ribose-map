@@ -105,6 +105,9 @@ mkdir -p $output1 $output2
 binnedData=$output2/$sample.binned.data.bed
 referenceWindows=$output1/$reference.windows.bed
 
+data1=$output2/$sample.probability-mass-function.counts.txt
+data2=$output2/$sample.cumulative-distribution.counts.txt
+
 #Separate reference genome into 2.5 kb windows
 bedtools makewindows -g $bed -w 2500 > $referenceWindows
 
@@ -125,12 +128,14 @@ for i in $(seq 0 $maximum); do
 	windows+=($(awk '$4 == ('$i')' $binnedData | wc -l))
 done
 
-#Print number of windows in genomic region with 0...X rNMPs and save to a TXT file
-paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n';echo "${windows[*]}" )) > data1.txt
+#Probability Mass Function Counts
+#Print number of windows in genomic region with exactly 0...X rNMPs
+paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n';echo "${windows[*]}" )) > $data1
 
-#Print number of windows in genomic region with >=0...X rNMPs and save to a TXT file
-for i in $(seq $(wc -l < data1.txt) -1 1); do
-	head -$(wc -l < data1.txt) data1.txt | tail -${i} | awk '{ SUM += $2} END { print SUM }' >> data2.txt
+#Cumulative Distribution Counts
+#Print number of windows in genomic region with greater than or equal to 0...X rNMPs
+for i in $(seq $(wc -l < $data1) -1 1); do
+	head -$(wc -l < $data1) $data1 | tail -${i} | awk '{ SUM += $2} END { print SUM }' >> $data2
 done
 
 #variable=0
