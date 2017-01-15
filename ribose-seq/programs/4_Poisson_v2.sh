@@ -69,7 +69,7 @@ elif [ $subset == "chrM" ]; then
 fi
 
 #Remove rows where window size is < 2.5 kb
-awk '{ $5 = $3 - $2 } 1' $binnedData | awk '(NR>1) && ($5 < 2500 )' -
+awk '{ $5 = $3 - $2 } 1' $binnedData | awk '($5 < 2500 )' -
 
 #Maximum value of genome coverage in BED file
 maximum=$(sort -nk 4 $binnedData | tail -1 - | awk '{print $4}' -)
