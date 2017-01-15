@@ -40,21 +40,15 @@ referenceBed=$directory/ribose-seq/reference/$reference.bed
 sorted=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.sorted.bed
 
 #Output directories
-output1=$directory/ribose-seq/reference/
-output2=$directory/ribose-seq/results/$reference/$sample/Poisson
+output1=$directory/ribose-seq/reference/; output2=$directory/ribose-seq/results/$reference/$sample/Poisson
 
 #Create directories
 mkdir -p $output1 $output2
 
 #Output files
-binnedData=$output2/$sample.binned.data.bed
-referenceWindows=$output1/$reference.windows.bed
-
-counts1=$output2/$sample.probability-mass-function.counts.txt
-counts2=$output2/$sample.cumulative-distribution.counts.txt
-
-proportions1=$output2/$sample.probability-mass-function.proportions.txt
-proportions2=$output2/$sample.cumulative-distribution.proportions.txt
+binnedData=$output2/$sample.binned.data.bed; referenceWindows=$output1/$reference.windows.bed
+counts1=$output2/$sample.Poisson-PDF.counts.txt; counts2=$output2/$sample.Poisson-CDF.counts.txt
+proportions1=$output2/$sample.Poisson-PDF.proportions.txt; proportions2=$output2/$sample.Poisson-CDF.proportions.txt
 
 #Separate reference genome into 2.5 kb windows
 bedtools makewindows -g $referenceBed -w 2500 > $referenceWindows
