@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-#Author: Alli Gombolay
+#© 2016 Alli Gombolay
+#Author: Alli Lauren Gombolay
+#E-mail: alli.gombolay@gatech.edu
 #This program counts the number of windows in the genome with 0...X number of rNMPs
 
 #COMMAND LINE OPTIONS
