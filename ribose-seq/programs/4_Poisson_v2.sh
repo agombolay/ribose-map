@@ -58,7 +58,7 @@ if [ $subset == "nuclear" ]; then
 	#Determine regions of BED files that intersect and count number of overlaps (nuclear)
 	bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck | grep -v 'chrM' - | \
 	#Remove rows where window size is < 2.5 kb
-	awk '{ $5 = $3 - $2 } 1' - | awk '($5 == 2500 )' - > $binnedData
+	#awk '{ $5 = $3 - $2 } 1' - | awk '($5 == 2500 )' - > $binnedData
 elif [ $subset == "chrM" ]; then
 	#Determine regions of BED files that intersect and count number of overlaps (chrM)
 	bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck | grep 'chrM' - | \
