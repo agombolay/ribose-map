@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#Copyright 2016 Alli Gombolay
+#© 2016 Alli Gombolay
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
 #This program calculates rNMP frequencies (3' position of aligned reads) and dNTPs located +/- 100 base pairs from rNMPs
