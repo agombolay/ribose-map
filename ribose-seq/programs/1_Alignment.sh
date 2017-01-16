@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#Copyright 2016 Alli Gombolay
+#© 2016 Alli Gombolay
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
 #This program raligns trimmed reads to reference genome using Bowtie, and de-duplicates reads based on UMI's
