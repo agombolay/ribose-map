@@ -64,7 +64,7 @@ elif [ $subset == "chrM" ]; then
 	#Determine regions of BED files that intersect and count number of overlaps (chrM)
 	bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck | grep 'chrM' - | \
 	#Remove rows where window size is < 2.5 kb
-	awk '{ $5 = $3 - $2 } 1' - | awk '($5 == 2500 )' {print $1,$2,$3,$4}' - | sort -k4 -n - > $binnedData
+	awk '{ $5 = $3 - $2 } 1' - | awk '($5 == 2500 ) {print $1,$2,$3,$4}' - | sort -k4 -n - > $binnedData
 fi
 
 #Maximum value of genome coverage in BED file
