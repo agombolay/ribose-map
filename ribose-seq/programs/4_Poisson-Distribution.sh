@@ -48,7 +48,7 @@ output1=$directory/ribose-seq/reference; output2=$directory/ribose-seq/results/$
 mkdir -p $output1 $output2
 
 #Output files
-binnedData=$output2/$sample.binned.data.bed; referenceWindows=$output1/$reference.windows.bed
+binnedData=$output2/$sample.binned.data.txt; referenceWindows=$output1/$reference.windows.bed
 counts=$output2/$sample.PDF-windows.txt; proportions=$output2/$sample.PDF-proportions.txt
 
 #Separate reference genome into 2.5 kb windows
