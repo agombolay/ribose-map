@@ -69,10 +69,10 @@ elif [ $subset == "chrM" ]; then
 fi
 
 #Maximum number of rNMPs in binned data file
-maximum=$(sort -nk 4 $binned | tail -1 - | awk '{print $4}' -)
+max=$(sort -nk 4 $binned | tail -1 - | awk '{print $4}' -)
 
 #Determine number of windows with 0...maximum rNMPs
-for i in $(seq 0 $maximum); do
+for i in $(seq 0 $max); do
 	windows+=($(awk '$4 == ('$i')' $binned | wc -l))
 done
 
@@ -80,4 +80,4 @@ done
 echo -e "Chr\tStart\tStop\trNMPs" > $binned && cat <(echo "$data") >> $binned
 
 #Print column names and number of windows with 0...maximum rNMPs and save to file (input into R)
-echo -e "Counts\tWindows" > $counts && paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${windows[*]}" )) >> $counts
+echo -e "rNMPs\tWindows" > $counts && paste <(echo "$(seq 0 $max)") <(cat <( IFS=$'\n'; echo "${windows[*]}" )) >> $counts
