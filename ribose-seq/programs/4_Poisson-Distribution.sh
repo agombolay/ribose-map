@@ -60,16 +60,16 @@ if [ $subset == "nuclear" ]; then
 	#Determine regions of BED files that intersect and count number of overlaps (nuclear)
 	#Remove rows where window size is < 2.5 kb and sort based on number of rNMPs in windows
 	data=$(bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck | grep -v 'chrM' - | \
-	awk '{ $5 = $3 - $2 } 1' - | awk '($5 == 2500 ) {print $1,$2,$3,$4}' - | sort -k4 -n -)
+	awk '{ $5 = $3 - $2 } 1' - | awk '($5 == 2500 ) {print $1,$2,$3,$4}' - | sort -nk4 -)
 elif [ $subset == "chrM" ]; then
 	#Determine regions of BED files that intersect and count number of overlaps (chrM)
 	#Remove rows where window size is < 2.5 kb and sort based on number of rNMPs in windows
 	data=$(bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck | grep 'chrM' - | \
-	awk '{ $5 = $3 - $2 } 1' - | awk '($5 == 2500 ) {print $1,$2,$3,$4}' - | sort -k4 -n -)
+	awk '{ $5 = $3 - $2 } 1' - | awk '($5 == 2500 ) {print $1,$2,$3,$4}' - | sort -nk4 -)
 fi
 
 #Maximum number of rNMPs in binned data file
-max=$(sort -nk 4 $data | tail -1 - | awk '{print $4}' -)
+max=$(tail -1 - | awk '{print $4}' -)
 
 #Determine number of windows with 0...maximum rNMPs
 for i in $(seq 0 $max); do
