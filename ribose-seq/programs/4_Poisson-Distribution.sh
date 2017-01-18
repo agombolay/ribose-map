@@ -77,7 +77,7 @@ for i in $(seq 0 $max); do
 done
 
 #Add column names to file
-echo -e "Chr\tStart\tStop\trNMPs" > temporary2 && cat temporary1 >> $binned
+#echo -e "Chr\tStart\tStop\trNMPs" > temporary2 && cat temporary1 >> $binned
 
 #Add column names and number of windows with 0...maximum rNMPs
 echo -e "rNMPs\tWindows" > $counts && paste <(echo "$(seq 0 $max)") <(cat <( IFS=$'\n'; echo "${windows[*]}" )) >> $counts
