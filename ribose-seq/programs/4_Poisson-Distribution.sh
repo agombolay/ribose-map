@@ -80,4 +80,4 @@ done
 echo -e "Chr\tStart\tStop\trNMPs" > temporary2 && cat temporary1 >> temporary2 && column -t temporary2 > $binned
 
 #Print column names and number of windows with 0...maximum rNMPs and save to file (input into R)
-#echo -e "rNMPs\tWindows" > $counts && paste <(echo "$(seq 0 $max)") <(cat <( IFS=$'\n'; echo "${windows[*]}" )) >> $counts
+echo -e "rNMPs\tWindows" > $counts && paste <(echo "$(seq 0 $max)") <(cat <( IFS=$'\n'; echo "${windows[*]}" )) >> $counts
