@@ -69,7 +69,7 @@ elif [ $subset == "chrM" ]; then
 fi
 
 #Maximum number of rNMPs in binned data file
-max=$(tail -1 - | awk '{print $4}' -)
+max=$(tail -1 $data | awk '{print $4}' -)
 echo $max
 
 #Determine number of windows with 0...maximum rNMPs
