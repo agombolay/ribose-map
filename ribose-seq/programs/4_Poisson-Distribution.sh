@@ -60,7 +60,7 @@ if [ $subset == "nuclear" ]; then
 	#Determine regions of BED files that intersect and count number of overlaps (nuclear)
 	data=$(bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck | grep -v 'chrM' - | \
 	#Remove rows where window size is < 2.5 kb and sort based on number of rNMPs in windows
-	awk '{ $5 = $3 - $2 } 1' - | awk '($5 == 2500 ) {print $1,"\t",$2,$3,$4}' - | sort -k4 -n -)
+	awk '{ $5 = $3 - $2 } 1' - | awk '($5 == 2500 ) {print $1,$2,$3,$4}' - | sort -k4 -n -)
 elif [ $subset == "chrM" ]; then
 	#Determine regions of BED files that intersect and count number of overlaps (chrM)
 	bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck | grep 'chrM' - | \
@@ -68,6 +68,7 @@ elif [ $subset == "chrM" ]; then
 	awk '{ $5 = $3 - $2 } 1' - | awk '($5 == 2500 ) {print $1,$2,$3,$4}' - | sort -k4 -n - > $binnedData
 fi
 
+#Add column names to files
 echo -e "Chr\tStart\tStop\trNMPs" > $binnedData && cat <(echo "$data") >> $binnedData
 
 #Maximum value of genome coverage in BED file
@@ -79,4 +80,4 @@ for i in $(seq 0 $maximum); do
 done
 
 #Print number of windows with 0...maximum rNMPs and save to file (input into R)
-paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${windows[*]}" )) > $counts
+echo -e "Counts\tWindows" > $counts && paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${windows[*]}" )) > $counts
