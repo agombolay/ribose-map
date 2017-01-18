@@ -65,7 +65,7 @@ elif [ $subset == "chrM" ]; then
 	#Determine regions of BED files that intersect and count number of overlaps (chrM)
 	#Remove rows where window size is < 2.5 kb and sort based on number of rNMPs in windows
 	bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck | grep 'chrM' - | \
-	awk '{ $5 = $3 - $2 } 1' - | awk '($5 == 2500 ) {print $1,$2,$3,$4}' - | sort -k4 -n - > temporary1
+	awk '{ $5 = $3 - $2 } 1' - | awk OFS='\t' '($5 == 2500 ) {print $1,$2,$3,$4}' - | sort -k4 -n - > temporary1
 fi
 
 #Maximum number of rNMPs in binned data file
@@ -83,4 +83,4 @@ echo -e "Chr\tStart\tStop\trNMPs" > $binned && cat temporary1 >> $binned
 echo -e "rNMPs\tWindows" > $counts && paste <(echo "$(seq 0 $max)") <(cat <( IFS=$'\n'; echo "${windows[*]}" )) >> $counts
 
 #Remove temporary files
-#rm temporary1 temporary2
+rm temporary1
