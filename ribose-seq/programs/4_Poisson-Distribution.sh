@@ -69,11 +69,11 @@ elif [ $subset == "chrM" ]; then
 fi
 
 #Maximum number of rNMPs in binned data file
-max=$(sort -nk 4 $binned | tail -1 - | awk '{print $4}' -)
+max=$(sort -nk 4 $data | tail -1 - | awk '{print $4}' -)
 
 #Determine number of windows with 0...maximum rNMPs
 for i in $(seq 0 $max); do
-	windows+=($(awk '$4 == ('$i')' $binned | wc -l))
+	windows+=($(awk '$4 == ('$i')' $data | wc -l))
 done
 
 #Add column names to file
