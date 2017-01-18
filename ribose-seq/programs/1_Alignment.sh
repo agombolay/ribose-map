@@ -44,7 +44,7 @@ for sample in ${sample[@]}; do
 	#Output directory
 	output=$directory/ribose-seq/results/$index/$sample/Alignment/
 
-	#Create directory if not present
+	#Create directory
     	mkdir -p $output
 
 	#Intermediate files
