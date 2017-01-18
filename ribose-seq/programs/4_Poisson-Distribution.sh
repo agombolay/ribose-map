@@ -68,7 +68,7 @@ elif [ $subset == "chrM" ]; then
 	awk '{ $5 = $3 - $2 } 1' - | awk '($5 == 2500 ) {print $1,$2,$3,$4}' - | sort -k4 -n - > $binnedData
 fi
 
-echo -e "\tChr\tStart\tStop\trNMPs" > $binnedData && cat <(echo "$data") >> $binnedData
+echo -e "Chr\tStart\tStop\trNMPs" > $binnedData && cat <(echo "$data") >> $binnedData
 
 #Maximum value of genome coverage in BED file
 maximum=$(sort -nk 4 $binnedData | tail -1 - | awk '{print $4}' -)
