@@ -41,16 +41,16 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#Input/Output
 	
-	#Location of input file
+	#Input file
 	bam=$directory/ribose-seq/results/$reference/$sample/Alignment/$sample.bam
 	
-	#Location of output directory
+	#Output directory
 	output=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset
 
-	#Create directory if it does not already exist
+	#Create directory
 	mkdir -p $output
 	
-	#Remove any older versions of the output files
+	#Remove any older versions of files
 	rm -f $output/{*.txt,*.bed,*.fa,*.fq}
 	
 	#Location of output files
