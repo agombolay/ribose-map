@@ -41,7 +41,7 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#Input/Output
 	
-	#Location of input files
+	#Input files
 	referenceBED=$directory/ribose-seq/reference/$reference.bed
 	referenceFasta1=$directory/ribose-seq/reference/$reference.fa
 	referenceFasta2=$directory/ribose-seq/reference/$reference.$subset.fa
@@ -49,7 +49,7 @@ for sample in ${sample[@]}; do
 	reads=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.read-information.bed
 	coordinates=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.bed
 
-	#Location of output directories
+	#Output directories
 	output1=$directory/ribose-seq/results/Background-Frequencies
 	
 	output2=$directory/ribose-seq/results/$reference/$sample/Frequencies/rNMPs/$subset
@@ -63,13 +63,13 @@ for sample in ${sample[@]}; do
 	
 	output8=$directory/ribose-seq/results/$reference/$sample/Frequencies/Datasets/$subset
 
-	#Create directories if they do not already exist
+	#Create directories
 	mkdir -p $output{1..8}
 
-	#Remove any older versions of the output files
+	#Remove older versions files
 	rm -f $output{1..8}/*.txt
 	
-	#Location of output files
+	#Output files
 	background=$output1/Background-Frequencies.$reference.$subset.txt
 	riboSequences=$output2/$sample.rNMP-Sequences.$reference.$subset.txt
 	
