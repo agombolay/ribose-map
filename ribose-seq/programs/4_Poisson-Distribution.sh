@@ -48,9 +48,9 @@ output1=$directory/ribose-seq/reference; output2=$directory/ribose-seq/results/$
 mkdir -p $output1 $output2
 
 #Output files
+binned=$output2/$sample.binned-data.txt
+counts=$output2/$sample.Poisson-windows.txt
 referenceWindows=$output1/$reference.windows.bed
-binnedData=$output2/$sample.binned.data.txt
-counts=$output2/$sample.PDF-windows.txt
 
 #Separate reference genome into 2.5 kb windows
 bedtools makewindows -g $referenceBed -w 2500 > $referenceWindows
@@ -68,16 +68,16 @@ elif [ $subset == "chrM" ]; then
 	awk '{ $5 = $3 - $2 } 1' - | awk '($5 == 2500 ) {print $1,$2,$3,$4}' - | sort -k4 -n -)
 fi
 
-#Maximum value of genome coverage in BED file
-maximum=$(sort -nk 4 $binnedData | tail -1 - | awk '{print $4}' -)
+#Maximum number of rNMPs in binned data file
+maximum=$(sort -nk 4 $binned | tail -1 - | awk '{print $4}' -)
 
 #Determine number of windows with 0...maximum rNMPs
 for i in $(seq 0 $maximum); do
-	windows+=($(awk '$4 == ('$i')' $binnedData | wc -l))
+	windows+=($(awk '$4 == ('$i')' $binned | wc -l))
 done
 
 #Add column names to file
-echo -e "Chr\tStart\tStop\trNMPs" > $binnedData && cat <(echo "$data") >> $binnedData
+echo -e "Chr\tStart\tStop\trNMPs" > $binned && cat <(echo "$data") >> $binned
 
 #Print column names and number of windows with 0...maximum rNMPs and save to file (input into R)
 echo -e "Counts\tWindows" > $counts && paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${windows[*]}" )) >> $counts
