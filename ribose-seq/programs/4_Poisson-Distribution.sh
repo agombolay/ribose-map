@@ -80,4 +80,4 @@ for i in $(seq 0 $maximum); do
 done
 
 #Print number of windows with 0...maximum rNMPs and save to file (input into R)
-echo -e "Counts\tWindows" > $counts && paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${windows[*]}" )) > $counts
+echo -e "Counts\tWindows" > $counts && paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${windows[*]}" )) >> $counts
