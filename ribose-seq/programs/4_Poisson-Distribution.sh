@@ -60,7 +60,7 @@ if [ $subset == "nuclear" ]; then
 	#Determine regions of BED files that intersect and count number of overlaps (nuclear)
 	#Remove rows where window size is < 2.5 kb and sort based on number of rNMPs in windows
 	bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck | grep -v 'chrM' - | \
-	awk '{ $5 = $3 - $2 } 1' - | awk '($5 == 2500 )' - | paste $1,$2,$3,$4 - | sort -k4 -n - > temporary1
+	awk '{ $5 = $3 - $2 } 1' - | awk '($5 == 2500 ) {print $1,$2,$3,$4}' - | sort -k4 -n - > temporary1
 elif [ $subset == "chrM" ]; then
 	#Determine regions of BED files that intersect and count number of overlaps (chrM)
 	#Remove rows where window size is < 2.5 kb and sort based on number of rNMPs in windows
@@ -83,4 +83,4 @@ echo -e "Chr\tStart\tStop\trNMPs" > temporary2 && cat temporary1 >> $binned
 echo -e "rNMPs\tWindows" > $counts && paste <(echo "$(seq 0 $max)") <(cat <( IFS=$'\n'; echo "${windows[*]}" )) >> $counts
 
 #Remove temporary files
-rm temporary1 temporary2
+#rm temporary1 temporary2
