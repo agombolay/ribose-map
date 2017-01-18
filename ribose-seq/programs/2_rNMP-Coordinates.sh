@@ -50,10 +50,10 @@ for sample in ${sample[@]}; do
 	#Create directory
 	mkdir -p $output
 	
-	#Remove any older versions of files
+	#Remove older versions of files
 	rm -f $output/{*.txt,*.bed,*.fa,*.fq}
 	
-	#Location of output files
+	#Output files
 	sorted=$output/$sample.rNMP-coordinates.sorted.bed
 	sequences=$output/$sample.sequences.txt; bed=$output/$sample.aligned-reads.bed;
 	reads=$output/$sample.read-information.bed; coordinates=$output/$sample.rNMP-coordinates.bed
