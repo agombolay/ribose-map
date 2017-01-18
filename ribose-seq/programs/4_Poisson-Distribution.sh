@@ -59,8 +59,8 @@ bedtools makewindows -g $referenceBed -w 2500 > $referenceWindows
 if [ $subset == "nuclear" ]; then
 	#Determine regions of BED files that intersect and count number of overlaps (nuclear)
 	#Remove rows where window size is < 2.5 kb and sort based on number of rNMPs in windows
-	data=$(bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck | grep -v 'chrM' - | \
-	awk '{ $5 = $3 - $2 } 1' - | awk '($5 == 2500 ) {print $1,$2,$3,$4}' - | sort -k4 -n -)
+	bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck | grep -v 'chrM' - | \
+	awk '{ $5 = $3 - $2 } 1' - | awk '($5 == 2500 ) {print $1,$2,$3,$4}' - | sort -k4 -n - > temporary
 elif [ $subset == "chrM" ]; then
 	#Determine regions of BED files that intersect and count number of overlaps (chrM)
 	#Remove rows where window size is < 2.5 kb and sort based on number of rNMPs in windows
@@ -69,7 +69,7 @@ elif [ $subset == "chrM" ]; then
 fi
 
 #Maximum number of rNMPs in binned data file
-max=$(tail -1 $data | awk '{print $4}' -)
+max=$(tail -1 temporary | awk '{print $4}' -)
 echo $max
 
 #Determine number of windows with 0...maximum rNMPs
