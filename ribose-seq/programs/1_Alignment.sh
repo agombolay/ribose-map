@@ -48,7 +48,7 @@ for sample in ${sample[@]}; do
     	mkdir -p $output
 
 	#Intermediate files
-	umiTrimmed=$output/$sample.UMI-trimmed.fastq; intermediateSAM=$output/$sample.intermediate.sam;
+	umiTrimmed=$output/$sample.UMI-trimmed.fastq.gz; intermediateSAM=$output/$sample.intermediate.sam;
 	sortedBAM=$output/$sample.sorted.bam; reverseComplement=$output/$sample.reverse-complement.fastq
 
 	#UMI length
