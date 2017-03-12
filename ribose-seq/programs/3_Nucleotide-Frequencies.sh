@@ -10,7 +10,7 @@ function usage () {
 	echo "Usage: Frequencies.sh [-i] 'Sample(s)' [-r] 'Reference' [-s] 'Subset' [-d] 'Directory' [-h]
 	-i Sample name(s) (FS1, FS2, FS3 etc.)
 	-s Subset of genome (genome, nuclear, chrM)
-	-r Reference genome (sacCer2, chrM, ecoli, mm9, hg38, etc.)
+	-r Reference genome (sacCer2, ecoli, mm9, hg38, etc.)
 	-d Local directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
 }
 
