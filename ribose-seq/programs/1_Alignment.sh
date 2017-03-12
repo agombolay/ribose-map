@@ -10,7 +10,7 @@
 function usage () {
 	echo "Usage: 1_Alignment.sh [-i] 'FASTQ' [-b] 'Index' [-d] 'Directory' [-h]
 		-i Sample names (FS1, FS2, FS3 etc.) 
-		-b Basename of Bowtie2 index to be searched (sacCer2, chrM, ecoli, hg38, etc.)
+		-b Basename of Bowtie2 index to be searched (sacCer2, ecoli, mm9, hg38, etc.)
 		-d Local directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
 }
 
