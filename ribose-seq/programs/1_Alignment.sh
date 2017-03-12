@@ -3,10 +3,8 @@
 #© 2016 Alli Gombolay
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
-#This program raligns trimmed reads to reference genome using Bowtie, and de-duplicates reads based on UMI's
-#Note: FASTQ files must be located in the users's Sequencing-Results folder (LocalDirectory/Sequencing-Results)
-
-#COMMAND LINE OPTIONS
+#This program raligns trimmed reads to reference genome using Bowtie2 and de-duplicates reads based on UMI's
+#Note: FASTQ files must be located in the users's Sequencing-Results folder (/LocalDirectory/Sequencing-Results)
 
 #Usage statement
 function usage () {
