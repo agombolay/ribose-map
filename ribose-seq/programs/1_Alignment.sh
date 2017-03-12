@@ -8,7 +8,7 @@
 
 #COMMAND LINE OPTIONS
 
-#Usage statement of the program
+#Usage statement
 function usage () {
 	echo "Usage: 1_Alignment.sh [-i] 'FASTQ' [-b] 'Index' [-d] 'Directory' [-h]
 		-i Sample names (FS1, FS2, FS3 etc.) 
@@ -16,26 +16,26 @@ function usage () {
 		-d Local directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
 }
 
-#Use getopts function to create the command-line options ([-i], [-b], [-d], and [-h])
+#Command-line options
 while getopts "i:b:d:h" opt; do
     case "$opt" in
-        #Specify input as arrays to allow multiple input arguments
+        #Allow multiple input arguments
         i ) sample=($OPTARG) ;;
-	#Specify input as variable to allow only one input argument
+	#Allow only one input argument
 	b ) index=$OPTARG ;;
 	d ) directory=$OPTARG ;;
-        #If user specifies [-h], print usage statement
+        #Print usage statement
         h ) usage ;;
     esac
 done
 
-#Exit program if user specifies [-h]
+#Exit program if [-h]
 if [ "$1" == "-h" ]; then
         exit
 fi
 
 #############################################################################################################################
-#Align reads to reference genome
+#Align reads to reference
 for sample in ${sample[@]}; do
 	
 	#Input FASTQ files
@@ -71,7 +71,7 @@ for sample in ${sample[@]}; do
 	umitools trim --end 3 $reverseComplement $UMI | gzip -c > $umiTrimmed
 
 	#Align reads to reference genome using Bowtie
-	#zcat $umiTrimmed | bowtie -m 1 --sam $index - 2> $statistics 1> $intermediateSAM
+	#zcat $umiTrimmed | bowtie -m 1 $index - -S $intermediateSAM 2> $statistics
 	zcat $umiTrimmed | bowtie2 -x $index -U - -S $intermediateSAM 2> $statistics
 	
 	#Convert SAM file to BAM and sort intermediate BAM file
