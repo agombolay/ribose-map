@@ -3,11 +3,9 @@
 #© 2016 Alli Gombolay
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
-#This program determines the coordinates of the rNMPs (3' position of aligned reads)
+#This program determines the coordinates of rNMPs (3' position of aligned reads)
 
-#COMMAND LINE OPTIONS
-
-#Usage statement of the program
+#Usage statement
 function usage () {
 	echo "Usage: 2_rNMP-Coordinates.sh [-i] 'Sample' [-r] 'Reference' [-s] 'Subset' [-d] 'Directory' [-h]
 	-i Sample name (FS1, etc.)
@@ -16,30 +14,29 @@ function usage () {
 	-d Local directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
 }
 
-#Use getopts function to create the command-line options ([-i], [-s], [-r], [-d], and [-h])
+#Command-line options
 while getopts "i:s:r:d:h" opt; do
     case $opt in
-        #Specify input as arrays to allow multiple input arguments
+        #Allow multiple input arguments
         i ) sample=($OPTARG) ;;
-	#Specify input as variable to allow only one input argument
+	#Allow only one input argument
 	s ) subset=$OPTARG ;;
 	r ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
-        #If user specifies [-h], print usage statement
+        #Print usage statement
         h ) usage ;;
     esac
 done
 
-#Exit program if user specifies [-h]
+#Exit program if [-h]
 if [ "$1" == "-h" ]; then
         exit
 fi
 
-#Determine rNMP coordinates for each sample
+#Coordinates for each sample
 for sample in ${sample[@]}; do
 
 #############################################################################################################################
-	#Input/Output
 	
 	#Input file
 	bam=$directory/ribose-seq/results/$reference/$sample/Alignment/$sample.bam
