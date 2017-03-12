@@ -33,7 +33,7 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
-#Coordinates for each sample
+#Determine coordinates
 for sample in ${sample[@]}; do
 
 #############################################################################################################################
