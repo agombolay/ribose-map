@@ -3,44 +3,40 @@
 #© 2016 Alli Gombolay
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
-#This program calculates rNMP frequencies (3' position of aligned reads) and dNTPs located +/- 100 base pairs from rNMPs
+#This program calculates rNMP frequencies and flanking dNMP frequencies (+/- 100 bp)
 
-#COMMAND LINE OPTIONS
-
-#Usage statement of the program
+#Usage statement
 function usage () {
-	echo "Usage: 5_Ribonucleotide-Frequencies.sh [-i] 'Sample' [-r] 'Reference' [-s] 'Subset' [-d] 'Directory' [-h]
+	echo "Usage: 3_Nucleotide-Frequencies.sh [-i] 'Sample' [-r] 'Reference' [-s] 'Subset' [-d] 'Directory' [-h]
 	-i Sample name (FS1, etc.)
 	-s Subset of genome (genome, nuclear, chrM, etc.)
 	-r Reference genome assembly version (sacCer2, etc.)
 	-d Local directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
 }
 
-#Use getopts function to create the command-line options ([-i], [-s], [-r], [-d], and [-h])
+#Command-line options
 while getopts "i:s:r:d:h" opt; do
     case $opt in
-        #Specify input as arrays to allow multiple input arguments
+        #Allow multiple input arguments
         i ) sample=($OPTARG) ;;
-	#Specify input as variable to allow only one input argument
+	#Allow only one input argument
 	s ) subset=$OPTARG ;;
 	r ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
-        #If user specifies [-h], print usage statement
+        #Print usage statement
         h ) usage ;;
     esac
 done
 
-#Exit program if user specifies [-h]
+#Exit program if [-h]
 if [ "$1" == "-h" ]; then
         exit
 fi
 
-#Calculate nucleotide frequencies for each sample
+#Calculate frequencies
 for sample in ${sample[@]}; do
 
 #############################################################################################################################
-	#Input/Output
-	
 	#Input files
 	referenceBED=$directory/ribose-seq/reference/$reference.bed
 	referenceFasta1=$directory/ribose-seq/reference/$reference.fa
