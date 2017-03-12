@@ -8,7 +8,7 @@
 #Usage statement
 function usage () {
 	echo "Usage: 2_rNMP-Coordinates.sh [-i] 'Sample' [-r] 'Reference' [-s] 'Subset' [-d] 'Directory' [-h]
-	-i Sample name (FS1, etc.)
+	-i Sample name(s) (FS1, FS2, FS3 etc.)
 	-s Subset of genome (genome, nuclear, chrM)
 	-r Reference genome (sacCer2, ecoli, mm9, hg38, etc.)
 	-d Local directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
