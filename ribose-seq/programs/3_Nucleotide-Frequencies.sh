@@ -7,7 +7,7 @@
 
 #Usage statement
 function usage () {
-	echo "Usage: Frequencies.sh [-i] 'Sample' [-r] 'Reference' [-s] 'Subset' [-d] 'Directory' [-h]
+	echo "Usage: Frequencies.sh [-i] 'Sample(s)' [-r] 'Reference' [-s] 'Subset' [-d] 'Directory' [-h]
 	-i Sample name(s) (FS1, FS2, FS3 etc.)
 	-s Subset of genome (genome, nuclear, chrM)
 	-r Reference genome (sacCer2, chrM, ecoli, hg38, etc.)
