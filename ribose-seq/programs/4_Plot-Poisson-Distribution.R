@@ -9,14 +9,11 @@
 #Load ggplot2
 library("ggplot2")
 
-#Access command line arguments
-args <- commandArgs(trailingOnly = TRUE)
-
 #Argument 1 = dataset file
-dataset <- args[1]
+dataset <- commandArgs(trailingOnly = TRUE)[1]
 
 #Argument 2 = PDF filename
-filename <- args[2]
+filename <- commandArgs(trailingOnly = TRUE)[2]
 
 #OBSERVED DATA
 
@@ -62,7 +59,6 @@ observed.data <- read.csv(file=dataset, sep = "\t")[ 1:row.start-1,]
 
 #Append collapsed data to last row of dataset to create final observed dataset
 observed.data.final <- rbind(observed.data, c(row.start-1, collapsed.observed.sum))
-
 observed.windows.final <- observed.data.final[ ,c('Windows')]
 
 #Sum # of expected windows that need to be collapsed
@@ -87,16 +83,16 @@ if (chi.square > test.statistic) {
 }
 
 #Create dataframe
-dataset <- data.frame(
+data <- data.frame(
   type = factor(c(replicate(row.start, "Poisson"), replicate(row.start, "Observed"))),
   counts = factor(c(seq(0,row.start-1,1),seq(0,row.start-1,1)), levels=seq(0,row.start-1,1)),
   windows = c(expected.windows.final,observed.windows.final)
 )
 
 #Plot observed and expected data
-plot <- ggplot(data=dataset, aes(x=counts, y=windows, fill=type))+geom_bar(stat="identity", position=position_dodge(width=0.8),
+myplot <- ggplot(data=data, aes(x=counts, y=windows, fill=type))+geom_bar(stat="identity", position=position_dodge(width=0.8),
   width=0.6)+scale_fill_manual(values=c("#000000","#999999"))+xlab("rNMP count per 2.5 kb window")+ylab("Number of Genomic Windows")+
   theme_bw()+theme(panel.border=element_blank(),panel.grid.major=element_blank(),panel.grid.minor=element_blank(),axis.line=element_line(colour="black"))+
   guides(fill=guide_legend(title=""))+scale_x_discrete(labels=seq(0,row.start-1,1))+scale_y_continuous(expand=c(0.015,0))+theme(text=element_text(size=14))
 
-ggsave(filename=filename, plot=plot)
+ggsave(filename=filename, plot=myplot)
