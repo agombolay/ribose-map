@@ -12,7 +12,7 @@ function usage () {
 		-i Sample name(s) (FS1, FS2, FS3 etc.)
 		-p '/projects/home/agombolay3/data/bin/Trimmomatic-0.36'
 		-b Basename of Bowtie2 index (sacCer2, ecoli, mm9, hg38, etc.)
-		-d Local directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
+		-d Directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
 }
 
 #Command-line options
