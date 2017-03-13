@@ -7,22 +7,21 @@
 #rNMP frequencies = position 0 on the x-axis, upstream frequencies = -100 -> -1, and downstream = +1 -> +100
 
 #Define three command line arguments
-args <- commandArgs(trailingOnly = TRUE)
-file <- args[1]
-title <- args[2]
-filename <- args[3]
+file <- commandArgs(trailingOnly = TRUE)[1]
+title <- commandArgs(trailingOnly = TRUE)[2]
+filename <- commandArgs(trailingOnly = TRUE)[3]
 
 if (file.exists(file)) {
 
     #Define data file (tab delimited) to read
     data <- read.table(file, sep="\t", header=TRUE)
 
-    #Define data values
+    #Define position values
     position <- data$X
-    frequencyA <- data$A
-    frequencyC <- data$C
-    frequencyG <- data$G
-    frequencyT <- data$U.T
+    
+    #Define frequency values
+    frequencyA <- data$A; frequencyC <- data$C
+    frequencyG <- data$G; frequencyT <- data$U.T
 
     #Load ggplot2
     library(ggplot2)
