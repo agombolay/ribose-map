@@ -34,11 +34,11 @@ if (file.exists(file)) {
         geom_line(aes(y = frequencyG, colour = "G")) + geom_point(aes(y = frequencyG, colour = "G")) +
         geom_line(aes(y = frequencyT, colour = "U/T")) + geom_point(aes(y = frequencyT, colour = "U/T")) +
     
-        #Remove and replace default background  
+        #Remove and replace default background plot theme
         theme_bw() + theme(panel.border=element_blank(), panel.grid.major=element_blank(),
         panel.grid.minor=element_blank(), axis.line=element_line(colour="black")) +
     
-        #Specify color values for each nucleotide 
+        #Specify color values for each of the four nucleotides
         scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="Nucleotide") +
     
         #Label axes, add title, define y-axis limits, and specify font size
