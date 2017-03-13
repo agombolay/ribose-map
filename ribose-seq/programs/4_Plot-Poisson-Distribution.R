@@ -106,7 +106,7 @@ myplot <- ggplot(data=dataset, aes(x=counts, y=windows, fill=type)) +
   xlab("rNMP Count per 2.5 kb Window")+ylab("Number of Windows") +
   guides(fill=guide_legend(title=""))+theme(text=element_text(size=14)) +
 
-  #Remove and replace default background
+  #Remove and replace default background plot theme
   theme_bw()+theme(panel.border=element_blank(),panel.grid.major=element_blank(),
   panel.grid.minor=element_blank(),axis.line=element_line(colour="black")) +
 
