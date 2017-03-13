@@ -12,30 +12,43 @@ file <- args[1]
 title <- args[2]
 filename <- args[3]
 
-#Define data file (tab delimited) to read
-data <- read.table(file, sep="\t", header=TRUE)
+if (file.exists(file)) {
 
-#Define data values
-position <- data$X
-frequencyA <- data$A
-frequencyC <- data$C
-frequencyG <- data$G
-frequencyT <- data$U.T
+    #Define data file (tab delimited) to read
+    data <- read.table(file, sep="\t", header=TRUE)
 
-#Load ggplot2
-library(ggplot2)
+    #Define data values
+    position <- data$X
+    frequencyA <- data$A
+    frequencyC <- data$C
+    frequencyG <- data$G
+    frequencyT <- data$U.T
 
-#Plot data values
-myplot <- ggplot(data=data, aes(x=position)) +
-    geom_line(aes(y = frequencyA, colour = "A")) + geom_point(aes(y = frequencyA, colour = "A")) +
-    geom_line(aes(y = frequencyC, colour = "C")) + geom_point(aes(y = frequencyC, colour = "C")) +
-    geom_line(aes(y = frequencyG, colour = "G")) + geom_point(aes(y = frequencyG, colour = "G")) +
-    geom_line(aes(y = frequencyT, colour = "U/T")) + geom_point(aes(y = frequencyT, colour = "U/T")) +
-    xlab("Position Upstream (-)/Downstream (+) from rNMP") + ylab("Normalized Frequency") + ggtitle(title) +
-    scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="Nucleotide") +  theme_bw() +
-    theme(plot.background = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank() ) + theme(panel.border= element_blank()) +
-    theme(axis.line.x = element_line(color="black", size = 0.5), axis.line.y = element_line(color="black", size = 0.5)) + theme(legend.key = element_rect(colour = NA)) +
-    ylim(0, 2.5)
+    #Load ggplot2
+    library(ggplot2)
 
-#Save plot as PDF file
-ggsave(filename=filename, plot=myplot)
+    #Plot data values
+    myplot <- ggplot(data=data, aes(x=position)) +
+        
+        #Plot data for each nucleotide as scatterplot with connecting lines    
+        geom_line(aes(y = frequencyA, colour = "A")) + geom_point(aes(y = frequencyA, colour = "A")) +
+        geom_line(aes(y = frequencyC, colour = "C")) + geom_point(aes(y = frequencyC, colour = "C")) +
+        geom_line(aes(y = frequencyG, colour = "G")) + geom_point(aes(y = frequencyG, colour = "G")) +
+        geom_line(aes(y = frequencyT, colour = "U/T")) + geom_point(aes(y = frequencyT, colour = "U/T")) +
+    
+        #Remove default background  
+        theme_bw() + theme(panel.border=element_blank(), panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(), axis.line=element_line(colour="black"))
+    
+        #Specify color values for each nucleotide 
+        scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="Nucleotide")
+    
+        #Label axes, add title, define y-axis values, and specify font size
+        xlab("Position") + ylab("Frequency") + ggtitle(title) + ylim(0, 2.5) + theme(text = element_text(size=14))
+    
+        #Specify increased distance between axes and axes lables so easier to read
+        theme(axis.title.y=element_text(margin=margin(0,20,0,0))) + theme(axis.title.x=element_text(margin=margin(20,0,0,0)))
+
+    #Save plot as PDF file
+    ggsave(filename=filename, plot=myplot)
+}
