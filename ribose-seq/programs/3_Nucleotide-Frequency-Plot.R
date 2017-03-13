@@ -13,7 +13,7 @@ filename <- commandArgs(trailingOnly = TRUE)[3]
 
 if (file.exists(file)) {
     #Define data file (tab delimited) to read
-    data <- read.table(file, sep="\t", header=TRUE)
+    dataset <- read.table(file, sep="\t", header=TRUE)
 
     #Define position values
     position <- data$X
@@ -26,7 +26,7 @@ if (file.exists(file)) {
     library(ggplot2)
 
     #Plot frequencies
-    myplot <- ggplot(data=data, aes(x=position)) +
+    myplot <- ggplot(data=dataset, aes(x=position)) +
         
         #Plot data as scatterplot   
         geom_line(aes(y = frequencyA, colour = "A")) + geom_point(aes(y = frequencyA, colour = "A")) +
