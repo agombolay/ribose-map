@@ -51,7 +51,6 @@ for sample in ${sample[@]}; do
 	rm -f $output/{*.txt,*.bed,*.fa,*.fq}
 	
 	#Output files
-	sorted=$output/$sample.rNMP-coordinates.sorted.bed
 	sequences=$output/$sample.sequences.txt; bed=$output/$sample.aligned-reads.bed;
 	reads=$output/$sample.read-information.bed; coordinates=$output/$sample.rNMP-coordinates.bed
 
@@ -79,15 +78,18 @@ for sample in ${sample[@]}; do
 	#Filter coordinates by region
 	if [ $subset == "nuclear" ]; then
 		#Combine +/- rNMP coordinates and select rNMP coordinates located in nuclear DNA
-		cat <(echo "$positiveReads") <(echo "$negativeReads") | grep -v 'chrM' - > $coordinates
+		cat <(echo "$positiveReads") <(echo "$negativeReads") | grep -v 'chrM' - > temporary
 	elif [ $subset == "chrM" ]; then
 		#Combine +/- rNMP coordinates and select rNMP coordinates located in mito DNA
-		cat <(echo "$positiveReads") <(echo "$negativeReads") | grep 'chrM' - > $coordinates
+		cat <(echo "$positiveReads") <(echo "$negativeReads") | grep 'chrM' - > temporary
 	else
 		#Combine +/- rNMP coordinates and select all rNMP coordinates
-		cat <(echo "$positiveReads") <(echo "$negativeReads") > $coordinates
+		cat <(echo "$positiveReads") <(echo "$negativeReads") > temporary
 	fi
 	
 	#Sort ribonucleotide coordinates
-	sort -k1,1 -k2,2n $coordinates > $sorted
+	sort -k1,1 -k2,2n temporary > $coordinates
 done
+
+#Remove temporary file
+rm temporary
