@@ -6,12 +6,13 @@
 #This program plots rNMP frequencies and nucleotide frequencies 100 bp upstream and downstream from rNMP
 #rNMP frequencies = position 0 on the x-axis, upstream frequencies = -100 -> -1, and downstream = +1 -> +100
 
+#Define three command line arguments
 args <- commandArgs(trailingOnly = TRUE)
 file <- args[1]
 title <- args[2]
 filename <- args[3]
 
-#Define data file to read
+#Define data file (tab delimited) to read
 data <- read.table(file, sep="\t", header=TRUE)
 
 #Define data values
@@ -21,10 +22,10 @@ frequencyC <- data$C
 frequencyG <- data$G
 frequencyT <- data$U.T
 
-#Load ggplot2 package
+#Load ggplot2
 library(ggplot2)
 
-#Plot data values using ggplot2
+#Plot data values
 myplot <- ggplot(data=data, aes(x=position)) +
     geom_line(aes(y = frequencyA, colour = "A")) + geom_point(aes(y = frequencyA, colour = "A")) +
     geom_line(aes(y = frequencyC, colour = "C")) + geom_point(aes(y = frequencyC, colour = "C")) +
@@ -36,4 +37,5 @@ myplot <- ggplot(data=data, aes(x=position)) +
     theme(axis.line.x = element_line(color="black", size = 0.5), axis.line.y = element_line(color="black", size = 0.5)) + theme(legend.key = element_rect(colour = NA)) +
     ylim(0, 2.5)
 
+#Save plot as PDF file
 ggsave(filename=filename, plot=myplot)
