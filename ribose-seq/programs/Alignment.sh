@@ -69,7 +69,7 @@ for sample in ${sample[@]}; do
 	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 SLIDINGWINDOW:5:15 MINLEN:40
 	
 	#Reverse complement reads
-	seqtk seq -r $fastq > $reverseComplement
+	seqtk seq -r $output/$sample-trimmed.fastq > $reverseComplement
 
 	#Trim UMI from 3' ends of reads (add UMI into read name)
 	umitools trim --end 3 $reverseComplement $UMI | gzip -c > $umiTrimmed
