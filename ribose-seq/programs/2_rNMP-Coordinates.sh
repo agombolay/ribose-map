@@ -37,7 +37,6 @@ fi
 for sample in ${sample[@]}; do
 
 #############################################################################################################################
-	
 	#Input file
 	bam=$directory/ribose-seq/results/$reference/$sample/Alignment/$sample.bam
 	
