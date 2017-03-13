@@ -8,8 +8,9 @@
 
 #Usage statement
 function usage () {
-	echo "Usage: Alignment.sh [-i] 'Sample(s)' [-b] 'Index' [-d] 'Directory' [-h]
-		-i Sample name(s) (FS1, FS2, FS3 etc.) 
+	echo "Usage: Alignment.sh [-i] 'Sample(s)' [-p] 'Path' [-b] 'Index' [-d] 'Directory' [-h]
+		-i Sample name(s) (FS1, FS2, FS3 etc.)
+		-p '/projects/home/agombolay3/data/bin/Trimmomatic-0.36'
 		-b Basename of Bowtie2 index to be searched (sacCer2, ecoli, mm9, hg38, etc.)
 		-d Local directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
 }
@@ -20,6 +21,7 @@ while getopts "i:b:d:h" opt; do
         #Allow multiple input arguments
         i ) sample=($OPTARG) ;;
 	#Allow only one input argument
+	p ) path=$OPTARG ;;
 	b ) index=$OPTARG ;;
 	d ) directory=$OPTARG ;;
         #Print usage statement
@@ -37,7 +39,7 @@ fi
 for sample in ${sample[@]}; do
 	
 	#Input FASTQ files
-	fastq=$directory/Sequencing-Results/$sample.fastq
+	fastq=$directory/Sequencing-Results/$sample.fastq.gz
 	
 	#Output directory
 	output=$directory/ribose-seq/results/$index/$sample/Alignment/
@@ -62,6 +64,10 @@ for sample in ${sample[@]}; do
 	statistics=$output/$sample.Alignment-Statistics.txt
 
 #############################################################################################################################
+	#Trim FASTQ files based on quality and Illumina adapter content
+	java -jar $path/trimmomatic-0.36.jar PE -phred33 $fastq $output/$sample-trimmed.fastq.gz
+	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 SLIDINGWINDOW:5:15 MINLEN:40
+	
 	#Reverse complement reads
 	seqtk seq -r $fastq > $reverseComplement
 
