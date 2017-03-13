@@ -15,6 +15,7 @@ dataset <- commandArgs(trailingOnly = TRUE)[1]
 #Argument 2 = PDF filename
 filename <- commandArgs(trailingOnly = TRUE)[2]
 
+#############################################################################################################################
 #OBSERVED DATA
 
 #Assign rNMP counts to variable
@@ -29,6 +30,7 @@ observed.total <- sum(observed.windows)
 #Calculate proportions (# of windows/total)
 observed.frequencies <- observed.windows/observed.total
 
+#############################################################################################################################
 #EXPECTED DATA
 
 #Calculate Poisson distribution lambda value
@@ -68,6 +70,7 @@ collapsed.expected.sum <- sum(expected.windows[c(row.start:row.end)])
 #Append collapsed data to last row of dataset to create final expected dataset
 expected.windows.final <- c(expected.windows[c(0:(row.start-1))],collapsed.expected.sum)
 
+#############################################################################################################################
 #CHI SQUARE TEST
 
 #Calculate Chi Square Statistic from observed and expected number of windows in dataset
@@ -82,17 +85,33 @@ if (chi.square > test.statistic) {
   print("p-value < 0.05")
 }
 
+#############################################################################################################################
 #Create dataframe
-data <- data.frame(
+dataset <- data.frame(
   type = factor(c(replicate(row.start, "Poisson"), replicate(row.start, "Observed"))),
   counts = factor(c(seq(0,row.start-1,1),seq(0,row.start-1,1)), levels=seq(0,row.start-1,1)),
   windows = c(expected.windows.final,observed.windows.final)
 )
 
-#Plot observed and expected data
-myplot <- ggplot(data=data, aes(x=counts, y=windows, fill=type))+geom_bar(stat="identity", position=position_dodge(width=0.8),
-  width=0.6)+scale_fill_manual(values=c("#000000","#999999"))+xlab("rNMP count per 2.5 kb window")+ylab("Number of Genomic Windows")+
-  theme_bw()+theme(panel.border=element_blank(),panel.grid.major=element_blank(),panel.grid.minor=element_blank(),axis.line=element_line(colour="black"))+
-  guides(fill=guide_legend(title=""))+scale_x_discrete(labels=seq(0,row.start-1,1))+scale_y_continuous(expand=c(0.015,0))+theme(text=element_text(size=14))
+#Plot distributions
+myplot <- ggplot(data=dataset, aes(x=counts, y=windows, fill=type)) +
 
+  #Plot data as barchart
+  geom_bar(stat="identity", position=position_dodge(width=0.8), width=0.6) +
+  
+  #Specify color values for distributions
+  scale_fill_manual(values=c("#000000","#999999")) +
+
+  #Label axes, add title, and specify font size
+  xlab("rNMP Count per 2.5 kb Window")+ylab("Number of Windows") +
+  guides(fill=guide_legend(title=""))+theme(text=element_text(size=14)) +
+
+  #Remove and replace default background
+  theme_bw()+theme(panel.border=element_blank(),panel.grid.major=element_blank(),
+  panel.grid.minor=element_blank(),axis.line=element_line(colour="black")) +
+
+  #Customize x axis labels and expand width of y axis
+  scale_x_discrete(labels=seq(0,row.start-1,1))+scale_y_continuous(expand=c(0.015,0))
+
+#Save plot as PDF file
 ggsave(filename=filename, plot=myplot)
