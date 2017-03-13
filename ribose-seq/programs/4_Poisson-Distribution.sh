@@ -5,38 +5,35 @@
 #E-mail: alli.gombolay@gatech.edu
 #This program counts the number of windows in the genome with 0...X number of rNMPs
 
-#COMMAND LINE OPTIONS
-
-#Usage statement of the program
+#Usage statement
 function usage () {
-	echo "Usage: 4_Poisson.sh [-i] 'Sample' [-r] 'Reference' [-s] 'Subset' [-d] 'Directory' [-h]
+	echo "Usage: Hotspots.sh [-i] 'Sample' [-r] 'Reference' [-s] 'Subset' [-d] 'Directory' [-h]
 	-i Sample name (FS1, etc.)
 	-s Subset of genome (sacCer2, nuclear, chrM, etc.)
 	-r Reference genome assembly version (sacCer2, etc.)
 	-d Local directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
 }
 
-#Use getopts function to create the command-line options ([-i], [-s], [-r], [-d], and [-h])
+#Command-line options
 while getopts "i:s:r:d:h" opt; do
     case $opt in
-        #Specify input as arrays to allow multiple input arguments
+        #Allow multiple input arguments
         i ) sample=($OPTARG) ;;
-	#Specify input as variable to allow only one input argument
+	#Allow only one input argument
 	s ) subset=$OPTARG ;;
 	r ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
-        #If user specifies [-h], print usage statement
+        #Print usage statement
         h ) usage ;;
     esac
 done
 
-#Exit program if user specifies [-h]
+#Exit program if [-h]
 if [ "$1" == "-h" ]; then
         exit
 fi
 
 #############################################################################################################################
-
 #Input files
 referenceBed=$directory/ribose-seq/reference/$reference.bed
 sorted=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.sorted.bed
@@ -55,29 +52,27 @@ referenceWindows=$output1/$reference.windows.bed
 #Separate reference genome into 2.5 kb windows
 bedtools makewindows -g $referenceBed -w 2500 > $referenceWindows
 
-#Select only data of interest
+#Select only data of interest (nuclear or mitochondrial DNA)
+#Determine regions of BED files that intersect and count number of intersections
+#Remove rows where window size is < 2.5 kb and sort based on # of rNMPs in windows
 if [ $subset == "nuclear" ]; then
-	#Determine regions of BED files that intersect and count number of overlaps (nuclear)
-	#Remove rows where window size is < 2.5 kb and sort based on number of rNMPs in windows
 	bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck | grep -v 'chrM' - | \
 	awk '{ $5 = $3 - $2 } 1' - | awk -v OFS='\t' '($5 == 2500 )  {print $1,$2,$3,$4}' - | sort -k4 -n - > temporary
 elif [ $subset == "chrM" ]; then
-	#Determine regions of BED files that intersect and count number of overlaps (chrM)
-	#Remove rows where window size is < 2.5 kb and sort based on number of rNMPs in windows
 	bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck | grep 'chrM' - | \
 	awk '{ $5 = $3 - $2 } 1' - | awk OFS='\t' '($5 == 2500 ) {print $1,$2,$3,$4}' - | sort -k4 -n - > temporary
 fi
 
 #Maximum number of rNMPs in binned data file
-max=$(tail -1 temporary1 | awk '{print $4}' -)
+max=$(tail -1 temporary | awk '{print $4}' -)
 
 #Determine number of windows with 0...maximum rNMPs
 for i in $(seq 0 $max); do
-	windows+=($(awk '$4 == ('$i')' temporary1 | wc -l))
+	windows+=($(awk '$4 == ('$i')' temporary | wc -l))
 done
 
 #Add column names to file
-echo -e "Chr\tStart\tStop\trNMPs" > $binned && cat temporary1 >> $binned
+echo -e "Chr\tStart\tStop\trNMPs" > $binned && cat temporary >> $binned
 
 #Add column names and number of windows with 0...maximum rNMPs
 echo -e "rNMPs\tWindows" > $counts && paste <(echo "$(seq 0 $max)") <(cat <( IFS=$'\n'; echo "${windows[*]}" )) >> $counts
