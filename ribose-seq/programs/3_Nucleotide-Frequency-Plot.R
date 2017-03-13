@@ -34,14 +34,14 @@ if (file.exists(file)) {
         geom_line(aes(y = frequencyG, colour = "G")) + geom_point(aes(y = frequencyG, colour = "G")) +
         geom_line(aes(y = frequencyT, colour = "U/T")) + geom_point(aes(y = frequencyT, colour = "U/T")) +
     
-        #Remove default background  
+        #Remove and replace default background  
         theme_bw() + theme(panel.border=element_blank(), panel.grid.major=element_blank(),
         panel.grid.minor=element_blank(), axis.line=element_line(colour="black")) +
     
         #Specify color values for each nucleotide 
         scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="Nucleotide") +
     
-        #Label axes, add title, define y-axis values, and specify font size
+        #Label axes, add title, define y-axis limits, and specify font size
         xlab("Position") + ylab("Frequency") + ggtitle(title) + ylim(0, 2.5) + theme(text = element_text(size=14)) +
     
         #Specify increased distance between axes and axes lables so easier to read
