@@ -56,11 +56,14 @@ bedtools makewindows -g $referenceBed -w 2500 > $referenceWindows
 #Determine regions of BED files that intersect and count number of intersections
 #Remove rows where window size is < 2.5 kb and sort based on # of rNMPs in windows
 if [ $subset == "nuclear" ]; then
-	bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck | grep -v 'chrM' - | \
-	awk '{ $5 = $3 - $2 } 1' - | awk -v OFS='\t' '($5 == 2500 )  {print $1,$2,$3,$4}' - | sort -k4 -n - > temporary
+	bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck \
+	| grep -v 'chrM' - | awk '{ $5 = $3 - $2 } 1' - | awk -v OFS='\t' '($5 == 2500 )  \
+	{print $1,$2,$3,$4}' - | sort -k4 -n - > temporary
+
 elif [ $subset == "chrM" ]; then
-	bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck | grep 'chrM' - | \
-	awk '{ $5 = $3 - $2 } 1' - | awk OFS='\t' '($5 == 2500 ) {print $1,$2,$3,$4}' - | sort -k4 -n - > temporary
+	bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck \
+	| grep 'chrM' - | awk '{ $5 = $3 - $2 } 1' - | awk OFS='\t' '($5 == 2500 ) \
+	{print $1,$2,$3,$4}' - | sort -k4 -n - > temporary
 fi
 
 #Maximum number of rNMPs in binned data file
@@ -75,7 +78,8 @@ done
 echo -e "Chr\tStart\tStop\trNMPs" > $binned && cat temporary >> $binned
 
 #Add column names and number of windows with 0...maximum rNMPs
-echo -e "rNMPs\tWindows" > $counts && paste <(echo "$(seq 0 $max)") <(cat <( IFS=$'\n'; echo "${windows[*]}" )) >> $counts
+echo -e "rNMPs\tWindows" > $counts && paste <(echo "$(seq 0 $max)") \
+<(cat <( IFS=$'\n'; echo "${windows[*]}" )) >> $counts
 
 #Remove temporary file
 rm temporary
