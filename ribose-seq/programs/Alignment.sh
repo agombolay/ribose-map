@@ -39,7 +39,7 @@ fi
 for sample in ${sample[@]}; do
 	
 	#Input FASTQ files
-	fastq=$directory/Sequencing-Results/$sample.fastq.gz
+	fastq=$directory/Sequencing-Results/$sample.fastq
 	
 	#Output directory
 	output=$directory/ribose-seq/results/$index/$sample/Alignment/
