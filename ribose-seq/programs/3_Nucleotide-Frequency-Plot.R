@@ -28,7 +28,7 @@ if (file.exists(file)) {
     #Plot frequencies
     myplot <- ggplot(data=data, aes(x=position)) +
         
-        #Plot data for each nucleotide as scatterplot with connecting lines    
+        #Plot data as scatterplot   
         geom_line(aes(y = frequencyA, colour = "A")) + geom_point(aes(y = frequencyA, colour = "A")) +
         geom_line(aes(y = frequencyC, colour = "C")) + geom_point(aes(y = frequencyC, colour = "C")) +
         geom_line(aes(y = frequencyG, colour = "G")) + geom_point(aes(y = frequencyG, colour = "G")) +
