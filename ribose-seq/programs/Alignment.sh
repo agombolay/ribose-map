@@ -16,7 +16,7 @@ function usage () {
 }
 
 #Command-line options
-while getopts "i:b:d:h" opt; do
+while getopts "i:p:b:d:h" opt; do
     case "$opt" in
         #Allow multiple input arguments
         i ) sample=($OPTARG) ;;
