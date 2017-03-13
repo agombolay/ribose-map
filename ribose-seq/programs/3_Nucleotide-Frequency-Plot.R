@@ -25,7 +25,7 @@ if (file.exists(file)) {
     #Load ggplot2
     library(ggplot2)
 
-    #Plot data values
+    #Plot frequencies
     myplot <- ggplot(data=data, aes(x=position)) +
         
         #Plot data for each nucleotide as scatterplot with connecting lines    
