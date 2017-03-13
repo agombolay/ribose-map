@@ -3,7 +3,7 @@
 #© 2016 Alli Gombolay
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
-#This program counts the number of windows in the genome with 0...X number of rNMPs
+#This program counts number of 2.5 kb windows in nucleus or mitochondria with 0...X rNMPs
 
 #Usage statement
 function usage () {
