@@ -11,7 +11,7 @@ function usage () {
 	echo "Usage: Alignment.sh [-i] 'Sample(s)' [-p] 'Path' [-b] 'Index' [-d] 'Directory' [-h]
 		-i Sample name(s) (FS1, FS2, FS3 etc.)
 		-p '/projects/home/agombolay3/data/bin/Trimmomatic-0.36'
-		-b Basename of Bowtie2 index to be searched (sacCer2, ecoli, mm9, hg38, etc.)
+		-b Basename of Bowtie2 index (sacCer2, ecoli, mm9, hg38, etc.)
 		-d Local directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
 }
 
