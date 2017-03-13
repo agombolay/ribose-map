@@ -45,7 +45,6 @@ output1=$directory/ribose-seq/reference; output2=$directory/ribose-seq/results/$
 mkdir -p $output1 $output2
 
 #Output files
-binned=$output2/$sample.binned-data.txt
 counts=$output2/$sample.Poisson-windows.txt
 referenceWindows=$output1/$reference.windows.bed
 
@@ -74,10 +73,7 @@ for i in $(seq 0 $max); do
 	windows+=($(awk '$4 == ('$i')' temporary | wc -l))
 done
 
-#Add column names to file
-echo -e "Chr\tStart\tStop\trNMPs" > $binned && cat temporary >> $binned
-
-#Add column names and number of windows with 0...maximum rNMPs
+#Add column names and # of windows with 0...maximum rNMPs
 echo -e "rNMPs\tWindows" > $counts && paste <(echo "$(seq 0 $max)") \
 <(cat <( IFS=$'\n'; echo "${windows[*]}" )) >> $counts
 
