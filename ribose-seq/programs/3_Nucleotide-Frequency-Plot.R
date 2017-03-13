@@ -12,7 +12,6 @@ title <- commandArgs(trailingOnly = TRUE)[2]
 filename <- commandArgs(trailingOnly = TRUE)[3]
 
 if (file.exists(file)) {
-
     #Define data file (tab delimited) to read
     data <- read.table(file, sep="\t", header=TRUE)
 
