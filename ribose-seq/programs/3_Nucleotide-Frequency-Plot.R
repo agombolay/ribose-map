@@ -38,13 +38,13 @@ if (file.exists(file)) {
     
         #Remove default background  
         theme_bw() + theme(panel.border=element_blank(), panel.grid.major=element_blank(),
-        panel.grid.minor=element_blank(), axis.line=element_line(colour="black"))
+        panel.grid.minor=element_blank(), axis.line=element_line(colour="black")) +
     
         #Specify color values for each nucleotide 
-        scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="Nucleotide")
+        scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="Nucleotide") +
     
         #Label axes, add title, define y-axis values, and specify font size
-        xlab("Position") + ylab("Frequency") + ggtitle(title) + ylim(0, 2.5) + theme(text = element_text(size=14))
+        xlab("Position") + ylab("Frequency") + ggtitle(title) + ylim(0, 2.5) + theme(text = element_text(size=14)) +
     
         #Specify increased distance between axes and axes lables so easier to read
         theme(axis.title.y=element_text(margin=margin(0,20,0,0))) + theme(axis.title.x=element_text(margin=margin(20,0,0,0)))
