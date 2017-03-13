@@ -3,44 +3,40 @@
 #© 2016 Alli Gombolay
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
-#This program determines the coordinates of the rNMPs (3' position of aligned reads)
+#This program determines the coordinates of rNMPs (3' position of aligned reads)
 
-#COMMAND LINE OPTIONS
-
-#Usage statement of the program
+#Usage statement
 function usage () {
-	echo "Usage: 2_rNMP-Coordinates.sh [-i] 'Sample' [-r] 'Reference' [-s] 'Subset' [-d] 'Directory' [-h]
-	-i Sample name (FS1, etc.)
-	-s Subset of genome (genome, nuclear, chrM, etc.)
-	-r Reference genome assembly version (sacCer2, etc.)
+	echo "Usage: Coordinates.sh [-i] 'Sample(s)' [-r] 'Reference' [-s] 'Subset' [-d] 'Directory' [-h]
+	-i Sample name(s) (FS1, FS2, FS3 etc.)
+	-s Subset of genome (genome, nuclear, chrM)
+	-r Reference genome (sacCer2, ecoli, mm9, hg38, etc.)
 	-d Local directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
 }
 
-#Use getopts function to create the command-line options ([-i], [-s], [-r], [-d], and [-h])
+#Command-line options
 while getopts "i:s:r:d:h" opt; do
     case $opt in
-        #Specify input as arrays to allow multiple input arguments
+        #Allow multiple input arguments
         i ) sample=($OPTARG) ;;
-	#Specify input as variable to allow only one input argument
+	#Allow only one input argument
 	s ) subset=$OPTARG ;;
 	r ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
-        #If user specifies [-h], print usage statement
+        #Print usage statement
         h ) usage ;;
     esac
 done
 
-#Exit program if user specifies [-h]
+#Exit program if [-h]
 if [ "$1" == "-h" ]; then
         exit
 fi
 
-#Determine rNMP coordinates for each sample
+#Determine coordinates
 for sample in ${sample[@]}; do
 
 #############################################################################################################################
-	#Input/Output
-	
 	#Input file
 	bam=$directory/ribose-seq/results/$reference/$sample/Alignment/$sample.bam
 	
@@ -54,7 +50,6 @@ for sample in ${sample[@]}; do
 	rm -f $output/{*.txt,*.bed,*.fa,*.fq}
 	
 	#Output files
-	sorted=$output/$sample.rNMP-coordinates.sorted.bed
 	sequences=$output/$sample.sequences.txt; bed=$output/$sample.aligned-reads.bed;
 	reads=$output/$sample.read-information.bed; coordinates=$output/$sample.rNMP-coordinates.bed
 
@@ -81,16 +76,19 @@ for sample in ${sample[@]}; do
 		
 	#Filter coordinates by region
 	if [ $subset == "nuclear" ]; then
-		#Combine +/- rNMP coordinates and select rNMP coordinates located in nuclear DNA
-		cat <(echo "$positiveReads") <(echo "$negativeReads") | grep -v 'chrM' - > $coordinates
+		#Combine +/- rNMP coordinates and select only those in nuclear DNA
+		cat <(echo "$positiveReads") <(echo "$negativeReads") | grep -v 'chrM' - > temporary
 	elif [ $subset == "chrM" ]; then
-		#Combine +/- rNMP coordinates and select rNMP coordinates located in mito DNA
-		cat <(echo "$positiveReads") <(echo "$negativeReads") | grep 'chrM' - > $coordinates
+		#Combine +/- rNMP coordinates and select only those in mitochondrial DNA
+		cat <(echo "$positiveReads") <(echo "$negativeReads") | grep 'chrM' - > temporary
 	else
-		#Combine +/- rNMP coordinates and select all rNMP coordinates
-		cat <(echo "$positiveReads") <(echo "$negativeReads") > $coordinates
+		#Combine all +/- rNMP coordinates
+		cat <(echo "$positiveReads") <(echo "$negativeReads") > temporary
 	fi
 	
 	#Sort ribonucleotide coordinates
-	sort -k1,1 -k2,2n $coordinates > $sorted
+	sort -k1,1 -k2,2n temporary > $coordinates
 done
+
+#Remove temporary file
+rm temporary
