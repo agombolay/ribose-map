@@ -7,10 +7,10 @@
 
 #Usage statement
 function usage () {
-	echo "Usage: Hotspots.sh [-i] 'Sample' [-r] 'Reference' [-s] 'Subset' [-d] 'Directory' [-h]
-	-i Sample name (FS1, etc.)
-	-s Subset of genome (sacCer2, nuclear, chrM, etc.)
-	-r Reference genome assembly version (sacCer2, etc.)
+	echo "Usage: Hotspots.sh [-i] 'Sample(s)' [-r] 'Reference' [-s] 'Subset' [-d] 'Directory' [-h]
+	-i Sample name(s) (FS1, FS2, FS3 etc.)
+	-s Subset of genome (either nuclear or chrM)
+	-r Reference genome (sacCer2, ecoli, mm9, hg38, etc.)
 	-d Local directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
 }
 
@@ -49,7 +49,7 @@ binned=$output2/$sample.binned-data.txt
 counts=$output2/$sample.Poisson-windows.txt
 referenceWindows=$output1/$reference.windows.bed
 
-#Separate reference genome into 2.5 kb windows
+#Separate chromosomes of reference into 2.5 kb windows
 bedtools makewindows -g $referenceBed -w 2500 > $referenceWindows
 
 #Select only data of interest (nuclear or mitochondrial DNA)
