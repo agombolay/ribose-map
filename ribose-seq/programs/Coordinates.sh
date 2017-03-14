@@ -50,7 +50,6 @@ for sample in ${sample[@]}; do
 	rm -f $output/{*.txt,*.bed,*.fa,*.fq}
 	
 	#Output files
-	bed=$output/$sample.aligned-reads.bed
 	reads=$output/$sample.read-information.bed
 	coordinates=$output/$sample.rNMP-coordinates.bed
 
@@ -64,10 +63,10 @@ for sample in ${sample[@]}; do
 	#STEP 2: Obtain rNMP coordinates from aligned reads
 
 	#Covert BAM file to BED format
-	bedtools bamtobed -i $bam > $bed
+	bedtools bamtobed -i $bam > temporary2
 	
 	#Extract read coordinates, sequences, and strand information
-	paste $bed temporary1 | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $reads
+	paste temporary2 temporary1 | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $reads
 	
 	#Obtain coordinates of rNMPs located on positive strand of DNA
 	positiveReads=$(awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $reads)
@@ -78,18 +77,18 @@ for sample in ${sample[@]}; do
 	#Filter coordinates by region
 	if [ $subset == "nuclear" ]; then
 		#Combine +/- rNMP coordinates and select only those in nuclear DNA
-		cat <(echo "$positiveReads") <(echo "$negativeReads") | grep -v 'chrM' - > temporary2
+		cat <(echo "$positiveReads") <(echo "$negativeReads") | grep -v 'chrM' - > temporary3
 	elif [ $subset == "chrM" ]; then
 		#Combine +/- rNMP coordinates and select only those in mitochondrial DNA
-		cat <(echo "$positiveReads") <(echo "$negativeReads") | grep 'chrM' - > temporary2
+		cat <(echo "$positiveReads") <(echo "$negativeReads") | grep 'chrM' - > temporary3
 	else
 		#Combine all +/- rNMP coordinates
-		cat <(echo "$positiveReads") <(echo "$negativeReads") > temporary2
+		cat <(echo "$positiveReads") <(echo "$negativeReads") > temporary3
 	fi
 	
 	#Sort ribonucleotide coordinates
-	sort -k1,1 -k2,2n temporary2 > $coordinates
+	sort -k1,1 -k2,2n temporary3 > $coordinates
 done
 
 #Remove temporary files
-rm temporary1 temporary2
+rm temporary1 temporary2 temporary3
