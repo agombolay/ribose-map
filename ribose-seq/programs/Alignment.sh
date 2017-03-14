@@ -52,7 +52,7 @@ for sample in ${sample[@]}; do
 	sortedBAM=$output/$sample.sorted.bam; reverseComplement=$output/$sample.reverse-complement.fastq
 
 	#UMI length
-	UMI=NNNNNNNNNNN
+	UMI=NNNNNNNN
 	
 	#BED file
 	BED=$output/$sample.bed.gz
