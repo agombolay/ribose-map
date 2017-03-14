@@ -50,14 +50,15 @@ for sample in ${sample[@]}; do
 	rm -f $output/{*.txt,*.bed,*.fa,*.fq}
 	
 	#Output files
-	sequences=$output/$sample.sequences.txt; bed=$output/$sample.aligned-reads.bed;
-	reads=$output/$sample.read-information.bed; coordinates=$output/$sample.rNMP-coordinates.bed
+	bed=$output/$sample.aligned-reads.bed
+	reads=$output/$sample.read-information.bed
+	coordinates=$output/$sample.rNMP-coordinates.bed
 
 #############################################################################################################################
 	#STEP 1: Extract sequences from BAM alignment file
 
 	#Convert BAM to FASTA file then extract sequences from FASTA
-	samtools bam2fq $bam | seqtk seq -A - | grep -v '>' - > $sequences
+	samtools bam2fq $bam | seqtk seq -A - | grep -v '>' - > temporary1
 
 #############################################################################################################################
 	#STEP 2: Obtain rNMP coordinates from aligned reads
@@ -66,7 +67,7 @@ for sample in ${sample[@]}; do
 	bedtools bamtobed -i $bam > $bed
 	
 	#Extract read coordinates, sequences, and strand information
-	paste $bed $sequences | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $reads
+	paste $bed temporary1 | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $reads
 	
 	#Obtain coordinates of rNMPs located on positive strand of DNA
 	positiveReads=$(awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $reads)
@@ -77,18 +78,18 @@ for sample in ${sample[@]}; do
 	#Filter coordinates by region
 	if [ $subset == "nuclear" ]; then
 		#Combine +/- rNMP coordinates and select only those in nuclear DNA
-		cat <(echo "$positiveReads") <(echo "$negativeReads") | grep -v 'chrM' - > temporary
+		cat <(echo "$positiveReads") <(echo "$negativeReads") | grep -v 'chrM' - > temporary2
 	elif [ $subset == "chrM" ]; then
 		#Combine +/- rNMP coordinates and select only those in mitochondrial DNA
-		cat <(echo "$positiveReads") <(echo "$negativeReads") | grep 'chrM' - > temporary
+		cat <(echo "$positiveReads") <(echo "$negativeReads") | grep 'chrM' - > temporary2
 	else
 		#Combine all +/- rNMP coordinates
-		cat <(echo "$positiveReads") <(echo "$negativeReads") > temporary
+		cat <(echo "$positiveReads") <(echo "$negativeReads") > temporary2
 	fi
 	
 	#Sort ribonucleotide coordinates
-	sort -k1,1 -k2,2n temporary > $coordinates
+	sort -k1,1 -k2,2n temporary2 > $coordinates
 done
 
-#Remove temporary file
-rm temporary
+#Remove temporary files
+rm temporary1 temmporary2
