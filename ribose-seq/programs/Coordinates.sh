@@ -92,4 +92,4 @@ for sample in ${sample[@]}; do
 done
 
 #Remove temporary files
-rm temporary1 temmporary2
+rm temporary1 temporary2
