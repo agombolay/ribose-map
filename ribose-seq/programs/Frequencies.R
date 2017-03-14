@@ -35,7 +35,7 @@ if (file.exists(file)) {
         geom_line(aes(y = frequencyT, colour = "U/T")) + geom_point(aes(y = frequencyT, colour = "U/T")) +
     
         #Add axes titles
-        xlab("Position") + ylab("Frequency") 
+        xlab("Position") + ylab("Frequency") +
 
         #Remove and replace default background plot theme
         theme_bw() + theme(panel.border=element_blank(), panel.grid.major=element_blank(),
@@ -45,7 +45,7 @@ if (file.exists(file)) {
         scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="Nucleotide") +
     
         #Label axes, add title, define y-axis limits, and specify font size
-        theme(text = element_text(size=14)) + ggtitle(title) + theme(plot.title = element_text(hjust = 0.5))
+        theme(text = element_text(size=14)) + ggtitle(title) + theme(plot.title = element_text(hjust = 0.5)) +
 
         #Specify increased distance between axes and axes lables so easier to read
         theme(axis.title.y=element_text(margin=margin(0,20,0,0))) + theme(axis.title.x=element_text(margin=margin(20,0,0,0)))
