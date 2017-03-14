@@ -3,7 +3,7 @@
 #© 2016 Alli Gombolay
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
-#This program determines outliers in the data using quartile analysis.
+#This program determines outliers in the data using quartile analysis
 
 #Argument 1 = dataset file
 dataset <- commandArgs(trailingOnly = TRUE)[1]
