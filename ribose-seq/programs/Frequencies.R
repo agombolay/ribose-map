@@ -16,11 +16,11 @@ if (file.exists(file)) {
     dataset <- read.table(file, sep="\t", header=TRUE)
 
     #Define position values
-    position <- data$X
+    position <- dataset$X
     
     #Define frequency values
-    frequencyA <- data$A; frequencyC <- data$C
-    frequencyG <- data$G; frequencyT <- data$U.T
+    frequencyA <- dataset$A; frequencyC <- dataset$C
+    frequencyG <- dataset$G; frequencyT <- dataset$U.T
 
     #Load ggplot2
     library(ggplot2)
@@ -34,6 +34,9 @@ if (file.exists(file)) {
         geom_line(aes(y = frequencyG, colour = "G")) + geom_point(aes(y = frequencyG, colour = "G")) +
         geom_line(aes(y = frequencyT, colour = "U/T")) + geom_point(aes(y = frequencyT, colour = "U/T")) +
     
+        #Add axes titles
+        xlab("Position") + ylab("Frequency") 
+
         #Remove and replace default background plot theme
         theme_bw() + theme(panel.border=element_blank(), panel.grid.major=element_blank(),
         panel.grid.minor=element_blank(), axis.line=element_line(colour="black")) +
@@ -42,8 +45,8 @@ if (file.exists(file)) {
         scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="Nucleotide") +
     
         #Label axes, add title, define y-axis limits, and specify font size
-        xlab("Position") + ylab("Frequency") + ggtitle(title) + ylim(0, 2.5) + theme(text = element_text(size=14)) +
-    
+        theme(text = element_text(size=14)) + ggtitle(title) + theme(plot.title = element_text(hjust = 0.5))
+
         #Specify increased distance between axes and axes lables so easier to read
         theme(axis.title.y=element_text(margin=margin(0,20,0,0))) + theme(axis.title.x=element_text(margin=margin(20,0,0,0)))
 
