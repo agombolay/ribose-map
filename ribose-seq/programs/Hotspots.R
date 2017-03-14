@@ -19,7 +19,7 @@ filename <- commandArgs(trailingOnly = TRUE)[2]
 #OBSERVED DATA
 
 #Assign rNMP counts to variable
-counts <- read.csv(file = dataset, sep = "\t")[ ,c('Counts')]
+counts <- read.csv(file = dataset, sep = "\t")[ ,c('rNMPs')]
 
 #Assign # of windows to variable
 observed.windows <- read.csv(file = dataset, sep = "\t")[ ,c('Windows')]
