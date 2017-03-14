@@ -8,19 +8,23 @@
 
 #Usage statement
 function usage () {
-	echo "Usage: Alignment.sh [-i] 'Sample(s)' [-p] 'Path' [-b] 'Index' [-d] 'Directory' [-h]
+	echo "Usage: Alignment.sh [-i] 'Sample(s)' [-u] 'UMI' [-m] 'Min' [-p] 'Path' [-b] 'Index' [-d] 'Directory' [-h]
 		-i Sample name(s) (FS1, FS2, FS3 etc.)
+		-u Length of UMI (NNNNNNNN or NNNNNNNNNNN)
+		-m Minimum length of read to retain after trimming
 		-p /projects/home/agombolay3/data/bin/Trimmomatic-0.36
 		-b Basename of Bowtie2 index (sacCer2, ecoli, mm9, hg38, etc.)
 		-d Directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
 }
 
 #Command-line options
-while getopts "i:p:b:d:h" opt; do
+while getopts "i:u:m:p:b:d:h" opt; do
     case "$opt" in
         #Allow multiple input arguments
         i ) sample=($OPTARG) ;;
 	#Allow only one input argument
+	u ) UMI=$OPTARG ;;
+	m ) MIN=$OPTARG ;;
 	p ) path=$OPTARG ;;
 	b ) index=$OPTARG ;;
 	d ) directory=$OPTARG ;;
@@ -50,9 +54,6 @@ for sample in ${sample[@]}; do
 	#Intermediate files
 	umiTrimmed=$output/$sample.UMI-trimmed.fastq.gz; intermediateSAM=$output/$sample.intermediate.sam;
 	sortedBAM=$output/$sample.sorted.bam; reverseComplement=$output/$sample.reverse-complement.fastq
-
-	#UMI length
-	UMI=NNNNNNNN
 	
 	#BED file
 	BED=$output/$sample.bed.gz
@@ -66,7 +67,7 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#Trim FASTQ files based on quality and Illumina adapter content
 	java -jar $path/trimmomatic-0.36.jar SE -phred33 $fastq $output/$sample-trimmed.fastq \
-	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 SLIDINGWINDOW:5:15 MINLEN:40
+	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 SLIDINGWINDOW:5:15 MINLEN:$MIN
 	
 	#Reverse complement reads
 	seqtk seq -r $output/$sample-trimmed.fastq > $reverseComplement
