@@ -57,20 +57,21 @@ bedtools makewindows -g $referenceBed -w 2500 > $referenceWindows
 if [ $subset == "nuclear" ]; then
 	bedtools intersect -a $referenceWindows -b $coordinates -c -sorted -nonamecheck \
 	| grep -v 'chrM' - | awk '{ $5 = $3 - $2 } 1' - | awk -v OFS='\t' '($5 == 2500 )  \
-	{print $1,$2,$3,$4}' - | sort -k4 -n - > temporary
+	{print $1,$2,$3,$4}' - | sort -k4 -n - > temporary1
 
 elif [ $subset == "chrM" ]; then
-	bedtools intersect -a $referenceWindows -b $coordinates -c -sorted -nonamecheck \
+	grep 'chrM' $referenceWindows > temporary2
+	bedtools intersect -a temporary2 -b $coordinates -c -sorted -nonamecheck \
 	| grep 'chrM' - | awk '{ $5 = $3 - $2 } 1' - | awk -v OFS='\t' '($5 == 2500 ) \
-	{print $1,$2,$3,$4}' - | sort -k4 -n - > temporary
+	{print $1,$2,$3,$4}' - | sort -k4 -n - > temporary1
 fi
 
 #Maximum number of rNMPs in binned data file
-max=$(tail -1 temporary | awk '{print $4}' -)
+max=$(tail -1 temporary1 | awk '{print $4}' -)
 
 #Determine number of windows with 0...maximum rNMPs
 for i in $(seq 0 $max); do
-	windows+=($(awk '$4 == ('$i')' temporary | wc -l))
+	windows+=($(awk '$4 == ('$i')' temporary1 | wc -l))
 done
 
 #Add column names and # of windows with 0...maximum rNMPs
@@ -78,4 +79,4 @@ echo -e "rNMPs\tWindows" > $counts && paste <(echo "$(seq 0 $max)") \
 <(cat <( IFS=$'\n'; echo "${windows[*]}" )) >> $counts
 
 #Remove temporary file
-rm temporary
+rm temporary1 temporary2
