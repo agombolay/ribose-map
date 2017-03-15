@@ -68,7 +68,7 @@ elif [ $subset == "chrM" ]; then
 	grep 'chrM' $referenceWindows > temporary2
 	bedtools intersect -a temporary2 -b $coordinates -c -sorted -nonamecheck \
 	| grep 'chrM' - | awk '{ $5 = $3 - $2 } 1' - | awk -v OFS='\t' \
-	{print $1,$2,$3,$4}' - | sort -k4 -n - > temporary1
+	'{print $1,$2,$3,$4}' - | sort -k4 -n - > temporary1
 fi
 
 #Maximum number of rNMPs in binned data file
