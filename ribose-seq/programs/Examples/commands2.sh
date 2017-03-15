@@ -1,1 +1,1 @@
-Rscript Hotspots.R "/Users/alligombolay/desktop/FS15.Poisson-PDF.counts.txt" "Plot.pdf"
+Rscript Distribution.R "file" "Plot.pdf"
