@@ -55,7 +55,7 @@ bedtools intersect -a $referenceWindows -b $coordinates -c -sorted -nonamecheck 
 | awk '{ $5 = $3 - $2 } 1' - | awk -v OFS='\t' '($5 == 2500 ) {print $1,$2,$3,$4}' - \
 | sort -k4 -n - > temporary
 
-#Maximum number of rNMPs in binned data file
+#Maximum number of rNMPs in binned data
 max=$(tail -1 temporary | awk '{print $4}' -)
 
 #Determine number of windows with 0...maximum rNMPs
