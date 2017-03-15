@@ -43,7 +43,7 @@ output1=$directory/ribose-seq/reference; output2=$directory/ribose-seq/results/$
 mkdir -p $output1 $output2
 
 #Output files
-counts=$output2/$sample.observed-counts.$subset.txt
+counts=$output2/$sample.observed-counts.txt
 referenceWindows=$output1/$reference.windows.bed
 
 #Separate chromosomes of reference into 2.5 kb windows
