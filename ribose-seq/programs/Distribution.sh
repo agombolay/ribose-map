@@ -61,7 +61,7 @@ if [ $subset == "nuclear" ]; then
 
 elif [ $subset == "chrM" ]; then
 	bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck \
-	| grep 'chrM' - | awk '{ $5 = $3 - $2 } 1' - | awk OFS='\t' '($5 == 2500 ) \
+	| grep 'chrM' - | awk '{ $5 = $3 - $2 } 1' - | awk -v OFS='\t' '($5 == 2500 ) \
 	{print $1,$2,$3,$4}' - | sort -k4 -n - > temporary
 fi
 
