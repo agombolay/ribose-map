@@ -36,7 +36,7 @@ fi
 #############################################################################################################################
 #Input files
 referenceBed=$directory/ribose-seq/reference/$reference.bed
-sorted=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.bed
+coordinates=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.bed
 
 #Output directories
 output1=$directory/ribose-seq/reference; output2=$directory/ribose-seq/results/$reference/$sample/Distribution/$subset
@@ -55,12 +55,12 @@ bedtools makewindows -g $referenceBed -w 2500 > $referenceWindows
 #Determine regions of BED files that intersect and count number of intersections
 #Remove rows where window size is < 2.5 kb and sort based on # of rNMPs in windows
 if [ $subset == "nuclear" ]; then
-	bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck \
+	bedtools intersect -a $referenceWindows -b $coordinates -c -sorted -nonamecheck \
 	| grep -v 'chrM' - | awk '{ $5 = $3 - $2 } 1' - | awk -v OFS='\t' '($5 == 2500 )  \
 	{print $1,$2,$3,$4}' - | sort -k4 -n - > temporary
 
 elif [ $subset == "chrM" ]; then
-	bedtools intersect -a $referenceWindows -b $sorted -c -sorted -nonamecheck \
+	bedtools intersect -a $referenceWindows -b $coordinates -c -sorted -nonamecheck \
 	| grep 'chrM' - | awk '{ $5 = $3 - $2 } 1' - | awk -v OFS='\t' '($5 == 2500 ) \
 	{print $1,$2,$3,$4}' - | sort -k4 -n - > temporary
 fi
