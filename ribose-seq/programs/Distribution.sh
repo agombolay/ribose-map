@@ -37,7 +37,7 @@ referenceBed=$directory/ribose-seq/reference/$reference.bed
 coordinates=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.bed
 
 #Output directories
-output1=$directory/ribose-seq/reference; output2=$directory/ribose-seq/results/$reference/$sample/Distribution/$subset
+output1=$directory/ribose-seq/reference; output2=$directory/ribose-seq/results/$reference/$sample/Distribution/
 
 #Create directories
 mkdir -p $output1 $output2
