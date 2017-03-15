@@ -39,13 +39,13 @@ referenceBed=$directory/ribose-seq/reference/$reference.bed
 sorted=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.bed
 
 #Output directories
-output1=$directory/ribose-seq/reference; output2=$directory/ribose-seq/results/$reference/$sample/Distribution
+output1=$directory/ribose-seq/reference; output2=$directory/ribose-seq/results/$reference/$sample/Distribution/$subset
 
 #Create directories
 mkdir -p $output1 $output2
 
 #Output files
-counts=$output2/$sample.Poisson-windows.txt
+counts=$output2/$sample.Poisson-windows.$subset.txt
 referenceWindows=$output1/$reference.windows.bed
 
 #Separate chromosomes of reference into 2.5 kb windows
