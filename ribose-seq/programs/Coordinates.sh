@@ -7,7 +7,7 @@
 
 #Usage statement
 function usage () {
-	echo "Usage: Coordinates.sh [-i] 'Sample(s)' [-r] 'Reference' [-s] 'Subset' [-d] 'Directory' [-h]
+	echo "Usage: Coordinates.sh [-i] 'Sample(s)' [-s] 'Subset' [-r] 'Reference' [-d] 'Directory' [-h]
 	-i Sample name(s) (FS1, FS2, FS3 etc.)
 	-s Subset of genome (genome, nuclear, chrM)
 	-r Reference genome (sacCer2, ecoli, mm9, hg38, etc.)
