@@ -42,7 +42,7 @@ for sample in ${sample[@]}; do
 	referenceFasta1=$directory/ribose-seq/reference/$reference.fa
 	referenceFasta2=$directory/ribose-seq/reference/$reference.$subset.fa
 	
-	reads=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.read-information.bed
+	reads=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.read-information.txt
 	coordinates=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.bed
 
 	#Output directories
