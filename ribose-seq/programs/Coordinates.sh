@@ -50,7 +50,7 @@ for sample in ${sample[@]}; do
 	rm -f $output/{*.txt,*.bed,*.fa,*.fq}
 	
 	#Output files
-	reads=$output/$sample.read-information.bed
+	reads=$output/$sample.read-information.txt
 	coordinates=$output/$sample.rNMP-coordinates.$subset.bed
 
 #############################################################################################################################
