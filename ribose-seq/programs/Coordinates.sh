@@ -51,7 +51,7 @@ for sample in ${sample[@]}; do
 	
 	#Output files
 	reads=$output/$sample.read-information.bed
-	coordinates=$output/$sample.rNMP-coordinates.bed
+	coordinates=$output/$sample.rNMP-coordinates.$subset.bed
 
 #############################################################################################################################
 	#STEP 1: Extract sequences from BAM alignment file
