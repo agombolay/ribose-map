@@ -5,3 +5,6 @@ TAA**TT**TTTTTGTAATATAAATGTATAGTCTTTCTCCTTTGTTTTCTCTCGTTCGTTTCCATGT
 
 **Reference**:
 Vengrova and Dalgaard, Genes and Development 2004
+
+**FASTA Sequence of S. pombe genome**:
+http://fungi.ensembl.org/info/website/ftp/index.html
