@@ -1,4 +1,4 @@
-**Homology Domain H1 of mat1 locus in S. pombe (Diribo Imprint: chrII:2115362)**:
+**Homology Domain H1 of mat1 locus in S. pombe (Diribo Imprint: chrII:2115362-63)**:
 TAA**TT**TTTTTGTAATATAAATGTATAGTCTTTCTCCTTTGTTTTCTCTCGTTCGTTTCCATGT
 
 **Reference**:
