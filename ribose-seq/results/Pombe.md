@@ -9,6 +9,7 @@ Vengrova and Dalgaard, Genes and Development 2004
 **FASTA Sequence of S. pombe genome**:  
 http://fungi.ensembl.org/info/website/ftp/index.html
 
+##Commands to determine coordinates of imprint
 ```
 bowtie2 -x pombe -c -U TAATTTTTTTGTAATATAAATGTATAGTCTTTCTCCTTTGTTTTCTCTCGTTCGTTTCCATGT -S pombe.sam
 samtools view pombe.sam -b | samtools sort - -o pombe.bam
