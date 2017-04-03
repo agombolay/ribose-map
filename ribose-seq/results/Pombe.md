@@ -9,4 +9,8 @@ http://fungi.ensembl.org/info/website/ftp/index.html
 
 ```
 bowtie2 -x pombe -c -U TAATTTTTTTGTAATATAAATGTATAGTCTTTCTCCTTTGTTTTCTCTCGTTCGTTTCCATGT -S pombe.sam
+samtools view pombe.sam -b -o pombe.bam
+```
+```
+samtools tview -p II:2115359 pombe.bam /projects/home/agombolay3/data/repository/Ribose-seq-Project/ribose-seq/reference/pombe.fa
 ```
