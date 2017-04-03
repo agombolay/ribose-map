@@ -1,6 +1,8 @@
 **Homology Domain H1 of mat1 locus (Diribo Imprint: chrII:2115362-63 on forward strand)**:
 TAA**TT**TTTTTGTAATATAAATGTATAGTCTTTCTCCTTTGTTTTCTCTCGTTCGTTTCCATGT
 
+<img src="https://github.com/agombolay/Helpful-Resources/blob/master/costpergenome.jpg" width="400px" height="300px" />
+
 **Reference**:
 Vengrova and Dalgaard, Genes and Development 2004
 
