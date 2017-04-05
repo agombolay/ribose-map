@@ -1,7 +1,7 @@
 <h2><p align="center">Ribose-Map: A Bioinformatics Toolkit to Profile rNMPs Embedded in DNA</p></h2>
 
 Alli Gombolay, M.P.H  
-[Storici Lab](http://www.storicilab.gatech.edu/) | [School of Biology](http://www.biology.gatech.edu/)  
+[Storici Lab](http://www.storicilab.gatech.edu/) | [School of Biological Sciences](http://www.biology.gatech.edu/)  
 [Georgia Institute of Technology](http://www.gatech.edu/)  
 Contact: alli.gombolay@gatech.edu
 
