@@ -7,7 +7,7 @@ Contact: alli.gombolay@gatech.edu
 Last Updated: May 2016  
 
 ## Project Overview
-**Goal**: To create a streamlined bioinformatics pipeline to analyze Ribose-seq libraries on any Linux platform
+**Goal**: To create a user-friendly bioinformatics toolkit to analyze ribose-seq libraries
 
 <p align="justify">
 <b>Background</b>: The original scripts used to analyze Ribose-seq libraries required Platform Load Sharing Facility (LSF) workload management software to run properly.  To enable the user to efficiently analyze their sequenced ribose-seq libraries, I have created an updated, streamlined version of the Ribose-seq analysis pipeline that does not depend on LSF.  This pipeline has been designed to run on any Linux platform, and it consists of both Bash scripts and R scripts.  The pipeline includes a script to automatically download all required input files, the appropriate directory structure (as a GitHub repository), and the required software.
