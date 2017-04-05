@@ -19,10 +19,7 @@ Last Updated: May 2016
 
 ## Usage
 To display help menu:  
-`wrapper -h`  
-
-To run Ribose-seq analysis pipeline:  
-`wrapper -g 'FASTQ.GZ Files of Interest' -r 'Bowtie Index'`
+`script -h`  
 
 ## References  
 * [Ribose-seq *Nature Methods* Paper, 2015](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4686381/pdf/nihms742750.pdf)  
