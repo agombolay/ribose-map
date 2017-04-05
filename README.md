@@ -14,7 +14,9 @@ Last Updated: May 2016
 </p>
 
 <p align="justify">
-<b>Significance</b>: With minimal software dependencies, environment set-up, and comprehensive documentation, Ribose-Map allows users to readily profile the identity and distribution of rNMPs in any organism of interest.
+<b>Significance</b>:
+
+With minimal software dependencies, environment set-up, and comprehensive documentation, Ribose-Map allows users to readily profile the identity and distribution of rNMPs in any organism of interest.
 </p>
 
 ## Usage
