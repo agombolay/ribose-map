@@ -16,8 +16,7 @@ Last Updated: May 2016
 <p align="justify">
 <b>Significance</b>:  
 
-With minimal software dependencies and comprehensive documentation, T
-the Ribose-Map bioinformatics toolkit allows users to readily profile the identity and distribution of rNMPs in any organism of interest.
+With minimal software dependencies and comprehensive documentation, the Ribose-Map bioinformatics toolkit allows users to readily profile the identity and distribution of rNMPs in any organism of interest.
 </p>
 
 ## Usage
