@@ -5,8 +5,6 @@ Alli Gombolay, M.P.H
 [Georgia Institute of Technology](http://www.gatech.edu/)  
 Contact: alli.gombolay@gatech.edu
 
-Last Updated: May 2016  
-
 ## Project Overview
 **Goal**: To create a user-friendly bioinformatics toolkit to analyze ribose-seq libraries
 
