@@ -14,7 +14,7 @@ Last Updated: May 2016
 </p>
 
 <p align="justify">
-<b>Significance</b>: This pipeline allows any user to easily download and install all required software, download all required input files, and download the appropriate directory structure to analyze Ribose-seq libraries.  Now, users can readily choose the species of interest and run the corresponding pipeline to map the distribution of rNMPs in their Ribose-seq libraries.
+<b>Significance</b>: This pipeline allows any user to easily download and install the required software, download the required input files, and download the appropriate directory structure to analyze ribose-seq libraries.  With minimal software dependencies and comprehensive documentation, users can readily profile the identity and distribution of rNMPs in any organism of interest.
 </p>
 
 ## Usage
