@@ -10,13 +10,11 @@ Last Updated: May 2016
 **Goal**: To create a streamlined bioinformatics pipeline to analyze Ribose-seq libraries on any Linux platform
 
 <p align="justify">
-<b>Background</b>: The original scripts used to analyze Ribose-seq libraries required Platform Load Sharing Facility (LSF) workload management software to run properly.  To enable the user to efficiently analyze their sequenced Ribose-seq libraries, I have created an updated, streamlined version of the Ribose-seq analysis pipeline that does not depend on LSF.  This pipeline was designed to run on any Linux platform, and it consists of both Bash scripts and Python scripts.  The pipeline includes a script to automatically download all required input files, the appropriate directory structure (as a GitHub repository), and the required software.  Currently, the pipeline is tailored to analyze the DNA of either of four different common organisms, including <i>Saccharomyces cerevisiae</i> (nuclear and mitochondrial DNA), <i>Escherichia coli K12</i>, <i>Mus musculus</i> (mouse embroynic fibroblast DNA), and humans (HeLa cell DNA).
+<b>Background</b>: The original scripts used to analyze Ribose-seq libraries required Platform Load Sharing Facility (LSF) workload management software to run properly.  To enable the user to efficiently analyze their sequenced ribose-seq libraries, I have created an updated, streamlined version of the Ribose-seq analysis pipeline that does not depend on LSF.  This pipeline has been designed to run on any Linux platform, and it consists of both Bash scripts and R scripts.  The pipeline includes a script to automatically download all required input files, the appropriate directory structure (as a GitHub repository), and the required software.
 </p>
 
 <p align="justify">
-<b>Significance</b>:
-
-With minimal software dependencies, environment set-up, and comprehensive documentation, Ribose-Map allows users to readily profile the identity and distribution of rNMPs in any organism of interest.
+<b>Significance</b>: With minimal software dependencies, environment set-up, and comprehensive documentation, Ribose-Map allows users to readily profile the identity and distribution of rNMPs in any organism of interest.
 </p>
 
 ## Usage
