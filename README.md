@@ -10,7 +10,7 @@ Last Updated: May 2016
 **Goal**: To create a user-friendly bioinformatics toolkit to analyze ribose-seq libraries
 
 <p align="justify">
-<b>Background</b>: The original scripts used to analyze ribose-seq libraries required the proprietary software, Platform Load Sharing Facility (LSF) workload management software, to run properly.  To enable users to efficiently analyze their ribose-seq libraries, I have created Ribose-Map, an updated, streamlined version of the ribose-seq analysis pipeline that does not depend on LSF.  Ribose-Map has been designed to run on any Linux platform, and it consists of both Bash scripts and R scripts.  On this site, I have included documentation on how to automatically download the required input files, download and install the required software, and set up the appropriate directory structure (as a GitHub repository).
+<b>Background</b>: The original scripts used to analyze ribose-seq libraries required proprietary software that is not readily available to many users, Platform Load Sharing Facility (LSF) workload management software.  To enable users to efficiently analyze their ribose-seq libraries, I have created Ribose-Map, a bioinformatics toolkit to analyze ribose-seq libraries.  With minimal software dependencies, environment set-up, and comprehensive documentation, Ribose-Map allows users to readily profile the identity and distribution of rNMPs in any organism of interest.  On this site, I have included documentation on how to automatically download the required input files, download and install the required software, and set up the appropriate directory structure (as a GitHub repository).
 </p>
 
 <p align="justify">
