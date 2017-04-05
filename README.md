@@ -24,5 +24,5 @@ To display help menu: `script -h`
 ## Program Set-up 
 * How to download required input files
 * How to download and install software 
-* How to set up the directory structure
+* How to set up the directory structure  
 ```git clone https://github.com/agombolay/Ribose-seq-Project/tree/master/Ribose-seq-Directory```
