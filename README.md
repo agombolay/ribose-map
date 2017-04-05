@@ -18,8 +18,7 @@ Last Updated: May 2016
 </p>
 
 ## Usage
-To display help menu:  
-`script -h`  
+To display help menu: `script -h`  
 
 ## References  
 * [Ribose-seq *Nature Methods* Paper, 2015](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4686381/pdf/nihms742750.pdf)  
