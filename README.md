@@ -1,3 +1,5 @@
+<h1><p align="center">Ribose-Map: A Bioinformatics Toolkit to Profile rNMPs Embedded in DNA</p></h1>
+
 ## Ribose-Map: A Bioinformatics Toolkit to Profile rNMPs Embedded in DNA
 Alli Gombolay, M.P.H  
 [Storici Lab](http://www.storicilab.gatech.edu/) | [School of Biology](http://www.biology.gatech.edu/)  
