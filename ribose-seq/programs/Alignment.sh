@@ -116,8 +116,7 @@ for sample in ${sample[@]}; do
 		#Convert BAM to SAM file for processing
 		samtools view -h -o temporary.sam temporary.bam
 	
-		#Remove reads that align to unidentified genomic regions
-		#These unidentified regions include "EBV," "random," and "Un"
+		#Remove reads that align to AB325691 and MTR
 		sed '/AB325691/d;/MTR/d' temporary.sam > filtered.sam
 	
 		#Convert SAM back to BAM file again
