@@ -17,7 +17,7 @@ To display help menu: `script -h`
 
 ## References  
 * [Ribose-seq *Nature Methods* Paper, 2015](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4686381/pdf/nihms742750.pdf)
-* [Georgia Tech 2015 News Article on ribose-seq](http://www.news.gatech.edu/2015/01/26/ribose-seq-identifies-and-locates-ribonucleotides-genomic-dna)
+* [Georgia Tech News Article on ribose-seq](http://www.news.gatech.edu/2015/01/26/ribose-seq-identifies-and-locates-ribonucleotides-genomic-dna)
 
 ## Program Set-up 
 * How to download required input files
