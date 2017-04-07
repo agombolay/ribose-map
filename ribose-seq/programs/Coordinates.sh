@@ -7,20 +7,18 @@
 
 #Usage statement
 function usage () {
-	echo "Usage: Coordinates.sh [-i] 'Sample(s)' [-s] 'Subset' [-r] 'Reference' [-d] 'Directory' [-h]
+	echo "Usage: Coordinates.sh [-i] 'Sample(s)' [-r] 'Reference' [-d] 'Directory' [-h]
 	-i Sample name(s) (FS1, FS2, FS3 etc.)
-	-s Subset of genome (genome, nucleus, mitochondria)
 	-r Reference genome (sacCer2, pombe, ecoli, mm9, hg38, etc.)
 	-d Directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
 }
 
 #Command-line options
-while getopts "i:s:r:d:h" opt; do
+while getopts "i:r:d:h" opt; do
     case $opt in
         #Allow multiple input arguments
         i ) sample=($OPTARG) ;;
 	#Allow only one input argument
-	s ) subset=$OPTARG ;;
 	r ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
         #Print usage statement
