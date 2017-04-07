@@ -106,22 +106,6 @@ for sample in ${sample[@]}; do
 		#Convert SAM back to BAM file again
 		samtools view -Sb filtered.sam > $finalBAM
 	
-	elif [ $index == "pombe" ]; then
-		#De-duplicate reads by saving one per UMI
-		umitools rmdup $sortedBAM temporary.bam > $BED
-	
-		#Create index file
-		samtools index temporary.bam
-		
-		#Convert BAM to SAM file for processing
-		samtools view -h -o temporary.sam temporary.bam
-	
-		#Remove reads that align to AB325691 and MTR
-		sed '/AB325691/d;/MTR/d' temporary.sam > filtered.sam
-	
-		#Convert SAM back to BAM file again
-		samtools view -Sb filtered.sam > $finalBAM
-	
 	else
 		#De-duplicate reads by saving one per UMI
 		umitools rmdup $sortedBAM $finalBAM > $BED
