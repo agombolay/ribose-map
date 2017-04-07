@@ -84,6 +84,7 @@ for sample in ${sample[@]}; do
 		#Combine +/- mitochondria DNA coordinates and sort coordinates
 		grep -E '(chrM|MT)' temp3 | sort -k1,1 -k2,2n - > $coordinates
 	fi
+	done
 done
 
 #Remove temp files
