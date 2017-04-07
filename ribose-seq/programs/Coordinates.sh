@@ -44,7 +44,7 @@ for sample in ${sample[@]}; do
 	output=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset
 
 	#Create directory
-	mkdir -p $output1 $output2 $output3
+	mkdir -p $output
 	
 	#Remove older versions of files
 	rm -f $output/{*.txt,*.bed,*.fa,*.fq}
