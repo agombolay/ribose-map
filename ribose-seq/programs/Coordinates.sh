@@ -9,7 +9,7 @@
 function usage () {
 	echo "Usage: Coordinates.sh [-i] 'Sample(s)' [-s] 'Subset' [-r] 'Reference' [-d] 'Directory' [-h]
 	-i Sample name(s) (FS1, FS2, FS3 etc.)
-	-s Subset of genome (genome, nuclear, chrM)
+	-s Subset of genome (genome, nuclear, mito)
 	-r Reference genome (sacCer2, ecoli, mm9, hg38, etc.)
 	-d Directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
 }
@@ -78,7 +78,7 @@ for sample in ${sample[@]}; do
 	if [ $subset == "nuclear" ]; then
 		#Combine +/- rNMP coordinates and select only those in nuclear DNA
 		cat <(echo "$positiveReads") <(echo "$negativeReads") | grep -v -E '(chrM|MT|AB325691)' - > temporary3
-	elif [ $subset == "chrM" ]; then
+	elif [ $subset == "mito" ]; then
 		#Combine +/- rNMP coordinates and select only those in mitochondrial DNA
 		cat <(echo "$positiveReads") <(echo "$negativeReads") | grep -E '(chrM|MT)' - > temporary3
 	else
