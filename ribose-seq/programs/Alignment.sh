@@ -13,7 +13,7 @@ function usage () {
 		-u Length of UMI (NNNNNNNN or NNNNNNNNNNN)
 		-m Minimum length of read to retain after trimming
 		-p /projects/home/agombolay3/data/bin/Trimmomatic-0.36
-		-b Basename of Bowtie2 index (sacCer2, ecoli, mm9, hg38, etc.)
+		-b Basename of Bowtie2 index (sacCer2, pombe, ecoli, mm9, hg38, etc.)
 		-d Directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
 }
 
