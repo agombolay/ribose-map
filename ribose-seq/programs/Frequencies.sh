@@ -35,6 +35,7 @@ subset=("genome" "nucleus" "mitochondria")
 
 #Calculate frequencies
 for sample in ${sample[@]}; do
+	for subset in ${subset[@]}; do
 
 #############################################################################################################################
 	#Input files
@@ -280,4 +281,5 @@ for sample in ${sample[@]}; do
 	#Let the user know the program is has finished running
 	echo "Calculation of nucleotide frequencies for $sample is complete"
 
+done
 done
