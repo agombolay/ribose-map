@@ -76,11 +76,14 @@ for sample in ${sample[@]}; do
 		
 	#Filter coordinates by region
 	if [ $subset == "nuclear" ]; then
-		#Combine +/- rNMP coordinates and select only those in nuclear DNA
-		cat <(echo "$positiveReads") <(echo "$negativeReads") | grep -v -E '(chrM|MT|AB325691)' - > temporary3
+		#Combine +/- coordinates and select only nuclear DNA
+		cat <(echo "$positiveReads") <(echo "$negativeReads") \
+		| grep -v -E '(chrM|MT|AB325691|chrEBV|chrUN*|*random)' - > temporary3
+	
 	elif [ $subset == "mito" ]; then
-		#Combine +/- rNMP coordinates and select only those in mitochondrial DNA
+		#Combine +/- coordinates and select only mitochondrial DNA
 		cat <(echo "$positiveReads") <(echo "$negativeReads") | grep -E '(chrM|MT)' - > temporary3
+	
 	else
 		#Combine all +/- rNMP coordinates
 		cat <(echo "$positiveReads") <(echo "$negativeReads") > temporary3
