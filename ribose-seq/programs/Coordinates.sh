@@ -79,13 +79,13 @@ for sample in ${sample[@]}; do
 	
 	elif [ $subset == "nucleus" ]; then
 		#Combine +/- nuclear DNA coordinates and sort coordinates
-		grep -v -E '(chrM|MT*|AB*|chrEBV|chrUN*|*random)' temp3 > temp4; sort -k1,1 -k2,2n temp4 > $coordinates
+		grep -v -E '(chrM|MT*|AB*|chrEBV|chrUN*|*random)' temp3 | sort -k1,1 -k2,2n - > $coordinates
 	
 	elif [ $subset == "mitochondria" ]; then
 		#Combine +/- mitochondria DNA coordinates and sort coordinates
-		grep -E '(chrM|MT)' temp3 > temp5; sort -k1,1 -k2,2n temp5 > $coordinates
+		grep -E '(chrM|MT)' temp3 | sort -k1,1 -k2,2n - > $coordinates
 	fi
 done
 
 #Remove temp files
-rm temp1 temp2 temp3 temp4 temp5
+rm temp1 temp2 temp3
