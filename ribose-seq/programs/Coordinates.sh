@@ -9,7 +9,7 @@
 function usage () {
 	echo "Usage: Coordinates.sh [-i] 'Sample(s)' [-s] 'Subset' [-r] 'Reference' [-d] 'Directory' [-h]
 	-i Sample name(s) (FS1, FS2, FS3 etc.)
-	-s Subset of genome (genome, nuclear, mito)
+	-s Subset of genome (genome, nucleus, mitochondria)
 	-r Reference genome (sacCer2, pombe, ecoli, mm9, hg38, etc.)
 	-d Directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
 }
@@ -74,20 +74,19 @@ for sample in ${sample[@]}; do
 	#Obtain coordinates of rNMPs located on negative strand of DNA
 	negativeReads=$(awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $reads)
 		
-	#Filter coordinates by region
-	if [ $subset == "nuclear" ]; then
-		#Combine +/- coordinates
+	if [ $subset == "genome" ]; then
+		#Combine +/- genomic DNA coordinates
+		cat <(echo "$positiveReads") <(echo "$negativeReads") > temporary3
+		
+	elif [ $subset == "nucleus" ]; then
+		#Combine +/- nuclear DNA coordinates
 		cat <(echo "$positiveReads") <(echo "$negativeReads") \
-		#Select only nuclear DNA
-		| grep -v -E '(chrM|MT|MTR|AB325691|chrEBV|chrUN*|*random)' - > temporary3
+		| grep -v -E '(chrM|MTR|AB325691|chrEBV|chrUN*|*random)' - > temporary3
 	
-	elif [ $subset == "mito" ]; then
-		#Combine +/- coordinates and select only mitochondrial DNA
+	elif [ $subset == "mitochondria" ]; then
+		#Combine +/- mitochondrial coordinates
 		cat <(echo "$positiveReads") <(echo "$negativeReads") | grep -E '(chrM|MT)' - > temporary3
 	
-	else
-		#Combine all +/- rNMP coordinates
-		cat <(echo "$positiveReads") <(echo "$negativeReads") > temporary3
 	fi
 	
 	#Sort ribonucleotide coordinates
