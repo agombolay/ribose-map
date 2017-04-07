@@ -9,7 +9,7 @@
 function usage () {
 	echo "Usage: Frequencies.sh [-i] 'Sample(s)' [-r] 'Reference' [-s] 'Subset' [-d] 'Directory' [-h]
 	-i Sample name(s) (FS1, FS2, FS3 etc.)
-	-s Subset of genome (genome, nuclear, mito)
+	-s Subset of genome (genome, nucleus, mitochondria)
 	-r Reference genome (sacCer2, pombe, ecoli, mm9, hg38, etc.)
 	-d Directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
 }
@@ -93,22 +93,22 @@ for sample in ${sample[@]}; do
 	if [ ! -f $referenceFasta2 ]; then
 
 		#Subset nuclear DNA
-		if [ $reference == "pombe" ] && [ $subset == "nuclear" ] ; then
+		if [ $reference == "pombe" ] && [ $subset == "nucleus" ] ; then
 			samtools faidx $referenceFasta1 I II III > $referenceFasta2
-		elif [ $reference == "sacCer2" ] && [ $subset == "nuclear" ] ; then
+		elif [ $reference == "sacCer2" ] && [ $subset == "nucleus" ] ; then
 			samtools faidx $referenceFasta1 2micron chrI chrII chrIII chrIV chrV chrVI chrVII \
 			chrVIII chrIX chrX chrXI chrXII chrXIII chrXIV chrXV chrXVI > $referenceFasta2
-		elif [ $reference == "mm9" ] && [ $subset == "nuclear" ] ; then
+		elif [ $reference == "mm9" ] && [ $subset == "nucleus" ] ; then
 			samtools faidx $referenceFasta1 chr1 chr2 chr3 chr4 chr5 chr6 chr7 chr8 chr9 chr10 \
 			chr11 chr12 chr13 chr14 chr15 chr16 chr17 chr18 chr19 chrX chrY > $referenceFasta2
-		elif [ $reference == "hg38" ] && [ $subset == "nuclear" ] ; then
+		elif [ $reference == "hg38" ] && [ $subset == "nucleus" ] ; then
 			samtools faidx $referenceFasta1 chr1 chr2 chr3 chr4 chr5 chr6 chr7 chr8 chr9 chr10 chr11 \
 			chr12 chr13 chr14 chr15 chr16 chr17 chr18 chr19 chr20 chr21 chr22 chrX chrY > $referenceFasta2
 	
 		#Subset mito DNA
-		elif [ $reference == "pombe" ] && [ $subset == "mito" ] ; then
+		elif [ $reference == "pombe" ] && [ $subset == "mitochondria" ] ; then
 			samtools faidx $referenceFasta1 MT > $referenceFasta2
-		elif [ $reference != "pombe" ] && [ $subset == "mito" ] ; then
+		elif [ $reference != "pombe" ] && [ $subset == "mitochondria" ] ; then
 			samtools faidx $referenceFasta1 chrM > $referenceFasta2
 	
 		#All genomic DNA
