@@ -87,29 +87,8 @@ for sample in ${sample[@]}; do
 	#Create index file
 	samtools index $sortedBAM
 	
-	#Select only reads that align to known regions of human and mouse genomes
-	#"hg38"=human genome reference genome; "mm9"=mouse genome reference genome
-	if [ $index == "hg38" ] || [ $index == "mm9" ]; then
-		#De-duplicate reads by saving one per UMI
-		umitools rmdup $sortedBAM temporary.bam > $BED
-	
-		#Create index file
-		samtools index temporary.bam
-		
-		#Convert BAM to SAM file for processing
-		samtools view -h -o temporary.sam temporary.bam
-	
-		#Remove reads that align to unidentified genomic regions
-		#These unidentified regions include "EBV," "random," and "Un"
-		sed '/chrEBV/d;/random/d;/chrUn/d' temporary.sam > filtered.sam
-	
-		#Convert SAM back to BAM file again
-		samtools view -Sb filtered.sam > $finalBAM
-	
-	else
-		#De-duplicate reads by saving one per UMI
-		umitools rmdup $sortedBAM $finalBAM > $BED
-	fi
+	#De-duplicate reads by saving one per UMI
+	umitools rmdup $sortedBAM $finalBAM > $BED
 	
 	#Create index file
 	samtools index $finalBAM
