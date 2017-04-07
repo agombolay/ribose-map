@@ -91,12 +91,12 @@ for sample in ${sample[@]}; do
 	samtools faidx $referenceFasta1
 	
 	#Subset nuclear DNA
-	if [ $reference == "sacCer2" ] && [ $subset == "nuclear" ] ; then
-		samtools faidx $referenceFasta1 2micron chrI chrII chrIII chrIV chrV chrVI chrVII \
-		chrVIII chrIX chrX chrXI chrXII chrXIII chrXIV chrXV chrXVI > $referenceFasta2
-	elif [ $reference == "pombe" ] && [ $subset == "nuclear" ] ; then
+	if [ $reference == "pombe" ] && [ $subset == "nuclear" ] ; then
 		#Select only nuclear DNA and output to new file
 		samtools faidx $referenceFasta1 I II III > $referenceFasta2
+	elif [ $reference == "sacCer2" ] && [ $subset == "nuclear" ] ; then
+		samtools faidx $referenceFasta1 2micron chrI chrII chrIII chrIV chrV chrVI chrVII \
+		chrVIII chrIX chrX chrXI chrXII chrXIII chrXIV chrXV chrXVI > $referenceFasta2
 	elif [ $reference == "mm9" ] && [ $subset == "nuclear" ] ; then
 		samtools faidx $referenceFasta1 chr1 chr2 chr3 chr4 chr5 chr6 chr7 chr8 chr9 chr10 \
 		chr11 chr12 chr13 chr14 chr15 chr16 chr17 chr18 chr19 chrX chrY > $referenceFasta2
@@ -105,12 +105,12 @@ for sample in ${sample[@]}; do
 		chr12 chr13 chr14 chr15 chr16 chr17 chr18 chr19 chr20 chr21 chr22 chrX chrY > $referenceFasta2
 	
 	#Subset mito DNA
-	elif [ $reference != "pombe" ] && [ $subset == "mito" ] ; then
-		#Select only mitochondrial DNA and output to new file
-		samtools faidx $referenceFasta1 chrM > $referenceFasta2
 	elif [ $reference == "pombe" ] && [ $subset == "mito" ] ; then
 		#Select only mitochondrial DNA and output to new file
 		samtools faidx $referenceFasta1 MT > $referenceFasta2
+	elif [ $reference != "pombe" ] && [ $subset == "mito" ] ; then
+		#Select only mitochondrial DNA and output to new file
+		samtools faidx $referenceFasta1 chrM > $referenceFasta2
 	
 	#All genomic DNA
 	elif [ $subset == "genome" ] ; then
