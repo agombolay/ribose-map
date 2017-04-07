@@ -279,7 +279,7 @@ for sample in ${sample[@]}; do
 	echo -e "\tA\tC\tG\tU/T" > $zoomed && cat <(echo "$data2") >> $zoomed
 
 	#Let the user know the program is has finished running
-	echo "Calculation of nucleotide frequencies for $sample is complete"
+	echo "Calculation of nucleotide frequencies for $sample ($subset) is complete"
 
 done
 done
