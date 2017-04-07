@@ -75,11 +75,9 @@ for sample in ${sample[@]}; do
 		if [ $subset == "genome" ]; then
 			#Combine +/- genomic DNA coordinates and sort coordinates
 			cat <(echo "$positiveReads") <(echo "$negativeReads") > temp3; sort -k1,1 -k2,2n temp3 > $coordinates
-	
 		elif [ $subset == "nucleus" ]; then
 			#Combine +/- nuclear DNA coordinates and sort coordinates
 			grep -v -E '(chrM|MT*|AB*|chrEBV|chrUN*|*random)' temp3 | sort -k1,1 -k2,2n - > $coordinates
-	
 		elif [ $subset == "mitochondria" ]; then
 			#Combine +/- mitochondria DNA coordinates and sort coordinates
 			grep -E '(chrM|MT)' temp3 | sort -k1,1 -k2,2n - > $coordinates
