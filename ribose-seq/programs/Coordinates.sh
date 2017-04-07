@@ -35,6 +35,7 @@ subset=("genome" "nucleus" "mitochondria")
 
 #Determine coordinates
 for sample in ${sample[@]}; do
+for subset in ${subset[@]}; do
 
 #############################################################################################################################
 	#Input file
@@ -71,7 +72,6 @@ for sample in ${sample[@]}; do
 	#Obtain coordinates of rNMPs located on negative strand of DNA
 	negativeReads=$(awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $reads)
 	
-	for subset in ${subset[@]}; do
 	if [ $subset == "genome" ]; then
 		#Combine +/- genomic DNA coordinates and sort coordinates
 		cat <(echo "$positiveReads") <(echo "$negativeReads") > temp3; sort -k1,1 -k2,2n temp3 > $coordinates
@@ -84,8 +84,7 @@ for sample in ${sample[@]}; do
 		#Combine +/- mitochondria DNA coordinates and sort coordinates
 		grep -E '(chrM|MT)' temp3 | sort -k1,1 -k2,2n - > $coordinates
 	fi
-	done
 done
-
+done
 #Remove temp files
 rm temp1 temp2 temp3
