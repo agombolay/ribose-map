@@ -41,9 +41,7 @@ for sample in ${sample[@]}; do
 	bam=$directory/ribose-seq/results/$reference/$sample/Alignment/$sample.bam
 	
 	#Output directory
-	output1=$directory/ribose-seq/results/$reference/$sample/Coordinates/genome
-	output2=$directory/ribose-seq/results/$reference/$sample/Coordinates/nucleus
-	output3=$directory/ribose-seq/results/$reference/$sample/Coordinates/mitochondria
+	output=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset
 
 	#Create directory
 	mkdir -p $output1 $output2 $output3
