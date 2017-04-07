@@ -90,10 +90,7 @@ for sample in ${sample[@]}; do
 	#Index reference FASTA file
 	samtools faidx $referenceFasta1
 	
-	if [ -f "$file" ]
-	then
-		exit
-	else
+	if [ ! -f $referenceFasta2 ]; then
 
 		#Subset nuclear DNA
 		if [ $reference == "pombe" ] && [ $subset == "nuclear" ] ; then
