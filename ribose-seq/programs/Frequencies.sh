@@ -143,13 +143,13 @@ for sample in ${sample[@]}; do
 	#STEP 2: Calculate rNMP Frequencies
 
 	#Extract rNMP sequences
-	if [ $subset == "nuclear" ]; then
+	if [ $subset == "nucleus" ]; then
 		#Select only reads located in nuclear DNA and extract rNMP sequences
 		grep -v 'chrM' $reads | awk '{print substr($0,length($0))}' - > $riboSequences
-	elif [ $subset == "chrM" ]; then
+	elif [ $subset == "mitochondria" ]; then
 		#Select only reads located in mitochondrial DNA and extract rNMP sequences
 		grep 'chrM' $reads | awk '{print substr($0,length($0))}' - > $riboSequences
-	else
+	elif [ $subset == "genome" ]; then
 		#Select all reads located in genomic DNA and extract rNMP sequences
 		cat $reads | awk '{print substr($0,length($0))}' - > $riboSequences
 	fi
