@@ -41,57 +41,50 @@ for sample in ${sample[@]}; do
 	bam=$directory/ribose-seq/results/$reference/$sample/Alignment/$sample.bam
 	
 	#Output directory
-	output=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset
+	output1=$directory/ribose-seq/results/$reference/$sample/Coordinates/genome
+	output2=$directory/ribose-seq/results/$reference/$sample/Coordinates/nucleus
+	output3=$directory/ribose-seq/results/$reference/$sample/Coordinates/mitochondria
 
 	#Create directory
-	mkdir -p $output
+	mkdir -p $output1 $output2 $output3
 	
 	#Remove older versions of files
 	rm -f $output/{*.txt,*.bed,*.fa,*.fq}
 	
 	#Output files
 	reads=$output/$sample.read-information.$subset.txt
-	coordinates=$output/$sample.rNMP-coordinates.$subset.bed
+	coordinates1=$output/$sample.rNMP-coordinates.genome.bed
+	coordinates2=$output/$sample.rNMP-coordinates.nucleus.bed
+	coordinates3=$output/$sample.rNMP-coordinates.mitochondria.bed
 
 #############################################################################################################################
 	#STEP 1: Extract sequences from BAM alignment file
 
 	#Convert BAM to FASTA file then extract sequences from FASTA
-	samtools bam2fq $bam | seqtk seq -A - | grep -v '>' - > temporary1
+	samtools bam2fq $bam | seqtk seq -A - | grep -v '>' - > temp1
 
 #############################################################################################################################
 	#STEP 2: Obtain rNMP coordinates from aligned reads
 
 	#Covert BAM file to BED format
-	bedtools bamtobed -i $bam > temporary2
-	
+	bedtools bamtobed -i $bam > temp2
 	#Extract read coordinates, sequences, and strand information
-	paste temporary2 temporary1 | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $reads
-	
+	paste temp2 temp1 | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $reads
 	#Obtain coordinates of rNMPs located on positive strand of DNA
 	positiveReads=$(awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $reads)
-	
 	#Obtain coordinates of rNMPs located on negative strand of DNA
 	negativeReads=$(awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $reads)
 		
-	if [ $subset == "genome" ]; then
-		#Combine +/- genomic DNA coordinates
-		cat <(echo "$positiveReads") <(echo "$negativeReads") > temporary3
-		
-	elif [ $subset == "nucleus" ]; then
-		#Combine +/- nuclear DNA coordinates
-		cat <(echo "$positiveReads") <(echo "$negativeReads") \
-		| grep -v -E '(chrM|MTR|AB325691|chrEBV|chrUN*|*random)' - > temporary3
+	#Combine +/- genomic DNA coordinates and sort coordinates
+	cat <(echo "$positiveReads") <(echo "$negativeReads") > temp3; sort -k1,1 -k2,2n temp3 > $coordinates1
 	
-	elif [ $subset == "mitochondria" ]; then
-		#Combine +/- mitochondrial coordinates
-		cat <(echo "$positiveReads") <(echo "$negativeReads") | grep -E '(chrM|MT)' - > temporary3
+	#Combine +/- nuclear DNA coordinates and sort coordinates
+	grep -v -E '(chrM|MT*|AB*|chrEBV|chrUN*|*random)' temp3 > temp4; sort -k1,1 -k2,2n temp4 > $coordinates2
 	
-	fi
-	
-	#Sort ribonucleotide coordinates
-	sort -k1,1 -k2,2n temporary3 > $coordinates
+	#Combine +/- mitochondria DNA coordinates and sort coordinates
+	grep -E '(chrM|MT)' temp3 > temp5; sort -k1,1 -k2,2n temp5 > $coordinates3
+
 done
 
-#Remove temporary files
-rm temporary1 temporary2 temporary3
+#Remove temp files
+rm temp1 temp2 temp3 temp4 temp5
