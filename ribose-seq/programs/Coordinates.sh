@@ -31,6 +31,8 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
+subset=("genome" "nucleus" "mitochondria")
+
 #Determine coordinates
 for sample in ${sample[@]}; do
 
@@ -51,9 +53,7 @@ for sample in ${sample[@]}; do
 	
 	#Output files
 	reads=$output/$sample.read-information.$subset.txt
-	coordinates1=$output/$sample.rNMP-coordinates.genome.bed
-	coordinates2=$output/$sample.rNMP-coordinates.nucleus.bed
-	coordinates3=$output/$sample.rNMP-coordinates.mitochondria.bed
+	coordinates=$output/$sample.rNMP-coordinates.$subset.bed
 
 #############################################################################################################################
 	#STEP 1: Extract sequences from BAM alignment file
@@ -72,15 +72,19 @@ for sample in ${sample[@]}; do
 	positiveReads=$(awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $reads)
 	#Obtain coordinates of rNMPs located on negative strand of DNA
 	negativeReads=$(awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $reads)
-		
-	#Combine +/- genomic DNA coordinates and sort coordinates
-	cat <(echo "$positiveReads") <(echo "$negativeReads") > temp3; sort -k1,1 -k2,2n temp3 > $coordinates1
 	
-	#Combine +/- nuclear DNA coordinates and sort coordinates
-	grep -v -E '(chrM|MT*|AB*|chrEBV|chrUN*|*random)' temp3 > temp4; sort -k1,1 -k2,2n temp4 > $coordinates2
+	if [ $subset == "genome" ]; then
+		#Combine +/- genomic DNA coordinates and sort coordinates
+		cat <(echo "$positiveReads") <(echo "$negativeReads") > temp3; sort -k1,1 -k2,2n temp3 > $coordinates
 	
-	#Combine +/- mitochondria DNA coordinates and sort coordinates
-	grep -E '(chrM|MT)' temp3 > temp5; sort -k1,1 -k2,2n temp5 > $coordinates3
+	elif [ $subset == "nucleus" ]; then
+		#Combine +/- nuclear DNA coordinates and sort coordinates
+		grep -v -E '(chrM|MT*|AB*|chrEBV|chrUN*|*random)' temp3 > temp4; sort -k1,1 -k2,2n temp4 > $coordinates
+	
+	elif [ $subset == "mitochondria" ]; then
+		#Combine +/- mitochondria DNA coordinates and sort coordinates
+		grep -E '(chrM|MT)' temp3 > temp5; sort -k1,1 -k2,2n temp5 > $coordinates
+	fi
 done
 
 #Remove temp files
