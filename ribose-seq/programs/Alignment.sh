@@ -46,7 +46,7 @@ for sample in ${sample[@]}; do
 	fastq=$directory/Sequencing-Results/$sample.fastq
 	
 	#Output directory
-	output=$directory/ribose-seq/results/$index/$sample/Alignment/
+	output=$directory/ribose-seq/results/$index/$sample/Alignment
 
 	#Create directory
     	mkdir -p $output
