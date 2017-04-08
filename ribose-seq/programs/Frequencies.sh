@@ -146,10 +146,10 @@ for sample in ${sample[@]}; do
 	#Extract rNMP sequences
 	if [ $subset == "nucleus" ]; then
 		#Select only reads located in nuclear DNA and extract rNMP sequences
-		grep -v 'chrM' $reads | awk '{print substr($0,length($0))}' - > riboSequences
+		grep -v -E '(chrM|MT)' $reads | awk '{print substr($0,length($0))}' - > riboSequences
 	elif [ $subset == "mitochondria" ]; then
 		#Select only reads located in mitochondrial DNA and extract rNMP sequences
-		grep 'chrM' $reads | awk '{print substr($0,length($0))}' - > riboSequences
+		grep -E '(chrM|MT)' $reads | awk '{print substr($0,length($0))}' - > riboSequences
 	elif [ $subset == "genome" ]; then
 		#Select all reads located in genomic DNA and extract rNMP sequences
 		cat $reads | awk '{print substr($0,length($0))}' - > riboSequences
