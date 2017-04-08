@@ -72,9 +72,8 @@ for sample in ${sample[@]}; do
 	if [ ! -f $referenceFasta2 ]; then
 
 		#Specify all genomic DNA
-		elif [ $subset == "genome" ]; then
+		if [ $subset == "genome" ]; then
 			cp $referenceFasta1 $referenceFasta2
-		fi
 		
 		#Subset mitochondrial DNA
 		elif [ $reference == "pombe" ] && [ $subset == "mitochondria" ]; then
@@ -84,7 +83,7 @@ for sample in ${sample[@]}; do
 			samtools faidx $referenceFasta1 chrM > $referenceFasta2
 			
 		#Subset nuclear DNA
-		if [ $reference == "pombe" ] && [ $subset == "nucleus" ]; then
+		elif [ $reference == "pombe" ] && [ $subset == "nucleus" ]; then
 			samtools faidx $referenceFasta1 I II III > $referenceFasta2
 		
 		elif [ $reference == "sacCer2" ] && [ $subset == "nucleus" ]; then
@@ -96,6 +95,7 @@ for sample in ${sample[@]}; do
 		
 		elif [ $reference == "hg38" ] && [ $subset == "nucleus" ]; then; chr $(seq 1 1 22)" X Y";
 			for i in $chr; do samtools faidx $referenceFasta1 chr$i > $referenceFasta2; done
+		fi
 	fi
 	
 	#Index reference FASTA file
