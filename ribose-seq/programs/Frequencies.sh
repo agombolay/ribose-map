@@ -189,8 +189,8 @@ for sample in ${sample[@]}; do
 
 	#Extract sequences from FASTA files
 	#Reverse order of upstream nucleotides
-	grep -v '>' upstreamSequences | rev > sequences1.txt
-	grep -v '>' downstreamSequences > sequences2.txt
+	grep -v '>' upstreamSequences.txt | rev > sequences1.txt
+	grep -v '>' downstreamSequences.txt > sequences2.txt
 				
 	#Insert tabs between each nucleotide
 	cat sequences1.txt | sed 's/.../& /2g;s/./& /g' > columns1.tab
