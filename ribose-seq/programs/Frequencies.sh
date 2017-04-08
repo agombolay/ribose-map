@@ -246,7 +246,7 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#STEP 6: Create dataset file containing nucleotide frequencies for plotting
 
-	#Combine rNMP frequencies and upstream and downstream dNTP frequencies in appropriate order
+	#Combine rNMP frequencies and upstream and downstream dNMP frequencies in appropriate order
 	data1=$(cat <(echo "$upstreamFrequencies") <(echo "$riboFrequencies") <(echo "$downstreamFrequencies"))
 	
 	#Add nucleotide positions (-100 --> +100) and nucleotide symbols to header line (A, C, G, and U/T)
