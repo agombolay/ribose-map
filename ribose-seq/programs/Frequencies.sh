@@ -49,14 +49,14 @@ for sample in ${sample[@]}; do
 	#Output directories
 	output1=$directory/ribose-seq/results/Background-Frequencies
 	
-	output2=$directory/ribose-seq/results/$reference/$sample/Frequencies/rNMPs/$subset
-	output3=$directory/ribose-seq/results/$reference/$sample/Frequencies/dNTPs/$subset/Results
+	#output2=$directory/ribose-seq/results/$reference/$sample/Frequencies/rNMPs/$subset
+	#output3=$directory/ribose-seq/results/$reference/$sample/Frequencies/dNTPs/$subset/Results
 	
 	output4=$directory/ribose-seq/results/$reference/$sample/Frequencies/dNTPs/$subset/Columns/upstream
 	output5=$directory/ribose-seq/results/$reference/$sample/Frequencies/dNTPs/$subset/Columns/downstream
 	
-	output6=$directory/ribose-seq/results/$reference/$sample/Frequencies/dNTPs/$subset/Columns/upstream/sequences
-	output7=$directory/ribose-seq/results/$reference/$sample/Frequencies/dNTPs/$subset/Columns/downstream/sequences
+	#output6=$directory/ribose-seq/results/$reference/$sample/Frequencies/dNTPs/$subset/Columns/upstream/sequences
+	#output7=$directory/ribose-seq/results/$reference/$sample/Frequencies/dNTPs/$subset/Columns/downstream/sequences
 	
 	output8=$directory/ribose-seq/results/$reference/$sample/Frequencies/Datasets/$subset
 
@@ -68,19 +68,19 @@ for sample in ${sample[@]}; do
 	
 	#Output files
 	background=$output1/Background-Frequencies.$reference.$subset.txt
-	riboSequences=$output2/$sample.rNMP-Sequences.$reference.$subset.txt
+	#riboSequences=$output2/$sample.rNMP-Sequences.$reference.$subset.txt
 	
-	upstreamSequences=$output3/$sample.upstream-sequences.$reference.$subset.fa
-	upstreamIntervals=$output3/$sample.upstream-intervals.$reference.$subset.bed
+	#upstreamSequences=$output3/$sample.upstream-sequences.$reference.$subset.fa
+	#upstreamIntervals=$output3/$sample.upstream-intervals.$reference.$subset.bed
 	
-	downstreamSequences=$output3/$sample.downstream-sequences.$reference.$subset.fa
-	downstreamIntervals=$output3/$sample.downstream-intervals.$reference.$subset.bed
+	#downstreamSequences=$output3/$sample.downstream-sequences.$reference.$subset.fa
+	#downstreamIntervals=$output3/$sample.downstream-intervals.$reference.$subset.bed
 	
-	sequences1=$output6/$sample.upstream-sequences.$reference.$subset.txt
-	sequences2=$output7/$sample.downstream-sequences.$reference.$subset.txt
+	#sequences1=$output6/$sample.upstream-sequences.$reference.$subset.txt
+	#sequences2=$output7/$sample.downstream-sequences.$reference.$subset.txt
 	
-	columns1=$output6/$sample.upstream-sequences.$reference.$subset.tab
-	columns2=$output7/$sample.downstream-sequences.$reference.$subset.tab
+	#columns1=$output6/$sample.upstream-sequences.$reference.$subset.tab
+	#columns2=$output7/$sample.downstream-sequences.$reference.$subset.tab
 
 	dataset=$output8/$sample.nucleotide-frequencies-dataset.$reference.$subset.txt
 	zoomed=$output8/$sample.nucleotide-frequencies-zoomed.$reference.$subset.txt
