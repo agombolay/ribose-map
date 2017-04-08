@@ -90,10 +90,10 @@ for sample in ${sample[@]}; do
 			samtools faidx $referenceFasta1 2micron chrI chrII chrIII chrIV chrV chrVI chrVII \
 			chrVIII chrIX chrX chrXI chrXII chrXIII chrXIV chrXV chrXVI > $referenceFasta2
 		
-		elif [ $reference == "mm9" ] && [ $subset == "nucleus" ]; then; chr $(seq 1 1 19)" X Y";
+		elif [ $reference == "mm9" ] && [ $subset == "nucleus" ]; then chr $(seq 1 1 19)" X Y";
 			for i in $chr; do samtools faidx $referenceFasta1 chr$i > $referenceFasta2; done
 		
-		elif [ $reference == "hg38" ] && [ $subset == "nucleus" ]; then; chr $(seq 1 1 22)" X Y";
+		elif [ $reference == "hg38" ] && [ $subset == "nucleus" ]; then chr $(seq 1 1 22)" X Y";
 			for i in $chr; do samtools faidx $referenceFasta1 chr$i > $referenceFasta2; done
 		fi
 	fi
