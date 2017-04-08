@@ -61,10 +61,11 @@ for sample in ${sample[@]}; do
 	output8=$directory/ribose-seq/results/$reference/$sample/Frequencies/Datasets/$subset
 
 	#Create directories
-	mkdir -p $output{1..8}
+	mkdir -p $output{1,4,5,8}
 
 	#Remove older versions files
-	rm -f $output{1..8}/*.txt
+	rm -f ./*.txt
+	rm -f ./*.tab
 	
 	#Output files
 	background=$output1/Background-Frequencies.$reference.$subset.txt
@@ -143,23 +144,22 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#STEP 2: Calculate rNMP Frequencies
 
-	#Extract rNMP sequences
 	if [ $subset == "nucleus" ]; then
 		#Select only reads located in nuclear DNA and extract rNMP sequences
-		grep -v -E '(chrM|MT)' $reads | awk '{print substr($0,length($0))}' - > riboSequences
+		grep -v -E '(chrM|MT)' $reads | awk '{print substr($0,length($0))}' - > riboSequences.txt
 	elif [ $subset == "mitochondria" ]; then
 		#Select only reads located in mitochondrial DNA and extract rNMP sequences
-		grep -E '(chrM|MT)' $reads | awk '{print substr($0,length($0))}' - > riboSequences
+		grep -E '(chrM|MT)' $reads | awk '{print substr($0,length($0))}' - > riboSequences.txt
 	elif [ $subset == "genome" ]; then
 		#Select all reads located in genomic DNA and extract rNMP sequences
-		cat $reads | awk '{print substr($0,length($0))}' - > riboSequences
+		cat $reads | awk '{print substr($0,length($0))}' - > riboSequences.txt
 	fi
 	
 	#Calculate counts of rNMPs
-	A_Count1=$(awk '$1 == "A"' riboSequences | wc -l)
-	C_Count1=$(awk '$1 == "C"' riboSequences | wc -l)
-	G_Count1=$(awk '$1 == "G"' riboSequences | wc -l)
-	U_Count1=$(awk '$1 == "T"' riboSequences | wc -l)
+	A_Count1=$(awk '$1 == "A"' riboSequences.txt | wc -l)
+	C_Count1=$(awk '$1 == "C"' riboSequences.txt | wc -l)
+	G_Count1=$(awk '$1 == "G"' riboSequences.txt | wc -l)
+	U_Count1=$(awk '$1 == "T"' riboSequences.txt | wc -l)
 	
 	#Calculate total number of rNMPs
 	total1=$(($A_Count1+$C_Count1+$G_Count1+$U_Count1))
@@ -177,32 +177,32 @@ for sample in ${sample[@]}; do
 	#STEP 3: Obtain coordinates and sequences of +/- 100 downstream/upstream dNTPs from rNMPs
 
 	#Obtain coordinates of upstream/downstream sequences based on rNMP coordinates
-	bedtools flank -i $coordinates -s -g $referenceBED -l 100 -r 0 > upstreamIntervals
-	bedtools flank -i $coordinates -s -g $referenceBED -l 0 -r 100 > downstreamIntervals
+	bedtools flank -i $coordinates -s -g $referenceBED -l 100 -r 0 > upstreamIntervals.txt
+	bedtools flank -i $coordinates -s -g $referenceBED -l 0 -r 100 > downstreamIntervals.txt
 
 	#Obtain sequences of upstream/downstream coordinates
-	bedtools getfasta -s -fi $referenceFasta2 -bed upstreamIntervals -fo upstreamSequences
-	bedtools getfasta -s -fi $referenceFasta2 -bed downstreamIntervals -fo downstreamSequences
+	bedtools getfasta -s -fi $referenceFasta2 -bed upstreamIntervals.txt -fo upstreamSequences.txt
+	bedtools getfasta -s -fi $referenceFasta2 -bed downstreamIntervals.txt -fo downstreamSequences.txt
 
 #############################################################################################################################
 	#STEP 4: Tabulate sequences of dNTPs located +/- 100 base pairs downstream/upstream from rNMPs
 
 	#Extract sequences from FASTA files
 	#Reverse order of upstream nucleotides
-	grep -v '>' upstreamSequences | rev > sequences1
-	grep -v '>' downstreamSequences > sequences2
+	grep -v '>' upstreamSequences | rev > sequences1.txt
+	grep -v '>' downstreamSequences > sequences2.txt
 				
 	#Insert tabs between each nucleotide
-	cat sequences1 | sed 's/.../& /2g;s/./& /g' > columns1
-	cat sequences2 | sed 's/.../& /2g;s/./& /g' > columns2
+	cat sequences1.txt | sed 's/.../& /2g;s/./& /g' > columns1.tab
+	cat sequences2.txt | sed 's/.../& /2g;s/./& /g' > columns2.tab
 
 	for i in {1..100}; do
 		#Location of output files
 		lists1=$output4/$sample.column.$i.upstream.$reference.$subset.txt
 		lists2=$output5/$sample.column.$i.downstream.$reference.$subset.txt
 		#Save lists of dNTPs at each +/- 100 bp downstream/upstream position
-		awk -v field=$i '{ print $field }' columns1 > $lists1
-		awk -v field=$i '{ print $field }' columns2 > $lists2
+		awk -v field=$i '{ print $field }' columns1.tab > $lists1
+		awk -v field=$i '{ print $field }' columns2.tab > $lists2
 	done
 
 #############################################################################################################################
