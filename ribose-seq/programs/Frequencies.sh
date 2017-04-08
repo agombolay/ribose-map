@@ -64,7 +64,7 @@ for sample in ${sample[@]}; do
 	dataset=$output2/$sample.nucleotide-frequencies-dataset.$reference.$subset.txt
 		
 #############################################################################################################################
-	#STEP 1: Calculate background dNTP frequencies of reference genome
+	#STEP 1: Calculate background dNMP frequencies of reference genome
 
 	#Index reference FASTA file
 	samtools faidx $referenceFasta1
