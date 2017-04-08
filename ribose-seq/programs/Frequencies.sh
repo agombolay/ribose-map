@@ -175,8 +175,8 @@ for sample in ${sample[@]}; do
 
 	for i in {1..100}; do
 		#Location of output files
-		lists1=$output4/$sample.column.$i.upstream.$reference.$subset.txt
-		lists2=$output5/$sample.column.$i.downstream.$reference.$subset.txt
+		lists1=$output3/$sample.column.$i.upstream.$reference.$subset.txt
+		lists2=$output4/$sample.column.$i.downstream.$reference.$subset.txt
 		#Save lists of dNTPs at each +/- 100 bp downstream/upstream position
 		awk -v field=$i '{ print $field }' columns1.tab > $lists1
 		awk -v field=$i '{ print $field }' columns2.tab > $lists2
