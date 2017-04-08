@@ -71,30 +71,31 @@ for sample in ${sample[@]}; do
 	
 	if [ ! -f $referenceFasta2 ]; then
 
+		#Specify all genomic DNA
+		elif [ $subset == "genome" ] ; then
+			cp $referenceFasta1 $referenceFasta2
+		fi
+		
+		#Subset mitochondrial DNA
+		elif [ $reference == "pombe" ] && [ $subset == "mitochondria" ] ; then
+			samtools faidx $referenceFasta1 MT > $referenceFasta2
+		
+		elif [ $reference != "pombe" ] && [ $subset == "mitochondria" ] ; then
+			samtools faidx $referenceFasta1 chrM > $referenceFasta2
+			
 		#Subset nuclear DNA
 		if [ $reference == "pombe" ] && [ $subset == "nucleus" ] ; then
 			samtools faidx $referenceFasta1 I II III > $referenceFasta2
+		
 		elif [ $reference == "sacCer2" ] && [ $subset == "nucleus" ] ; then
 			samtools faidx $referenceFasta1 2micron chrI chrII chrIII chrIV chrV chrVI chrVII \
 			chrVIII chrIX chrX chrXI chrXII chrXIII chrXIV chrXV chrXVI > $referenceFasta2
-		elif [ $reference == "mm9" ] && [ $subset == "nucleus" ] ; then
-			samtools faidx $referenceFasta1 chr1 chr2 chr3 chr4 chr5 chr6 chr7 chr8 chr9 chr10 \
-			chr11 chr12 chr13 chr14 chr15 chr16 chr17 chr18 chr19 chrX chrY > $referenceFasta2
-		elif [ $reference == "hg38" ] && [ $subset == "nucleus" ] ; then
-			samtools faidx $referenceFasta1 chr1 chr2 chr3 chr4 chr5 chr6 chr7 chr8 chr9 chr10 chr11 \
-			chr12 chr13 chr14 chr15 chr16 chr17 chr18 chr19 chr20 chr21 chr22 chrX chrY > $referenceFasta2
-	
-		#Subset mito DNA
-		elif [ $reference == "pombe" ] && [ $subset == "mitochondria" ] ; then
-			samtools faidx $referenceFasta1 MT > $referenceFasta2
-		elif [ $reference != "pombe" ] && [ $subset == "mitochondria" ] ; then
-			samtools faidx $referenceFasta1 chrM > $referenceFasta2
-	
-		#All genomic DNA
-		elif [ $subset == "genome" ] ; then
-			cp $referenceFasta1 $referenceFasta2
-			samtools faidx $referenceFasta2
-		fi
+		
+		elif [ $reference == "mm9" ] && [ $subset == "nucleus" ] ; then; chr $(seq 1 1 19)" X Y";
+			for i in $chr; do samtools faidx $referenceFasta1 chr$i > $referenceFasta2; done
+		
+		elif [ $reference == "hg38" ] && [ $subset == "nucleus" ] ; then; chr $(seq 1 1 22)" X Y";
+			for i in $chr; do samtools faidx $referenceFasta1 chr$i > $referenceFasta2; done
 	fi
 	
 	#Index reference FASTA file
