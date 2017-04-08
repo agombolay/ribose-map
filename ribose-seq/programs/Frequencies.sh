@@ -72,29 +72,29 @@ for sample in ${sample[@]}; do
 	if [ ! -f $referenceFasta2 ]; then
 
 		#Specify all genomic DNA
-		elif [ $subset == "genome" ] ; then
+		elif [ $subset == "genome" ]; then
 			cp $referenceFasta1 $referenceFasta2
 		fi
 		
 		#Subset mitochondrial DNA
-		elif [ $reference == "pombe" ] && [ $subset == "mitochondria" ] ; then
+		elif [ $reference == "pombe" ] && [ $subset == "mitochondria" ]; then
 			samtools faidx $referenceFasta1 MT > $referenceFasta2
 		
-		elif [ $reference != "pombe" ] && [ $subset == "mitochondria" ] ; then
+		elif [ $reference != "pombe" ] && [ $subset == "mitochondria" ]; then
 			samtools faidx $referenceFasta1 chrM > $referenceFasta2
 			
 		#Subset nuclear DNA
-		if [ $reference == "pombe" ] && [ $subset == "nucleus" ] ; then
+		if [ $reference == "pombe" ] && [ $subset == "nucleus" ]; then
 			samtools faidx $referenceFasta1 I II III > $referenceFasta2
 		
-		elif [ $reference == "sacCer2" ] && [ $subset == "nucleus" ] ; then
+		elif [ $reference == "sacCer2" ] && [ $subset == "nucleus" ]; then
 			samtools faidx $referenceFasta1 2micron chrI chrII chrIII chrIV chrV chrVI chrVII \
 			chrVIII chrIX chrX chrXI chrXII chrXIII chrXIV chrXV chrXVI > $referenceFasta2
 		
-		elif [ $reference == "mm9" ] && [ $subset == "nucleus" ] ; then; chr $(seq 1 1 19)" X Y";
+		elif [ $reference == "mm9" ] && [ $subset == "nucleus" ]; then; chr $(seq 1 1 19)" X Y";
 			for i in $chr; do samtools faidx $referenceFasta1 chr$i > $referenceFasta2; done
 		
-		elif [ $reference == "hg38" ] && [ $subset == "nucleus" ] ; then; chr $(seq 1 1 22)" X Y";
+		elif [ $reference == "hg38" ] && [ $subset == "nucleus" ]; then; chr $(seq 1 1 22)" X Y";
 			for i in $chr; do samtools faidx $referenceFasta1 chr$i > $referenceFasta2; done
 	fi
 	
