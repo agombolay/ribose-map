@@ -56,7 +56,7 @@ for sample in ${sample[@]}; do
 	mkdir -p $output{1..4}
 
 	#Remove older versions files
-	rm -f ./*.txt ./*.tab
+	rm -f $output{1..4}/*.txt $output{1..4}/*.tab
 	
 	#Output files
 	background=$output1/Background-Frequencies.$reference.$subset.txt
@@ -262,4 +262,4 @@ done
 done
 
 #Remove temp files
-#rm -f ./*.txt ./*.tab
+rm -f ./*.txt ./*.tab
