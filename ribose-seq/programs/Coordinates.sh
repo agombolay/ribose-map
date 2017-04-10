@@ -81,7 +81,7 @@ for sample in ${sample[@]}; do
 		elif [ $subset == "mitochondria" ]; then
 			grep -E '(chrM|MT)' temp3 | sort -k1,1 -k2,2n - > $coordinates
 		elif [ $subset == "MTR" ]; then
-			grep -E '(MTR)' temp3 | sort -k1,1 -k2,2n - > $coordinates
+			grep 'MTR' temp3 | sort -k1,1 -k2,2n - > $coordinates
 		elif [ $subset == "nucleus" ]; then
 			grep -v -E '(chrM|MT*|AB*|chrEBV|chrUN*|*random)' temp3 | sort -k1,1 -k2,2n - > $coordinates
 		fi
