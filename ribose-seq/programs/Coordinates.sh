@@ -31,7 +31,7 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
-subset=("genome" "nucleus" "mitochondria")
+subset=("genome" "nucleus" "mitochondria" "MTR")
 
 #Determine coordinates
 for sample in ${sample[@]}; do
@@ -80,6 +80,8 @@ for sample in ${sample[@]}; do
 			sort -k1,1 -k2,2n temp3 > $coordinates
 		elif [ $subset == "mitochondria" ]; then
 			grep -E '(chrM|MT)' temp3 | sort -k1,1 -k2,2n - > $coordinates
+		elif [ $subset == "MTR" ]; then
+			grep -E '(MTR)' temp3 | sort -k1,1 -k2,2n - > $coordinates
 		elif [ $subset == "nucleus" ]; then
 			grep -v -E '(chrM|MT*|AB*|chrEBV|chrUN*|*random)' temp3 | sort -k1,1 -k2,2n - > $coordinates
 		fi
