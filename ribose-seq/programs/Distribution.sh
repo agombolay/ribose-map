@@ -7,7 +7,7 @@
 
 #Usage statement
 function usage () {
-	echo "Usage: Hotspots.sh [-i] 'Sample(s)' [-r] 'Reference' [-d] 'Directory' [-h]
+	echo "Usage: Distribution.sh [-i] 'Sample(s)' [-r] 'Reference' [-d] 'Directory' [-h]
 	-i Sample name(s) (FS1, FS2, FS3 etc.)
 	-r Reference genome (sacCer2, pombe, ecoli, mm9, hg38, etc.)
 	-d Directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
