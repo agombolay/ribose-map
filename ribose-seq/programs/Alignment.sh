@@ -68,16 +68,16 @@ for sample in ${sample[@]}; do
 	#Trim FASTQ files based on quality and Illumina adapter content
 	java -jar $path/trimmomatic-0.36.jar SE -phred33 $fastq $output/$sample-trimmed.fastq \
 	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 SLIDINGWINDOW:5:15 MINLEN:$MIN
-	
+
+	#Trim UMI from 5' ends of reads (add UMI into read name for further processing)
+	umitools trim --end 5 $output/$sample-trimmed.fastq $UMI | gzip -c > $umiTrimmed
+
 	#Reverse complement reads
-	seqtk seq -r $output/$sample-trimmed.fastq > $reverseComplement
-
-	#Trim UMI from 3' ends of reads (add UMI into read name)
-	umitools trim --end 3 $reverseComplement $UMI | gzip -c > $umiTrimmed
-
+	zcat $umiTrimmed | seqtk seq -r - > $reverseComplement
+	
 	#Align reads to reference genome using Bowtie
 	#zcat $umiTrimmed | bowtie -m 1 $index - -S $intermediateSAM 2> $statistics
-	zcat $umiTrimmed | bowtie2 -x $index -U - -S $intermediateSAM 2> $statistics
+	bowtie2 -x $index -U $reverseComplement -S $intermediateSAM 2> $statistics
 	
 	#Convert SAM file to BAM and sort intermediate BAM file
 	#SAMtools: #"-S": Input format is SAM; "-h": Include header in output;
