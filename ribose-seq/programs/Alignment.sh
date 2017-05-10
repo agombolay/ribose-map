@@ -52,8 +52,9 @@ for sample in ${sample[@]}; do
     	mkdir -p $output
 
 	#Output files
-	extracted=$output/$sample.UMI-extracted.fastq.gz; statistics=$output/$sample-AlignmentStatistics.txt;
-	unmappedBAM=$output/$sample-unmapped.bam; mappedBAM=$output/$sample-mapped.bam; finalBAM=$output/$sample.bam
+	finalBAM=$output/$sample.bam
+	statistics=$output/$sample-Statistics.txt
+	extracted=$output/$sample.UMI-extracted.fastq.gz
 	
 	BED=$output/$sample.bed.gz
 	
@@ -76,16 +77,16 @@ for sample in ${sample[@]}; do
 	samtools view -bS temp.sam | samtools sort - -o temp.bam && samtools index temp.bam
 	
 	#Save only mapped reads to another sorted BAM file and create index for BAM file
-	samtools view -bF4 temp.bam | samtools sort - -o $mappedBAM; samtools index $mappedBAM
+	samtools view -bF4 temp.bam | samtools sort - -o $mappedBAM; samtools index mapped.bam
 
 	#Save only unmapped reads to another sorted BAM file and create index for BAM file
-	#samtools view -bf4 temp.bam | samtools sort - -o $unmappedBAM; samtools index $unmappedBAM
+	#samtools view -bf4 temp.bam | samtools sort - -o unmapped.bam; samtools index unmapped.bam
 	
 	#De-duplicate reads based on UMI and create index for BAM file
-	umitools rmdup $mappedBAM $finalBAM > $BED && samtools index $finalBAM
+	umitools rmdup mapped.bam $finalBAM > $BED && samtools index $finalBAM
 	
 	#Remove temporary files
-	rm -f reverseComplement.fastq temp.bam temp.bam.bai temp.sam
+	rm -f reverseComplement.fastq temp.bam temp.bam.bai temp.sam mapped.bam
 		
 	#Notify user that alignment step is complete for which samples
 	#echo "Alignment of $sample to $index reference genome is complete"
