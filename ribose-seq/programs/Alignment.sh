@@ -104,8 +104,7 @@ for sample in ${sample[@]}; do
 	samtools index $finalBAM
 		
 	#Remove intermediate and temporary files
-	rm -f temporary.bam temporary.bam.bai temporary.sam \
-	filtered.sam $sortedBAM $sortedBAM.bai $intermediateSAM
+	rm -f $sortedBAM $sortedBAM.bai $intermediateSAM
 		
 	#Notify user that alignment step is complete for which samples
 	echo "Alignment of $sample to $index reference genome is complete"
