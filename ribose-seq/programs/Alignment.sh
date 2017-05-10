@@ -85,9 +85,6 @@ for sample in ${sample[@]}; do
 	samtools view -bf4 $tempBAM > $unmappedBAM
 	bamToFastq -i $unmappedBAM -fq $unmappedFASTQ
 	
-	#Create index file
-	samtools index $mappedBAM
-	
 	#De-duplicate reads by saving one per UMI
 	umitools rmdup $mappedBAM $finalBAM > $BED
 	
