@@ -70,6 +70,8 @@ for sample in ${sample[@]}; do
 	#Reverse complement reads
 	zcat $extracted | seqtk seq -r - > $reverseComplement
 	
+	#zcat $extracted | seqtk seq -r - | bowtie2 -x $index -U - -S $tempSAM 2> $statistics
+	
 	#Align reads to reference genome using Bowtie2
 	#bowtie -m 1 $index $reverseComplement -S $tempSAM 2> $statistics
 	bowtie2 -x $index -U $reverseComplement -S $tempSAM 2> $statistics
