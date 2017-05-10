@@ -69,7 +69,7 @@ for sample in ${sample[@]}; do
 	#Trim UMI from 5' ends of reads (append UMI to read name for subsequent de-duplication step)
 	umi_tools extract -I $output/$sample-QCtrimmed.fastq -p $UMI -L $output/log.file -S $extracted
 	
-	#Reverse complement reads (rNMP = reverse complement of 5' base)
+	#Reverse complement reads (rNMP=reverse complement of 5' base)
 	cat $extracted | seqtk seq -r - > $output/reverseComplement.fastq
 		
 	#Align reads to reference using Bowtie2 and output statistics
