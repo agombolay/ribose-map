@@ -92,7 +92,7 @@ for sample in ${sample[@]}; do
 	samtools index $finalBAM
 		
 	#Remove temporary files
-	rm -f $mappedBAM $mappedBAM.bai $tempBAM $tempBAM.bai $tempSAM
+	rm -f $mappedBAM $tempBAM $tempBAM.bai $tempSAM
 		
 	#Notify user that alignment step is complete for which samples
 	echo "Alignment of $sample to $index reference genome is complete"
