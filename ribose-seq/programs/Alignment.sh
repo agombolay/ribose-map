@@ -81,6 +81,7 @@ for sample in ${sample[@]}; do
 	#-S: Input=SAM; -h: header; -u: Output=uncompressed BAM
 	#samtools view -Shu $tempSAM | samtools sort - -o $tempBAM
 	
+	#Save only mapped reads to another sorted BAM file and create index for BAM file
 	samtools view -bF4 $tempBAM | samtools sort - -o $mappedBAM; samtools index $mappedBAM
 
 	#Save mapped reads to BAM
