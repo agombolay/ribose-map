@@ -75,26 +75,23 @@ for sample in ${sample[@]}; do
 	#bowtie -m 1 $index $reverseComplement -S $tempSAM 2> $statistics
 	bowtie2 -x $index -U $reverseComplement -S $tempSAM 2> $statistics
 	
-	#Convert SAM file to sorted BAM file
-	samtools view -bS $tempSAM | samtools sort - $tempBAM
+	#Directly convert SAM file to sorted BAM file and create index for BAM file
+	samtools view -bS $tempSAM | samtools sort - $tempBAM && samtools index $tempBAM
 	
 	#Convert SAM file to BAM and sort temp BAM file
 	#-S: Input=SAM; -h: header; -u: Output=uncompressed BAM
 	#samtools view -Shu $tempSAM | samtools sort - -o $tempBAM
 	
-	#Create index file
-	#samtools index $tempBAM
-	
 	#Save mapped reads to BAM
 	#"-F4": Output only mapped reads
-	#samtools view -bF4 $tempBAM > $mapped1BAM
+	#samtools view -bF4 $tempBAM > $mappedBAM
+	
+	samtools view -bF4 $tempBAM | samtools sort - $mappedBAM; samtools index $mappedBAM
 	
 	#Save unmapped reads to FASTQ
 	#"-f4": Output only unmapped reads
 	#samtools view -bf4 $tempBAM > $unmappedBAM
 	#bamToFastq -i $unmappedBAM -fq $unmappedFASTQ
-	
-	#samtools sort $mapped1BAM -o $mapped2BAM; samtools index $mapped2BAM
 	
 	#De-duplicate reads by saving one per UMI
 	#umitools rmdup $mappedBAM $finalBAM > $BED
