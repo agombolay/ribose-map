@@ -70,7 +70,7 @@ for sample in ${sample[@]}; do
 		
 	#Align reads to reference using Bowtie2 and output statistics
 	#bowtie -m 1 $index $reverseComplement -S $tempSAM 2> $statistics
-	bowtie2 -x $index -U reverseComplement.fastq -S $tempSAM 2> $statistics
+	bowtie2 -x $index -U reverseComplement.fastq -S temp.sam 2> $statistics
 	
 	#Directly convert SAM file to sorted BAM file and create index for BAM file
 	samtools view -bS temp.sam | samtools sort - -o temp.bam && samtools index temp.bam
