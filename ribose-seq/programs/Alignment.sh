@@ -54,7 +54,8 @@ for sample in ${sample[@]}; do
 	#Intermediate files
 	umiTrimmed=$output/$sample.UMI-trimmed.fastq.gz; intermediateSAM=$output/$sample.intermediate.sam;
 	sortedBAM=$output/$sample.sorted.bam; reverseComplement=$output/$sample.reverse-complement.fastq;
-	unmappedBAM=$output/$sample.unmapped.bam; unmappedFASTQ=$output/$sample.unmapped.fastq;
+	mappedBAM=$output/$sample.mapped.bam; unmappedBAM=$output/$sample.unmapped.bam;
+	unmappedFASTQ=$output/$sample.unmapped.fastq;
 	
 	#BED file
 	BED=$output/$sample.bed.gz
@@ -83,17 +84,21 @@ for sample in ${sample[@]}; do
 	#Convert SAM file to BAM and sort intermediate BAM file
 	#SAMtools: #"-S": Input format is SAM; "-h": Include header in output;
 	#"-u": Output as uncompressed BAM; #"-F4": Do not output unmapped reads
-	samtools view -ShuF4 $intermediateSAM | samtools sort - -o $sortedBAM
+	#samtools view -ShuF4 $intermediateSAM | samtools sort - -o $sortedBAM
+	samtools view -Shu $intermediateSAM | samtools sort - -o $sortedBAM
+
+	#Save mapped reads to BAM file
+	samtools view -bF4 $sortedBAM > $mappedBAM
 	
 	#Save unmapped reads to FASTQ file
 	samtools view -bf4 $sortedBAM > $unmappedBAM
 	bamToFastq -i $unmappedBAM -fq $unmappedFASTQ
 	
 	#Create index file
-	samtools index $sortedBAM
+	samtools index $mappedBAM
 	
 	#De-duplicate reads by saving one per UMI
-	umitools rmdup $sortedBAM $finalBAM > $BED
+	umitools rmdup $mappedBAM $finalBAM > $BED
 	
 	#Create index file
 	samtools index $finalBAM
