@@ -53,7 +53,8 @@ for sample in ${sample[@]}; do
 
 	#Intermediate files
 	umiTrimmed=$output/$sample.UMI-trimmed.fastq.gz; intermediateSAM=$output/$sample.intermediate.sam;
-	sortedBAM=$output/$sample.sorted.bam; reverseComplement=$output/$sample.reverse-complement.fastq
+	sortedBAM=$output/$sample.sorted.bam; reverseComplement=$output/$sample.reverse-complement.fastq;
+	unmappedBAM=$output/$sample.unmapped.bam; unmappedFASTQ=$output/$sample.unmapped.fastq;
 	
 	#BED file
 	BED=$output/$sample.bed.gz
@@ -83,7 +84,11 @@ for sample in ${sample[@]}; do
 	#SAMtools: #"-S": Input format is SAM; "-h": Include header in output;
 	#"-u": Output as uncompressed BAM; #"-F4": Do not output unmapped reads
 	samtools view -ShuF4 $intermediateSAM | samtools sort - -o $sortedBAM
-
+	
+	#Save unmapped reads to FASTQ file
+	samtools view -bf4 $sortedBAM > $unmappedBAM
+	bedtools bamtofastq -i $unmappedBAM -fq $unmappedFASTQ
+	
 	#Create index file
 	samtools index $sortedBAM
 	
