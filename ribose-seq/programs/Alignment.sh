@@ -52,10 +52,9 @@ for sample in ${sample[@]}; do
     	mkdir -p $output
 
 	#Intermediate files
-	umiTrimmed=$output/$sample.UMI-trimmed.fastq.gz; intermediateSAM=$output/$sample.intermediate.sam;
-	sortedBAM=$output/$sample.sorted.bam; reverseComplement=$output/$sample.reverse-complement.fastq;
-	unmappedBAM=$output/$sample.unmapped.bam; unmappedFASTQ=$output/$sample.unmapped.fastq;
-	mappedBAM=$output/$sample.mapped.bam;
+	umiTrimmed=$output/$sample.UMI-trimmed.fastq.gz; reverseComplement=$output/$sample-reverseComplement.fastq;
+	tempSAM=$output/$sample-temp.sam; tempBAM=$output/$sample-temp.bam; mappedBAM=$output/$sample-mapped.bam;
+	unmappedBAM=$output/$sample-unmapped.bam; unmappedFASTQ=$output/$sample-unmapped.fastq;
 	
 	#BED file
 	BED=$output/$sample.bed.gz
@@ -78,20 +77,20 @@ for sample in ${sample[@]}; do
 	zcat $umiTrimmed | seqtk seq -r - > $reverseComplement
 	
 	#Align reads to reference genome using Bowtie
-	#zcat $umiTrimmed | bowtie -m 1 $index - -S $intermediateSAM 2> $statistics
-	bowtie2 -x $index -U $reverseComplement -S $intermediateSAM 2> $statistics
+	#bowtie -m 1 $index $reverseComplement -S $tempSAM 2> $statistics
+	bowtie2 -x $index -U $reverseComplement -S $tempSAM 2> $statistics
 	
-	#Convert SAM file to BAM and sort intermediate BAM file
-	#SAMtools: #"-S": Input format is SAM; "-h": Include header in output;
-	#"-u": Output as uncompressed BAM; #"-F4": Do not output unmapped reads
-	#samtools view -ShuF4 $intermediateSAM | samtools sort - -o $sortedBAM
-	samtools view -Shu $intermediateSAM | samtools sort - -o $sortedBAM
+	#Convert SAM file to BAM and sort temp BAM file
+	#-S: Input=SAM; -h: header; -u: Output=uncompressed BAM
+	samtools view -Shu $tempSAM | samtools sort - -o $tempBAM
 
-	#Save mapped reads to BAM file
-	samtools view -bF4 $sortedBAM > $mappedBAM
+	#Save mapped reads to BAM
+	#"-F4": Output only mapped reads
+	samtools view -bF4 $tempBAM > $mappedBAM
 	
-	#Save unmapped reads to FASTQ file
-	samtools view -bf4 $sortedBAM > $unmappedBAM
+	#Save unmapped reads to FASTQ
+	#"-f4": Output only unmapped reads
+	samtools view -bf4 $tempBAM > $unmappedBAM
 	bamToFastq -i $unmappedBAM -fq $unmappedFASTQ
 	
 	#Create index file
@@ -103,8 +102,8 @@ for sample in ${sample[@]}; do
 	#Create index file
 	samtools index $finalBAM
 		
-	#Remove intermediate and temporary files
-	rm -f $sortedBAM $sortedBAM.bai $intermediateSAM
+	#Remove temporary files
+	rm -f $tempBAM $tempBAM.bai $tempSAM
 		
 	#Notify user that alignment step is complete for which samples
 	echo "Alignment of $sample to $index reference genome is complete"
