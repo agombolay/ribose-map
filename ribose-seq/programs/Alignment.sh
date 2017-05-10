@@ -64,8 +64,6 @@ for sample in ${sample[@]}; do
 
 	#Trim UMI from 5' ends of reads (add UMI into read name for further processing)
 	umitools trim --end 5 $output/$sample-QCtrimmed.fastq $UMI | gzip -c > $extracted
-
-	#umi_tools extract -I $output/$sample-trimmed.fastq -p $UMI -L log.file -S $umiTrimmed 
 	
 	#Reverse complement reads
 	#zcat $extracted | seqtk seq -r - > $reverseComplement
@@ -100,9 +98,6 @@ for sample in ${sample[@]}; do
 	
 	#De-duplicate reads by saving one per UMI
 	#umitools rmdup $mappedBAM $finalBAM > $BED
-	
-	#De-duplicate reads based on UMI
-	#umi_tools dedup -I $mapped2BAM -S $finalBAM -L dedup.log
 	
 	#Create index file
 	#samtools index $finalBAM
