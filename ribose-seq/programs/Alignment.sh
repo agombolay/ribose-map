@@ -73,10 +73,10 @@ for sample in ${sample[@]}; do
 	samtools view -bS $output/temp.sam | samtools sort - -o $output/temp.bam && samtools index $output/temp.bam
 	
 	#Save only mapped reads to another sorted BAM file and create index for BAM file
-	samtools view -bF4 $output/temp.bam | samtools sort - -o $output/mapped.bam; samtools index $output/mapped.bam
+	samtools view -bF4 $output/temp.bam | samtools sort - -o $output/mapped.bam && samtools index $output/mapped.bam
 
 	#Save only unmapped reads to another sorted BAM file and create index for BAM file
-	#samtools view -bf4 $output/temp.bam | samtools sort - -o $output/unmapped.bam; samtools index $output/unmapped.bam
+	#samtools view -bf4 $output/temp.bam | samtools sort - -o $output/unmapped.bam && samtools index $output/unmapped.bam
 	
 	#De-duplicate reads based on UMI and read position and create index for BAM file
 	umi_tools dedup -I $output/mapped.bam -S $finalBAM -L dedup.log && samtools index $finalBAM
