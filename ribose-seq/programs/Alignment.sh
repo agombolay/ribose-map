@@ -54,9 +54,9 @@ for sample in ${sample[@]}; do
 	#Output files
 	unmappedBAM=$output/$sample-unmapped.bam; unmappedFASTQ=$output/$sample-unmapped.fastq;
 	statistics=$output/$sample-Statistics.txt; BED=$output/$sample.bed.gz; finalBAM=$output/$sample.bam
-	temp1SAM=$output/$sample-temp1.sam; tempBAM=$output/$sample-temp.bam; mapped1BAM=$output/$sample-mapped1.bam;
+	tempSAM=$output/$sample-temp.sam; temp1BAM=$output/$sample-temp1.bam; mapped1BAM=$output/$sample-mapped1.bam;
 	umiTrimmed=$output/$sample.UMI-trimmed.fastq.gz; reverseComplement=$output/$sample-reverseComplement.fastq;
-	temp2SAM=$output/$sample-temp2.sam; mapped2BAM=$output/$sample-mapped2.bam;
+	temp2BAM=$output/$sample-temp2.bam; mapped2BAM=$output/$sample-mapped2.bam;
 	
 #############################################################################################################################
 	#Trim FASTQ files based on quality and Illumina adapter content
@@ -74,24 +74,22 @@ for sample in ${sample[@]}; do
 	#Align reads to reference genome using Bowtie2
 	#bowtie -m 1 $index $reverseComplement -S $tempSAM 2> $statistics
 	#bowtie2 -x $index -U $reverseComplement -S $tempSAM 2> $statistics
-	bowtie2 -x $index -U $reverseComplement 2> $statistics | samtools view -bS - > $temp1BAM
-
-	samtools sort $temp1BAM -o $temp2BAM; samtools index $temp2BAM
+	bowtie2 -x $index -U $reverseComplement -S $tempSAM 2> $statistics
 	
 	#Convert SAM file to BAM and sort temp BAM file
 	#-S: Input=SAM; -h: header; -u: Output=uncompressed BAM
-	#samtools view -Shu $tempSAM | samtools sort - -o $tempBAM
+	samtools view -Shu $tempSAM | samtools sort - -o $tempBAM
 
 	#Create index file
-	#samtools index $tempBAM
+	samtools index $tempBAM
 	
 	#Save mapped reads to BAM
 	#"-F4": Output only mapped reads
-	samtools view -bF4 $temp2BAM > $mapped1BAM
+	samtools view -bF4 $tempBAM > $mapped1BAM
 	
 	#Save unmapped reads to FASTQ
 	#"-f4": Output only unmapped reads
-	samtools view -bf4 $temp2BAM > $unmappedBAM
+	samtools view -bf4 $tempBAM > $unmappedBAM
 	bamToFastq -i $unmappedBAM -fq $unmappedFASTQ
 	
 	samtools sort $mapped1BAM -o $mapped2BAM; samtools index $mapped2BAM
