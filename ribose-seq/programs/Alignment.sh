@@ -51,20 +51,12 @@ for sample in ${sample[@]}; do
 	#Create directory
     	mkdir -p $output
 
-	#Intermediate files
-	umiTrimmed=$output/$sample.UMI-trimmed.fastq.gz; reverseComplement=$output/$sample-reverseComplement.fastq;
-	tempSAM=$output/$sample-temp.sam; tempBAM=$output/$sample-temp.bam; mappedBAM=$output/$sample-mapped.bam;
+	#Output files
 	unmappedBAM=$output/$sample-unmapped.bam; unmappedFASTQ=$output/$sample-unmapped.fastq;
+	tempSAM=$output/$sample-temp.sam; tempBAM=$output/$sample-temp.bam; mappedBAM=$output/$sample-mapped.bam;
+	umiTrimmed=$output/$sample.UMI-trimmed.fastq.gz; reverseComplement=$output/$sample-reverseComplement.fastq;
+	statistics=$output/$sample.Alignment-Statistics.txt; BED=$output/$sample.bed.gz; finalBAM=$output/$sample.bam
 	
-	#BED file
-	BED=$output/$sample.bed.gz
-	
-	#Final BAM file
-	finalBAM=$output/$sample.bam
-
-	#File containing Bowtie2 alignment statistics
-	statistics=$output/$sample.Alignment-Statistics.txt
-
 #############################################################################################################################
 	#Trim FASTQ files based on quality and Illumina adapter content
 	java -jar $path/trimmomatic-0.36.jar SE -phred33 $fastq $output/$sample-trimmed.fastq \
