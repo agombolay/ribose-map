@@ -87,7 +87,7 @@ for sample in ${sample[@]}; do
 	
 	#Save unmapped reads to FASTQ file
 	samtools view -bf4 $sortedBAM > $unmappedBAM
-	bedtools bamtofastq -i $unmappedBAM -fq $unmappedFASTQ
+	bamToFastq -i $unmappedBAM -fq $unmappedFASTQ
 	
 	#Create index file
 	samtools index $sortedBAM
