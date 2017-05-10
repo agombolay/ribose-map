@@ -65,7 +65,7 @@ for sample in ${sample[@]}; do
 	#Trim UMI from 5' ends of reads (add UMI into read name for further processing)
 	#umitools trim --end 5 $output/$sample-trimmed.fastq $UMI | gzip -c > $umiTrimmed
 
-	umi_tools extract -I=$output/$sample-trimmed.fastq -p=$UMI -L=log.file -S $umiTrimmed 
+	umi_tools extract -I $output/$sample-trimmed.fastq -p $UMI -L log.file -S $umiTrimmed 
 	
 	#Reverse complement reads
 	zcat $umiTrimmed | seqtk seq -r - > $reverseComplement
