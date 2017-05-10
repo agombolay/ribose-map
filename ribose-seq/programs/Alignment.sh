@@ -77,24 +77,11 @@ for sample in ${sample[@]}; do
 	#Directly convert SAM file to sorted BAM file and create index for BAM file
 	samtools view -bS $tempSAM | samtools sort - -o $tempBAM && samtools index $tempBAM
 	
-	#Convert SAM file to BAM and sort temp BAM file
-	#-S: Input=SAM; -h: header; -u: Output=uncompressed BAM
-	#samtools view -Shu $tempSAM | samtools sort - -o $tempBAM
-	
 	#Save only mapped reads to another sorted BAM file and create index for BAM file
 	samtools view -bF4 $tempBAM | samtools sort - -o $mappedBAM; samtools index $mappedBAM
 
 	#Save only unmapped reads to another sorted BAM file and create index for BAM file
 	#samtools view -bf4 $tempBAM | samtools sort - -o $unmappedBAM; samtools index $unmappedBAM
-	
-	#Save mapped reads to BAM
-	#"-F4": Output only mapped reads
-	#samtools view -bF4 $tempBAM > $mappedBAM
-		
-	#Save unmapped reads to FASTQ
-	#"-f4": Output only unmapped reads
-	#samtools view -bf4 $tempBAM > $unmappedBAM
-	#bamToFastq -i $unmappedBAM -fq $unmappedFASTQ
 	
 	#De-duplicate reads by saving one per UMI
 	#umitools rmdup $mappedBAM $finalBAM > $BED
