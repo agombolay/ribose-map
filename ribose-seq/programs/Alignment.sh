@@ -53,9 +53,9 @@ for sample in ${sample[@]}; do
 
 	#Output files
 	unmappedBAM=$output/$sample-unmapped.bam; unmappedFASTQ=$output/$sample-unmapped.fastq;
+	statistics=$output/$sample-Statistics.txt; BED=$output/$sample.bed.gz; finalBAM=$output/$sample.bam
 	tempSAM=$output/$sample-temp.sam; tempBAM=$output/$sample-temp.bam; mappedBAM=$output/$sample-mapped.bam;
 	umiTrimmed=$output/$sample.UMI-trimmed.fastq.gz; reverseComplement=$output/$sample-reverseComplement.fastq;
-	statistics=$output/$sample.Alignment-Statistics.txt; BED=$output/$sample.bed.gz; finalBAM=$output/$sample.bam
 	
 #############################################################################################################################
 	#Trim FASTQ files based on quality and Illumina adapter content
@@ -95,7 +95,7 @@ for sample in ${sample[@]}; do
 	samtools index $finalBAM
 		
 	#Remove temporary files
-	rm -f $tempBAM $tempBAM.bai $tempSAM
+	rm -f $mappedBAM $mappedBAM.bai $tempBAM $tempBAM.bai $tempSAM
 		
 	#Notify user that alignment step is complete for which samples
 	echo "Alignment of $sample to $index reference genome is complete"
