@@ -84,6 +84,9 @@ for sample in ${sample[@]}; do
 	#Save only mapped reads to another sorted BAM file and create index for BAM file
 	samtools view -bF4 $tempBAM | samtools sort - -o $mappedBAM; samtools index $mappedBAM
 
+	#Save only unmapped reads to another sorted BAM file and create index for BAM file
+	#samtools view -bf4 $tempBAM | samtools sort - -o $unmappedBAM; samtools index $unmappedBAM
+	
 	#Save mapped reads to BAM
 	#"-F4": Output only mapped reads
 	#samtools view -bF4 $tempBAM > $mappedBAM
@@ -103,7 +106,7 @@ for sample in ${sample[@]}; do
 	#samtools index $finalBAM
 		
 	#Remove temporary files
-	#rm -f $mappedBAM $tempBAM $tempBAM.bai $tempSAM
+	#rm -f $tempBAM $tempBAM.bai $tempSAM
 		
 	#Notify user that alignment step is complete for which samples
 	#echo "Alignment of $sample to $index reference genome is complete"
