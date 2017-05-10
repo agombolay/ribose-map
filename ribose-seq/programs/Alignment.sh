@@ -64,7 +64,10 @@ for sample in ${sample[@]}; do
 	#ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 SLIDINGWINDOW:5:15 MINLEN:$MIN
 
 	#Trim UMI from 5' ends of reads (add UMI into read name for further processing)
-	umitools trim --end 5 $output/$sample-QCtrimmed.fastq $UMI | gzip -c > $extracted
+	#umitools trim --end 5 $output/$sample-QCtrimmed.fastq $UMI | gzip -c > $extracted
+	
+	#Trim UMI from 5' ends of reads (append UMI to read name for further processing)
+	umi_tools extract -I $output/$sample-QCtrimmed.fastq -p $UMI -L log.file -S $extracted
 	
 	#Reverse complement reads (rNMP = RC of 5' base)
 	zcat $extracted | seqtk seq -r - > reverseComplement.fastq
@@ -83,8 +86,11 @@ for sample in ${sample[@]}; do
 	#samtools view -bf4 temp.bam | samtools sort - -o unmapped.bam; samtools index unmapped.bam
 	
 	#De-duplicate reads based on UMI and create index for BAM file
-	umitools rmdup mapped.bam $finalBAM > $BED && samtools index $finalBAM
+	#umitools rmdup mapped.bam $finalBAM > $BED && samtools index $finalBAM
 	
+	#De-duplicate reads based on UMI and read position and create index for BAM file
+	umi_tools dedup -I mapped.bam -S $finalBAM -L dedup.log && samtools index $finalBAM
+
 	#Remove temporary files
 	rm -f reverseComplement.fastq temp.bam temp.bam.bai temp.sam mapped.bam
 		
