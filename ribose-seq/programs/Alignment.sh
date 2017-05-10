@@ -75,7 +75,7 @@ for sample in ${sample[@]}; do
 	#bowtie -m 1 $index $reverseComplement -S $tempSAM 2> $statistics
 	#bowtie2 -x $index -U $reverseComplement -S $tempSAM 2> $statistics
 	bowtie2 -x $index -U $reverseComplement 2> $statistics | \
-	samtools view -Sb - | samtools sort - sorted && samtools index $tempBAM
+	samtools view -Sb - | samtools sort - $tempBAM && samtools index $tempBAM
 	
 	#Convert SAM file to BAM and sort temp BAM file
 	#-S: Input=SAM; -h: header; -u: Output=uncompressed BAM
