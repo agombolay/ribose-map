@@ -59,8 +59,8 @@ for sample in ${sample[@]}; do
 	
 #############################################################################################################################
 	#Trim FASTQ files based on quality and Illumina adapter content
-	java -jar $path/trimmomatic-0.36.jar SE -phred33 $fastq $output/$sample-trimmed.fastq \
-	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 SLIDINGWINDOW:5:15 MINLEN:$MIN
+	#java -jar $path/trimmomatic-0.36.jar SE -phred33 $fastq $output/$sample-trimmed.fastq \
+	#ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 SLIDINGWINDOW:5:15 MINLEN:$MIN
 
 	#Trim UMI from 5' ends of reads (add UMI into read name for further processing)
 	#umitools trim --end 5 $output/$sample-trimmed.fastq $UMI | gzip -c > $umiTrimmed
