@@ -9,12 +9,12 @@
 #Usage statement
 function usage () {
 	echo "Usage: Alignment.sh [-i] 'Sample(s)' [-u] 'UMI' [-m] 'Min' [-p] 'Path' [-b] 'Index' [-d] 'Directory' [-h]
-		-i Sample name(s) (FS1, FS2, FS3 etc.)
-		-u Length of UMI (NNNNNNNN or NNNNNNNNNNN)
-		-m Minimum length of read to retain after trimming
-		-p /projects/home/agombolay3/data/bin/Trimmomatic-0.36
-		-b Basename of Bowtie2 index (sacCer2, pombe, ecoli, mm9, hg38, etc.)
-		-d Directory (/projects/home/agombolay3/data/repository/Ribose-seq-Project)"
+		-i Input sample(s) (e.g., FS1, FS2, FS3)
+		-u Length of UMI (e.g., NNNNNNNN or NNNNNNNNNNN)
+		-m Minimum length of read to retain after trimming (e.g., 50)
+		-p Path (e.g., /projects/home/agombolay3/data/bin/Trimmomatic-0.36)
+		-b Basename of Bowtie2 index (e.g., sacCer2, pombe, ecoli, mm9, or hg38)
+		-d Directory (e.g., /projects/home/agombolay3/data/repository/Ribose-seq-Project)"
 }
 
 #Command-line options
