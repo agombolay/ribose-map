@@ -79,7 +79,7 @@ for sample in ${sample[@]}; do
 	#samtools view -bf4 $output/temp.bam | samtools sort - -o $output/unmapped.bam; samtools index $output/unmapped.bam
 	
 	#De-duplicate reads based on UMI and read position and create index for BAM file
-	#umi_tools dedup -I $output/mapped.bam -S $finalBAM -L dedup.log && samtools index $finalBAM
+	umi_tools dedup -I $output/mapped.bam -S $finalBAM -L dedup.log && samtools index $finalBAM
 	
 	#De-duplicate reads based on UMI and create index for BAM file
 	#umitools rmdup $output/mapped.bam $finalBAM > $output/temp.bed.gz && samtools index $finalBAM
