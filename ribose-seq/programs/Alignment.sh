@@ -45,14 +45,11 @@ for sample in ${sample[@]}; do
 	#Input FASTQ files
 	fastq=$directory/Sequencing-Results/$sample.fastq
 	
-	#Output directory
-	output=$directory/ribose-seq/results/$index/$sample/Alignment
-
-	#Create directory
-    	mkdir -p $output
+	#Output directory and create directory
+	output=$directory/ribose-seq/results/$index/$sample/Alignment; mkdir -p $output
 
 	#Output files
-	finalBAM=$output/$sample.bam; statistics=$output/$sample-Statistics.txt
+	finalBAM=$output/$sample-mappedReads.bam; statistics=$output/$sample-Statistics.txt
 	
 #############################################################################################################################
 	#Trim FASTQ files based on quality and Illumina adapter content
