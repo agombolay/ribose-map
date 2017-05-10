@@ -59,16 +59,16 @@ for sample in ${sample[@]}; do
 	
 #############################################################################################################################
 	#Trim FASTQ files based on quality and Illumina adapter content
-	#java -jar $path/trimmomatic-0.36.jar SE -phred33 $fastq $output/$sample-trimmed.fastq \
-	#ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 SLIDINGWINDOW:5:15 MINLEN:$MIN
+	java -jar $path/trimmomatic-0.36.jar SE -phred33 $fastq $output/$sample-trimmed.fastq \
+	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 SLIDINGWINDOW:5:15 MINLEN:$MIN
 
 	#Trim UMI from 5' ends of reads (add UMI into read name for further processing)
-	#umitools trim --end 5 $output/$sample-trimmed.fastq $UMI | gzip -c > $umiTrimmed
+	umitools trim --end 5 $output/$sample-trimmed.fastq $UMI | gzip -c > $extracted
 
 	#umi_tools extract -I $output/$sample-trimmed.fastq -p $UMI -L log.file -S $umiTrimmed 
 	
 	#Reverse complement reads
-	#zcat $umiTrimmed | seqtk seq -r - > $reverseComplement
+	zcat $extracted | seqtk seq -r - > $reverseComplement
 	
 	#Align reads to reference genome using Bowtie2
 	#bowtie -m 1 $index $reverseComplement -S $tempSAM 2> $statistics
