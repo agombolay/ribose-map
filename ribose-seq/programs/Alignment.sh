@@ -52,8 +52,7 @@ for sample in ${sample[@]}; do
     	mkdir -p $output
 
 	#Output files
-	finalBAM=$output/$sample.bam
-	statistics=$output/$sample-Statistics.txt
+	finalBAM=$output/$sample.bam; statistics=$output/$sample-Statistics.txt
 	
 #############################################################################################################################
 	#Trim FASTQ files based on quality and Illumina adapter content
