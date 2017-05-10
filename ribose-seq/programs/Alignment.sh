@@ -54,8 +54,8 @@ for sample in ${sample[@]}; do
 	#Intermediate files
 	umiTrimmed=$output/$sample.UMI-trimmed.fastq.gz; intermediateSAM=$output/$sample.intermediate.sam;
 	sortedBAM=$output/$sample.sorted.bam; reverseComplement=$output/$sample.reverse-complement.fastq;
-	mappedBAM=$output/$sample.mapped.bam; unmappedBAM=$output/$sample.unmapped.bam;
-	unmappedFASTQ=$output/$sample.unmapped.fastq;
+	unmappedBAM=$output/$sample.unmapped.bam; unmappedFASTQ=$output/$sample.unmapped.fastq;
+	mappedBAM=$output/$sample.mapped.bam;
 	
 	#BED file
 	BED=$output/$sample.bed.gz
