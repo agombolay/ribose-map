@@ -63,36 +63,47 @@ for sample in ${sample[@]}; do
 	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 SLIDINGWINDOW:5:15 MINLEN:$MIN
 
 	#Trim UMI from 5' ends of reads (add UMI into read name for further processing)
-	umitools trim --end 5 $output/$sample-trimmed.fastq $UMI | gzip -c > $umiTrimmed
+	#umitools trim --end 5 $output/$sample-trimmed.fastq $UMI | gzip -c > $umiTrimmed
 
+	umi_tools extract -I=$output/$sample-trimmed.fastq -p=$UMI -L=log.file -S $umiTrimmed 
+	
 	#Reverse complement reads
 	zcat $umiTrimmed | seqtk seq -r - > $reverseComplement
 	
 	#Align reads to reference genome using Bowtie2
 	#bowtie -m 1 $index $reverseComplement -S $tempSAM 2> $statistics
-	bowtie2 -x $index -U $reverseComplement -S $tempSAM 2> $statistics
+	#bowtie2 -x $index -U $reverseComplement -S $tempSAM 2> $statistics
+	bowtie2 -x $index -U $reverseComplement 2> $statistics | samtools view -bS - > $temp1BAM
 	
+	samtools sort $temp1BAM -o $temp2BAM; samtools index $temp2BAM
+
 	#Convert SAM file to BAM and sort temp BAM file
 	#-S: Input=SAM; -h: header; -u: Output=uncompressed BAM
-	samtools view -Shu $tempSAM | samtools sort - -o $tempBAM
+	#samtools view -Shu $tempSAM | samtools sort - -o $tempBAM
 
+	#Create index file
+	#samtools index $tempBAM
+	
 	#Save mapped reads to BAM
 	#"-F4": Output only mapped reads
-	samtools view -bF4 $tempBAM > $mappedBAM
+	samtools view -bF4 $temp2BAM > $mappedBAM
 	
 	#Save unmapped reads to FASTQ
 	#"-f4": Output only unmapped reads
-	samtools view -bf4 $tempBAM > $unmappedBAM
+	samtools view -bf4 $temp2BAM > $unmappedBAM
 	bamToFastq -i $unmappedBAM -fq $unmappedFASTQ
 	
 	#De-duplicate reads by saving one per UMI
-	umitools rmdup $mappedBAM $finalBAM > $BED
+	#umitools rmdup $mappedBAM $finalBAM > $BED
+	
+	#De-duplicate reads based on UMI
+	umi_tools dedup -I $mappedBAM -S $finalBAM -L dedup.log
 	
 	#Create index file
 	samtools index $finalBAM
 		
 	#Remove temporary files
-	rm -f $mappedBAM $tempBAM $tempBAM.bai $tempSAM
+	#rm -f $mappedBAM $tempBAM $tempBAM.bai $tempSAM
 		
 	#Notify user that alignment step is complete for which samples
 	echo "Alignment of $sample to $index reference genome is complete"
