@@ -73,9 +73,10 @@ for sample in ${sample[@]}; do
 	
 	#Align reads to reference genome using Bowtie2
 	#bowtie -m 1 $index $reverseComplement -S $tempSAM 2> $statistics
-	#bowtie2 -x $index -U $reverseComplement -S $tempSAM 2> $statistics
-	bowtie2 -x $index -U $reverseComplement 2> $statistics | \
-	samtools view -Sb - | samtools sort - $tempBAM && samtools index $tempBAM
+	bowtie2 -x $index -U $reverseComplement -S $tempSAM 2> $statistics
+	
+	#Convert SAM file to sorted BAM file
+	samtools view -bS $tempSAM | samtools sort - $tempBAM
 	
 	#Convert SAM file to BAM and sort temp BAM file
 	#-S: Input=SAM; -h: header; -u: Output=uncompressed BAM
