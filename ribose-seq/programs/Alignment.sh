@@ -54,8 +54,9 @@ for sample in ${sample[@]}; do
 	#Output files
 	unmappedBAM=$output/$sample-unmapped.bam; unmappedFASTQ=$output/$sample-unmapped.fastq;
 	statistics=$output/$sample-Statistics.txt; BED=$output/$sample.bed.gz; finalBAM=$output/$sample.bam
-	tempSAM=$output/$sample-temp.sam; tempBAM=$output/$sample-temp.bam; mappedBAM=$output/$sample-mapped.bam;
+	temp1SAM=$output/$sample-temp1.sam; tempBAM=$output/$sample-temp.bam; mappedBAM=$output/$sample-mapped.bam;
 	umiTrimmed=$output/$sample.UMI-trimmed.fastq.gz; reverseComplement=$output/$sample-reverseComplement.fastq;
+	temp2SAM=$output/$sample-temp2.sam
 	
 #############################################################################################################################
 	#Trim FASTQ files based on quality and Illumina adapter content
