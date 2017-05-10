@@ -71,13 +71,13 @@ for sample in ${sample[@]}; do
 		
 	#Align reads to reference using Bowtie2 and output statistics
 	#bowtie -m 1 $index $output/reverseComplement.fastq -S $output/temp.sam 2> $statistics
-	bowtie2 -x $index -U $output/reverseComplement.fastq -S $output/temp.sam 2> $statistics
+	#bowtie2 -x $index -U $output/reverseComplement.fastq -S $output/temp.sam 2> $statistics
 	
 	#Directly convert SAM file to sorted BAM file and create index for BAM file
-	samtools view -bS $output/temp.sam | samtools sort - -o $output/temp.bam && samtools index $output/temp.bam
+	#samtools view -bS $output/temp.sam | samtools sort - -o $output/temp.bam && samtools index $output/temp.bam
 	
 	#Save only mapped reads to another sorted BAM file and create index for BAM file
-	samtools view -bF4 $output/temp.bam | samtools sort - -o $output/mapped.bam; samtools index $output/mapped.bam
+	#samtools view -bF4 $output/temp.bam | samtools sort - -o $output/mapped.bam; samtools index $output/mapped.bam
 
 	#Save only unmapped reads to another sorted BAM file and create index for BAM file
 	#samtools view -bf4 $output/temp.bam | samtools sort - -o $output/unmapped.bam; samtools index $output/unmapped.bam
