@@ -263,4 +263,4 @@ done
 done
 
 #Remove temp files
-rm -f ./*.txt ./*.tab
+#rm -f ./*.txt ./*.tab
