@@ -42,7 +42,7 @@ fi
 #Align reads to reference
 for sample in ${sample[@]}; do
 	
-	#Input FASTQ files
+	#Input file
 	fastq=$directory/Sequencing-Results/$sample.fastq
 	
 	#Output directory and create directory
