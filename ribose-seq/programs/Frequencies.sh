@@ -31,7 +31,8 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
-subset=("genome" "nucleus" "mitochondria")
+#subset=("genome" "nucleus" "mitochondria")
+subset=("genome")
 
 #Calculate frequencies
 for sample in ${sample[@]}; do
