@@ -31,12 +31,11 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
-#subset=("genome" "nucleus" "mitochondria")
-subset=("genome")
+subset=("genome" "nucleus" "mitochondria")
 
 #Calculate frequencies
 for sample in ${sample[@]}; do
-	#for subset in ${subset[@]}; do
+	for subset in ${subset[@]}; do
 
 #############################################################################################################################
 	#Input files
@@ -70,37 +69,37 @@ for sample in ${sample[@]}; do
 	#Index reference FASTA file
 	samtools faidx $referenceFasta1
 	
-	#if [ ! -f $referenceFasta2 ]; then
+	if [ ! -f $referenceFasta2 ]; then
 
-	#	#Specify all genomic DNA
-	#	if [ $subset == "genome" ]; then
-	#		cp $referenceFasta1 $referenceFasta2
+		#Specify all genomic DNA
+		if [ $subset == "genome" ]; then
+			cp $referenceFasta1 $referenceFasta2
 		
 		#Subset mitochondrial DNA
-	#	elif [ $reference == "pombe" ] && [ $subset == "mitochondria" ]; then
-	#		samtools faidx $referenceFasta1 MT > $referenceFasta2
+		elif [ $reference == "pombe" ] && [ $subset == "mitochondria" ]; then
+			samtools faidx $referenceFasta1 MT > $referenceFasta2
 		
-	#	elif [ $reference != "pombe" ] && [ $subset == "mitochondria" ]; then
-	#		samtools faidx $referenceFasta1 chrM > $referenceFasta2
+		elif [ $reference != "pombe" ] && [ $subset == "mitochondria" ]; then
+			samtools faidx $referenceFasta1 chrM > $referenceFasta2
 			
 		#Subset nuclear DNA
-	#	elif [ $reference == "pombe" ] && [ $subset == "nucleus" ]; then
-	#		samtools faidx $referenceFasta1 I II III > $referenceFasta2
+		elif [ $reference == "pombe" ] && [ $subset == "nucleus" ]; then
+			samtools faidx $referenceFasta1 I II III > $referenceFasta2
 		
-	#	elif [ $reference == "sacCer2" ] && [ $subset == "nucleus" ]; then
-	#		samtools faidx $referenceFasta1 2micron chrI chrII chrIII chrIV chrV chrVI chrVII \
-	#		chrVIII chrIX chrX chrXI chrXII chrXIII chrXIV chrXV chrXVI > $referenceFasta2
+		elif [ $reference == "sacCer2" ] && [ $subset == "nucleus" ]; then
+			samtools faidx $referenceFasta1 2micron chrI chrII chrIII chrIV chrV chrVI chrVII \
+			chrVIII chrIX chrX chrXI chrXII chrXIII chrXIV chrXV chrXVI > $referenceFasta2
 		
-	#	elif [ $reference == "mm9" ] && [ $subset == "nucleus" ]; then chr $(seq 1 1 19)" X Y";
-	#		for i in $chr; do samtools faidx $referenceFasta1 chr$i > $referenceFasta2; done
+		elif [ $reference == "mm9" ] && [ $subset == "nucleus" ]; then chr $(seq 1 1 19)" X Y";
+			for i in $chr; do samtools faidx $referenceFasta1 chr$i > $referenceFasta2; done
 		
-	#	elif [ $reference == "hg38" ] && [ $subset == "nucleus" ]; then chr $(seq 1 1 22)" X Y";
-	#		for i in $chr; do samtools faidx $referenceFasta1 chr$i > $referenceFasta2; done
-	#	fi
-	#fi
+		elif [ $reference == "hg38" ] && [ $subset == "nucleus" ]; then chr $(seq 1 1 22)" X Y";
+			for i in $chr; do samtools faidx $referenceFasta1 chr$i > $referenceFasta2; done
+		fi
+	fi
 	
 	#Index reference FASTA file
-	#samtools faidx $referenceFasta2
+	samtools faidx $referenceFasta2
 	
 	#Calculate counts of each dNMP
 	A_Count0=$(grep -v '>' $referenceFasta1 | grep -o 'A' - | wc -l)
@@ -171,100 +170,100 @@ for sample in ${sample[@]}; do
 
 	#Extract sequences from FASTA files
 	#Reverse order of upstream nucleotides
-	#grep -v '>' upstreamSequences.txt | rev > sequences1.txt
-	#grep -v '>' downstreamSequences.txt > sequences2.txt
+	grep -v '>' upstreamSequences.txt | rev > sequences1.txt
+	grep -v '>' downstreamSequences.txt > sequences2.txt
 				
 	#Insert tabs between each nucleotide
-	#cat sequences1.txt | sed 's/.../& /2g;s/./& /g' > columns1.tab
-	#cat sequences2.txt | sed 's/.../& /2g;s/./& /g' > columns2.tab
+	cat sequences1.txt | sed 's/.../& /2g;s/./& /g' > columns1.tab
+	cat sequences2.txt | sed 's/.../& /2g;s/./& /g' > columns2.tab
 
-	#for i in {1..100}; do
+	for i in {1..100}; do
 		#Location of output files
-	#	lists1=$output3/$sample.column.$i.upstream.$reference.$subset.txt
-	#	lists2=$output4/$sample.column.$i.downstream.$reference.$subset.txt
+		lists1=$output3/$sample.column.$i.upstream.$reference.$subset.txt
+		lists2=$output4/$sample.column.$i.downstream.$reference.$subset.txt
 		#Save lists of dNMPs at each +/- 100 bp downstream/upstream position
-	#	awk -v field=$i '{ print $field }' columns1.tab > $lists1
-	#	awk -v field=$i '{ print $field }' columns2.tab > $lists2
-	#done
+		awk -v field=$i '{ print $field }' columns1.tab > $lists1
+		awk -v field=$i '{ print $field }' columns2.tab > $lists2
+	done
 
 #############################################################################################################################
 	#STEP 5: Calculate frequencies of dNMPs located +/- 100 base pairs downstream/upstream from rNMPs
 
 	#Calculate frequencies at each position
-	#for file in `ls -v $output3/$sample*.txt`; do
+	for file in `ls -v $output3/$sample*.txt`; do
 
 		#Calculate count of each dNMP
-	#	A_Count2=$(grep -o 'A' $file | wc -l)
-	#	C_Count2=$(grep -o 'C' $file | wc -l)
-	#	G_Count2=$(grep -o 'G' $file | wc -l)
-	#	T_Count2=$(grep -o 'T' $file | wc -l)
+		A_Count2=$(grep -o 'A' $file | wc -l)
+		C_Count2=$(grep -o 'C' $file | wc -l)
+		G_Count2=$(grep -o 'G' $file | wc -l)
+		T_Count2=$(grep -o 'T' $file | wc -l)
 
 		#Calculate total number of dNMPs
-	#	total2=$(($A_Count2+$C_Count2+$G_Count2+$T_Count2))
+		total2=$(($A_Count2+$C_Count2+$G_Count2+$T_Count2))
 
 		#Calculate normalized frequencies of dNMPs
-	#	A_Frequency2=$(echo "scale = 12; ($A_Count2/$total2)/$A_Frequency0" | bc | awk '{printf "%.12f\n", $0}')
-	#	C_Frequency2=$(echo "scale = 12; ($C_Count2/$total2)/$C_Frequency0" | bc | awk '{printf "%.12f\n", $0}')
-	#	G_Frequency2=$(echo "scale = 12; ($G_Count2/$total2)/$G_Frequency0" | bc | awk '{printf "%.12f\n", $0}')
-	#	T_Frequency2=$(echo "scale = 12; ($T_Count2/$total2)/$T_Frequency0" | bc | awk '{printf "%.12f\n", $0}')
+		A_Frequency2=$(echo "scale = 12; ($A_Count2/$total2)/$A_Frequency0" | bc | awk '{printf "%.12f\n", $0}')
+		C_Frequency2=$(echo "scale = 12; ($C_Count2/$total2)/$C_Frequency0" | bc | awk '{printf "%.12f\n", $0}')
+		G_Frequency2=$(echo "scale = 12; ($G_Count2/$total2)/$G_Frequency0" | bc | awk '{printf "%.12f\n", $0}')
+		T_Frequency2=$(echo "scale = 12; ($T_Count2/$total2)/$T_Frequency0" | bc | awk '{printf "%.12f\n", $0}')
 		
 		#Save normalized dNMPs frequencies to TXT file
-	#	echo $A_Frequency2 >> A_frequency2.txt; echo $C_Frequency2 >> C_frequency2.txt
-	#	echo $G_Frequency2 >> G_frequency2.txt; echo $T_Frequency2 >> T_frequency2.txt
+		echo $A_Frequency2 >> A_frequency2.txt; echo $C_Frequency2 >> C_frequency2.txt
+		echo $G_Frequency2 >> G_frequency2.txt; echo $T_Frequency2 >> T_frequency2.txt
 			
 		#Combine upstream dNMP frequencies together and reverse (frequencies ordered from -100 --> -1)
-	#	upstreamFrequencies=$(paste A_frequency2.txt C_frequency2.txt G_frequency2.txt T_frequency2.txt | tac -)
+		upstreamFrequencies=$(paste A_frequency2.txt C_frequency2.txt G_frequency2.txt T_frequency2.txt | tac -)
 		
-	#done
+	done
 
 	#Calculate frequencies at each position
-	#for file in `ls -v $output4/$sample*.txt`; do
+	for file in `ls -v $output4/$sample*.txt`; do
 
-	#	#Calculate count of each dNMP
-	#	A_Count3=$(grep -v '>' $file | grep -o 'A' - | wc -l)
-	#	C_Count3=$(grep -v '>' $file | grep -o 'C' - | wc -l)
-	#	G_Count3=$(grep -v '>' $file | grep -o 'G' - | wc -l)
-	#	T_Count3=$(grep -v '>' $file | grep -o 'T' - | wc -l)
+		#Calculate count of each dNMP
+		A_Count3=$(grep -v '>' $file | grep -o 'A' - | wc -l)
+		C_Count3=$(grep -v '>' $file | grep -o 'C' - | wc -l)
+		G_Count3=$(grep -v '>' $file | grep -o 'G' - | wc -l)
+		T_Count3=$(grep -v '>' $file | grep -o 'T' - | wc -l)
 
 		#Calculate total number of dNMPs
-	#	total3=$(($A_Count3+$C_Count3+$G_Count3+$T_Count3))
+		total3=$(($A_Count3+$C_Count3+$G_Count3+$T_Count3))
 	
 		#Calculate normalized frequencies of dNMPs
-	#	A_Frequency3=$(echo "scale = 12; ($A_Count3/$total3)/$A_Frequency0" | bc | awk '{printf "%.12f\n", $0}')
-	#	C_Frequency3=$(echo "scale = 12; ($C_Count3/$total3)/$C_Frequency0" | bc | awk '{printf "%.12f\n", $0}')
-	#	G_Frequency3=$(echo "scale = 12; ($G_Count3/$total3)/$G_Frequency0" | bc | awk '{printf "%.12f\n", $0}')
-	#	T_Frequency3=$(echo "scale = 12; ($T_Count3/$total3)/$T_Frequency0" | bc | awk '{printf "%.12f\n", $0}')
+		A_Frequency3=$(echo "scale = 12; ($A_Count3/$total3)/$A_Frequency0" | bc | awk '{printf "%.12f\n", $0}')
+		C_Frequency3=$(echo "scale = 12; ($C_Count3/$total3)/$C_Frequency0" | bc | awk '{printf "%.12f\n", $0}')
+		G_Frequency3=$(echo "scale = 12; ($G_Count3/$total3)/$G_Frequency0" | bc | awk '{printf "%.12f\n", $0}')
+		T_Frequency3=$(echo "scale = 12; ($T_Count3/$total3)/$T_Frequency0" | bc | awk '{printf "%.12f\n", $0}')
 		
 		#Save normalized dNMPs frequencies to TXT file
-	#	echo $A_Frequency3 >> A_frequency3.txt; echo $C_Frequency3 >> C_frequency3.txt
-	#	echo $G_Frequency3 >> G_frequency3.txt; echo $T_Frequency3 >> T_frequency3.txt
+		echo $A_Frequency3 >> A_frequency3.txt; echo $C_Frequency3 >> C_frequency3.txt
+		echo $G_Frequency3 >> G_frequency3.txt; echo $T_Frequency3 >> T_frequency3.txt
 		
 		#Combine downstream dNMP frequencies together as is (frequencies ordered from +1 --> +100)
-	#	downstreamFrequencies=$(paste A_frequency3.txt C_frequency3.txt G_frequency3.txt T_frequency3.txt)
+		downstreamFrequencies=$(paste A_frequency3.txt C_frequency3.txt G_frequency3.txt T_frequency3.txt)
 	
-	#done
+	done
 
 	#Remove intermediate files
-	#rm A_frequency{2..3}.txt C_frequency{2..3}.txt G_frequency{2..3}.txt T_frequency{2..3}.txt
+	rm A_frequency{2..3}.txt C_frequency{2..3}.txt G_frequency{2..3}.txt T_frequency{2..3}.txt
 	
 #############################################################################################################################
 	#STEP 6: Create dataset file containing nucleotide frequencies for plotting
 
 	#Combine rNMP frequencies and upstream and downstream dNMP frequencies in appropriate order
-	#data1=$(cat <(echo "$upstreamFrequencies") <(echo "$riboFrequencies") <(echo "$downstreamFrequencies"))
+	data1=$(cat <(echo "$upstreamFrequencies") <(echo "$riboFrequencies") <(echo "$downstreamFrequencies"))
 	
 	#Add nucleotide positions (-100 --> +100) and nucleotide symbols to header line (A, C, G, and U/T)
-	#echo -e "\tA\tC\tG\tU/T" > $dataset && paste <(echo "$(seq -100 1 100)") <(cat <(echo "$data1")) >> $dataset
+	echo -e "\tA\tC\tG\tU/T" > $dataset && paste <(echo "$(seq -100 1 100)") <(cat <(echo "$data1")) >> $dataset
 
 	#Smaller dataset (-15 nt to +15 nt)
-	#data2=$(head -117 $dataset | tail -31)
-	#echo -e "\tA\tC\tG\tU/T" > $zoomed && cat <(echo "$data2") >> $zoomed
+	data2=$(head -117 $dataset | tail -31)
+	echo -e "\tA\tC\tG\tU/T" > $zoomed && cat <(echo "$data2") >> $zoomed
 
 	#Let the user know the program is has finished running
-	#echo "Calculation of nucleotide frequencies for $sample ($subset) is complete"
+	echo "Calculation of nucleotide frequencies for $sample ($subset) is complete"
 
 done
-#done
+done
 
 #Remove temp files
 #rm -f ./*.txt ./*.tab
