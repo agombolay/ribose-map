@@ -62,11 +62,11 @@ for sample in ${sample[@]}; do
 	umi_tools extract -I QCtrimmed.fastq -p $UMI --supress-stats -S UMItrimmed.fastq
 	
 	#STEP 3: REVERSE COMPLEMENT READS
-	#Reverse complement reads (rNMP=reverse complement of 5' base)
+	#Reverse complement reads (R = reverse complement of 5' base)
 	cat UMItrimmed.fastq | seqtk seq -r - > reverseComplement.fastq
 	
 	#STEP 4: ALIGN READS TO REFERENCE GENOME
-	#Align reads to reference and output alignment statistics file
+	#Align reads to reference genome and save alignment statistics file
 	bowtie2 -x $index -U reverseComplement.fastq 2> $statistics > temp.sam
 	
 	#STEP 5: CONVERT SAM FILE TO BAM FILE AND SORT/INDEX IT
