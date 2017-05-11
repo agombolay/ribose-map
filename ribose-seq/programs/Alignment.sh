@@ -52,32 +52,35 @@ for sample in ${sample[@]}; do
 	finalBAM=$output/$sample-mappedReads.bam; statistics=$output/$sample-Statistics.txt
 	
 #############################################################################################################################
+	#STEP 1: QUALITY TRIMMING
+	
 	#Trim FASTQ files based on quality and Illumina adapter content
 	#java -jar $path/trimmomatic-0.36.jar SE -phred33 $fastq $output/QCtrimmed.fastq \
 	#ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 SLIDINGWINDOW:5:15 MINLEN:$MIN
 	
+	#STEP 2: EXTRACT UMI FROM READS
 	#Trim UMI from 5' ends of reads (append UMI to read name for subsequent de-duplication step)
 	umi_tools extract -I $output/QCtrimmed.fastq -p $UMI --supress-stats -S $output/UMItrimmed.fastq
 	
+	#STEP 3: REVERSE COMPLEMENT READS
 	#Reverse complement reads (rNMP=reverse complement of 5' base)
 	cat $output/UMItrimmed.fastq | seqtk seq -r - > $output/reverseComplement.fastq
-		
-	#Align reads to reference using Bowtie2 and output statistics
-	#bowtie -m 1 $index $output/reverseComplement.fastq -S $output/temp.sam 2> $statistics
+	
+	#STEP 4: ALIGN READS TO REFERENCE GENOME
+	#Align reads to reference using Bowtie2 and output alignment statistics
 	bowtie2 -x $index -U $output/reverseComplement.fastq -S $output/temp.sam 2> $statistics
 	
+	#STEP 5: CONVERT SAM FILE TO BAM FILE AND SORT/INDEX IT
 	#Directly convert SAM file to sorted BAM file (Save only mapped reads) and create index for BAM file
 	samtools view -bSF4 $output/temp.sam | samtools sort - -o $output/mapped.bam && samtools index $output/mapped.bam
 	
-	#De-duplicate reads based on UMI and read position
+	#STEP 6: DE-DUPLICATE READS BASED ON UMI AND SORT/INDEX BAM FILE
+	#De-duplicate reads based on UMI and coordinates, sort BAM file, and create an index file for it
 	umi_tools dedup -I $output/mapped.bam -v 0 | samtools sort - -o $finalBAM && samtools index $finalBAM
-	
-	#Sort final processed BAM file and create index for the file
-	#samtools sort - -o $finalBAM && samtools index $finalBAM
 
 	#Remove temporary files
-	#rm -f $output/reverseComplement.fastq $output/temp.bam \
-	#$output/temp.bam.bai $output/temp.sam $output/mapped.bam
+	rm -f $output/reverseComplement.fastq $output/temp.bam \
+	$output/temp.bam.bai $output/temp.sam $output/mapped.bam
 		
 	#Notify user that alignment step is complete for which samples
 	echo "Alignment of $sample to $index reference genome is complete"
