@@ -70,43 +70,43 @@ for sample in ${sample[@]}; do
 	#Index reference FASTA file
 	samtools faidx $referenceFasta1
 	
-	if [ ! -f $referenceFasta2 ]; then
+	#if [ ! -f $referenceFasta2 ]; then
 
-		#Specify all genomic DNA
-		if [ $subset == "genome" ]; then
-			cp $referenceFasta1 $referenceFasta2
+	#	#Specify all genomic DNA
+	#	if [ $subset == "genome" ]; then
+	#		cp $referenceFasta1 $referenceFasta2
 		
 		#Subset mitochondrial DNA
-		elif [ $reference == "pombe" ] && [ $subset == "mitochondria" ]; then
-			samtools faidx $referenceFasta1 MT > $referenceFasta2
+	#	elif [ $reference == "pombe" ] && [ $subset == "mitochondria" ]; then
+	#		samtools faidx $referenceFasta1 MT > $referenceFasta2
 		
-		elif [ $reference != "pombe" ] && [ $subset == "mitochondria" ]; then
-			samtools faidx $referenceFasta1 chrM > $referenceFasta2
+	#	elif [ $reference != "pombe" ] && [ $subset == "mitochondria" ]; then
+	#		samtools faidx $referenceFasta1 chrM > $referenceFasta2
 			
 		#Subset nuclear DNA
-		elif [ $reference == "pombe" ] && [ $subset == "nucleus" ]; then
-			samtools faidx $referenceFasta1 I II III > $referenceFasta2
+	#	elif [ $reference == "pombe" ] && [ $subset == "nucleus" ]; then
+	#		samtools faidx $referenceFasta1 I II III > $referenceFasta2
 		
-		elif [ $reference == "sacCer2" ] && [ $subset == "nucleus" ]; then
-			samtools faidx $referenceFasta1 2micron chrI chrII chrIII chrIV chrV chrVI chrVII \
-			chrVIII chrIX chrX chrXI chrXII chrXIII chrXIV chrXV chrXVI > $referenceFasta2
+	#	elif [ $reference == "sacCer2" ] && [ $subset == "nucleus" ]; then
+	#		samtools faidx $referenceFasta1 2micron chrI chrII chrIII chrIV chrV chrVI chrVII \
+	#		chrVIII chrIX chrX chrXI chrXII chrXIII chrXIV chrXV chrXVI > $referenceFasta2
 		
-		elif [ $reference == "mm9" ] && [ $subset == "nucleus" ]; then chr $(seq 1 1 19)" X Y";
-			for i in $chr; do samtools faidx $referenceFasta1 chr$i > $referenceFasta2; done
+	#	elif [ $reference == "mm9" ] && [ $subset == "nucleus" ]; then chr $(seq 1 1 19)" X Y";
+	#		for i in $chr; do samtools faidx $referenceFasta1 chr$i > $referenceFasta2; done
 		
-		elif [ $reference == "hg38" ] && [ $subset == "nucleus" ]; then chr $(seq 1 1 22)" X Y";
-			for i in $chr; do samtools faidx $referenceFasta1 chr$i > $referenceFasta2; done
-		fi
-	fi
+	#	elif [ $reference == "hg38" ] && [ $subset == "nucleus" ]; then chr $(seq 1 1 22)" X Y";
+	#		for i in $chr; do samtools faidx $referenceFasta1 chr$i > $referenceFasta2; done
+	#	fi
+	#fi
 	
 	#Index reference FASTA file
-	samtools faidx $referenceFasta2
+	#samtools faidx $referenceFasta2
 	
 	#Calculate counts of each dNMP
-	A_Count0=$(grep -v '>' $referenceFasta2 | grep -o 'A' - | wc -l)
-	C_Count0=$(grep -v '>' $referenceFasta2 | grep -o 'C' - | wc -l)
-	G_Count0=$(grep -v '>' $referenceFasta2 | grep -o 'G' - | wc -l)
-	T_Count0=$(grep -v '>' $referenceFasta2 | grep -o 'T' - | wc -l)
+	A_Count0=$(grep -v '>' $referenceFasta1 | grep -o 'A' - | wc -l)
+	C_Count0=$(grep -v '>' $referenceFasta1 | grep -o 'C' - | wc -l)
+	G_Count0=$(grep -v '>' $referenceFasta1 | grep -o 'G' - | wc -l)
+	T_Count0=$(grep -v '>' $referenceFasta1 | grep -o 'T' - | wc -l)
 	
 	#Calculate total number of dNMPs
 	total0=$(($A_Count0+$C_Count0+$G_Count0+$T_Count0))
@@ -156,12 +156,15 @@ for sample in ${sample[@]}; do
 	#STEP 3: Obtain coordinates and sequences of +/- 100 downstream/upstream dNMPs from rNMPs
 
 	#Obtain coordinates of upstream/downstream sequences based on rNMP coordinates
-	bedtools flank -i $coordinates -s -g $referenceBED -l 100 -r 0 > upstreamIntervals.txt
-	bedtools flank -i $coordinates -s -g $referenceBED -l 0 -r 100 > downstreamIntervals.txt
+	#bedtools flank -i $coordinates -s -g $referenceBED -l 100 -r 0 > upstreamIntervals.txt
+	#bedtools flank -i $coordinates -s -g $referenceBED -l 0 -r 100 > downstreamIntervals.txt
 
+	bedtools flank -i $coordinates -s -g /projects/home/agombolay3/data/repository/Ribose-seq-Project/ribose-seq/reference/sacCer2.bed -l 100 -r 0 > upstreamIntervals.txt
+	bedtools flank -i $coordinates -s -g /projects/home/agombolay3/data/repository/Ribose-seq-Project/ribose-seq/reference/sacCer2.bed -l 0 -r 100 > downstreamIntervals.txt
+	
 	#Obtain sequences of upstream/downstream coordinates
-	bedtools getfasta -s -fi $referenceFasta2 -bed upstreamIntervals.txt -fo upstreamSequences.txt
-	bedtools getfasta -s -fi $referenceFasta2 -bed downstreamIntervals.txt -fo downstreamSequences.txt
+	bedtools getfasta -s -fi $referenceFasta1 -bed upstreamIntervals.txt -fo upstreamSequences.txt
+	bedtools getfasta -s -fi $referenceFasta1 -bed downstreamIntervals.txt -fo downstreamSequences.txt
 
 #############################################################################################################################
 	#STEP 4: Tabulate sequences of dNMPs located +/- 100 base pairs downstream/upstream from rNMPs
