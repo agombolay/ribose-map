@@ -57,10 +57,10 @@ for sample in ${sample[@]}; do
 	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 SLIDINGWINDOW:5:15 MINLEN:$MIN
 
 	#Trim UMI from 5' ends of reads (add UMI into read name for de-duplication step)
-	umitools trim --end 5 $output/QCtrimmed.fastq $UMI | gzip -c > $output/UMItrimmed.fastq
+	#umitools trim --end 5 $output/QCtrimmed.fastq $UMI | gzip -c > $output/UMItrimmed.fastq
 	
 	#Trim UMI from 5' ends of reads (append UMI to read name for subsequent de-duplication step)
-	#umi_tools extract -I $output/QCtrimmed.fastq -p $UMI -L $output/log.file -S $output/UMItrimmed.fastq
+	umi_tools extract -I $output/QCtrimmed.fastq -p $UMI --supress-stats -S $output/UMItrimmed.fastq
 	
 	#Reverse complement reads (rNMP=reverse complement of 5' base)
 	cat $output/UMItrimmed.fastq | seqtk seq -r - > $output/reverseComplement.fastq
@@ -79,10 +79,10 @@ for sample in ${sample[@]}; do
 	#samtools view -bf4 $output/temp.bam | samtools sort - -o $output/unmapped.bam && samtools index $output/unmapped.bam
 	
 	#De-duplicate reads based on UMI and read position and create index for BAM file
-	#umi_tools dedup -I $output/mapped.bam -S $finalBAM -L dedup.log && samtools index $finalBAM
+	umi_tools dedup -I $output/mapped.bam -S $finalBAM -v 0 && samtools index $finalBAM
 	
 	#De-duplicate reads based on UMI and create index for BAM file
-	umitools rmdup $output/mapped.bam $finalBAM > $output/temp.bed.gz && samtools index $finalBAM
+	#umitools rmdup $output/mapped.bam $finalBAM > $output/temp.bed.gz && samtools index $finalBAM
 
 	#Remove temporary files
 	#rm -f $output/reverseComplement.fastq $output/temp.bam $output/temp.bam.bai temp.sam $output/mapped.bam
