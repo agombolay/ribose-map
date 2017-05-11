@@ -66,8 +66,8 @@ for sample in ${sample[@]}; do
 	cat UMItrimmed.fastq | seqtk seq -r - > reverseComplement.fastq
 	
 	#STEP 4: ALIGN READS TO REFERENCE GENOME
-	#Align reads to reference using Bowtie2 and output alignment statistics
-	bowtie2 -x $index -U $output/reverseComplement.fastq 2> $statistics > temp.sam
+	#Align reads to reference and output alignment statistics file
+	bowtie2 -x $index -U reverseComplement.fastq 2> $statistics > temp.sam
 	
 	#STEP 5: CONVERT SAM FILE TO BAM FILE AND SORT/INDEX IT
 	#Convert SAM file to sorted BAM file (Save only mapped reads) and create index file
