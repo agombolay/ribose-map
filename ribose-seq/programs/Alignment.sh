@@ -60,19 +60,22 @@ for sample in ${sample[@]}; do
 	
 	#STEP 2: EXTRACT UMI FROM READS
 	#Trim UMI from 5' ends of reads (append UMI to read name for subsequent de-duplication step)
-	umi_tools extract -I $output/QCtrimmed.fastq -p $UMI --supress-stats -S $output/UMItrimmed.fastq
+	#umi_tools extract -I $output/QCtrimmed.fastq -p $UMI --supress-stats -S $output/UMItrimmed.fastq
 	
 	#STEP 3: REVERSE COMPLEMENT READS
 	#Reverse complement reads (rNMP=reverse complement of 5' base)
-	cat $output/UMItrimmed.fastq | seqtk seq -r - > $output/reverseComplement.fastq
+	#cat $output/UMItrimmed.fastq | seqtk seq -r - > $output/reverseComplement.fastq
 	
 	#STEP 4: ALIGN READS TO REFERENCE GENOME
 	#Align reads to reference using Bowtie2 and output alignment statistics
-	bowtie2 -x $index -U $output/reverseComplement.fastq -S $output/temp.sam 2> $statistics
+	#bowtie2 -x $index -U $output/reverseComplement.fastq -S $output/temp.sam 2> $statistics
+	
+	bowtie2 -x $index -U $output/reverseComplement.fastq 2> $statistics | samtools view -bSF4 - | \
+	samtools sort - -o $output/mapped.bam && samtools index $output/mapped.bam
 	
 	#STEP 5: CONVERT SAM FILE TO BAM FILE AND SORT/INDEX IT
 	#Directly convert SAM file to sorted BAM file (Save only mapped reads) and create index for BAM file
-	samtools view -bSF4 $output/temp.sam | samtools sort - -o $output/mapped.bam && samtools index $output/mapped.bam
+	#samtools view -bSF4 $output/temp.sam | samtools sort - -o $output/mapped.bam && samtools index $output/mapped.bam
 	
 	#STEP 6: DE-DUPLICATE READS BASED ON UMI AND SORT/INDEX BAM FILE
 	#De-duplicate reads based on UMI and coordinates, sort BAM file, and create an index file for it
