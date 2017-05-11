@@ -55,7 +55,7 @@ for sample in ${sample[@]}; do
 	#STEP 1: QUALITY TRIMMING
 	#Trim FASTQ files based on quality and Illumina adapter content
 	java -jar $path/trimmomatic-0.36.jar SE -phred33 $fastq QCtrimmed.fastq \
-	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
+	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 SLIDINGWINDOW:4:15 MINLEN:$MIN
 	
 	#STEP 2: EXTRACT UMI FROM READS
 	#Trim UMI from 5' ends of reads (append UMI to read name for de-duplication)
