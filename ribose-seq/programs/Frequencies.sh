@@ -158,8 +158,11 @@ for sample in ${sample[@]}; do
 	#bedtools flank -i $coordinates -s -g $referenceBED -l 100 -r 0 > upstreamIntervals.txt
 	#bedtools flank -i $coordinates -s -g $referenceBED -l 0 -r 100 > downstreamIntervals.txt
 
-	/projects/home/agombolay3/data/bin/bedtools2/bin/flankBed -i $coordinates -s -g /projects/home/agombolay3/data/repository/Ribose-seq-Project/ribose-seq/reference/sacCer2.bed -l 100 -r 0 > upstreamIntervals.txt
-	/projects/home/agombolay3/data/bin/bedtools2/bin/flankBed -i $coordinates -s -g /projects/home/agombolay3/data/repository/Ribose-seq-Project/ribose-seq/reference/sacCer2.bed -l 0 -r 100 > downstreamIntervals.txt
+	#/projects/home/agombolay3/data/bin/bedtools2/bin/flankBed -i $coordinates -s -g /projects/home/agombolay3/data/repository/Ribose-seq-Project/ribose-seq/reference/sacCer2.bed -l 100 -r 0 > upstreamIntervals.txt
+	#/projects/home/agombolay3/data/bin/bedtools2/bin/flankBed -i $coordinates -s -g /projects/home/agombolay3/data/repository/Ribose-seq-Project/ribose-seq/reference/sacCer2.bed -l 0 -r 100 > downstreamIntervals.txt
+	
+	bedtools flank -i $coordinates -s -g /projects/home/agombolay3/data/repository/Ribose-seq-Project/ribose-seq/reference/sacCer2.bed -l 100 -r 0 > upstreamIntervals.txt
+	bedtools flank -i $coordinates -s -g /projects/home/agombolay3/data/repository/Ribose-seq-Project/ribose-seq/reference/sacCer2.bed -l 0 -r 100 > downstreamIntervals.txt
 	
 	#Obtain sequences of upstream/downstream coordinates
 	bedtools getfasta -s -fi $referenceFasta1 -bed upstreamIntervals.txt -fo upstreamSequences.txt
