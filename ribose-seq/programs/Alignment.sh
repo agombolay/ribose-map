@@ -55,9 +55,6 @@ for sample in ${sample[@]}; do
 	#Trim FASTQ files based on quality and Illumina adapter content
 	#java -jar $path/trimmomatic-0.36.jar SE -phred33 $fastq $output/QCtrimmed.fastq \
 	#ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 SLIDINGWINDOW:5:15 MINLEN:$MIN
-
-	#Trim UMI from 5' ends of reads (add UMI into read name for de-duplication step)
-	#umitools trim --end 5 $output/QCtrimmed.fastq $UMI | gzip -c > $output/UMItrimmed.fastq
 	
 	#Trim UMI from 5' ends of reads (append UMI to read name for subsequent de-duplication step)
 	umi_tools extract -I $output/QCtrimmed.fastq -p $UMI --supress-stats -S $output/UMItrimmed.fastq
@@ -69,24 +66,19 @@ for sample in ${sample[@]}; do
 	#bowtie -m 1 $index $output/reverseComplement.fastq -S $output/temp.sam 2> $statistics
 	bowtie2 -x $index -U $output/reverseComplement.fastq -S $output/temp.sam 2> $statistics
 	
-	#Directly convert SAM file to sorted BAM file and create index for BAM file
-	samtools view -bS $output/temp.sam | samtools sort - -o $output/temp.bam && samtools index $output/temp.bam
+	#Directly convert SAM file to sorted BAM file (Save only mapped reads) and create index for BAM file
+	samtools view -bSF4 $output/temp.sam | samtools sort - -o $output/mapped.bam && samtools index $output/mapped.bam
 	
-	#Save only mapped reads to another sorted BAM file and create index for BAM file
-	samtools view -bF4 $output/temp.bam | samtools sort - -o $output/mapped.bam && samtools index $output/mapped.bam
-
-	#Save only unmapped reads to another sorted BAM file and create index for BAM file
-	#samtools view -bf4 $output/temp.bam | samtools sort - -o $output/unmapped.bam && samtools index $output/unmapped.bam
+	#De-duplicate reads based on UMI and read position
+	umi_tools dedup -I $output/mapped.bam -v 0 | samtools sort - -o $finalBAM && samtools index $finalBAM
 	
-	#De-duplicate reads based on UMI and read position and create index for BAM file
-	umi_tools dedup -I $output/mapped.bam -S $finalBAM -v 0 && samtools index $finalBAM
-	
-	#De-duplicate reads based on UMI and create index for BAM file
-	#umitools rmdup $output/mapped.bam $finalBAM > $output/temp.bed.gz && samtools index $finalBAM
+	#Sort final processed BAM file and create index for the file
+	#samtools sort - -o $finalBAM && samtools index $finalBAM
 
 	#Remove temporary files
-	#rm -f $output/reverseComplement.fastq $output/temp.bam $output/temp.bam.bai temp.sam $output/mapped.bam
+	#rm -f $output/reverseComplement.fastq $output/temp.bam \
+	#$output/temp.bam.bai $output/temp.sam $output/mapped.bam
 		
 	#Notify user that alignment step is complete for which samples
-	#echo "Alignment of $sample to $index reference genome is complete"
+	echo "Alignment of $sample to $index reference genome is complete"
 done
