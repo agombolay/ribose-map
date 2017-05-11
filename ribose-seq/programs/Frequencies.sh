@@ -36,7 +36,7 @@ subset=("genome")
 
 #Calculate frequencies
 for sample in ${sample[@]}; do
-	for subset in ${subset[@]}; do
+	#for subset in ${subset[@]}; do
 
 #############################################################################################################################
 	#Input files
@@ -264,7 +264,7 @@ for sample in ${sample[@]}; do
 	#echo "Calculation of nucleotide frequencies for $sample ($subset) is complete"
 
 done
-done
+#done
 
 #Remove temp files
 #rm -f ./*.txt ./*.tab
