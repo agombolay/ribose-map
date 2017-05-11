@@ -160,7 +160,7 @@ for sample in ${sample[@]}; do
 
 	#Obtain sequences of upstream/downstream coordinates
 	bedtools getfasta -s -fi $referenceFasta2 -bed upstreamIntervals.txt -fo upstreamSequences.txt
-	#bedtools getfasta -s -fi $referenceFasta2 -bed downstreamIntervals.txt -fo downstreamSequences.txt
+	bedtools getfasta -s -fi $referenceFasta2 -bed downstreamIntervals.txt -fo downstreamSequences.txt
 
 #############################################################################################################################
 	#STEP 4: Tabulate sequences of dNMPs located +/- 100 base pairs downstream/upstream from rNMPs
