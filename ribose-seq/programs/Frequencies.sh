@@ -102,10 +102,10 @@ for sample in ${sample[@]}; do
 	samtools faidx $referenceFasta2
 	
 	#Calculate counts of each dNMP
-	A_Count0=$(grep -v '>' $referenceFasta1 | grep -o 'A' - | wc -l)
-	C_Count0=$(grep -v '>' $referenceFasta1 | grep -o 'C' - | wc -l)
-	G_Count0=$(grep -v '>' $referenceFasta1 | grep -o 'G' - | wc -l)
-	T_Count0=$(grep -v '>' $referenceFasta1 | grep -o 'T' - | wc -l)
+	A_Count0=$(grep -v '>' $referenceFasta2 | grep -o 'A' - | wc -l)
+	C_Count0=$(grep -v '>' $referenceFasta2 | grep -o 'C' - | wc -l)
+	G_Count0=$(grep -v '>' $referenceFasta2 | grep -o 'G' - | wc -l)
+	T_Count0=$(grep -v '>' $referenceFasta2 | grep -o 'T' - | wc -l)
 	
 	#Calculate total number of dNMPs
 	total0=$(($A_Count0+$C_Count0+$G_Count0+$T_Count0))
