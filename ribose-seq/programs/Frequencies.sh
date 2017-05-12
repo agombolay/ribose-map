@@ -165,8 +165,8 @@ for sample in ${sample[@]}; do
 	/projects/home/agombolay3/bedtools2/bin/bedtools flank -i $coordinates -s -g /projects/home/agombolay3/data/repository/Ribose-seq-Project/ribose-seq/reference/sacCer2.bed -l 0 -r 100 > downstreamIntervals.txt
 	
 	#Obtain sequences of upstream/downstream coordinates
-	/projects/home/agombolay3/bedtools2/bin/bedtools/bedtools getfasta -s -fi $referenceFasta1 -bed upstreamIntervals.txt -fo upstreamSequences.txt
-	/projects/home/agombolay3/bedtools2/bin/bedtools/bedtools getfasta -s -fi $referenceFasta1 -bed downstreamIntervals.txt -fo downstreamSequences.txt
+	/projects/home/agombolay3/bedtools2/bin/bedtools getfasta -s -fi $referenceFasta1 -bed upstreamIntervals.txt -fo upstreamSequences.txt
+	/projects/home/agombolay3/bedtools2/bin/bedtools getfasta -s -fi $referenceFasta1 -bed downstreamIntervals.txt -fo downstreamSequences.txt
 
 #############################################################################################################################
 	#STEP 4: Tabulate sequences of dNMPs located +/- 100 base pairs downstream/upstream from rNMPs
