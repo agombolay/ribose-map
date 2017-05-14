@@ -157,7 +157,7 @@ for sample in ${sample[@]}; do
 
 	#Obtain coordinates of upstream/downstream sequences based on rNMP coordinates
 	bedtools flank -i $coordinates -s -g $referenceBED -l 100 -r 0 > upstreamIntervals.txt
-	#bedtools flank -i $coordinates -s -g $referenceBED -l 0 -r 100 > downstreamIntervals.txt
+	bedtools flank -i $coordinates -s -g $referenceBED -l 0 -r 100 > downstreamIntervals.txt
 	
 	#Obtain sequences of upstream/downstream coordinates
 	#bedtools getfasta -s -fi $referenceFasta1 -bed upstreamIntervals.txt -fo upstreamSequences.txt
