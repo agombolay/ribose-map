@@ -72,14 +72,14 @@ for sample in ${sample[@]}; do
 	if [ ! -f $referenceFasta2 ]; then
 
 		#Specify all genomic DNA
-		if [ $subset == "genome" ]; then
+		if [ $subset == "all" ]; then
 			cp $referenceFasta1 $referenceFasta2
 		
 		#Subset mitochondrial DNA
 		elif [ $reference == "pombe" ] && [ $subset == "mitochondria" ]; then
 			samtools faidx $referenceFasta1 MT > $referenceFasta2
 		
-		elif [ $reference != "pombe" ] && [ $subset == "mitochondria" ]; then
+		elif [ $reference != "pombe" ] && [ $subset == "mito" ]; then
 			samtools faidx $referenceFasta1 chrM > $referenceFasta2
 			
 		#Subset nuclear DNA
