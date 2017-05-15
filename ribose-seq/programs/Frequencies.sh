@@ -39,11 +39,9 @@ for sample in ${sample[@]}; do
 
 #############################################################################################################################
 	#Input files
-	BED=$directory/ribose-seq/reference/$reference.bed
-	FASTA=$directory/ribose-seq/reference/$reference.$subset.fa
-	
+	BED=$directory/ribose-seq/reference/$reference.bed; FASTA=$directory/ribose-seq/reference/$reference.$subset.fa
 	reads=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.read-information.$subset.txt
-	coordinates=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.$subset.bed
+	coordinates=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.coordinates.$subset.bed
 
 	#Output directories
 	output1=$directory/ribose-seq/results/Background-Frequencies
@@ -51,11 +49,8 @@ for sample in ${sample[@]}; do
 	output3=$directory/ribose-seq/results/$reference/$sample/Frequencies/dNMPs/$subset/Columns/upstream
 	output4=$directory/ribose-seq/results/$reference/$sample/Frequencies/dNMPs/$subset/Columns/downstream
 
-	#Create directories
-	mkdir -p $output{1..4}
-
-	#Remove older versions files
-	rm -f $output{1..4}/*.txt $output{1..4}/*.tab
+	#Create directories and remove older versions files
+	mkdir -p $output{1..4}; rm -f $output{1..4}/*.txt $output{1..4}/*.tab
 	
 	#Output files
 	background=$output1/Background-Frequencies.$reference.$subset.txt
