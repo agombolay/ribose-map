@@ -174,7 +174,7 @@ for sample in ${sample[@]}; do
 	cat sequences1.txt | sed 's/.../& /2g;s/./& /g' > columns1.tab
 	cat sequences2.txt | sed 's/.../& /2g;s/./& /g' > columns2.tab
 
-	#for i in {1..100}; do
+	for i in {1..100}; do
 		#Location of output files
 		lists1=$output3/$sample.column.$i.upstream.$reference.$subset.txt
 		lists2=$output4/$sample.column.$i.downstream.$reference.$subset.txt
