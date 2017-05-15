@@ -114,8 +114,8 @@ for sample in ${sample[@]}; do
 	#STEP 3: Obtain coordinates and sequences of +/- 100 downstream/upstream dNMPs from rNMPs
 
 	#Obtain coordinates of sequences upstream/downstream from rNMPs
-	bedtools flank -i $coordinates -s -g $BED -l 100 -r 0 > upstreamIntervals.txt
-	bedtools flank -i $coordinates -s -g $BED -l 0 -r 100 > downstreamIntervals.txt
+	bedtools flank -i $coordinates -s -g $BED -l 100 -r 0 | awk '$2 != "0" && $3 != "0"' - > upstreamIntervals.txt
+	bedtools flank -i $coordinates -s -g $BED -l 0 -r 100 | awk '$2 != "0" && $3 != "0"' - > downstreamIntervals.txt
 	
 	#Obtain sequences of the sequences upstream/downstream from rNMPs
 	bedtools getfasta -s -fi $FASTA -bed upstreamIntervals.txt -fo upstreamSequences.txt
