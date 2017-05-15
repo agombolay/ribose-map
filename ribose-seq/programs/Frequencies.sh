@@ -39,8 +39,8 @@ for sample in ${sample[@]}; do
 
 #############################################################################################################################
 	#Input files
+	reads=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.Read-Information.$subset.txt
 	BED=$directory/ribose-seq/reference/$reference.bed; FASTA=$directory/ribose-seq/reference/$reference.$subset.fa
-	reads=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.read-information.$subset.txt
 	coordinates=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.coordinates.$subset.bed
 
 	#Output directories
