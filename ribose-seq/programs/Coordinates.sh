@@ -48,8 +48,8 @@ for sample in ${sample[@]}; do
 		mkdir -p $output; rm -f $output/{*.txt,*.bed,*.fa,*.fq}
 	
 		#Output files
-		reads=$output/$sample.read-information.$subset.txt
-		coordinates=$output/$sample.rNMP-coordinates.$subset.bed
+		reads=$output/$sample.Read-Information.$subset.txt
+		coordinates=$output/$sample.Coordinates.$subset.bed
 
 #############################################################################################################################
 		#STEP 1: Extract sequences from BAM alignment file
