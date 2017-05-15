@@ -39,9 +39,8 @@ for sample in ${sample[@]}; do
 
 #############################################################################################################################
 	#Input files
-	referenceBED=$directory/ribose-seq/reference/$reference.bed
-	referenceFasta1=$directory/ribose-seq/reference/$reference.fa
-	referenceFasta2=$directory/ribose-seq/reference/$reference.$subset.fa
+	BED=$directory/ribose-seq/reference/$reference.bed
+	FASTA=$directory/ribose-seq/reference/$reference.$subset.fa
 	
 	reads=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.read-information.$subset.txt
 	coordinates=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample.rNMP-coordinates.$subset.bed
@@ -65,47 +64,12 @@ for sample in ${sample[@]}; do
 		
 #############################################################################################################################
 	#STEP 1: Calculate background dNMP frequencies of reference genome
-
-	#Index reference FASTA file
-	samtools faidx $referenceFasta1
-	
-	if [ ! -f $referenceFasta2 ]; then
-
-		#Specify all genomic DNA
-		if [ $subset == "all" ]; then
-			cp $referenceFasta1 $referenceFasta2
-		
-		#Subset mitochondrial DNA
-		elif [ $reference == "pombe" ] && [ $subset == "mitochondria" ]; then
-			samtools faidx $referenceFasta1 MT > $referenceFasta2
-		
-		elif [ $reference != "pombe" ] && [ $subset == "mito" ]; then
-			samtools faidx $referenceFasta1 chrM > $referenceFasta2
-			
-		#Subset nuclear DNA
-		elif [ $reference == "pombe" ] && [ $subset == "nucleus" ]; then
-			samtools faidx $referenceFasta1 I II III > $referenceFasta2
-		
-		elif [ $reference == "sacCer2" ] && [ $subset == "nucleus" ]; then
-			samtools faidx $referenceFasta1 2micron chrI chrII chrIII chrIV chrV chrVI chrVII \
-			chrVIII chrIX chrX chrXI chrXII chrXIII chrXIV chrXV chrXVI > $referenceFasta2
-		
-		elif [ $reference == "mm9" ] && [ $subset == "nucleus" ]; then chr $(seq 1 1 19)" X Y";
-			for i in $chr; do samtools faidx $referenceFasta1 chr$i > $referenceFasta2; done
-		
-		elif [ $reference == "hg38" ] && [ $subset == "nucleus" ]; then chr $(seq 1 1 22)" X Y";
-			for i in $chr; do samtools faidx $referenceFasta1 chr$i > $referenceFasta2; done
-		fi
-	fi
-	
-	#Index reference FASTA file
-	samtools faidx $referenceFasta2
 	
 	#Calculate counts of each dNMP
-	A_Count0=$(grep -v '>' $referenceFasta2 | grep -o 'A' - | wc -l)
-	C_Count0=$(grep -v '>' $referenceFasta2 | grep -o 'C' - | wc -l)
-	G_Count0=$(grep -v '>' $referenceFasta2 | grep -o 'G' - | wc -l)
-	T_Count0=$(grep -v '>' $referenceFasta2 | grep -o 'T' - | wc -l)
+	A_Count0=$(grep -v '>' $FASTA | grep -o 'A' - | wc -l)
+	C_Count0=$(grep -v '>' $FASTA | grep -o 'C' - | wc -l)
+	G_Count0=$(grep -v '>' $FASTA | grep -o 'G' - | wc -l)
+	T_Count0=$(grep -v '>' $FASTA | grep -o 'T' - | wc -l)
 	
 	#Calculate total number of dNMPs
 	total0=$(($A_Count0+$C_Count0+$G_Count0+$T_Count0))
@@ -154,13 +118,13 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#STEP 3: Obtain coordinates and sequences of +/- 100 downstream/upstream dNMPs from rNMPs
 
-	#Obtain coordinates of upstream/downstream sequences based on rNMP coordinates
-	bedtools flank -i $coordinates -s -g $referenceBED -l 100 -r 0 > upstreamIntervals.txt
-	bedtools flank -i $coordinates -s -g $referenceBED -l 0 -r 100 > downstreamIntervals.txt
+	#Obtain coordinates of sequences upstream/downstream from rNMPs
+	bedtools flank -i $coordinates -s -g $BED -l 100 -r 0 > upstreamIntervals.txt
+	bedtools flank -i $coordinates -s -g $BED -l 0 -r 100 > downstreamIntervals.txt
 	
-	#Obtain sequences of upstream/downstream coordinates
-	bedtools getfasta -s -fi $referenceFasta1 -bed upstreamIntervals.txt -fo upstreamSequences.txt
-	bedtools getfasta -s -fi $referenceFasta1 -bed downstreamIntervals.txt -fo downstreamSequences.txt
+	#Obtain sequences of the sequences upstream/downstream from rNMPs
+	bedtools getfasta -s -fi $FASTA -bed upstreamIntervals.txt -fo upstreamSequences.txt
+	bedtools getfasta -s -fi $FASTA -bed downstreamIntervals.txt -fo downstreamSequences.txt
 
 #############################################################################################################################
 	#STEP 4: Tabulate sequences of dNMPs located +/- 100 base pairs downstream/upstream from rNMPs
