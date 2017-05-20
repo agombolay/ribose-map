@@ -88,19 +88,19 @@ for sample in ${sample[@]}; do
 	fi
 	
 	#Calculate counts of rNMPs
-	A_Count1=$(awk '$1 == "A"' riboSequences.txt | wc -l)
-	C_Count1=$(awk '$1 == "C"' riboSequences.txt | wc -l)
-	G_Count1=$(awk '$1 == "G"' riboSequences.txt | wc -l)
-	U_Count1=$(awk '$1 == "T"' riboSequences.txt | wc -l)
+	A_RiboCount=$(awk '$1 == "A"' riboSequences.txt | wc -l)
+	C_RiboCount=$(awk '$1 == "C"' riboSequences.txt | wc -l)
+	G_RiboCount=$(awk '$1 == "G"' riboSequences.txt | wc -l)
+	U_RiboCount=$(awk '$1 == "T"' riboSequences.txt | wc -l)
 	
 	#Calculate total number of rNMPs
-	total1=$(($A_Count1+$C_Count1+$G_Count1+$U_Count1))
+	total_RiboCount=$(($A_RiboCount+$C_RiboCount+$G_RiboCount+$U_RiboCount))
 
 	#Calculate normalized frequency of each rNMP
-	A_Frequency1=$(echo "scale = 12; ($A_Count1/$total1)/$A_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
-	C_Frequency1=$(echo "scale = 12; ($C_Count1/$total1)/$C_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
-	G_Frequency1=$(echo "scale = 12; ($G_Count1/$total1)/$G_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
-	U_Frequency1=$(echo "scale = 12; ($U_Count1/$total1)/$T_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+	A_RiboFreq=$(echo "scale = 12; ($A_RiboCount/$total_RiboCount)/$A_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+	C_RiboFreq=$(echo "scale = 12; ($C_RiboCount/$total_RiboCount)/$C_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+	G_RiboFreq=$(echo "scale = 12; ($G_RiboCount/$total_RiboCount)/$G_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+	U_RiboFreq=$(echo "scale = 12; ($U_RiboCount/$total_RiboCount)/$T_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
 
 	#Save normalized frequencies of rNMPs together
 	riboFrequencies=$(echo -e "$A_Frequency1\t$C_Frequency1\t$G_Frequency1\t$U_Frequency1")
