@@ -169,8 +169,8 @@ for sample in ${sample[@]}; do
 	for file in `ls -v $output3/$sample*.txt`; do
 
 		#Calculate count of each dNMP
-		A_DownCount=$(grep -v '>' $file | grep -o 'A' - | wc -l); C_DownCount=$(grep -v '>' $file | grep -o 'C' - | wc -l)
-		G_DownCount=$(grep -v '>' $file | grep -o 'G' - | wc -l); T_DownCount=$(grep -v '>' $file | grep -o 'T' - | wc -l)
+		A_DownCount=$(grep -o 'A' $file | wc -l); C_DownCount=$(grep -o 'C' $file | wc -l)
+		G_DownCount=$(grep -o 'G' $file | wc -l); T_DownCount=$(grep -o 'T' $file | wc -l)
 
 		#Calculate total number of dNMPs
 		DownCount=$(($A_DownCount+$C_DownCount+$G_DownCount+$T_DownCount))
