@@ -59,39 +59,35 @@ for sample in ${sample[@]}; do
 	#STEP 1: Calculate background nucleotide frequencies of reference genome
 	
 	#Calculate counts of each nucleotide
-	A_BkgCount=$(grep -v '>' $FASTA | grep -o 'A' - | wc -l)
-	C_BkgCount=$(grep -v '>' $FASTA | grep -o 'C' - | wc -l)
-	G_BkgCount=$(grep -v '>' $FASTA | grep -o 'G' - | wc -l)
-	T_BkgCount=$(grep -v '>' $FASTA | grep -o 'T' - | wc -l)
+	A_BkgCount=$(grep -v '>' $FASTA | grep -o 'A' - | wc -l); C_BkgCount=$(grep -v '>' $FASTA | grep -o 'C' - | wc -l)
+	G_BkgCount=$(grep -v '>' $FASTA | grep -o 'G' - | wc -l); T_BkgCount=$(grep -v '>' $FASTA | grep -o 'T' - | wc -l)
 	
 	#Calculate total number of nucleotides
 	total_Bkg=$(($A_BkgCount+$C_BkgCount+$G_BkgCount+$T_BkgCount))
 
 	#Calculate frequency of each nucleotide
-	A_BkgFreq=$(echo "scale = 12; $A_BkgCount/$total_Bkg" | bc | awk '{printf "%.12f\n", $0}')
-	C_BkgFreq=$(echo "scale = 12; $C_BkgCount/$total_Bkg" | bc | awk '{printf "%.12f\n", $0}')
-	G_BkgFreq=$(echo "scale = 12; $G_BkgCount/$total_Bkg" | bc | awk '{printf "%.12f\n", $0}')
-	T_BkgFreq=$(echo "scale = 12; $T_BkgCount/$total_Bkg" | bc | awk '{printf "%.12f\n", $0}')
+	A_BkgFreq=$(echo "scale=12; $A_BkgCount/$total_Bkg" | bc | awk '{printf "%.12f\n", $0}')
+	C_BkgFreq=$(echo "scale=12; $C_BkgCount/$total_Bkg" | bc | awk '{printf "%.12f\n", $0}')
+	G_BkgFreq=$(echo "scale=12; $G_BkgCount/$total_Bkg" | bc | awk '{printf "%.12f\n", $0}')
+	T_BkgFreq=$(echo "scale=12; $T_BkgCount/$total_Bkg" | bc | awk '{printf "%.12f\n", $0}')
 
 #############################################################################################################################
 	#STEP 2: Calculate rNMP Frequencies
 
 	if [ $subset == "all" ]; then
-		#Select all reads located in genomic DNA and extract rNMP sequences
+		#Select all reads located and extract rNMP bases
 		cat $reads | awk '{print substr($0,length($0))}' - > riboSequences.txt
 	elif [ $subset == "mito" ]; then
-		#Select only reads located in mitochondrial DNA and extract rNMP sequences
+		#Select only reads located in mito DNA and extract rNMP bases
 		grep -E '(chrM|MT)' $reads | awk '{print substr($0,length($0))}' - > riboSequences.txt
 	elif [ $subset == "nucleus" ]; then
-		#Select only reads located in nuclear DNA and extract rNMP sequences
+		#Select only reads located in nuclear DNA and extract rNMP bases
 		grep -v -E '(chrM|MT)' $reads | awk '{print substr($0,length($0))}' - > riboSequences.txt
 	fi
 	
 	#Calculate counts of rNMPs
-	A_RiboCount=$(awk '$1 == "A"' riboSequences.txt | wc -l)
-	C_RiboCount=$(awk '$1 == "C"' riboSequences.txt | wc -l)
-	G_RiboCount=$(awk '$1 == "G"' riboSequences.txt | wc -l)
-	U_RiboCount=$(awk '$1 == "T"' riboSequences.txt | wc -l)
+	A_RiboCount=$(awk '$1 == "A"' riboSequences.txt | wc -l); C_RiboCount=$(awk '$1 == "C"' riboSequences.txt | wc -l)
+	G_RiboCount=$(awk '$1 == "G"' riboSequences.txt | wc -l); U_RiboCount=$(awk '$1 == "T"' riboSequences.txt | wc -l)
 	
 	#Calculate total number of rNMPs
 	RiboCount=$(($A_RiboCount+$C_RiboCount+$G_RiboCount+$U_RiboCount))
@@ -106,18 +102,18 @@ for sample in ${sample[@]}; do
 	RiboFreq=$(echo -e "$A_RiboFreq\t$C_RiboFreq\t$G_RiboFreq\t$U_RiboFreq")
 	
 #############################################################################################################################
-	#STEP 3: Obtain coordinates and sequences of +/- 100 downstream/upstream dNMPs from rNMPs
+	#STEP 3: Obtain coordinates/sequences of dNMPs +/- 100 bp from rNMPs
 
 	#Obtain coordinates of sequences upstream/downstream from rNMPs
-	bedtools flank -i $coordinates -s -g $BED -l 100 -r 0 | awk '$2 != "0" && $3 != "0"' - > upstreamIntervals.txt
-	bedtools flank -i $coordinates -s -g $BED -l 0 -r 100 | awk '$2 != "0" && $3 != "0"' - > downstreamIntervals.txt
+	bedtools flank -i $coordinates -s -g $BED -l 100 -r 0 | awk '$2 != "0" && $3 != "0"' - > UpIntervals.txt
+	bedtools flank -i $coordinates -s -g $BED -l 0 -r 100 | awk '$2 != "0" && $3 != "0"' - > DownIntervals.txt
 	
 	#Obtain sequences of the sequences upstream/downstream from rNMPs
-	bedtools getfasta -s -fi $FASTA -bed upstreamIntervals.txt -fo upstreamSequences.txt
-	bedtools getfasta -s -fi $FASTA -bed downstreamIntervals.txt -fo downstreamSequences.txt
+	bedtools getfasta -s -fi $FASTA -bed UpIntervals.txt -fo UpSequences.txt
+	bedtools getfasta -s -fi $FASTA -bed DownIntervals.txt -fo DownSequences.txt
 
 #############################################################################################################################
-	#STEP 4: Tabulate sequences of dNMPs located +/- 100 base pairs downstream/upstream from rNMPs
+	#STEP 4: Insert tabs between sequences of dNMPs +/- 100 bp from rNMPs
 
 	#Extract sequences from FASTA files
 	#Reverse order of upstream nucleotides
@@ -132,13 +128,13 @@ for sample in ${sample[@]}; do
 		#Location of output files
 		lists1=$output2/$sample.column.$i.upstream.$reference.$subset.txt
 		lists2=$output3/$sample.column.$i.downstream.$reference.$subset.txt
-		#Save lists of dNMPs at each +/- 100 bp downstream/upstream position
+		#Save lists of dNMPs at each -/+ 100 bp upstream/downstream position
 		awk -v field=$i '{ print $field }' columns1.tab > $lists1
 		awk -v field=$i '{ print $field }' columns2.tab > $lists2
 	done
 
 #############################################################################################################################
-	#STEP 5: Calculate frequencies of dNMPs located +/- 100 base pairs downstream/upstream from rNMPs
+	#STEP 5: Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
 
 	#Calculate frequencies at each position
 	for file in `ls -v $output2/$sample*.txt`; do
