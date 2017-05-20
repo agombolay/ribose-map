@@ -46,7 +46,7 @@ for sample in ${sample[@]}; do
 	fastq=$directory/Sequencing-Results/$sample.fastq
 
 	#Output files
-	BAM=$directory/ribose-seq/results/$index/$sample/Alignment/$sample.bam
+	finalBam=$directory/ribose-seq/results/$index/$sample/Alignment/$sample.bam
 	statistics=$directory/ribose-seq/results/$index/$sample/Alignment/Bowtie2.log
 	
 #############################################################################################################################
@@ -69,7 +69,7 @@ for sample in ${sample[@]}; do
 
 #############################################################################################################################
 	#STEP 6: De-duplicate reads based on UMI/start position and sort/index BAM file
-	umi_tools dedup -I temp.bam -v 0 | samtools sort - -o $BAM && samtools index $BAM
+	umi_tools dedup -I temp.bam -v 0 | samtools sort - -o $finalBam && samtools index $finalBam
 
 	#Remove temporary files
 	rm -f reverseComplement.fastq temp.*
