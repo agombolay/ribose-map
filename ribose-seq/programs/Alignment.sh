@@ -49,7 +49,7 @@ for sample in ${sample[@]}; do
 	output=$directory/ribose-seq/results/$index/$sample/Alignment; mkdir -p $output
 
 	#Output files
-	finalBAM=$output/$sample-mappedReads.bam; statistics=$output/$sample-Statistics.txt
+	finalBAM=$output/$sample.bam; statistics=$output/$sample-Statistics.txt
 	
 #############################################################################################################################
 	#STEP 1: QUALITY TRIMMING
