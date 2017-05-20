@@ -97,10 +97,10 @@ for sample in ${sample[@]}; do
 	total1=$(($A_Count1+$C_Count1+$G_Count1+$U_Count1))
 
 	#Calculate normalized frequency of each rNMP
-	A_Frequency1=$(echo "scale = 12; ($A_Count1/$total1)/$A_Frequency0" | bc | awk '{printf "%.12f\n", $0}')
-	C_Frequency1=$(echo "scale = 12; ($C_Count1/$total1)/$C_Frequency0" | bc | awk '{printf "%.12f\n", $0}')
-	G_Frequency1=$(echo "scale = 12; ($G_Count1/$total1)/$G_Frequency0" | bc | awk '{printf "%.12f\n", $0}')
-	U_Frequency1=$(echo "scale = 12; ($U_Count1/$total1)/$T_Frequency0" | bc | awk '{printf "%.12f\n", $0}')
+	A_Frequency1=$(echo "scale = 12; ($A_Count1/$total1)/$A_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+	C_Frequency1=$(echo "scale = 12; ($C_Count1/$total1)/$C_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+	G_Frequency1=$(echo "scale = 12; ($G_Count1/$total1)/$G_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+	U_Frequency1=$(echo "scale = 12; ($U_Count1/$total1)/$T_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
 
 	#Save normalized frequencies of rNMPs together
 	riboFrequencies=$(echo -e "$A_Frequency1\t$C_Frequency1\t$G_Frequency1\t$U_Frequency1")
