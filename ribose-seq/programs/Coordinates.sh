@@ -39,11 +39,11 @@ for sample in ${sample[@]}; do
 
 #############################################################################################################################
 		#Input file
-		bam=$directory/ribose-seq/results/$reference/$sample/Alignment/$sample.bam
+		bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam
 	
 		#Output directory
-		output=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset
-	
+		output=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$subset
+		
 		#Create directory and remove older versions of files
 		mkdir -p $output; rm -f $output/{*.txt,*.bed,*.fa,*.fq}
 	
