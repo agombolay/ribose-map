@@ -14,7 +14,7 @@ function usage () {
 		-m Minimum length of read to retain after trimming (e.g., 50)
 		-p Path (e.g., /projects/home/agombolay3/data/bin/Trimmomatic-0.36)
 		-b Basename of Bowtie2 index (e.g., sacCer2, pombe, ecoli, mm9, or hg38)
-		-d Directory (e.g., /projects/home/agombolay3/data/repository/Ribose-Map)"
+		-d Local user directory (e.g., /projects/home/agombolay3/data/repository)"
 }
 
 #Command-line options
