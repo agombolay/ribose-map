@@ -189,7 +189,7 @@ for sample in ${sample[@]}; do
 	rm A_frequency{2..3}.txt C_frequency{2..3}.txt G_frequency{2..3}.txt T_frequency{2..3}.txt
 	
 #############################################################################################################################
-	#STEP 6: Create dataset file containing nucleotide frequencies for plotting
+	#STEP 6: Create dataset file containing nucleotide frequencies
 
 	#Combine rNMP frequencies and +/- dNMP frequencies in correct order
 	Freqs=$(cat <(echo "$UpFreq") <(echo "$RiboFreq") <(echo "$DownFreq"))
