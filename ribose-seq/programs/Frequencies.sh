@@ -153,10 +153,10 @@ for sample in ${sample[@]}; do
 		total2=$(($A_Count2+$C_Count2+$G_Count2+$T_Count2))
 
 		#Calculate normalized frequencies of dNMPs
-		A_Frequency2=$(echo "scale = 12; ($A_Count2/$total2)/$A_Frequency0" | bc | awk '{printf "%.12f\n", $0}')
-		C_Frequency2=$(echo "scale = 12; ($C_Count2/$total2)/$C_Frequency0" | bc | awk '{printf "%.12f\n", $0}')
-		G_Frequency2=$(echo "scale = 12; ($G_Count2/$total2)/$G_Frequency0" | bc | awk '{printf "%.12f\n", $0}')
-		T_Frequency2=$(echo "scale = 12; ($T_Count2/$total2)/$T_Frequency0" | bc | awk '{printf "%.12f\n", $0}')
+		A_Frequency2=$(echo "scale = 12; ($A_Count2/$total2)/$A_BkgCount" | bc | awk '{printf "%.12f\n", $0}')
+		C_Frequency2=$(echo "scale = 12; ($C_Count2/$total2)/$C_BkgCount" | bc | awk '{printf "%.12f\n", $0}')
+		G_Frequency2=$(echo "scale = 12; ($G_Count2/$total2)/$G_BkgCount" | bc | awk '{printf "%.12f\n", $0}')
+		T_Frequency2=$(echo "scale = 12; ($T_Count2/$total2)/$T_BkgCount" | bc | awk '{printf "%.12f\n", $0}')
 		
 		#Save normalized dNMPs frequencies to TXT file
 		echo $A_Frequency2 >> A_frequency2.txt; echo $C_Frequency2 >> C_frequency2.txt
