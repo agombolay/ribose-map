@@ -130,8 +130,8 @@ for sample in ${sample[@]}; do
 
 	for i in {1..100}; do
 		#Location of output files
-		lists1=$output3/$sample.column.$i.upstream.$reference.$subset.txt
-		lists2=$output4/$sample.column.$i.downstream.$reference.$subset.txt
+		lists1=$output2/$sample.column.$i.upstream.$reference.$subset.txt
+		lists2=$output3/$sample.column.$i.downstream.$reference.$subset.txt
 		#Save lists of dNMPs at each +/- 100 bp downstream/upstream position
 		awk -v field=$i '{ print $field }' columns1.tab > $lists1
 		awk -v field=$i '{ print $field }' columns2.tab > $lists2
@@ -141,7 +141,7 @@ for sample in ${sample[@]}; do
 	#STEP 5: Calculate frequencies of dNMPs located +/- 100 base pairs downstream/upstream from rNMPs
 
 	#Calculate frequencies at each position
-	for file in `ls -v $output3/$sample*.txt`; do
+	for file in `ls -v $output2/$sample*.txt`; do
 
 		#Calculate count of each dNMP
 		A_Count2=$(grep -o 'A' $file | wc -l)
@@ -168,7 +168,7 @@ for sample in ${sample[@]}; do
 	done
 
 	#Calculate frequencies at each position
-	for file in `ls -v $output4/$sample*.txt`; do
+	for file in `ls -v $output3/$sample*.txt`; do
 
 		#Calculate count of each dNMP
 		A_Count3=$(grep -v '>' $file | grep -o 'A' - | wc -l)
