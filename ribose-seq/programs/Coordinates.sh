@@ -50,21 +50,18 @@ for sample in ${sample[@]}; do
 		#Output files
 		reads=$output/$sample-ReadInformation.$subset.txt
 		coordinates=$output/$sample-Coordinates.$subset.bed
-
+		
 #############################################################################################################################
-		#STEP 1: Extract sequences from BAM alignment file
-
-		#Convert BAM to FASTA file then extract sequences from FASTA
-		samtools bam2fq $bam | seqtk seq -A - | grep -v '>' - > temp1.txt
-
-#############################################################################################################################
-		#STEP 2: Obtain rNMP coordinates from mapped reads
+		#STEP 1: Determine genomic coordinates of rNMPs from reads
 
 		#Covert BAM file to BED format
-		bedtools bamtobed -i $bam > temp2.txt
+		bedtools bamtobed -i $bam > temp1.txt
+		
+		#Convert BAM file to FASTA then extract read sequences
+		samtools bam2fq $bam | seqtk seq -A - | grep -v '>' - > temp2.txt
 		
 		#Extract read coordinates, sequences, and strand information
-		paste temp2.txt temp1.txt | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $reads
+		paste temp1.txt temp2.txt | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $reads
 		
 		#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 		positiveReads=$(awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $reads)
@@ -75,9 +72,7 @@ for sample in ${sample[@]}; do
 		cat <(echo "$positiveReads") <(echo "$negativeReads") > temp3.txt
 
 #############################################################################################################################
-		#STEP 3: Subset coordinates based on genomic region
-
-		#Subset and sort coordinates
+		#STEP 2: Subset and sort coordinates based on genomic region
 		if [ $subset == "all" ]; then
 			sort -k1,1 -k2,2n temp3.txt > $coordinates
 		elif [ $subset == "mito" ]; then
