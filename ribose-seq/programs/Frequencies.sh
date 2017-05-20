@@ -44,39 +44,34 @@ for sample in ${sample[@]}; do
 	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$subset/$sample-Coordinates.$subset.bed
 
 	#Output directories
-	output1=$directory/Ribose-Map/Results/Background-Frequencies
-	output2=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/Datasets/$subset
-	output3=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/dNMPs/$subset/Columns/upstream
-	output4=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/dNMPs/$subset/Columns/downstream
+	output1=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/Datasets/$subset
+	output2=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/dNMPs/$subset/Columns/upstream
+	output3=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/dNMPs/$subset/Columns/downstream
 
 	#Create directories and remove older versions files
-	mkdir -p $output{1..4}; rm -f $output{1..4}/*.txt $output{1..4}/*.tab
+	mkdir -p $output{1..3}; rm -f $output{1..3}/*.txt $output{1..3}/*.tab
 	
 	#Output files
-	background=$output1/Background-Frequencies.$reference.$subset.txt
 	dataset1=$output2/$sample-NucleotideFrequenciesv1.$reference.$subset.txt
 	dataset2=$output2/$sample-NucleotideFrequenciesv2.$reference.$subset.txt
 		
 #############################################################################################################################
-	#STEP 1: Calculate background dNMP frequencies of reference genome
+	#STEP 1: Calculate background nucleotide frequencies of reference genome
 	
-	#Calculate counts of each dNMP
-	A_Count0=$(grep -v '>' $FASTA | grep -o 'A' - | wc -l)
-	C_Count0=$(grep -v '>' $FASTA | grep -o 'C' - | wc -l)
-	G_Count0=$(grep -v '>' $FASTA | grep -o 'G' - | wc -l)
-	T_Count0=$(grep -v '>' $FASTA | grep -o 'T' - | wc -l)
+	#Calculate counts of each nucleotide
+	A_BkgCount=$(grep -v '>' $FASTA | grep -o 'A' - | wc -l)
+	C_BkgCount=$(grep -v '>' $FASTA | grep -o 'C' - | wc -l)
+	G_BkgCount=$(grep -v '>' $FASTA | grep -o 'G' - | wc -l)
+	T_BkgCount=$(grep -v '>' $FASTA | grep -o 'T' - | wc -l)
 	
-	#Calculate total number of dNMPs
-	total0=$(($A_Count0+$C_Count0+$G_Count0+$T_Count0))
+	#Calculate total number of nucleotides
+	total_Bkg=$(($A_BkgCount+$C_BkgCount+$G_BkgCount+$T_BkgCount))
 
-	#Calculate frequency of each dNMP
-	A_Frequency0=$(echo "scale = 12; $A_Count0/$total0" | bc | awk '{printf "%.12f\n", $0}')
-	C_Frequency0=$(echo "scale = 12; $C_Count0/$total0" | bc | awk '{printf "%.12f\n", $0}')
-	G_Frequency0=$(echo "scale = 12; $G_Count0/$total0" | bc | awk '{printf "%.12f\n", $0}')
-	T_Frequency0=$(echo "scale = 12; $T_Count0/$total0" | bc | awk '{printf "%.12f\n", $0}')
-
-	#Save frequencies of dNMPs in the reference FASTA file (background frequencies) to TXT file
-	echo -e "A\tC\tG\tU/T\n$A_Frequency0\t$C_Frequency0\t$G_Frequency0\t$T_Frequency0" > $background
+	#Calculate frequency of each nucleotide
+	A_BkgFreq=$(echo "scale = 12; $A_BkgCount/$total_Bkg" | bc | awk '{printf "%.12f\n", $0}')
+	C_BkgFreq=$(echo "scale = 12; $C_BkgCount/$total_Bkg" | bc | awk '{printf "%.12f\n", $0}')
+	G_BkgFreq=$(echo "scale = 12; $G_BkgCount/$total_Bkg" | bc | awk '{printf "%.12f\n", $0}')
+	T_BkgFreq=$(echo "scale = 12; $T_BkgCount/$total_Bkg" | bc | awk '{printf "%.12f\n", $0}')
 
 #############################################################################################################################
 	#STEP 2: Calculate rNMP Frequencies
