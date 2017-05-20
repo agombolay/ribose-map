@@ -52,8 +52,8 @@ for sample in ${sample[@]}; do
 	mkdir -p $output{1..3}; rm -f $output{1..3}/*.txt $output{1..3}/*.tab
 	
 	#Output files
-	dataset1=$output2/$sample-NucleotideFrequenciesv1.$reference.$subset.txt
-	dataset2=$output2/$sample-NucleotideFrequenciesv2.$reference.$subset.txt
+	dataset1=$output1/$sample-NucleotideFrequenciesv1.$reference.$subset.txt
+	dataset2=$output1/$sample-NucleotideFrequenciesv2.$reference.$subset.txt
 		
 #############################################################################################################################
 	#STEP 1: Calculate background nucleotide frequencies of reference genome
