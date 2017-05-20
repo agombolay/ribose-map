@@ -209,11 +209,11 @@ for sample in ${sample[@]}; do
 	data1=$(cat <(echo "$upstreamFrequencies") <(echo "$riboFrequencies") <(echo "$downstreamFrequencies"))
 	
 	#Add nucleotide positions (-100 --> +100) and nucleotide symbols to header line (A, C, G, and U/T)
-	echo -e "\tA\tC\tG\tU/T" > $dataset && paste <(echo "$(seq -100 1 100)") <(cat <(echo "$data1")) >> $dataset1
+	echo -e "\tA\tC\tG\tU/T" > $dataset1 && paste <(echo "$(seq -100 1 100)") <(cat <(echo "$data1")) >> $dataset1
 
 	#Smaller dataset (-15 nt to +15 nt)
-	data2=$(head -117 $dataset | tail -31)
-	echo -e "\tA\tC\tG\tU/T" > $zoomed && cat <(echo "$data2") >> $dataset2
+	data2=$(head -117 $dataset1 | tail -31)
+	echo -e "\tA\tC\tG\tU/T" > $dataset2 && cat <(echo "$data2") >> $dataset2
 
 	#Let the user know the program is has finished running
 	echo "Calculation of nucleotide frequencies for $sample ($subset) is complete"
