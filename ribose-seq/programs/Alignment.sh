@@ -49,38 +49,32 @@ for sample in ${sample[@]}; do
 	output=$directory/ribose-seq/results/$index/$sample/Alignment; mkdir -p $output
 
 	#Output files
-	finalBAM=$output/$sample.bam; statistics=$output/$sample-Statistics.txt
+	BAM=$output/$sample.bam; statistics=$output/$sample-Statistics.txt
 	
 #############################################################################################################################
-	#STEP 1: QUALITY TRIMMING
-	#Trim FASTQ files based on quality and Illumina adapter content
+	#STEP 1: Trim FASTQ files based on quality and Illumina adapter content
 	java -jar $path/trimmomatic-0.36.jar SE -phred33 $fastq QCtrimmed.fastq \
 	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 SLIDINGWINDOW:4:15 MINLEN:$MIN
 	
-	#STEP 2: EXTRACT UMI FROM READS
-	#Trim UMI from 5' ends of reads (append UMI to read name for de-duplication)
+	#STEP 2: Extract UMI from 5' ends of reads (append UMI to read name for later)
 	umi_tools extract -I QCtrimmed.fastq -p $UMI --supress-stats -S UMItrimmed.fastq
 	
-	#STEP 3: REVERSE COMPLEMENT READS
-	#Reverse complement reads (R = reverse complement of 5' base)
+	#STEP 3: Reverse complement (RC) reads (R = RC of 5' base)
 	cat UMItrimmed.fastq | seqtk seq -r - > reverseComplement.fastq
 
 #############################################################################################################################
-	#STEP 4: ALIGN READS TO REFERENCE GENOME
-	#Align reads to reference genome and save alignment statistics file
+	#STEP 4: Align reads to reference and save alignment statistics file
 	bowtie2 -x $index -U reverseComplement.fastq 2> $statistics > temp.sam
 	
-	#STEP 5: CONVERT SAM FILE TO BAM FILE AND SORT/INDEX IT
-	#Convert SAM file to sorted BAM file (Save only mapped reads) and create index file
-	samtools view -bSF4 temp.sam | samtools sort - -o mapped.bam && samtools index mapped.bam
+	#STEP 5: Convert SAM file to BAM file (only mapped reads) and sort/index BAM file
+	samtools view -bSF4 temp.sam | samtools sort - -o temp.bam && samtools index temp.bam
 
 #############################################################################################################################
-	#STEP 6: DE-DUPLICATE READS BASED ON UMI AND SORT/INDEX BAM FILE
-	#De-duplicate reads based on UMI and coordinates, sort BAM file, and create index file
-	umi_tools dedup -I mapped.bam -v 0 | samtools sort - -o $finalBAM && samtools index $finalBAM
+	#STEP 6: De-duplicate reads based on UMI/start position and sort/index BAM file
+	umi_tools dedup -I temp.bam -v 0 | samtools sort - -o $BAM && samtools index $BAM
 
 	#Remove temporary files
-	rm -f reverseComplement.fastq temp.bam* temp.sam mapped.bam
+	rm -f reverseComplement.fastq temp.*
 		
 	#Notify user that alignment step is complete for which samples
 	echo "Alignment of $sample to $index reference genome is complete"
