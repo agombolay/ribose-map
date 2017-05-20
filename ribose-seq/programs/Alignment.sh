@@ -64,11 +64,11 @@ for sample in ${sample[@]}; do
 	#STEP 4: Align reads to reference and save alignment statistics file
 	bowtie2 -x $index -U reverseComplement.fastq 2> $statistics > temp.sam
 	
-	#STEP 5: Convert SAM file to BAM file (only mapped reads) and sort/index BAM file
+	#STEP 5: Extract mapped reads, convert SAM file to BAM, and sort and index BAM file
 	samtools view -bSF4 temp.sam | samtools sort - -o temp.bam && samtools index temp.bam
 
 #############################################################################################################################
-	#STEP 6: De-duplicate reads based on UMI and start coordinates and sort/index BAM file
+	#STEP 6: De-duplicate reads based on UMI and start positions and sort and index BAM file
 	umi_tools dedup -I temp.bam -v 0 | samtools sort - -o $finalBam && samtools index $finalBam
 
 	#Remove temporary files
