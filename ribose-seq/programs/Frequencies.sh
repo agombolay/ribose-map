@@ -10,7 +10,7 @@ function usage () {
 	echo "Usage: Frequencies.sh [-i] 'Sample(s)' [-r] 'Reference' [-d] 'Directory' [-h]
 	-i Input sample(s) (e.g., FS1, FS2, FS3 etc.)
 	-r Reference genome (e.g., sacCer2, pombe, ecoli, mm9, hg38)
-	-d Directory (e.g., /projects/home/agombolay3/data/repository/Ribose-seq-Project)"
+	-d Local user directory (e.g., /projects/home/agombolay3/data/repository)"
 }
 
 #Command-line options
@@ -39,23 +39,23 @@ for sample in ${sample[@]}; do
 
 #############################################################################################################################
 	#Input files
-	reads=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample-ReadInformation.$subset.txt
-	BED=$directory/ribose-seq/reference/$reference.bed; FASTA=$directory/ribose-seq/reference/$reference.$subset.fa
-	coordinates=$directory/ribose-seq/results/$reference/$sample/Coordinates/$subset/$sample-Coordinates.$subset.bed
+	reads=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$subset/$sample-ReadInformation.$subset.txt
+	BED=$directory/Ribose-Map/Reference/$reference.bed; FASTA=$directory/Ribose-Map/Reference/$reference.$subset.fa
+	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$subset/$sample-Coordinates.$subset.bed
 
 	#Output directories
-	output1=$directory/ribose-seq/results/Background-Frequencies
-	output2=$directory/ribose-seq/results/$reference/$sample/Frequencies/Datasets/$subset
-	output3=$directory/ribose-seq/results/$reference/$sample/Frequencies/dNMPs/$subset/Columns/upstream
-	output4=$directory/ribose-seq/results/$reference/$sample/Frequencies/dNMPs/$subset/Columns/downstream
+	output1=$directory/Ribose-Map/Results/Background-Frequencies
+	output2=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/Datasets/$subset
+	output3=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/dNMPs/$subset/Columns/upstream
+	output4=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/dNMPs/$subset/Columns/downstream
 
 	#Create directories and remove older versions files
 	mkdir -p $output{1..4}; rm -f $output{1..4}/*.txt $output{1..4}/*.tab
 	
 	#Output files
 	background=$output1/Background-Frequencies.$reference.$subset.txt
-	zoomed=$output2/$sample.nucleotide-frequencies-zoomed.$reference.$subset.txt
-	dataset=$output2/$sample.nucleotide-frequencies-dataset.$reference.$subset.txt
+	dataset1=$output2/$sample-NucleotideFrequenciesv1.$reference.$subset.txt
+	dataset2=$output2/$sample-NucleotideFrequenciesv2.$reference.$subset.txt
 		
 #############################################################################################################################
 	#STEP 1: Calculate background dNMP frequencies of reference genome
@@ -209,11 +209,11 @@ for sample in ${sample[@]}; do
 	data1=$(cat <(echo "$upstreamFrequencies") <(echo "$riboFrequencies") <(echo "$downstreamFrequencies"))
 	
 	#Add nucleotide positions (-100 --> +100) and nucleotide symbols to header line (A, C, G, and U/T)
-	echo -e "\tA\tC\tG\tU/T" > $dataset && paste <(echo "$(seq -100 1 100)") <(cat <(echo "$data1")) >> $dataset
+	echo -e "\tA\tC\tG\tU/T" > $dataset && paste <(echo "$(seq -100 1 100)") <(cat <(echo "$data1")) >> $dataset1
 
 	#Smaller dataset (-15 nt to +15 nt)
 	data2=$(head -117 $dataset | tail -31)
-	echo -e "\tA\tC\tG\tU/T" > $zoomed && cat <(echo "$data2") >> $zoomed
+	echo -e "\tA\tC\tG\tU/T" > $zoomed && cat <(echo "$data2") >> $dataset2
 
 	#Let the user know the program is has finished running
 	echo "Calculation of nucleotide frequencies for $sample ($subset) is complete"
