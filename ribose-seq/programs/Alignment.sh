@@ -68,7 +68,7 @@ for sample in ${sample[@]}; do
 	samtools view -bSF4 temp.sam | samtools sort - -o temp.bam && samtools index temp.bam
 
 #############################################################################################################################
-	#STEP 6: De-duplicate reads based on UMI/start position and sort/index BAM file
+	#STEP 6: De-duplicate reads based on UMI and start coordinates and sort/index BAM file
 	umi_tools dedup -I temp.bam -v 0 | samtools sort - -o $finalBam && samtools index $finalBam
 
 	#Remove temporary files
