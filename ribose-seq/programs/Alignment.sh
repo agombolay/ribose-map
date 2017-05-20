@@ -64,7 +64,8 @@ for sample in ${sample[@]}; do
 	#STEP 3: REVERSE COMPLEMENT READS
 	#Reverse complement reads (R = reverse complement of 5' base)
 	cat UMItrimmed.fastq | seqtk seq -r - > reverseComplement.fastq
-	
+
+#############################################################################################################################
 	#STEP 4: ALIGN READS TO REFERENCE GENOME
 	#Align reads to reference genome and save alignment statistics file
 	bowtie2 -x $index -U reverseComplement.fastq 2> $statistics > temp.sam
@@ -72,7 +73,8 @@ for sample in ${sample[@]}; do
 	#STEP 5: CONVERT SAM FILE TO BAM FILE AND SORT/INDEX IT
 	#Convert SAM file to sorted BAM file (Save only mapped reads) and create index file
 	samtools view -bSF4 temp.sam | samtools sort - -o mapped.bam && samtools index mapped.bam
-	
+
+#############################################################################################################################
 	#STEP 6: DE-DUPLICATE READS BASED ON UMI AND SORT/INDEX BAM FILE
 	#De-duplicate reads based on UMI and coordinates, sort BAM file, and create index file
 	umi_tools dedup -I mapped.bam -v 0 | samtools sort - -o $finalBAM && samtools index $finalBAM
