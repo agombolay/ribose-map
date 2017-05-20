@@ -94,16 +94,16 @@ for sample in ${sample[@]}; do
 	U_RiboCount=$(awk '$1 == "T"' riboSequences.txt | wc -l)
 	
 	#Calculate total number of rNMPs
-	total_RiboCount=$(($A_RiboCount+$C_RiboCount+$G_RiboCount+$U_RiboCount))
+	RiboCount=$(($A_RiboCount+$C_RiboCount+$G_RiboCount+$U_RiboCount))
 
 	#Calculate normalized frequency of each rNMP
-	A_RiboFreq=$(echo "scale = 12; ($A_RiboCount/$total_RiboCount)/$A_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
-	C_RiboFreq=$(echo "scale = 12; ($C_RiboCount/$total_RiboCount)/$C_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
-	G_RiboFreq=$(echo "scale = 12; ($G_RiboCount/$total_RiboCount)/$G_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
-	U_RiboFreq=$(echo "scale = 12; ($U_RiboCount/$total_RiboCount)/$T_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+	A_RiboFreq=$(echo "scale=12; ($A_RiboCount/$RiboCount)/$A_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+	C_RiboFreq=$(echo "scale=12; ($C_RiboCount/$RiboCount)/$C_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+	G_RiboFreq=$(echo "scale=12; ($G_RiboCount/$RiboCount)/$G_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+	U_RiboFreq=$(echo "scale=12; ($U_RiboCount/$RiboCount)/$T_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
 
 	#Save normalized frequencies of rNMPs together
-	riboFrequencies=$(echo -e "$A_Frequency1\t$C_Frequency1\t$G_Frequency1\t$U_Frequency1")
+	RiboFreq=$(echo -e "$A_RiboFreq\t$C_RiboFreq\t$G_RiboFreq\t$U_RiboFreq")
 	
 #############################################################################################################################
 	#STEP 3: Obtain coordinates and sequences of +/- 100 downstream/upstream dNMPs from rNMPs
@@ -144,26 +144,24 @@ for sample in ${sample[@]}; do
 	for file in `ls -v $output2/$sample*.txt`; do
 
 		#Calculate count of each dNMP
-		A_Count2=$(grep -o 'A' $file | wc -l)
-		C_Count2=$(grep -o 'C' $file | wc -l)
-		G_Count2=$(grep -o 'G' $file | wc -l)
-		T_Count2=$(grep -o 'T' $file | wc -l)
+		A_UpCount=$(grep -o 'A' $file | wc -l); C_UpCount=$(grep -o 'C' $file | wc -l)
+		G_UpCount=$(grep -o 'G' $file | wc -l); T_UpCount=$(grep -o 'T' $file | wc -l)
 
 		#Calculate total number of dNMPs
-		total2=$(($A_Count2+$C_Count2+$G_Count2+$T_Count2))
+		UpCount=$(($A_UpCount+$C_UpCount+$G_UpCount+$T_UpCount))
 
 		#Calculate normalized frequencies of dNMPs
-		A_Frequency2=$(echo "scale = 12; ($A_Count2/$total2)/$A_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
-		C_Frequency2=$(echo "scale = 12; ($C_Count2/$total2)/$C_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
-		G_Frequency2=$(echo "scale = 12; ($G_Count2/$total2)/$G_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
-		T_Frequency2=$(echo "scale = 12; ($T_Count2/$total2)/$T_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+		A_UpFreq=$(echo "scale=12; ($A_UpCount/$UpCount)/$A_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+		C_UpFreq=$(echo "scale=12; ($C_UpCount/$UpCount)/$C_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+		G_UpFreq=$(echo "scale=12; ($G_UpCount/$UpCount)/$G_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+		T_UpFreq=$(echo "scale=12; ($T_UpCount/$UpCount)/$T_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
 		
 		#Save normalized dNMPs frequencies to TXT file
-		echo $A_Frequency2 >> A_frequency2.txt; echo $C_Frequency2 >> C_frequency2.txt
-		echo $G_Frequency2 >> G_frequency2.txt; echo $T_Frequency2 >> T_frequency2.txt
+		echo $A_UpFreq >> A_frequency2.txt; echo $C_UpFreq >> C_frequency2.txt
+		echo $G_UpFreq >> G_frequency2.txt; echo $T_UpFreq >> T_frequency2.txt
 			
-		#Combine upstream dNMP frequencies together and reverse (frequencies ordered from -100 --> -1)
-		upstreamFrequencies=$(paste A_frequency2.txt C_frequency2.txt G_frequency2.txt T_frequency2.txt | tac -)
+		#Combine upstream dNMP frequencies together and reverse (freqs ordered from -100 --> -1)
+		UpFreq=$(paste A_frequency2.txt C_frequency2.txt G_frequency2.txt T_frequency2.txt | tac -)
 		
 	done
 
@@ -171,26 +169,24 @@ for sample in ${sample[@]}; do
 	for file in `ls -v $output3/$sample*.txt`; do
 
 		#Calculate count of each dNMP
-		A_Count3=$(grep -v '>' $file | grep -o 'A' - | wc -l)
-		C_Count3=$(grep -v '>' $file | grep -o 'C' - | wc -l)
-		G_Count3=$(grep -v '>' $file | grep -o 'G' - | wc -l)
-		T_Count3=$(grep -v '>' $file | grep -o 'T' - | wc -l)
+		A_DownCount=$(grep -v '>' $file | grep -o 'A' - | wc -l); C_DownCount=$(grep -v '>' $file | grep -o 'C' - | wc -l)
+		G_DownCount=$(grep -v '>' $file | grep -o 'G' - | wc -l); T_DownCount=$(grep -v '>' $file | grep -o 'T' - | wc -l)
 
 		#Calculate total number of dNMPs
-		total3=$(($A_Count3+$C_Count3+$G_Count3+$T_Count3))
+		DownCount=$(($A_DownCount+$C_DownCount+$G_DownCount+$T_DownCount))
 	
 		#Calculate normalized frequencies of dNMPs
-		A_Frequency3=$(echo "scale = 12; ($A_Count3/$total3)/$A_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
-		C_Frequency3=$(echo "scale = 12; ($C_Count3/$total3)/$C_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
-		G_Frequency3=$(echo "scale = 12; ($G_Count3/$total3)/$G_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
-		T_Frequency3=$(echo "scale = 12; ($T_Count3/$total3)/$T_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+		A_DownFreq=$(echo "scale=12; ($A_DownCount/$DownCount)/$A_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+		C_DownFreq=$(echo "scale=12; ($C_DownCount/$DownCount)/$C_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+		G_DownFreq=$(echo "scale=12; ($G_DownCount/$DownCount)/$G_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+		T_DownFreq=$(echo "scale=12; ($T_DownCount/$DownCount)/$T_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
 		
 		#Save normalized dNMPs frequencies to TXT file
-		echo $A_Frequency3 >> A_frequency3.txt; echo $C_Frequency3 >> C_frequency3.txt
-		echo $G_Frequency3 >> G_frequency3.txt; echo $T_Frequency3 >> T_frequency3.txt
+		echo $A_DownFreq >> A_frequency3.txt; echo $C_DownFreq >> C_frequency3.txt
+		echo $G_DownFreq >> G_frequency3.txt; echo $T_DownFreq >> T_frequency3.txt
 		
-		#Combine downstream dNMP frequencies together as is (frequencies ordered from +1 --> +100)
-		downstreamFrequencies=$(paste A_frequency3.txt C_frequency3.txt G_frequency3.txt T_frequency3.txt)
+		#Combine downstream dNMP frequencies together (freqs ordered from +1 --> +100)
+		DownFreq=$(paste A_frequency3.txt C_frequency3.txt G_frequency3.txt T_frequency3.txt)
 	
 	done
 
@@ -201,7 +197,7 @@ for sample in ${sample[@]}; do
 	#STEP 6: Create dataset file containing nucleotide frequencies for plotting
 
 	#Combine rNMP frequencies and upstream and downstream dNMP frequencies in appropriate order
-	data1=$(cat <(echo "$upstreamFrequencies") <(echo "$riboFrequencies") <(echo "$downstreamFrequencies"))
+	data1=$(cat <(echo "$UpFreq") <(echo "$RiboFreq") <(echo "$DownFreq"))
 	
 	#Add nucleotide positions (-100 --> +100) and nucleotide symbols to header line (A, C, G, and U/T)
 	echo -e "\tA\tC\tG\tU/T" > $dataset1 && paste <(echo "$(seq -100 1 100)") <(cat <(echo "$data1")) >> $dataset1
