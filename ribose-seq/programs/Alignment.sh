@@ -14,7 +14,7 @@ function usage () {
 		-m Minimum length of read to retain after trimming (e.g., 50)
 		-p Path (e.g., /projects/home/agombolay3/data/bin/Trimmomatic-0.36)
 		-b Basename of Bowtie2 index (e.g., sacCer2, pombe, ecoli, mm9, or hg38)
-		-d Directory (e.g., /projects/home/agombolay3/data/repository/Ribose-seq-Project)"
+		-d Directory (e.g., /projects/home/agombolay3/data/repository/Ribose-Map)"
 }
 
 #Command-line options
@@ -43,11 +43,14 @@ fi
 for sample in ${sample[@]}; do
 	
 	#Input file
-	fastq=$directory/Sequencing-Results/$sample.fastq
-
-	#Output files
-	finalBam=$directory/ribose-seq/results/$index/$sample/Alignment/$sample.bam
-	statistics=$directory/ribose-seq/results/$index/$sample/Alignment/Bowtie2.log
+	fastq=$directory/Ribose-Map/Sequencing/$sample.fastq
+	
+	#Output directory and files
+	output=$directory/Ribose-Map/Results/$index/$sample/Alignment
+	finalBam=$output/$sample.bam; statistics=$output/Bowtie2.log
+	
+	#Create folder
+	mkdir -p $output
 	
 #############################################################################################################################
 	#STEP 1: Trim FASTQ files based on quality and Illumina adapter content
