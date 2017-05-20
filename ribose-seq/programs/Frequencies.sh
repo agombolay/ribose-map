@@ -51,9 +51,8 @@ for sample in ${sample[@]}; do
 	#Create directories and remove older versions files
 	mkdir -p $output{1..3}; rm -f $output{1..3}/*.txt $output{1..3}/*.tab
 	
-	#Output files
-	dataset1=$output1/$sample-NucleotideFrequenciesv1.$reference.$subset.txt
-	dataset2=$output1/$sample-NucleotideFrequenciesv2.$reference.$subset.txt
+	#Output file
+	dataset=$output1/$sample-NucleotideFrequencies.$reference.$subset.txt
 		
 #############################################################################################################################
 	#STEP 1: Calculate background nucleotide frequencies of reference genome
@@ -192,17 +191,13 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#STEP 6: Create dataset file containing nucleotide frequencies for plotting
 
-	#Combine rNMP frequencies and upstream and downstream dNMP frequencies in appropriate order
-	data1=$(cat <(echo "$UpFreq") <(echo "$RiboFreq") <(echo "$DownFreq"))
+	#Combine rNMP frequencies and +/- dNMP frequencies in correct order
+	Freqs=$(cat <(echo "$UpFreq") <(echo "$RiboFreq") <(echo "$DownFreq"))
 	
-	#Add nucleotide positions (-100 --> +100) and nucleotide symbols to header line (A, C, G, and U/T)
-	echo -e "\tA\tC\tG\tU/T" > $dataset1 && paste <(echo "$(seq -100 1 100)") <(cat <(echo "$data1")) >> $dataset1
+	#Add nucleotide positions (-100 --> 0 --> +100) and nucleotide symbols to header line (A, C, G, and U/T)
+	echo -e "\tA\tC\tG\tU/T" > $dataset && paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Freqs")) >> $dataset
 
-	#Smaller dataset (-15 nt to +15 nt)
-	data2=$(head -117 $dataset1 | tail -31)
-	echo -e "\tA\tC\tG\tU/T" > $dataset2 && cat <(echo "$data2") >> $dataset2
-
-	#Let the user know the program is has finished running
+	#Let the user know the analysis is complete
 	echo "Calculation of nucleotide frequencies for $sample ($subset) is complete"
 
 done
