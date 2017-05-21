@@ -104,32 +104,33 @@ for sample in ${sample[@]}; do
 	#STEP 3: Obtain coordinates/sequences of dNMPs +/- 100 bp from rNMPs
 
 	#Obtain coordinates of sequences upstream/downstream from rNMPs
-	bedtools flank -i $coordinates -s -g $BED -l 100 -r 0 | awk '$2 != "0" && $3 != "0"' - > UpIntervals.txt
-	bedtools flank -i $coordinates -s -g $BED -l 0 -r 100 | awk '$2 != "0" && $3 != "0"' - > DownIntervals.txt
+	bedtools flank -i $coordinates -s -g $BED -l 100 -r 0 | awk '$2 != "0" && $3 != "0"' - > Upstream.bed
+	bedtools flank -i $coordinates -s -g $BED -l 0 -r 100 | awk '$2 != "0" && $3 != "0"' - > Downstream.bed
 	
 	#Obtain sequences of the sequences upstream/downstream from rNMPs
-	bedtools getfasta -s -fi $FASTA -bed UpIntervals.txt -fo UpSequences.txt
-	bedtools getfasta -s -fi $FASTA -bed DownIntervals.txt -fo DownSequences.txt
+	bedtools getfasta -s -fi $FASTA -bed Upstream.bed -fo Upstream.fasta
+	bedtools getfasta -s -fi $FASTA -bed Downstream.bed -fo Downstream.fasta
 
 #############################################################################################################################
 	#STEP 4: Insert tabs between sequences of dNMPs +/- 100 bp from rNMPs
 
 	#Extract sequences from FASTA files
 	#Reverse order of upstream nucleotides
-	grep -v '>' upstreamSequences.txt | rev > sequences1.txt
-	grep -v '>' downstreamSequences.txt > sequences2.txt
-				
+	grep -v '>' Upstream.fasta | rev > Upstream.txt
+	grep -v '>' Downstream.fasta > Downstream.txt
+	
 	#Insert tabs between each nucleotide
-	cat sequences1.txt | sed 's/.../& /2g;s/./& /g' > columns1.tab
-	cat sequences2.txt | sed 's/.../& /2g;s/./& /g' > columns2.tab
+	cat Upstream.txt | sed 's/.../& /2g;s/./& /g' > Upstream.tab
+	cat Downstream.txt | sed 's/.../& /2g;s/./& /g' > Downstream.tab
 
 	for i in {1..100}; do
 		#Location of output files
-		lists1=$output2/$sample.column.$i.upstream.$reference.$subset.txt
-		lists2=$output3/$sample.column.$i.downstream.$reference.$subset.txt
-		#Save lists of dNMPs at each -/+ 100 bp upstream/downstream position
-		awk -v field=$i '{ print $field }' columns1.tab > $lists1
-		awk -v field=$i '{ print $field }' columns2.tab > $lists2
+		UpstreamLists=$output2/$sample.column.$i.upstream.$reference.$subset.txt
+		DownstreamLists=$output3/$sample.column.$i.downstream.$reference.$subset.txt
+		
+		#Save lists of dNMPs at each upstream/downstream position
+		awk -v field=$i '{ print $field }' Upstream.tab > $UpstreamLists
+		awk -v field=$i '{ print $field }' Downstream.tab > $DownstreamLists
 	done
 
 #############################################################################################################################
