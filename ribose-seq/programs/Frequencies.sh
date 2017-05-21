@@ -41,7 +41,7 @@ for sample in ${sample[@]}; do
 	BED=$directory/Ribose-Map/Reference/$reference.bed; FASTA=$directory/Ribose-Map/Reference/$reference.$subset.fa
 	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$subset/$sample-Coordinates.$subset.bed
 
-	#Create directory and file
+	#Output directory and file
 	output=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/$subset
 	dataset=$output/$sample-NucleotideFrequenciesDataset.$reference.$subset.txt
 	
