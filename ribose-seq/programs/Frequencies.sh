@@ -42,12 +42,10 @@ for sample in ${sample[@]}; do
 	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$subset/$sample-Coordinates.$subset.bed
 
 	#Output directories
-	output1=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/Datasets/$subset
-	#output2=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/dNMPs/$subset/Columns/upstream
-	#output3=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/dNMPs/$subset/Columns/downstream
+	output=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/Datasets/$subset
 
-	#Create directories and remove older versions files
-	mkdir -p $output{1..3}; rm -f $output{1..3}/*.txt $output{1..3}/*.tab
+	#Create directory
+	mkdir -p $output
 	
 	#Output file
 	dataset=$output1/$sample-NucleotideFrequencies.$reference.$subset.txt
@@ -195,5 +193,5 @@ for sample in ${sample[@]}; do
 done
 done
 
-#Remove temp files and temp directory
-rm -f ./*Freq.txt ./Upstream.* ./Downstream.* ./riboSequences.txt ./$sample*Downstream*.txt ./$sample*Upstream*.txt
+#Remove temp files
+rm -f ./*Freq.txt ./*Upstream.* ./*Downstream.* ./riboSequences.txt
