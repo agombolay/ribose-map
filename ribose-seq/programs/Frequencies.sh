@@ -204,6 +204,5 @@ for sample in ${sample[@]}; do
 done
 done
 
-#Remove temp files
-rm -f ./*.txt ./*.tab
-rm -r $output2 $output3
+#Remove temp files and temp directory
+rm -f ./*.txt ./*.tab; rm -r $directory/Ribose-Map/Results/$reference/$sample/Frequencies/dNMPs
