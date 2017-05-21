@@ -194,5 +194,5 @@ done
 done
 
 #Remove temp files and temp directory
-rm A_frequency{2..3}.txt C_frequency{2..3}.txt G_frequency{2..3}.txt T_frequency{2..3}.txt
+rm -f A_*Freq.txt C_*Freq.txt G_*Freq.txt T_*Freq.txt rm -f ./Upstream.tab ./Downstream.tab
 rm -f ./*.txt ./*.tab; rm -r $directory/Ribose-Map/Results/$reference/$sample/Frequencies/dNMPs
