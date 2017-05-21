@@ -31,11 +31,11 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
-subset=("all" "mito" "nucleus")
+#subset=("all" "mito" "nucleus")
 
 #Calculate frequencies
 for sample in ${sample[@]}; do
-	for subset in ${subset[@]}; do
+	for subset in "all mito nucleus"; do
 
 #############################################################################################################################
 	#Input files
