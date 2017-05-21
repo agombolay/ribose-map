@@ -41,11 +41,9 @@ for sample in ${sample[@]}; do
 	BED=$directory/Ribose-Map/Reference/$reference.bed; FASTA=$directory/Ribose-Map/Reference/$reference.$subset.fa
 	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$subset/$sample-Coordinates.$subset.bed
 
-	#Output directories
+	#Create directory and remove old file
 	output=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/Datasets/$subset
-
-	#Create directory
-	mkdir -p $output
+	mkdir -p $output && rm -r $output/$sample-NucleotideFrequencies.$reference.$subset.txt
 	
 	#Output file
 	dataset=$output/$sample-NucleotideFrequencies.$reference.$subset.txt
