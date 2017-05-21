@@ -191,6 +191,7 @@ for sample in ${sample[@]}; do
 
 	#Let the user know the analysis is complete
 	echo "Calculation of nucleotide frequencies for $sample ($subset) is complete"
+
 done
 done
 
