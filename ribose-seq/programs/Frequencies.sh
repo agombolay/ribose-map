@@ -112,14 +112,9 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#STEP 4: Insert tabs between sequences of dNMPs +/- 100 bp from rNMPs
 
-	#Extract sequences from FASTA files
-	#Reverse order of upstream nucleotides
-	grep -v '>' Upstream.fasta | rev > Upstream.txt
-	grep -v '>' Downstream.fasta > Downstream.txt
-	
-	#Insert tabs between each nucleotide
-	cat Upstream.txt | sed 's/.../& /2g;s/./& /g' > Upstream.tab
-	cat Downstream.txt | sed 's/.../& /2g;s/./& /g' > Downstream.tab
+	#Extract sequences from FASTA files (reverse order of upstream) and insert tabs between each nucleotide
+	grep -v '>' Upstream.fasta | rev > Upstream.txt; cat Upstream.txt | sed 's/.../& /2g;s/./& /g' > Upstream.tab
+	grep -v '>' Downstream.fasta > Downstream.txt; cat Downstream.txt | sed 's/.../& /2g;s/./& /g' > Downstream.tab
 
 	for i in {1..100}; do
 		#Location of output files
@@ -198,7 +193,6 @@ for sample in ${sample[@]}; do
 
 	#Let the user know the analysis is complete
 	echo "Calculation of nucleotide frequencies for $sample ($subset) is complete"
-
 done
 done
 
