@@ -35,7 +35,7 @@ subset=("all" "mito" "nucleus")
 
 #Determine coordinates
 for sample in ${sample[@]}; do
-	for subset in ${subset[@]}; do
+	for subset in "all" "mito" "nucleus";; do
 
 #############################################################################################################################
 		#Input file
