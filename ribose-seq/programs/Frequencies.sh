@@ -48,7 +48,7 @@ for sample in ${sample[@]}; do
 	mkdir -p $output
 	
 	#Output file
-	dataset=$output1/$sample-NucleotideFrequencies.$reference.$subset.txt
+	dataset=$output/$sample-NucleotideFrequencies.$reference.$subset.txt
 		
 #############################################################################################################################
 	#STEP 1: Calculate frequencies of reference genome
