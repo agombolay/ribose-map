@@ -178,9 +178,6 @@ for sample in ${sample[@]}; do
 		DownFreq=$(paste A_frequency3.txt C_frequency3.txt G_frequency3.txt T_frequency3.txt)
 	
 	done
-
-	#Remove intermediate files
-	rm A_frequency{2..3}.txt C_frequency{2..3}.txt G_frequency{2..3}.txt T_frequency{2..3}.txt
 	
 #############################################################################################################################
 	#STEP 6: Create dataset file containing nucleotide frequencies
@@ -197,4 +194,5 @@ done
 done
 
 #Remove temp files and temp directory
+rm A_frequency{2..3}.txt C_frequency{2..3}.txt G_frequency{2..3}.txt T_frequency{2..3}.txt
 rm -f ./*.txt ./*.tab; rm -r $directory/Ribose-Map/Results/$reference/$sample/Frequencies/dNMPs
