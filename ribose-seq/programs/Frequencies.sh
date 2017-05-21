@@ -206,3 +206,4 @@ done
 
 #Remove temp files
 rm -f ./*.txt ./*.tab
+rm -r $output2 $output3
