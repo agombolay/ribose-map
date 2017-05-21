@@ -20,6 +20,7 @@ option_list <- list(
 #Get command line options, if -h encountered print help
 opt <- parse_args(OptionParser(option_list=option_list))
 
+#Plot regular dataset
 if (file.exists(opt$input)) {
     #Define data file (tab delimited) to read
     dataset <- read.table(opt$input, sep="\t", header=TRUE)
@@ -60,9 +61,7 @@ if (file.exists(opt$input)) {
     ggsave(filename=paste(opt$sample, "-Regular", ".png", sep=""), plot=myplot)
 }
 
-#Get command line options, if -h encountered print help
-opt <- parse_args(OptionParser(option_list=option_list))
-
+#Plot zoomed dataset
 if (file.exists(opt$input)) {
     #Define data file (tab delimited) to read
     zoomed <- dataset[86:116,]
