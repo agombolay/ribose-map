@@ -182,11 +182,12 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#STEP 6: Create dataset file containing nucleotide frequencies
 
-	#Combine rNMP frequencies and +/- dNMP frequencies in correct order
-	Freqs=$(cat <(echo "$UpFreq") <(echo "$RiboFreq") <(echo "$DownFreq"))
+	#Add nucleotide to header line
+	echo -e "\tA\tC\tG\tU/T" > $dataset
 	
-	#Add nucleotide positions (-100 --> 0 --> +100) and nucleotide symbols to header line (A, C, G, and U/T)
-	echo -e "\tA\tC\tG\tU/T" > $dataset && paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Freqs")) >> $dataset
+	#Add nucleotide positions and frequencies in correct order
+	Freqs=$(cat <(echo "$UpFreq") <(echo "$RiboFreq") <(echo "$DownFreq"))
+	paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Freqs")) >> $dataset
 
 	#Let the user know the analysis is complete
 	echo "Calculation of nucleotide frequencies for $sample ($subset) is complete"
@@ -194,4 +195,5 @@ done
 done
 
 #Remove temp files and temp directory
-rm -r $directory/Ribose-Map/Results/$reference/$sample/Frequencies/dNMPs; rm -f ./*Freq.txt ./Upstream.tab ./Downstream.tab
+rm -f ./*Freq.txt ./Upstream.tab ./Downstream.tab
+rm -r $directory/Ribose-Map/Results/$reference/$sample/Frequencies/dNMPs
