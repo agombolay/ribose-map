@@ -44,8 +44,8 @@ for sample in ${sample[@]}; do
 		#Output directory
 		output=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$subset
 		
-		#Create directory and remove older versions of files
-		mkdir -p $output; rm -f $output/{*.txt,*.bed,*.fa,*.fq}
+		#Create directory and remove old files
+		mkdir -p $output; rm -f $output/{*.txt,*.bed}
 	
 		#Output files
 		reads=$output/$sample-ReadInformation.$subset.txt
