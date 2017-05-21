@@ -43,8 +43,8 @@ for sample in ${sample[@]}; do
 
 	#Output directories
 	output1=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/Datasets/$subset
-	output2=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/dNMPs/$subset/Columns/upstream
-	output3=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/dNMPs/$subset/Columns/downstream
+	#output2=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/dNMPs/$subset/Columns/upstream
+	#output3=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/dNMPs/$subset/Columns/downstream
 
 	#Create directories and remove older versions files
 	mkdir -p $output{1..3}; rm -f $output{1..3}/*.txt $output{1..3}/*.tab
@@ -118,8 +118,8 @@ for sample in ${sample[@]}; do
 
 	for i in {1..100}; do
 		#Location of output files
-		UpstreamLists=$output2/$sample.column.$i.upstream.$reference.$subset.txt
-		DownstreamLists=$output3/$sample.column.$i.downstream.$reference.$subset.txt
+		UpstreamLists=$output2/$sample.Column.$i.Upstream.$reference.$subset.txt
+		DownstreamLists=$output3/$sample.Column.$i.Downstream.$reference.$subset.txt
 		
 		#Save lists of dNMPs at each upstream/downstream position
 		awk -v field=$i '{ print $field }' Upstream.tab > $UpstreamLists
@@ -130,7 +130,7 @@ for sample in ${sample[@]}; do
 	#STEP 5: Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
 
 	#Calculate frequencies at each position
-	for file in `ls -v $output2/$sample*.txt`; do
+	for file in `ls -v ./$sample*Upstream*.txt`; do
 
 		#Calculate count of each dNMP
 		A_UpCount=$(grep -o 'A' $file | wc -l); C_UpCount=$(grep -o 'C' $file | wc -l)
@@ -155,7 +155,7 @@ for sample in ${sample[@]}; do
 	done
 
 	#Calculate frequencies at each position
-	for file in `ls -v $output3/$sample*.txt`; do
+	for file in `ls -v ./$sample*Downstream*.txt`; do
 
 		#Calculate count of each dNMP
 		A_DownCount=$(grep -o 'A' $file | wc -l); C_DownCount=$(grep -o 'C' $file | wc -l)
