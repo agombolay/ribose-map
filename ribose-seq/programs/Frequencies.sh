@@ -130,7 +130,7 @@ for sample in ${sample[@]}; do
 	#STEP 5: Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
 
 	#Calculate frequencies at each position
-	for file in `ls -v ./$sample*Upstream*.txt`; do
+	for file in `ls -v ./$sample.Column.$i.Upstream.$reference.$subset.txt`; do
 
 		#Calculate count of each dNMP
 		A_UpCount=$(grep -o 'A' $file | wc -l); C_UpCount=$(grep -o 'C' $file | wc -l)
@@ -155,7 +155,7 @@ for sample in ${sample[@]}; do
 	done
 
 	#Calculate frequencies at each position
-	for file in `ls -v ./$sample*Downstream*.txt`; do
+	for file in `ls -v ./$sample.Column.$i.Downstream.$reference.$subset.txt`; do
 
 		#Calculate count of each dNMP
 		A_DownCount=$(grep -o 'A' $file | wc -l); C_DownCount=$(grep -o 'C' $file | wc -l)
