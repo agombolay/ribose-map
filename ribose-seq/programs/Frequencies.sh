@@ -53,7 +53,7 @@ for sample in ${sample[@]}; do
 	dataset=$output1/$sample-NucleotideFrequencies.$reference.$subset.txt
 		
 #############################################################################################################################
-	#STEP 1: Calculate background nucleotide frequencies of reference genome
+	#STEP 1: Calculate frequencies of reference genome
 	
 	#Calculate counts of each nucleotide
 	A_BkgCount=$(grep -v '>' $FASTA | grep -o 'A' - | wc -l); C_BkgCount=$(grep -v '>' $FASTA | grep -o 'C' - | wc -l)
@@ -69,7 +69,7 @@ for sample in ${sample[@]}; do
 	T_BkgFreq=$(echo "scale=12; $T_BkgCount/$total_Bkg" | bc | awk '{printf "%.12f\n", $0}')
 
 #############################################################################################################################
-	#STEP 2: Calculate rNMP Frequencies
+	#STEP 2: Calculate frequencies of rNMPs in libraries
 
 	if [ $subset == "all" ]; then
 		#Select all reads located and extract rNMP bases
@@ -180,7 +180,7 @@ for sample in ${sample[@]}; do
 	done
 	
 #############################################################################################################################
-	#STEP 6: Create dataset file containing nucleotide frequencies
+	#STEP 6: Create and save dataset file containing nucleotide frequencies
 
 	#Add nucleotide to header line
 	echo -e "\tA\tC\tG\tU/T" > $dataset
