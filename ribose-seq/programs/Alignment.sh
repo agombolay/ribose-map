@@ -64,15 +64,15 @@ for sample in ${sample[@]}; do
 	cat UMItrimmed.fastq | seqtk seq -r - > reverseComplement.fastq
 
 #############################################################################################################################
-	#STEP 4: Align reads to reference and save alignment statistics file
+	#STEP 4: Align reads to reference genome and save Bowtie2 log file
 	bowtie2 -x $index -U reverseComplement.fastq 2> $statistics > temp.sam
 	
 	#STEP 5: Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
-	samtools view -bSF4 temp.sam | samtools sort - -o temp.bam && samtools index temp.bam
+	samtools view -bSF4 temp.sam | samtools sort - -o temp.bam; samtools index temp.bam
 
 #############################################################################################################################
-	#STEP 6: De-duplicate reads based on UMI/start position and sort/index BAM file
-	umi_tools dedup -I temp.bam -v 0 | samtools sort - -o $bam && samtools index $bam
+	#STEP 6: De-duplicate reads based on UMI and position and sort/index BAM file
+	umi_tools dedup -I temp.bam -v 0 | samtools sort - -o $bam; samtools index $bam
 
 	#Remove temporary files
 	rm -f reverseComplement.fastq temp.*
