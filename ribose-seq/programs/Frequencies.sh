@@ -146,11 +146,11 @@ for sample in ${sample[@]}; do
 		T_UpFreq=$(echo "scale=12; ($T_UpCount/$UpCount)/$T_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
 		
 		#Save normalized dNMPs frequencies to TXT file
-		echo $A_UpFreq >> A_frequency2.txt; echo $C_UpFreq >> C_frequency2.txt
-		echo $G_UpFreq >> G_frequency2.txt; echo $T_UpFreq >> T_frequency2.txt
+		echo $A_UpFreq >> A_UpFreq.txt; echo $C_UpFreq >> C_UpFreq.txt
+		echo $G_UpFreq >> G_UpFreq.txt; echo $T_UpFreq >> T_UpFreq.txt
 			
-		#Combine upstream dNMP frequencies together and reverse (freqs ordered from -100 --> -1)
-		UpFreq=$(paste A_frequency2.txt C_frequency2.txt G_frequency2.txt T_frequency2.txt | tac -)
+		#Combine upstream dNMP frequencies and reverse (order = -100 --> -1)
+		UpFreq=$(paste A_UpFreq.txt C_UpFreq.txt G_UpFreq.txt T_UpFreq.txt | tac -)
 		
 	done
 
@@ -171,11 +171,11 @@ for sample in ${sample[@]}; do
 		T_DownFreq=$(echo "scale=12; ($T_DownCount/$DownCount)/$T_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
 		
 		#Save normalized dNMPs frequencies to TXT file
-		echo $A_DownFreq >> A_frequency3.txt; echo $C_DownFreq >> C_frequency3.txt
-		echo $G_DownFreq >> G_frequency3.txt; echo $T_DownFreq >> T_frequency3.txt
+		echo $A_DownFreq >> A_DownFreq.txt; echo $C_DownFreq >> C_DownFreq.txt
+		echo $G_DownFreq >> G_DownFreq.txt; echo $T_DownFreq >> T_DownFreq.txt
 		
-		#Combine downstream dNMP frequencies together (freqs ordered from +1 --> +100)
-		DownFreq=$(paste A_frequency3.txt C_frequency3.txt G_frequency3.txt T_frequency3.txt)
+		#Combine downstream dNMP frequencies (order = +1 --> +100)
+		DownFreq=$(paste A_DownFreq.txt C_DownFreq.txt G_DownFreq.txt T_DownFreq.txt)
 	
 	done
 	
