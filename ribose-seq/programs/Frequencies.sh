@@ -196,5 +196,5 @@ done
 done
 
 #Remove temp files and temp directory
-rm -f ./*Freq.txt ./Upstream.tab ./Downstream.tab
+rm -f ./*Freq.txt ./Upstream.* ./Downstream.* ./riboSequneces.txt
 rm -r $directory/Ribose-Map/Results/$reference/$sample/Frequencies/dNMPs
