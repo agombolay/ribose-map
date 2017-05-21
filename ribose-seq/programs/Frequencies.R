@@ -27,9 +27,9 @@ for(i in c("all", "mito", "nucleus")) {
     output <- file.path(opt$directory, "Ribose-Map", "Results", opt$reference, opt$input, "Frequencies")
     file <- file.path(output, paste(opt$input, ".", "frequencies", ".", opt$reference, ".", i, ".txt", sep=""))
 
-        #Plot regular dataset
+        #Plot only if files exist
             if (file.exists(file)) {
-	
+		#Plot regular and zoomed datasets
                 for(j in c("regular", "zoomed")) {
 
 #############################################################################################################################
