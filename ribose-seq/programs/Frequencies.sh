@@ -118,8 +118,8 @@ for sample in ${sample[@]}; do
 
 	for i in {1..100}; do
 		#Location of output files
-		UpstreamLists=$output2/$sample.Column.$i.Upstream.$reference.$subset.txt
-		DownstreamLists=$output3/$sample.Column.$i.Downstream.$reference.$subset.txt
+		UpstreamLists=$sample.Column.$i.Upstream.$reference.$subset.txt
+		DownstreamLists=$sample.Column.$i.Downstream.$reference.$subset.txt
 		
 		#Save lists of dNMPs at each upstream/downstream position
 		awk -v field=$i '{ print $field }' Upstream.tab > $UpstreamLists
