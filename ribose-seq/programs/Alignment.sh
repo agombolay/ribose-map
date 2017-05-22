@@ -37,6 +37,7 @@ done
 if [ "$1" == "-h" ]; then
         exit
 fi
+
 #############################################################################################################################
 #Align reads to reference
 for sample in ${sample[@]}; do
@@ -50,6 +51,7 @@ for sample in ${sample[@]}; do
 	
 	#Create folder
 	mkdir -p $output
+	
 #############################################################################################################################
 	#STEP 1: Trim FASTQ files based on quality and Illumina adapter content
 	java -jar $path/trimmomatic-0.36.jar SE -phred33 $fastq QCtrimmed.fastq \
@@ -60,12 +62,14 @@ for sample in ${sample[@]}; do
 	
 	#STEP 3: Reverse complement (RC) reads (R = RC of 5' base)
 	cat UMItrimmed.fastq | seqtk seq -r - > reverseComplement.fastq
+	
 #############################################################################################################################
 	#STEP 4: Align reads to reference genome and save Bowtie2 log file
 	bowtie2 -x $index -U reverseComplement.fastq 2> $statistics > temp.sam
 	
 	#STEP 5: Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
 	samtools view -bSF4 temp.sam | samtools sort - -o temp.bam; samtools index temp.bam
+	
 #############################################################################################################################
 	#STEP 6: De-duplicate reads based on UMI and position and sort/index BAM file
 	umi_tools dedup -I temp.bam -v 0 | samtools sort - -o $bam; samtools index $bam
