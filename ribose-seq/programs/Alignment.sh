@@ -75,4 +75,5 @@ for sample in ${sample[@]}; do
 		
 	#Notify user that alignment step is complete for which samples
 	echo "Alignment of $sample to $index reference genome is complete"
+
 done
