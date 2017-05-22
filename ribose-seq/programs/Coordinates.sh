@@ -40,14 +40,14 @@ for sample in ${sample[@]}; do
 		bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam
 	
 		#Output directory
-		output=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$subset
+		output=$directory/Ribose-Map/Results/$reference/$sample/Coordinates
 		
-		#Create directory and remove old files
-		mkdir -p $output; rm -f $output/{*.txt,*.bed}
-	
 		#Output files
 		reads=$output/$sample-ReadInformation.$subset.txt
 		coordinates=$output/$sample-Coordinates.$subset.bed
+		
+		#Create directory and remove old files
+		mkdir -p $output; rm -f $output/$reads $output/$coordinates
 		
 #############################################################################################################################
 		#STEP 1: Determine genomic coordinates of rNMPs from reads
@@ -78,8 +78,9 @@ for sample in ${sample[@]}; do
 		elif [ $subset == "nucleus" ]; then
 			grep -vE '(chrM|MT)' temp3.txt | sort -k1,1 -k2,2n - > $coordinates
 		fi
+		
+		#Remove temp files
+		rm -f temp{1..3}.txt
+	
 	done
 done
-
-#Remove temp files
-rm -f temp{1..3}.txt
