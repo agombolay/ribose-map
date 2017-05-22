@@ -36,46 +36,55 @@ fi
 #Determine coordinates
 for sample in ${sample[@]}; do
 	for subset in "all"  "mito" "nucleus"; do
+	
 #############################################################################################################################
-#Input files
-bed=$directory/Ribose-Map/Reference/$reference.bed
-coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$subset/$sample-Coordinates.$subset.bed
+	#Input files
+	bed=$directory/Ribose-Map/Reference/$reference.bed
+	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$subset/$sample-Coordinates.$subset.bed
 
-#Output directories and files
-output=$directory/Ribose-Map/Results/$reference/$sample/Distribution/; observed=$output/$sample-ObservedCounts.txt
+	#Output directories and files
+	output=$directory/Ribose-Map/Results/$reference/$sample/Distribution/; dataset=$output/$sample-ObservedCounts.txt
 
-#Create directory
-mkdir -p $output
+	#Create directory and remove old file
+	mkdir -p $output; rm -f $output/{*.txt}
+#############################################################################################################################
+	
+	#STEP 1: Divide genome into windows and count number of rNMPs in each window
+	
+	#Divide chromosomes of reference into windows
+	if [ $subset == "all" ]; then
+		bedtools makewindows -g $bed -w $size > windows.bed
+	elif [ $subset == "mito" ]; then
+		bedtools makewindows -g $bed -w $size | grep -E '(chrM|MT)' > windows.bed
+	elif [ $subset == "nucleus" ]; then
+		bedtools makewindows -g $bed -w $size | grep -vE '(chrM|MT)' > windows.bed
+	fi
 
-#Divide chromosomes of reference into windows
-if [ $subset == "all" ]; then
-	 bedtools makewindows -g $bed -w $size > windows.bed
-elif [ $subset == "mito" ]; then
-	bedtools makewindows -g $bed -w $size | grep -E '(chrM|MT)' > windows.bed
-elif [ $subset == "nucleus" ]; then
-	bedtools makewindows -g $bed -w $size | grep -vE '(chrM|MT)' > windows.bed
-fi
+	#Determine regions of BED files that intersect and count number of intersections
+	bedtools intersect -a windows.bed -b $coordinates -c -sorted -nonamecheck > temp1.txt
 
-#Determine regions of BED files that intersect and count number of intersections
-bedtools intersect -a windows.bed -b $coordinates -c -sorted -nonamecheck > temp1.txt
+	#Remove rows where window size is greater than specified size and sort based on # of rNMPs in windows
+	awk '{$5=$3-$2} 1' temp1.txt | awk -v OFS='\t' '($5=='$size') {print $1,$2,$3,$4}' | sort -k4n - > temp2.txt
 
-#Remove rows where window size is greater than specified size and sort based on # of rNMPs in windows
-awk '{$5=$3-$2} 1' temp1.txt | awk -v OFS='\t' '($5=='$size') {print $1,$2,$3,$4}' | sort -k4n - > temp2.txt
+	#Maximum number of rNMPs in observed data
+	maximum=$(tail -1 temp2.txt | awk '{print $4}' -)
 
-#Maximum number of rNMPs in observed data
-maximum=$(tail -1 temp2.txt | awk '{print $4}' -)
+	#Determine # of windows with 0...maximum # of rNMPs
+	for i in $(seq 0 $maximum); do
+		counts+=($(awk '$4 == ('$i')' temp2.txt | wc -l))
+	done
 
-#Determine # of windows with 0...maximum # of rNMPs
-for i in $(seq 0 $maximum); do
-	counts+=($(awk '$4 == ('$i')' temp2.txt | wc -l))
+#############################################################################################################################
+	#STEP 6: Create and save dataset file containing observed counts of rNMPs
+	
+	#Add column names to header line
+	echo -e "rNMPs\tWindows" > $counts
+
+	#Add # of windows with 0...maximum rNMPs
+	paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${counts[*]}" )) >> $dataset
+
+	done
 done
-
-#Add column names and # of windows with 0...maximum rNMPs
-#echo -e "rNMPs\tWindows" > $counts && paste <(echo "$(seq 0 $max)") \
-#<(cat <( IFS=$'\n'; echo "${windows[*]}" )) >> $observed
 
 #Remove temp file
 #rm temporary.txt
-
-done
-done
