@@ -161,13 +161,12 @@ for sample in ${sample[@]}; do
 		if [ $i == "Downstream" ]; then
 			DownFreq=$(paste A_FlankFreq.txt C_FlankFreq.txt G_FlankFreq.txt T_FlankFreq.txt)
 			echo $DownFreq > Down.txt
-			wc -l Down.txt
 		elif [ $i == "Upstream" ]; then
 			UpFreq=$(paste A_FlankFreq.txt C_FlankFreq.txt G_FlankFreq.txt T_FlankFreq.txt | tac -)
 			echo $UpFreq > Up.txt
-			wc -l Up.txt
 		fi
-		
+		wc -l Down.txt
+		wc -l Up.txt
 		done
 	done
 	
