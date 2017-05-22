@@ -44,7 +44,7 @@ bed=$directory/Ribose-Map/Reference/$reference.bed
 coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$subset/$sample-Coordinates.$subset.bed
 
 #Output directories and files
-output=$directory/Ribose-Map/Results/$reference/$sample/Distribution/; counts=$output/$sample-ObservedCounts.txt
+output=$directory/Ribose-Map/Results/$reference/$sample/Distribution/; observed=$output/$sample-ObservedCounts.txt
 
 #Create directory
 mkdir -p $output
@@ -54,21 +54,21 @@ bedtools makewindows -g $bed -w $size > windows.bed
 
 #Determine regions of BED files that intersect and count number of intersections
 #Remove rows where window size is < size and sort based on # of rNMPs in windows
-bedtools intersect -a windows.bed -b $coordinates -c -sorted -nonamecheck > temporary1.txt
+bedtools intersect -a windows.bed -b $coordinates -c -sorted -nonamecheck > temp1.txt
 
-awk '{$5=$3-$2} 1' out.txt | awk -v OFS='\t' '($5=='$size') {print $1,$2,$3,$4}' | sort -k4n - > temporary2.txt
+awk '{$5=$3-$2} 1' temp1.txt | awk -v OFS='\t' '($5=='$size') {print $1,$2,$3,$4}' | sort -k4n - > temp2.txt
 
-#Maximum number of rNMPs in binned data
-#max=$(tail -1 temporary.txt | awk '{print $4}' -)
+#Maximum number of rNMPs in observed data
+maximum=$(tail -1 temp2.txt | awk '{print $4}' -)
 
-#Determine number of windows with 0...maximum rNMPs
-#for i in $(seq 0 $max); do
-#	windows+=($(awk '$4 == ('$i')' temporary.txt | wc -l))
-#done
+#Determine # of windows with 0...maximum # of rNMPs
+for i in $(seq 0 $maximum); do
+	counts+=($(awk '$4 == ('$i')' temp2.txt | wc -l))
+done
 
 #Add column names and # of windows with 0...maximum rNMPs
 #echo -e "rNMPs\tWindows" > $counts && paste <(echo "$(seq 0 $max)") \
-#<(cat <( IFS=$'\n'; echo "${windows[*]}" )) >> $counts
+#<(cat <( IFS=$'\n'; echo "${windows[*]}" )) >> $observed
 
 #Remove temp file
 #rm temporary.txt
