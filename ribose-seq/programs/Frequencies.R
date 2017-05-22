@@ -70,7 +70,7 @@ for(i in opt$samples) {
 
 #############################################################################################################################
                     		#Specify output path and save plot as PNG file
-                    		ggsave(filename=file.path(output, paste(opt$sample, "-", k, ".", j, ".png", sep="")), plot=myplot)
+                    		ggsave(filename=file.path(output, paste(opt$sample,"-",k,".",j,".png",sep="")), plot=myplot)
 			}
 		}
 	}
