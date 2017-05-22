@@ -33,11 +33,9 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
-subset=("all" "mito" "nucleus")
-
 #Determine coordinates
 for sample in ${sample[@]}; do
-	for subset in "all" "mito" "nucleus"; do
+	for subset in "mito"; do
 #############################################################################################################################
 #Input files
 bed=$directory/Ribose-Map/Reference/$reference.bed
