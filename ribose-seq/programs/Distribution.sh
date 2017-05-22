@@ -40,10 +40,10 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#Input files
 	bed=$directory/Ribose-Map/Reference/$reference.bed
-	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$subset/$sample-Coordinates.$subset.bed
+	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
 
 	#Output directories and files
-	output=$directory/Ribose-Map/Results/$reference/$sample/Distribution/; dataset=$output/$sample-Counts.$subset.txt
+	output=$directory/Ribose-Map/Results/$reference/$sample/Distribution; dataset=$output/$sample-Counts.$subset.txt
 
 	#Create directory and remove old file
 	mkdir -p $output; rm -f $output/$dataset
