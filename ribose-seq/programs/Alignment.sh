@@ -9,7 +9,7 @@
 #Usage statement
 function usage () {
 	echo "Usage: Alignment.sh [-s] 'Sample(s)' [-u] 'UMI' [-m] 'Min' [-p] 'Path' [-i] 'Index' [-d] 'Directory' [-h]
-		-s Input sample(s) (e.g., FS1, FS2, FS3)
+		-s Sample name(s) (e.g., FS1, FS2, FS3)
 		-u Length of UMI (e.g., NNNNNNNN or NNNNNNNNNNN)
 		-m Minimum length of read to retain after trimming (e.g., 50)
 		-p Path (e.g., /projects/home/agombolay3/data/bin/Trimmomatic-0.36)
