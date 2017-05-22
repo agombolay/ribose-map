@@ -113,15 +113,15 @@ for sample in ${sample[@]}; do
 	bedtools flank -i $coordinates -s -g $BED -l 0 -r 100 | awk '$2 != "0" && $3 != "0"' - > Downstream.bed
 	
 	#Obtain sequences of the sequences upstream/downstream from rNMPs
-	bedtools getfasta -s -fi temp.fa -bed Upstream.bed -fo Upstream.fasta
-	bedtools getfasta -s -fi temp.fa -bed Downstream.bed -fo Downstream.fasta
+	bedtools getfasta -s -fi temp.fa -bed Upstream.bed -fo Upstream.fa
+	bedtools getfasta -s -fi temp.fa -bed Downstream.bed -fo Downstream.fa
 	
 #############################################################################################################################
 	#STEP 4: Insert tabs between sequences of dNMPs +/- 100 bp from rNMPs
 
 	#Extract sequences from FASTA files (reverse order of upstream) and insert tabs between each nucleotide
-	grep -v '>' Upstream.fasta | rev > Upstream.txt; cat Upstream.txt | sed 's/.../& /2g;s/./& /g' > Upstream.tab
-	grep -v '>' Downstream.fasta > Downstream.txt; cat Downstream.txt | sed 's/.../& /2g;s/./& /g' > Downstream.tab
+	grep -v '>' Upstream.fa | rev > Upstream.txt; cat Upstream.txt | sed 's/.../& /2g;s/./& /g' > Upstream.tab
+	grep -v '>' Downstream.fa > Downstream.txt; cat Downstream.txt | sed 's/.../& /2g;s/./& /g' > Downstream.tab
 
 	for i in {1..100}; do
 		#Location of output files
