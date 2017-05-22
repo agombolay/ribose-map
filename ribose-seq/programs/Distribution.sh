@@ -78,7 +78,7 @@ for sample in ${sample[@]}; do
 	#STEP 6: Create and save dataset file containing observed counts of rNMPs
 	
 	#Add column names to header line
-	echo -e "rNMPs\tWindows" > $counts
+	echo -e "rNMPs\tWindows" > $dataset
 
 	#Add # of windows with 0...maximum rNMPs
 	paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${counts[*]}" )) >> $dataset
