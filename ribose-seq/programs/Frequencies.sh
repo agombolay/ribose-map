@@ -139,7 +139,7 @@ for sample in ${sample[@]}; do
 	#Calculate frequencies at each position
 	for direction in "Upstream"; do
 		
-		for file in `ls -v ./$sample.Column.$i.$direction.$reference.$subset.txt`; do
+		for file in `ls -v ./$sample.Column.*.$direction.$reference.$subset.txt`; do
 		
 		#Calculate count of each dNMP
 		A_FlankCount=$(grep -o 'A' $file | wc -l); C_FlankCount=$(grep -o 'C' $file | wc -l)
