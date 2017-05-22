@@ -54,20 +54,22 @@ bedtools makewindows -g $bed -w $size > windows.bed
 
 #Determine regions of BED files that intersect and count number of intersections
 #Remove rows where window size is < size and sort based on # of rNMPs in windows
-bedtools intersect -a windows.bed -b $coordinates -c -sorted -nonamecheck | awk '{ $5 = $3 - $2 } 1' - | \
-awk -v OFS='\t' '($5 == $size ) {print $1,$2,$3,$4}' - | sort -k4 -n - > temporary.txt
+bedtools intersect -a windows.bed -b $coordinates -c -sorted -nonamecheck > out.txt
+
+#| awk '{ $5 = $3 - $2 } 1' - | \
+#awk -v OFS='\t' '($5 == $size ) {print $1,$2,$3,$4}' - | sort -k4 -n - > temporary.txt
 
 #Maximum number of rNMPs in binned data
-max=$(tail -1 temporary.txt | awk '{print $4}' -)
+#max=$(tail -1 temporary.txt | awk '{print $4}' -)
 
 #Determine number of windows with 0...maximum rNMPs
-for i in $(seq 0 $max); do
-	windows+=($(awk '$4 == ('$i')' temporary.txt | wc -l))
-done
+#for i in $(seq 0 $max); do
+#	windows+=($(awk '$4 == ('$i')' temporary.txt | wc -l))
+#done
 
 #Add column names and # of windows with 0...maximum rNMPs
-echo -e "rNMPs\tWindows" > $counts && paste <(echo "$(seq 0 $max)") \
-<(cat <( IFS=$'\n'; echo "${windows[*]}" )) >> $counts
+#echo -e "rNMPs\tWindows" > $counts && paste <(echo "$(seq 0 $max)") \
+#<(cat <( IFS=$'\n'; echo "${windows[*]}" )) >> $counts
 
 #Remove temp file
 #rm temporary.txt
