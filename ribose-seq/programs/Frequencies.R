@@ -21,7 +21,7 @@ make_option(c("-d", "--directory"), help="Local user directory (e.g., /projects/
 opt <- parse_args(OptionParser(option_list=option_list))
 
 #############################################################################################################################
-for(i in opt$samples) {
+for(i in opt$sample) {
 	for(j in c("all", "mito", "nucleus")) {
 
 		#Specify output directory and file
