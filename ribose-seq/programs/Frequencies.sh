@@ -155,17 +155,15 @@ for sample in ${sample[@]}; do
 		T_FlankFreq=$(echo "scale=12; ($T_FlankCount/$FlankCount)/$T_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
 		
 		#Save normalized dNMPs frequencies to TXT file
-		echo $A_FlankFreq >> A_FlankFreq.txt; echo $C_FlankFreq >> C_FlankFreq.txt
-		echo $G_FlankFreq >> G_FlankFreq.txt; echo $T_FlankFreq >> T_FlankFreq.txt
+		echo $A_FlankFreq >> A_FlankFreq.$direction.txt; echo $C_FlankFreq >> C_FlankFreq.$direction.txt
+		echo $G_FlankFreq >> G_FlankFreq.$direction.txt; echo $T_FlankFreq >> T_FlankFreq.$direction.txt
 		
 		if [ $i == "Downstream" ]; then
 			DownFreq=$(paste A_FlankFreq.txt C_FlankFreq.txt G_FlankFreq.txt T_FlankFreq.txt)
 		elif [ $i == "Upstream" ]; then
 			UpFreq=$(paste A_FlankFreq.txt C_FlankFreq.txt G_FlankFreq.txt T_FlankFreq.txt | tac -)
 		fi
-		
-		rm *FlankFreq.txt
-		
+				
 		done
 	done
 	
