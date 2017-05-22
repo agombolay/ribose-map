@@ -137,7 +137,7 @@ for sample in ${sample[@]}; do
 	#STEP 5: Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
 
 	#Calculate frequencies at each position
-	for i in "Upstream" "Downstream"; do
+	for i in "Upstream"; do
 		
 		for file in `ls -v ./$sample.Column.*.$i.$reference.$subset.txt`; do
 		
@@ -160,13 +160,10 @@ for sample in ${sample[@]}; do
 				
 		if [ $i == "Downstream" ]; then
 			DownFreq=$(paste A_FlankFreq.txt C_FlankFreq.txt G_FlankFreq.txt T_FlankFreq.txt)
-			echo $DownFreq > Down.txt
 		elif [ $i == "Upstream" ]; then
 			UpFreq=$(paste A_FlankFreq.txt C_FlankFreq.txt G_FlankFreq.txt T_FlankFreq.txt | tac -)
-			echo $UpFreq > Up.txt
 		fi
-		wc -l Down.txt
-		wc -l Up.txt
+		
 		done
 	done
 	
@@ -174,11 +171,11 @@ for sample in ${sample[@]}; do
 	#STEP 6: Create and save dataset file containing nucleotide frequencies
 
 	#Add nucleotide to header line
-	echo -e "\tA\tC\tG\tU/T" > $dataset
+	#echo -e "\tA\tC\tG\tU/T" > $dataset
 	
 	#Add nucleotide positions and frequencies in correct order
-	Freqs=$(cat <(echo "$UpFreq") <(echo "$RiboFreq") <(echo "$DownFreq"))
-	paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Freqs")) >> $dataset
+	#Freqs=$(cat <(echo "$UpFreq") <(echo "$RiboFreq") <(echo "$DownFreq"))
+	#paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Freqs")) >> $dataset
 
 	#Remove temp files
 	rm -f ./*Freq.txt ./*Upstream.* ./*Downstream.* ./RiboBases.txt ./temp.fa*
