@@ -7,17 +7,17 @@
 
 #Usage statement
 function usage () {
-	echo "Usage: Frequencies.sh [-i] 'Sample(s)' [-r] 'Reference' [-d] 'Directory' [-h]
-	-i Input sample(s) (e.g., FS1, FS2, FS3 etc.)
+	echo "Usage: Frequencies.sh [-s] 'Sample(s)' [-r] 'Reference' [-d] 'Directory' [-h]
+	-s Sample name(s) (e.g., FS1, FS2, FS3 etc.)
 	-r Reference genome (e.g., sacCer2, pombe, ecoli, mm9, hg38)
 	-d Local user directory (e.g., /projects/home/agombolay3/data/repository)"
 }
 
 #Command-line options
-while getopts "i:r:d:h" opt; do
+while getopts "s:r:d:h" opt; do
     case $opt in
         #Allow multiple input arguments
-        i ) sample=($OPTARG) ;;
+        s ) sample=($OPTARG) ;;
 	#Allow only one input argument
 	r ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
