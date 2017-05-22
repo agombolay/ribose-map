@@ -23,7 +23,7 @@ opt <- parse_args(OptionParser(option_list=option_list))
 #############################################################################################################################
 for(i in opt$samples) {
 for(j in c("all", "mito", "nucleus")) {
-print(i)
+
     #Specify output directory and file
     output <- file.path(opt$directory, "Ribose-Map", "Results", opt$reference, opt$sample, "Frequencies")
     file <- file.path(output, paste(opt$sample, "-", "Frequencies", ".", opt$reference, ".", j, ".txt", sep=""))
@@ -72,6 +72,7 @@ print(i)
                     #Specify output path and save plot as PNG file
                     ggsave(filename=file.path(output, paste(opt$sample, "-", k, ".", j, ".png", sep="")), plot=myplot)
                 }
-            }
+            print(i)
+	    }
 }
 }
