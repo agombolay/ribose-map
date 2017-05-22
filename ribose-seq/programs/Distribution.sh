@@ -43,7 +43,7 @@ for sample in ${sample[@]}; do
 	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$subset/$sample-Coordinates.$subset.bed
 
 	#Output directories and files
-	output=$directory/Ribose-Map/Results/$reference/$sample/Distribution/; dataset=$output/$sample-ObservedCounts.txt
+	output=$directory/Ribose-Map/Results/$reference/$sample/Distribution/; dataset=$output/$sample-Counts.$subset.txt
 
 	#Create directory and remove old file
 	mkdir -p $output; rm -f $output/{*.txt}
