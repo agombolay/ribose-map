@@ -71,17 +71,17 @@ for sample in ${sample[@]}; do
 
 	#Determine # of windows with 0...maximum # of rNMPs
 	for i in $(seq 0 $maximum); do
-		counts+=($(awk '$4 == ('$i')' temp2.txt | wc -l))
+		$(awk '$4 == ('$i')' temp2.txt | wc -l) >> temp3.txt
 	done
 
 #############################################################################################################################
 	#STEP 6: Create and save dataset file containing observed counts of rNMPs
 	
 	#Add column names to header line
-	echo -e "rNMPs\tWindows" > $dataset
+	#echo -e "rNMPs\tWindows" > $dataset
 
 	#Add # of windows with 0...maximum rNMPs
-	paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${counts[*]}" )) >> $dataset
+	#paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${counts[*]}" )) >> $dataset
 
 	done
 done
