@@ -48,12 +48,18 @@ output=$directory/Ribose-Map/Results/$reference/$sample/Distribution/; observed=
 mkdir -p $output
 
 #Divide chromosomes of reference into windows
-bedtools makewindows -g $bed -w $size > windows.bed
+if [ $subset == "all" ]; then
+	 bedtools makewindows -g $bed -w $size > windows.bed
+elif [ $subset == "mito" ]; then
+	bedtools makewindows -g $bed -w $size | grep -E '(chrM|MT)' > windows.bed
+elif [ $subset == "nucleus" ]; then
+	bedtools makewindows -g $bed -w $size | grep -vE '(chrM|MT)' > windows.bed
+fi
 
 #Determine regions of BED files that intersect and count number of intersections
-#Remove rows where window size is < size and sort based on # of rNMPs in windows
 bedtools intersect -a windows.bed -b $coordinates -c -sorted -nonamecheck > temp1.txt
 
+#Remove rows where window size is greater than specified size and sort based on # of rNMPs in windows
 awk '{$5=$3-$2} 1' temp1.txt | awk -v OFS='\t' '($5=='$size') {print $1,$2,$3,$4}' | sort -k4n - > temp2.txt
 
 #Maximum number of rNMPs in observed data
