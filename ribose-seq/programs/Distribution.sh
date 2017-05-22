@@ -7,20 +7,20 @@
 
 #Usage statement
 function usage () {
-	echo "Usage: Distribution.sh [-s] 'Size' [-i] 'Sample(s)' [-r] 'Reference' [-d] 'Directory' [-h]
-	-s Size of genomic windows
-	-i Input sample(s) (e.g., FS1, FS2, FS3)
+	echo "Usage: Distribution.sh [-s] 'Sample(s)' [-w] 'Size' [-r] 'Reference' [-d] 'Directory' [-h]
+	-s Sample name(s) (e.g., FS1, FS2, FS3)
+	-w Size of genomic windows in base pairs (e.g., 2500)
 	-r Reference genome (e.g., sacCer2, pombe, ecoli, mm9, hg38)
 	-d Directory (e.g., /projects/home/agombolay3/data/repository)"
 }
 
 #Command-line options
-while getopts "s:i:r:d:h" opt; do
+while getopts "s:w:r:d:h" opt; do
     case $opt in
         #Allow multiple input arguments
-        s ) size=($OPTARG) ;;
-	i ) sample=($OPTARG) ;;
+	s ) sample=($OPTARG) ;;
 	#Allow only one input argument
+	w ) size=$OPTARG ;;
 	r ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
         #Print usage statement
