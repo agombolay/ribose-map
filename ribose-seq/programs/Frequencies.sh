@@ -53,13 +53,13 @@ for sample in ${sample[@]}; do
 	
 	#Subset FASTA file based on region
 	if [ $subset == "all" ]; then
-		cat $FASTA1 > temp.fa; samtools index temp.fa
+		cat $FASTA > temp.fa; samtools index temp.fa
 	elif [ $subset == "mito" ]; then
-		chromosomes=$(awk '{print $1}' $reference.bed | grep -E '(chrM|MT)')
-		samtools faidx $reference.fa $chromosomes > temp.fa; samtools index temp.fa
+		chromosomes=$(awk '{print $1}' $BED | grep -E '(chrM|MT)')
+		samtools faidx $FASTA $chromosomes > temp.fa; samtools index temp.fa
 	elif [ $subset == "nucleus" ]; then
-		chromosomes=$(awk '{print $1}' $reference.bed | grep -vE '(chrM|MT)')
-		samtools faidx $reference.fa $chromosomes > temp.fa; samtools index temp.fa
+		chromosomes=$(awk '{print $1}' $BED | grep -vE '(chrM|MT)')
+		samtools faidx $FASTA $chromosomes > temp.fa; samtools index temp.fa
 	fi
 
 	#Calculate counts of each nucleotide
@@ -113,8 +113,8 @@ for sample in ${sample[@]}; do
 	bedtools flank -i $coordinates -s -g $BED -l 0 -r 100 | awk '$2 != "0" && $3 != "0"' - > Downstream.bed
 	
 	#Obtain sequences of the sequences upstream/downstream from rNMPs
-	bedtools getfasta -s -fi $FASTA -bed Upstream.bed -fo Upstream.fasta
-	bedtools getfasta -s -fi $FASTA -bed Downstream.bed -fo Downstream.fasta
+	bedtools getfasta -s -fi temp.fa -bed Upstream.bed -fo Upstream.fasta
+	bedtools getfasta -s -fi temp.fa -bed Downstream.bed -fo Downstream.fasta
 
 #############################################################################################################################
 	#STEP 4: Insert tabs between sequences of dNMPs +/- 100 bp from rNMPs
