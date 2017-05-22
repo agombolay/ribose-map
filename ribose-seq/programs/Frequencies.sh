@@ -137,7 +137,7 @@ for sample in ${sample[@]}; do
 	#STEP 5: Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
 
 	#Calculate frequencies at each position
-	for direction in "Upstream"; do
+	for direction in "Upstream" "Downstream"; do
 		
 		for file in `ls -v ./$sample.Column.*.$direction.$reference.$subset.txt`; do
 		
@@ -163,6 +163,8 @@ for sample in ${sample[@]}; do
 		elif [ $i == "Upstream" ]; then
 			UpFreq=$(paste A_FlankFreq.txt C_FlankFreq.txt G_FlankFreq.txt T_FlankFreq.txt | tac -)
 		fi
+		
+		rm *FlankFreq.txt
 		
 		done
 	done
