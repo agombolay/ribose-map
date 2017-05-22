@@ -34,7 +34,6 @@ fi
 #Determine coordinates
 for sample in ${sample[@]}; do
 	for subset in "all" "mito" "nucleus"; do
-
 #############################################################################################################################
 		#Input file
 		bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam
@@ -48,7 +47,6 @@ for sample in ${sample[@]}; do
 		
 		#Create directory and remove old files
 		mkdir -p $output; rm -f $output/$reads $output/$coordinates
-		
 #############################################################################################################################
 		#STEP 1: Determine genomic coordinates of rNMPs from reads
 
@@ -68,7 +66,6 @@ for sample in ${sample[@]}; do
 	
 		#Combine and save +/- coordinates into one file for later
 		cat <(echo "$positiveReads") <(echo "$negativeReads") > temp3.txt
-
 #############################################################################################################################
 		#STEP 2: Subset and sort coordinates based on genomic region
 		if [ $subset == "all" ]; then
@@ -81,5 +78,6 @@ for sample in ${sample[@]}; do
 		
 		#Remove temp files
 		rm -f temp{1..3}.txt
+	
 	done
 done
