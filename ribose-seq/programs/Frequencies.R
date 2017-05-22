@@ -22,57 +22,57 @@ opt <- parse_args(OptionParser(option_list=option_list))
 
 #############################################################################################################################
 for(i in opt$samples) {
-for(j in c("all", "mito", "nucleus")) {
+	for(j in c("all", "mito", "nucleus")) {
 
-    #Specify output directory and file
-    output <- file.path(opt$directory, "Ribose-Map", "Results", opt$reference, opt$sample, "Frequencies")
-    file <- file.path(output, paste(opt$sample, "-", "Frequencies", ".", opt$reference, ".", j, ".txt", sep=""))
+		#Specify output directory and file
+		output <- file.path(opt$directory, "Ribose-Map", "Results", opt$reference, opt$sample, "Frequencies")
+		file <- file.path(output, paste(opt$sample, "-", "Frequencies", ".", opt$reference, ".", j, ".txt", sep=""))
 
-        #Plot only if files exist
-            if (file.exists(file)) {
-		#Plot regular and zoomed datasets
-                for(k in c("regular", "zoomed")) {
-
-#############################################################################################################################
-                    #Specify datasets to be used for each round of loop
-                    if (k == "regular") {data = read.table(file, sep="\t", header=TRUE)}
-                    if (k == "zoomed") {data = read.table(file, sep="\t", header=TRUE)[86:116,]}
-    
-                    #Define variables to store nucleotide positions and frequency values
-                    position <- data$X; A1 <- data$A; C1 <- data$C; G1 <- data$G; T1 <- data$U.T
+ 		#Plot only if files exist
+        	if (file.exists(file)) {
+			#Plot regular and zoomed datasets
+                	for(k in c("regular", "zoomed")) {
 
 #############################################################################################################################
-                    #Plot frequencies
-                    myplot <- ggplot(data=data, aes(x=position)) +
+                    		#Specify datasets to be used for each round of loop
+                    		if (k == "regular") {data = read.table(file, sep="\t", header=TRUE)}
+                    		if (k == "zoomed") {data = read.table(file, sep="\t", header=TRUE)[86:116,]}
     
-                    #Plot data as scatterplot
-                    geom_line(aes(y = A1, colour = "A")) + geom_point(aes(y = A1, colour = "A")) +
-                    geom_line(aes(y = C1, colour = "C")) + geom_point(aes(y = C1, colour = "C")) +
-                    geom_line(aes(y = G1, colour = "G")) + geom_point(aes(y = G1, colour = "G")) +
-                    geom_line(aes(y = T1, colour = "U/T")) + geom_point(aes(y = T1, colour = "U/T")) +
-    
-                    #Add axes titles and plot title
-                    xlab("Position") + ylab("Frequency") + ggtitle(opt$title) +
-    
-                    #Increase distance between axes and lables
-                    theme(axis.title.y=element_text(margin=margin(0,20,0,0))) +
-                    theme(axis.title.x=element_text(margin=margin(20,0,0,0))) +
-    
-                    #Remove and replace default background plot theme
-                    theme_bw() + theme(panel.border=element_blank(), panel.grid.major=element_blank(),
-                    panel.grid.minor=element_blank(), axis.line=element_line(colour="black")) +
-    
-                    #Specify font size for plot text and center title of plot
-                    theme(text = element_text(size=14)) + theme(plot.title = element_text(hjust = 0.5)) +
-
-                    #Specify color values for each of the four different nucleotides
-                    scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="Nucleotide")
+                    		#Define variables to store nucleotide positions and frequency values
+                    		position <- data$X; A1 <- data$A; C1 <- data$C; G1 <- data$G; T1 <- data$U.T
 
 #############################################################################################################################
-                    #Specify output path and save plot as PNG file
-                    ggsave(filename=file.path(output, paste(opt$sample, "-", k, ".", j, ".png", sep="")), plot=myplot)
-                }
-            print(i)
-	    }
-}
+                    		#Plot frequencies
+                    		myplot <- ggplot(data=data, aes(x=position)) +
+    
+                    		#Plot data as scatterplot
+                    		geom_line(aes(y = A1, colour = "A")) + geom_point(aes(y = A1, colour = "A")) +
+                    		geom_line(aes(y = C1, colour = "C")) + geom_point(aes(y = C1, colour = "C")) +
+                    		geom_line(aes(y = G1, colour = "G")) + geom_point(aes(y = G1, colour = "G")) +
+                    		geom_line(aes(y = T1, colour = "U/T")) + geom_point(aes(y = T1, colour = "U/T")) +
+    
+                    		#Add axes titles and plot title
+                    		xlab("Position") + ylab("Frequency") + ggtitle(opt$title) +
+    
+                    		#Increase distance between axes and lables
+                    		theme(axis.title.y=element_text(margin=margin(0,20,0,0))) +
+                    		theme(axis.title.x=element_text(margin=margin(20,0,0,0))) +
+    
+                    		#Remove and replace default background plot theme
+                    		theme_bw() + theme(panel.border=element_blank(), panel.grid.major=element_blank(),
+                    		panel.grid.minor=element_blank(), axis.line=element_line(colour="black")) +
+    
+                    		#Specify font size for plot text and center title of plot
+                    		theme(text = element_text(size=14)) + theme(plot.title = element_text(hjust = 0.5)) +
+
+                    		#Specify color values for each of the four different nucleotides
+                    		scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="Nucleotide")
+
+#############################################################################################################################
+                    		#Specify output path and save plot as PNG file
+                    		ggsave(filename=file.path(output, paste(opt$sample, "-", k, ".", j, ".png", sep="")), plot=myplot)
+			}
+		}
+	}
+message("Plotting of", " ", i , " ", "is complete")
 }
