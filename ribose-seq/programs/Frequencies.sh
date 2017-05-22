@@ -124,13 +124,9 @@ for sample in ${sample[@]}; do
 	grep -v '>' Downstream.fa > Downstream.txt; cat Downstream.txt | sed 's/.../& /2g;s/./& /g' > Downstream.tab
 
 	for i in {1..100}; do
-		#Location of output files
-		UpstreamLists=$sample.Column.$i.Upstream.$reference.$subset.txt
-		DownstreamLists=$sample.Column.$i.Downstream.$reference.$subset.txt
-		
 		#Save lists of dNMPs at each upstream/downstream position
-		awk -v field=$i '{ print $field }' Upstream.tab > $UpstreamLists
-		awk -v field=$i '{ print $field }' Downstream.tab > $DownstreamLists
+		awk -v field=$i '{ print $field }' Upstream.tab > $sample.Column.$i.Upstream.$reference.$subset.txt
+		awk -v field=$i '{ print $field }' Downstream.tab > $sample.Column.$i.Downstream.$reference.$subset.txt
 	done
 	
 #############################################################################################################################
@@ -176,14 +172,12 @@ for sample in ${sample[@]}; do
 	#Add nucleotide positions and frequencies in correct order
 	Freqs=$(cat <(echo "$UpFreq") <(echo "$RiboFreq") <(echo "$DownFreq"))
 	paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Freqs")) >> $dataset
-
-	#Remove temp files
-	rm -f ./*Column* ./RiboBases.txt ./temp.fa*
-	#./*Freq.txt
-	#./*Upstream.* ./*Downstream.*
 	
 	#Let the user know the analysis is complete
-	echo "Calculation of nucleotide frequencies for $sample ($subset) is complete"
+	echo "Calculation of frequencies for $sample ($subset) is complete"
+	
+	#Remove temp files
+	rm -f ./*Upstream.* ./*Downstream.* ./RiboBases.txt ./temp.fa*
 	
 	done
 done
