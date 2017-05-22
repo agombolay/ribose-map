@@ -71,7 +71,7 @@ for sample in ${sample[@]}; do
 
 	#Determine # of windows with 0...maximum # of rNMPs
 	for i in $(seq 0 $maximum); do
-		$(awk '$4 == ('$i')' temp2.txt | wc -l) >> temp3.txt
+		awk '$4 == ('$i')' temp2.txt | wc -l >> temp3.txt
 	done
 
 #############################################################################################################################
