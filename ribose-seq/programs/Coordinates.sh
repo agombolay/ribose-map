@@ -81,6 +81,5 @@ for sample in ${sample[@]}; do
 		
 		#Remove temp files
 		rm -f temp{1..3}.txt
-	
 	done
 done
