@@ -33,7 +33,7 @@ fi
 
 #Calculate frequencies
 for sample in ${sample[@]}; do
-	for subset in "all"; do
+	for subset in "all" "mito" "nucleus"; do
 	
 #############################################################################################################################
 	#Input files
@@ -53,13 +53,13 @@ for sample in ${sample[@]}; do
 	
 	#Subset FASTA file based on region
 	if [ $subset == "all" ]; then
-		cat $FASTA > temp.fa; samtools index temp.fa
+		cat $FASTA > temp.fa; samtools faidx temp.fa
 	elif [ $subset == "mito" ]; then
 		chromosomes=$(awk '{print $1}' $BED | grep -E '(chrM|MT)')
-		samtools faidx $FASTA $chromosomes > temp.fa; samtools index temp.fa
+		samtools faidx $FASTA $chromosomes > temp.fa; samtools faidx temp.fa
 	elif [ $subset == "nucleus" ]; then
 		chromosomes=$(awk '{print $1}' $BED | grep -vE '(chrM|MT)')
-		samtools faidx $FASTA $chromosomes > temp.fa; samtools index temp.fa
+		samtools faidx $FASTA $chromosomes > temp.fa; samtools faidx temp.fa
 	fi
 
 	#Calculate counts of each nucleotide
