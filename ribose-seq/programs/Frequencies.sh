@@ -163,7 +163,10 @@ for sample in ${sample[@]}; do
 		elif [ $i == "Upstream" ]; then
 			UpFreq=$(paste A_FlankFreq.txt C_FlankFreq.txt G_FlankFreq.txt T_FlankFreq.txt | tac -)
 		fi
-			
+		
+		#Remove old files
+		rm *FlankFreq.txt
+		
 		done
 	done
 	
