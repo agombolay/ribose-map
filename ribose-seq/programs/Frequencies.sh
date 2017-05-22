@@ -37,16 +37,16 @@ for sample in ${sample[@]}; do
 
 #############################################################################################################################
 	#Input files
-	reads=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$subset/$sample-ReadInformation.$subset.txt
+	reads=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-ReadInformation.$subset.txt
+	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
 	BED=$directory/Ribose-Map/Reference/$reference.bed; FASTA=$directory/Ribose-Map/Reference/$reference.$subset.fa
-	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$subset/$sample-Coordinates.$subset.bed
 
 	#Output directory and file
-	output=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/$subset
+	output=$directory/Ribose-Map/Results/$reference/$sample/Frequencies
 	dataset=$output/$sample-Frequencies.$reference.$subset.txt
 	
 	#Create directory and remove old file
-	mkdir -p $output; rm -f $output/{*.txt}
+	mkdir -p $output; rm -f $output/$dataset
 		
 #############################################################################################################################
 	#STEP 1: Calculate frequencies of reference genome
@@ -186,10 +186,10 @@ for sample in ${sample[@]}; do
 	paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Freqs")) >> $dataset
 
 	#Let the user know the analysis is complete
-	echo "Calculation of nucleotide frequencies for $sample ($subset) is complete"
+	echo "Calculation of frequencies for $sample ($subset) is complete"
 
-done
-done
+	#Remove temp files
+	rm -f ./*Freq.txt ./*Upstream.* ./*Downstream.* ./riboSequences.txt
 
-#Remove temp files
-rm -f ./*Freq.txt ./*Upstream.* ./*Downstream.* ./riboSequences.txt
+	done
+done
