@@ -46,7 +46,7 @@ for sample in ${sample[@]}; do
 	output=$directory/Ribose-Map/Results/$reference/$sample/Distribution/; dataset=$output/$sample-Counts.$subset.txt
 
 	#Create directory and remove old file
-	mkdir -p $output; rm -f $output/{*.txt}
+	mkdir -p $output; rm -f $output/$dataset
 #############################################################################################################################
 	
 	#STEP 1: Divide genome into windows and count number of rNMPs in each window
