@@ -8,25 +8,25 @@
 
 #Usage statement
 function usage () {
-	echo "Usage: Alignment.sh [-i] 'Sample(s)' [-u] 'UMI' [-m] 'Min' [-p] 'Path' [-b] 'Index' [-d] 'Directory' [-h]
-		-i Input sample(s) (e.g., FS1, FS2, FS3)
+	echo "Usage: Alignment.sh [-s] 'Sample(s)' [-u] 'UMI' [-m] 'Min' [-p] 'Path' [-i] 'Index' [-d] 'Directory' [-h]
+		-s Input sample(s) (e.g., FS1, FS2, FS3)
 		-u Length of UMI (e.g., NNNNNNNN or NNNNNNNNNNN)
 		-m Minimum length of read to retain after trimming (e.g., 50)
 		-p Path (e.g., /projects/home/agombolay3/data/bin/Trimmomatic-0.36)
-		-b Basename of Bowtie2 index (e.g., sacCer2, pombe, ecoli, mm9, or hg38)
+		-i Basename of Bowtie2 index (e.g., sacCer2, pombe, ecoli, mm9, or hg38)
 		-d Local user directory (e.g., /projects/home/agombolay3/data/repository)"
 }
 
 #Command-line options
-while getopts "i:u:m:p:b:d:h" opt; do
+while getopts "s:u:m:p:i:d:h" opt; do
     case "$opt" in
         #Allow multiple input arguments
-        i ) sample=($OPTARG) ;;
+        s ) sample=($OPTARG) ;;
 	#Allow only one input argument
 	u ) UMI=$OPTARG ;;
 	m ) MIN=$OPTARG ;;
 	p ) path=$OPTARG ;;
-	b ) index=$OPTARG ;;
+	i ) index=$OPTARG ;;
 	d ) directory=$OPTARG ;;
         #Print usage statement
         h ) usage ;;
