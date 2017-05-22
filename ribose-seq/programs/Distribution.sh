@@ -66,11 +66,11 @@ for sample in ${sample[@]}; do
 	#Remove rows where window size is greater than specified size and sort based on # of rNMPs in windows
 	awk '{$5=$3-$2} 1' temp1.txt | awk -v OFS='\t' '($5=='$size') {print $1,$2,$3,$4}' | sort -k4n - > temp2.txt
 
-	#Maximum number of rNMPs in observed data
-	maximum=$(tail -1 temp2.txt | awk '{print $4}' -)
+	#Maximum # of rNMPs in observed data
+	max=$(tail -1 temp2.txt | awk '{print $4}' -)
 
-	#Determine # of windows with 0...maximum # of rNMPs
-	for i in $(seq 0 $maximum); do
+	#Number of windows containing 0...max # of rNMPs
+	for i in $(seq 0 $max); do
 		awk '$4 == ('$i')' temp2.txt | wc -l >> temp3.txt
 	done
 
@@ -78,10 +78,10 @@ for sample in ${sample[@]}; do
 	#STEP 6: Create and save dataset file containing observed counts of rNMPs
 	
 	#Add column names to header line
-	#echo -e "rNMPs\tWindows" > $dataset
+	echo -e "rNMPs\tWindows" > $dataset
 
-	#Add # of windows with 0...maximum rNMPs
-	#paste <(echo "$(seq 0 $maximum)") <(cat <( IFS=$'\n'; echo "${counts[*]}" )) >> $dataset
+	#Add number of windows containing 0...max # of rNMPs
+	paste <(echo "$(seq 0 $max)") <(cat temp3.txt) >> $dataset
 
 	done
 done
