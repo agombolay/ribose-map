@@ -12,7 +12,7 @@ library(optparse)
 library(ggplot2)
 
 #Command line options
-option_list <- list(make_option(c("-i", "--input"), help="Input sample name"),
+option_list <- list(make_option(c("-s", "--sample"), help="Sample name"),
 make_option(c("-t", "--title"), help="Title will be same for all plots; blank = no title"),
 make_option(c("-r", "--reference"), help="Reference genome (e.g., sacCer2, pombe, ecoli, mm9, hg38)"),
 make_option(c("-d", "--directory"), help="Local user directory (e.g., /projects/home/agombolay3/data/repository)"))
@@ -24,8 +24,8 @@ opt <- parse_args(OptionParser(option_list=option_list))
 for(i in c("all", "mito", "nucleus")) {
 
     #Specify output directory and file
-    output <- file.path(opt$directory, "Ribose-Map", "Results", opt$reference, opt$input, "Frequencies")
-    file <- file.path(output, paste(opt$input, "-", "Frequencies", ".", opt$reference, ".", i, ".txt", sep=""))
+    output <- file.path(opt$directory, "Ribose-Map", "Results", opt$reference, opt$sample, "Frequencies")
+    file <- file.path(output, paste(opt$sample, "-", "Frequencies", ".", opt$reference, ".", i, ".txt", sep=""))
 
         #Plot only if files exist
             if (file.exists(file)) {
@@ -69,7 +69,7 @@ for(i in c("all", "mito", "nucleus")) {
 
 #############################################################################################################################
                     #Specify output path and save plot as PNG file
-                    ggsave(filename=file.path(output, paste(opt$input, "-", j, ".", i, ".png", sep="")), plot=myplot)
+                    ggsave(filename=file.path(output, paste(opt$sample, "-", j, ".", i, ".png", sep="")), plot=myplot)
                 }
             }
 }
