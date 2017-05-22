@@ -34,7 +34,6 @@ fi
 #Calculate frequencies
 for sample in ${sample[@]}; do
 	for subset in "all" "mito" "nucleus"; do
-
 #############################################################################################################################
 	#Input files
 	reads=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-ReadInformation.$subset.txt
@@ -47,7 +46,6 @@ for sample in ${sample[@]}; do
 	
 	#Create directory and remove old file
 	mkdir -p $output; rm -f $output/$dataset
-		
 #############################################################################################################################
 	#STEP 1: Calculate frequencies of reference genome
 	
@@ -74,7 +72,6 @@ for sample in ${sample[@]}; do
 	C_BkgFreq=$(echo "scale=12; $C_BkgCount/$total_Bkg" | bc | awk '{printf "%.12f\n", $0}')
 	G_BkgFreq=$(echo "scale=12; $G_BkgCount/$total_Bkg" | bc | awk '{printf "%.12f\n", $0}')
 	T_BkgFreq=$(echo "scale=12; $T_BkgCount/$total_Bkg" | bc | awk '{printf "%.12f\n", $0}')
-
 #############################################################################################################################
 	#STEP 2: Calculate frequencies of rNMPs in libraries
 
@@ -104,7 +101,6 @@ for sample in ${sample[@]}; do
 
 	#Save normalized frequencies of rNMPs together
 	RiboFreq=$(echo -e "$A_RiboFreq\t$C_RiboFreq\t$G_RiboFreq\t$U_RiboFreq")
-	
 #############################################################################################################################
 	#STEP 3: Obtain coordinates/sequences of dNMPs +/- 100 bp from rNMPs
 
@@ -115,7 +111,6 @@ for sample in ${sample[@]}; do
 	#Obtain sequences of the sequences upstream/downstream from rNMPs
 	bedtools getfasta -s -fi temp.fa -bed Upstream.bed -fo Upstream.fasta
 	bedtools getfasta -s -fi temp.fa -bed Downstream.bed -fo Downstream.fasta
-
 #############################################################################################################################
 	#STEP 4: Insert tabs between sequences of dNMPs +/- 100 bp from rNMPs
 
@@ -132,13 +127,12 @@ for sample in ${sample[@]}; do
 		awk -v field=$i '{ print $field }' Upstream.tab > $UpstreamLists
 		awk -v field=$i '{ print $field }' Downstream.tab > $DownstreamLists
 	done
-
 #############################################################################################################################
 	#STEP 5: Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
 
 	#Calculate frequencies at each position
 	for file in `ls -v ./$sample.Column.*.Upstream.$reference.$subset.txt`; do
-
+	
 		#Calculate count of each dNMP
 		A_UpCount=$(grep -o 'A' $file | wc -l); C_UpCount=$(grep -o 'C' $file | wc -l)
 		G_UpCount=$(grep -o 'G' $file | wc -l); T_UpCount=$(grep -o 'T' $file | wc -l)
@@ -158,7 +152,7 @@ for sample in ${sample[@]}; do
 			
 		#Combine upstream dNMP frequencies and reverse (order = -100 --> -1)
 		UpFreq=$(paste A_UpFreq.txt C_UpFreq.txt G_UpFreq.txt T_UpFreq.txt | tac -)
-		
+	
 	done
 
 	#Calculate frequencies at each position
@@ -185,7 +179,6 @@ for sample in ${sample[@]}; do
 		DownFreq=$(paste A_DownFreq.txt C_DownFreq.txt G_DownFreq.txt T_DownFreq.txt)
 	
 	done
-	
 #############################################################################################################################
 	#STEP 6: Create and save dataset file containing nucleotide frequencies
 
