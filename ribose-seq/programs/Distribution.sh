@@ -57,7 +57,7 @@ bedtools makewindows -g $bed -w $size > windows.bed
 bedtools intersect -a windows.bed -b $coordinates -c -sorted -nonamecheck > out.txt
 
 #awk '{ $5 = $3 - $2 } 1' out.txt | awk -v OFS='\t' '( $5 == $size ) {print $1,$2,$3,$4}' | sort -k4 -n - > temporary.txt
-awk '{ $5 = $3 - $2 } 1' out.txt | awk -v OFS='\t' '( $5 == $size ) {print $1,$2,$3,$4}' > temporary.txt
+awk '{ $5 = $3 - $2 } 1' out.txt | awk -v OFS='\t' '($5 == "$size") {print $1,$2,$3,$4}' > temporary.txt
 
 #Maximum number of rNMPs in binned data
 #max=$(tail -1 temporary.txt | awk '{print $4}' -)
