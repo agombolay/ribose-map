@@ -178,8 +178,8 @@ for sample in ${sample[@]}; do
 	#paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Freqs")) >> $dataset
 
 	#Remove temp files
-	#rm -f ./*Upstream.* ./*Downstream.* ./RiboBases.txt ./temp.fa*
-	#./*Freq.txt
+	rm -f ./*Freq.txt ./*Upstream.* ./*Downstream.* ./RiboBases.txt ./temp.fa*
+
 	#Let the user know the analysis is complete
 	echo "Calculation of nucleotide frequencies for $sample ($subset) is complete"
 	
