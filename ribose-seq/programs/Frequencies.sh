@@ -159,9 +159,11 @@ for sample in ${sample[@]}; do
 		echo $G_FlankFreq >> G_FlankFreq.$direction.txt; echo $T_FlankFreq >> T_FlankFreq.$direction.txt
 		
 		if [ $i == "Downstream" ]; then
-			DownFreq=$(paste A_FlankFreq.Downstream.txt C_FlankFreq.Downstream.txt G_FlankFreq.Downstream.txt T_FlankFreq.Downstream.txt)
+			paste A_FlankFreq.Downstream.txt C_FlankFreq.Downstream.txt G_FlankFreq.Downstream.txt \
+			T_FlankFreq.Downstream.txt > FlankFreq.Downstream.txt
 		elif [ $i == "Upstream" ]; then
-			UpFreq=$(paste A_FlankFreq.Upstream.txt C_FlankFreq.Upstream.txt G_FlankFreq.Upstream.txt T_FlankFreq.Upstream.txt | tac -)
+			paste A_FlankFreq.Upstream.txt C_FlankFreq.Upstream.txt G_FlankFreq.Upstream.txt \
+			T_FlankFreq.Upstream.txt > FlankFreq.Upstream.txt
 		fi
 				
 		done
@@ -174,8 +176,8 @@ for sample in ${sample[@]}; do
 	echo -e "\tA\tC\tG\tU/T" > $dataset
 	
 	#Add nucleotide positions and frequencies in correct order
-	Freqs=$(cat <(echo "$UpFreq") <(echo "$RiboFreq") <(echo "$DownFreq"))
-	paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Freqs")) >> $dataset
+	#Freqs=$(cat <(echo "$UpFreq") <(echo "$RiboFreq") <(echo "$DownFreq"))
+	#paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Freqs")) >> $dataset
 
 	#Remove temp files
 	rm -f ./*Column* ./RiboBases.txt ./temp.fa*
