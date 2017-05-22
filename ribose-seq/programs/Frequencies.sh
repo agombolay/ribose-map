@@ -38,8 +38,8 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#Input files
 	reads=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-ReadInformation.$subset.txt
+	BED=$directory/Ribose-Map/Reference/$reference.bed; FASTA=$directory/Ribose-Map/Reference/$reference.fa
 	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
-	BED=$directory/Ribose-Map/Reference/$reference.bed; FASTA=$directory/Ribose-Map/Reference/$reference.$subset.fa
 
 	#Output directory and file
 	output=$directory/Ribose-Map/Results/$reference/$sample/Frequencies
@@ -51,9 +51,20 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#STEP 1: Calculate frequencies of reference genome
 	
+	#Subset FASTA file based on region
+	if [ $subset == "all" ]; then
+		cat $FASTA1 > temp.fa; samtools index temp.fa
+	elif [ $subset == "mito" ]; then
+		chromosomes=$(awk '{print $1}' $reference.bed | grep -E '(chrM|MT)')
+		samtools faidx $reference.fa $chromosomes > temp.fa; samtools index temp.fa
+	elif [ $subset == "nucleus" ]; then
+		chromosomes=$(awk '{print $1}' $reference.bed | grep -vE '(chrM|MT)')
+		samtools faidx $reference.fa $chromosomes > temp.fa; samtools index temp.fa
+	fi
+
 	#Calculate counts of each nucleotide
-	A_BkgCount=$(grep -v '>' $FASTA | grep -o 'A' - | wc -l); C_BkgCount=$(grep -v '>' $FASTA | grep -o 'C' - | wc -l)
-	G_BkgCount=$(grep -v '>' $FASTA | grep -o 'G' - | wc -l); T_BkgCount=$(grep -v '>' $FASTA | grep -o 'T' - | wc -l)
+	A_BkgCount=$(grep -v '>' temp.fa | grep -o 'A' - | wc -l); C_BkgCount=$(grep -v '>' temp.fa | grep -o 'C' - | wc -l)
+	G_BkgCount=$(grep -v '>' temp.fa | grep -o 'G' - | wc -l); T_BkgCount=$(grep -v '>' temp.fa | grep -o 'T' - | wc -l)
 	
 	#Calculate total number of nucleotides
 	total_Bkg=$(($A_BkgCount+$C_BkgCount+$G_BkgCount+$T_BkgCount))
