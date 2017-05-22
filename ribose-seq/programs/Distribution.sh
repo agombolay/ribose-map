@@ -64,12 +64,11 @@ awk '{$5=$3-$2} 1' temp1.txt | awk -v OFS='\t' '($5=='$size') {print $1,$2,$3,$4
 
 #Maximum number of rNMPs in observed data
 maximum=$(tail -1 temp2.txt | awk '{print $4}' -)
-echo $maximum
 
 #Determine # of windows with 0...maximum # of rNMPs
-#for i in $(seq 0 $maximum); do
-#	counts+=($(awk '$4 == ('$i')' temp2.txt | wc -l))
-#done
+for i in $(seq 0 $maximum); do
+	counts+=($(awk '$4 == ('$i')' temp2.txt | wc -l))
+done
 
 #Add column names and # of windows with 0...maximum rNMPs
 #echo -e "rNMPs\tWindows" > $counts && paste <(echo "$(seq 0 $max)") \
