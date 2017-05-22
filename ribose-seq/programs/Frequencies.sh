@@ -80,18 +80,18 @@ for sample in ${sample[@]}; do
 
 	if [ $subset == "all" ]; then
 		#Select all reads located and extract rNMP bases
-		cat $reads | awk '{print substr($0,length($0))}' - > riboSequences.txt
+		cat $reads | awk '{print substr($0,length($0))}' - > RiboBases.txt
 	elif [ $subset == "mito" ]; then
 		#Select only reads located in mito DNA and extract rNMP bases
-		grep -E '(chrM|MT)' $reads | awk '{print substr($0,length($0))}' - > riboSequences.txt
+		grep -E '(chrM|MT)' $reads | awk '{print substr($0,length($0))}' - > RiboBases.txt
 	elif [ $subset == "nucleus" ]; then
 		#Select only reads located in nuclear DNA and extract rNMP bases
-		grep -v -E '(chrM|MT)' $reads | awk '{print substr($0,length($0))}' - > riboSequences.txt
+		grep -v -E '(chrM|MT)' $reads | awk '{print substr($0,length($0))}' - > RiboBases.txt
 	fi
 	
 	#Calculate counts of rNMPs
-	A_RiboCount=$(awk '$1 == "A"' riboSequences.txt | wc -l); C_RiboCount=$(awk '$1 == "C"' riboSequences.txt | wc -l)
-	G_RiboCount=$(awk '$1 == "G"' riboSequences.txt | wc -l); U_RiboCount=$(awk '$1 == "T"' riboSequences.txt | wc -l)
+	A_RiboCount=$(awk '$1 == "A"' RiboBases.txt | wc -l); C_RiboCount=$(awk '$1 == "C"' RiboBases.txt | wc -l)
+	G_RiboCount=$(awk '$1 == "G"' RiboBases.txt | wc -l); U_RiboCount=$(awk '$1 == "T"' RiboBases.txt | wc -l)
 	
 	#Calculate total number of rNMPs
 	RiboCount=$(($A_RiboCount+$C_RiboCount+$G_RiboCount+$U_RiboCount))
@@ -200,7 +200,7 @@ for sample in ${sample[@]}; do
 	echo "Calculation of frequencies for $sample ($subset) is complete"
 
 	#Remove temp files
-	rm -f ./*Freq.txt ./*Upstream.* ./*Downstream.* ./riboSequences.txt
+	rm -f ./*Freq.txt ./*Upstream.* ./*Downstream.* ./RiboBases.txt ./temp.fa*
 
 	done
 done
