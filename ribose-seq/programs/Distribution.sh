@@ -11,7 +11,7 @@ function usage () {
 	-s Size of genomic windows
 	-i Input sample(s) (e.g., FS1, FS2, FS3)
 	-r Reference genome (e.g., sacCer2, pombe, ecoli, mm9, hg38)
-	-d Directory (e.g., /projects/home/agombolay3/data/repository/Ribose-seq-Project)"
+	-d Directory (e.g., /projects/home/agombolay3/data/repository)"
 }
 
 #Command-line options
