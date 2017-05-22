@@ -137,9 +137,9 @@ for sample in ${sample[@]}; do
 	#STEP 5: Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
 
 	#Calculate frequencies at each position
-	for i in "Upstream"; do
+	for direction in "Upstream"; do
 		
-		for file in `ls -v ./$sample.Column.*.$i.$reference.$subset.txt`; do
+		for file in `ls -v ./$sample.Column.$direction.$i.$reference.$subset.txt`; do
 		
 		#Calculate count of each dNMP
 		A_FlankCount=$(grep -o 'A' $file | wc -l); C_FlankCount=$(grep -o 'C' $file | wc -l)
