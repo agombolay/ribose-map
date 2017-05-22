@@ -137,53 +137,35 @@ for sample in ${sample[@]}; do
 	#STEP 5: Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
 
 	#Calculate frequencies at each position
-	for file in `ls -v ./$sample.Column.*.Upstream.$reference.$subset.txt`; do
-	
-		#Calculate count of each dNMP
-		A_UpCount=$(grep -o 'A' $file | wc -l); C_UpCount=$(grep -o 'C' $file | wc -l)
-		G_UpCount=$(grep -o 'G' $file | wc -l); T_UpCount=$(grep -o 'T' $file | wc -l)
-
-		#Calculate total number of dNMPs
-		UpCount=$(($A_UpCount+$C_UpCount+$G_UpCount+$T_UpCount))
-
-		#Calculate normalized frequencies of dNMPs
-		A_UpFreq=$(echo "scale=12; ($A_UpCount/$UpCount)/$A_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
-		C_UpFreq=$(echo "scale=12; ($C_UpCount/$UpCount)/$C_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
-		G_UpFreq=$(echo "scale=12; ($G_UpCount/$UpCount)/$G_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
-		T_UpFreq=$(echo "scale=12; ($T_UpCount/$UpCount)/$T_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+	for i in "Upstream" "Downstream"; do
 		
-		#Save normalized dNMPs frequencies to TXT file
-		echo $A_UpFreq >> A_UpFreq.txt; echo $C_UpFreq >> C_UpFreq.txt
-		echo $G_UpFreq >> G_UpFreq.txt; echo $T_UpFreq >> T_UpFreq.txt
+		for file in `ls -v ./$sample.Column.*.$i.$reference.$subset.txt`; do
+		
+			#Calculate count of each dNMP
+			A_FlankCount=$(grep -o 'A' $file | wc -l); C_FlankCount=$(grep -o 'C' $file | wc -l)
+			G_FlankCount=$(grep -o 'G' $file | wc -l); T_FlankCount=$(grep -o 'T' $file | wc -l)
+
+			#Calculate total number of dNMPs
+			FlankCount=$(($A_FlankCount+$C_FlankCount+$G_FlankCount+$T_FlankCount))
+
+			#Calculate normalized frequencies of dNMPs
+			A_FlankFreq=$(echo "scale=12; ($A_FlankCount/$FlankCount)/$A_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+			C_FlankFreq=$(echo "scale=12; ($C_FlankCount/$FlankCount)/$C_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+			G_FlankFreq=$(echo "scale=12; ($G_FlankCount/$FlankCount)/$G_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+			T_FlankFreq=$(echo "scale=12; ($T_FlankCount/$FlankCount)/$T_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+		
+			#Save normalized dNMPs frequencies to TXT file
+			echo $A_FlankFreq >> A_FlankFreq.txt; echo $C_FlankFreq >> C_FlankFreq.txt
+			echo $G_FlankFreq >> G_FlankFreq.txt; echo $T_FlankFreq >> T_FlankFreq.txt
+				
+			if [ $i == "Downstream" ]; then
+				DownFreq=$(paste A_FlankFreq.txt C_FlankFreq.txt G_FlankFreq.txt T_FlankFreq.txt)
 			
-		#Combine upstream dNMP frequencies and reverse (order = -100 --> -1)
-		UpFreq=$(paste A_UpFreq.txt C_UpFreq.txt G_UpFreq.txt T_UpFreq.txt | tac -)
-	
-	done
-
-	#Calculate frequencies at each position
-	for file in `ls -v ./$sample.Column.*.Downstream.$reference.$subset.txt`; do
-
-		#Calculate count of each dNMP
-		A_DownCount=$(grep -o 'A' $file | wc -l); C_DownCount=$(grep -o 'C' $file | wc -l)
-		G_DownCount=$(grep -o 'G' $file | wc -l); T_DownCount=$(grep -o 'T' $file | wc -l)
-
-		#Calculate total number of dNMPs
-		DownCount=$(($A_DownCount+$C_DownCount+$G_DownCount+$T_DownCount))
-	
-		#Calculate normalized frequencies of dNMPs
-		A_DownFreq=$(echo "scale=12; ($A_DownCount/$DownCount)/$A_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
-		C_DownFreq=$(echo "scale=12; ($C_DownCount/$DownCount)/$C_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
-		G_DownFreq=$(echo "scale=12; ($G_DownCount/$DownCount)/$G_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
-		T_DownFreq=$(echo "scale=12; ($T_DownCount/$DownCount)/$T_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
-		
-		#Save normalized dNMPs frequencies to TXT file
-		echo $A_DownFreq >> A_DownFreq.txt; echo $C_DownFreq >> C_DownFreq.txt
-		echo $G_DownFreq >> G_DownFreq.txt; echo $T_DownFreq >> T_DownFreq.txt
-		
-		#Combine downstream dNMP frequencies (order = +1 --> +100)
-		DownFreq=$(paste A_DownFreq.txt C_DownFreq.txt G_DownFreq.txt T_DownFreq.txt)
-	
+			elif [ $i == "Upstream" ]; then
+				UpFreq=$(paste A_FlankFreq.txt C_FlankFreq.txt G_FlankFreq.txt T_FlankFreq.txt | tac -)
+			fi
+			
+		done
 	done
 	
 #############################################################################################################################
