@@ -70,7 +70,7 @@ echo -e "rNMPs\tWindows" > $counts && paste <(echo "$(seq 0 $max)") \
 <(cat <( IFS=$'\n'; echo "${windows[*]}" )) >> $counts
 
 #Remove temp file
-rm temporary.txt
+#rm temporary.txt
 
 done
 done
