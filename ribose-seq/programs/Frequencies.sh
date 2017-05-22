@@ -159,9 +159,9 @@ for sample in ${sample[@]}; do
 		echo $G_FlankFreq >> G_FlankFreq.$direction.txt; echo $T_FlankFreq >> T_FlankFreq.$direction.txt
 		
 		if [ $i == "Downstream" ]; then
-			DownFreq=$(paste A_FlankFreq.txt C_FlankFreq.txt G_FlankFreq.txt T_FlankFreq.txt)
+			DownFreq=$(paste A_FlankFreq.Downstream.txt C_FlankFreq.Downstream.txt G_FlankFreq.Downstream.txt T_FlankFreq.Downstream.txt)
 		elif [ $i == "Upstream" ]; then
-			UpFreq=$(paste A_FlankFreq.txt C_FlankFreq.txt G_FlankFreq.txt T_FlankFreq.txt | tac -)
+			UpFreq=$(paste A_FlankFreq.Upstream.txt C_FlankFreq.Upstream.txt G_FlankFreq.Upstream.txt T_FlankFreq.Upstream.txt | tac -)
 		fi
 				
 		done
