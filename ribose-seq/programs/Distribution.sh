@@ -33,6 +33,11 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
+subset=("all" "mito" "nucleus")
+
+#Determine coordinates
+for sample in ${sample[@]}; do
+	for subset in "all" "mito" "nucleus";; do
 #############################################################################################################################
 #Input files
 bed=$directory/Ribose-Map/Reference/$reference.bed
@@ -66,3 +71,6 @@ echo -e "rNMPs\tWindows" > $counts && paste <(echo "$(seq 0 $max)") \
 
 #Remove temp file
 rm temporary.txt
+
+done
+done
