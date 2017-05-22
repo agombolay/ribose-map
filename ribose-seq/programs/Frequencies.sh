@@ -141,29 +141,28 @@ for sample in ${sample[@]}; do
 		
 		for file in `ls -v ./$sample.Column.*.$i.$reference.$subset.txt`; do
 		
-			#Calculate count of each dNMP
-			A_FlankCount=$(grep -o 'A' $file | wc -l); C_FlankCount=$(grep -o 'C' $file | wc -l)
-			G_FlankCount=$(grep -o 'G' $file | wc -l); T_FlankCount=$(grep -o 'T' $file | wc -l)
+		#Calculate count of each dNMP
+		A_FlankCount=$(grep -o 'A' $file | wc -l); C_FlankCount=$(grep -o 'C' $file | wc -l)
+		G_FlankCount=$(grep -o 'G' $file | wc -l); T_FlankCount=$(grep -o 'T' $file | wc -l)
 
-			#Calculate total number of dNMPs
-			FlankCount=$(($A_FlankCount+$C_FlankCount+$G_FlankCount+$T_FlankCount))
+		#Calculate total number of dNMPs
+		FlankCount=$(($A_FlankCount+$C_FlankCount+$G_FlankCount+$T_FlankCount))
 
-			#Calculate normalized frequencies of dNMPs
-			FlankFreqA=$(echo "scale=12; ($FlankCountA/$FlankCount)/$BkgFreqA" | bc | awk '{printf "%.12f\n", $0}')
-			C_FlankFreq=$(echo "scale=12; ($C_FlankCount/$FlankCount)/$C_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
-			G_FlankFreq=$(echo "scale=12; ($G_FlankCount/$FlankCount)/$G_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
-			T_FlankFreq=$(echo "scale=12; ($T_FlankCount/$FlankCount)/$T_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+		#Calculate normalized frequencies of dNMPs
+		A_FlankFreq=$(echo "scale=12; ($A_FlankCount/$FlankCount)/$A_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+		C_FlankFreq=$(echo "scale=12; ($C_FlankCount/$FlankCount)/$C_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+		G_FlankFreq=$(echo "scale=12; ($G_FlankCount/$FlankCount)/$G_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+		T_FlankFreq=$(echo "scale=12; ($T_FlankCount/$FlankCount)/$T_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
 		
-			#Save normalized dNMPs frequencies to TXT file
-			echo $A_FlankFreq >> A_FlankFreq.txt; echo $C_FlankFreq >> C_FlankFreq.txt
-			echo $G_FlankFreq >> G_FlankFreq.txt; echo $T_FlankFreq >> T_FlankFreq.txt
+		#Save normalized dNMPs frequencies to TXT file
+		echo $A_FlankFreq >> A_FlankFreq.txt; echo $C_FlankFreq >> C_FlankFreq.txt
+		echo $G_FlankFreq >> G_FlankFreq.txt; echo $T_FlankFreq >> T_FlankFreq.txt
 				
-			if [ $i == "Downstream" ]; then
-				DownFreq=$(paste A_FlankFreq.txt C_FlankFreq.txt G_FlankFreq.txt T_FlankFreq.txt)
-			
-			elif [ $i == "Upstream" ]; then
-				UpFreq=$(paste A_FlankFreq.txt C_FlankFreq.txt G_FlankFreq.txt T_FlankFreq.txt | tac -)
-			fi
+		if [ $i == "Downstream" ]; then
+			DownFreq=$(paste A_FlankFreq.txt C_FlankFreq.txt G_FlankFreq.txt T_FlankFreq.txt)
+		elif [ $i == "Upstream" ]; then
+			UpFreq=$(paste A_FlankFreq.txt C_FlankFreq.txt G_FlankFreq.txt T_FlankFreq.txt | tac -)
+		fi
 			
 		done
 	done
