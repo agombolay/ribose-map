@@ -12,10 +12,12 @@ library(optparse)
 library(ggplot2)
 
 #Command line options
-option_list <- list(make_option(c("-s", "--sample"), help="Sample name(s) (e.g., FS1, FS2, FS3)"),
+option_list <- list(
+make_option(c("-s", "--sample"), help="Sample name(s) (e.g., FS1, FS2, FS3)"),
 make_option(c("-t", "--title"), help="Title will be same for all plots; blank space = no titles"),
 make_option(c("-r", "--reference"), help="Reference genome (e.g., sacCer2, pombe, ecoli, mm9, hg38)"),
-make_option(c("-d", "--directory"), help="Local user directory (e.g., /projects/home/agombolay3/data/repository)"))
+make_option(c("-d", "--directory"), help="Local user directory (e.g., /projects/home/agombolay3/data/repository)")
+)
 
 #Get command line options, if -h encountered print help
 opt <- parse_args(OptionParser(option_list=option_list))
