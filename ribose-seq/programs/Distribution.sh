@@ -87,7 +87,7 @@ for sample in ${sample[@]}; do
 	rm temp{1..3}.txt
 
 	#Print completion status
-	echo "Calculation of frequencies for $sample ($subset) is complete"
+	echo "Observed counts of rNMPs for $sample ($subset) have been determined"
 
 	done
 done
