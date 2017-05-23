@@ -155,9 +155,9 @@ for sample in ${sample[@]}; do
 		echo $G_FlankFreq >> G_$direction.txt; echo $T_FlankFreq >> T_$direction.txt
 		
 		if [ $direction == "Downstream" ]; then
-			DownFreq=$(paste A_Downstream.txt C_Downstream.txt G_Downstream.txt T_Downstream.txt)
+			DownstreamFreq=$(paste A_Downstream.txt C_Downstream.txt G_Downstream.txt T_Downstream.txt)
 		elif [ $direction == "Upstream" ]; then
-			UpFreq=$(paste A_Upstream.txt C_Upstream.txt G_Upstream.txt T_Upstream.txt | tac -)
+			UpstreamFreq=$(paste A_Upstream.txt C_Upstream.txt G_Upstream.txt T_Upstream.txt | tac -)
 		fi
 				
 		done
@@ -169,8 +169,8 @@ for sample in ${sample[@]}; do
 	#Add nucleotide to header line
 	echo -e "\tA\tC\tG\tU/T" > $dataset
 	
-	#Add nucleotide positions and frequencies in correct order
-	Freqs=$(cat <(echo "$UpFreq") <(echo "$RiboFreq") <(echo "$DownFreq"))
+	#Add nucleotide positions and frequencies in correct order to create dataset
+	Freqs=$(cat <(echo "$UpstreamFreq") <(echo "$RiboFreq") <(echo "$DownstreamFreq"))
 	paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Freqs")) >> $dataset
 	
 	#Let the user know the analysis is complete
