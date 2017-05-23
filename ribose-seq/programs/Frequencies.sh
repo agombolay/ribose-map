@@ -166,7 +166,7 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#STEP 6: Create and save dataset file containing nucleotide frequencies
 
-	#Add nucleotide to header line
+	#Add nucleotides to header line
 	echo -e "\tA\tC\tG\tU/T" > $dataset
 
 	#Add nucleotide positions and frequencies in correct order to create dataset of frequencies
