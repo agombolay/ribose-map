@@ -173,7 +173,7 @@ for sample in ${sample[@]}; do
 	#Freqs=$(cat <(echo "$UpstreamFreq") <(echo "$RiboFreq") <(echo "$DownstreamFreq"))	
 	#paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Freqs")) >> $dataset
 
-	paste <(echo "$(seq -100 1 100)") <(cat <(echo "$UpstreamFreq" "$RiboFreq" "$DownstreamFreq")) >> $dataset
+	paste <(echo "$(seq -100 1 100)") <(cat <(echo "$UpstreamFreq") <(echo "$RiboFreq") <(echo "$DownstreamFreq")) >> $dataset
 
 	#Remove temp files
 	rm -f ./*Upstream.* ./*Downstream.* ./RiboBases.txt ./temp.fa*
