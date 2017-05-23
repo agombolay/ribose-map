@@ -173,11 +173,11 @@ for sample in ${sample[@]}; do
 	Freqs=$(cat <(echo "$UpstreamFreq") <(echo "$RiboFreq") <(echo "$DownstreamFreq"))
 	paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Freqs")) >> $dataset
 	
-	#Let the user know the analysis is complete
-	echo "Calculation of frequencies for $sample ($subset) is complete"
-	
 	#Remove temp files
 	rm -f ./*Upstream.* ./*Downstream.* ./RiboBases.txt ./temp.fa*
+	
+	#Print completion status
+	echo "Calculation of frequencies for $sample ($subset) is complete"
 	
 	done
 done
