@@ -86,5 +86,8 @@ for sample in ${sample[@]}; do
 	#Remove temp files
 	rm temp{1..3}.txt
 
+	#Print completion status
+	echo "Calculation of frequencies for $sample ($subset) is complete"
+
 	done
 done
