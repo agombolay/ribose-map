@@ -119,12 +119,12 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#STEP 4: Insert tabs between sequences of dNMPs +/- 100 bp from rNMPs
 
-	#Extract sequences from FASTA files (reverse order of upstream) and insert tabs between each nucleotide
+	#Extract sequences from FASTA files (reverse order of upstream) and insert tabs between each base
 	grep -v '>' Upstream.fa | rev > Upstream.txt; cat Upstream.txt | sed 's/.../& /2g;s/./& /g' > Upstream.tab
 	grep -v '>' Downstream.fa > Downstream.txt; cat Downstream.txt | sed 's/.../& /2g;s/./& /g' > Downstream.tab
 
+	#Save lists of dNMPs at each of the 100 upstream/downstream positions in separate files for later
 	for i in {1..100}; do
-		#Save lists of dNMPs at each upstream/downstream position
 		awk -v field=$i '{ print $field }' Upstream.tab > $sample.Column.$i.Upstream.$reference.$subset.txt
 		awk -v field=$i '{ print $field }' Downstream.tab > $sample.Column.$i.Downstream.$reference.$subset.txt
 	done
@@ -151,13 +151,13 @@ for sample in ${sample[@]}; do
 		T_FlankFreq=$(echo "scale=12; ($T_FlankCount/$FlankCount)/$T_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
 		
 		#Save normalized dNMPs frequencies to TXT file
-		echo $A_FlankFreq >> A_FlankFreq.$direction.txt; echo $C_FlankFreq >> C_FlankFreq.$direction.txt
-		echo $G_FlankFreq >> G_FlankFreq.$direction.txt; echo $T_FlankFreq >> T_FlankFreq.$direction.txt
+		echo $A_FlankFreq >> A_$direction.txt; echo $C_FlankFreq >> C_$direction.txt
+		echo $G_FlankFreq >> G_$direction.txt; echo $T_FlankFreq >> T_$direction.txt
 		
 		if [ $direction == "Downstream" ]; then
-			DownFreq=$(paste A_FlankFreq.Downstream.txt C_FlankFreq.Downstream.txt G_FlankFreq.Downstream.txt T_FlankFreq.Downstream.txt)
+			DownFreq=$(paste A_Downstream.txt C_Downstream.txt G_Downstream.txt T_Downstream.txt)
 		elif [ $direction == "Upstream" ]; then
-			UpFreq=$(paste A_FlankFreq.Upstream.txt C_FlankFreq.Upstream.txt G_FlankFreq.Upstream.txt T_FlankFreq.Upstream.txt | tac -)
+			UpFreq=$(paste A_Upstream.txt C_Upstream.txt G_Upstream.txt T_Upstream.txt | tac -)
 		fi
 				
 		done
