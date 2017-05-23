@@ -169,7 +169,7 @@ for sample in ${sample[@]}; do
 	#Add nucleotides to header line
 	echo -e "\tA\tC\tG\tU/T" > $dataset
 
-	#Add nucleotide positions and frequencies in correct order to create dataset of frequencies
+	#Add positions and frequencies of nucleotides in correct order to create dataset of frequencies
 	paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Up") <(echo "$Ribo") <(echo "$Down")) >> $dataset
 
 	#Remove temp files
