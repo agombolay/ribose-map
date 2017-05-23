@@ -103,7 +103,7 @@ for sample in ${sample[@]}; do
 	U_RiboFreq=$(echo "scale=12; ($U_RiboCount/$RiboCount)/$T_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
 
 	#Save normalized frequencies of rNMPs together
-	RiboFreq=$(echo -e "$A_RiboFreq\t$C_RiboFreq\t$G_RiboFreq\t$U_RiboFreq")
+	Ribo=$(echo -e "$A_RiboFreq\t$C_RiboFreq\t$G_RiboFreq\t$U_RiboFreq")
 	
 #############################################################################################################################
 	#STEP 3: Obtain coordinates/sequences of dNMPs +/- 100 bp from rNMPs
@@ -154,10 +154,10 @@ for sample in ${sample[@]}; do
 		echo $A_FlankFreq >> A_$direction.txt; echo $C_FlankFreq >> C_$direction.txt
 		echo $G_FlankFreq >> G_$direction.txt; echo $T_FlankFreq >> T_$direction.txt
 		
-		if [ $direction == "Downstream" ]; then
-			DownstreamFreq=$(paste A_Downstream.txt C_Downstream.txt G_Downstream.txt T_Downstream.txt)
-		elif [ $direction == "Upstream" ]; then
-			UpstreamFreq=$(paste A_Upstream.txt C_Upstream.txt G_Upstream.txt T_Upstream.txt | tac -)
+		if [ $direction == "Upstream" ]; then
+			Up=$(paste A_Upstream.txt C_Upstream.txt G_Upstream.txt T_Upstream.txt | tac -)
+		elif [ $direction == "Downstream" ]; then
+			Down=$(paste A_Downstream.txt C_Downstream.txt G_Downstream.txt T_Downstream.txt)
 		fi
 				
 		done
@@ -167,13 +167,10 @@ for sample in ${sample[@]}; do
 	#STEP 6: Create and save dataset file containing nucleotide frequencies
 
 	#Add nucleotide to header line
-	echo -e "\tA\tC\tG\tU/T" > $dataset; paste <(echo "$(seq -100 1 100)") \
-	#Add nucleotide positions and frequencies in correct order to create freq dataset
-	<(cat <(echo "$UpstreamFreq") <(echo "$RiboFreq") <(echo "$DownstreamFreq")) >> $dataset
+	echo -e "\tA\tC\tG\tU/T" > $dataset
 
-	#Add nucleotide positions and frequencies in correct order to create dataset
-	#Freqs=$(cat <(echo "$UpstreamFreq") <(echo "$RiboFreq") <(echo "$DownstreamFreq"))	
-	#paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Freqs")) >> $dataset
+	#Add nucleotide positions and frequencies in correct order to create dataset of frequencies
+	paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Up") <(echo "$Ribo") <(echo "$Down")) >> $dataset
 
 	#Remove temp files
 	rm -f ./*Upstream.* ./*Downstream.* ./RiboBases.txt ./temp.fa*
