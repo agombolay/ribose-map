@@ -67,9 +67,8 @@ for(i in opt$sample) {
                     	scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="")
 											     
 #############################################################################################################################
-                    	#Specify output path and save plot as PNG file
-                    	ggsave(filename=file.path(output, paste(opt$sample, "-", Frequencies, "-", k, ".", opt$reference,
-								".", j, ".png", sep="")), plot=myplot)
+#Specify output path and save plot as PNG file
+ggsave(filename=file.path(output, paste(opt$sample, "-", Frequencies, "-", k, ".", opt$reference, ".", j, ".png", sep="")), plot=myplot)
 			}
 		}
 	}
