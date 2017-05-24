@@ -35,7 +35,7 @@ fi
 
 #Determine coordinates
 for sample in ${sample[@]}; do
-	for subset in "all"  "mito" "nucleus"; do
+	for subset in "all"; do
 	
 #############################################################################################################################
 	#Input files
@@ -85,7 +85,7 @@ for sample in ${sample[@]}; do
 	paste <(echo "$(seq 0 $max)") <(cat temp3.txt) >> $dataset
 
 	#Remove temp files
-	rm -f temp{1..3}.txt windows.bed
+	#rm -f temp{1..3}.txt windows.bed
 
 	#Print completion status
 	echo "Observed counts of rNMPs for $sample ($subset) have been determined"
