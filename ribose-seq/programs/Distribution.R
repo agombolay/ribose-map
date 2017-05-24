@@ -122,8 +122,8 @@ for(i in opt$sample) {
         #Specify colors of bars, remove legend title, and decrease space between bars and x-axis
         scale_fill_manual(values=c("#000000", "#999999"), name="") + scale_y_continuous(expand=c(0.015,0))
 
-        #Save plot as PNG file
-        ggsave(filename=file.path(output, paste(opt$sample, "-", "Distribution", ".", opt$reference, ".", j, ".png", sep="")), plot=myplot)
+#Save plot as PNG file
+ggsave(filename=file.path(output, paste(opt$sample, "-", "Distribution", ".", opt$reference, ".", j, ".png", sep="")), plot=myplot)
 
     }
     }
