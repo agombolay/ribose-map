@@ -33,12 +33,12 @@ for(i in opt$sample) {
  		#Plot only if files exist
         	if (file.exists(file)) {
 			#Plot regular and zoomed datasets
-                	for(k in c("regular", "zoomed")) {
+                	for(k in c("Regular", "Zoomed")) {
 
 #############################################################################################################################
                     	#Specify datasets to be used for each round of loop
-                    	if (k=="regular") {data=read.table(file, sep="\t", header=TRUE)}
-                    	if (k=="zoomed") {data=read.table(file, sep="\t", header=TRUE)[86:116,]}
+                    	if (k=="Regular") {data=read.table(file, sep="\t", header=TRUE)}
+                    	if (k=="Zoomed") {data=read.table(file, sep="\t", header=TRUE)[86:116,]}
     
                     	#Define variables to store nucleotide positions and frequency values
                     	position <- data$X; A <- data$A; C <- data$C; G <- data$G; T <- data$U.T
@@ -68,7 +68,8 @@ for(i in opt$sample) {
 											     
 #############################################################################################################################
                     	#Specify output path and save plot as PNG file
-                    	ggsave(filename=file.path(output, paste(opt$sample, "-", k, ".", opt$reference, ".", j, ".png", sep="")), plot=myplot)
+                    	ggsave(filename=file.path(output, paste(opt$sample, "-", Frequencies, "-", k, ".", opt$reference,
+								".", j, ".png", sep="")), plot=myplot)
 			}
 		}
 	}
