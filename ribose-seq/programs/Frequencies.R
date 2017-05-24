@@ -61,10 +61,10 @@ for(i in opt$sample) {
                     	theme(text=element_text(size=14)) + theme(plot.title=element_text(hjust=0.5)) +
 
                     	#Specify color values for each of the four different nucleotides
-                    	scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="Nucleotide") +
+                    	scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="") +
 
 			#Add axes titles, plot title (specified by user), and plot legend title
-                    	xlab("Position") + ylab("Frequency") + ggtitle(opt$title) + guides(fill=guide_legend(title=""))
+                    	xlab("Position") + ylab("Frequency") + ggtitle(opt$title)
 											     
 #############################################################################################################################
                     	#Specify output path and save plot as PNG file
