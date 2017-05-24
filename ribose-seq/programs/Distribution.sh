@@ -64,7 +64,7 @@ for sample in ${sample[@]}; do
 	#Determine regions of BED files that intersect and count number of intersections
 	bedtools intersect -a windows.bed -b $coordinates -c -sorted -nonamecheck > temp1.txt
 
-	#Remove rows where window size is greater than specified size and sort based on # of rNMPs in windows
+	#Remove rows where window size is smaller than specified size and sort based on # of rNMPs in windows
 	awk '{$5=$3-$2} 1' temp1.txt | awk -v OFS='\t' '($5=='$size') {print $1,$2,$3,$4}' | sort -k4n - > temp2.txt
 
 	#Maximum # of rNMPs in observed data
