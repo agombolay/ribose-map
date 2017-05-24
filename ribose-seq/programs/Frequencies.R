@@ -56,15 +56,15 @@ for(i in opt$sample) {
                     	#Remove and replace default background plot theme
                     	theme_bw() + theme(panel.border=element_blank(), panel.grid.major=element_blank(),
                     	panel.grid.minor=element_blank(), axis.line=element_line(colour="black")) +
-    
-                    	#Specify font size for plot text and center title of plot
+    			
+			#Add axes titles and plot title (specified by user)
+			xlab("Position") + ylab("Frequency") + ggtitle(opt$title) +
+				
+                    	#Specify font size and center title (if any) of plot on page
                     	theme(text=element_text(size=14)) + theme(plot.title=element_text(hjust=0.5)) +
 
-                    	#Specify color values for each of the four different nucleotides
-                    	scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="") +
-
-			#Add axes titles, plot title (specified by user), and plot legend title
-                    	xlab("Position") + ylab("Frequency") + ggtitle(opt$title)
+                    	#Specify color values for each nucleotide and remove legend title
+                    	scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="")
 											     
 #############################################################################################################################
                     	#Specify output path and save plot as PNG file
