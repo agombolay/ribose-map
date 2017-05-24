@@ -123,7 +123,7 @@ for(i in opt$sample) {
         scale_fill_manual(values=c("#000000", "#999999"), name="") + scale_y_continuous(expand=c(0.015,0))
 
         #Save plot as PNG file
-        ggsave(filename=file.path(output, paste(opt$sample, "-", "Distribution", ".", j, ".png", sep="")), plot=myplot)
+        ggsave(filename=file.path(output, paste(opt$sample, "-", "Distribution", ".", opt$reference, ".", j, ".png", sep="")), plot=myplot)
 
     }
     }
