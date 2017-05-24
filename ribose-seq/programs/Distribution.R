@@ -127,5 +127,6 @@ for(i in opt$sample) {
 
     }
     }
+    }
 message("Plotting of", " ", i , " ", "is complete")
 }
