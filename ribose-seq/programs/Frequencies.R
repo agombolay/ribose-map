@@ -64,7 +64,7 @@ for(i in opt$sample) {
                     	scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="Nucleotide") +
 
 			#Add axes titles, plot title (specified by user), and plot legend title
-                    	xlab("Position") + ylab("Frequency") + ggtitle(opt$title) + guides(fill=guide_legend(title="")
+                    	xlab("Position") + ylab("Frequency") + ggtitle(opt$title) + guides(fill=guide_legend(title=""))
 											     
 #############################################################################################################################
                     	#Specify output path and save plot as PNG file
