@@ -35,7 +35,7 @@ fi
 
 #Determine coordinates
 for sample in ${sample[@]}; do
-	for subset in "mito"; do
+	for subset in "all"; do
 
 #############################################################################################################################
 	#Input files
