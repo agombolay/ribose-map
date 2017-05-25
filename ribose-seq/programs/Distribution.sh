@@ -56,7 +56,8 @@ for sample in ${sample[@]}; do
 	if [ $subset == "all" ]; then
 		bedtools makewindows -g $bed -w $size > windows.bed
 	elif [ $subset == "mito" ]; then
-		bedtools makewindows -g $bed -w $size | grep -E '(chrM|MT)' > windows.bed
+		#bedtools makewindows -g $bed -w $size | grep -E '(chrM|MT)' > windows.bed
+		bedtools makewindows -g $bed -w $size | grep -E '(chrI)' > windows.bed
 	elif [ $subset == "nucleus" ]; then
 		bedtools makewindows -g $bed -w $size | grep -vE '(chrM|MT)' > windows.bed
 	fi
