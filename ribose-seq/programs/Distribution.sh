@@ -56,10 +56,10 @@ for sample in ${sample[@]}; do
 	if [ $subset == "all" ]; then
 		bedtools makewindows -g $bed -w $size > windows.bed
 	elif [ $subset == "mito" ]; then
-		#bedtools makewindows -g $bed -w $size | grep -E '(chrM|MT)' > windows.bed
-		bedtools makewindows -g $bed -w $size | grep -w 'chrI' > windows.bed
+		bedtools makewindows -g $bed -w $size | grep -E '(chrM|MT)' > windows.bed
 	elif [ $subset == "nucleus" ]; then
-		bedtools makewindows -g $bed -w $size | grep -vE '(chrM|MT)' > windows.bed
+		#bedtools makewindows -g $bed -w $size | grep -vE '(chrM|MT)' > windows.bed
+		bedtools makewindows -g $bed -w $size | grep -w 'chrI' > windows.bed
 	fi
 
 	#Determine regions of BED files that intersect and count number of intersections
