@@ -35,8 +35,8 @@ fi
 
 #Determine coordinates
 for sample in ${sample[@]}; do
-	for subset in "all" "mito" "nucleus"; do
-	
+	#for subset in "all" "mito" "nucleus"; do
+	for subset in "nucleus"; do
 #############################################################################################################################
 	#Input files
 	bed=$directory/Ribose-Map/Reference/$reference.bed
@@ -57,7 +57,7 @@ for sample in ${sample[@]}; do
 		bedtools makewindows -g $bed -w $size > windows.bed
 	elif [ $subset == "mito" ]; then
 		#bedtools makewindows -g $bed -w $size | grep -E '(chrM|MT)' > windows.bed
-		bedtools makewindows -g $bed -w $size | grep -E '(chrI)' > windows.bed
+		bedtools makewindows -g $bed -w $size | grep -w 'chrI' > windows.bed
 	elif [ $subset == "nucleus" ]; then
 		bedtools makewindows -g $bed -w $size | grep -vE '(chrM|MT)' > windows.bed
 	fi
