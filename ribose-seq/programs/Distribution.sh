@@ -84,11 +84,11 @@ for sample in ${sample[@]}; do
 	#Add number of windows containing 0...max # of rNMPs
 	paste <(echo "$(seq 0 $max)") <(cat temp3.txt) >> $dataset
 
-	#Remove temp files
-	rm -f temp{1..3}.txt windows.bed
-
 	#Print completion status
 	echo "Observed counts of rNMPs for $sample ($subset) have been determined"
+	
+	#Remove temp files
+	rm -f temp{1..3}.txt windows.bed
 
 	done
 done
