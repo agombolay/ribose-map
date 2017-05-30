@@ -47,6 +47,7 @@ for sample in ${sample[@]}; do
 	
 	#Input/Output files
 	fastq=$directory/Ribose-Map/Sequencing/$sample.fastq
+	
 	statistics=$directory/Ribose-Map/Results/$index/$sample/Alignment/Bowtie2.log
 	bam=$directory/Ribose-Map/Results/$index/$sample/Alignment/$sample-MappedReads.bam
 	
