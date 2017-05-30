@@ -43,8 +43,8 @@ for sample in ${sample[@]}; do
 		output=$directory/Ribose-Map/Results/$reference/$sample/Coordinates
 		
 		#Output files
-		reads=$output/$sample-ReadInformation.$subset.txt
-		coordinates=$output/$sample-Coordinates.$subset.bed
+		reads=$output/$sample-ReadInformation.$reference.$subset.txt
+		coordinates=$output/$sample-Coordinates.$reference.$subset.bed
 		
 		#Create directory and remove old files
 		mkdir -p $output; rm -f $output/$reads $output/$coordinates
