@@ -47,8 +47,8 @@ for sample in ${sample[@]}; do
 	
 	#Input/Output files
 	fastq=$directory/Ribose-Map/Sequencing/$sample.fastq
-	bam=$directory/Ribose-Map/Results/$index/$sample/Alignment/$sample.bam
 	statistics=$directory/Ribose-Map/Results/$index/$sample/Alignment/Bowtie2.log
+	bam=$directory/Ribose-Map/Results/$index/$sample/Alignment/$sample-MappedReads.bam
 	
 #############################################################################################################################
 	#STEP 1: Trim FASTQ files based on quality and Illumina adapter content
