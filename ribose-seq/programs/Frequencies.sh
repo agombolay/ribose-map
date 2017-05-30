@@ -39,11 +39,12 @@ for sample in ${sample[@]}; do
 	#Create directory
 	mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Frequencies
 	
-	#Input/Output files
+	#Input files
 	reads=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-ReadInformation.$subset.txt
 	BED=$directory/Ribose-Map/Reference/$reference.bed; FASTA=$directory/Ribose-Map/Reference/$reference.fa
 	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
 	
+	#Output file
 	dataset=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/$sample-Frequencies.$reference.$subset.txt
 	
 	#Remove old file
