@@ -31,16 +31,23 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
-#############################################################################################################################
-#Input file
-bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam
-	
-#Output directory and file
-output=$directory/Ribose-Map/Results/$reference/$sample/Hotspots
-coverage=$output/$sample-Coverage.$reference.$subset.bed
-		
-#Create directory and remove old files
-mkdir -p $output; rm -f $output/$coverage
+#Determine coordinates
+for sample in ${sample[@]}; do
+	for subset in "all" "mito" "nucleus"; do
 
 #############################################################################################################################
-bedtools genomecov -d -3 -ibam $bam > $coverage
+		#Input file
+		bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam
+	
+		#Output directory and file
+		output=$directory/Ribose-Map/Results/$reference/$sample/Hotspots
+		coverage=$output/$sample-Coverage.$reference.$subset.bed
+		
+		#Create directory and remove old files
+		mkdir -p $output; rm -f $output/$coverage
+
+#############################################################################################################################
+		#Calculate coverage at each rNMP position
+		bedtools genomecov -d -3 -ibam $bam > $coverage
+
+done
