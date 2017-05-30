@@ -45,9 +45,10 @@ for sample in ${sample[@]}; do
 	#Create folder
 	mkdir -p $directory/Ribose-Map/Results/$index/$sample/Alignment
 	
-	#Input/Output files
+	#Input files
 	fastq=$directory/Ribose-Map/Sequencing/$sample.fastq
-	
+
+	#Output files
 	statistics=$directory/Ribose-Map/Results/$index/$sample/Alignment/Bowtie2.log
 	bam=$directory/Ribose-Map/Results/$index/$sample/Alignment/$sample-MappedReads.bam
 	
