@@ -42,15 +42,13 @@ fi
 #Align reads to reference
 for sample in ${sample[@]}; do
 	
-	#Input file
-	fastq=$directory/Ribose-Map/Sequencing/$sample.fastq
-	
-	#Output directory and files
-	output=$directory/Ribose-Map/Results/$index/$sample/Alignment
-	bam=$output/$sample.bam; statistics=$output/Bowtie2.log
-	
 	#Create folder
-	mkdir -p $output
+	mkdir -p $directory/Ribose-Map/Results/$index/$sample/Alignment
+	
+	#Input/Output
+	fastq=$directory/Ribose-Map/Sequencing/$sample.fastq
+	bam=$directory/Ribose-Map/Results/$index/$sample/Alignment/$sample.bam
+	statistics=$directory/Ribose-Map/Results/$index/$sample/Alignment/Bowtie2.log
 	
 #############################################################################################################################
 	#STEP 1: Trim FASTQ files based on quality and Illumina adapter content
