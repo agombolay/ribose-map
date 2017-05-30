@@ -32,4 +32,15 @@ if [ "$1" == "-h" ]; then
 fi
 
 #############################################################################################################################
-bedtools genomecov -d -3 -ibam $bam
+#Input file
+bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam
+	
+#Output directory and file
+output=$directory/Ribose-Map/Results/$reference/$sample/Hotspots
+coverage=$output/$sample-Coverage.$reference.$subset.bed
+		
+#Create directory and remove old files
+mkdir -p $output; rm -f $output/$coverage
+
+#############################################################################################################################
+bedtools genomecov -d -3 -ibam $bam > $coverage
