@@ -36,18 +36,16 @@ for sample in ${sample[@]}; do
 	for subset in "all" "mito" "nucleus"; do
 	
 #############################################################################################################################
-		#Input file
+		#Create directory
+		mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Coordinates
+		
+		#Input/Output files
 		bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam
-	
-		#Output directory
-		output=$directory/Ribose-Map/Results/$reference/$sample/Coordinates
+		reads=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-ReadInformation.$subset.txt
+		coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
 		
-		#Output files
-		reads=$output/$sample-ReadInformation.$reference.$subset.txt
-		coordinates=$output/$sample-Coordinates.$reference.$subset.bed
-		
-		#Create directory and remove old files
-		mkdir -p $output; rm -f $output/$reads $output/$coordinates
+		#Remove old files
+		rm -f $output/$reads $output/$coordinates
 		
 #############################################################################################################################
 		#STEP 1: Determine genomic coordinates of rNMPs from reads
