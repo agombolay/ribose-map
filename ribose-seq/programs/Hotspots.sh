@@ -36,15 +36,15 @@ for sample in ${sample[@]}; do
 	for subset in "all" "mito" "nucleus"; do
 
 #############################################################################################################################
-		#Input file
-		bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam
-	
-		#Output directory and file
-		output=$directory/Ribose-Map/Results/$reference/$sample/Hotspots
-		coverage=$output/$sample-Coverage.$reference.$subset.bed
-		
 		#Create directory and remove old files
-		mkdir -p $output; rm -f $output/$coverage
+		mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Hotspots
+		
+		#Input/Output
+		bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample-MappedReads.bam
+		coverage=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.$subset.bed
+		
+		#Remove old files
+		rm -f $output/$coverage
 
 #############################################################################################################################
 		#Calculate coverage at each rNMP position
