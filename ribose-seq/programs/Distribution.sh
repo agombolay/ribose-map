@@ -43,10 +43,10 @@ for sample in ${sample[@]}; do
 	
 	#Input files
 	bed=$directory/Ribose-Map/Reference/$reference.bed
-	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$reference.$subset.bed
+	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
 	
 	#Output file
-	dataset=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-ObservedCounts.$reference.$subset.txt
+	dataset=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-ObservedCounts.$subset.txt
 
 	#Remove old file
 	rm -f $output/$dataset
