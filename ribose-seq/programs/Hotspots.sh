@@ -41,6 +41,7 @@ for sample in ${sample[@]}; do
 		
 		#Input/Output file
 		bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample-MappedReads.bam
+		
 		coverage=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.$subset.bed
 		
 		#Remove old files
