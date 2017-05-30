@@ -40,14 +40,16 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#Input files
 	bed=$directory/Ribose-Map/Reference/$reference.bed
-	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
+	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$reference.$subset.bed
 
+	#Create directory
+	mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Distribution
+	
 	#Output directories and files
-	output=$directory/Ribose-Map/Results/$reference/$sample/Distribution
-	dataset=$output/$sample-Counts.$reference.$subset.txt
+	dataset=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-ObservedCounts.$reference.$subset.txt
 
-	#Create directory and remove old file
-	mkdir -p $output; rm -f $output/$dataset
+	#Remove old file
+	rm -f $output/$dataset
 #############################################################################################################################
 	
 	#STEP 1: Divide genome into windows and count number of rNMPs in each window
