@@ -36,10 +36,10 @@ for sample in ${sample[@]}; do
 	for subset in "all" "mito" "nucleus"; do
 
 #############################################################################################################################
-		#Create directory and remove old files
+		#Create directory
 		mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Hotspots
 		
-		#Input/Output
+		#Input/Output file
 		bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample-MappedReads.bam
 		coverage=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.$subset.bed
 		
