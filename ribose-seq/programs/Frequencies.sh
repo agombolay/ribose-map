@@ -36,17 +36,18 @@ for sample in ${sample[@]}; do
 	for subset in "all" "mito" "nucleus"; do
 	
 #############################################################################################################################
-	#Input files
+	#Create directory
+	mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Frequencies
+	
+	#Input/Output files
 	reads=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-ReadInformation.$subset.txt
 	BED=$directory/Ribose-Map/Reference/$reference.bed; FASTA=$directory/Ribose-Map/Reference/$reference.fa
 	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
-
-	#Output directory and file
-	output=$directory/Ribose-Map/Results/$reference/$sample/Frequencies
-	dataset=$output/$sample-Frequencies.$reference.$subset.txt
 	
-	#Create directory and remove old file
-	mkdir -p $output; rm -f $output/$dataset
+	dataset=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/$sample-Frequencies.$reference.$subset.txt
+	
+	#Remove old file
+	rm -f $output/$dataset
 	
 #############################################################################################################################
 	#STEP 1: Calculate frequencies of reference genome
