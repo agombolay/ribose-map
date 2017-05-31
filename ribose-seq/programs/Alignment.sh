@@ -73,11 +73,11 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#STEP 6: De-duplicate reads based on UMI and position and sort/index BAM file
 	umi_tools dedup -I temp.bam -v 0 | samtools sort - -o $bam; samtools index $bam
-
-	#Remove temporary files
-	rm -f reverseComplement.fastq temp.*
 		
 	#Notify user that alignment step is complete for which samples
 	echo "Alignment of $sample to $index reference genome is complete"
+	
+	#Remove temporary files
+	rm -f QCtrimmed.fastq UMItrimmed.fastq reverseComplement.fastq temp.*
 
 done
