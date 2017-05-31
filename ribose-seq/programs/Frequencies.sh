@@ -173,12 +173,12 @@ for sample in ${sample[@]}; do
 
 	#Add positions and frequencies of nucleotides in correct order to create dataset of frequencies
 	paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Up") <(echo "$Ribo") <(echo "$Down")) >> $dataset
-
-	#Remove temp files
-	rm -f ./*Upstream.* ./*Downstream.* ./RiboBases.txt ./temp.fa*
 	
 	#Print completion status
 	echo "Calculation of frequencies for $sample ($subset) is complete"
+	
+	#Remove temp files
+	rm -f ./*Upstream.* ./*Downstream.* ./RiboBases.txt ./temp.fa*
 	
 	done
 done
