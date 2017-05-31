@@ -50,8 +50,9 @@ for sample in ${sample[@]}; do
 
 	#Output files
 	statistics=$directory/Ribose-Map/Results/$index/$sample/Alignment/Bowtie2.log
-	bam=$directory/Ribose-Map/Results/$index/$sample/Alignment/$sample-MappedReads.bam
-	
+	mapped=$directory/Ribose-Map/Results/$index/$sample/Alignment/$sample-MappedReads.bam
+	unmapped=$directory/Ribose-Map/Results/$index/$sample/Alignment/$sample-UnmappedReads.bam
+
 #############################################################################################################################
 	#STEP 1: Trim FASTQ files based on quality and Illumina adapter content
 	java -jar $path/trimmomatic-0.36.jar SE -phred33 $fastq QCtrimmed.fastq \
@@ -69,11 +70,12 @@ for sample in ${sample[@]}; do
 	
 	#STEP 5: Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
 	samtools view -bSF4 temp.sam | samtools sort - -o temp.bam; samtools index temp.bam
-	
+	samtools view -bSf4 temp.sam | samtools sort - -o $unmapped; samtools index $unmapped
+
 #############################################################################################################################
 	#STEP 6: De-duplicate reads based on UMI and position and sort/index BAM file
-	umi_tools dedup -I temp.bam -v 0 | samtools sort - -o $bam; samtools index $bam
-		
+	umi_tools dedup -I temp.bam -v 0 | samtools sort - -o $mapped; samtools index $mapped
+
 	#Notify user that alignment step is complete for which samples
 	echo "Alignment of $sample to $index reference genome is complete"
 	
