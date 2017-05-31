@@ -78,12 +78,12 @@ for sample in ${sample[@]}; do
 		elif [ $subset == "nucleus" ]; then
 			grep -vE '(chrM|MT)' temp3.txt | sort -k1,1 -k2,2n - > $coordinates
 		fi
-		
-		#Remove temp files
-		rm -f temp{1..3}.txt
 	
 		#Print completion status
 		echo "Coordinates of rNMPs for $sample ($subset) have been determined"
+		
+		#Remove temp files
+		rm -f temp{1..3}.txt
 
 	done
 done
