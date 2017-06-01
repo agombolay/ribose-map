@@ -3,8 +3,7 @@
 #© 2016 Alli Gombolay
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
-#This program calculates the Chi Square statistic and its associated p-value.
-#If the observed or expected counts are < 5, then categories will be collapsed.
+#This program plots the number of rNMPs at each genomic position.
 
 #Load libraries
 library(optparse)
