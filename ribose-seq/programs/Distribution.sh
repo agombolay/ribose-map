@@ -7,20 +7,18 @@
 
 #Usage statement
 function usage () {
-	echo "Usage: Distribution.sh [-s] 'Sample(s)' [-w] 'Size' [-r] 'Reference' [-d] 'Directory' [-h]
+	echo "Usage: Distribution.sh [-s] 'Sample(s)' [-r] 'Reference' [-d] 'Directory' [-h]
 	-s Sample name(s) (e.g., FS1, FS2, FS3)
-	-w Size of genomic windows in base pairs (e.g., 2500)
 	-r Reference genome (e.g., sacCer2, pombe, ecoli, mm9, hg38)
 	-d Directory (e.g., /projects/home/agombolay3/data/repository)"
 }
 
 #Command-line options
-while getopts "s:w:r:d:h" opt; do
+while getopts "s:r:d:h" opt; do
     case $opt in
         #Allow multiple input arguments
 	s ) sample=($OPTARG) ;;
 	#Allow only one input argument
-	w ) size=$OPTARG ;;
 	r ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
         #Print usage statement
@@ -56,18 +54,18 @@ for sample in ${sample[@]}; do
 	
 	#Divide chromosomes of reference into windows
 	if [ $subset == "all" ]; then
-		bedtools makewindows -g $bed -w $size > windows.bed
+		bedtools makewindows -g $bed -w 1 > windows.bed
 	elif [ $subset == "mito" ]; then
-		bedtools makewindows -g $bed -w $size | grep -E '(chrM|MT)' > windows.bed
+		bedtools makewindows -g $bed -w 1 | grep -E '(chrM|MT)' > windows.bed
 	elif [ $subset == "nucleus" ]; then
-		bedtools makewindows -g $bed -w $size | grep -vE '(chrM|MT)' > windows.bed
+		bedtools makewindows -g $bed -w 1 | grep -vE '(chrM|MT)' > windows.bed
 	fi
 
 	#Determine regions of BED files that intersect and count number of intersections
 	bedtools intersect -a windows.bed -b $coordinates -c -sorted -nonamecheck > temp1.txt
 
-	#Remove rows where window size is smaller than specified size and sort based on # of rNMPs in windows
-	awk '{$5=$3-$2} 1' temp1.txt | awk -v OFS='\t' '($5=='$size') {print $1,$2,$3,$4}' | sort -k4n - > temp2.txt
+	#Sort by # of rNMPs
+	sort -k4n - > temp2.txt
 
 	#Maximum # of rNMPs in observed data
 	max=$(tail -1 temp2.txt | awk '{print $4}' -)
@@ -87,7 +85,7 @@ for sample in ${sample[@]}; do
 	paste <(echo "$(seq 0 $max)") <(cat temp3.txt) >> $dataset
 
 	#Print completion status
-	echo "Observed counts of rNMPs for $sample ($subset) have been determined"
+	echo "Observed counts for $sample ($subset) have been determined"
 	
 	#Remove temp files
 	rm -f temp{1..3}.txt windows.bed
