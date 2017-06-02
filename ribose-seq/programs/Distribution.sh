@@ -93,7 +93,7 @@ for sample in ${sample[@]}; do
 	echo -e "rNMPs\tPositions" > $dataset
 
 	#Add number of windows containing 0...max # of rNMPs
-	paste <(echo "$(seq 0 $max)") <(cat temp3.txt) >> $dataset
+	paste <(echo "$(seq 0 $max)") <(cat temp4.txt) >> $dataset
 
 	#Print completion status
 	echo "Observed counts for $sample ($subset) have been determined"
