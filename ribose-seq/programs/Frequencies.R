@@ -72,5 +72,5 @@ ggsave(filename=file.path(output, paste(opt$sample, "-", "Frequencies", "-", k, 
 			}
 		}
 	}
-message("Plotting of", " ", i , " ", "is complete")
+message("Plotting of", " ", i , ," ", "(", j, ")", " ", "is complete")
 }
