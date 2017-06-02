@@ -28,7 +28,7 @@ for(i in opt$sample) {
 
 		#Specify output directory and file
 		output <- file.path(opt$directory, "Ribose-Map", "Results", opt$reference, opt$sample, "Frequencies")
-		file <- file.path(output, paste(opt$sample, "-", "Frequencies", ".", opt$reference, ".", j, ".txt", sep=""))
+		file <- file.path(output, paste(opt$sample, "-", "Frequencies", ".", j, ".txt", sep=""))
 
  		#Plot only if files exist
         	if (file.exists(file)) {
