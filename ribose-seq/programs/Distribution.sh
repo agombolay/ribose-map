@@ -41,8 +41,9 @@ for sample in ${sample[@]}; do
 	
 	#Input files
 	bed=$directory/Ribose-Map/Reference/$reference.bed
-	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
-	
+	#coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
+	bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample-MappedReads.bam
+
 	#Output file
 	dataset=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-ObservedCounts.$subset.txt
 
@@ -53,17 +54,18 @@ for sample in ${sample[@]}; do
 	#STEP 1: Divide genome into windows and count number of rNMPs in each window
 	
 	#Divide chromosomes of reference into windows
-	if [ $subset == "all" ]; then
-		bedtools makewindows -g $bed -w 1 > windows.bed
-	elif [ $subset == "mito" ]; then
-		bedtools makewindows -g $bed -w 1 | grep -E '(chrM|MT)' > windows.bed
-	elif [ $subset == "nucleus" ]; then
-		bedtools makewindows -g $bed -w 1 | grep -vE '(chrM|MT)' > windows.bed
-	fi
+	#if [ $subset == "all" ]; then
+	#	bedtools makewindows -g $bed -w 1 > windows.bed
+	#elif [ $subset == "mito" ]; then
+	#	bedtools makewindows -g $bed -w 1 | grep -E '(chrM|MT)' > windows.bed
+	#elif [ $subset == "nucleus" ]; then
+	#	bedtools makewindows -g $bed -w 1 | grep -vE '(chrM|MT)' > windows.bed
+	#fi
 
 	#Determine regions of BED files that intersect and count number of intersections
-	bedtools intersect -a windows.bed -b $coordinates -c -sorted -nonamecheck > temp1.txt
-
+	#bedtools intersect -a windows.bed -b $coordinates -c -sorted -nonamecheck > temp1.txt
+	bedtools genomecov -d -3 -ibam $bam > temp1.txt
+	
 	#Sort by # of rNMPs
 	sort -k4n temp1.txt > temp2.txt
 
@@ -79,7 +81,7 @@ for sample in ${sample[@]}; do
 	#STEP 6: Create and save dataset file containing observed counts of rNMPs
 	
 	#Add column names to header line
-	echo -e "rNMPs\tWindows" > $dataset
+	echo -e "rNMPs\tPositions" > $dataset
 
 	#Add number of windows containing 0...max # of rNMPs
 	paste <(echo "$(seq 0 $max)") <(cat temp3.txt) >> $dataset
