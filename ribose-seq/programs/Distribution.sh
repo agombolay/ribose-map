@@ -89,7 +89,7 @@ for sample in ${sample[@]}; do
 	#Maximum # of rNMPs in observed data
 	max=$(tail -1 temp3.txt | awk '{print $3}' -)
 
-	#Number of windows containing 0...max # of rNMPs
+	#Number of positions containing 0...max # of rNMPs
 	for i in $(seq 0 $max); do
 		awk '$3 == ('$i')' temp3.txt | wc -l >> temp4.txt
 	done
@@ -100,14 +100,14 @@ for sample in ${sample[@]}; do
 	#Add column names to header line
 	echo -e "rNMPs\tPositions" > $dataset
 
-	#Add number of windows containing 0...max # of rNMPs
+	#Add number of positions containing 0...max # of rNMPs
 	paste <(echo "$(seq 0 $max)") <(cat temp4.txt) >> $dataset
 
 	#Print completion status
 	echo "Observed counts for $sample ($subset) have been determined"
 	
 	#Remove temp files
-	rm -f temp{2..4}.txt windows.bed
+	rm -f temp{2..4}.txt
 
 	done
 done
