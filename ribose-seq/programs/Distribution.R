@@ -124,7 +124,7 @@ for(i in opt$sample) {
 
 #############################################################################################################################
 #Save plot as PNG file
-ggsave(filename=file.path(output, paste(opt$sample, "-", "Distribution", ".", opt$reference, ".", j, ".png", sep="")), plot=myplot)
+ggsave(filename=file.path(output, paste(opt$sample, "-", "Distribution", ".", j, ".png", sep="")), plot=myplot)
 
     }
     }
