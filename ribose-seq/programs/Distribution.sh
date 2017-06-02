@@ -72,7 +72,7 @@ for sample in ${sample[@]}; do
 	dataset=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-ObservedCounts.$subset.txt
 
 	#Remove old file
-	rm -f $output/$dataset
+	rm -f $directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-ObservedCounts.$subset.txt
 	
 	#Divide chromosomes of reference into windows
 	if [ $subset == "all" ]; then
