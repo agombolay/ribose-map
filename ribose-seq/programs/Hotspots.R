@@ -57,7 +57,7 @@ for(i in opt$sample) {
 #Save plot as PNG file
 ggsave(filename=file.path(output, paste(opt$sample, "-", "Hotspots", ".", j, ".png", sep="")), plot=myplot, height=10, width=14)
 
-message("Plotting of", " ", i , " ", "is complete")
+message("Plotting of", " ", i , ," ", "(", j, ")", " ", "is complete")
 }
 }
 }
