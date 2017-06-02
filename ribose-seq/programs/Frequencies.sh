@@ -45,7 +45,7 @@ for sample in ${sample[@]}; do
 	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
 	
 	#Output file
-	dataset=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/$sample-Frequencies.$reference.$subset.txt
+	dataset=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/$sample-Frequencies.$subset.txt
 	
 	#Remove old file
 	rm -f $output/$dataset
