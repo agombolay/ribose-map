@@ -61,7 +61,7 @@ for(i in opt$sample) {
 			xlab("Position") + ylab("Frequency") + ggtitle(opt$title) +
 				
                     	#Specify font size and center title (if any) of plot on page
-                    	theme(text=element_text(size=14)) + theme(plot.title=element_text(hjust=0.5)) +
+                    	theme(text=element_text(size=22)) + theme(plot.title=element_text(hjust=0.5)) +
 
                     	#Specify color values for each nucleotide and remove legend title
                     	scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="")
