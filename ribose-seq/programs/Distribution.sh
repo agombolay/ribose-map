@@ -100,7 +100,8 @@ for sample in ${sample[@]}; do
 	echo "Observed counts for $sample ($subset) have been determined"
 	
 	#Remove temp files
-	rm -f temp{1..4}.txt windows.bed
+	rm -f temp{2..4}.txt windows.bed
 
 	done
 done
+rm -f temp1.txt
