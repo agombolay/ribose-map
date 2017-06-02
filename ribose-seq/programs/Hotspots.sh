@@ -46,10 +46,11 @@ for sample in ${sample[@]}; do
 		coverage=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.$subset.bed
 		
 		#Remove old files
-		rm -f $output/$coverage
+		rm -f $directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.$subset.bed
 
 #############################################################################################################################
 		#Calculate coverage at each rNMP position
 		bedtools genomecov -d -3 -ibam $bam > $coverage
 
+done
 done
