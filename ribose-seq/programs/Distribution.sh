@@ -65,7 +65,7 @@ for sample in ${sample[@]}; do
 	bedtools intersect -a windows.bed -b $coordinates -c -sorted -nonamecheck > temp1.txt
 
 	#Sort by # of rNMPs
-	sort -k4n - > temp2.txt
+	sort -k4n temp1.txt > temp2.txt
 
 	#Maximum # of rNMPs in observed data
 	max=$(tail -1 temp2.txt | awk '{print $4}' -)
