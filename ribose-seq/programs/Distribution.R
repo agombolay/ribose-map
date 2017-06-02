@@ -117,7 +117,7 @@ for(i in opt$sample) {
         xlab("rNMPs per Window") + ylab("Number of Windows") + ggtitle(opt$title) +
     
         #Specify font size and center title (if any) of plot on page
-        theme(text=element_text(size=14)) + theme(plot.title=element_text(hjust=0.5)) +
+        theme(text=element_text(size=22)) + theme(plot.title=element_text(hjust=0.5)) +
 
         #Specify colors of bars, remove legend title, and decrease space between bars and x-axis
         scale_fill_manual(values=c("#000000", "#999999"), name="") + scale_y_continuous(expand=c(0.015,0))
