@@ -68,22 +68,22 @@ for sample in ${sample[@]}; do
 	
 	#Divide chromosomes of reference into windows
 	if [ $subset == "all" ]; then
-		bedtools genomecov -d -3 -ibam $bam > temp1.txt
+		cat temp1.txt > temp2.txt
 	elif [ $subset == "mito" ]; then
-		bedtools genomecov -d -3 -ibam $bam | grep -E '(chrM|MT)' > temp1.txt
+		grep -E '(chrM|MT)' temp1.txt > temp2.txt
 	elif [ $subset == "nucleus" ]; then
-		bedtools genomecov -d -3 -ibam $bam | grep -vE '(chrM|MT)' > temp1.txt
+		grep -vE '(chrM|MT)' temp1.txt > temp2.txt
 	fi
 	
 	#Sort by # of rNMPs
-	sort -k3n temp1.txt > temp2.txt
+	sort -k3n temp2.txt > temp3.txt
 
 	#Maximum # of rNMPs in observed data
-	max=$(tail -1 temp2.txt | awk '{print $3}' -)
+	max=$(tail -1 temp3.txt | awk '{print $3}' -)
 
 	#Number of windows containing 0...max # of rNMPs
 	for i in $(seq 0 $max); do
-		awk '$3 == ('$i')' temp2.txt | wc -l >> temp3.txt
+		awk '$3 == ('$i')' temp3.txt | wc -l >> temp4.txt
 	done
 
 #############################################################################################################################
@@ -99,7 +99,7 @@ for sample in ${sample[@]}; do
 	echo "Observed counts for $sample ($subset) have been determined"
 	
 	#Remove temp files
-	rm -f temp{1..3}.txt windows.bed
+	rm -f temp{1..4}.txt windows.bed
 
 	done
 done
