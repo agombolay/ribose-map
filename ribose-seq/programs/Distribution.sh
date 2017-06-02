@@ -45,10 +45,10 @@ for sample in ${sample[@]}; do
 	bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample-MappedReads.bam
 
 	#Output file
-	dataset=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-ObservedCounts.$subset.txt
+	#dataset=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-ObservedCounts.$subset.txt
 
 	#Remove old file
-	rm -f $output/$dataset
+	#rm -f $output/$dataset
 #############################################################################################################################
 	
 	#STEP 1: Divide genome into windows and count number of rNMPs in each window
@@ -67,6 +67,13 @@ for sample in ${sample[@]}; do
 	bedtools genomecov -d -3 -ibam $bam > temp1.txt
 	
 	for subset in "all" "mito" "nucleus"; do
+	
+	#Output file
+	dataset=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-ObservedCounts.$subset.txt
+
+	#Remove old file
+	rm -f $output/$dataset
+	
 	#Divide chromosomes of reference into windows
 	if [ $subset == "all" ]; then
 		cat temp1.txt > temp2.txt
