@@ -66,6 +66,15 @@ for sample in ${sample[@]}; do
 	#bedtools intersect -a windows.bed -b $coordinates -c -sorted -nonamecheck > temp1.txt
 	bedtools genomecov -d -3 -ibam $bam > temp1.txt
 	
+	#Divide chromosomes of reference into windows
+	if [ $subset == "all" ]; then
+		bedtools genomecov -d -3 -ibam $bam > temp1.txt
+	elif [ $subset == "mito" ]; then
+		bedtools genomecov -d -3 -ibam $bam | grep -E '(chrM|MT)' > temp1.txt
+	elif [ $subset == "nucleus" ]; then
+		bedtools genomecov -d -3 -ibam $bam | grep -vE '(chrM|MT)' > temp1.txt
+	fi
+	
 	#Sort by # of rNMPs
 	sort -k3n temp1.txt > temp2.txt
 
