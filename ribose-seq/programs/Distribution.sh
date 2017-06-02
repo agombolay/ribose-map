@@ -33,7 +33,7 @@ fi
 
 #Determine coordinates
 for sample in ${sample[@]}; do
-	for subset in "all" "mito" "nucleus"; do
+	#for subset in "all" "mito" "nucleus"; do
 
 #############################################################################################################################
 	#Create directory
@@ -66,6 +66,7 @@ for sample in ${sample[@]}; do
 	#bedtools intersect -a windows.bed -b $coordinates -c -sorted -nonamecheck > temp1.txt
 	bedtools genomecov -d -3 -ibam $bam > temp1.txt
 	
+	for subset in "all" "mito" "nucleus"; do
 	#Divide chromosomes of reference into windows
 	if [ $subset == "all" ]; then
 		cat temp1.txt > temp2.txt
