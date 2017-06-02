@@ -129,5 +129,5 @@ ggsave(filename=file.path(output, paste(opt$sample, "-", "Distribution", ".", j,
     }
     }
     }
-message("Plotting of", " ", i , " ", "is complete")
+message("Plotting of", " ", i , ," ", "(", j, ")", " ", "is complete")
 }
