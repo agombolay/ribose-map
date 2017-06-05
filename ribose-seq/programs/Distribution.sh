@@ -33,7 +33,7 @@ fi
 
 #Determine coordinates
 for sample in ${sample[@]}; do
-	for subset in "all" "mito" "nucleus"; do
+	for subset in "mito" "nucleus"; do
 
 #############################################################################################################################
 	#Create directory
@@ -87,7 +87,7 @@ for sample in ${sample[@]}; do
 	sort -k3n temp1.txt > temp2.txt
 
 	#Maximum # of rNMPs in observed data
-	max=$(tail -1 temp2.txt | awk '{print $3}' -)
+	max=$(tail -1 temp2.txt | awk '{print $4}' -)
 
 	#Number of positions containing 0...max # of rNMPs
 	for i in $(seq 0 $max); do
