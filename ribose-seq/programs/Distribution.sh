@@ -33,7 +33,7 @@ fi
 
 #Determine coordinates
 for sample in ${sample[@]}; do
-	#for subset in "all" "mito" "nucleus"; do
+	for subset in "all" "mito" "nucleus"; do
 
 #############################################################################################################################
 	#Create directory
@@ -41,57 +41,57 @@ for sample in ${sample[@]}; do
 	
 	#Input files
 	bed=$directory/Ribose-Map/Reference/$reference.bed
-	#coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
-	bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample-MappedReads.bam
+	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
+	#bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample-MappedReads.bam
 
 	#Output file
-	#dataset=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-ObservedCounts.$subset.txt
+	dataset=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-ObservedCounts.$subset.txt
 
 	#Remove old file
-	#rm -f $output/$dataset
+	rm -f $output/$dataset
 #############################################################################################################################
 	
 	#STEP 1: Divide genome into windows and count number of rNMPs in each window
 	
 	#Divide chromosomes of reference into windows
-	#if [ $subset == "all" ]; then
-	#	bedtools makewindows -g $bed -w 1 > windows.bed
-	#elif [ $subset == "mito" ]; then
-	#	bedtools makewindows -g $bed -w 1 | grep -E '(chrM|MT)' > windows.bed
-	#elif [ $subset == "nucleus" ]; then
-	#	bedtools makewindows -g $bed -w 1 | grep -vE '(chrM|MT)' > windows.bed
-	#fi
+	if [ $subset == "all" ]; then
+		bedtools makewindows -g $bed -w 1 > windows.bed
+	elif [ $subset == "mito" ]; then
+		bedtools makewindows -g $bed -w 1 | grep -E '(chrM|MT)' > windows.bed
+	elif [ $subset == "nucleus" ]; then
+		bedtools makewindows -g $bed -w 1 | grep -vE '(chrM|MT)' > windows.bed
+	fi
 
 	#Determine regions of BED files that intersect and count number of intersections
-	#bedtools intersect -a windows.bed -b $coordinates -c -sorted -nonamecheck > temp1.txt
-	bedtools genomecov -d -3 -ibam $bam > temp1.txt
+	bedtools intersect -a windows.bed -b $coordinates -c -sorted -nonamecheck > temp1.txt
+	#bedtools genomecov -d -3 -ibam $bam > temp1.txt
 	
 	for subset in "all" "mito" "nucleus"; do
 	
 	#Output file
-	dataset=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-ObservedCounts.$subset.txt
+	#dataset=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-ObservedCounts.$subset.txt
 
 	#Remove old file
-	rm -f $directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-ObservedCounts.$subset.txt
+	#rm -f $directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-ObservedCounts.$subset.txt
 	
 	#Divide chromosomes of reference into windows
-	if [ $subset == "all" ]; then
-		cat temp1.txt > temp2.txt
-	elif [ $subset == "mito" ]; then
-		grep -E '(chrM|MT)' temp1.txt > temp2.txt
-	elif [ $subset == "nucleus" ]; then
-		grep -vE '(chrM|MT)' temp1.txt > temp2.txt
-	fi
+	#if [ $subset == "all" ]; then
+	#	cat temp1.txt > temp2.txt
+	#elif [ $subset == "mito" ]; then
+	#	grep -E '(chrM|MT)' temp1.txt > temp2.txt
+	#elif [ $subset == "nucleus" ]; then
+	#	grep -vE '(chrM|MT)' temp1.txt > temp2.txt
+	#fi
 	
 	#Sort by # of rNMPs
-	sort -k3n temp2.txt > temp3.txt
+	sort -k3n temp1.txt > temp2.txt
 
 	#Maximum # of rNMPs in observed data
-	max=$(tail -1 temp3.txt | awk '{print $3}' -)
+	max=$(tail -1 temp2.txt | awk '{print $3}' -)
 
 	#Number of positions containing 0...max # of rNMPs
 	for i in $(seq 0 $max); do
-		awk '$3 == ('$i')' temp3.txt | wc -l >> temp4.txt
+		awk '$3 == ('$i')' temp2.txt | wc -l >> temp3.txt
 	done
 
 #############################################################################################################################
@@ -101,14 +101,14 @@ for sample in ${sample[@]}; do
 	echo -e "rNMPs\tPositions" > $dataset
 
 	#Add number of positions containing 0...max # of rNMPs
-	paste <(echo "$(seq 0 $max)") <(cat temp4.txt) >> $dataset
+	paste <(echo "$(seq 0 $max)") <(cat temp3.txt) >> $dataset
 
 	#Print completion status
 	echo "Observed counts for $sample ($subset) have been determined"
 	
 	#Remove temp files
-	rm -f temp{2..4}.txt
+	rm -f temp{1..3}.txt
 
 	done
 done
-rm -f temp1.txt
+#rm -f temp1.txt
