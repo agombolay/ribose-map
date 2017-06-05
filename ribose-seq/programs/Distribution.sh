@@ -66,7 +66,7 @@ for sample in ${sample[@]}; do
 	bedtools intersect -a windows.bed -b $coordinates -c -sorted -nonamecheck > temp1.txt
 	#bedtools genomecov -d -3 -ibam $bam > temp1.txt
 	
-	for subset in "all" "mito" "nucleus"; do
+	#for subset in "all" "mito" "nucleus"; do
 	
 	#Output file
 	#dataset=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-ObservedCounts.$subset.txt
