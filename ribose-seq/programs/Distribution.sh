@@ -40,7 +40,7 @@ for sample in ${sample[@]}; do
 	mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Distribution
 	
 	#Input files
-	bed=$directory/Ribose-Map/Reference/$reference.bed
+	bed=$directory/Ribose-Map/References/$reference.bed
 	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
 	#bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample-MappedReads.bam
 
