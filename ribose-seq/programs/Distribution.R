@@ -26,7 +26,7 @@ for(i in opt$sample) {
         
     #Specify output directory and file
     output <- file.path(opt$directory, "Ribose-Map", "Results", opt$reference, opt$sample, "Distribution")
-    file <- file.path(output, paste(opt$sample, "-", "Counts", ".", opt$reference, ".", j, ".txt", sep=""))
+    file <- file.path(output, paste(opt$sample, "-", "Counts", ".", j, ".txt", sep=""))
     
     #Plot only if files exist
     if (file.exists(file)) {
@@ -117,7 +117,7 @@ for(i in opt$sample) {
         xlab("rNMPs per Window") + ylab("Number of Windows") + ggtitle(opt$title) +
     
         #Specify font size and center title (if any) of plot on page
-        theme(text=element_text(size=14)) + theme(plot.title=element_text(hjust=0.5)) +
+        theme(text=element_text(size=22)) + theme(plot.title=element_text(hjust=0.5)) +
 
         #Specify colors of bars, remove legend title, and decrease space between bars and x-axis
         scale_fill_manual(values=c("#000000", "#999999"), name="") + scale_y_continuous(expand=c(0.015,0))
@@ -129,5 +129,5 @@ ggsave(filename=file.path(output, paste(opt$sample, "-", "Distribution", ".", j,
     }
     }
     }
-message("Plotting of", " ", i , " ", "is complete")
+message("Plotting of", " ", i , ," ", "(", j, ")", " ", "is complete")
 }

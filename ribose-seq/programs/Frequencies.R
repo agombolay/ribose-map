@@ -28,7 +28,7 @@ for(i in opt$sample) {
 
 		#Specify output directory and file
 		output <- file.path(opt$directory, "Ribose-Map", "Results", opt$reference, opt$sample, "Frequencies")
-		file <- file.path(output, paste(opt$sample, "-", "Frequencies", ".", opt$reference, ".", j, ".txt", sep=""))
+		file <- file.path(output, paste(opt$sample, "-", "Frequencies", ".", j, ".txt", sep=""))
 
  		#Plot only if files exist
         	if (file.exists(file)) {
@@ -61,16 +61,16 @@ for(i in opt$sample) {
 			xlab("Position") + ylab("Frequency") + ggtitle(opt$title) +
 				
                     	#Specify font size and center title (if any) of plot on page
-                    	theme(text=element_text(size=14)) + theme(plot.title=element_text(hjust=0.5)) +
+                    	theme(text=element_text(size=22)) + theme(plot.title=element_text(hjust=0.5)) +
 
                     	#Specify color values for each nucleotide and remove legend title
                     	scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="")
 											     
 #############################################################################################################################
 #Specify output path and save plot as PNG file
-ggsave(filename=file.path(output, paste(opt$sample, "-", "Frequencies", "-", k, ".", opt$reference, ".", j, ".png", sep="")), plot=myplot)
+ggsave(filename=file.path(output, paste(opt$sample, "-", "Frequencies", "-", k, ".", j, ".png", sep="")), plot=myplot)
 			}
 		}
 	}
-message("Plotting of", " ", i , " ", "is complete")
+message("Plotting of", " ", i , ," ", "(", j, ")", " ", "is complete")
 }
