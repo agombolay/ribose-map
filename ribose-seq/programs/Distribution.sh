@@ -84,7 +84,7 @@ for sample in ${sample[@]}; do
 	#fi
 	
 	#Sort by # of rNMPs
-	sort -k3n temp1.txt > temp2.txt
+	sort -k4n temp1.txt > temp2.txt
 
 	#Maximum # of rNMPs in observed data
 	#max=$(tail -1 temp2.txt | awk '{print $4}' -)
