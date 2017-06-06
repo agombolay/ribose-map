@@ -47,23 +47,23 @@ for sample in ${sample[@]}; do
 	#Output file
 	dataset=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-ObservedCounts.$subset.txt
 
-	#Remove old file
-	rm -f $output/$dataset
+	#Remove old files
+	rm -f $output/$dataset $output/temp{1..3}.txt $output/windows.bed
 #############################################################################################################################
 	
 	#STEP 1: Divide genome into windows and count number of rNMPs in each window
 	
 	#Divide chromosomes of reference into windows
 	if [ $subset == "all" ]; then
-		bedtools makewindows -g $bed -w 1 > windows.bed
+		bedtools makewindows -g $bed -w 1 > $output/windows.bed
 	elif [ $subset == "mito" ]; then
-		bedtools makewindows -g $bed -w 1 | grep -E '(chrM|MT)' > windows.bed
+		bedtools makewindows -g $bed -w 1 | grep -E '(chrM|MT)' > $output/windows.bed
 	elif [ $subset == "nucleus" ]; then
-		bedtools makewindows -g $bed -w 1 | grep -vE '(chrM|MT)' > windows.bed
+		bedtools makewindows -g $bed -w 1 | grep -vE '(chrM|MT)' > $output/windows.bed
 	fi
 
 	#Determine regions of BED files that intersect and count number of intersections
-	bedtools intersect -a windows.bed -b $coordinates -c -sorted -nonamecheck > temp1.txt
+	bedtools intersect -a windows.bed -b $coordinates -c -sorted -nonamecheck > $output/temp1.txt
 	#bedtools genomecov -d -3 -ibam $bam > temp1.txt
 	
 	#for subset in "all" "mito" "nucleus"; do
@@ -84,14 +84,14 @@ for sample in ${sample[@]}; do
 	#fi
 	
 	#Sort by # of rNMPs
-	sort -k4n temp1.txt > temp2.txt
+	sort -k4n $output/temp1.txt > $output/temp2.txt
 
 	#Maximum # of rNMPs in observed data
-	max=$(tail -1 temp2.txt | awk '{print $4}' -)
+	max=$(tail -1 $output/temp2.txt | awk '{print $4}' -)
 
 	#Number of positions containing 0...max # of rNMPs
 	for i in $(seq 0 $max); do
-		awk '$3 == ('$i')' temp2.txt | wc -l >> temp3.txt
+		awk '$3 == ('$i')' $output/temp2.txt | wc -l >> $output/temp3.txt
 	done
 
 #############################################################################################################################
@@ -107,8 +107,8 @@ for sample in ${sample[@]}; do
 	echo "Observed counts for $sample ($subset) have been determined"
 	
 	#Remove temp files
-	rm -f temp{1..3}.txt
+	rm -f $output/temp{1..3}.txt $output/windows.bed
 
 	done
 done
-#rm -f temp1.txt
+#rm -f $output/temp1.txt
