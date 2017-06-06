@@ -33,7 +33,7 @@ fi
 
 #Determine coordinates
 for sample in ${sample[@]}; do
-	for subset in "mito"; do
+	for subset in "mito" "nucleus"; do
 
 #############################################################################################################################
 	#Create directory
@@ -87,27 +87,27 @@ for sample in ${sample[@]}; do
 	sort -k4n temp1.txt > temp2.txt
 
 	#Maximum # of rNMPs in observed data
-	#max=$(tail -1 temp2.txt | awk '{print $4}' -)
+	max=$(tail -1 temp2.txt | awk '{print $4}' -)
 
 	#Number of positions containing 0...max # of rNMPs
-	#for i in $(seq 0 $max); do
-	#	awk '$3 == ('$i')' temp2.txt | wc -l >> temp3.txt
-	#done
+	for i in $(seq 0 $max); do
+		awk '$3 == ('$i')' temp2.txt | wc -l >> temp3.txt
+	done
 
 #############################################################################################################################
 	#STEP 6: Create and save dataset file containing observed counts of rNMPs
 	
 	#Add column names to header line
-	#echo -e "rNMPs\tPositions" > $dataset
+	echo -e "rNMPs\tPositions" > $dataset
 
 	#Add number of positions containing 0...max # of rNMPs
-	#paste <(echo "$(seq 0 $max)") <(cat temp3.txt) >> $dataset
+	paste <(echo "$(seq 0 $max)") <(cat temp3.txt) >> $dataset
 
 	#Print completion status
-	#echo "Observed counts for $sample ($subset) have been determined"
+	echo "Observed counts for $sample ($subset) have been determined"
 	
 	#Remove temp files
-	#rm -f temp{1..3}.txt
+	rm -f temp{1..3}.txt
 
 	done
 done
