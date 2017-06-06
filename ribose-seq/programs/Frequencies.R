@@ -24,7 +24,7 @@ opt <- parse_args(OptionParser(option_list=option_list))
 
 #############################################################################################################################
 for(i in opt$sample) {
-	for(j in c("all", "mito", "nucleus")) {
+	for(j in c("mito", "nucleus")) {
 
 		#Specify output directory and file
 		output <- file.path(opt$directory, "Ribose-Map", "Results", opt$reference, opt$sample, "Frequencies")
