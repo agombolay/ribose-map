@@ -33,55 +33,55 @@ fi
 
 #Determine coordinates
 for sample in ${sample[@]}; do
-	for subset in "mito"; do
+	#for subset in "mito"; do
 
 #############################################################################################################################
 	#Create directory
 	mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Distribution
 	
 	#Input files
-	bed=$directory/Ribose-Map/References/$reference.bed
-	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
-	#bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample-MappedReads.bam
+	#bed=$directory/Ribose-Map/References/$reference.bed
+	#coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
+	bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample-MappedReads.bam
 
 	#Output file
-	dataset=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-ObservedCounts.$subset.txt
+	#dataset=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-ObservedCounts.$subset.txt
 
 	#Remove old files
-	rm -f $dataset temp{1..3}.txt windows.bed
+	#rm -f $dataset temp{1..3}.txt windows.bed
 #############################################################################################################################
 	
 	#STEP 1: Divide genome into windows and count number of rNMPs in each window
 	
 	#Divide chromosomes of reference into windows
-	if [ $subset == "all" ]; then
-		bedtools makewindows -g $bed -w 1 > windows.bed
-	elif [ $subset == "mito" ]; then
-		bedtools makewindows -g $bed -w 1 | grep -E '(chrM|MT)' > windows.bed
-	elif [ $subset == "nucleus" ]; then
-		bedtools makewindows -g $bed -w 1 | grep -vE '(chrM|MT)' > windows.bed
-	fi
+	#if [ $subset == "all" ]; then
+	#	bedtools makewindows -g $bed -w 1 > windows.bed
+	#elif [ $subset == "mito" ]; then
+	#	bedtools makewindows -g $bed -w 1 | grep -E '(chrM|MT)' > windows.bed
+	#elif [ $subset == "nucleus" ]; then
+	#	bedtools makewindows -g $bed -w 1 | grep -vE '(chrM|MT)' > windows.bed
+	#fi
 
 	#Determine regions of BED files that intersect and count number of intersections
-	bedtools intersect -a windows.bed -b $coordinates -c -sorted -nonamecheck > temp1.txt
-	#bedtools genomecov -d -3 -ibam $bam > temp1.txt
+	#bedtools intersect -a windows.bed -b $coordinates -c -sorted -nonamecheck > temp1.txt
+	bedtools genomecov -d -3 -ibam $bam > temp1.txt
 	
-	#for subset in "all" "mito" "nucleus"; do
+	for subset in "mito"; do
 	
 	#Output file
-	#dataset=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-ObservedCounts.$subset.txt
+	dataset=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-ObservedCounts.$subset.txt
 
 	#Remove old file
-	#rm -f $directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-ObservedCounts.$subset.txt
-	
+	rm -f $dataset temp{1..3}.txt windows.bed
+
 	#Divide chromosomes of reference into windows
-	#if [ $subset == "all" ]; then
-	#	cat temp1.txt > temp2.txt
-	#elif [ $subset == "mito" ]; then
-	#	grep -E '(chrM|MT)' temp1.txt > temp2.txt
-	#elif [ $subset == "nucleus" ]; then
-	#	grep -vE '(chrM|MT)' temp1.txt > temp2.txt
-	#fi
+	if [ $subset == "all" ]; then
+		cat temp1.txt > temp2.txt
+	elif [ $subset == "mito" ]; then
+		grep -E '(chrM|MT)' temp1.txt > temp2.txt
+	elif [ $subset == "nucleus" ]; then
+		grep -vE '(chrM|MT)' temp1.txt > temp2.txt
+	fi
 	
 	#Sort by # of rNMPs
 	sort -k4n temp1.txt > temp2.txt
