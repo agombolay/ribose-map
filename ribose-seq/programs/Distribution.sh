@@ -87,11 +87,11 @@ for sample in ${sample[@]}; do
 	
 	#Sort by # of rNMPs
 	#sort -k4n temp1.txt > temp2.txt
-	sort -k4n temp2.txt > temp3.txt
+	sort -k3n temp2.txt > temp3.txt
 
 	#Maximum # of rNMPs in observed data
 	#max=$(tail -1 temp2.txt | awk '{print $4}' -)
-	max=$(tail -1 temp3.txt | awk '{print $4}' -)
+	max=$(tail -1 temp3.txt | awk '{print $3}' -)
 
 	#Number of positions containing 0...max # of rNMPs
 	#for i in $(seq 0 $max); do
@@ -99,7 +99,7 @@ for sample in ${sample[@]}; do
 	#done
 
 	for i in $(seq 0 $max); do
-		awk '$4 == ('$i')' temp3.txt | wc -l >> temp4.txt
+		awk '$3 == ('$i')' temp3.txt | wc -l >> temp4.txt
 	done
 #############################################################################################################################
 	#STEP 6: Create and save dataset file containing observed counts of rNMPs
