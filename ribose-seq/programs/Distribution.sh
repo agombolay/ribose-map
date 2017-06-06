@@ -73,7 +73,7 @@ for sample in ${sample[@]}; do
 	bedtools genomecov -d -3 -ibam $bam > temp1.txt
 	
 	for subset in "mito"; do
-
+	
 	#Divide chromosomes of reference into windows
 	if [ $subset == "all" ]; then
 		cat temp1.txt > temp2.txt
@@ -84,16 +84,21 @@ for sample in ${sample[@]}; do
 	fi
 	
 	#Sort by # of rNMPs
-	sort -k4n temp1.txt > temp2.txt
+	#sort -k4n temp1.txt > temp2.txt
+	sort -k4n temp2.txt > temp3.txt
 
 	#Maximum # of rNMPs in observed data
-	max=$(tail -1 temp2.txt | awk '{print $4}' -)
+	#max=$(tail -1 temp2.txt | awk '{print $4}' -)
+	max=$(tail -1 temp3.txt | awk '{print $4}' -)
 
 	#Number of positions containing 0...max # of rNMPs
-	for i in $(seq 0 $max); do
-		awk '$4 == ('$i')' temp2.txt | wc -l >> temp3.txt
-	done
+	#for i in $(seq 0 $max); do
+	#	awk '$4 == ('$i')' temp2.txt | wc -l >> temp3.txt
+	#done
 
+	for i in $(seq 0 $max); do
+		awk '$4 == ('$i')' temp3.txt | wc -l >> temp4.txt
+	done
 #############################################################################################################################
 	#STEP 6: Create and save dataset file containing observed counts of rNMPs
 	
@@ -101,7 +106,8 @@ for sample in ${sample[@]}; do
 	echo -e "rNMPs\tPositions" > $dataset
 
 	#Add number of positions containing 0...max # of rNMPs
-	paste <(echo "$(seq 0 $max)") <(cat temp3.txt) >> $dataset
+	#paste <(echo "$(seq 0 $max)") <(cat temp3.txt) >> $dataset
+	paste <(echo "$(seq 0 $max)") <(cat temp4.txt) >> $dataset
 
 	#Print completion status
 	echo "Observed counts for $sample ($subset) have been determined"
