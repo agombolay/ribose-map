@@ -52,7 +52,7 @@ for sample in ${sample[@]}; do
 		#Calculate coverage at each rNMP position
 		bedtools genomecov -d -3 -ibam $bam > temp.bed
 		
-		for subset in "all" "mito" "nucleus"; do
+		for subset in "mito" "nucleus"; do
 	
 		#Output file
 		coverage=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.$subset.bed
