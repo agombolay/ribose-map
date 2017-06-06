@@ -91,7 +91,7 @@ for sample in ${sample[@]}; do
 
 	#Number of positions containing 0...max # of rNMPs
 	for i in $(seq 0 $max); do
-		awk '$3 == ('$i')' temp2.txt | wc -l >> temp3.txt
+		awk '$4 == ('$i')' temp2.txt | wc -l >> temp3.txt
 	done
 
 #############################################################################################################################
