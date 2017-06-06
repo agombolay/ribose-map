@@ -62,17 +62,19 @@ for sample in ${sample[@]}; do
 	#	bedtools makewindows -g $bed -w 1 | grep -vE '(chrM|MT)' > windows.bed
 	#fi
 
-	#Output file
-	dataset=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-ObservedCounts.$subset.txt
-
 	#Remove old files
-	rm -f $dataset temp{1..3}.txt windows.bed
+	rm -f temp{1..3}.txt windows.bed
 	
 	#Determine regions of BED files that intersect and count number of intersections
 	#bedtools intersect -a windows.bed -b $coordinates -c -sorted -nonamecheck > temp1.txt
 	bedtools genomecov -d -3 -ibam $bam > temp1.txt
 	
 	for subset in "mito"; do
+	
+	#Output file
+	dataset=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-ObservedCounts.$subset.txt
+	
+	rm -f $dataset
 	
 	#Divide chromosomes of reference into windows
 	if [ $subset == "all" ]; then
