@@ -33,7 +33,7 @@ fi
 
 #Determine coordinates
 for sample in ${sample[@]}; do
-	for subset in "mito" "nucleus"; do
+	for subset in "mito"; do
 
 #############################################################################################################################
 	#Create directory
