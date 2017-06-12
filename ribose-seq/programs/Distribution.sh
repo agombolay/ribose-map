@@ -53,8 +53,12 @@ for sample in ${sample[@]}; do
 	
 	for subset in "mito" "nucleus"; do
 	
-		#Output file
-		dataset=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-ObservedCounts.$subset.txt
+		#Create directory
+		mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Distribution
+	
+		#Input/Output files
+		bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample-MappedReads.bam
+		dataset=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Counts.$subset.txt
 	
 		#Remove old file
 		rm -f $dataset
