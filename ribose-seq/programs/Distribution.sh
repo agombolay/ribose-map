@@ -54,9 +54,7 @@ for sample in ${sample[@]}; do
 	#STEP 1: Divide genome into windows and count number of rNMPs in each window
 	
 	#Divide chromosomes of reference into windows
-	#if [ $subset == "all" ]; then
-	#	bedtools makewindows -g $bed -w 1 > windows.bed
-	#elif [ $subset == "mito" ]; then
+	#if [ $subset == "mito" ]; then
 	#	bedtools makewindows -g $bed -w 1 | grep -E '(chrM|MT)' > windows.bed
 	#elif [ $subset == "nucleus" ]; then
 	#	bedtools makewindows -g $bed -w 1 | grep -vE '(chrM|MT)' > windows.bed
@@ -76,10 +74,8 @@ for sample in ${sample[@]}; do
 	
 	rm -f $dataset
 	
-	#Divide chromosomes of reference into windows
-	if [ $subset == "all" ]; then
-		cat temp1.txt > temp2.txt
-	elif [ $subset == "mito" ]; then
+	#Select regions of interest
+	if [ $subset == "mito" ]; then
 		grep -E '(chrM|MT)' temp1.txt > temp2.txt
 	elif [ $subset == "nucleus" ]; then
 		grep -vE '(chrM|MT)' temp1.txt > temp2.txt
