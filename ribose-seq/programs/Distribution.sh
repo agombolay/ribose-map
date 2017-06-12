@@ -56,8 +56,10 @@ for sample in ${sample[@]}; do
 		#Create directory
 		mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Distribution
 	
-		#Input/Output files
+		#Input file
 		bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample-MappedReads.bam
+		
+		#Output file
 		dataset=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Counts.$subset.txt
 	
 		#Remove old file
@@ -97,7 +99,7 @@ for sample in ${sample[@]}; do
 		paste <(echo "$(seq 0 $max)") <(cat temp3.txt) >> $dataset
 
 		#Print completion status
-		echo "Observed counts for $sample ($subset) have been determined"
+		echo "Counts for $sample ($subset) have been determined"
 	
 		#Remove temp files
 		rm -f temp{2..3}.txt windows.bed
