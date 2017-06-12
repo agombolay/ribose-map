@@ -46,7 +46,7 @@ for sample in ${sample[@]}; do
 		bam=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-MappedReads.bam
 	
 		#Output file
-		counts$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Counts.$subset.txt
+		counts=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Counts.$subset.txt
 		coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.$subset.bed
 	
 		#Remove old files
