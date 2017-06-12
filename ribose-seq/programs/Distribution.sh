@@ -43,7 +43,7 @@ for sample in ${sample[@]}; do
 		mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Distribution
 	
 		#Input file
-		bam=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-MappedReads.bam
+		bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample-MappedReads.bam
 	
 		#Output file
 		counts=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Counts.$subset.txt
