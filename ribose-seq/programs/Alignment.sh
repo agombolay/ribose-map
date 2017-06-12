@@ -42,7 +42,7 @@ fi
 #Align reads to reference
 for sample in ${sample[@]}; do
 	
-	#Create folder
+	#Directory
 	mkdir -p $directory/Ribose-Map/Results/$index/$sample/Alignment
 	
 	#Input files

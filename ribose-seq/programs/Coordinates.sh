@@ -47,7 +47,7 @@ for sample in ${sample[@]}; do
 		coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
 		
 		#Remove old files
-		rm -f $output/$reads $output/$coordinates
+		rm -f $reads $coordinates
 		
 #############################################################################################################################
 		#STEP 1: Determine genomic coordinates of rNMPs from reads
