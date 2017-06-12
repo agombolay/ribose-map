@@ -63,7 +63,7 @@ for sample in ${sample[@]}; do
 	#fi
 
 	#Remove old files
-	rm -f temp{1..3}.txt windows.bed
+	rm -f temp{1..4}.txt windows.bed
 	
 	#Determine regions of BED files that intersect and count number of intersections
 	#bedtools intersect -a windows.bed -b $coordinates -c -sorted -nonamecheck > temp1.txt
