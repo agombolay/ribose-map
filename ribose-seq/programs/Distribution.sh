@@ -35,45 +35,42 @@ fi
 for sample in ${sample[@]}; do
 
 #############################################################################################################################
-	
 	#STEP 1: Count number of positions containing 0...max # of rNMPs
-	
-	#Directory
-	mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Distribution
-	
-	#Input file
-	bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample-MappedReads.bam
-		
-	#Output file
-	coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bed
-
-	#Remove old files
-	rm -f $coverage temp{1..2}.txt
-		
-	#Determine coverage at 3' position of reads
-	bedtools genomecov -d -3 -ibam $bam > temp1.txt
 	
 	for subset in "mito" "nucleus"; do
 		
+		#Directory
+		mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Distribution
+	
+		#Input file
+		bam=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-MappedReads.bam
+	
 		#Output file
-		counts=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Counts.$subset.txt
+		counts$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Counts.$subset.txt
+		coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.$subset.bed
 	
-		#Remove old file
-		rm -f $counts
+		#Remove old files
+		rm -f $coverage $counts temp{1..3}.txt
 	
-		#Select regions of interest and sort by # of rNMPs
+		#Determine coverage at 3' position of reads
+		bedtools genomecov -d -3 -ibam $bam > temp1.txt
+	
+		#Select region of genome (i.e., nucleus or mito)
 		if [ $subset == "mito" ]; then
-			grep -E '(chrM|MT)' $coverage | sort -k3n - > temp1.txt
+			grep -E '(chrM|MT)' temp1.txt > $coverage
 		elif [ $subset == "nucleus" ]; then
-			grep -vE '(chrM|MT)' $coverage | sort -k3n - > temp1.txt
+			grep -vE '(chrM|MT)' temp1.txt > $coverage
 		fi
+		
+		#Sort by # of rNMPs
+		sort -k3n $coverage > temp2.txt
 
 		#Maximum # of rNMPs in observed data
-		max=$(tail -1 temp1.txt | awk '{print $3}' -)
+		max=$(tail -1 temp2.txt | awk '{print $3}' -)
 
 		#Number of positions containing 0...max # of rNMPs
 		for i in $(seq 0 $max); do
-			awk '$3 == ('$i')' temp1.txt | wc -l >> temp2.txt
+			awk '$3 == ('$i')' temp2.txt | wc -l >> temp3.txt
 		done
 		
 #############################################################################################################################
@@ -83,13 +80,13 @@ for sample in ${sample[@]}; do
 		echo -e "rNMPs\tPositions" > $counts
 
 		#Add number of positions containing 0...max # of rNMPs
-		paste <(echo "$(seq 0 $max)") <(cat temp2.txt) >> $counts
+		paste <(echo "$(seq 0 $max)") <(cat temp3.txt) >> $counts
 
 		#Print completion status
 		echo "Counts for $sample ($subset) have been determined"
 	
 		#Remove temp files
-		rm -f temp{1..2}.txt
+		rm -f temp{1..3}.txt
 
 	done
 done
