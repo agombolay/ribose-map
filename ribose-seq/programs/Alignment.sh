@@ -10,8 +10,8 @@
 function usage () {
 echo "Usage: Alignment.sh [-s] 'Sample(s)' [-u] 'UMI' [-m] 'Min' [-p] 'Path' [-t] 'Type' [-i] 'Index' [-d] 'Directory' [-h]
 	-s Sample name(s) (e.g., FS1, FS2, FS3)
-	-a Input Read 1  FASTQ.GZ filename (forward)
-	-b Input Read 2  FASTQ.GZ filename (reverse)
+	-a Input Read 1 FASTQ.GZ filename (forward)
+	-b Input Read 2 FASTQ.GZ filename (reverse)
 	-u Length of UMI (e.g., NNNNNNNN or NNNNNNNNNNN)
 	-m Minimum length of read to retain after trimming (e.g., 50)
 	-p Path (e.g., /projects/home/agombolay3/data/bin/Trimmomatic-0.36)
