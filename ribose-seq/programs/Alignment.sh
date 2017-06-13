@@ -60,7 +60,7 @@ for sample in ${sample[@]}; do
 	mkdir -p $directory/Ribose-Map/Results/$index/$sample/Alignment
 	
 #############################################################################################################################
-	#STEP 1: Trim FASTQ files based on quality and Illumina adapter content
+	#STEP 1: Trim FASTQ files based on quality and adapter content
 	#Single End Reads
 	if [ $type == "SE" ]; then
 		java -jar $path/trimmomatic-0.36.jar SE -phred33 $fastq1 R1Trimmed.fq \
@@ -74,7 +74,7 @@ for sample in ${sample[@]}; do
 	#STEP 2: Extract UMI from 5' ends of reads (append UMI to read name)
 	umi_tools extract -I R1Paired.fq -p $UMI --supress-stats -S R1Trimmed.fq
 	
-	#STEP 3: Reverse complement (RC) reads (R = RC of 5' base)
+	#STEP 3: Reverse complement (RC) reads (Ribonucleotide = RC of 5' base)
 	#Single End Reads
 	if [ $type == "SE" ]; then
 		cat R1Trimmed.fq | seqtk seq -r - > R1Reverse.fq
@@ -84,7 +84,7 @@ for sample in ${sample[@]}; do
 		cat R2Paired.fq | seqtk seq -r - > R1Reverse.fq
 	fi
 #############################################################################################################################
-	#STEP 4: Align reads to reference genome and save Bowtie2 log file
+	#STEP 4: Align reads to reference genome and save Bowtie2 statistics to file
 	#Single End Reads
 	if [ $type == "SE" ]; then
 		bowtie2 -x $index -U reverseComplement.fastq 2> $statistics > temp.sam
