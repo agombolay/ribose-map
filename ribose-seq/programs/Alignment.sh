@@ -68,7 +68,7 @@ for sample in ${sample[@]}; do
 	#Paired End Reads
 	elif [ $type == "PE" ]; then
 		java -jar $path/trimmomatic-0.36.jar PE -phred33 $Read1Fastq $Read2Fastq Read1.fq Unpaired1.fq \
-		Read2.fq.fq Unpaired2.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
+		Read2.fq Unpaired2.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
 	fi
 	
 	#STEP 2: Extract UMI from 5' ends of reads (append UMI to read name)
@@ -81,7 +81,7 @@ for sample in ${sample[@]}; do
 	Paired End Reads
 	elif [ $type == "PE" ]; then
 		cat R1Trimmed.fq | seqtk seq -r - > R1Reverse.fq
-		cat R2Paired.fq | seqtk seq -r - > R2Reverse.fq
+		cat Read2.fq | seqtk seq -r - > R2Reverse.fq
 	fi
 	
 #############################################################################################################################
