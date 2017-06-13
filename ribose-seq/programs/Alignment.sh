@@ -75,10 +75,10 @@ for sample in ${sample[@]}; do
 	umi_tools extract -I Read1.fq -p $UMI --supress-stats -S R1Trimmed.fq
 	
 	#STEP 3: Reverse complement (RC) reads (Ribonucleotide = RC of 5' base)
-	Single End Reads
+	#Single End Reads
 	if [ $type == "SE" ]; then
 		cat R1Trimmed.fq | seqtk seq -r - > R1Reverse.fq
-	Paired End Reads
+	#Paired End Reads
 	elif [ $type == "PE" ]; then
 		cat R1Trimmed.fq | seqtk seq -r - > R1Reverse.fq
 		cat Read2.fq | seqtk seq -r - > R2Reverse.fq
