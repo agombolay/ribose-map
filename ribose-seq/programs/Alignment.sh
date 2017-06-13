@@ -83,6 +83,7 @@ for sample in ${sample[@]}; do
 		cat R1Trimmed.fq | seqtk seq -r - > R1Reverse.fq
 		cat R2Paired.fq | seqtk seq -r - > R1Reverse.fq
 	fi
+	
 #############################################################################################################################
 	#STEP 4: Align reads to reference genome and save Bowtie2 statistics to file
 	#Single End Reads
