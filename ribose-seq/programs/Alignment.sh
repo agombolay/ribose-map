@@ -49,8 +49,8 @@ fi
 for sample in ${sample[@]}; do
 	
 	#Input files
-	fastq1=$directory/Ribose-Map/FASTQ-Files/$read1
-	fastq2=$directory/Ribose-Map/FASTQ-Files/$read2
+	Read1Fastq=$directory/Ribose-Map/FASTQ-Files/$read1
+	Read2Fastq=$directory/Ribose-Map/FASTQ-Files/$read2
 
 	#Output files
 	statistics=$directory/Ribose-Map/Results/$index/$sample/Alignment/Bowtie2.log
@@ -63,16 +63,16 @@ for sample in ${sample[@]}; do
 	#STEP 1: Trim FASTQ files based on quality and adapter content
 	#Single End Reads
 	if [ $type == "SE" ]; then
-		java -jar $path/trimmomatic-0.36.jar SE -phred33 $fastq1 R1Trimmed.fq \
+		java -jar $path/trimmomatic-0.36.jar SE -phred33 $fastq1 Read1.fq \
 		ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
 	#Paired End Reads
 	elif [ $type == "PE" ]; then
-		java -jar $path/trimmomatic-0.36.jar PE -phred33 $fastq1 $fastq2 R1Paired.fq R1Unpaired.fq \
-		R2Paired.fq R2Unpaired.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
+		java -jar $path/trimmomatic-0.36.jar PE -phred33 $Read1Fastq $Read2Fastq Read1.fq Unpaired1.fq \
+		Read2.fq.fq Unpaired2.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
 	fi
 	
 	#STEP 2: Extract UMI from 5' ends of reads (append UMI to read name)
-	umi_tools extract -I R1Paired.fq -p $UMI --supress-stats -S R1Trimmed.fq
+	umi_tools extract -I Read1.fq -p $UMI --supress-stats -S R1Trimmed.fq
 	
 	#STEP 3: Reverse complement (RC) reads (Ribonucleotide = RC of 5' base)
 	#Single End Reads
