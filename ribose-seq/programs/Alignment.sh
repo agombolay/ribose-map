@@ -10,6 +10,8 @@
 function usage () {
 echo "Usage: Alignment.sh [-s] 'Sample(s)' [-u] 'UMI' [-m] 'Min' [-p] 'Path' [-t] 'Type' [-i] 'Index' [-d] 'Directory' [-h]
 	-s Sample name(s) (e.g., FS1, FS2, FS3)
+	-a Input Read 1  FASTQ.GZ filename (forward)
+	-b Input Read 2  FASTQ.GZ filename (reverse)
 	-u Length of UMI (e.g., NNNNNNNN or NNNNNNNNNNN)
 	-m Minimum length of read to retain after trimming (e.g., 50)
 	-p Path (e.g., /projects/home/agombolay3/data/bin/Trimmomatic-0.36)
@@ -19,11 +21,13 @@ echo "Usage: Alignment.sh [-s] 'Sample(s)' [-u] 'UMI' [-m] 'Min' [-p] 'Path' [-t
 }
 
 #Command-line options
-while getopts "s:u:m:t:p:i:d:h" opt; do
+while getopts "s:a:b:u:m:t:p:i:d:h" opt; do
     case "$opt" in
         #Allow multiple input arguments
         s ) sample=($OPTARG) ;;
 	#Allow only one input argument
+	a ) fastq1=$OPTARG ;;
+	b ) fastq2=$OPTARG ;;
 	u ) UMI=$OPTARG ;;
 	m ) MIN=$OPTARG ;;
 	t ) type=$OPTARG ;;
@@ -45,9 +49,8 @@ fi
 for sample in ${sample[@]}; do
 	
 	#Input files
-	fastq=$directory/Ribose-Map/FASTQ-Files/$sample.fastq
-	fastq1=$directory/Ribose-Map/FASTQ-Files/$sample.fastq
-	fastq2=$directory/Ribose-Map/FASTQ-Files/$sample.fastq
+	fastq1=$directory/Variant-Calling/Sequencing/$Read1
+	fastq2=$directory/Variant-Calling/Sequencing/$Read2
 
 	#Output files
 	statistics=$directory/Ribose-Map/Results/$index/$sample/Alignment/Bowtie2.log
@@ -60,7 +63,7 @@ for sample in ${sample[@]}; do
 	#STEP 1: Trim FASTQ files based on quality and Illumina adapter content
 	#Single End Reads
 	if [ $type == "SE" ]; then
-		java -jar $path/trimmomatic-0.36.jar SE -phred33 $fastq QCtrimmed.fastq \
+		java -jar $path/trimmomatic-0.36.jar SE -phred33 $fastq1 QCtrimmed.fastq \
 		ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
 	#Paired End Reads
 	elif [ $type == "PE" ]; then
