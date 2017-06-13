@@ -42,17 +42,17 @@ fi
 #Align reads to reference
 for sample in ${sample[@]}; do
 	
-	#Directory
-	mkdir -p $directory/Ribose-Map/Results/$index/$sample/Alignment
-	
 	#Input files
-	fastq=$directory/Ribose-Map/Sequencing/$sample.fastq
+	fastq=$directory/Ribose-Map/FASTQ-Files/$sample.fastq
 
 	#Output files
 	statistics=$directory/Ribose-Map/Results/$index/$sample/Alignment/Bowtie2.log
 	mapped=$directory/Ribose-Map/Results/$index/$sample/Alignment/$sample-MappedReads.bam
 	unmapped=$directory/Ribose-Map/Results/$index/$sample/Alignment/$sample-UnmappedReads.bam
 
+	#Create directory
+	mkdir -p $directory/Ribose-Map/Results/$index/$sample/Alignment
+	
 #############################################################################################################################
 	#STEP 1: Trim FASTQ files based on quality and Illumina adapter content
 	java -jar $path/trimmomatic-0.36.jar SE -phred33 $fastq QCtrimmed.fastq \
