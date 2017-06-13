@@ -4,7 +4,7 @@
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
 #This program aligns trimmed reads to reference genome using Bowtie2 and de-duplicates reads based on UMI's
-#Note: FASTQ files must be located in the users's Sequencing folder (/LocalDirectory/Ribose-Map/Sequencing)
+#Note: FASTQ files must be located in the users's FASTQ-Files folder (/LocalDirectory/Ribose-Map/FASTQ-Files)
 
 #Usage statement
 function usage () {
