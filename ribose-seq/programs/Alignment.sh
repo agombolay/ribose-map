@@ -8,23 +8,25 @@
 
 #Usage statement
 function usage () {
-	echo "Usage: Alignment.sh [-s] 'Sample(s)' [-u] 'UMI' [-m] 'Min' [-p] 'Path' [-i] 'Index' [-d] 'Directory' [-h]
+	echo "Usage: Alignment.sh [-s] 'Sample(s)' [-u] 'UMI' [-m] 'Min' [-p] 'Path' [-t] 'Type' [-i] 'Index' [-d] 'Directory' [-h]
 		-s Sample name(s) (e.g., FS1, FS2, FS3)
 		-u Length of UMI (e.g., NNNNNNNN or NNNNNNNNNNN)
 		-m Minimum length of read to retain after trimming (e.g., 50)
 		-p Path (e.g., /projects/home/agombolay3/data/bin/Trimmomatic-0.36)
+		-t Type of Illumina Sequencing (e.g., SE = Single end, PE = Paired end)
 		-i Basename of Bowtie2 index (e.g., sacCer2, pombe, ecoli, mm9, or hg38)
 		-d Local user directory (e.g., /projects/home/agombolay3/data/repository)"
 }
 
 #Command-line options
-while getopts "s:u:m:p:i:d:h" opt; do
+while getopts "s:u:m:t:p:i:d:h" opt; do
     case "$opt" in
         #Allow multiple input arguments
         s ) sample=($OPTARG) ;;
 	#Allow only one input argument
 	u ) UMI=$OPTARG ;;
 	m ) MIN=$OPTARG ;;
+	t ) type=$OPTARG ;;
 	p ) path=$OPTARG ;;
 	i ) index=$OPTARG ;;
 	d ) directory=$OPTARG ;;
@@ -69,9 +71,14 @@ for sample in ${sample[@]}; do
 	bowtie2 -x $index -U reverseComplement.fastq 2> $statistics > temp.sam
 	
 	#STEP 5: Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
-	samtools view -bSF4 temp.sam | samtools sort - -o temp.bam; samtools index temp.bam
-	samtools view -bSf4 temp.sam | samtools sort - -o $unmapped; samtools index $unmapped
-
+	#Single End Reads
+	if [ $type == "SE" ]; then
+		samtools view -bSF4 temp.sam | samtools sort - -o temp.bam; samtools index temp.bam
+	#Paired End Reads
+	elif [ $type == "PE" ]; then
+		samtools view -bSf66 temp.sam | samtools sort - -o temp.bam; samtools index temp.bam
+	fi
+	
 #############################################################################################################################
 	#STEP 6: De-duplicate reads based on UMI and position and sort/index BAM file
 	umi_tools dedup -I temp.bam -v 0 | samtools sort - -o $mapped; samtools index $mapped
