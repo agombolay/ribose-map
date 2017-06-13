@@ -63,16 +63,16 @@ for sample in ${sample[@]}; do
 	#STEP 1: Trim FASTQ files based on quality and Illumina adapter content
 	#Single End Reads
 	if [ $type == "SE" ]; then
-		java -jar $path/trimmomatic-0.36.jar SE -phred33 $fastq1 QCtrimmed.fastq \
+		java -jar $path/trimmomatic-0.36.jar SE -phred33 $fastq1 R1Trimmed.fq \
 		ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
 	#Paired End Reads
 	elif [ $type == "PE" ]; then
-		java -jar $path/trimmomatic-0.36.jar PE -phred33 $fastq1 $fastq2 R1Paired.fq.gz R1Unpaired.fq.gz \
-		R2Paired.fq.gz R2Unpaired.fq.gz ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
+		java -jar $path/trimmomatic-0.36.jar PE -phred33 $fastq1 $fastq2 R1Trimmed.fq R1Unpaired.fq \
+		R2Trimmed.fq R2Unpaired.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
 	fi
 	
-	#STEP 2: Extract UMI from 5' ends of reads (append UMI to read name for later)
-	umi_tools extract -I QCtrimmed.fastq -p $UMI --supress-stats -S UMItrimmed.fastq
+	#STEP 2: Extract UMI from 5' ends of reads (append to read name for later)
+	umi_tools extract -I R1Trimmed.fq -p $UMI --supress-stats -S UMItrimmed.fastq
 	
 	#STEP 3: Reverse complement (RC) reads (R = RC of 5' base)
 	cat UMItrimmed.fastq | seqtk seq -r - > reverseComplement.fastq
