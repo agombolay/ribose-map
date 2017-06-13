@@ -67,19 +67,31 @@ for sample in ${sample[@]}; do
 		ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
 	#Paired End Reads
 	elif [ $type == "PE" ]; then
-		java -jar $path/trimmomatic-0.36.jar PE -phred33 $fastq1 $fastq2 R1Trimmed.fq R1Unpaired.fq \
-		R2Trimmed.fq R2Unpaired.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
+		java -jar $path/trimmomatic-0.36.jar PE -phred33 $fastq1 $fastq2 R1Paired.fq R1Unpaired.fq \
+		R2Paired.fq R2Unpaired.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
 	fi
 	
-	#STEP 2: Extract UMI from 5' ends of reads (append to read name for later)
-	umi_tools extract -I R1Trimmed.fq -p $UMI --supress-stats -S UMItrimmed.fastq
+	#STEP 2: Extract UMI from 5' ends of reads (append UMI to read name)
+	umi_tools extract -I R1Paired.fq -p $UMI --supress-stats -S R1Trimmed.fq
 	
 	#STEP 3: Reverse complement (RC) reads (R = RC of 5' base)
-	cat UMItrimmed.fastq | seqtk seq -r - > reverseComplement.fastq
-	
+	#Single End Reads
+	if [ $type == "SE" ]; then
+		cat R1Trimmed.fq | seqtk seq -r - > R1Reverse.fq
+	#Paired End Reads
+	elif [ $type == "PE" ]; then
+		cat R1Trimmed.fq | seqtk seq -r - > R1Reverse.fq
+		cat R2Paired.fq | seqtk seq -r - > R1Reverse.fq
+	fi
 #############################################################################################################################
 	#STEP 4: Align reads to reference genome and save Bowtie2 log file
-	bowtie2 -x $index -U reverseComplement.fastq 2> $statistics > temp.sam
+	#Single End Reads
+	if [ $type == "SE" ]; then
+		bowtie2 -x $index -U reverseComplement.fastq 2> $statistics > temp.sam
+	#Paired End Reads
+	elif [ $type == "PE" ]; then
+		bowtie2 -x $index -1 R1Reverse.fq -2 R1Reverse.fq 2> $statistics -S temp.sam
+	fi
 	
 	#STEP 5: Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
 	#Single End Reads
