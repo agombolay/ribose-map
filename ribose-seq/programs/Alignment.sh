@@ -8,17 +8,16 @@
 
 #Usage statement
 function usage () {
-	echo "Usage: Alignment.sh [-s] 'Sample(s)' [-ab] 'FASTQ' [-u] 'UMI' [-m] 'Min' [-p] 'Path' [-t] 'Type' 
-	[-i] 'Index' [-d] 'Directory' [-h]
-	-s Sample name(s) (e.g., FS1, FS2, FS3)
-	-a Input Read 1 FASTQ filename (forward)
-	-b Input Read 2 FASTQ filename (reverse)
-	-u Length of UMI (e.g., NNNNNNNN or NNNNNNNNNNN)
-	-m Minimum length of read to retain after trimming (e.g., 50)
-	-p Path (e.g., /projects/home/agombolay3/data/bin/Trimmomatic-0.36)
-	-t Type of Illumina Sequencing (e.g., SE = Single end, PE = Paired end)
-	-i Basename of Bowtie2 index (e.g., sacCer2, pombe, ecoli, mm9, or hg38)
-	-d Local user directory (e.g., /projects/home/agombolay3/data/repository)"
+	echo "Usage: Alignment.sh [options]
+		-s Sample name(s) (e.g., FS1, FS2, FS3)
+		-a Input Read 1 FASTQ filename (forward)
+		-b Input Read 2 FASTQ filename (reverse)
+		-u Length of UMI (e.g., NNNNNNNN or NNNNNNNNNNN)
+		-m Minimum length of read to retain after trimming (e.g., 50)
+		-p Path (e.g., /projects/home/agombolay3/data/bin/Trimmomatic-0.36)
+		-t Type of Illumina Sequencing (e.g., SE = Single end, PE = Paired end)
+		-i Basename of Bowtie2 index (e.g., sacCer2, pombe, ecoli, mm9, or hg38)
+		-d Local user directory (e.g., /projects/home/agombolay3/data/repository)"
 }
 
 #Command-line options
