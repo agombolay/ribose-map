@@ -81,14 +81,14 @@ for sample in ${sample[@]}; do
 	#Paired End Reads
 	elif [ $type == "PE" ]; then
 		cat R1Trimmed.fq | seqtk seq -r - > R1Reverse.fq
-		cat R2Paired.fq | seqtk seq -r - > R1Reverse.fq
+		cat R2Paired.fq | seqtk seq -r - > R2Reverse.fq
 	fi
 	
 #############################################################################################################################
 	#STEP 4: Align reads to reference genome and save Bowtie2 statistics to file
 	#Single End Reads
 	if [ $type == "SE" ]; then
-		bowtie2 -x $index -U reverseComplement.fastq 2> $statistics > temp.sam
+		bowtie2 -x $index -U R1Reverse.fq 2> $statistics > temp.sam
 	#Paired End Reads
 	elif [ $type == "PE" ]; then
 		bowtie2 -x $index -1 R1Reverse.fq -2 R1Reverse.fq 2> $statistics -S temp.sam
