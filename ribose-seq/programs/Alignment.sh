@@ -72,43 +72,43 @@ for sample in ${sample[@]}; do
 	fi
 	
 	#STEP 2: Extract UMI from 5' ends of reads (append UMI to read name)
-	#umi_tools extract -I Read1.fq -p $UMI --supress-stats -S R1Trimmed.fq
+	umi_tools extract -I Read1.fq -p $UMI --supress-stats -S R1Trimmed.fq
 	
 	#STEP 3: Reverse complement (RC) reads (Ribonucleotide = RC of 5' base)
-	#Single End Reads
-	#if [ $type == "SE" ]; then
-	#	cat R1Trimmed.fq | seqtk seq -r - > R1Reverse.fq
-	#Paired End Reads
-	#elif [ $type == "PE" ]; then
-	#	cat R1Trimmed.fq | seqtk seq -r - > R1Reverse.fq
-	#	cat R2Paired.fq | seqtk seq -r - > R2Reverse.fq
-	#fi
+	Single End Reads
+	if [ $type == "SE" ]; then
+		cat R1Trimmed.fq | seqtk seq -r - > R1Reverse.fq
+	Paired End Reads
+	elif [ $type == "PE" ]; then
+		cat R1Trimmed.fq | seqtk seq -r - > R1Reverse.fq
+		cat R2Paired.fq | seqtk seq -r - > R2Reverse.fq
+	fi
 	
 #############################################################################################################################
 	#STEP 4: Align reads to reference genome and save Bowtie2 statistics to file
 	#Single End Reads
-	#if [ $type == "SE" ]; then
-	#	bowtie2 -x $index -U R1Reverse.fq 2> $statistics > temp.sam
+	if [ $type == "SE" ]; then
+		bowtie2 -x $index -U R1Reverse.fq 2> $statistics > temp.sam
 	#Paired End Reads
-	#elif [ $type == "PE" ]; then
-	#	bowtie2 -x $index -1 R1Reverse.fq -2 R1Reverse.fq 2> $statistics -S temp.sam
-	#fi
+	elif [ $type == "PE" ]; then
+		bowtie2 -x $index -1 R1Reverse.fq -2 R1Reverse.fq 2> $statistics -S temp.sam
+	fi
 	
 	#STEP 5: Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
 	#Single End Reads
-	#if [ $type == "SE" ]; then
-	#	samtools view -bSF4 temp.sam | samtools sort - -o temp.bam; samtools index temp.bam
+	if [ $type == "SE" ]; then
+		samtools view -bSF4 temp.sam | samtools sort - -o temp.bam; samtools index temp.bam
 	#Paired End Reads
-	#elif [ $type == "PE" ]; then
-	#	samtools view -bSf66 temp.sam | samtools sort - -o temp.bam; samtools index temp.bam
-	#fi
+	elif [ $type == "PE" ]; then
+		samtools view -bSf66 temp.sam | samtools sort - -o temp.bam; samtools index temp.bam
+	fi
 	
 #############################################################################################################################
 	#STEP 6: Remove PCR duplicates based on UMI and position and sort/index BAM file
-	#umi_tools dedup -I temp.bam -v 0 | samtools sort - -o $mapped; samtools index $mapped
+	umi_tools dedup -I temp.bam -v 0 | samtools sort - -o $mapped; samtools index $mapped
 
 	#Notify user that alignment step is complete for which samples
-	#echo "Alignment of $sample to $index reference genome is complete"
+	echo "Alignment of $sample to $index reference genome is complete"
 	
 	#Remove temporary files
 	rm -f QCtrimmed.fastq UMItrimmed.fastq reverseComplement.fastq temp.*
