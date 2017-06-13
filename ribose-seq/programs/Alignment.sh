@@ -50,7 +50,6 @@ for sample in ${sample[@]}; do
 	#Output files
 	statistics=$directory/Ribose-Map/Results/$index/$sample/Alignment/Bowtie2.log
 	mapped=$directory/Ribose-Map/Results/$index/$sample/Alignment/$sample-MappedReads.bam
-	unmapped=$directory/Ribose-Map/Results/$index/$sample/Alignment/$sample-UnmappedReads.bam
 
 	#Create directory
 	mkdir -p $directory/Ribose-Map/Results/$index/$sample/Alignment
