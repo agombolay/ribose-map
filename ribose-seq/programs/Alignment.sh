@@ -26,8 +26,8 @@ while getopts "s:a:b:u:m:t:p:i:d:h" opt; do
         #Allow multiple input arguments
         s ) sample=($OPTARG) ;;
 	#Allow only one input argument
-	a ) fastq1=$OPTARG ;;
-	b ) fastq2=$OPTARG ;;
+	a ) read1=$OPTARG ;;
+	b ) read2=$OPTARG ;;
 	u ) UMI=$OPTARG ;;
 	m ) MIN=$OPTARG ;;
 	t ) type=$OPTARG ;;
