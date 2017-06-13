@@ -8,7 +8,8 @@
 
 #Usage statement
 function usage () {
-echo "Usage: Alignment.sh [-s] 'Sample(s)' [-ab] 'FASTQ' [-u] 'UMI' [-m] 'Min' [-p] 'Path' [-t] 'Type' [-i] 'Index' [-d] 'Directory' [-h]
+	echo "Usage: Alignment.sh [-s] 'Sample(s)' [-ab] 'FASTQ' [-u] 'UMI' [-m] 'Min' [-p] 'Path' [-t] 'Type' 
+	[-i] 'Index' [-d] 'Directory' [-h]
 	-s Sample name(s) (e.g., FS1, FS2, FS3)
 	-a Input Read 1 FASTQ filename (forward)
 	-b Input Read 2 FASTQ filename (reverse)
