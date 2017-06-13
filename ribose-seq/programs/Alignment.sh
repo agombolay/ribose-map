@@ -79,7 +79,7 @@ for sample in ${sample[@]}; do
 	fi
 	
 #############################################################################################################################
-	#STEP 6: De-duplicate reads based on UMI and position and sort/index BAM file
+	#STEP 6: Remove PCR duplicates based on UMI and position and sort/index BAM file
 	umi_tools dedup -I temp.bam -v 0 | samtools sort - -o $mapped; samtools index $mapped
 
 	#Notify user that alignment step is complete for which samples
