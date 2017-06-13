@@ -46,6 +46,8 @@ for sample in ${sample[@]}; do
 	
 	#Input files
 	fastq=$directory/Ribose-Map/FASTQ-Files/$sample.fastq
+	fastq1=$directory/Ribose-Map/FASTQ-Files/$sample.fastq
+	fastq2=$directory/Ribose-Map/FASTQ-Files/$sample.fastq
 
 	#Output files
 	statistics=$directory/Ribose-Map/Results/$index/$sample/Alignment/Bowtie2.log
@@ -56,8 +58,15 @@ for sample in ${sample[@]}; do
 	
 #############################################################################################################################
 	#STEP 1: Trim FASTQ files based on quality and Illumina adapter content
-	java -jar $path/trimmomatic-0.36.jar SE -phred33 $fastq QCtrimmed.fastq \
-	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 SLIDINGWINDOW:4:15 MINLEN:$MIN
+	#Single End Reads
+	if [ $type == "SE" ]; then
+		java -jar $path/trimmomatic-0.36.jar SE -phred33 $fastq QCtrimmed.fastq \
+		ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
+	#Paired End Reads
+	elif [ $type == "PE" ]; then
+		java -jar $path/trimmomatic-0.36.jar PE -phred33 $fastq1 $fastq2 R1Paired.fq.gz R1Unpaired.fq.gz \
+		R2Paired.fq.gz R2Unpaired.fq.gz ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
+	fi
 	
 	#STEP 2: Extract UMI from 5' ends of reads (append UMI to read name for later)
 	umi_tools extract -I QCtrimmed.fastq -p $UMI --supress-stats -S UMItrimmed.fastq
