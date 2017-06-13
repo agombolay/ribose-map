@@ -49,8 +49,8 @@ fi
 for sample in ${sample[@]}; do
 	
 	#Input files
-	fastq1=$directory/Variant-Calling/Sequencing/$Read1
-	fastq2=$directory/Variant-Calling/Sequencing/$Read2
+	fastq1=$directory/Ribose-Map/FASTQ-Files/$Read1
+	fastq2=$directory/Ribose-Map/FASTQ-Files/$Read2
 
 	#Output files
 	statistics=$directory/Ribose-Map/Results/$index/$sample/Alignment/Bowtie2.log
