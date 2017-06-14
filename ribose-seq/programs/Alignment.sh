@@ -70,8 +70,9 @@ for sample in ${sample[@]}; do
 		java -jar $path/trimmomatic-0.36.jar PE -phred33 $Read1Fastq $Read2Fastq Read1.fq Unpaired1.fq \
 		Read2.fq Unpaired2.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
 	fi
-	
-	#STEP 3: Reverse complement reads (Ribo = RC of 5' base of read)
+
+#############################################################################################################################
+	#STEP 2: Reverse complement reads (Ribo = RC of 5' base of read)
 	#Single End Reads
 	if [ $type == "SE" ]; then
 		cat Read1.fq | seqtk seq -r - > R1Reverse.fq
@@ -80,8 +81,9 @@ for sample in ${sample[@]}; do
 		cat Read1.fq | seqtk seq -r - > R1Reverse.fq
 		cat Read2.fq | seqtk seq -r - > R2Reverse.fq
 	fi
-	
-	#STEP 2: Extract UMI from 5' ends of reads (append UMI to read name)
+
+#############################################################################################################################
+	#STEP 3: Extract UMI from 5' ends of reads (append UMI to read name)
 	umi_tools extract -I R1Reverse.fq -p $UMI --3prime --supress-stats -S R1Trimmed.fq
 	
 #############################################################################################################################
@@ -93,7 +95,8 @@ for sample in ${sample[@]}; do
 	elif [ $type == "PE" ]; then
 		bowtie2 -x $index -1 R1Trimmed.fq -2 R2Reverse.fq 2> $statistics -S temp.sam
 	fi
-	
+
+#############################################################################################################################
 	#STEP 5: Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
 	#Single End Reads
 	if [ $type == "SE" ]; then
