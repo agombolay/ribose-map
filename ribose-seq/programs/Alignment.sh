@@ -91,7 +91,7 @@ for sample in ${sample[@]}; do
 		bowtie2 -x $index -U R1Reverse.fq 2> $statistics > temp.sam
 	#Paired End Reads
 	elif [ $type == "PE" ]; then
-		bowtie2 -x $index -1 R1Reverse.fq -2 R1Reverse.fq 2> $statistics -S temp.sam
+		bowtie2 -x $index -1 R1Reverse.fq -2 R2Reverse.fq 2> $statistics -S temp.sam
 	fi
 	
 	#STEP 5: Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
