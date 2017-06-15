@@ -90,10 +90,10 @@ for sample in ${sample[@]}; do
 	#STEP 4: Align reads to reference genome and save Bowtie2 statistics to file
 	#Single End Reads
 	if [[ $type == "SE" ]]; then
-		bowtie2 -x $index -U R1.fq 2> $statistics > temp.sam
+		bowtie2 -x $index -U RC1.fq 2> $statistics > temp.sam
 	#Paired End Reads
 	elif [[ $type == "PE" ]]; then
-		bowtie2 -x $index -1 R1.fq -2 RC2.fq 2> $statistics -S temp.sam
+		bowtie2 -x $index -1 RC1.fq -2 RC2.fq 2> $statistics -S temp.sam
 	fi
 
 #############################################################################################################################
