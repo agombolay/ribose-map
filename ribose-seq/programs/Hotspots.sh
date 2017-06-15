@@ -42,5 +42,8 @@ for sample in ${sample[@]}; do
 		coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.$subset.bed
 
 #############################################################################################################################
+		for subset in "mito" "nucleus"; do
 		
+		done
+
 done
