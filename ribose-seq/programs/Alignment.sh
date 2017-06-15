@@ -66,19 +66,19 @@ for sample in ${sample[@]}; do
 		ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
 	#Paired End Reads
 	elif [[ $type == "PE" ]]; then
-		java -jar $path/trimmomatic-0.36.jar PE -phred33 $Read1Fastq $Read2Fastq Read1.fq Unpaired1.fq \
-		Read2.fq Unpaired2.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
+		java -jar $path/trimmomatic-0.36.jar PE -phred33 $Read1Fastq $Read2Fastq Paired1.fq Unpaired1.fq \
+		Paired2.fq Unpaired2.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
 	fi
 
 #############################################################################################################################
 	#STEP 2: Reverse complement reads (Ribo = RC of 5' base of read)
 	#Single End Reads
 	if [[ $type == "SE" ]]; then
-		cat Read1.fq | seqtk seq -r - > RC1.fq
+		cat Paired1.fq | seqtk seq -r - > RC1.fq
 	#Paired End Reads
 	elif [[ $type == "PE" ]]; then
-		cat Read1.fq | seqtk seq -r - > RC1.fq
-		cat Read2.fq | seqtk seq -r - > RC2.fq
+		cat Paired1.fq | seqtk seq -r - > RC1.fq
+		cat Paired2.fq | seqtk seq -r - > RC2.fq
 	fi
 
 #############################################################################################################################
