@@ -53,7 +53,7 @@ for sample in ${sample[@]}; do
 			#Remove old file
 			rm -f $directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.$subset.bed
 	
-			#Divide chromosomes of reference into windows
+			#Subset coordinates based on genomic region
 			if [ $subset == "mito" ]; then
 				grep -E '(chrM|MT)' temp.bed > $coverage
 			elif [ $subset == "nucleus" ]; then
