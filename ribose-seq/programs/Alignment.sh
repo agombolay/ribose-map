@@ -59,40 +59,40 @@ mkdir -p $directory/Ribose-Map/Results/$index/$sample/Alignment
 #############################################################################################################################
 #STEP 1: Trim FASTQ files based on quality and adapter content
 #Single End Reads
-if [[ $type == "SE" ]]; then
-	java -jar $path/trimmomatic-0.36.jar SE -phred33 $Read1Fastq Paired1.fq \
-	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
+#if [[ $type == "SE" ]]; then
+#	java -jar $path/trimmomatic-0.36.jar SE -phred33 $Read1Fastq Paired1.fq \
+#	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
 #Paired End Reads
-elif [[ $type == "PE" ]]; then
-	java -jar $path/trimmomatic-0.36.jar PE -phred33 $Read1Fastq $Read2Fastq Paired1.fq Unpaired1.fq \
-	Paired2.fq Unpaired2.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
-fi
+#elif [[ $type == "PE" ]]; then
+#	java -jar $path/trimmomatic-0.36.jar PE -phred33 $Read1Fastq $Read2Fastq Paired1.fq Unpaired1.fq \
+#	Paired2.fq Unpaired2.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
+#fi
 
 #############################################################################################################################
 #STEP 2: Reverse complement reads (Ribo = RC of 5' base of read)
 #Single End Reads
 if [[ $type == "SE" ]]; then
-	cat Paired1.fq | seqtk seq -r - > RC1.fq
+	cat Paired1.fq | seqtk seq -r - > temp1.fq
 #Paired End Reads
 elif [[ $type == "PE" ]]; then
-	cat Paired1.fq | seqtk seq -r - > RC1.fq
-	cat Paired2.fq | seqtk seq -r - > RC2.fq
+	cat Paired1.fq | seqtk seq -r - > temp1.fq
+	cat Paired2.fq | seqtk seq -r - > Read2.fq
 fi
 
 #############################################################################################################################
 #STEP 3: Extract UMI from 5' ends of reads (append UMI to read name)
 if [[ $UMI == "N"* ]]; then
-	umi_tools extract -I RC1.fq -p $UMI --3prime --supress-stats -S RC1.fq
+	umi_tools extract -I temp1.fq -p $UMI --3prime --supress-stats -S Read1.fq
 fi
 
 #############################################################################################################################
 #STEP 4: Align reads to reference genome and save Bowtie2 statistics to file
 #Single End Reads
 if [[ $type == "SE" ]]; then
-	bowtie2 -x $index -U RC1.fq 2> $statistics > temp.sam
+	bowtie2 -x $index -U Read1.fq 2> $statistics > temp.sam
 #Paired End Reads
 elif [[ $type == "PE" ]]; then
-	bowtie2 -x $index -1 RC1.fq -2 RC2.fq 2> $statistics -S temp.sam
+	bowtie2 -x $index -1 Read1.fq -2 Read2.fq 2> $statistics -S temp.sam
 fi
 
 #############################################################################################################################
