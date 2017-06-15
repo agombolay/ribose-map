@@ -118,6 +118,6 @@ for sample in ${sample[@]}; do
 	echo "Alignment of $sample to $index reference genome is complete"
 	
 	#Remove temporary files
-	rm -f QCtrimmed.fastq UMItrimmed.fastq reverseComplement.fastq temp.*
+	rm -f Paired*.fq Unpaired*.fq RC*.fq R1.fq temp.*
 
 done
