@@ -74,26 +74,26 @@ for sample in ${sample[@]}; do
 	#STEP 2: Reverse complement reads (Ribo = RC of 5' base of read)
 	#Single End Reads
 	if [[ $type == "SE" ]]; then
-		cat Read1.fq | seqtk seq -r - > R1Reverse.fq
+		cat Read1.fq | seqtk seq -r - > RC1.fq
 	#Paired End Reads
 	elif [[ $type == "PE" ]]; then
-		cat Read1.fq | seqtk seq -r - > R1Reverse.fq
-		cat Read2.fq | seqtk seq -r - > R2Reverse.fq
+		cat Read1.fq | seqtk seq -r - > RC1.fq
+		cat Read2.fq | seqtk seq -r - > RC2.fq
 	fi
 
 #############################################################################################################################
 	#STEP 3: Extract UMI from 5' ends of reads (append UMI to read name)
 	if [[ $UMI == "N"* ]]; then
-		umi_tools extract -I R1Reverse.fq -p $UMI --3prime --supress-stats -S R1Trimmed.fq
+		umi_tools extract -I RC1.fq -p $UMI --3prime --supress-stats -S R1.fq
 	fi
 #############################################################################################################################
 	#STEP 4: Align reads to reference genome and save Bowtie2 statistics to file
 	#Single End Reads
 	if [[ $type == "SE" ]]; then
-		bowtie2 -x $index -U R1Trimmed.fq 2> $statistics > temp.sam
+		bowtie2 -x $index -U R1.fq 2> $statistics > temp.sam
 	#Paired End Reads
 	elif [[ $type == "PE" ]]; then
-		bowtie2 -x $index -1 R1Trimmed.fq -2 R2Reverse.fq 2> $statistics -S temp.sam
+		bowtie2 -x $index -1 R1.fq -2 RC2.fq 2> $statistics -S temp.sam
 	fi
 
 #############################################################################################################################
