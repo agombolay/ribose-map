@@ -85,6 +85,8 @@ for sample in ${sample[@]}; do
 	#STEP 3: Extract UMI from 5' ends of reads (append UMI to read name)
 	if [[ $UMI == "N"* ]]; then
 		umi_tools extract -I RC1.fq -p $UMI --3prime --supress-stats -S R1.fq
+	else
+		cat RC1.fq > R1.fq
 	fi
 #############################################################################################################################
 	#STEP 4: Align reads to reference genome and save Bowtie2 statistics to file
