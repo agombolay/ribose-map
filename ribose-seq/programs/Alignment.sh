@@ -61,11 +61,11 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#STEP 1: Trim FASTQ files based on quality and adapter content
 	#Single End Reads
-	if [ $type == "SE" ]; then
+	if [[ $type == "SE" ]]; then
 		java -jar $path/trimmomatic-0.36.jar SE -phred33 $Read1Fastq Read1.fq \
 		ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
 	#Paired End Reads
-	elif [ $type == "PE" ]; then
+	elif [[ $type == "PE" ]]; then
 		java -jar $path/trimmomatic-0.36.jar PE -phred33 $Read1Fastq $Read2Fastq Read1.fq Unpaired1.fq \
 		Read2.fq Unpaired2.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
 	fi
@@ -73,10 +73,10 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#STEP 2: Reverse complement reads (Ribo = RC of 5' base of read)
 	#Single End Reads
-	if [ $type == "SE" ]; then
+	if [[ $type == "SE" ]]; then
 		cat Read1.fq | seqtk seq -r - > R1Reverse.fq
 	#Paired End Reads
-	elif [ $type == "PE" ]; then
+	elif [[ $type == "PE" ]]; then
 		cat Read1.fq | seqtk seq -r - > R1Reverse.fq
 		cat Read2.fq | seqtk seq -r - > R2Reverse.fq
 	fi
@@ -89,20 +89,20 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#STEP 4: Align reads to reference genome and save Bowtie2 statistics to file
 	#Single End Reads
-	if [ $type == "SE" ]; then
+	if [[ $type == "SE" ]]; then
 		bowtie2 -x $index -U R1Trimmed.fq 2> $statistics > temp.sam
 	#Paired End Reads
-	elif [ $type == "PE" ]; then
+	elif [[ $type == "PE" ]]; then
 		bowtie2 -x $index -1 R1Trimmed.fq -2 R2Reverse.fq 2> $statistics -S temp.sam
 	fi
 
 #############################################################################################################################
 	#STEP 5: Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
 	#Single End Reads
-	if [ $type == "SE" ]; then
+	if [[ $type == "SE" ]]; then
 		samtools view -bSF4 temp.sam | samtools sort - -o temp.bam; samtools index temp.bam
 	#Paired End Reads
-	elif [ $type == "PE" ]; then
+	elif [[ $type == "PE" ]]; then
 		samtools view -bSf66 temp.sam | samtools sort - -o temp.bam; samtools index temp.bam
 	fi
 	
