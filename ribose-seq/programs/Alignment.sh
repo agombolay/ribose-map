@@ -117,5 +117,4 @@ fi
 echo "Alignment of $sample to $index reference genome is complete"
 	
 #Remove temporary files
-rm -f Paired*.fq Unpaired*.fq RC*.fq R1.fq
 #rm -f Paired*.fq Unpaired*.fq RC*.fq R1.fq temp.*
