@@ -104,7 +104,7 @@ if [[ $type == "SE" ]]; then
 elif [[ $type == "PE" ]]; then
 	samtools view -bSf66 temp.sam | samtools sort - -o temp.bam; samtools index temp.bam
 fi
-	
+
 #############################################################################################################################
 #STEP 6: Remove PCR duplicates based on UMI and position and sort/index BAM file
 if [[ $UMI == "N"* ]]; then
@@ -117,4 +117,5 @@ fi
 echo "Alignment of $sample to $index reference genome is complete"
 	
 #Remove temporary files
-rm -f Paired*.fq Unpaired*.fq RC*.fq R1.fq temp.*
+rm -f Paired*.fq Unpaired*.fq RC*.fq R1.fq
+#rm -f Paired*.fq Unpaired*.fq RC*.fq R1.fq temp.*
