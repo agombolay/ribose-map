@@ -83,8 +83,9 @@ for sample in ${sample[@]}; do
 
 #############################################################################################################################
 	#STEP 3: Extract UMI from 5' ends of reads (append UMI to read name)
-	umi_tools extract -I R1Reverse.fq -p $UMI --3prime --supress-stats -S R1Trimmed.fq
-	
+	if [ $UMI == "N*" ]; then
+		umi_tools extract -I R1Reverse.fq -p $UMI --3prime --supress-stats -S R1Trimmed.fq
+	fi
 #############################################################################################################################
 	#STEP 4: Align reads to reference genome and save Bowtie2 statistics to file
 	#Single End Reads
@@ -107,8 +108,12 @@ for sample in ${sample[@]}; do
 	
 #############################################################################################################################
 	#STEP 6: Remove PCR duplicates based on UMI and position and sort/index BAM file
-	umi_tools dedup -I temp.bam -v 0 | samtools sort - -o $mapped; samtools index $mapped
-
+	if [ $UMI == "N*" ]; then
+		umi_tools dedup -I temp.bam -v 0 | samtools sort - -o $mapped; samtools index $mapped
+	else
+		samtools sort temp.bam -o $mapped; samtools index $mapped
+	fi
+	
 	#Notify user that alignment step is complete for which samples
 	echo "Alignment of $sample to $index reference genome is complete"
 	
