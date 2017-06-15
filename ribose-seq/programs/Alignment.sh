@@ -83,7 +83,7 @@ for sample in ${sample[@]}; do
 
 #############################################################################################################################
 	#STEP 3: Extract UMI from 5' ends of reads (append UMI to read name)
-	if [ $UMI == "N*" ]; then
+	if [[ $UMI == "N"* ]]; then
 		umi_tools extract -I R1Reverse.fq -p $UMI --3prime --supress-stats -S R1Trimmed.fq
 	fi
 #############################################################################################################################
@@ -108,7 +108,7 @@ for sample in ${sample[@]}; do
 	
 #############################################################################################################################
 	#STEP 6: Remove PCR duplicates based on UMI and position and sort/index BAM file
-	if [ $UMI == "N*" ]; then
+	if [[ $UMI == "N"* ]]; then
 		umi_tools dedup -I temp.bam -v 0 | samtools sort - -o $mapped; samtools index $mapped
 	else
 		samtools sort temp.bam -o $mapped; samtools index $mapped
