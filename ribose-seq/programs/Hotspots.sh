@@ -7,7 +7,7 @@
 
 #Usage statement
 function usage () {
-	echo "Usage: Alignment.sh [-s] 'Sample(s)' [-u] 'UMI' [-m] 'Min' [-p] 'Path' [-i] 'Index' [-d] 'Directory' [-h]
+	echo "Usage: Hotspots.sh [options]
 		-s Sample name(s) (e.g., FS1, FS2, FS3)
 		-r Reference genome (e.g., sacCer2, pombe, ecoli, mm9, hg38)
 		-d Local user directory (e.g., /projects/home/agombolay3/data/repository)"
