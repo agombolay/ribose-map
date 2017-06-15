@@ -43,8 +43,29 @@ for sample in ${sample[@]}; do
 
 #############################################################################################################################
 		for subset in "mito" "nucleus"; do
-			awk '$1 == "chrI"'
-			awk '$1 == "chrII"'
+			for i in "I" "II"
+			sed 's/chrI/chr1/' $coverage
+			sed 's/chrII/chr2/' $coverage
+			sed 's/chrIII/chr3/' $coverage
+			sed 's/chrIV/chr4/' $coverage
+			sed 's/chrV/chr5/' $coverage
+			sed 's/chrVI/chr6/' $coverage
+			sed 's/chrVII/chr7/' $coverage
+			sed 's/chrVIII/chr8/' $coverage
+			sed 's/chrIX/chr9/' $coverage
+			sed 's/chrX/chr10/' $coverage
+			sed 's/chrXI/chr11/' $coverage
+			sed 's/chrXII/chr12/' $coverage
+			sed 's/chrXIII/chr13/' $coverage
+			sed 's/chrXIV/chr14/' $coverage
+			sed 's/chrXV/chr15/' $coverage
+			sed 's/chrXVI/chr16/' $coverage
+			sed 's/chrXVII/chr17/' $coverage
+			sed 's/chrXVIII/chr18/' $coverage
+			sed 's/chrXIX/chr19/' $coverage
+			sed 's/chrXX/chr20/' $coverage
+			sed 's/chrXXI/chr21/' $coverage
+			sed 's/chrXXII/chr22/' $coverage
 		done
 
 done
