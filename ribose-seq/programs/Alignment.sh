@@ -44,80 +44,77 @@ if [ "$1" == "-h" ]; then
 fi
 
 #############################################################################################################################
-#Align reads to reference
-for sample in ${sample[@]}; do
-	
-	#Input files
-	Read1Fastq=$directory/Ribose-Map/FASTQ-Files/$read1
-	Read2Fastq=$directory/Ribose-Map/FASTQ-Files/$read2
 
-	#Output files
-	statistics=$directory/Ribose-Map/Results/$index/$sample/Alignment/Bowtie2.log
-	mapped=$directory/Ribose-Map/Results/$index/$sample/Alignment/$sample-MappedReads.bam
+#Input files
+Read1Fastq=$directory/Ribose-Map/FASTQ-Files/$read1
+Read2Fastq=$directory/Ribose-Map/FASTQ-Files/$read2
 
-	#Create directory
-	mkdir -p $directory/Ribose-Map/Results/$index/$sample/Alignment
+#Output files
+statistics=$directory/Ribose-Map/Results/$index/$sample/Alignment/Bowtie2.log
+mapped=$directory/Ribose-Map/Results/$index/$sample/Alignment/$sample-MappedReads.bam
+
+#Create directory
+mkdir -p $directory/Ribose-Map/Results/$index/$sample/Alignment
 	
 #############################################################################################################################
-	#STEP 1: Trim FASTQ files based on quality and adapter content
-	#Single End Reads
-	if [[ $type == "SE" ]]; then
-		java -jar $path/trimmomatic-0.36.jar SE -phred33 $Read1Fastq Paired1.fq \
-		ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
-	#Paired End Reads
-	elif [[ $type == "PE" ]]; then
-		java -jar $path/trimmomatic-0.36.jar PE -phred33 $Read1Fastq $Read2Fastq Paired1.fq Unpaired1.fq \
-		Paired2.fq Unpaired2.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
-	fi
+#STEP 1: Trim FASTQ files based on quality and adapter content
+#Single End Reads
+if [[ $type == "SE" ]]; then
+	java -jar $path/trimmomatic-0.36.jar SE -phred33 $Read1Fastq Paired1.fq \
+	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
+#Paired End Reads
+elif [[ $type == "PE" ]]; then
+	java -jar $path/trimmomatic-0.36.jar PE -phred33 $Read1Fastq $Read2Fastq Paired1.fq Unpaired1.fq \
+	Paired2.fq Unpaired2.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
+fi
 
 #############################################################################################################################
-	#STEP 2: Reverse complement reads (Ribo = RC of 5' base of read)
-	#Single End Reads
-	if [[ $type == "SE" ]]; then
-		cat Paired1.fq | seqtk seq -r - > RC1.fq
-	#Paired End Reads
-	elif [[ $type == "PE" ]]; then
-		cat Paired1.fq | seqtk seq -r - > RC1.fq
-		cat Paired2.fq | seqtk seq -r - > RC2.fq
-	fi
+#STEP 2: Reverse complement reads (Ribo = RC of 5' base of read)
+#Single End Reads
+if [[ $type == "SE" ]]; then
+	cat Paired1.fq | seqtk seq -r - > RC1.fq
+#Paired End Reads
+elif [[ $type == "PE" ]]; then
+	cat Paired1.fq | seqtk seq -r - > RC1.fq
+	cat Paired2.fq | seqtk seq -r - > RC2.fq
+fi
 
 #############################################################################################################################
-	#STEP 3: Extract UMI from 5' ends of reads (append UMI to read name)
-	if [[ $UMI == "N"* ]]; then
-		umi_tools extract -I RC1.fq -p $UMI --3prime --supress-stats -S RC1.fq
-	fi
-#############################################################################################################################
-	#STEP 4: Align reads to reference genome and save Bowtie2 statistics to file
-	#Single End Reads
-	if [[ $type == "SE" ]]; then
-		bowtie2 -x $index -U RC1.fq 2> $statistics > temp.sam
-	#Paired End Reads
-	elif [[ $type == "PE" ]]; then
-		bowtie2 -x $index -1 RC1.fq -2 RC2.fq 2> $statistics -S temp.sam
-	fi
+#STEP 3: Extract UMI from 5' ends of reads (append UMI to read name)
+if [[ $UMI == "N"* ]]; then
+	umi_tools extract -I RC1.fq -p $UMI --3prime --supress-stats -S RC1.fq
+fi
 
 #############################################################################################################################
-	#STEP 5: Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
-	#Single End Reads
-	if [[ $type == "SE" ]]; then
-		samtools view -bSF4 temp.sam | samtools sort - -o temp.bam; samtools index temp.bam
-	#Paired End Reads
-	elif [[ $type == "PE" ]]; then
-		samtools view -bSf66 temp.sam | samtools sort - -o temp.bam; samtools index temp.bam
-	fi
+#STEP 4: Align reads to reference genome and save Bowtie2 statistics to file
+#Single End Reads
+if [[ $type == "SE" ]]; then
+	bowtie2 -x $index -U RC1.fq 2> $statistics > temp.sam
+#Paired End Reads
+elif [[ $type == "PE" ]]; then
+	bowtie2 -x $index -1 RC1.fq -2 RC2.fq 2> $statistics -S temp.sam
+fi
+
+#############################################################################################################################
+#STEP 5: Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
+#Single End Reads
+if [[ $type == "SE" ]]; then
+	samtools view -bSF4 temp.sam | samtools sort - -o temp.bam; samtools index temp.bam
+#Paired End Reads
+elif [[ $type == "PE" ]]; then
+	samtools view -bSf66 temp.sam | samtools sort - -o temp.bam; samtools index temp.bam
+fi
 	
 #############################################################################################################################
-	#STEP 6: Remove PCR duplicates based on UMI and position and sort/index BAM file
-	if [[ $UMI == "N"* ]]; then
-		umi_tools dedup -I temp.bam -v 0 | samtools sort - -o $mapped; samtools index $mapped
-	else
-		samtools sort temp.bam -o $mapped; samtools index $mapped
-	fi
+#STEP 6: Remove PCR duplicates based on UMI and position and sort/index BAM file
+if [[ $UMI == "N"* ]]; then
+	umi_tools dedup -I temp.bam -v 0 | samtools sort - -o $mapped; samtools index $mapped
+else
+	samtools sort temp.bam -o $mapped; samtools index $mapped
+fi
 	
-	#Notify user that alignment step is complete for which samples
-	echo "Alignment of $sample to $index reference genome is complete"
+#Notify user that alignment step is complete for which samples
+echo "Alignment of $sample to $index reference genome is complete"
 	
-	#Remove temporary files
-	rm -f Paired*.fq Unpaired*.fq RC*.fq R1.fq temp.*
-
-done
+#Remove temporary files
+rm -f Paired*.fq Unpaired*.fq RC*.fq R1.fq temp.*
