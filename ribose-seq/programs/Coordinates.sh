@@ -7,7 +7,7 @@
 
 #Usage statement
 function usage () {
-	echo "Usage: Coordinates.sh [-s] 'Sample(s)' [-r] 'Reference' [-d] 'Directory' [-h]
+	echo "Usage: Coordinates.sh [options]
 	-s Sample name(s) (e.g., FS1, FS2, FS3)
 	-r Reference genome (e.g., sacCer2, pombe, ecoli, mm9, hg38)
 	-d Local user directory (e.g., /projects/home/agombolay3/data/repository)"
