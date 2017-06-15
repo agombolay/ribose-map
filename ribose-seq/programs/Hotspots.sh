@@ -54,9 +54,7 @@ for sample in ${sample[@]}; do
 			rm -f $directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.$subset.bed
 	
 			#Divide chromosomes of reference into windows
-			if [ $subset == "all" ]; then
-				cat temp.bed > $coverage
-			elif [ $subset == "mito" ]; then
+			if [ $subset == "mito" ]; then
 				grep -E '(chrM|MT)' temp.bed > $coverage
 			elif [ $subset == "nucleus" ]; then
 				grep -vE '(chrM|MT)' temp.bed > $coverage
