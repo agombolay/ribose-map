@@ -40,26 +40,7 @@ for sample in ${sample[@]}; do
 		
 		#Input file
 		coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.$subset.bed
-		bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample-MappedReads.bam
 
 #############################################################################################################################
-		#Calculate coverage at each rNMP position
-		bedtools genomecov -d -3 -ibam $bam > temp.bed
 		
-		for subset in "mito" "nucleus"; do
-	
-			#Output file
-			coverage=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.$subset.bed
-	
-			#Remove old file
-			rm -f $directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.$subset.bed
-	
-			#Subset coordinates based on genomic region
-			if [ $subset == "mito" ]; then
-				grep -E '(chrM|MT)' temp.bed > $coverage
-			elif [ $subset == "nucleus" ]; then
-				grep -vE '(chrM|MT)' temp.bed > $coverage
-			fi
-
-		done
 done
