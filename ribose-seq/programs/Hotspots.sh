@@ -33,7 +33,6 @@ fi
 
 #Determine coordinates
 for sample in ${sample[@]}; do
-	#for subset in "all" "mito" "nucleus"; do
 
 #############################################################################################################################
 		#Create directory
@@ -41,12 +40,6 @@ for sample in ${sample[@]}; do
 		
 		#Input file
 		bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample-MappedReads.bam
-		
-		#Output file
-		#coverage=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.$subset.bed
-		
-		#Remove old files
-		#rm -f $directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.$subset.bed
 
 #############################################################################################################################
 		#Calculate coverage at each rNMP position
@@ -54,20 +47,20 @@ for sample in ${sample[@]}; do
 		
 		for subset in "mito" "nucleus"; do
 	
-		#Output file
-		coverage=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.$subset.bed
+			#Output file
+			coverage=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.$subset.bed
 	
-		#Remove old file
-		rm -f $directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.$subset.bed
+			#Remove old file
+			rm -f $directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.$subset.bed
 	
-		#Divide chromosomes of reference into windows
-		if [ $subset == "all" ]; then
-			cat temp.bed > $coverage
-		elif [ $subset == "mito" ]; then
-			grep -E '(chrM|MT)' temp.bed > $coverage
-		elif [ $subset == "nucleus" ]; then
-			grep -vE '(chrM|MT)' temp.bed > $coverage
-		fi
+			#Divide chromosomes of reference into windows
+			if [ $subset == "all" ]; then
+				cat temp.bed > $coverage
+			elif [ $subset == "mito" ]; then
+				grep -E '(chrM|MT)' temp.bed > $coverage
+			elif [ $subset == "nucleus" ]; then
+				grep -vE '(chrM|MT)' temp.bed > $coverage
+			fi
 
-done
+		done
 done
