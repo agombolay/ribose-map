@@ -102,7 +102,7 @@ for sample in ${sample[@]}; do
 		samtools view -bSF4 temp.sam | samtools sort - -o temp.bam; samtools index temp.bam
 	#Paired End Reads
 	elif [ $type == "PE" ]; then
-		samtools view -bSf64 temp.sam | samtools sort - -o temp.bam; samtools index temp.bam
+		samtools view -bS -f 0x0040 temp.sam | samtools sort - -o temp.bam; samtools index temp.bam
 	fi
 	
 #############################################################################################################################
