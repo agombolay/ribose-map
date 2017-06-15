@@ -20,43 +20,23 @@ function usage () {
 		-d Local user directory (e.g., /projects/home/agombolay3/data/repository)"
 }
 
-if [ $type == "SE" ]; then
-	while getopts "s:a:u:m:t:p:i:d:h" opt; do
-    		case "$opt" in
-        		#Allow multiple input arguments
-        		s ) sample=($OPTARG) ;;
-			#Allow only one input argument
-			a ) read1=$OPTARG ;;
-			u ) UMI=$OPTARG ;;
-			m ) MIN=$OPTARG ;;
-			t ) type=$OPTARG ;;
-			p ) path=$OPTARG ;;
-			i ) index=$OPTARG ;;
-			d ) directory=$OPTARG ;;
-        		#Print usage statement
-        		h ) usage ;;
-    		esac
-	done
-
-elif [ $type == "PE" ]; then
-	while getopts "s:a:b:u:m:t:p:i:d:h" opt; do
-    		case "$opt" in
-        		#Allow multiple input arguments
-        		s ) sample=($OPTARG) ;;
-			#Allow only one input argument
-			a ) read1=$OPTARG ;;
-			b ) read2=$OPTARG ;;
-			u ) UMI=$OPTARG ;;
-			m ) MIN=$OPTARG ;;
-			t ) type=$OPTARG ;;
-			p ) path=$OPTARG ;;
-			i ) index=$OPTARG ;;
-			d ) directory=$OPTARG ;;
-        		#Print usage statement
-        		h ) usage ;;
-    		esac
-	done
-fi
+while getopts "s:a:b:u:m:t:p:i:d:h" opt; do
+    	case "$opt" in
+        	#Allow multiple input arguments
+        	s ) sample=($OPTARG) ;;
+		#Allow only one input argument
+		a ) read1=$OPTARG ;;
+		b ) read2=$OPTARG ;;
+		u ) UMI=$OPTARG ;;
+		m ) MIN=$OPTARG ;;
+		t ) type=$OPTARG ;;
+		p ) path=$OPTARG ;;
+		i ) index=$OPTARG ;;
+		d ) directory=$OPTARG ;;
+        	#Print usage statement
+        	h ) usage ;;
+    	esac
+done
 
 #Exit program if [-h]
 if [ "$1" == "-h" ]; then
@@ -103,7 +83,7 @@ for sample in ${sample[@]}; do
 
 #############################################################################################################################
 	#STEP 3: Extract UMI from 5' ends of reads (append UMI to read name)
-	umi_tools extract -I R1Reverse.fq -p $UMI --3prime --supress-stats -S R1Trimmed.fq
+	umi_tools extract -I R1Reverse.fq -p $UMI --3prime -L extract.log -S R1Trimmed.fq
 	
 #############################################################################################################################
 	#STEP 4: Align reads to reference genome and save Bowtie2 statistics to file
