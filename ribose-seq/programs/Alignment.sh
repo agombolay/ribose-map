@@ -59,14 +59,14 @@ mkdir -p $directory/Ribose-Map/Results/$index/$sample/Alignment
 #############################################################################################################################
 #STEP 1: Trim FASTQ files based on quality and adapter content
 #Single End Reads
-#if [[ $type == "SE" ]]; then
-#	java -jar $path/trimmomatic-0.36.jar SE -phred33 $Read1Fastq Paired1.fq \
-#	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
+if [[ $type == "SE" ]]; then
+	java -jar $path/trimmomatic-0.36.jar SE -phred33 $Read1Fastq Paired1.fq \
+	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
 #Paired End Reads
-#elif [[ $type == "PE" ]]; then
-#	java -jar $path/trimmomatic-0.36.jar PE -phred33 $Read1Fastq $Read2Fastq Paired1.fq Unpaired1.fq \
-#	Paired2.fq Unpaired2.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
-#fi
+elif [[ $type == "PE" ]]; then
+	java -jar $path/trimmomatic-0.36.jar PE -phred33 $Read1Fastq $Read2Fastq Paired1.fq Unpaired1.fq \
+	Paired2.fq Unpaired2.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
+fi
 
 #############################################################################################################################
 #STEP 2: Reverse complement reads (Ribo = RC of 5' base of read)
