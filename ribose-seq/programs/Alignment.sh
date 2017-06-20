@@ -102,10 +102,10 @@ fi
 #STEP 5: Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
 #Single End Reads
 if [[ $type == "SE" ]]; then
-	samtools view -bSF4 mapped.sam | samtools sort - -o mapped.bam; samtools index mapped.bam
+	samtools view -bS -F260 mapped.sam | samtools sort - -o mapped.bam; samtools index mapped.bam
 #Paired End Reads
 elif [[ $type == "PE" ]]; then
-	samtools view -bSf66 mapped.sam | samtools sort - -o mapped.bam; samtools index mapped.bam
+	samtools view -bS -f66 -F260 mapped.sam | samtools sort - -o mapped.bam; samtools index mapped.bam
 fi
 
 #############################################################################################################################
