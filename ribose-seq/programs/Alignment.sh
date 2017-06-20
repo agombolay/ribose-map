@@ -87,10 +87,10 @@ fi
 #STEP 3: Extract UMI sequence from 3' ends of reads (append UMI to read name)
 
 #Single End Reads
-if [[ $type == "SE" ]] && [[ $UMI == "N"* ]]; then
+if [[ $type == "SE" ]] && [[ $UMI ]]; then
 	umi_tools extract -I temp1.fq -p $UMI --3prime --quality-filter-threshold=10 -v 0 -S Read1.fq
 #Paired End Reads
-elif [[ $type == "PE" ]] && [[ $UMI == "N"* ]]; then
+elif [[ $type == "PE" ]] && [[ $UMI ]]; then
 	umi_tools extract -I temp1.fq --read2-in temp2.fq -p $UMI --3prime -v 0 -S Read1.fq --read2-out Read2.fq
 fi
 
@@ -120,17 +120,17 @@ fi
 #STEP 6: Remove PCR duplicates based on UMI and genomic start position and sort/index BAM file
 
 #Single End Reads with UMI
-if [[ $type == "SE" ]] && [[ $UMI == "N"* ]]; then
+if [[ $type == "SE" ]] && [[ $UMI ]]; then
 	umi_tools dedup -I mapped.bam -v 0 | samtools sort - -o dedup.bam; samtools index dedup.bam
 #Paired End Reads with UMI
-elif [[ $type == "PE" ]] && [[ $UMI == "N"* ]]; then
+elif [[ $type == "PE" ]] && [[ $UMI ]]; then
 	umi_tools dedup -I mapped.bam --paired -v 0 | samtools sort - -o dedup.bam; samtools index dedup.bam	
 fi
 
 #############################################################################################################################
 #STEP 7: Filter BAM file based on barcode (if any) located within UMI sequence
 
-if [[ $barcode == "N"* ]]; then
+if [[ $barcode ]]; then
 	samtools view -h dedup.bam -o dedup.sam
 	grep -e '_$barcode' -e '@HG' -e '@SQ' -e '@PG' dedup.sam > filtered.sam
 	samtools view filtered.sam -b -S | samtools sort -o $output; samtools index $output
