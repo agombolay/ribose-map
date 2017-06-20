@@ -17,21 +17,23 @@ function usage () {
 		-p Path (e.g., /projects/home/agombolay3/data/bin/Trimmomatic-0.36)
 		-t Type of Illumina Sequencing (e.g., SE = Single end, PE = Paired end)
 		-i Basename of Bowtie2 index (e.g., sacCer2, pombe, ecoli, mm9, or hg38)
+		-b Barcode (if any) contained within the UMI sequence (e.g., ..TGA......)
 		-d Local user directory (e.g., /projects/home/agombolay3/data/repository)"
 }
 
-while getopts "s:a:b:u:m:t:p:i:d:h" opt; do
+while getopts "s:a:b:u:m:t:p:i:b:d:h" opt; do
     	case "$opt" in
         	#Allow multiple input arguments
         	s ) sample=($OPTARG) ;;
 		#Allow only one input argument
-		a ) read1=$OPTARG ;;
-		b ) read2=$OPTARG ;;
+		f ) read1=$OPTARG ;;
+		r ) read2=$OPTARG ;;
 		u ) UMI=$OPTARG ;;
 		m ) MIN=$OPTARG ;;
 		t ) type=$OPTARG ;;
 		p ) path=$OPTARG ;;
 		i ) index=$OPTARG ;;
+		b ) barcode=$OPTARG ;;
 		d ) directory=$OPTARG ;;
         	#Print usage statement
         	h ) usage ;;
@@ -80,7 +82,7 @@ elif [[ $type == "PE" ]]; then
 fi
 
 #############################################################################################################################
-#STEP 3: Extract UMI from 5' ends of reads (append UMI to read name)
+#STEP 3: Extract UMI sequence from 3' ends of reads (append UMI to read name)
 if [[ $UMI == "N"* ]]; then
 	umi_tools extract -I temp1.fq -p $UMI --3prime --supress-stats -S Read1.fq
 fi
