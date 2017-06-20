@@ -47,7 +47,6 @@ if [ "$1" == "-h" ]; then
 fi
 
 #############################################################################################################################
-
 #Input files
 Read1Fastq=$directory/Ribose-Map/FASTQ-Files/$read1
 Read2Fastq=$directory/Ribose-Map/FASTQ-Files/$read2
