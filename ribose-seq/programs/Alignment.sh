@@ -71,7 +71,7 @@ if [[ $type == "SE" ]]; then
 	
 		if [[ -n $UMI ]]; then
 			#STEP 3: Extract UMI sequence from 3' ends of reads (append UMI to read name)
-			umi_tools extract -I temp1.fq -p $UMI --3prime --quality-filter-threshold=10 -v 0 -S Read1.fq
+			umi_tools extract -I temp1.fq -p $UMI --3prime -v 0 -S Read1.fq
 		fi
 		
 		if [[ -n $UMI ]] && [[ -n $barcode ]]; then
