@@ -100,21 +100,27 @@ if [[ $type == "PE" ]]; then
 	cat Paired1.fq | seqtk seq -r - > temp1.fq
 	cat Paired2.fq | seqtk seq -r - > temp2.fq
 	
-	if [[ $UMI ]]; then
+	if [[ -n $UMI ]]; then
 		umi_tools extract -I temp1.fq --read2-in temp2.fq -p $UMI --3prime -v 0 -S Read1.fq --read2-out Read2.fq
 	fi
 	
-	bowtie2 -x $index -1 Read1.fq -2 Read2.fq 2> $statistics -S mapped.sam
-	samtools view -bS -f66 -F260 mapped.sam | samtools sort - -o mapped.bam; samtools index mapped.bam
-	
-	if [[ $UMI ]]; then
-		umi_tools dedup -I mapped.bam --paired -v 0 | samtools sort - -o dedup.bam; samtools index dedup.bam	
-	fi
-	
-	if [[ $barcode ]]; then
-		samtools view -h dedup.bam -o dedup.sam
-		grep -e '_$barcode' -e '@HG' -e '@SQ' -e '@PG' dedup.sam > filtered.sam
-		samtools view filtered.sam -bS | samtools sort -o $output; samtools index $output
+	if [[ -n $UMI ]] && [[ -n $barcode ]]; then
+		bowtie2 -x $index -1 Read1.fq -2 Read2.fq 2> $statistics -S mapped.sam
+		samtools view -bS -f66 -F260 mapped.sam | samtools sort - -o sorted.bam; samtools index sorted.bam
+		umi_tools dedup -I sorted.bam --paired -v 0 | samtools sort - -o deduped.bam; samtools index deduped.bam
+			
+		samtools view -h deduped.bam -o deduped.sam
+		grep -e '_$barcode' -e '@HG' -e '@SQ' -e '@PG' deduped.sam > filtered.sam
+		samtools view filtered.sam -bS | samtools sort -o $finalReads; samtools index $finalReads
+		
+	elif [[ -n $UMI ]] && [[ -z $barcode ]]; then
+		bowtie2 -x $index -1 Read1.fq -2 Read2.fq 2> $statistics -S mapped.sam
+		samtools view -bS -f66 -F260 mapped.sam | samtools sort - -o sorted.bam; samtools index sorted.bam
+		umi_tools dedup -I sorted.bam --paired -v 0 | samtools sort - -o $finalReads; samtools index $finalReads
+		
+	else 
+		bowtie2 -x $index -1 Read1.fq -2 Read2.fq 2> $statistics -S mapped.sam
+		samtools view -bS -f66 -F260 mapped.sam | samtools sort - -o $finalReads; samtools index $finalReads
 	fi
 
 fi
