@@ -112,7 +112,9 @@ fi
 
 #############################################################################################################################
 #STEP 6: Remove PCR duplicates based on UMI and genomic start position and sort/index BAM file
-if [[ $UMI == "N"* ]]; then
+if [[ $type == "SE" ]] && [[ $UMI == "N"* ]]; then
+	umi_tools dedup -I mapped.bam -v 0 | samtools sort - -o dedup.bam; samtools index dedup.bam
+elif [[ $type == "PE" ]] && [[ $UMI == "N"* ]]; then
 	umi_tools dedup -I mapped.bam --paired -v 0 | samtools sort - -o dedup.bam; samtools index dedup.bam
 else
 	samtools sort mapped.bam -o dedup.bam; samtools index dedup.bam
