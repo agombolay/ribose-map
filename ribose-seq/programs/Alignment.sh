@@ -152,7 +152,6 @@ if [[ $type == "PE" ]]; then
 		#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
 		samtools view -bS -f66 -F260 mapped.sam | samtools sort - -o $finalReads; samtools index $finalReads
 	fi
-
 fi
 
 #############################################################################################################################
