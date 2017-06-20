@@ -124,18 +124,17 @@ if [[ $type == "SE" ]] && [[ $UMI == "N"* ]]; then
 	umi_tools dedup -I mapped.bam -v 0 | samtools sort - -o dedup.bam; samtools index dedup.bam
 #Paired End Reads with UMI
 elif [[ $type == "PE" ]] && [[ $UMI == "N"* ]]; then
-	umi_tools dedup -I mapped.bam --paired -v 0 | samtools sort - -o dedup.bam; samtools index dedup.bam
-#Reads without UMI
-else
-	samtools sort mapped.bam -o dedup.bam; samtools index dedup.bam
+	umi_tools dedup -I mapped.bam --paired -v 0 | samtools sort - -o dedup.bam; samtools index dedup.bam	
 fi
 
 #############################################################################################################################
 #STEP 7: Filter BAM file based on barcode (if any) located within UMI sequence
 
-samtools view -h dedup.bam -o dedup.sam
-grep -e '_$barcode' -e '@HG' -e '@SQ' -e '@PG' dedup.sam > filtered.sam
-samtools view filtered.sam -b -S | samtools sort -o $output; samtools index $output
+if [[ $barcode == "N"* ]]; then
+	samtools view -h dedup.bam -o dedup.sam
+	grep -e '_$barcode' -e '@HG' -e '@SQ' -e '@PG' dedup.sam > filtered.sam
+	samtools view filtered.sam -b -S | samtools sort -o $output; samtools index $output
+fi
 
 #############################################################################################################################
 #Notify user alignment step is complete for input sample
