@@ -78,17 +78,16 @@ if [[ $type == "SE" ]]; then
 #Paired End Reads
 elif [[ $type == "PE" ]]; then
 	cat Paired1.fq | seqtk seq -r - > temp1.fq
-	cat Paired2.fq | seqtk seq -r - > Read2.fq
+	cat Paired2.fq | seqtk seq -r - > temp2.fq
 fi
 
 #############################################################################################################################
 #STEP 3: Extract UMI sequence from 3' ends of reads (append UMI to read name)
-if [[ $UMI == "N"* ]]; then
 
-if [[ $type == "SE" ]]; then
+if [[ $type == "SE" ]] && [[ $UMI == "N"* ]]; then
 	umi_tools extract -I temp1.fq -p $UMI --3prime --quality-filter-threshold=10 -v 0 -S Read1.fq
-elif [[ $type == "PE" ]]; then
-	umi_tools extract -I temp1.fq -p $UMI --3prime --quality-filter-threshold=10 -v 0 -S Read1.fq --read2-in, --read2-out
+elif [[ $type == "PE" ]] && [[ $UMI == "N"* ]]; then
+	umi_tools extract -I temp1.fq --read2-in temp2.fq -p $UMI --3prime -v 0 -S Read1.fq --read2-out Read2.fq
 fi
 
 #############################################################################################################################
@@ -114,11 +113,11 @@ fi
 #############################################################################################################################
 #STEP 6: Remove PCR duplicates based on UMI and genomic start position and sort/index BAM file
 if [[ $UMI == "N"* ]]; then
-	umi_tools dedup -I mapped.bam -v 0 | samtools sort - -o dedup.bam; samtools index dedup.bam
+	umi_tools dedup -I mapped.bam --paired -v 0 | samtools sort - -o dedup.bam; samtools index dedup.bam
 else
 	samtools sort mapped.bam -o dedup.bam; samtools index dedup.bam
 fi
---paired
+
 #############################################################################################################################
 #STEP 7: Filter BAM file based on barcode (if any) located within UMI sequence
 samtools view -h dedup.bam -o dedup.sam
