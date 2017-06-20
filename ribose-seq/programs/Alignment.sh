@@ -51,7 +51,7 @@ Read2Fastq=$directory/Ribose-Map/FASTQ-Files/$read2
 
 #Output files
 statistics=$directory/Ribose-Map/Results/$index/$sample/Alignment/Bowtie2.log
-mapped=$directory/Ribose-Map/Results/$index/$sample/Alignment/$sample-MappedReads.bam
+output=$directory/Ribose-Map/Results/$index/$sample/Alignment/$sample-MappedReads.bam
 
 #Create directory
 mkdir -p $directory/Ribose-Map/Results/$index/$sample/Alignment
@@ -69,7 +69,7 @@ elif [[ $type == "PE" ]]; then
 fi
 
 #############################################################################################################################
-#STEP 2: Reverse complement reads (Ribo = RC of 5' base of read)
+#STEP 2: Reverse complement reads
 #Single End Reads
 if [[ $type == "SE" ]]; then
 	cat Paired1.fq | seqtk seq -r - > temp1.fq
@@ -86,35 +86,42 @@ if [[ $UMI == "N"* ]]; then
 fi
 
 #############################################################################################################################
-#STEP 4: Align reads to reference genome and save Bowtie2 statistics to file
+#STEP 4: Align reads to reference genome and save Bowtie statistics to file
 #Single End Reads
 if [[ $type == "SE" ]]; then
-	bowtie2 -x $index -U Read1.fq 2> $statistics > temp.sam
+	bowtie2 -x $index -U Read1.fq 2> $statistics > mapped.sam
 #Paired End Reads
 elif [[ $type == "PE" ]]; then
-	bowtie2 -x $index -1 Read1.fq -2 Read2.fq 2> $statistics -S temp.sam
+	bowtie2 -x $index -1 Read1.fq -2 Read2.fq 2> $statistics -S mapped.sam
 fi
 
 #############################################################################################################################
 #STEP 5: Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
 #Single End Reads
 if [[ $type == "SE" ]]; then
-	samtools view -bSF4 temp.sam | samtools sort - -o temp.bam; samtools index temp.bam
+	samtools view -bSF4 mapped.sam | samtools sort - -o mapped.bam; samtools index mapped.bam
 #Paired End Reads
 elif [[ $type == "PE" ]]; then
-	samtools view -bSf66 temp.sam | samtools sort - -o temp.bam; samtools index temp.bam
+	samtools view -bSf66 mapped.sam | samtools sort - -o mapped.bam; samtools index mapped.bam
 fi
 
 #############################################################################################################################
-#STEP 6: Remove PCR duplicates based on UMI and position and sort/index BAM file
+#STEP 6: Remove PCR duplicates based on UMI and genomic start position and sort/index BAM file
 if [[ $UMI == "N"* ]]; then
-	umi_tools dedup -I temp.bam -v 0 | samtools sort - -o $mapped; samtools index $mapped
+	umi_tools dedup -I mapped.bam -v 0 | samtools sort - -o dedup.bam; samtools index dedup.bam
 else
-	samtools sort temp.bam -o $mapped; samtools index $mapped
+	samtools sort mapped.bam -o dedup.bam; samtools index dedup.bam
 fi
-	
+
+#############################################################################################################################
+#STEP 7: Filter BAM file based on barcode (if any) located within UMI sequence
+samtools view -h dedup.bam -o dedup.sam
+grep -e '_$barcode' -e '@HG' -e '@SQ' -e '@PG' dedup.sam > filtered.sam
+samtools view filtered.sam -b -S | samtools sort -o $output; samtools index $output
+
+#############################################################################################################################
+#Remove temporary files
+rm -f Paired*.fq Unpaired*.fq temp1.fq Read*.fq mapped.* dedup.sam dedup.bam filtered.sam
+
 #Notify user that alignment step is complete for which samples
 echo "Alignment of $sample to $index reference genome is complete"
-	
-#Remove temporary files
-#rm -f Paired*.fq Unpaired*.fq RC*.fq R1.fq temp.*
