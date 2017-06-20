@@ -124,7 +124,7 @@ samtools view filtered.sam -b -S | samtools sort -o $output; samtools index $out
 
 #############################################################################################################################
 #Notify user alignment step is complete for input sample
-echo "Trimmin, alignment, and de-duplication of $sample is complete"
+echo "Trimming, alignment, and de-duplication of $sample is complete"
 
 #Remove temporary files
 rm -f Paired*.fq Unpaired*.fq temp1.fq Read*.fq mapped.* dedup.* filtered.sam
