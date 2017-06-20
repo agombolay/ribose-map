@@ -3,8 +3,9 @@
 #© 2016 Alli Gombolay
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
-#This program aligns trimmed reads to reference genome using Bowtie2 and de-duplicates reads based on UMI's
-#Note: FASTQ files must be located in the users's FASTQ-Files folder (/LocalDirectory/Ribose-Map/FASTQ-Files)
+#This program aligns trimmed reads to reference genome using Bowtie2 and de-duplicates reads based on UMI
+#Note1: FASTQ files must be located in users's FASTQ-Files folder (/LocalDirectory/Ribose-Map/FASTQ-Files)
+#Note2: rNMP is the reverse complement of the 5' base of the sequenced read in FASTQ file
 
 #Usage statement
 function usage () {
