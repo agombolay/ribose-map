@@ -123,8 +123,8 @@ grep -e '_$barcode' -e '@HG' -e '@SQ' -e '@PG' dedup.sam > filtered.sam
 samtools view filtered.sam -b -S | samtools sort -o $output; samtools index $output
 
 #############################################################################################################################
-#Notify user that alignment step is complete for which samples
-echo "Alignment of $sample to $index reference genome is complete"
+#Notify user alignment step is complete for input sample
+echo "Trimmin, alignment, and de-duplication of $sample is complete"
 
 #Remove temporary files
 rm -f Paired*.fq Unpaired*.fq temp1.fq Read*.fq mapped.* dedup.* filtered.sam
