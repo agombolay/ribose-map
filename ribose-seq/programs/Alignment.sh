@@ -65,10 +65,58 @@ mkdir -p $directory/Ribose-Map/Results/$index/$sample/Alignment
 if [[ $type == "SE" ]]; then
 	java -jar $path/trimmomatic-0.36.jar SE -phred33 $Read1Fastq Paired1.fq \
 	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 MINLEN:$min
+	
+	cat Paired1.fq | seqtk seq -r - > temp1.fq
+	
+		if [[ -n $UMI ]]; then
+			umi_tools extract -I temp1.fq -p $UMI --3prime --quality-filter-threshold=10 -v 0 -S Read1.fq
+		fi
+		
+		if [[ -n $UMI ]] && [[ -n $barcode ]]; then
+			bowtie2 -x $index -U Read1.fq 2> $statistics > mapped.sam 
+			samtools view -bS -F260 mapped.sam | samtools sort - -o sorted.bam; samtools index sorted.bam
+			umi_tools dedup -I sorted.bam -v 0 | samtools sort - -o deduped.bam; samtools index deduped.bam
+			
+			samtools view -h deduped.bam -o deduped.sam
+			grep -e '_$barcode' -e '@HG' -e '@SQ' -e '@PG' deduped.sam > filtered.sam
+			samtools view filtered.sam -bS | samtools sort -o $finalReads; samtools index $finalReads
+		
+		elif [[ -n $UMI ]] && [[ -z $barcode ]]; then
+			bowtie2 -x $index -U Read1.fq 2> $statistics > mapped.sam
+			samtools view -bS -F260 mapped.sam | samtools sort - -o sorted.bam; samtools index sorted.bam
+			umi_tools dedup -I sorted.bam -v 0 | samtools sort - -o $finalReads; samtools index $finalReads
+		
+		else 
+			bowtie2 -x $index -U Read1.fq 2> $statistics > mapped.sam
+			samtools view -bS -F260 mapped.sam | samtools sort - -o $finalReads; samtools index $finalReads
+		fi
+fi
+
 #Paired End Reads
-elif [[ $type == "PE" ]]; then
+if [[ $type == "PE" ]]; then
 	java -jar $path/trimmomatic-0.36.jar PE -phred33 $Read1Fastq $Read2Fastq Paired1.fq Unpaired1.fq \
 	Paired2.fq Unpaired2.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 TRAILING:10 MINLEN:$min
+
+	cat Paired1.fq | seqtk seq -r - > temp1.fq
+	cat Paired2.fq | seqtk seq -r - > temp2.fq
+	
+	if [[ $UMI ]]; then
+		umi_tools extract -I temp1.fq --read2-in temp2.fq -p $UMI --3prime -v 0 -S Read1.fq --read2-out Read2.fq
+	fi
+	
+	bowtie2 -x $index -1 Read1.fq -2 Read2.fq 2> $statistics -S mapped.sam
+	samtools view -bS -f66 -F260 mapped.sam | samtools sort - -o mapped.bam; samtools index mapped.bam
+	
+	if [[ $UMI ]]; then
+		umi_tools dedup -I mapped.bam --paired -v 0 | samtools sort - -o dedup.bam; samtools index dedup.bam	
+	fi
+	
+	if [[ $barcode ]]; then
+		samtools view -h dedup.bam -o dedup.sam
+		grep -e '_$barcode' -e '@HG' -e '@SQ' -e '@PG' dedup.sam > filtered.sam
+		samtools view filtered.sam -bS | samtools sort -o $output; samtools index $output
+	fi
+
 fi
 
 #############################################################################################################################
