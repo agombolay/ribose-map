@@ -53,7 +53,7 @@ Read2Fastq=$directory/Ribose-Map/FASTQ-Files/$read2
 
 #Output files
 statistics=$directory/Ribose-Map/Results/$index/$sample/Alignment/Bowtie2.log
-output=$directory/Ribose-Map/Results/$index/$sample/Alignment/$sample-MappedReads.bam
+finalReads=$directory/Ribose-Map/Results/$index/$sample/Alignment/$sample.bam
 
 #Create directory
 mkdir -p $directory/Ribose-Map/Results/$index/$sample/Alignment
@@ -75,7 +75,7 @@ if [[ $type == "SE" ]]; then
 		fi
 		
 		if [[ -n $UMI ]] && [[ -n $barcode ]]; then
-			#Align reads to reference genome and save Bowtie statistics to file
+			#Align reads to reference and save Bowtie statistics
 			bowtie2 -x $index -U Read1.fq 2> $statistics > mapped.sam
 			
 			#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
@@ -90,7 +90,7 @@ if [[ $type == "SE" ]]; then
 			samtools view filtered.sam -bS | samtools sort -o $finalReads; samtools index $finalReads
 		
 		elif [[ -n $UMI ]] && [[ -z $barcode ]]; then
-			#Align reads to reference genome and save Bowtie statistics to file
+			#Align reads to reference and save Bowtie statistics
 			bowtie2 -x $index -U Read1.fq 2> $statistics > mapped.sam
 			
 			#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
@@ -100,7 +100,7 @@ if [[ $type == "SE" ]]; then
 			umi_tools dedup -I sorted.bam -v 0 | samtools sort - -o $finalReads; samtools index $finalReads
 		
 		else
-			#Align reads to reference genome and save Bowtie statistics to file
+			#Align reads to reference and save Bowtie statistics
 			bowtie2 -x $index -U Read1.fq 2> $statistics > mapped.sam
 			
 			#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
@@ -125,7 +125,7 @@ if [[ $type == "PE" ]]; then
 	fi
 	
 	if [[ -n $UMI ]] && [[ -n $barcode ]]; then
-		#Align reads to reference genome and save Bowtie statistics to file
+		#Align reads to reference and save Bowtie statistics
 		bowtie2 -x $index -1 Read1.fq -2 Read2.fq 2> $statistics -S mapped.sam
 		
 		#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
@@ -138,7 +138,7 @@ if [[ $type == "PE" ]]; then
 		samtools view filtered.sam -bS | samtools sort -o $finalReads; samtools index $finalReads
 		
 	elif [[ -n $UMI ]] && [[ -z $barcode ]]; then
-		#Align reads to reference genome and save Bowtie statistics to file
+		#Align reads to reference and save Bowtie statistics
 		bowtie2 -x $index -1 Read1.fq -2 Read2.fq 2> $statistics -S mapped.sam
 		
 		#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
@@ -146,7 +146,7 @@ if [[ $type == "PE" ]]; then
 		umi_tools dedup -I sorted.bam --paired -v 0 | samtools sort - -o $finalReads; samtools index $finalReads
 		
 	else
-		#Align reads to reference genome and save Bowtie statistics to file
+		#Align reads to reference and save Bowtie statistics
 		bowtie2 -x $index -1 Read1.fq -2 Read2.fq 2> $statistics -S mapped.sam
 		
 		#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
