@@ -53,141 +53,105 @@ Read2Fastq=$directory/Ribose-Map/FASTQ-Files/$read2
 
 #Output files
 statistics=$directory/Ribose-Map/Results/$index/$sample/Alignment/Bowtie2.log
-output=$directory/Ribose-Map/Results/$index/$sample/Alignment/$sample-MappedReads.bam
+finalReads=$directory/Ribose-Map/Results/$index/$sample/Alignment/$sample.bam
 
 #Create directory
 mkdir -p $directory/Ribose-Map/Results/$index/$sample/Alignment
 	
 #############################################################################################################################
-#STEP 1: Trim FASTQ files based on quality and adapter content
-
 #Single End Reads
 if [[ $type == "SE" ]]; then
+
+	#Trim FASTQ files based on quality and adapter content
 	java -jar $path/trimmomatic-0.36.jar SE -phred33 $Read1Fastq Paired1.fq \
 	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 MINLEN:$min
 	
+	#Reverse complement reads
 	cat Paired1.fq | seqtk seq -r - > temp1.fq
 	
 		if [[ -n $UMI ]]; then
-			umi_tools extract -I temp1.fq -p $UMI --3prime --quality-filter-threshold=10 -v 0 -S Read1.fq
+			#Extract UMI from 3' ends of reads (append UMI to read name)
+			umi_tools extract -I temp1.fq -p $UMI --3prime -v 0 -S Read1.fq
 		fi
 		
 		if [[ -n $UMI ]] && [[ -n $barcode ]]; then
-			bowtie2 -x $index -U Read1.fq 2> $statistics > mapped.sam 
+			#Align reads to reference and save Bowtie statistics
+			bowtie2 -x $index -U Read1.fq 2> $statistics > mapped.sam
+			
+			#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
 			samtools view -bS -F260 mapped.sam | samtools sort - -o sorted.bam; samtools index sorted.bam
+			
+			#Remove PCR duplicates based on UMI and genomic start position and sort/index BAM file
 			umi_tools dedup -I sorted.bam -v 0 | samtools sort - -o deduped.bam; samtools index deduped.bam
 			
+			#Filter BAM file based on barcode
 			samtools view -h deduped.bam -o deduped.sam
 			grep -e '_$barcode' -e '@HG' -e '@SQ' -e '@PG' deduped.sam > filtered.sam
 			samtools view filtered.sam -bS | samtools sort -o $finalReads; samtools index $finalReads
 		
 		elif [[ -n $UMI ]] && [[ -z $barcode ]]; then
+			#Align reads to reference and save Bowtie statistics
 			bowtie2 -x $index -U Read1.fq 2> $statistics > mapped.sam
+			
+			#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
 			samtools view -bS -F260 mapped.sam | samtools sort - -o sorted.bam; samtools index sorted.bam
+			
+			#Remove PCR duplicates based on UMI and genomic start position and sort/index BAM file
 			umi_tools dedup -I sorted.bam -v 0 | samtools sort - -o $finalReads; samtools index $finalReads
 		
-		else 
+		else
+			#Align reads to reference and save Bowtie statistics
 			bowtie2 -x $index -U Read1.fq 2> $statistics > mapped.sam
+			
+			#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
 			samtools view -bS -F260 mapped.sam | samtools sort - -o $finalReads; samtools index $finalReads
 		fi
 fi
 
 #Paired End Reads
 if [[ $type == "PE" ]]; then
+
+	#Trim FASTQ files based on quality and adapter content
 	java -jar $path/trimmomatic-0.36.jar PE -phred33 $Read1Fastq $Read2Fastq Paired1.fq Unpaired1.fq \
 	Paired2.fq Unpaired2.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 TRAILING:10 MINLEN:$min
 
+	#Reverse complement reads
 	cat Paired1.fq | seqtk seq -r - > temp1.fq
-	cat Paired2.fq | seqtk seq -r - > temp2.fq
+	cat Paired2.fq | seqtk seq -r - > Read2.fq
 	
 	if [[ -n $UMI ]]; then
-		umi_tools extract -I temp1.fq --read2-in temp2.fq -p $UMI --3prime -v 0 -S Read1.fq --read2-out Read2.fq
+		#Extract UMI from 3' ends of reads (append UMI to read name)
+		umi_tools extract -I temp1.fq -p $UMI --3prime -v 0 -S Read1.fq
 	fi
 	
 	if [[ -n $UMI ]] && [[ -n $barcode ]]; then
+		#Align reads to reference and save Bowtie statistics
 		bowtie2 -x $index -1 Read1.fq -2 Read2.fq 2> $statistics -S mapped.sam
+		
+		#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
 		samtools view -bS -f66 -F260 mapped.sam | samtools sort - -o sorted.bam; samtools index sorted.bam
 		umi_tools dedup -I sorted.bam --paired -v 0 | samtools sort - -o deduped.bam; samtools index deduped.bam
-			
+		
+		#Filter BAM file based on barcode
 		samtools view -h deduped.bam -o deduped.sam
 		grep -e '_$barcode' -e '@HG' -e '@SQ' -e '@PG' deduped.sam > filtered.sam
 		samtools view filtered.sam -bS | samtools sort -o $finalReads; samtools index $finalReads
 		
 	elif [[ -n $UMI ]] && [[ -z $barcode ]]; then
+		#Align reads to reference and save Bowtie statistics
 		bowtie2 -x $index -1 Read1.fq -2 Read2.fq 2> $statistics -S mapped.sam
+		
+		#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
 		samtools view -bS -f66 -F260 mapped.sam | samtools sort - -o sorted.bam; samtools index sorted.bam
 		umi_tools dedup -I sorted.bam --paired -v 0 | samtools sort - -o $finalReads; samtools index $finalReads
 		
-	else 
+	else
+		#Align reads to reference and save Bowtie statistics
 		bowtie2 -x $index -1 Read1.fq -2 Read2.fq 2> $statistics -S mapped.sam
+		
+		#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
 		samtools view -bS -f66 -F260 mapped.sam | samtools sort - -o $finalReads; samtools index $finalReads
 	fi
-
-fi
-
-#############################################################################################################################
-#STEP 2: Reverse complement reads
-
-#Single End Reads
-if [[ $type == "SE" ]]; then
-	cat Paired1.fq | seqtk seq -r - > temp1.fq
-#Paired End Reads
-elif [[ $type == "PE" ]]; then
-	cat Paired1.fq | seqtk seq -r - > temp1.fq
-	cat Paired2.fq | seqtk seq -r - > temp2.fq
-fi
-
-#############################################################################################################################
-#STEP 3: Extract UMI sequence from 3' ends of reads (append UMI to read name)
-
-#Single End Reads
-if [[ $type == "SE" ]] && [[ $UMI ]]; then
-	umi_tools extract -I temp1.fq -p $UMI --3prime --quality-filter-threshold=10 -v 0 -S Read1.fq
-#Paired End Reads
-elif [[ $type == "PE" ]] && [[ $UMI ]]; then
-	umi_tools extract -I temp1.fq --read2-in temp2.fq -p $UMI --3prime -v 0 -S Read1.fq --read2-out Read2.fq
-fi
-
-#############################################################################################################################
-#STEP 4: Align reads to reference genome and save Bowtie statistics to file
-
-#Single End Reads
-if [[ $type == "SE" ]]; then
-	bowtie2 -x $index -U Read1.fq 2> $statistics > mapped.sam
-#Paired End Reads
-elif [[ $type == "PE" ]]; then
-	bowtie2 -x $index -1 Read1.fq -2 Read2.fq 2> $statistics -S mapped.sam
-fi
-
-#############################################################################################################################
-#STEP 5: Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
-
-#Single End Reads
-if [[ $type == "SE" ]]; then
-	samtools view -bS -F260 mapped.sam | samtools sort - -o mapped.bam; samtools index mapped.bam
-#Paired End Reads
-elif [[ $type == "PE" ]]; then
-	samtools view -bS -f66 -F260 mapped.sam | samtools sort - -o mapped.bam; samtools index mapped.bam
-fi
-
-#############################################################################################################################
-#STEP 6: Remove PCR duplicates based on UMI and genomic start position and sort/index BAM file
-
-#Single End Reads with UMI
-if [[ $type == "SE" ]] && [[ $UMI ]]; then
-	umi_tools dedup -I mapped.bam -v 0 | samtools sort - -o dedup.bam; samtools index dedup.bam
-#Paired End Reads with UMI
-elif [[ $type == "PE" ]] && [[ $UMI ]]; then
-	umi_tools dedup -I mapped.bam --paired -v 0 | samtools sort - -o dedup.bam; samtools index dedup.bam	
-fi
-
-#############################################################################################################################
-#STEP 7: Filter BAM file based on barcode (if any) located within UMI sequence
-
-if [[ $barcode ]]; then
-	samtools view -h dedup.bam -o dedup.sam
-	grep -e '_$barcode' -e '@HG' -e '@SQ' -e '@PG' dedup.sam > filtered.sam
-	samtools view filtered.sam -b -S | samtools sort -o $output; samtools index $output
 fi
 
 #############################################################################################################################
