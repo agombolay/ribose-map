@@ -30,7 +30,7 @@ while getopts "s:a:b:u:m:t:p:i:b:d:h" opt; do
 		f ) read1=$OPTARG ;;
 		r ) read2=$OPTARG ;;
 		u ) UMI=$OPTARG ;;
-		m ) MIN=$OPTARG ;;
+		m ) min=$OPTARG ;;
 		p ) path=$OPTARG ;;
 		t ) type=$OPTARG ;;
 		i ) index=$OPTARG ;;
@@ -63,11 +63,11 @@ mkdir -p $directory/Ribose-Map/Results/$index/$sample/Alignment
 #Single End Reads
 if [[ $type == "SE" ]]; then
 	java -jar $path/trimmomatic-0.36.jar SE -phred33 $Read1Fastq Paired1.fq \
-	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
+	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 MINLEN:$min
 #Paired End Reads
 elif [[ $type == "PE" ]]; then
 	java -jar $path/trimmomatic-0.36.jar PE -phred33 $Read1Fastq $Read2Fastq Paired1.fq Unpaired1.fq \
-	Paired2.fq Unpaired2.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 TRAILING:10 MINLEN:$MIN
+	Paired2.fq Unpaired2.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 TRAILING:10 MINLEN:$min
 fi
 
 #############################################################################################################################
