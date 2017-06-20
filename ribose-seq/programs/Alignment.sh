@@ -62,48 +62,48 @@ mkdir -p $directory/Ribose-Map/Results/$index/$sample/Alignment
 #Single End Reads
 if [[ $type == "SE" ]]; then
 
-	#STEP 1: Trim FASTQ files based on quality and adapter content
+	#Trim FASTQ files based on quality and adapter content
 	java -jar $path/trimmomatic-0.36.jar SE -phred33 $Read1Fastq Paired1.fq \
 	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 MINLEN:$min
 	
-	#STEP 2: Reverse complement reads
+	#Reverse complement reads
 	cat Paired1.fq | seqtk seq -r - > temp1.fq
 	
 		if [[ -n $UMI ]]; then
-			#STEP 3: Extract UMI sequence from 3' ends of reads (append UMI to read name)
+			#Extract UMI from 3' ends of reads (append UMI to read name)
 			umi_tools extract -I temp1.fq -p $UMI --3prime -v 0 -S Read1.fq
 		fi
 		
 		if [[ -n $UMI ]] && [[ -n $barcode ]]; then
-			#STEP 4: Align reads to reference genome and save Bowtie statistics to file
+			#Align reads to reference genome and save Bowtie statistics to file
 			bowtie2 -x $index -U Read1.fq 2> $statistics > mapped.sam
 			
-			#STEP 5: Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
+			#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
 			samtools view -bS -F260 mapped.sam | samtools sort - -o sorted.bam; samtools index sorted.bam
 			
-			#STEP 6: Remove PCR duplicates based on UMI and genomic start position and sort/index BAM file
+			#Remove PCR duplicates based on UMI and genomic start position and sort/index BAM file
 			umi_tools dedup -I sorted.bam -v 0 | samtools sort - -o deduped.bam; samtools index deduped.bam
 			
-			#STEP 7: Filter BAM file based on barcode (if any) located within UMI sequence
+			#Filter BAM file based on barcode
 			samtools view -h deduped.bam -o deduped.sam
 			grep -e '_$barcode' -e '@HG' -e '@SQ' -e '@PG' deduped.sam > filtered.sam
 			samtools view filtered.sam -bS | samtools sort -o $finalReads; samtools index $finalReads
 		
 		elif [[ -n $UMI ]] && [[ -z $barcode ]]; then
-			#STEP 4: Align reads to reference genome and save Bowtie statistics to file
+			#Align reads to reference genome and save Bowtie statistics to file
 			bowtie2 -x $index -U Read1.fq 2> $statistics > mapped.sam
 			
-			#STEP 5: Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
+			#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
 			samtools view -bS -F260 mapped.sam | samtools sort - -o sorted.bam; samtools index sorted.bam
 			
-			#STEP 6: Remove PCR duplicates based on UMI and genomic start position and sort/index BAM file
+			#Remove PCR duplicates based on UMI and genomic start position and sort/index BAM file
 			umi_tools dedup -I sorted.bam -v 0 | samtools sort - -o $finalReads; samtools index $finalReads
 		
 		else
-			#STEP 4: Align reads to reference genome and save Bowtie statistics to file
+			#Align reads to reference genome and save Bowtie statistics to file
 			bowtie2 -x $index -U Read1.fq 2> $statistics > mapped.sam
 			
-			#STEP 5: Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
+			#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
 			samtools view -bS -F260 mapped.sam | samtools sort - -o $finalReads; samtools index $finalReads
 		fi
 fi
@@ -111,45 +111,45 @@ fi
 #Paired End Reads
 if [[ $type == "PE" ]]; then
 
-	#STEP 1: Trim FASTQ files based on quality and adapter content
+	#Trim FASTQ files based on quality and adapter content
 	java -jar $path/trimmomatic-0.36.jar PE -phred33 $Read1Fastq $Read2Fastq Paired1.fq Unpaired1.fq \
 	Paired2.fq Unpaired2.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 TRAILING:10 MINLEN:$min
 
-	#STEP 2: Reverse complement reads
+	#Reverse complement reads
 	cat Paired1.fq | seqtk seq -r - > temp1.fq
-	cat Paired2.fq | seqtk seq -r - > temp2.fq
+	cat Paired2.fq | seqtk seq -r - > Read2.fq
 	
 	if [[ -n $UMI ]]; then
-		#STEP 3: Extract UMI sequence from 3' ends of reads (append UMI to read name)
-		umi_tools extract -I temp1.fq --read2-in temp2.fq -p $UMI --3prime -v 0 -S Read1.fq --read2-out Read2.fq
+		#Extract UMI from 3' ends of reads (append UMI to read name)
+		umi_tools extract -I temp1.fq -p $UMI --3prime -v 0 -S Read1.fq
 	fi
 	
 	if [[ -n $UMI ]] && [[ -n $barcode ]]; then
-		#STEP 4: Align reads to reference genome and save Bowtie statistics to file
+		#Align reads to reference genome and save Bowtie statistics to file
 		bowtie2 -x $index -1 Read1.fq -2 Read2.fq 2> $statistics -S mapped.sam
 		
-		#STEP 5: Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
+		#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
 		samtools view -bS -f66 -F260 mapped.sam | samtools sort - -o sorted.bam; samtools index sorted.bam
 		umi_tools dedup -I sorted.bam --paired -v 0 | samtools sort - -o deduped.bam; samtools index deduped.bam
 		
-		#STEP 7: Filter BAM file based on barcode (if any) located within UMI sequence
+		#Filter BAM file based on barcode
 		samtools view -h deduped.bam -o deduped.sam
 		grep -e '_$barcode' -e '@HG' -e '@SQ' -e '@PG' deduped.sam > filtered.sam
 		samtools view filtered.sam -bS | samtools sort -o $finalReads; samtools index $finalReads
 		
 	elif [[ -n $UMI ]] && [[ -z $barcode ]]; then
-		#STEP 4: Align reads to reference genome and save Bowtie statistics to file
+		#Align reads to reference genome and save Bowtie statistics to file
 		bowtie2 -x $index -1 Read1.fq -2 Read2.fq 2> $statistics -S mapped.sam
 		
-		#STEP 5: Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
+		#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
 		samtools view -bS -f66 -F260 mapped.sam | samtools sort - -o sorted.bam; samtools index sorted.bam
 		umi_tools dedup -I sorted.bam --paired -v 0 | samtools sort - -o $finalReads; samtools index $finalReads
 		
 	else
-		#STEP 4: Align reads to reference genome and save Bowtie statistics to file
+		#Align reads to reference genome and save Bowtie statistics to file
 		bowtie2 -x $index -1 Read1.fq -2 Read2.fq 2> $statistics -S mapped.sam
 		
-		#STEP 5: Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
+		#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
 		samtools view -bS -f66 -F260 mapped.sam | samtools sort - -o $finalReads; samtools index $finalReads
 	fi
 
