@@ -84,10 +84,10 @@ fi
 #############################################################################################################################
 #STEP 3: Extract UMI sequence from 3' ends of reads (append UMI to read name)
 if [[ $UMI == "N"* ]]; then
-	umi_tools extract -I temp1.fq -p $UMI --3prime -v 0 -S Read1.fq
+	umi_tools extract -I temp1.fq -p $UMI --3prime --quality-filter-threshold=10 -v 0 -S Read1.fq
 fi
 --read2-in, --read2-out
---quality-filter-threshold=10
+
 #############################################################################################################################
 #STEP 4: Align reads to reference genome and save Bowtie statistics to file
 #Single End Reads
