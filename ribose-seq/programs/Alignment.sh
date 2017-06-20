@@ -114,7 +114,7 @@ if [[ $UMI == "N"* ]]; then
 else
 	samtools sort mapped.bam -o dedup.bam; samtools index dedup.bam
 fi
-
+--paired
 #############################################################################################################################
 #STEP 7: Filter BAM file based on barcode (if any) located within UMI sequence
 samtools view -h dedup.bam -o dedup.sam
