@@ -14,11 +14,11 @@ function usage () {
 		-a Input Read 1 FASTQ filename (forward)
 		-b Input Read 2 FASTQ filename (reverse)
 		-u Length of UMI (e.g., NNNNNNNN or NNNNNNNNNNN)
+		-b Barcode contained within UMI (e.g., ..TGA......)
 		-m Minimum length of read to retain after trimming (e.g., 50)
 		-p Path (e.g., /projects/home/agombolay3/data/bin/Trimmomatic-0.36)
 		-t Type of Illumina Sequencing (e.g., SE = Single end, PE = Paired end)
 		-i Basename of Bowtie2 index (e.g., sacCer2, pombe, ecoli, mm9, or hg38)
-		-b Barcode (if any) contained within the UMI sequence (e.g., ..TGA......)
 		-d Local user directory (e.g., /projects/home/agombolay3/data/repository)"
 }
 
@@ -30,11 +30,11 @@ while getopts "s:a:b:u:m:t:p:i:b:d:h" opt; do
 		f ) read1=$OPTARG ;;
 		r ) read2=$OPTARG ;;
 		u ) UMI=$OPTARG ;;
+		b ) barcode=$OPTARG ;;
 		m ) min=$OPTARG ;;
 		p ) path=$OPTARG ;;
 		t ) type=$OPTARG ;;
 		i ) index=$OPTARG ;;
-		b ) barcode=$OPTARG ;;
 		d ) directory=$OPTARG ;;
         	#Print usage statement
         	h ) usage ;;
