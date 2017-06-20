@@ -31,8 +31,8 @@ while getopts "s:a:b:u:m:t:p:i:b:d:h" opt; do
 		r ) read2=$OPTARG ;;
 		u ) UMI=$OPTARG ;;
 		m ) MIN=$OPTARG ;;
-		t ) type=$OPTARG ;;
 		p ) path=$OPTARG ;;
+		t ) type=$OPTARG ;;
 		i ) index=$OPTARG ;;
 		b ) barcode=$OPTARG ;;
 		d ) directory=$OPTARG ;;
