@@ -40,10 +40,8 @@ for sample in ${sample[@]}; do
 		#Create directory
 		mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Hotspots
 	
-		#Input file
+		#Input/Output files
 		coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bed
-		
-		#Output file
 		hotspots=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Hotspots.$chromosome.bed
 		
 		grep "$chromosome" $coverage > $hotspots
