@@ -47,7 +47,8 @@ for sample in ${sample[@]}; do
 		if [ $subset == "mito" ]; then
 			grep -E '(chrM|MT)' temp3.txt > $coordinates
 		elif [ $subset == "nucleus" ]; then
-			for chr in ${chr@]}; do
+			chromosomes=$(awk '{print $1}' $BED | grep -E '(chrM|MT)')
+			for chromosome in ${chromosomes@]}; do
 				grep -E '$variable' temp3.txt > $coordinates
 			done
 		fi
