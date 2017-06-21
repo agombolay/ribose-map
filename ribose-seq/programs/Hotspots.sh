@@ -47,7 +47,7 @@ for sample in ${sample[@]}; do
 		if [ $subset == "mito" ]; then
 			grep -E '(chrM|MT)' temp3.txt > $coordinates
 		elif [ $subset == "nucleus" ]; then
-			for chr in $variable; do
+			for chr in ${chr@]}; do
 				grep -E '$variable' temp3.txt > $coordinates
 			done
 		fi
