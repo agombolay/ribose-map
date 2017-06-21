@@ -40,18 +40,19 @@ for sample in ${sample[@]}; do
 		
 		#Input file
 		BED=$directory/Ribose-Map/Reference/$reference.bed
-		coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.$subset.bed
+		coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bed
 
 		#Output file
 		hotspots=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Hotspots.$subset.bed
 		
 		if [ $subset == "mito" ]; then
-			grep -E '(chrM|MT)' $coverage > $hotspots
+			grep -E '(chrM|MT)' $coverage > $directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Hotspots.mito.bed
 		elif [ $subset == "nucleus" ]; then
 			chromosomes=$(awk '{print $1}' $BED | grep -vE '(chrM|MT)')
-			for chromosome in ${chromosomes@]}; do
-				grep -E '$variable' $coverage > $hotspots
+			for chromosome in ${chromosomes[@]}; do
+                		grep "$chromosome" $coverage > $directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Hotspots.$chromosome.txt
 			done
 		fi
+
 	done
 done
