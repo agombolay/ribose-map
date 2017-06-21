@@ -54,9 +54,7 @@ for sample in ${sample[@]}; do
 	#STEP 1: Calculate frequencies of reference genome
 	
 	#Subset FASTA file based on region
-	if [ $subset == "all" ]; then
-		cat $FASTA > temp.fa; samtools faidx temp.fa
-	elif [ $subset == "mito" ]; then
+	if [ $subset == "mito" ]; then
 		chromosomes=$(awk '{print $1}' $BED | grep -E '(chrM|MT)')
 		samtools faidx $FASTA $chromosomes > temp.fa; samtools faidx temp.fa
 	elif [ $subset == "nucleus" ]; then
@@ -80,10 +78,7 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#STEP 2: Calculate frequencies of rNMPs in libraries
 
-	if [ $subset == "all" ]; then
-		#Select all reads located and extract rNMP bases
-		cat $reads | awk '{print substr($0,length($0))}' - > RiboBases.txt
-	elif [ $subset == "mito" ]; then
+	if [ $subset == "mito" ]; then
 		#Select only reads located in mito DNA and extract rNMP bases
 		grep -E '(chrM|MT)' $reads | awk '{print substr($0,length($0))}' - > RiboBases.txt
 	elif [ $subset == "nucleus" ]; then
