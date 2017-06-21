@@ -44,6 +44,6 @@ for sample in ${sample[@]}; do
 		coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bed
 		hotspots=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Hotspots.$chromosome.bed
 		
-		grep "$chromosome" $coverage > $hotspots
+		grep -w "$chromosome" $coverage > $hotspots
         done
 done
