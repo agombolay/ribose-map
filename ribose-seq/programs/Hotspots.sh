@@ -44,5 +44,10 @@ for sample in ${sample[@]}; do
 		#Output file
 		hotspots=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Hotspots.$subset.bed
 		
+		if [ $subset == "mito" ]; then
+			grep -E '(chrM|MT)' temp3.txt | sort -k1,1 -k2,2n - > $coordinates
+		elif [ $subset == "nucleus" ]; then
+			grep -vE '(chrM|MT)' temp3.txt | sort -k1,1 -k2,2n - > $coordinates
+		fi
 	done
 done
