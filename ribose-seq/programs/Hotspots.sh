@@ -33,17 +33,19 @@ fi
 
 #Determine coordinates
 for sample in ${sample[@]}; do
+
+        genome=$(awk '{print $1}' $directory/Ribose-Map/Reference/$reference.bed)
+        for chromosome in ${genome[@]}; do
 	
-	#Create directory
-	mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Hotspots
+		#Create directory
+		mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Hotspots
+	
+		#Input file
+		coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bed
 		
-	#Input files
-	BED=$directory/Ribose-Map/Reference/$reference.bed
-	coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bed
-	
-        chromosomes=$(awk '{print $1}' $BED)
-        for chr in ${chromosomes[@]}; do
-		hotspots=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Hotspots.$chr.bed
+		#Output file
+		hotspots=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Hotspots.$chromosome.bed
+		
 		grep "$chromosome" $coverage > $hotspots
         done
 done
