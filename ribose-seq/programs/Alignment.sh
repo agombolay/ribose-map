@@ -99,7 +99,7 @@ if [[ $type == "SE" ]]; then
 			#Remove PCR duplicates based on UMI and genomic start position and sort/index BAM file
 			umi_tools dedup -I sorted.bam -v 0 | samtools sort - -o $finalReads; samtools index $finalReads
 		
-		else
+		elif [[ -z $UMI ]] && [[ -z $barcode ]]; then
 			#Align reads to reference and save Bowtie statistics
 			bowtie2 -x $index -U Read1.fq 2> $statistics > mapped.sam
 			
@@ -145,7 +145,7 @@ if [[ $type == "PE" ]]; then
 		samtools view -bS -f66 -F260 mapped.sam | samtools sort - -o sorted.bam; samtools index sorted.bam
 		umi_tools dedup -I sorted.bam --paired -v 0 | samtools sort - -o $finalReads; samtools index $finalReads
 		
-	else
+	elif [[ -z $UMI ]] && [[ -z $barcode ]]; then
 		#Align reads to reference and save Bowtie statistics
 		bowtie2 -x $index -1 Read1.fq -2 Read2.fq 2> $statistics -S mapped.sam
 		
