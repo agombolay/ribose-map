@@ -71,9 +71,7 @@ for sample in ${sample[@]}; do
 		
 #############################################################################################################################
 		#STEP 2: Subset and sort coordinates based on genomic region
-		if [ $subset == "all" ]; then
-			sort -k1,1 -k2,2n temp3.txt > $coordinates
-		elif [ $subset == "mito" ]; then
+		if [ $subset == "mito" ]; then
 			grep -E '(chrM|MT)' temp3.txt | sort -k1,1 -k2,2n - > $coordinates
 		elif [ $subset == "nucleus" ]; then
 			grep -vE '(chrM|MT)' temp3.txt | sort -k1,1 -k2,2n - > $coordinates

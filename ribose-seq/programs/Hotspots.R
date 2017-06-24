@@ -31,7 +31,7 @@ for(i in opt$sample) {
         if (file.exists(file)) {
             
             #Specify dataset
-            data=read.table(file, sep="\t", header=TRUE)
+            data=read.table(file, sep="\t", header=FALSE)
 
 #############################################################################################################################
         #Plot coverage

@@ -34,41 +34,16 @@ fi
 #Determine coordinates
 for sample in ${sample[@]}; do
 
-#############################################################################################################################
+        genome=$(awk '{print $1}' $directory/Ribose-Map/Reference/$reference.bed)
+        for chromosome in ${genome[@]}; do
+	
 		#Create directory
 		mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Hotspots
+	
+		#Input/Output files
+		coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bed
+		hotspots=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Hotspots.$chromosome.bed
 		
-		#Input file
-		coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.$subset.bed
-
-		#Output file
-		hotspots=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Hotspots.$subset.bed
-		
-#############################################################################################################################
-		for subset in "mito" "nucleus"; do
-			for i in "I" "II"
-				sed 's/chrI/chr1/' $coverage | sort -k1 > $hotspots
-				sed 's/chrII/chr2/' $coverage | sort -k1 > $hotspots
-				sed 's/chrIII/chr3/' $coverage | sort -k1 > $hotspots
-				sed 's/chrIV/chr4/' $coverage | sort -k1 > $hotspots
-				sed 's/chrV/chr5/' $coverage | sort -k1 > $hotspots
-				sed 's/chrVI/chr6/' $coverage | sort -k1 > $hotspots
-				sed 's/chrVII/chr7/' $coverage | sort -k1 > $hotspots
-				sed 's/chrVIII/chr8/' $coverage | sort -k1 > $hotspots
-				sed 's/chrIX/chr9/' $coverage | sort -k1 > $hotspots
-				sed 's/chrX/chr10/' $coverage | sort -k1 > $hotspots
-				sed 's/chrXI/chr11/' $coverage | sort -k1 > $hotspots
-				sed 's/chrXII/chr12/' $coverage | sort -k1 > $hotspots
-				sed 's/chrXIII/chr13/' $coverage | sort -k1 > $hotspots
-				sed 's/chrXIV/chr14/' $coverage | sort -k1 > $hotspots
-				sed 's/chrXV/chr15/' $coverage | sort -k1 > $hotspots
-				sed 's/chrXVI/chr16/' $coverage | sort -k1 > $hotspots
-				sed 's/chrXVII/chr17/' $coverage | sort -k1 > $hotspots
-				sed 's/chrXVIII/chr18/' $coverage | sort -k1 > $hotspots
-				sed 's/chrXIX/chr19/' $coverage | sort -k1 > $hotspots
-				sed 's/chrXX/chr20/' $coverage | sort -k1 > $hotspots
-				sed 's/chrXXI/chr21/' $coverage | sort -k1 > $hotspots
-				sed 's/chrXXII/chr22/' $coverage | sort -k1 > $hotspots
-		done
-
+		grep -w "$chromosome" $coverage > $hotspots
+        done
 done
