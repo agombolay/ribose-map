@@ -18,3 +18,7 @@
 * Number of Chromosomes: 16
 * [Download Genome from UCSC](http://hgdownload.soe.ucsc.edu/goldenPath/sacCer2/bigZips/)
 * [Download Genome from SGD](http://www.yeastgenome.org/)
+
+```
+twoBitToFa sacCer2.2bit sacCer2.fa
+```
