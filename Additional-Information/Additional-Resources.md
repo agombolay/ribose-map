@@ -1,4 +1,5 @@
 <h2><p align="center">Count number of reads</p></h2>
+
 ### [Count number of reads in FASTA file] (http://thegenomefactory.blogspot.com/2011/09/counting-sequences-with-unix-tools.html)
 
 ```
