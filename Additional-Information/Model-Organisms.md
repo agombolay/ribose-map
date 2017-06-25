@@ -20,6 +20,9 @@
 * [Download Genome from SGD](http://www.yeastgenome.org/)
 
 ```
+#Convert 2bit file to FASTA
 twoBitToFa sacCer2.2bit sacCer2.fa
+
+#Index FASTA file
 samtools faidx sacCer2.fa
 ```
