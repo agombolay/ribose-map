@@ -37,7 +37,7 @@
      * One circular plasmid (54,159 bp)
      * One circular chromosome (2,020,078 bp)
 * [Download genomic sequence from NCBI](https://www.ncbi.nlm.nih.gov/nuccore/NC_014804.1)
-* [Download plasmid sequence from NCBI:](https://www.ncbi.nlm.nih.gov/nuccore/NC_015471.1)
+* [Download plasmid sequence from NCBI](https://www.ncbi.nlm.nih.gov/nuccore/NC_015471.1)
 
 ### [*Haloferax volcanii*](https://www.ncbi.nlm.nih.gov/genome/167)
 * GC content: 50.60%
