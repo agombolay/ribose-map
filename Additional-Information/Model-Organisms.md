@@ -21,4 +21,5 @@
 
 ```
 twoBitToFa sacCer2.2bit sacCer2.fa
+samtools faidx sacCer2.fa
 ```
