@@ -7,7 +7,7 @@
 * [Download Genome from Illumina](http://support.illumina.com/sequencing/sequencing_software/igenome.html)
 
 ### [*Homo sapiens*](https://www.ncbi.nlm.nih.gov/genome/51)
-* GC Content: 40.9%
+* GC Content: 40.90%
 * Genome Size: 2996.43 Mb
 * Number of Chromosomes: 23
 * [Download Genome from UCSC](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/)
@@ -24,6 +24,12 @@
 * Number of Chromosomes: 16
 * [Download Genome from UCSC](http://hgdownload.soe.ucsc.edu/goldenPath/sacCer2/bigZips/)
 * [Download Genome from SGD](http://www.yeastgenome.org/)
+
+### [*Schizosaccharomyces pombe*](https://www.ncbi.nlm.nih.gov/genome/14)
+* GC Content: 36.04%
+* Genome Size: 12.59 Mb
+* Number of Chromosomes: 3
+* [Download Genome from PomBase](https://www.pombase.org/downloads/genome-datasets)
 
 ```
 #Convert 2bit file to FASTA
