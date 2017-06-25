@@ -36,8 +36,8 @@
 [Plasmid sequence]:(https://www.ncbi.nlm.nih.gov/nuccore/NC_015471.1)
 * GC Content: 41.75%
 * Genome Size: 2.23 Mb
-      * One circular plasmid (54,159 bp)
-      * One circular chromosome (2,020,078 bp)
+     * One circular plasmid (54,159 bp)
+     * One circular chromosome (2,020,078 bp)
 * [Download Genome from Illumina](http://support.illumina.com/sequencing/sequencing_software/igenome.html)
 
 ### [*Haloferax volcanii*](https://www.ncbi.nlm.nih.gov/genome/167)
