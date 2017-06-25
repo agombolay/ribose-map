@@ -2,7 +2,8 @@
 
 Alli Gombolay, M.P.H.  
 Contact: alli.gombolay@gatech.edu  
-[Storici Lab](http://www.storicilab.gatech.edu/) | [School of Biological Sciences](http://www.biology.gatech.edu/)  
+[Storici Lab](http://www.storicilab.gatech.edu/) | [Vannberg Lab](http://vannberg.biology.gatech.edu:8080/VannbergLab/home.html)
+[School of Biological Sciences](http://www.biology.gatech.edu/)  
 [Georgia Institute of Technology](http://www.gatech.edu/) Atlanta, GA USA
 
 ## Project Overview
