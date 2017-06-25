@@ -72,14 +72,15 @@ sed 's/ \+/\t/g'
 ```
 
 <h2><p align="center">Analyze alignment data</p></h2>
+
 ### [Calculate coverage with "genomecov"](http://bedtools.readthedocs.io/en/latest/content/tools/genomecov.html)
-* [Calculate coverage of 5' end of reads aligned to genome] (https://www.biostars.org/p/80236/)
+* [Calculate coverage of 5' end of reads aligned to genome](https://www.biostars.org/p/80236/)
 ```
 bedtools genomecov -d 5 [-ibam] <BAM> -g <GENOME>
 ```
 
 ### [Obtain upstream and downstream sequences from a FASTA file](https://www.biostars.org/p/82776/)
-* [BEDtools flank] (http://bedtools.readthedocs.io/en/latest/content/tools/flank.html)
+* [BEDtools flank](http://bedtools.readthedocs.io/en/latest/content/tools/flank.html)
 ```
 bedtools flank -i <BED> -g <GENOME> -b 100
 ```
