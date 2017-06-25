@@ -61,8 +61,7 @@ seqtk seq -A <input FASTQ> > <output FASTA>
 
 ### [BAM to BED](https://www.biostars.org/p/85990/)
 ```
-bedtools bamtobed -i data.bam > data.bed 
-samtools view data.bam > data.sam
+bedtools bamtobed -i data.bam > data.bed; samtools view data.bam > data.sam
 paste data.bed data.sam | awk -v "OFS=\t" '{print $1, $2, $3, $16, $6}' | head
 ```
 ### [Check if BED file is tab-delimited](https://www.biostars.org/p/127275/)
