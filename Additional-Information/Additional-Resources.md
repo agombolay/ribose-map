@@ -1,4 +1,4 @@
-<h2><p align="center">Count number of reads</p></h1>
+<h2><p align="center">Count number of reads</p></h2>
 
 ### [Count number of reads in FASTA file](http://thegenomefactory.blogspot.com/2011/09/counting-sequences-with-unix-tools.html)
 
@@ -19,6 +19,7 @@ samtools view -c -f 4
 ```
 
 <h2><p align="center">Check quality of reads</p></h2>
+
 ### [FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 
 * [Example Reports (Good, bad, adapter contaminated, etc.)]
