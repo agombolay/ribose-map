@@ -6,6 +6,12 @@
 * Number of Chromosomes: 1
 * [Download Genome from Illumina](http://support.illumina.com/sequencing/sequencing_software/igenome.html)
 
+### [*Homo sapiens*](https://www.ncbi.nlm.nih.gov/genome/51)
+* GC Content: 40.9%
+* Genome Size: 2996.43 Mb
+* Number of Chromosomes: 23
+* [Download Genome from UCSC(http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/)
+
 ### [*Mus musculus*](https://www.ncbi.nlm.nih.gov/genome/?term=Mus+musculus+%28house+mouse%29)
 * GC Content: 42.58%
 * Genome Size: 2,641.99 Mb
