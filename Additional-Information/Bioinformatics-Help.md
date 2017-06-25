@@ -37,7 +37,7 @@ java -jar trimmomatic-0.36.jar SE -phred33 input.fq.gz output.fq.gz ILLUMINACLIP
 ```
 * ILLUMINACLIP:TruSeq3-SE.fa:2:30:10: Trim adapters from reads
 * TRAILING:3: Trim bases off the end of read if below threshold quality
-  * Do not use LEADING:3 opton since the UMI and rNMP need to be retained
+  * Do not use LEADING:3 since UMI and rNMP need to be retained
 * MINLEN:36: Drop the read if it is below a specified length (e.g., 36 bp)
 
 <h2><p align="center">View alignment data</p></h2>
