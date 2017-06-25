@@ -22,16 +22,15 @@ samtools view -c -f 4
 
 ### [FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 
-* [Example Reports (Good, bad, adapter contaminated, etc.)]
-(http://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
-* [Information reagarding overrepresented Sequences] (http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/9%20Overrepresented%20Sequences.html)
+* [Example Reports (Good, bad, adapter contaminated, etc.)](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+* [Information reagarding overrepresented Sequences](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/9%20Overrepresented%20Sequences.html)
 
 <h2><p align="center">Trim reads based on quality and adapters</p></h2>
 
 **Importance of removing adapters**: Increase mapping percentage and decrease incorrect mappings
 
 ### [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic)
-  * [Manual for Trimmomatic] (http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf)
+  * [Manual for Trimmomatic](http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf)
 
 ```
 java -jar trimmomatic-0.36.jar SE -phred33 input.fq.gz output.fq.gz ILLUMINACLIP:TruSeq3-SE.fa:2:30:10 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
