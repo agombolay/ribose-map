@@ -7,6 +7,7 @@ grep '>' in.fasta | wc -l
 ```
 
 ### [Count number of reads in BAM file](http://crazyhottommy.blogspot.com/2013/06/count-how-many-mapped-reads-in-bam-file.html)
+* [Explanation of SAM flags](https://broadinstitute.github.io/picard/explain-flags.html)
 
 **Mapped reads**:
 ```
