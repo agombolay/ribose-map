@@ -31,14 +31,13 @@
 * Number of Chromosomes: 3
 * [Download Genome from PomBase](https://www.pombase.org/downloads/genome-datasets)
 
-### [*Thermococcus barophilus*]
-[Genomic sequence]:(https://www.ncbi.nlm.nih.gov/nuccore/NC_014804.1)
-[Plasmid sequence]:(https://www.ncbi.nlm.nih.gov/nuccore/NC_015471.1)
+### [*Thermococcus barophilus*](https://www.ncbi.nlm.nih.gov/genome/1564)
 * GC Content: 41.75%
 * Genome Size: 2.23 Mb
      * One circular plasmid (54,159 bp)
      * One circular chromosome (2,020,078 bp)
-* [Download Genome from Illumina](http://support.illumina.com/sequencing/sequencing_software/igenome.html)
+* [Genomic sequence]:(https://www.ncbi.nlm.nih.gov/nuccore/NC_014804.1)
+* [Plasmid sequence]:(https://www.ncbi.nlm.nih.gov/nuccore/NC_015471.1)
 
 ### [*Haloferax volcanii*](https://www.ncbi.nlm.nih.gov/genome/167)
 * GC Content: 50.60%
