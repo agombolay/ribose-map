@@ -1,6 +1,4 @@
-## Count number of reads
-
-<h1><p align="center">S. pombe (positive control for ribose-seq)</p></h1>
+<h2><p align="center">Count number of reads</p></h1>
 
 ### [Count number of reads in FASTA file](http://thegenomefactory.blogspot.com/2011/09/counting-sequences-with-unix-tools.html)
 
