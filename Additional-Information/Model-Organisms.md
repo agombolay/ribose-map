@@ -39,11 +39,13 @@
 * [Download genomic sequence from NCBI](https://www.ncbi.nlm.nih.gov/nuccore/NC_014804.1)
 * [Download plasmid sequence from NCBI](https://www.ncbi.nlm.nih.gov/nuccore/NC_015471.1)
 
-### [*Haloferax volcanii*](https://www.ncbi.nlm.nih.gov/genome/167)
-* GC content: 50.60%
-* Genome size: 5.17 Mb
-* Number of chromosomes: 1
-* [Download genome from Illumina](http://support.illumina.com/sequencing/sequencing_software/igenome.html)
+### [*Haloferax volcanii*](https://www.ncbi.nlm.nih.gov/genome/1149)
+* GC content: 65.46%
+* Genome size: 4.01 Mb
+    * One single plasmid (6.4 kb)
+    * One large circular chromosome (2.85 Mb)
+    * Three smaller circular chromosomes (85 kb-636 kb)
+* [Download genome from UCSC](http://archaea.ucsc.edu/cgi-bin/hgGateway?db=haloVolc1)
 
 ```
 #Convert 2bit file to FASTA
