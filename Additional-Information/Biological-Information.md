@@ -1,4 +1,4 @@
-## Biological Information
+<h1><p align="center">Biological Information</p></h1>
 
 ### [*Escherichia coli K12*](https://www.ncbi.nlm.nih.gov/genome/167)
 * GC Content: 50.60%
