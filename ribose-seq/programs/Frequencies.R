@@ -69,8 +69,8 @@ for(i in opt$sample) {
 #############################################################################################################################
 #Specify output path and save plot as PNG file
 ggsave(filename=file.path(output, paste(opt$sample, "-", "Frequencies", "-", k, ".", j, ".png", sep="")), plot=myplot)
-			}
-		}
-	}
-message("Plotting of", " ", i , ," ", "(", j, ")", " ", "is complete")
+			
+}
+}
+}
 }
