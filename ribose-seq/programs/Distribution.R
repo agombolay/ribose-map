@@ -106,21 +106,24 @@ for(i in opt$sample) {
         #Plot distributions
         myplot <- ggplot(data=data, aes(x=rNMPs, y=windows, fill=type)) +
 
-        #Plot data as barcharts
-        geom_bar(stat="identity",position=position_dodge(width=0.8), width=0.6) +
-
-        #Remove and replace default background plot theme
+        #Add axes titles and plot title
+        xlab("rNMPs per Window") + ylab("Number of Windows") + ggtitle(opt$title) +
+            
+        #Replace default background plot theme
         theme_bw() + theme(panel.border=element_blank(), panel.grid.major=element_blank(),
         panel.grid.minor=element_blank(), axis.line=element_line(colour="black"))+
-    
-        #Add axes titles and plot title (specified by user)
-        xlab("rNMPs per Window") + ylab("Number of Windows") + ggtitle(opt$title) +
-    
-        #Specify font size and center title (if any) of plot on page
-        theme(text=element_text(size=22)) + theme(plot.title=element_text(hjust=0.5)) +
 
-        #Specify colors of bars, remove legend title, and decrease space between bars and x-axis
-        scale_fill_manual(values=c("#000000", "#999999"), name="") + scale_y_continuous(expand=c(0.015,0))
+        #Specify colors of bars and remove legend title
+        scale_fill_manual(values=c("#000000", "#999999"), name="") +
+
+        #Plot data as barcharts
+        geom_bar(stat="identity",position=position_dodge(width=0.8), width=0.6) +
+            
+        #Decrease space between scatterplot and x-axis/y-axis
+        scale_y_continuous(expand=c(0.015,0)) + scale_x_continuous(expand=c(0.015,0)) +
+            
+        #Specify font size and center title (if any) of plot on page
+        theme(text=element_text(size=20)) + theme(plot.title=element_text(hjust=0.5))
 
 #############################################################################################################################
 #Save plot as PNG file
