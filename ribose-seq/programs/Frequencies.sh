@@ -31,7 +31,6 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
-#Calculate frequencies
 for sample in ${sample[@]}; do
 	for subset in "mito" "nucleus"; do
 	
