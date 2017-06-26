@@ -39,7 +39,7 @@ for(i in opt$sample) {
         		#Plot coverage
         		myplot <- ggplot(data, aes(x=1:length(data[,3]), y=data[,3])) +
 
-			#Replace default background plot theme
+			#Replace default theme
                 	theme(panel.grid=element_blank(),
                       	      panel.background=element_blank(),
                       	      axis.line=element_line(colour="black")) +
