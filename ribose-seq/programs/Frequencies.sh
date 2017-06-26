@@ -77,7 +77,6 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#STEP 2: Calculate frequencies of rNMPs in libraries
 
-	
 	#Extract rNMP bases
 	bedtools getfasta -s -fi temp.fa -bed $coordinates | grep -v '>' - > RiboBases.txt
 	
