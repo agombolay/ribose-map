@@ -33,7 +33,8 @@ fi
 
 #Input/Output
 bed=$directory/Ribose-Map/References/$reference.bed
-bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment
+bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam
+
 output=$directory/Ribose-Map/Results/$reference/$sample/Hotspots
 
 #Create directory
