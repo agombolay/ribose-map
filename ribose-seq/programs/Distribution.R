@@ -106,18 +106,19 @@ for(i in opt$sample) {
         #Plot distributions
         myplot <- ggplot(data=data, aes(x=rNMPs, y=windows, fill=type)) +
 
-        #Add axes titles and plot title
-        xlab("rNMPs per Window") + ylab("Number of Windows") + ggtitle(opt$title) +
+        #Replace default theme
+        theme(panel.grid=element_blank(),
+              panel.background=element_blank(),
+              axis.line=element_line(colour="black")) +
             
-        #Replace default background plot theme
-        theme_bw() + theme(panel.border=element_blank(), panel.grid.major=element_blank(),
-        panel.grid.minor=element_blank(), axis.line=element_line(colour="black"))+
-
         #Specify colors of bars and remove legend title
         scale_fill_manual(values=c("#000000", "#999999"), name="") +
-
+       
         #Plot data as barcharts side-by-side on same plot
         geom_bar(stat="identity",position=position_dodge(width=0.8), width=0.6) +
+            
+        #Add axes titles and plot title
+        xlab("rNMPs per Window") + ylab("Number of Windows") + ggtitle(opt$title) +
             
         #Decrease space between scatterplot and x-axis/y-axis
         scale_y_continuous(expand=c(0.015,0)) + scale_x_continuous(expand=c(0.015,0)) +
