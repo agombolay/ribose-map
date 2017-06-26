@@ -39,7 +39,7 @@ for sample in ${sample[@]}; do
 	
 	for subset in "mito" "nucleus"; do
 		
-		#Directory
+		#Create directory
 		mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Distribution
 	
 		#Input file
