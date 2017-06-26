@@ -47,18 +47,19 @@ for(i in opt$sample) {
                     	#Plot frequencies
                     	myplot <- ggplot(data=data, aes(x=position)) +
     
-                    	#Plot data as scatterplot
+                    	#Replace default theme
+        		theme(panel.grid=element_blank(),
+              		panel.background=element_blank(),
+			axis.line=element_line(colour="black")) +
+			
+			#Add axes titles and plot title
+			xlab("Position") + ylab("Frequency") + ggtitle(opt$title) +
+				
+			#Plot data as scatterplot with connecting lines
                     	geom_line(aes(y=A, colour="A")) + geom_point(aes(y=A, colour="A")) +
                     	geom_line(aes(y=C, colour="C")) + geom_point(aes(y=C, colour="C")) +
                     	geom_line(aes(y=G, colour="G")) + geom_point(aes(y=G, colour="G")) +
                     	geom_line(aes(y=T, colour="U/T")) + geom_point(aes(y=T, colour="U/T")) +
-    
-                    	#Remove and replace default background plot theme
-                    	theme_bw() + theme(panel.border=element_blank(), panel.grid.major=element_blank(),
-                    	panel.grid.minor=element_blank(), axis.line=element_line(colour="black")) +
-    			
-			#Add axes titles and plot title (specified by user)
-			xlab("Position") + ylab("Frequency") + ggtitle(opt$title) +
 				
                     	#Specify font size and center title (if any) of plot on page
                     	theme(text=element_text(size=22)) + theme(plot.title=element_text(hjust=0.5)) +
