@@ -45,12 +45,12 @@ mkdir -p $output
 for sample in ${sample[@]}; do
 
         genome=$(awk '{print $1}' $bed)
-        bedtools genomecov -d -3 -ibam $bam > temp.txt
+        bedtools genomecov -d -3 -ibam $bam > temp.bed
 	
         for chr in ${genome[@]}; do
         	hotspots=$output/$sample-Hotspots.$chr.bed
-        	grep -w "$chromosome" temp1.txt > $hotspots
+        	grep -w "$chromosome" temp.bed > $hotspots
         done
 done
 
-rm -f temp.txt
+rm -f temp.bed
