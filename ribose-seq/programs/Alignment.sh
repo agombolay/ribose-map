@@ -11,8 +11,8 @@
 function usage () {
 	echo "Usage: Alignment.sh [options]
 		-s Sample name(s) (e.g., FS1, FS2, FS3)
-		-a Input Read 1 FASTQ filename (forward)
-		-b Input Read 2 FASTQ filename (reverse)
+		-f Input Read 1 FASTQ filename (forward)
+		-r Input Read 2 FASTQ filename (reverse)
 		-u Length of UMI (e.g., NNNNNNNN or NNNNNNNNNNN)
 		-b Barcode contained within UMI (e.g., ..TGA......)
 		-m Minimum length of read to retain after trimming (e.g., 50)
@@ -22,7 +22,7 @@ function usage () {
 		-d Local user directory (e.g., /projects/home/agombolay3/data/repository)"
 }
 
-while getopts "s:a:b:u:m:t:p:i:b:d:h" opt; do
+while getopts "s:f:r:u:m:t:p:i:b:d:h" opt; do
     	case "$opt" in
         	#Allow multiple input arguments
         	s ) sample=($OPTARG) ;;
