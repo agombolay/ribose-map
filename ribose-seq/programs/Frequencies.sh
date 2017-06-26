@@ -77,13 +77,9 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#STEP 2: Calculate frequencies of rNMPs in libraries
 
-	if [ $subset == "mito" ]; then
-		#Select only reads located in mito DNA and extract rNMP bases
-		grep -E '(chrM|MT)' $reads | awk '{print substr($0,length($0))}' - > RiboBases.txt
-	elif [ $subset == "nucleus" ]; then
-		#Select only reads located in nuclear DNA and extract rNMP bases
-		grep -v -E '(chrM|MT)' $reads | awk '{print substr($0,length($0))}' - > RiboBases.txt
-	fi
+	
+	#Extract rNMP bases
+	bedtools getfasta -s -fi temp.fa -bed $coordinates | grep -v '>' - > RiboBases.txt
 	
 	#Calculate counts of rNMPs
 	A_RiboCount=$(awk '$1 == "A"' RiboBases.txt | wc -l); C_RiboCount=$(awk '$1 == "C"' RiboBases.txt | wc -l)
