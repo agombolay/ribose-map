@@ -47,6 +47,9 @@ if [ "$1" == "-h" ]; then
 fi
 
 #############################################################################################################################
+#Create directory
+mkdir -p $directory/Ribose-Map/Results/$index/$sample/Alignment
+
 #Input files
 Read1Fastq=$directory/Ribose-Map/FASTQ-Files/$read1
 Read2Fastq=$directory/Ribose-Map/FASTQ-Files/$read2
@@ -54,9 +57,6 @@ Read2Fastq=$directory/Ribose-Map/FASTQ-Files/$read2
 #Output files
 statistics=$directory/Ribose-Map/Results/$index/$sample/Alignment/Bowtie2.log
 finalReads=$directory/Ribose-Map/Results/$index/$sample/Alignment/$sample.bam
-
-#Create directory
-mkdir -p $directory/Ribose-Map/Results/$index/$sample/Alignment
 	
 #############################################################################################################################
 for sample in ${sample[@]}; do
