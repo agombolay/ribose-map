@@ -116,7 +116,7 @@ for(i in opt$sample) {
         #Specify colors of bars and remove legend title
         scale_fill_manual(values=c("#000000", "#999999"), name="") +
 
-        #Plot data as barcharts
+        #Plot data as barcharts side-by-side on same plot
         geom_bar(stat="identity",position=position_dodge(width=0.8), width=0.6) +
             
         #Decrease space between scatterplot and x-axis/y-axis
