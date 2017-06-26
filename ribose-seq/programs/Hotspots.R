@@ -25,7 +25,7 @@ for(i in opt$sample) {
         
         #Specify output directory and file
         output <- file.path(opt$directory, "Ribose-Map", "Results", opt$reference, opt$sample, "Hotspots")
-	files <- list.files(path=output, pattern=".bed", full.names=TRUE, recursive=FALSE)
+	files <- list.files(path=output, pattern=".bed", full.names=TRUE, recursive=FALSE, all.files=FALSE)
         
 	for(file in files){
 		
