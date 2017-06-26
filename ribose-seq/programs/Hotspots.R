@@ -8,6 +8,7 @@
 #Load libraries
 library(optparse)
 library(ggplot2)
+library(tools)
 
 #Command line options
 option_list <- list(
@@ -51,13 +52,11 @@ for(i in opt$sample) {
         scale_y_continuous(expand=c(0.015,0)) + scale_x_continuous(expand=c(0.015,0)) +
 
         #Specify font size and center title (if any) of plot on page
-        theme(text=element_text(size=22)) + theme(plot.title=element_text(hjust=0.5))
+        theme(text=element_text(size=20)) + theme(plot.title=element_text(hjust=0.5))
 
 #############################################################################################################################
 #Save plot as PNG file
-ggsave(filename=file.path(output, paste(opt$sample, "-", "Hotspots", ".", j, ".png", sep="")), plot=myplot, height=10, width=14)
-
-message("Plotting of", " ", i , ," ", "(", j, ")", " ", "is complete")
+ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep="")), plot=myplot, width=20, dpi=300)
 }
 }
 }
