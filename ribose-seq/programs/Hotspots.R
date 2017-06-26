@@ -39,12 +39,14 @@ for(i in opt$sample) {
         		#Plot coverage
         		myplot <- ggplot(data, aes(x=1:length(data[,3]), y=data[,3])) +
 
+			#Replace default background plot theme
+                	theme(panel.grid=element_blank(),
+                      	      panel.background=element_blank(),
+                      	      axis.line=element_line(colour="black")) +
+			
         		#Add axes titles and plot title
         		xlab("Position in genome") + ylab("Frequency of rNMPs") + ggtitle("") +
 
-        		#Replace default background plot theme
-        		theme(panel.background=element_blank(), panel.grid=element_blank(), axis.line=element_line(colour="black")) +
-        		
 			#Plot data as scatterchart with connecting lines
         		geom_point(shape=1, colour="blue4") + geom_line(aes(y=data[,3]), colour="blue4") +
 				
