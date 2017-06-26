@@ -31,10 +31,11 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
-#Input/Output
+#Input files
 bed=$directory/Ribose-Map/References/$reference.bed
 bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam
 
+#Output directory
 output=$directory/Ribose-Map/Results/$reference/$sample/Hotspots
 
 #Create directory
