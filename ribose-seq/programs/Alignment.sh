@@ -59,6 +59,8 @@ finalReads=$directory/Ribose-Map/Results/$index/$sample/Alignment/$sample.bam
 mkdir -p $directory/Ribose-Map/Results/$index/$sample/Alignment
 	
 #############################################################################################################################
+for sample in ${sample[@]}; do
+
 #Single End Reads
 if [[ $type == "SE" ]]; then
 
@@ -160,3 +162,5 @@ echo "Trimming, alignment, and de-duplication of $sample is complete"
 
 #Remove temporary files
 rm -f Paired*.fq Unpaired*.fq temp1.fq Read*.fq mapped.* dedup.* filtered.sam
+
+done
