@@ -110,21 +110,21 @@ for(i in opt$sample) {
         theme(panel.grid=element_blank(),
               panel.background=element_blank(),
               axis.line=element_line(colour="black")) +
-       
+            
         #Add axes titles and plot title
         xlab("rNMPs per Window") + ylab("Number of Windows") + ggtitle(opt$title) +
             
         #Plot data as barcharts side-by-side on same plot
         geom_bar(stat="identity",position=position_dodge(width=0.8), width=0.6) +
             
-        #Specify colors of bars and remove legend title
-        scale_fill_manual(values=c("#000000", "#999999"), name="") +
-            
         #Decrease space between scatterplot and x-axis/y-axis
         scale_y_continuous(expand=c(0.015,0)) + scale_x_continuous(expand=c(0.015,0)) +
             
         #Specify font size and center title (if any) of plot on page
-        theme(text=element_text(size=20)) + theme(plot.title=element_text(hjust=0.5))
+        theme(text=element_text(size=20)) + theme(plot.title=element_text(hjust=0.5)) +
+        
+        #Specify colors of bars and remove legend title
+        scale_fill_manual(values=c("#000000", "#999999"), name="")
 
 #############################################################################################################################
 #Save plot as PNG file
