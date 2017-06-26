@@ -47,7 +47,7 @@ for sample in ${sample[@]}; do
 	dataset=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/$sample-Frequencies.$subset.txt
 	
 	#Remove old file
-	rm -f $output/$dataset
+	rm -f $dataset
 	
 #############################################################################################################################
 	#STEP 1: Calculate frequencies of reference genome
