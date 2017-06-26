@@ -62,7 +62,7 @@ for(i in opt$sample) {
                     	geom_line(aes(y=T, colour="U/T")) + geom_point(aes(y=T, colour="U/T")) +
 				
                     	#Specify font size and center title (if any) of plot on page
-                    	theme(text=element_text(size=22)) + theme(plot.title=element_text(hjust=0.5)) +
+                    	theme(text=element_text(size=20)) + theme(plot.title=element_text(hjust=0.5)) +
 
                     	#Specify color values for each nucleotide and remove legend title
                     	scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="")
