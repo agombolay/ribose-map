@@ -32,7 +32,7 @@ if [ "$1" == "-h" ]; then
 fi
 
 #Input/Output
-bed=$directory/Ribose-Map/Reference/$reference.bed
+bed=$directory/Ribose-Map/References/$reference.bed
 output=$directory/Ribose-Map/Results/$reference/$sample/Hotspots
 
 #Create directory
