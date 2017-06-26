@@ -58,7 +58,7 @@ for(i in opt$sample) {
 
 #############################################################################################################################
 #Save plot as PNG file
-ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep="")), plot=myplot, width=20, dpi=300)
+ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep="")), plot=myplot, width=20)
 
 }
 }
