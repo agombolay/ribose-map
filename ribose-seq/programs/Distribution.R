@@ -126,8 +126,7 @@ for(i in opt$sample) {
 #Save plot as PNG file
 ggsave(filename=file.path(output, paste(opt$sample, "-", "Distribution", ".", j, ".png", sep="")), plot=myplot)
 
-    }
-    }
-    }
-message("Plotting of", " ", i , ," ", "(", j, ")", " ", "is complete")
+}
+}
+}
 }
