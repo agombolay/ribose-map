@@ -31,19 +31,23 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
+#Input/Output
+bed=$directory/Ribose-Map/Reference/$reference.bed
+output=$directory/Ribose-Map/Results/$reference/$sample/Hotspots
+
+#Create directory
+mkdir -p $output
+
 #Determine coordinates
 for sample in ${sample[@]}; do
 
-        genome=$(awk '{print $1}' $directory/Ribose-Map/Reference/$reference.bed)
-        for chromosome in ${genome[@]}; do
+        genome=$(awk '{print $1}' $bed)
+        bedtools genomecov -d -3 -ibam $bam > temp.txt
 	
-		#Create directory
-		mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Hotspots
-	
-		#Input/Output files
-		coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bed
-		hotspots=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Hotspots.$chromosome.bed
-		
-		grep -w "$chromosome" $coverage > $hotspots
+        for chr in ${genome[@]}; do
+        	hotspots=$output/$sample-Hotspots.$chr.bed
+        	grep -w "$chromosome" temp1.txt > $hotspots
         done
 done
+
+rm -f temp.txt
