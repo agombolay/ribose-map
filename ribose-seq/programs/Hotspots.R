@@ -43,10 +43,9 @@ for(i in opt$sample) {
         		xlab("Position in genome") + ylab("Frequency of rNMPs") + ggtitle("") +
 
         		#Replace default background plot theme
-        		theme_bw() + theme(panel.border=element_blank(), panel.grid.major=element_blank(),
-        		panel.grid.minor=element_blank(), axis.line=element_line(colour="black")) +
-
-        		#Plot data as scatterchart with connecting lines
+        		theme(panel.background=element_blank(), panel.grid=element_blank(), axis.line=element_line(colour="black")) +
+        		
+			#Plot data as scatterchart with connecting lines
         		geom_point(shape=1, colour="blue4") + geom_line(aes(y=data[,3]), colour="blue4") +
 				
         		#Decrease space between scatterplot and x-axis/y-axis
