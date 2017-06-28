@@ -40,7 +40,7 @@ for sample in ${sample[@]}; do
 	
 	#Input files
 	reads=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-ReadInformation.$subset.txt
-	BED=$directory/Ribose-Map/Reference/$reference.bed; FASTA=$directory/Ribose-Map/References/$reference.fa
+	BED=$directory/Ribose-Map/References/$reference.bed; FASTA=$directory/Ribose-Map/References/$reference.fa
 	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
 	
 	#Output file
