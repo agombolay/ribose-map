@@ -62,8 +62,8 @@ for sample in ${sample[@]}; do
 	fi
 
 	#Calculate counts of each nucleotide
-	A_BkgCount=$(grep -v '>' temp.fa | grep -o 'A' - | wc -l); C_BkgCount=$(grep -v '>' temp.fa | grep -o 'C' - | wc -l)
-	G_BkgCount=$(grep -v '>' temp.fa | grep -o 'G' - | wc -l); T_BkgCount=$(grep -v '>' temp.fa | grep -o 'T' - | wc -l)
+	A_BkgCount=$(grep -v '>' $FASTA | grep -o 'A' - | wc -l); C_BkgCount=$(grep -v '>' $FASTA | grep -o 'C' - | wc -l)
+	G_BkgCount=$(grep -v '>' $FASTA | grep -o 'G' - | wc -l); T_BkgCount=$(grep -v '>' $FASTA | grep -o 'T' - | wc -l)
 	
 	#Calculate total number of nucleotides
 	total_Bkg=$(($A_BkgCount+$C_BkgCount+$G_BkgCount+$T_BkgCount))
