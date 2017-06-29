@@ -65,7 +65,9 @@ for(i in opt$sample) {
                     	theme(text=element_text(size=20)) + theme(plot.title=element_text(hjust=0.5)) +
 
                     	#Specify color values for each nucleotide and remove legend title
-                    	scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="")
+                    	scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="") + 
+				
+			theme(legend.key = element_blank())
 											     
 #############################################################################################################################
 #Save plot as PNG file
