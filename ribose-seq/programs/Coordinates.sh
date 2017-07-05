@@ -90,9 +90,10 @@ for sample in ${sample[@]}; do
 			rm -f $coordinates
 		fi
 		
+		done
+		fi
+
 		#Remove temp files
 		rm -f temp{1..3}.txt
 		
-	done
-	fi
 done
