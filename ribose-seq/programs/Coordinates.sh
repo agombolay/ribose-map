@@ -41,6 +41,8 @@ for sample in ${sample[@]}; do
 		#Input file
 		bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam
 		
+		if [ -s $bam ]; then
+		
 		#Output files
 		reads=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-ReadInformation.txt
 		coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
@@ -81,6 +83,8 @@ for sample in ${sample[@]}; do
 		
 		#Remove temp files
 		rm -f temp{1..3}.txt
-
+		
+		fi
+		
 	done
 done
