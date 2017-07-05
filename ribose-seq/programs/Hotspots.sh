@@ -55,7 +55,7 @@ for sample in ${sample[@]}; do
 	done
 	
 	#Print completion status
-	echo "Hotspots in $sample ($subset) have been located"
+	echo "Hotspots in $sample have been located"
 	
 	fi
 done
