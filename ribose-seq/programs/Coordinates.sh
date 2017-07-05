@@ -45,6 +45,9 @@ for sample in ${sample[@]}; do
 		#Covert BAM file to BED format
 		bedtools bamtobed -i $bam > temp1.txt
 		
+		#Convert BAM file to FASTA then extract read sequences
+		samtools bam2fq $bam | seqtk seq -A - | grep -v '>' - > temp2.txt
+		
 		for subset in "mito" "nucleus"; do
 		
 		#Output files
@@ -56,9 +59,6 @@ for sample in ${sample[@]}; do
 		
 #############################################################################################################################
 		#STEP 1: Determine genomic coordinates of rNMPs from reads
-		
-		#Convert BAM file to FASTA then extract read sequences
-		samtools bam2fq $bam | seqtk seq -A - | grep -v '>' - > temp2.txt
 		
 		#Extract read coordinates, sequences, and strand information
 		paste temp1.txt temp2.txt | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $reads
