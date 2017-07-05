@@ -42,6 +42,8 @@ for sample in ${sample[@]}; do
 		
 		if [ -s $bam ]; then
 		
+		#STEP 1: Convert BAM file to BED and FASTQ files
+		
 		#Covert BAM file to BED format
 		bedtools bamtobed -i $bam > temp1.txt
 		
@@ -58,7 +60,7 @@ for sample in ${sample[@]}; do
 		rm -f $reads $coordinates
 		
 #############################################################################################################################
-		#STEP 1: Determine genomic coordinates of rNMPs from reads
+		#STEP 2: Determine genomic coordinates of rNMPs from reads
 		
 		#Extract read coordinates, sequences, and strand information
 		paste temp1.txt temp2.txt | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $reads
@@ -72,7 +74,7 @@ for sample in ${sample[@]}; do
 		cat <(echo "$positiveReads") <(echo "$negativeReads") > temp3.txt
 		
 #############################################################################################################################
-		#STEP 2: Subset and sort coordinates based on genomic region
+		#STEP 3: Subset and sort coordinates based on genomic region
 		if [ $subset == "mito" ]; then
 			grep -E '(chrM|MT)' temp3.txt | sort -k1,1 -k2,2n - > $coordinates
 		elif [ $subset == "nucleus" ]; then
