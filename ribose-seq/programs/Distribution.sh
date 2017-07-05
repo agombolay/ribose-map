@@ -44,7 +44,9 @@ for sample in ${sample[@]}; do
 	
 		#Input file
 		bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample-MappedReads.bam
-	
+		
+		if [ -s $bam ]; then
+		
 		#Output file
 		counts=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Counts.$subset.txt
 		coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.$subset.bed
@@ -87,6 +89,7 @@ for sample in ${sample[@]}; do
 	
 		#Remove temp files
 		rm -f temp{1..3}.txt
-
+		
+		fi
 	done
 done
