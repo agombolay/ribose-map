@@ -40,9 +40,13 @@ for sample in ${sample[@]}; do
         genome=$(awk '{print $1}' $directory/Ribose-Map/References/$reference.bed)
         bedtools genomecov -d -3 -ibam $directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam > temp.bed
 	
+	if [ -s $bam ]; then
+	
         for chr in ${genome[@]}; do
         	grep -w "$chr" temp.bed > $directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Hotspots.$chr.bed
-        done
+        fi
+	
+	done
 done
 
 rm -f temp.bed
