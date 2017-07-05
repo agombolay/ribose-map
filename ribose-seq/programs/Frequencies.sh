@@ -43,6 +43,8 @@ for sample in ${sample[@]}; do
 	BED=$directory/Ribose-Map/References/$reference.bed; FASTA=$directory/Ribose-Map/References/$reference.fa
 	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
 	
+	if [ -f $coordinates ]; then
+	
 	#Output file
 	dataset=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/$sample-Frequencies.$subset.txt
 	
@@ -168,6 +170,8 @@ for sample in ${sample[@]}; do
 	
 	#Remove temp files
 	rm -f ./*Upstream.* ./*Downstream.* ./RiboBases.txt ./temp.fa*
+	
+	fi
 	
 	done
 done
