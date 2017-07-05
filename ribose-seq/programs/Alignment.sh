@@ -65,11 +65,11 @@ for sample in ${sample[@]}; do
 if [[ $type == "SE" ]]; then
 
 	#Trim FASTQ files based on quality and adapter content
-	java -jar $path/trimmomatic-0.36.jar SE -phred33 $Read1Fastq Paired1.fq \
+	java -jar $path/trimmomatic-0.36.jar SE -phred33 $Read1Fastq Unpaired.fq \
 	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 MINLEN:$min
 	
 	#Reverse complement reads
-	cat Paired1.fq | seqtk seq -r - > temp1.fq
+	cat Unpaired.fq | seqtk seq -r - > temp1.fq
 	
 		if [[ -n $UMI ]]; then
 			#Extract UMI from 3' ends of reads (append UMI to read name)
