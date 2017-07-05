@@ -42,7 +42,7 @@ for sample in ${sample[@]}; do
 		bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam
 		
 		#Output files
-		reads=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-ReadInformation.$subset.txt
+		reads=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-ReadInformation.txt
 		coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
 		
 		#Remove old files
