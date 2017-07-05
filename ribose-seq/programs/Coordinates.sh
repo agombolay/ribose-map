@@ -32,8 +32,7 @@ if [ "$1" == "-h" ]; then
 fi
 
 for sample in ${sample[@]}; do
-	for subset in "mito" "nucleus"; do
-	
+		
 #############################################################################################################################
 		#Create directory
 		mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Coordinates
@@ -42,6 +41,11 @@ for sample in ${sample[@]}; do
 		bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam
 		
 		if [ -s $bam ]; then
+		
+		#Covert BAM file to BED format
+		bedtools bamtobed -i $bam > temp1.txt
+		
+		for subset in "mito" "nucleus"; do
 		
 		#Output files
 		reads=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-ReadInformation.txt
@@ -52,9 +56,6 @@ for sample in ${sample[@]}; do
 		
 #############################################################################################################################
 		#STEP 1: Determine genomic coordinates of rNMPs from reads
-
-		#Covert BAM file to BED format
-		bedtools bamtobed -i $bam > temp1.txt
 		
 		#Convert BAM file to FASTA then extract read sequences
 		samtools bam2fq $bam | seqtk seq -A - | grep -v '>' - > temp2.txt
@@ -92,7 +93,6 @@ for sample in ${sample[@]}; do
 		#Remove temp files
 		rm -f temp{1..3}.txt
 		
-		fi
-		
 	done
+	fi
 done
