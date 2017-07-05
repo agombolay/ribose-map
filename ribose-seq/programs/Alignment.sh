@@ -132,7 +132,9 @@ if [[ $type == "PE" ]]; then
 		
 		#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
 		samtools view -bS -f66 -F260 mapped.sam | samtools sort - -o sorted.bam; samtools index sorted.bam
-		umi_tools dedup -I sorted.bam --paired -v 0 | samtools sort - -o deduped.bam; samtools index deduped.bam
+		
+		#Remove PCR duplicates based on UMI and genomic start position and sort/index BAM file
+		umi_tools dedup -I sorted.bam -v 0 | samtools sort - -o deduped.bam; samtools index deduped.bam
 		
 		#Filter BAM file based on barcode
 		samtools view -h deduped.bam -o deduped.sam
@@ -145,7 +147,9 @@ if [[ $type == "PE" ]]; then
 		
 		#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
 		samtools view -bS -f66 -F260 mapped.sam | samtools sort - -o sorted.bam; samtools index sorted.bam
-		umi_tools dedup -I sorted.bam --paired -v 0 | samtools sort - -o $finalReads; samtools index $finalReads
+		
+		#Remove PCR duplicates based on UMI and genomic start position and sort/index BAM file
+		umi_tools dedup -I sorted.bam -v 0 | samtools sort - -o $finalReads; samtools index $finalReads
 		
 	elif [[ -z $UMI ]] && [[ -z $barcode ]]; then
 		#Align reads to reference and save Bowtie statistics
