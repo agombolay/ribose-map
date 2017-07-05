@@ -37,16 +37,27 @@ mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Hotspots
 #Determine coordinates
 for sample in ${sample[@]}; do
 
-        genome=$(awk '{print $1}' $directory/Ribose-Map/References/$reference.bed)
-        bedtools genomecov -d -3 -ibam $directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam > temp.bed
+	bed=$directory/Ribose-Map/References/$reference.bed
+	
+	#Select chromosomes
+	genome=$(awk '{print $1}' $bed)
+	
+	bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam
+
+	#Determine coverage at each 3' position
+        bedtools genomecov -d -3 -ibam $bam > temp.bed
 	
 	if [ -s $bam ]; then
 	
         for chr in ${genome[@]}; do
-        	grep -w "$chr" temp.bed > $directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Hotspots.$chr.bed
-        fi
-	
+		hotspots=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Hotspots.$chr.bed
+        	grep -w "$chr" temp.bed > $hotspots
 	done
+	
+	#Print completion status
+	echo "Hotspots in $sample ($subset) have been located"
+	
+	fi
 done
 
 rm -f temp.bed
