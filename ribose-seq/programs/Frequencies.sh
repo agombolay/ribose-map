@@ -44,7 +44,7 @@ for sample in ${sample[@]}; do
 	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
 	
 	if [ -f $coordinates ]; then
-	echo $coordinates
+
 	#Output file
 	dataset=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/$sample-Frequencies.$subset.txt
 	
