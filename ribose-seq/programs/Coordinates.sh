@@ -78,13 +78,16 @@ for sample in ${sample[@]}; do
 			grep -vE '(chrM|MT)' temp3.txt | sort -k1,1 -k2,2n - > $coordinates
 		fi
 		
+		#Number of lines in coordinates file
 		lines=`wc -l $coordinates | awk '{print $1}'`
-		if [ "$lines" -eq "0" ]; then
+		
+		#Save file only if file has greater than 0 lines, otherwise remove
+		if [ "$lines" -gt "0" ]; then
+			#Print completion status
+			echo "Coordinates of rNMPs for $sample ($subset) have been determined"
+		else
 			rm -f $coordinates
 		fi
-		
-		#Print completion status
-		echo "Coordinates of rNMPs for $sample ($subset) have been determined"
 		
 		#Remove temp files
 		rm -f temp{1..3}.txt
