@@ -78,7 +78,7 @@ for sample in ${sample[@]}; do
 			grep -vE '(chrM|MT)' temp3.txt | sort -k1,1 -k2,2n - > $coordinates
 		fi
 		
-		lines=`wc -l $coordinates`
+		lines=`wc -l $coordinates | awk '{print $1}'`
 		if [ "$lines" -eq "0" ]; then
 			rm -f $coordinates
 		fi
