@@ -44,20 +44,20 @@ for sample in ${sample[@]}; do
 	
 	if [[ -s $coverage ]] && [[ -s $bam ]]; then
 	
-	#Determine coverage at 3' position of reads
-	bedtools genomecov -bg -3 -ibam $bam > $bedgraph
+		#Determine coverage at 3' position of reads
+		bedtools genomecov -bg -3 -ibam $bam > $bedgraph
 
-	#Select chromosomes
-	genome=$(awk '{print $1}' $bed)	
+		#Select chromosomes
+		genome=$(awk '{print $1}' $bed)	
 	
-	#Save coverage to separate files per chromosome
-        for chr in ${genome[@]}; do
-		hotspots=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Hotspots.$chr.bed
-		grep -w "$chr" $coverage > $hotspots
-	done
+		#Save coverage of rNMPs to separate files per chromosome
+        	for chr in ${genome[@]}; do
+			hotspots=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Hotspots.$chr.bed
+			grep -w "$chr" $coverage > $hotspots
+		done
 	
-	#Print completion status
-	echo "Hotspots in $sample have been located"
+		#Print completion status
+		echo "Hotspots in $sample have been located"
 	
 	fi
 done
