@@ -31,11 +31,11 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
-#Create directory
-mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Hotspots
-
 #Determine coordinates
 for sample in ${sample[@]}; do
+
+	#Create directory
+	mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Hotspots
 
 	#Input files
 	bed=$directory/Ribose-Map/References/$reference.bed
