@@ -48,7 +48,7 @@ for sample in ${sample[@]}; do
 	if [[ -s $coverage ]] && [[ -s $bam ]]; then
 	
 		#Determine coverage at 3' position of reads
-		bedtools genomecov -bg -3 -ibam $bam > $bedgraph
+		bedtools genomecov -bg -3 -trackline 'track type="bedGraph"' -ibam $bam > $bedgraph
 
 		#Select chromosomes
 		genome=$(awk '{print $1}' $bed)	
