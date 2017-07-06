@@ -37,22 +37,19 @@ mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Hotspots
 #Determine coordinates
 for sample in ${sample[@]}; do
 
+	#Input files
 	bed=$directory/Ribose-Map/References/$reference.bed
+	coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bed
 	
+	if [ -s $coverage ]; then
+
 	#Select chromosomes
-	genome=$(awk '{print $1}' $bed)
+	genome=$(awk '{print $1}' $bed)	
 	
-	bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam
-	coverage=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.bed
-	
-	#Determine coverage at each 3' position
-        bedtools genomecov -d -3 -ibam $bam > $coverage
-	
-	if [ -s $bam ]; then
-	
+	#Save coverage to separate files per chromosome
         for chr in ${genome[@]}; do
 		hotspots=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Hotspots.$chr.bed
-        	grep -w "$chr" $coverage > $hotspots
+		grep -w "$chr" $coverage > $hotspots
 	done
 	
 	#Print completion status
