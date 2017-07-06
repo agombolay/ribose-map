@@ -43,15 +43,16 @@ for sample in ${sample[@]}; do
 	genome=$(awk '{print $1}' $bed)
 	
 	bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam
-
+	coverage=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.bed
+	
 	#Determine coverage at each 3' position
-        bedtools genomecov -d -3 -ibam $bam > temp.bed
+        bedtools genomecov -d -3 -ibam $bam > $coverage
 	
 	if [ -s $bam ]; then
 	
         for chr in ${genome[@]}; do
 		hotspots=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Hotspots.$chr.bed
-        	grep -w "$chr" temp.bed > $hotspots
+        	grep -w "$chr" $coverage > $hotspots
 	done
 	
 	#Print completion status
@@ -59,5 +60,3 @@ for sample in ${sample[@]}; do
 	
 	fi
 done
-
-rm -f temp.bed
