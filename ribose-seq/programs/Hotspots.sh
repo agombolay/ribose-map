@@ -39,7 +39,10 @@ for sample in ${sample[@]}; do
 
 	#Input files
 	bed=$directory/Ribose-Map/References/$reference.bed
+	bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam
 	coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bed
+
+	#Output file
 	bedgraph=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bedgraph
 	
 	if [[ -s $coverage ]] && [[ -s $bam ]]; then
