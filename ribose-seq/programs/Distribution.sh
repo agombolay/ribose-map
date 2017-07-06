@@ -48,31 +48,31 @@ for sample in ${sample[@]}; do
 		if [ -s $bam ]; then
 		
 		#Output file
+		coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bed
 		counts=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Counts.$subset.txt
-		coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.$subset.bed
 	
 		#Remove old files
-		rm -f $coverage $counts temp{1..3}.txt
+		rm -f $coverage $counts temp*.bed temp3.txt
 	
 		#Determine coverage at 3' position of reads
-		bedtools genomecov -d -3 -ibam $bam > temp1.txt
+		bedtools genomecov -d -3 -ibam $bam > $coverage
 	
 		#Select region of genome (i.e., nucleus or mito)
 		if [ $subset == "mito" ]; then
-			grep -E '(chrM|MT)' temp1.txt > $coverage
+			grep -E '(chrM|MT)' $coverage > temp1.bed
 		elif [ $subset == "nucleus" ]; then
-			grep -vE '(chrM|MT)' temp1.txt > $coverage
+			grep -vE '(chrM|MT)' $coverage > temp1.bed
 		fi
 		
 		#Sort by # of rNMPs
-		sort -k3n $coverage > temp2.txt
+		sort -k3n temp1.bed > temp2.bed
 
 		#Maximum # of rNMPs in observed data
-		max=$(tail -1 temp2.txt | awk '{print $3}' -)
+		max=$(tail -1 temp2.bed | awk '{print $3}' -)
 
 		#Number of positions containing 0...max # of rNMPs
 		for i in $(seq 0 $max); do
-			awk '$3 == ('$i')' temp2.txt | wc -l >> temp3.txt
+			awk '$3 == ('$i')' temp2.bed | wc -l >> temp3.txt
 		done
 		
 #############################################################################################################################
@@ -88,7 +88,7 @@ for sample in ${sample[@]}; do
 		echo "Counts for $sample ($subset) have been determined"
 	
 		#Remove temp files
-		rm -f temp{1..3}.txt
+		rm -f temp*.bed temp3.txt
 		
 		fi
 	done
