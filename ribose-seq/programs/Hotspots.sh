@@ -40,8 +40,12 @@ for sample in ${sample[@]}; do
 	#Input files
 	bed=$directory/Ribose-Map/References/$reference.bed
 	coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bed
+	bedgraph=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bedgraph
 	
-	if [ -s $coverage ]; then
+	if [ -s $coverage ] && [ -s $bam ]; then
+	
+	#Determine coverage at 3' position of reads
+	bedtools genomecov -bg -3 -ibam $bam > $bedgraph
 
 	#Select chromosomes
 	genome=$(awk '{print $1}' $bed)	
