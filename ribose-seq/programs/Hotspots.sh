@@ -42,7 +42,7 @@ for sample in ${sample[@]}; do
 	coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bed
 	bedgraph=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bedgraph
 	
-	if [ -s $coverage ] && [ -s $bam ]; then
+	if [[ -s $coverage ]] && [[ -s $bam ]]; then
 	
 	#Determine coverage at 3' position of reads
 	bedtools genomecov -bg -3 -ibam $bam > $bedgraph
