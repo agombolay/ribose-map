@@ -34,35 +34,35 @@ fi
 #Determine coordinates
 for sample in ${sample[@]}; do
 
-	#Create directory
-	mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Hotspots
+  #Create directory
+  mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Hotspots
 
-	#Input files
-	bed=$directory/Ribose-Map/References/$reference.bed
-	bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam
-	coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bed
+  #Input files
+  bed=$directory/Ribose-Map/References/$reference.bed
+  bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam
+  coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bed
 	
-	if [[ -s $coverage ]] && [[ -s $bam ]]; then
+  if [[ -s $coverage ]] && [[ -s $bam ]]; then
 	
-		#Determine coverage at 3' position of reads
-		samtools view -bS -f 16 $bam > reverse.bam; samtools view -bS -F 16 $bam > forward.bam
+  #Determine coverage at 3' position of reads
+  samtools view -bS -f 16 $bam > reverse.bam; samtools view -bS -F 16 $bam > forward.bam
 		
-		#Output files
-		forward=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Forward.bedgraph
-		reverse=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Reverse.bedgraph
+  #Output files
+  forward=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Forward.bedgraph
+  reverse=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Reverse.bedgraph
 		
-		bedtools genomecov -bg -3 -trackline -trackopts 'name="Reverse" color=0,0,255' -ibam reverse.bam > $reverse
-		bedtools genomecov -bg -3 -trackline -trackopts 'name="Forward" color=0,128,0' -ibam forward.bam > $forward
-
-		#Save coverage of rNMPs per chromosome
-        	for chr in $( awk '{print $1}' $bed ); do
-			grep -w "$chr" $coverage > $directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-$chr.bed
-		done
+  bedtools genomecov -bg -3 -trackline -trackopts 'name="Reverse" color=0,0,255 visiblity=full' -ibam reverse.bam > $reverse
+  bedtools genomecov -bg -3 -trackline -trackopts 'name="Forward" color=0,128,0 visiblity=full' -ibam forward.bam > $forward
+  
+    #Save coverage of rNMPs per chromosome
+    for chr in $( awk '{print $1}' $bed ); do
+      grep -w "$chr" $coverage > $directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-$chr.bed
+    done
 	
-		#Print completion status
-		echo "Hotspots in $sample have been located"
+    #Print completion status
+    echo "Hotspots in $sample have been located"
 		
-		rm reverse.bam forward.bam
+    rm reverse.bam forward.bam
 	
-	fi
+  fi
 done
