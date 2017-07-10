@@ -59,6 +59,7 @@ for sample in ${sample[@]}; do
 	
 		#Save coverage of rNMPs to separate files per chromosome
         	for chr in $( awk '{print $1}' $bed ); do
+			echo $chr
 			grep -w "$chr" $coverage > $directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-$chr.bed
 		done
 	
