@@ -42,13 +42,15 @@ for sample in ${sample[@]}; do
 	bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam
 	coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bed
 
-	#Output file
-	bedgraph=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.bedgraph
+	#Output files
+	forward=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.bedgraph
+	reverse=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.bedgraph
 	
 	if [[ -s $coverage ]] && [[ -s $bam ]]; then
-	
+		
 		#Determine coverage at 3' position of reads
-		bedtools genomecov -bg -3 -trackline -ibam $bam > $bedgraph
+		samtools view -f 16 $bam | bedtools genomecov -bg -3 -trackline -ibam - > $forward
+		samtools view -F 16 $bam | bedtools genomecov -bg -3 -trackline -ibam - > $reverse
 
 		#Select chromosomes
 		genome=$(awk '{print $1}' $bed)	
