@@ -55,10 +55,10 @@ for sample in ${sample[@]}; do
 		bedtools genomecov -bg -3 -trackline -trackopts 'name="Reverse" color=0,128,0' -ibam forward.bam > $forward
 
 		#Select chromosomes
-		genome=$(awk '{print $1}' $bed)	
+		#genome=$(awk '{print $1}' $bed)	
 	
 		#Save coverage of rNMPs to separate files per chromosome
-        	for chr in ${genome[@]}; do
+        	for chr in ${(awk '{print $1}' $bed)[@]}; do
 			grep -w "$chr" $coverage > $directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-$chr.bed
 		done
 	
