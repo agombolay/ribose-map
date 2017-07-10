@@ -45,7 +45,7 @@ for sample in ${sample[@]}; do
 	if [[ -s $coverage ]] && [[ -s $bam ]]; then
 	
 		#Determine coverage at 3' position of reads
-		samtools view -f 16 $bam > reverse.bam; samtools view -F 16 $bam > forward.bam
+		samtools view -bS -f 16 $bam > reverse.bam; samtools view -bS -F 16 $bam > forward.bam
 		
 		#Output files
 		forward=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Forward.bedgraph
