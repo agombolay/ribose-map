@@ -43,8 +43,8 @@ for sample in ${sample[@]}; do
 	coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bed
 
 	#Output files
-	forward=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.bedgraph
-	reverse=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.bedgraph
+	forward=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Forward.bedgraph
+	reverse=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Reverse.bedgraph
 	
 	if [[ -s $coverage ]] && [[ -s $bam ]]; then
 		
