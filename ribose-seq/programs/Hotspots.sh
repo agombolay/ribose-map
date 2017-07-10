@@ -43,14 +43,16 @@ for sample in ${sample[@]}; do
 	coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bed
 	
 	if [[ -s $coverage ]] && [[ -s $bam ]]; then
+	
+		#Determine coverage at 3' position of reads
+		samtools view -f 16 $bam > reverse.bam; samtools view -F 16 $bam > forward.bam
 		
 		#Output files
 		forward=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Forward.bedgraph
 		reverse=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Reverse.bedgraph
-	
-		#Determine coverage at 3' position of reads
-		samtools view -f 16 $bam | bedtools genomecov -bg -3 -trackline -trackopts color=0,0,255 -ibam - > $forward
-		samtools view -F 16 $bam | bedtools genomecov -bg -3 -trackline -trackopts color=0,128,0 -ibam - > $reverse
+		
+		bedtools genomecov -bg -3 -trackline -trackopts 'name="Forward" color=0,0,255' -ibam reverse.bam > $forward
+		bedtools genomecov -bg -3 -trackline -trackopts 'name="Reverse" color=0,128,0' -ibam forward.bam > $reverse
 
 		#Select chromosomes
 		genome=$(awk '{print $1}' $bed)	
@@ -62,6 +64,8 @@ for sample in ${sample[@]}; do
 	
 		#Print completion status
 		echo "Hotspots in $sample have been located"
+		
+		rm reverse.bam forward.bam
 	
 	fi
 done
