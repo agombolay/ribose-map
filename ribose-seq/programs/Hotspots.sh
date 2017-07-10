@@ -49,8 +49,8 @@ for sample in ${sample[@]}; do
 		reverse=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Reverse.bedgraph
 	
 		#Determine coverage at 3' position of reads
-		samtools view -f 16 $bam | bedtools genomecov -bg -3 -trackline -ibam - > $forward
-		samtools view -F 16 $bam | bedtools genomecov -bg -3 -trackline -ibam - > $reverse
+		samtools view -f 16 $bam | bedtools genomecov -bg -3 -trackline -trackopts color=0,0,255 -ibam - > $forward
+		samtools view -F 16 $bam | bedtools genomecov -bg -3 -trackline -trackopts color=0,128,0 -ibam - > $reverse
 
 		#Select chromosomes
 		genome=$(awk '{print $1}' $bed)	
@@ -58,7 +58,7 @@ for sample in ${sample[@]}; do
 		#Save coverage of rNMPs to separate files per chromosome
         	for chr in ${genome[@]}; do
 			hotspots=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Hotspots.$chr.bed
-			grep -w "$chr" $coverage > $hotspots
+			grep -w "$chr" $coverage > $directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-$chr.bed
 		done
 	
 		#Print completion status
