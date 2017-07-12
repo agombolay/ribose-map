@@ -72,14 +72,14 @@ for sample in ${sample[@]}; do
 		
 		
 		#Sort by # of rNMPs
-		sort -k3n temp1.bed > temp2.bed
+		sort -k4n temp1.bed > temp2.bed
 
 		#Maximum # of rNMPs in observed data
-		max=$(tail -1 temp2.bed | awk '{print $3}' -)
+		max=$(tail -1 temp2.bed | awk '{print $4}' -)
 
 		#Number of positions containing 0...max # of rNMPs
 		for i in $(seq 0 $max); do
-			awk '$3 == ('$i')' temp2.bed | wc -l >> temp3.txt
+			awk '$4 == ('$i')' temp2.bed | wc -l >> temp3.txt
 		done
 		
 #############################################################################################################################
