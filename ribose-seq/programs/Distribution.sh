@@ -51,7 +51,7 @@ for sample in ${sample[@]}; do
 		windows=$directory/Ribose-Map/References/$reference-windows.bed
 		coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bed
 		
-		bedtools makewindows -g $bed -w 2500 > $windows
+		bedtools makewindows -g $bed -w 100 > $windows
 		bedtools intersect -a $windows -b $coordinates -c -nonamecheck > temp1.bed
 		
 		#Select region of genome (i.e., nucleus or mito)
