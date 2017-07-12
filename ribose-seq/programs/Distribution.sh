@@ -37,7 +37,7 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#STEP 1: Count number of positions containing 0...max # of rNMPs
 	
-	for subset in "nucleus"; do
+	for subset in "mito"; do
 		
 		#Create directory
 		mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Distribution
@@ -52,15 +52,17 @@ for sample in ${sample[@]}; do
 		#Output file
 		windows=$directory/Ribose-Map/References/$reference-windows.bed
 		coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bed
-		#counts=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Counts.$chr.txt 
+		counts=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Counts.$subset.txt 
 		
 		#Remove old files
-		rm -f $coverage $counts temp*.bed temp3.txt
-	
-		for chr in $( awk '{print $1}' $bed ); do
-			counts=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Counts.$chr.txt 
-			bedtools makewindows -g $bed -w 25000 > $windows
-			bedtools intersect -a $windows -b $coordinates -c -nonamecheck > temp1.bed
+		rm -f $coverage $counts temp*.bed temp4.txt
+		
+		bedtools makewindows -g $bed -w 25000 > $windows
+		bedtools intersect -a $windows -b $coordinates -c -nonamecheck > temp1.bed
+		
+		#for chr in $( awk '{print $1}' $bed ); do
+		#	counts=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Counts.$chr.txt 
+		#	grep $chr temp1.bed > temp2.bed
 		
 		#Determine coverage at 3' position of reads
 		#bedtools genomecov -d -3 -ibam $bam > $coverage
@@ -81,7 +83,7 @@ for sample in ${sample[@]}; do
 
 		#Number of positions containing 0...max # of rNMPs
 		for i in $(seq 0 $max); do
-			awk '$4 == ('$i')' temp2.bed | wc -l >> temp3.txt
+			awk '$4 == ('$i')' temp3.bed | wc -l >> temp4.txt
 		done
 		
 #############################################################################################################################
@@ -91,13 +93,13 @@ for sample in ${sample[@]}; do
 		echo -e "rNMPs\tWindows" > $counts
 
 		#Add number of positions containing 0...max # of rNMPs
-		paste <(echo "$(seq 0 $max)") <(cat temp3.txt) >> $counts
+		paste <(echo "$(seq 0 $max)") <(cat temp4.txt) >> $counts
 
 		#Print completion status
 		echo "Counts for $sample ($chr) have been determined"
 	
 		#Remove temp files
-		#rm -f temp*.bed temp3.txt
+		rm -f temp*.bed temp4.txt
 		done
 		fi
 	done
