@@ -37,7 +37,7 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#STEP 1: Count number of positions containing 0...max # of rNMPs
 	
-	for subset in "mito"; do
+	for subset in "mito" "nucleus"; do
 		
 		#Create directory
 		mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Distribution
