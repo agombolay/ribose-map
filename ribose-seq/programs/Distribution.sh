@@ -55,7 +55,7 @@ for sample in ${sample[@]}; do
 		counts=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Counts.$subset.txt 
 		
 		#Remove old files
-		rm -f $coverage $counts temp*.bed temp4.txt
+		rm -f $coverage $counts temp*.bed temp3.txt
 		
 		bedtools makewindows -g $bed -w 25000 > $windows
 		bedtools intersect -a $windows -b $coordinates -c -nonamecheck > temp1.bed
@@ -83,7 +83,7 @@ for sample in ${sample[@]}; do
 
 		#Number of positions containing 0...max # of rNMPs
 		for i in $(seq 0 $max); do
-			awk '$4 == ('$i')' temp3.bed | wc -l >> temp4.txt
+			awk '$4 == ('$i')' temp2.bed | wc -l >> temp3.txt
 		done
 		
 #############################################################################################################################
@@ -93,13 +93,13 @@ for sample in ${sample[@]}; do
 		echo -e "rNMPs\tWindows" > $counts
 
 		#Add number of positions containing 0...max # of rNMPs
-		paste <(echo "$(seq 0 $max)") <(cat temp4.txt) >> $counts
+		paste <(echo "$(seq 0 $max)") <(cat temp3.txt) >> $counts
 
 		#Print completion status
 		echo "Counts for $sample ($subset) have been determined"
 	
 		#Remove temp files
-		rm -f temp*.bed temp4.txt
+		rm -f temp*.bed temp3.txt
 		
 		fi
 	done
