@@ -62,9 +62,9 @@ for sample in ${sample[@]}; do
 		
 		#Select region of genome (i.e., nucleus or mito)
 		if [ $subset == "mito" ]; then
-			grep -E '(chrM|MT)' $windows > temp2.bed
+			grep -E '(chrM|MT)' temp1.bed > temp2.bed
 		elif [ $subset == "nucleus" ]; then
-			grep -vE '(chrM|MT)' $$windows > temp2.bed
+			grep -vE '(chrM|MT)' temp1.bed > temp2.bed
 		fi
 		
 		#Determine coverage at 3' position of reads
