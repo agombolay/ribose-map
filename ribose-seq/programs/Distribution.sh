@@ -57,7 +57,7 @@ for sample in ${sample[@]}; do
 		#Remove old files
 		rm -f $coverage $counts temp*.bed temp3.txt
 	
-		for chr in ; do
+		for chr in $( awk '{print $1}' $bed ); do
 			counts=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Counts.$chr.txt 
 			bedtools makewindows -g $bed -w 25000 > $windows
 			bedtools intersect -a $windows -b $coordinates -c -nonamecheck > temp1.bed
