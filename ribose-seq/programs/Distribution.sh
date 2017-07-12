@@ -60,9 +60,12 @@ for sample in ${sample[@]}; do
 		bedtools makewindows -g $bed -w 25000 > $windows
 		bedtools intersect -a $windows -b $coordinates -c -nonamecheck > temp1.bed
 		
-		#for chr in $( awk '{print $1}' $bed ); do
-		#	counts=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Counts.$chr.txt 
-		#	grep $chr temp1.bed > temp2.bed
+		#Select region of genome (i.e., nucleus or mito)
+		if [ $subset == "mito" ]; then
+			grep -E '(chrM|MT)' $windows > temp2.bed
+		elif [ $subset == "nucleus" ]; then
+			grep -vE '(chrM|MT)' $$windows > temp2.bed
+		fi
 		
 		#Determine coverage at 3' position of reads
 		#bedtools genomecov -d -3 -ibam $bam > $coverage
@@ -76,14 +79,14 @@ for sample in ${sample[@]}; do
 		
 		
 		#Sort by # of rNMPs
-		sort -k4n cat.bed > temp2.bed
+		sort -k4n cat.bed > temp3.bed
 
 		#Maximum # of rNMPs in observed data
-		max=$(tail -1 temp2.bed | awk '{print $4}' -)
+		max=$(tail -1 temp3.bed | awk '{print $4}' -)
 
 		#Number of positions containing 0...max # of rNMPs
 		for i in $(seq 0 $max); do
-			awk '$4 == ('$i')' temp2.bed | wc -l >> temp3.txt
+			awk '$4 == ('$i')' temp3.bed | wc -l >> temp3.txt
 		done
 		
 #############################################################################################################################
