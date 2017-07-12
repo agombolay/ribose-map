@@ -60,7 +60,7 @@ for sample in ${sample[@]}; do
 		bedtools intersect -a $windows -b > $counts
 		
 		#Determine coverage at 3' position of reads
-		bedtools genomecov -d -3 -ibam $bam > $coverage
+		#bedtools genomecov -d -3 -ibam $bam > $coverage
 	
 		#Select region of genome (i.e., nucleus or mito)
 		if [ $subset == "mito" ]; then
