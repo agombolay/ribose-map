@@ -64,7 +64,9 @@ for sample in ${sample[@]}; do
 		if [ $subset == "mito" ]; then
 			grep -E '(chrM|MT)' temp1.bed > temp2.bed
 		elif [ $subset == "nucleus" ]; then
-			grep -vE '(chrM|MT)' temp1.bed > temp2.bed
+			for chr in $( awk '{print $1}' $bed ); do
+				grep -w "$chr" temp1.bed > temp2.bed
+			done
 		fi
 		
 		#Determine coverage at 3' position of reads
