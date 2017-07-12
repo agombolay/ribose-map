@@ -98,8 +98,7 @@ for sample in ${sample[@]}; do
 	
 		#Remove temp files
 		#rm -f temp*.bed temp3.txt
-		
-		fi
 		done
+		fi
 	done
 done
