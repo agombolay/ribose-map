@@ -58,7 +58,7 @@ for sample in ${sample[@]}; do
 		rm -f $coverage $counts temp*.bed temp3.txt
 	
 		bedtools makewindows -g $bed -w 25000 > $windows
-		bedtools intersect -a $windows -b $coordinates > temp1.bed
+		bedtools intersect -a $windows -b $coordinates -c -sorted -nonamecheck > temp1.bed
 		
 		#Determine coverage at 3' position of reads
 		#bedtools genomecov -d -3 -ibam $bam > $coverage
