@@ -55,7 +55,7 @@ for sample in ${sample[@]}; do
 		counts=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Counts.$subset.txt 
 		
 		#Remove old files
-		rm -f $coverage $counts temp*.bed temp3.txt
+		rm -f $coverage $counts $windows temp*.bed temp3.txt
 	
 		bedtools makewindows -g $bed -w 25000 > $windows
 		bedtools intersect -a $windows -b $coordinates -c -sorted -nonamecheck > temp1.bed
