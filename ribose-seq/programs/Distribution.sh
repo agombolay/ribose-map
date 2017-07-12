@@ -37,7 +37,7 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#STEP 1: Count number of positions containing 0...max # of rNMPs
 	
-	for subset in "mito" "nucleus"; do
+	for subset in "nucleus"; do
 		
 		#Create directory
 		mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Distribution
@@ -66,8 +66,6 @@ for sample in ${sample[@]}; do
 		elif [ $subset == "nucleus" ]; then
 			for chr in $( awk '{print $1}' $bed ); do
 				grep -w "$chr" temp1.bed > temp2.bed
-			done
-		fi
 		
 		#Determine coverage at 3' position of reads
 		#bedtools genomecov -d -3 -ibam $bam > $coverage
@@ -105,6 +103,8 @@ for sample in ${sample[@]}; do
 		#Remove temp files
 		rm -f temp*.bed temp3.txt
 		
+		done
+		fi
 		fi
 	done
 done
