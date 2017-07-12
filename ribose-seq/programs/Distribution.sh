@@ -43,17 +43,22 @@ for sample in ${sample[@]}; do
 		mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Distribution
 	
 		#Input file
+		bed=$directory/Ribose-Map/References/$reference.bed
 		bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam
 		
 		if [ -s $bam ]; then
 		
 		#Output file
+		windows=$directory/Ribose-Map/References/$reference-windows.bed
 		coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bed
-		counts=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Counts.$subset.txt
-	
+		counts=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Counts.$subset.txt 
+		
 		#Remove old files
 		rm -f $coverage $counts temp*.bed temp3.txt
 	
+		bedtools makewindows -g $bed -w 25000 > $windows
+		bedtools intersect -a $windows -b > $counts
+		
 		#Determine coverage at 3' position of reads
 		bedtools genomecov -d -3 -ibam $bam > $coverage
 	
