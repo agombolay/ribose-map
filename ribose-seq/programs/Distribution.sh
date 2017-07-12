@@ -76,7 +76,7 @@ for sample in ${sample[@]}; do
 		
 		
 		#Sort by # of rNMPs
-		sort -k4n temp1.bed > temp2.bed
+		sort -k4n cat.bed > temp2.bed
 
 		#Maximum # of rNMPs in observed data
 		max=$(tail -1 temp2.bed | awk '{print $4}' -)
