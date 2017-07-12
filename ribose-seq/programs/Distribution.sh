@@ -95,7 +95,7 @@ for sample in ${sample[@]}; do
 		echo "Counts for $sample ($subset) have been determined"
 	
 		#Remove temp files
-		rm -f temp*.bed temp3.txt
+		#rm -f temp*.bed temp3.txt
 		
 		fi
 	done
