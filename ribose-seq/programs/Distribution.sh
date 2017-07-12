@@ -52,7 +52,6 @@ for sample in ${sample[@]}; do
 		#Output file
 		windows=$directory/Ribose-Map/References/$reference-windows.bed
 		coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bed
-		#counts=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Counts.$chr.txt 
 		
 		bedtools makewindows -g $bed -w 25000 > $windows
 		bedtools intersect -a $windows -b $coordinates -c -nonamecheck > temp1.bed
