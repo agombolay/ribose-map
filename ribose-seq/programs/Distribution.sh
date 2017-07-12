@@ -45,6 +45,7 @@ for sample in ${sample[@]}; do
 		#Input file
 		bed=$directory/Ribose-Map/References/$reference.bed
 		bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam
+		coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
 		
 		if [ -s $bam ]; then
 		
@@ -57,17 +58,18 @@ for sample in ${sample[@]}; do
 		rm -f $coverage $counts temp*.bed temp3.txt
 	
 		bedtools makewindows -g $bed -w 25000 > $windows
-		bedtools intersect -a $windows -b > $counts
+		bedtools intersect -a $windows -b $coordinates > temp1.bed
 		
 		#Determine coverage at 3' position of reads
 		#bedtools genomecov -d -3 -ibam $bam > $coverage
 	
 		#Select region of genome (i.e., nucleus or mito)
-		if [ $subset == "mito" ]; then
-			grep -E '(chrM|MT)' $coverage > temp1.bed
-		elif [ $subset == "nucleus" ]; then
-			grep -vE '(chrM|MT)' $coverage > temp1.bed
-		fi
+		#if [ $subset == "mito" ]; then
+		#	grep -E '(chrM|MT)' $coverage > temp1.bed
+		#elif [ $subset == "nucleus" ]; then
+		#	grep -vE '(chrM|MT)' $coverage > temp1.bed
+		#fi
+		
 		
 		#Sort by # of rNMPs
 		sort -k3n temp1.bed > temp2.bed
@@ -84,7 +86,7 @@ for sample in ${sample[@]}; do
 		#STEP 2: Create dataset file of observed rNMP counts
 	
 		#Add column names to header line
-		echo -e "rNMPs\tPositions" > $counts
+		echo -e "rNMPs\tWindows" > $counts
 
 		#Add number of positions containing 0...max # of rNMPs
 		paste <(echo "$(seq 0 $max)") <(cat temp3.txt) >> $counts
