@@ -37,7 +37,7 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#STEP 1: Count number of positions containing 0...max # of rNMPs
 	
-	for subset in "mito"; do
+	for subset in "mito" "nucleus"; do
 		
 		#Create directory
 		mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Distribution
@@ -46,8 +46,6 @@ for sample in ${sample[@]}; do
 		bed=$directory/Ribose-Map/References/$reference.bed
 		bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam
 		coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
-		
-		if [ -s $bam ]; then
 		
 		#Output file
 		windows=$directory/Ribose-Map/References/$reference-windows.bed
@@ -59,49 +57,66 @@ for sample in ${sample[@]}; do
 		#Select region of genome (i.e., nucleus or mito)
 		if [ $subset == "mito" ]; then
 			grep -E '(chrM|MT)' temp1.bed > temp2.bed
+		
+				#Sort by # of rNMPs
+				sort -k4n temp2.bed > temp3.bed
+
+				#Maximum # of rNMPs in observed data
+				max=$(tail -1 temp3.bed | awk '{print $4}' -)
+
+				#Number of positions containing 0...max # of rNMPs
+				for i in $(seq 0 $max); do
+					awk '$4 == ('$i')' temp3.bed | wc -l >> temp3.txt
+				done
+		
+				#STEP 2: Create dataset file of observed rNMP counts
+	
+				#Add column names to header line
+				echo -e "rNMPs\tWindows" > $counts
+
+				#Add number of positions containing 0...max # of rNMPs
+				paste <(echo "$(seq 0 $max)") <(cat temp3.txt) >> $counts
+
+				#Print completion status
+				echo "Counts for $sample ($chr) have been determined"
+	
+				#Remove temp files
+				rm -f temp3.txt
+				
 		elif [ $subset == "nucleus" ]; then
+			
 			for chr in $( awk '{print $1}' $bed ); do
+				
 				counts=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Counts.$chr.txt
 				grep -w "$chr" temp1.bed > temp2.bed
 		
-		#Determine coverage at 3' position of reads
-		#bedtools genomecov -d -3 -ibam $bam > $coverage
-	
-		#Select region of genome (i.e., nucleus or mito)
-		#if [ $subset == "mito" ]; then
-		#	grep -E '(chrM|MT)' $coverage > temp1.bed
-		#elif [ $subset == "nucleus" ]; then
-		#	grep -vE '(chrM|MT)' $coverage > temp1.bed
-		#fi
-		
-		#Sort by # of rNMPs
-		sort -k4n temp2.bed > temp3.bed
+				#Sort by # of rNMPs
+				sort -k4n temp2.bed > temp3.bed
 
-		#Maximum # of rNMPs in observed data
-		max=$(tail -1 temp3.bed | awk '{print $4}' -)
+				#Maximum # of rNMPs in observed data
+				max=$(tail -1 temp3.bed | awk '{print $4}' -)
 
-		#Number of positions containing 0...max # of rNMPs
-		for i in $(seq 0 $max); do
-			awk '$4 == ('$i')' temp3.bed | wc -l >> temp3.txt
-		done
+				#Number of positions containing 0...max # of rNMPs
+				for i in $(seq 0 $max); do
+					awk '$4 == ('$i')' temp3.bed | wc -l >> temp3.txt
+				done
 		
 #############################################################################################################################
-		#STEP 2: Create dataset file of observed rNMP counts
+				#STEP 2: Create dataset file of observed rNMP counts
 	
-		#Add column names to header line
-		echo -e "rNMPs\tWindows" > $counts
+				#Add column names to header line
+				echo -e "rNMPs\tWindows" > $counts
 
-		#Add number of positions containing 0...max # of rNMPs
-		paste <(echo "$(seq 0 $max)") <(cat temp3.txt) >> $counts
+				#Add number of positions containing 0...max # of rNMPs
+				paste <(echo "$(seq 0 $max)") <(cat temp3.txt) >> $counts
 
-		#Print completion status
-		echo "Counts for $sample ($chr) have been determined"
+				#Print completion status
+				echo "Counts for $sample ($chr) have been determined"
 	
-		#Remove temp files
-		rm -f temp3.txt
+				#Remove temp files
+				rm -f temp3.txt
 		
-		done
-		fi
+			done
 		fi
 	done
 done
