@@ -70,7 +70,7 @@ for sample in ${sample[@]}; do
 				done
 		
 				#STEP 2: Create dataset file of observed rNMP counts
-	
+				counts=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Counts.$subset.txt
 				#Add column names to header line
 				echo -e "rNMPs\tWindows" > $counts
 
