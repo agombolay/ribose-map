@@ -94,7 +94,7 @@ for sample in ${sample[@]}; do
 		paste <(echo "$(seq 0 $max)") <(cat temp3.txt) >> $counts
 
 		#Print completion status
-		echo "Counts for $sample ($subset) have been determined"
+		echo "Counts for $sample ($chr) have been determined"
 	
 		#Remove temp files
 		#rm -f temp*.bed temp3.txt
