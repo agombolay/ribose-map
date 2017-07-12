@@ -52,13 +52,15 @@ for sample in ${sample[@]}; do
 		#Output file
 		windows=$directory/Ribose-Map/References/$reference-windows.bed
 		coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bed
-		counts=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Counts.$subset.txt 
+		#counts=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Counts.$chr.txt 
 		
 		#Remove old files
 		rm -f $coverage $counts temp*.bed temp3.txt
 	
-		bedtools makewindows -g $bed -w 25000 > $windows
-		bedtools intersect -a $windows -b $coordinates -c -nonamecheck > temp1.bed
+		for chr in ; do
+			counts=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Counts.$chr.txt 
+			bedtools makewindows -g $bed -w 25000 > $windows
+			bedtools intersect -a $windows -b $coordinates -c -nonamecheck > temp1.bed
 		
 		#Determine coverage at 3' position of reads
 		#bedtools genomecov -d -3 -ibam $bam > $coverage
@@ -98,5 +100,6 @@ for sample in ${sample[@]}; do
 		#rm -f temp*.bed temp3.txt
 		
 		fi
+		done
 	done
 done
