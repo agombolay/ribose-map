@@ -76,6 +76,8 @@ for sample in ${sample[@]}; do
 	G_BkgFreq=$(echo "scale=12; $G_BkgCount/$total_Bkg" | bc | awk '{printf "%.12f\n", $0}')
 	T_BkgFreq=$(echo "scale=12; $T_BkgCount/$total_Bkg" | bc | awk '{printf "%.12f\n", $0}')
 	
+	echo $A_BkgFreq $C_BkgFreq $G_BkgFreq $T_BkgFreq
+	
 #############################################################################################################################
 	#STEP 2: Calculate frequencies of rNMPs in libraries
 
