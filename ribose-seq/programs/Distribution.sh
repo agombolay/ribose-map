@@ -51,11 +51,12 @@ for sample in ${sample[@]}; do
 		windows=$directory/Ribose-Map/References/$reference-windows.bed
 		coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bed
 		
-		bedtools makewindows -g $bed -w 100 > $windows
-		bedtools intersect -a $windows -b $coordinates -c -nonamecheck > temp1.bed
-		
 		#Select region of genome (i.e., nucleus or mito)
 		if [ $subset == "mito" ]; then
+		
+			bedtools makewindows -g $bed -w 100 > $windows
+			bedtools intersect -a $windows -b $coordinates -c -nonamecheck > temp1.bed
+		
 			grep -E '(chrM|MT)' temp1.bed > temp2.bed
 		
 				#Sort by # of rNMPs
@@ -85,6 +86,9 @@ for sample in ${sample[@]}; do
 				
 		elif [ $subset == "nucleus" ]; then
 			
+			bedtools makewindows -g $bed -w 2500 > $windows
+			bedtools intersect -a $windows -b $coordinates -c -nonamecheck > temp1.bed
+		
 			for chr in $( awk '{print $1}' $bed ); do
 				
 				counts=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Counts.$chr.txt
