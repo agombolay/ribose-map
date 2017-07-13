@@ -37,7 +37,7 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#STEP 1: Count number of positions containing 0...max # of rNMPs
 	
-	for subset in "2micron" "nucleus"; do
+	for subset in "mito" "nucleus"; do
 		
 		#Create directory
 		mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Distribution
@@ -52,7 +52,7 @@ for sample in ${sample[@]}; do
 		coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bed
 		
 		#Select region of genome (i.e., nucleus or mito)
-		if [ $subset == "2micron" ]; then
+		if [ $subset == "mito" ]; then
 		
 			bedtools makewindows -g $bed -w 100 > $windows
 			bedtools intersect -a $windows -b $coordinates -c -nonamecheck > temp1.bed
@@ -86,7 +86,7 @@ for sample in ${sample[@]}; do
 				
 		elif [ $subset == "nucleus" ]; then
 			
-			bedtools makewindows -g $bed -w 2500 > $windows
+			bedtools makewindows -g $bed -w 100 > $windows
 			bedtools intersect -a $windows -b $coordinates -c -nonamecheck > temp1.bed
 		
 			for chr in $( awk '{print $1}' $bed ); do
