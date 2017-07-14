@@ -86,7 +86,7 @@ for sample in ${sample[@]}; do
 				
 		elif [ $subset == "nucleus" ]; then
 			
-			bedtools makewindows -g $bed -w 2500 > $windows
+			bedtools makewindows -g $bed -w 5000 > $windows
 			bedtools intersect -a $windows -b $coordinates -c -nonamecheck > temp1.bed
 		
 			for chr in $( awk '{print $1}' $bed ); do
