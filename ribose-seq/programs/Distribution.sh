@@ -92,7 +92,7 @@ for sample in ${sample[@]}; do
 			for chr in $( awk '{print $1}' $bed ); do
 				
 				counts=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Counts.$chr.txt
-				grep -w "$chr" temp1.bed > temp2.bed
+				grep -w "$chr" -vE '(chrM|MT)' temp1.bed > temp2.bed
 		
 				#Sort by # of rNMPs
 				sort -k4n temp2.bed > temp3.bed
