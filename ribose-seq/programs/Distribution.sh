@@ -49,7 +49,6 @@ for sample in ${sample[@]}; do
 		
 		#Output file
 		windows=$directory/Ribose-Map/References/$reference-windows.bed
-		coverage=$directory/Ribose-Map/Results/$reference/$sample/Distribution/$sample-Coverage.bed
 		
 		#Select region of genome (i.e., nucleus or mito)
 		if [ $subset == "mito" ]; then
