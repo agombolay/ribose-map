@@ -49,15 +49,12 @@ for sample in ${sample[@]}; do
 		
 		#Convert BAM file to FASTA then extract read sequences
 		samtools bam2fq $bam | seqtk seq -A - | grep -v '>' - > temp2.txt
-		
-		for subset in "mito" "nucleus"; do
-		
+				
 		#Output files
 		reads=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-ReadInformation.txt
-		coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
 		
 		#Remove old files
-		rm -f $reads $coordinates
+		rm -f $reads
 		
 #############################################################################################################################
 		#STEP 2: Determine genomic coordinates of rNMPs from reads
@@ -74,6 +71,14 @@ for sample in ${sample[@]}; do
 		cat <(echo "$positiveReads") <(echo "$negativeReads") > temp3.txt
 		
 #############################################################################################################################
+		
+		for subset in "mito" "nucleus"; do
+		
+		coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
+		
+		#Remove old files
+		rm -f $coordinates
+		
 		#STEP 3: Subset and sort coordinates based on genomic region
 		if [ $subset == "mito" ]; then
 			grep -E '(chrM|MT)' temp3.txt | sort -k1,1 -k2,2n - > $coordinates
