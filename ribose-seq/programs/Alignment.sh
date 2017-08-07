@@ -83,11 +83,12 @@ if [[ $type == "SE" ]]; then
 			samtools view -bS -F4 mapped.sam | samtools sort - -o sorted.bam; samtools index sorted.bam
 			
 			#Remove PCR duplicates based on UMI and genomic start position and sort/index BAM file
-			umi_tools dedup -I sorted.bam -v 0 | samtools sort - -o deduped.bam; samtools index deduped.bam
+			#umi_tools dedup -I sorted.bam -v 0 | samtools sort - -o deduped.bam; samtools index deduped.bam
+			umitools rmdup sorted.bam deduped.bam > file.bed
 			
 			#Filter BAM file based on barcode
 			samtools view -h deduped.bam -o deduped.sam
-			grep -e "_$barcode" -e '@HG' -e '@SQ' -e '@PG' deduped.sam > filtered.sam
+			grep -e "UMI_$barcode" -e '@HG' -e '@SQ' -e '@PG' deduped.sam > filtered.sam
 			samtools view filtered.sam -bS | samtools sort -o $finalReads; samtools index $finalReads
 		
 		elif [[ -n $UMI ]] && [[ -z $barcode ]]; then
