@@ -27,11 +27,12 @@ while getopts "s:r:d:h" opt; do
 done
 
 #Exit program if [-h]
-if [ "$1" == "-h" ]; then exit fi
+if [ "$1" == "-h" ]; then
+	exit
+fi
 
 for sample in ${sample[@]}; do
 		
-#############################################################################################################################
 		#Create directory
 		mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Coordinates
 		folder=$directory/Ribose-Map/Results/$reference/$sample/Coordinates
@@ -41,17 +42,12 @@ for sample in ${sample[@]}; do
 		
 		if [ -s $bam ]; then
 		
-			#STEP 1: Convert BAM file to BED & FASTQ
-		
 			#Covert BAM file to BED format
 			bedtools bamtobed -i $bam > temp1.txt
 		
 			#Convert BAM file to FASTA then extract read sequences
 			samtools bam2fq $bam | seqtk seq -A - | grep -v '>' - > temp2.txt
-						
-#############################################################################################################################
-			#STEP 2: Determine genomic coordinates of rNMPs from reads
-		
+								
 			#Output files
 			reads=$folder/$sample-ReadInformation.txt
 		
@@ -66,14 +62,12 @@ for sample in ${sample[@]}; do
 	
 			#Combine and save +/- coordinates into one file for later
 			cat <(echo "$positiveReads") <(echo "$negativeReads") > temp3.txt
-		
-#############################################################################################################################
-		
+				
 			for subset in "mito" "nucleus"; do
 		
 				coordinates=$folder/$sample-Coordinates.$subset.bed
 		
-				#STEP 3: Subset and sort coordinates based on genomic region
+				#Subset and sort coordinates based on genomic region
 				if [ $subset == "mito" ]; then
 					grep -E '(chrM|MT)' temp3.txt | sort -k1,1 -k2,2n - > $coordinates
 				elif [ $subset == "nucleus" ]; then
