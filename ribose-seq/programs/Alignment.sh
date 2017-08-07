@@ -71,10 +71,9 @@ if [[ $type == "SE" ]]; then
 	#Reverse complement reads
 	cat Unpaired.fq | seqtk seq -r - > temp1.fq
 	
-		if [[ -n $UMI ]]; then
-			#Extract UMI from 3' ends of reads (append UMI to read name)
-			umi_tools extract -I temp1.fq -p $UMI --3prime -v 0 -S Read1.fq
-		fi
+	#Extract UMI from 3' ends of reads (append UMI to read name)
+	#umi_tools extract -I temp1.fq -p $UMI --3prime -v 0 -S Read1.fq
+	umitools trim --end 3 temp1.fq $UMI > Read1.fq
 		
 		if [[ -n $UMI ]] && [[ -n $barcode ]]; then
 			#Align reads to reference and save Bowtie statistics
