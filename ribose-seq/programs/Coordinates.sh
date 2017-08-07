@@ -90,12 +90,12 @@ for sample in ${sample[@]}; do
 		lines=`wc -l $coordinates | awk '{print $1}'`
 		
 		#Save file only if file has greater than 0 lines, otherwise remove
-		if [ "$lines" -gt "0" ]; then
+		#if [ "$lines" -gt "0" ]; then
 			#Print completion status
-			echo "Coordinates of rNMPs for $sample ($subset) have been determined"
-		else
-			rm -f $coordinates
-		fi
+		#	echo "Coordinates of rNMPs for $sample ($subset) have been determined"
+		#else
+		#	rm -f $coordinates
+		#fi
 		
 		done
 		fi
