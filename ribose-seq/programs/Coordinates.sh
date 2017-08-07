@@ -27,9 +27,7 @@ while getopts "s:r:d:h" opt; do
 done
 
 #Exit program if [-h]
-if [ "$1" == "-h" ]; then
-        exit
-fi
+if [ "$1" == "-h" ]; then exit fi
 
 for sample in ${sample[@]}; do
 		
@@ -43,14 +41,14 @@ for sample in ${sample[@]}; do
 		
 		if [ -s $bam ]; then
 		
-			#STEP 1: Convert BAM file to FASTQ
+			#STEP 1: Convert BAM file to BED & FASTQ
 		
 			#Covert BAM file to BED format
 			bedtools bamtobed -i $bam > temp1.txt
 		
 			#Convert BAM file to FASTA then extract read sequences
 			samtools bam2fq $bam | seqtk seq -A - | grep -v '>' - > temp2.txt
-				
+						
 #############################################################################################################################
 			#STEP 2: Determine genomic coordinates of rNMPs from reads
 		
