@@ -81,7 +81,7 @@ if [[ $type == "SE" ]]; then
 			bowtie2 -x $index -U Read1.fq 2> $statistics > mapped.sam
 			
 			#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
-			samtools view -bS -F260 mapped.sam | samtools sort - -o sorted.bam; samtools index sorted.bam
+			samtools view -bS -F4 mapped.sam | samtools sort - -o sorted.bam; samtools index sorted.bam
 			
 			#Remove PCR duplicates based on UMI and genomic start position and sort/index BAM file
 			umi_tools dedup -I sorted.bam -v 0 | samtools sort - -o deduped.bam; samtools index deduped.bam
