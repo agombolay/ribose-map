@@ -36,71 +36,59 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 		#Create directory
 		mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Coordinates
+		folder=$directory/Ribose-Map/Results/$reference/$sample/Coordinates
 		
 		#Input file
 		bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam
 		
 		if [ -s $bam ]; then
 		
-		#STEP 1: Convert BAM file to BED and FASTQ files
+			#STEP 1: Convert BAM file to FASTQ
 		
-		#Covert BAM file to BED format
-		bedtools bamtobed -i $bam > temp1.txt
+			#Covert BAM file to BED format
+			bedtools bamtobed -i $bam > temp1.txt
 		
-		#Convert BAM file to FASTA then extract read sequences
-		samtools bam2fq $bam | seqtk seq -A - | grep -v '>' - > temp2.txt
+			#Convert BAM file to FASTA then extract read sequences
+			samtools bam2fq $bam | seqtk seq -A - | grep -v '>' - > temp2.txt
 				
-		#Output files
-		reads=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-ReadInformation.txt
-		
-		#Remove old files
-		rm -f $reads
-		
 #############################################################################################################################
-		#STEP 2: Determine genomic coordinates of rNMPs from reads
+			#STEP 2: Determine genomic coordinates of rNMPs from reads
 		
-		#Extract read coordinates, sequences, and strand information
-		paste temp1.txt temp2.txt | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $reads
+			#Output files
+			reads=$folder/$sample-ReadInformation.txt
 		
-		#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
-		positiveReads=$(awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $reads)
-		#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-		negativeReads=$(awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $reads)
+			#Extract read coordinates, sequences, and strand information
+			paste temp1.txt temp2.txt | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $reads
+		
+			#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
+			positiveReads=$(awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $reads)
+			
+			#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
+			negativeReads=$(awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $reads)
 	
-		#Combine and save +/- coordinates into one file for later
-		cat <(echo "$positiveReads") <(echo "$negativeReads") > temp3.txt
+			#Combine and save +/- coordinates into one file for later
+			cat <(echo "$positiveReads") <(echo "$negativeReads") > temp3.txt
 		
 #############################################################################################################################
 		
-		for subset in "mito" "nucleus"; do
+			for subset in "mito" "nucleus"; do
 		
-		coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
+				coordinates=$folder/$sample-Coordinates.$subset.bed
 		
-		#Remove old files
-		rm -f $coordinates
+				#STEP 3: Subset and sort coordinates based on genomic region
+				if [ $subset == "mito" ]; then
+					grep -E '(chrM|MT)' temp3.txt | sort -k1,1 -k2,2n - > $coordinates
+				elif [ $subset == "nucleus" ]; then
+					grep -vE '(chrM|MT)' temp3.txt | sort -k1,1 -k2,2n - > $coordinates
+				fi
+
+				#Print completion status
+				echo "Coordinates of rNMPs for $sample ($subset) have been determined"
 		
-		#STEP 3: Subset and sort coordinates based on genomic region
-		if [ $subset == "mito" ]; then
-			grep -E '(chrM|MT)' temp3.txt | sort -k1,1 -k2,2n - > $coordinates
-		elif [ $subset == "nucleus" ]; then
-			grep -vE '(chrM|MT)' temp3.txt | sort -k1,1 -k2,2n - > $coordinates
-		fi
-		
-		#Number of lines in coordinates file
-		lines=`wc -l $coordinates | awk '{print $1}'`
-		
-		#Save file only if file has greater than 0 lines, otherwise remove
-		#if [ "$lines" -gt "0" ]; then
-			#Print completion status
-		#	echo "Coordinates of rNMPs for $sample ($subset) have been determined"
-		#else
-		#	rm -f $coordinates
-		#fi
-		
-		done
+			done
 		fi
 
-		#Remove temp files
-		rm -f temp{1..3}.txt
+#Remove temp files
+rm -f temp{1..3}.txt
 		
 done
