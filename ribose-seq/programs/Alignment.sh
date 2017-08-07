@@ -84,7 +84,7 @@ if [[ $type == "SE" ]]; then
 			
 			#Remove PCR duplicates based on UMI and genomic start position and sort/index BAM file
 			#umi_tools dedup -I sorted.bam -v 0 | samtools sort - -o deduped.bam; samtools index deduped.bam
-			umitools rmdup sorted.bam deduped.bam > file.bed
+			umitools rmdup sorted.bam $finalReads > file.bed
 			
 			#Filter BAM file based on barcode
 			#samtools view -h deduped.bam -o deduped.sam
