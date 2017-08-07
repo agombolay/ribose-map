@@ -87,9 +87,9 @@ if [[ $type == "SE" ]]; then
 			umitools rmdup sorted.bam deduped.bam > file.bed
 			
 			#Filter BAM file based on barcode
-			samtools view -h deduped.bam -o deduped.sam
-			grep -e "UMI_$barcode" -e '@HG' -e '@SQ' -e '@PG' deduped.sam > filtered.sam
-			samtools view filtered.sam -bS | samtools sort -o $finalReads; samtools index $finalReads
+			#samtools view -h deduped.bam -o deduped.sam
+			#grep -e "UMI_$barcode" -e '@HG' -e '@SQ' -e '@PG' deduped.sam > filtered.sam
+			#samtools view filtered.sam -bS | samtools sort -o $finalReads; samtools index $finalReads
 		
 		elif [[ -n $UMI ]] && [[ -z $barcode ]]; then
 			#Align reads to reference and save Bowtie statistics
