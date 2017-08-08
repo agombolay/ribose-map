@@ -63,7 +63,6 @@ for sample in ${sample[@]}; do
 
 #Single End Reads
 if [[ $type == "SE" ]]; then
-
 	#Trim FASTQ files based on quality and adapter content
 	java -jar $path/trimmomatic-0.36.jar SE -phred33 $Read1Fastq Unpaired.fq \
 	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 MINLEN:$min
@@ -103,7 +102,6 @@ fi
 
 #Paired End Reads
 if [[ $type == "PE" ]]; then
-
 	#Trim FASTQ files based on quality and adapter content
 	java -jar $path/trimmomatic-0.36.jar PE -phred33 $Read1Fastq $Read2Fastq Paired1.fq Unpaired1.fq \
 	Paired2.fq Unpaired2.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 TRAILING:10 MINLEN:$min
