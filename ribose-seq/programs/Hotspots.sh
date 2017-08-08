@@ -77,7 +77,7 @@ for sample in ${sample[@]}; do
 	#Print completion status
 	echo "Hotspots in $sample have been located"
 		
-	rm -f reverse.bam forward.bam
+	#rm -f reverse.bam forward.bam
 	
 	fi
 done
