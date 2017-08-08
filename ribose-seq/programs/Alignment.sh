@@ -73,7 +73,6 @@ if [[ $type == "SE" ]]; then
 	
 	#Extract UMI from 3' ends of reads (append UMI to read name)
 	umi_tools extract -I temp1.fq -p $UMI --3prime -v 0 -S Read1.fq
-	#umitools trim --end 3 temp1.fq $UMI > Read1.fq
 		
 		if [[ -n $UMI ]] && [[ -n $barcode ]]; then
 			#Align reads to reference and save Bowtie statistics
@@ -84,7 +83,6 @@ if [[ $type == "SE" ]]; then
 			
 			#Remove PCR duplicates based on UMI and genomic start position and sort/index BAM file
 			umi_tools dedup -I sorted.bam -v 0 | samtools sort - -o deduped.bam; samtools index deduped.bam
-			#umitools rmdup sorted.bam $finalReads > file.bed
 			
 			#Filter BAM file based on barcode
 			samtools view -h deduped.bam -o deduped.sam
