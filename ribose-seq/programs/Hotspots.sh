@@ -69,7 +69,8 @@ for sample in ${sample[@]}; do
 		
 		#Save coverage of rNMPs per chromosome
 		for chr in $( awk '{print $1}' $bed ); do
-			grep -w "$chr" $coverage > $directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-$chr.bed
+			hotspots=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Hotspots.$chr.bed
+			grep -w "$chr" $coverage > $hotspots
 		done
 		
 #############################################################################################################################
