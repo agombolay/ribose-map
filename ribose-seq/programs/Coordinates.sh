@@ -40,7 +40,8 @@ for sample in ${sample[@]}; do
 		
 		#Input file
 		bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam
-		
+
+#############################################################################################################################
 		if [ -s $bam ]; then
 		
 			#Covert BAM file to BED format
@@ -49,7 +50,7 @@ for sample in ${sample[@]}; do
 			#Convert BAM file to FASTA then extract read sequences
 			samtools bam2fq $bam | seqtk seq -A - | grep -v '>' - > temp2.txt
 								
-			#Output files
+			#Output file
 			reads=$folder/$sample-ReadInformation.txt
 		
 			#Extract read coordinates, sequences, and strand information
@@ -65,7 +66,8 @@ for sample in ${sample[@]}; do
 			cat <(echo "$positiveReads") <(echo "$negativeReads") > temp3.txt
 				
 			for subset in "mito" "nucleus"; do
-		
+				
+				#Output file
 				coordinates=$folder/$sample-Coordinates.$subset.bed
 		
 				#Subset and sort coordinates based on genomic region
