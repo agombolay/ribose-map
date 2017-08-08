@@ -32,7 +32,8 @@ if [ "$1" == "-h" ]; then
 fi
 
 for sample in ${sample[@]}; do
-		
+
+#############################################################################################################################
 		#Create directory
 		mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Coordinates
 		folder=$directory/Ribose-Map/Results/$reference/$sample/Coordinates
@@ -80,6 +81,7 @@ for sample in ${sample[@]}; do
 			done
 		fi
 
+#############################################################################################################################
 #Remove temp files
 rm -f temp{1..3}.txt
 		
