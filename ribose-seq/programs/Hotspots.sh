@@ -49,12 +49,9 @@ for sample in ${sample[@]}; do
 	
   #############################################################################################################################
 	if [[ -s $bam ]]; then
-
-		#Save coverage of rNMPs per chromosome
-		for chromosome in $( awk '{print $1}' $bed ); do
-			hotspots=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-$chr.bed
-			bedtools genomecov -ibam $bam -g $bed -d -3 | grep -w "$chromosome" - > $hotspots
-		done
+	
+		#Determine coverage of rNMPs
+		bedtools genomecov -ibam $bam -d -3 > $coverage
 		
 		#Separate BAM file by forward and reverse strands
 		samtools view -bS -f 16 $bam > reverse.bam; samtools view -bS -F 16 $bam > forward.bam
@@ -66,7 +63,12 @@ for sample in ${sample[@]}; do
 		#Create bedgraph file for forward strand to input into UCSC genome browser
 		bedtools genomecov -bg -3 -trackline -trackopts 'name="ForwardStrand" description="Ribose-seq (Forward)" \
 		color=0,128,0 visibility=full' -ibam forward.bam > $forward
-
+		
+		#Save coverage of rNMPs per chromosome
+		for chr in $( awk '{print $1}' $bed ); do
+			grep -w "$chr" $coverage > $directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-$chr.bed
+		done
+		
 #############################################################################################################################
 	#Print completion status
 	echo "Hotspots in $sample have been located"
