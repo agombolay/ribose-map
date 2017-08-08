@@ -53,20 +53,22 @@ for sample in ${sample[@]}; do
 		#Determine coverage at 3' position of reads
 		bedtools genomecov -ibam $bam -d -3 > $coverage
   
-		#Separate BAM file by forward and reverse strands
-		samtools view -bS -f 16 $bam > reverse.bam
-		samtools view -bS -F 16 $bam > forward.bam
-		
-		bedtools genomecov -bg -3 -trackline -trackopts 'name="ReverseStrand" description="Ribose-seq (Reverse)" \
-		color=0,0,255 visibility=2' -ibam reverse.bam > $reverse
-		
-		bedtools genomecov -bg -3 -trackline -trackopts 'name="ForwardStrand" description="Ribose-seq (Forward)" \
-		color=0,128,0 visibility=2' -ibam forward.bam > $forward
-  
 		#Save coverage of rNMPs per chromosome
-		for chr in $( awk '{print $1}' $bed ); do
-			grep -w "$chr" $coverage > $directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-$chr.bed
+		for chromosome in $( awk '{print $1}' $bed ); do
+			hotspots=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-$chr.bed
+			bedtools genomecov -ibam $bam -g $bed -d -3 | grep -w "$chromosome" - > $hotspots
 		done
+		
+		#Separate BAM file by forward and reverse strands
+		samtools view -bS -f 16 $bam > reverse.bam; samtools view -bS -F 16 $bam > forward.bam
+		
+		#Create bedgraph file for reverse strand to input into UCSC genome browser
+		bedtools genomecov -bg -3 -trackline -trackopts 'name="ReverseStrand" description="Ribose-seq (Reverse)" \
+		color=0,0,255 visibility=full' -ibam reverse.bam > $reverse
+		
+		#Create bedgraph file for forward strand to input into UCSC genome browser
+		bedtools genomecov -bg -3 -trackline -trackopts 'name="ForwardStrand" description="Ribose-seq (Forward)" \
+		color=0,128,0 visibility=full' -ibam forward.bam > $forward
 
 #############################################################################################################################
 	#Print completion status
