@@ -50,9 +50,6 @@ for sample in ${sample[@]}; do
   #############################################################################################################################
 	if [[ -s $bam ]]; then
 
-		#Determine coverage at 3' position of reads
-		bedtools genomecov -ibam $bam -d -3 > $coverage
-  
 		#Save coverage of rNMPs per chromosome
 		for chromosome in $( awk '{print $1}' $bed ); do
 			hotspots=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-$chr.bed
