@@ -37,16 +37,18 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#Create directory
 	mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Hotspots
-
+	
 	#Input files
 	bed=$directory/Ribose-Map/References/$reference.bed
 	bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam
 	
 	#Output files
+	hotspots=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-$chr.bed
 	coverage=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.bed
 	forward=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Forward.bedgraph
 	reverse=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Reverse.bedgraph
-  
+	
+  #############################################################################################################################
 	if [[ -s $bam ]]; then
 
 		#Determine coverage at 3' position of reads
@@ -64,7 +66,7 @@ for sample in ${sample[@]}; do
   
 		#Save coverage of rNMPs per chromosome
 		for chr in $( awk '{print $1}' $bed ); do
-			grep -w "$chr" $coverage > $directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-$chr.bed
+			grep -w "$chr" $coverage > $hotspots
 		done
 
 #############################################################################################################################
