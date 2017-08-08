@@ -54,14 +54,14 @@ for sample in ${sample[@]}; do
 		samtools view -bS -f 16 $bam > reverse.bam
 		
 		#Create bedgraph file for reverse strand to input into UCSC genome browser
-		bedtools genomecov -bg -3 -trackline -trackopts 'name="ReverseStrand" description="Ribose-seq (Reverse)" \
+		bedtools genomecov -bg -3 -trackline -trackopts 'name="ReverseStrand" description="Ribose-seq ("$sample")" \
 		color=0,0,255 visibility=full' -ibam reverse.bam > $reverse
 		
 		#Separate BAM file by forward strand
 		samtools view -bS -F 16 $bam > forward.bam
 		
 		#Create bedgraph file for forward strand to input into UCSC genome browser
-		bedtools genomecov -bg -3 -trackline -trackopts 'name="ForwardStrand" description="Ribose-seq (Forward)" \
+		bedtools genomecov -bg -3 -trackline -trackopts 'name="ForwardStrand" description="Ribose-seq ("$sample")" \
 		color=0,128,0 visibility=full' -ibam forward.bam > $forward
 		
 		#Determine coverage of rNMPs
