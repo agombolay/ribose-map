@@ -72,24 +72,24 @@ if [[ $type == "SE" ]]; then
 	cat Unpaired.fq | seqtk seq -r - > temp1.fq
 	
 	#Extract UMI from 3' ends of reads (append UMI to read name)
-	#umi_tools extract -I temp1.fq -p $UMI --3prime -v 0 -S Read1.fq
-	umitools trim --end 3 temp1.fq $UMI > Read1.fq
+	umi_tools extract -I temp1.fq -p $UMI --3prime -v 0 -S Read1.fq
+	#umitools trim --end 3 temp1.fq $UMI > Read1.fq
 		
 		if [[ -n $UMI ]] && [[ -n $barcode ]]; then
 			#Align reads to reference and save Bowtie statistics
 			bowtie2 -x $index -U Read1.fq 2> $statistics > mapped.sam
 			
 			#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
-			samtools view -bS -F4 mapped.sam | samtools sort - -o sorted.bam; samtools index sorted.bam
+			samtools view -bS -F260 mapped.sam | samtools sort - -o sorted.bam; samtools index sorted.bam
 			
 			#Remove PCR duplicates based on UMI and genomic start position and sort/index BAM file
-			#umi_tools dedup -I sorted.bam -v 0 | samtools sort - -o deduped.bam; samtools index deduped.bam
-			umitools rmdup sorted.bam $finalReads > file.bed
+			umi_tools dedup -I sorted.bam -v 0 | samtools sort - -o deduped.bam; samtools index deduped.bam
+			#umitools rmdup sorted.bam $finalReads > file.bed
 			
 			#Filter BAM file based on barcode
-			#samtools view -h deduped.bam -o deduped.sam
-			#grep -e "UMI_$barcode" -e '@HG' -e '@SQ' -e '@PG' deduped.sam > filtered.sam
-			#samtools view filtered.sam -bS | samtools sort -o $finalReads; samtools index $finalReads
+			samtools view -h deduped.bam -o deduped.sam
+			grep -e "_$barcode" -e '@HG' -e '@SQ' -e '@PG' deduped.sam > filtered.sam
+			samtools view filtered.sam -bS | samtools sort -o $finalReads; samtools index $finalReads
 		
 		elif [[ -n $UMI ]] && [[ -z $barcode ]]; then
 			#Align reads to reference and save Bowtie statistics
@@ -101,12 +101,6 @@ if [[ $type == "SE" ]]; then
 			#Remove PCR duplicates based on UMI and genomic start position and sort/index BAM file
 			umi_tools dedup -I sorted.bam -v 0 | samtools sort - -o $finalReads; samtools index $finalReads
 		
-		elif [[ -z $UMI ]] && [[ -z $barcode ]]; then
-			#Align reads to reference and save Bowtie statistics
-			bowtie2 -x $index -U Read1.fq 2> $statistics > mapped.sam
-			
-			#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
-			samtools view -bS -F260 mapped.sam | samtools sort - -o $finalReads; samtools index $finalReads
 		fi
 fi
 
@@ -121,10 +115,8 @@ if [[ $type == "PE" ]]; then
 	cat Paired1.fq | seqtk seq -r - > temp1.fq
 	cat Paired2.fq | seqtk seq -r - > Read2.fq
 	
-	if [[ -n $UMI ]]; then
-		#Extract UMI from 3' ends of reads (append UMI to read name)
-		umi_tools extract -I temp1.fq -p $UMI --3prime -v 0 -S Read1.fq
-	fi
+	#Extract UMI from 3' ends of reads (append UMI to read name)
+	umi_tools extract -I temp1.fq -p $UMI --3prime -v 0 -S Read1.fq
 	
 	if [[ -n $UMI ]] && [[ -n $barcode ]]; then
 		#Align reads to reference and save Bowtie statistics
@@ -150,13 +142,6 @@ if [[ $type == "PE" ]]; then
 		
 		#Remove PCR duplicates based on UMI and genomic start position and sort/index BAM file
 		umi_tools dedup -I sorted.bam -v 0 | samtools sort - -o $finalReads; samtools index $finalReads
-		
-	elif [[ -z $UMI ]] && [[ -z $barcode ]]; then
-		#Align reads to reference and save Bowtie statistics
-		bowtie2 -x $index -1 Read1.fq -2 Read2.fq 2> $statistics -S mapped.sam
-		
-		#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
-		samtools view -bS -f66 -F260 mapped.sam | samtools sort - -o $finalReads; samtools index $finalReads
 	fi
 fi
 
