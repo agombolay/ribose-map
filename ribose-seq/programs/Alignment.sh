@@ -48,7 +48,6 @@ fi
 
 #############################################################################################################################
 #Create directory
-mkdir -p $directory/Ribose-Map/Results/$index/$sample/Alignment
 output=$directory/Ribose-Map/Results/$index/$sample/Alignment
 
 #Input files
@@ -56,9 +55,12 @@ Read1Fastq=$directory/Ribose-Map/FASTQ-Files/$read1
 Read2Fastq=$directory/Ribose-Map/FASTQ-Files/$read2
 
 #Output files
-statistics=$directory/Ribose-Map/Results/$index/$sample/Alignment/Bowtie2.log
-finalReads=$directory/Ribose-Map/Results/$index/$sample/Alignment/$sample.bam
-	
+statistics=$output/Bowtie2.log
+finalReads=$output/$sample.bam
+
+#Create directory
+mkdir -p $output
+
 #############################################################################################################################
 for sample in ${sample[@]}; do
 
@@ -127,13 +129,13 @@ if [[ $type == "PE" ]]; then
 		#Align reads to reference and save Bowtie statistics
 		bowtie2 -x $index -1 $output/Read1.fq -2 $output/Read2.fq 2> $statistics -S $output/mapped.sam
 		
-		#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
+		#Extract mapped reads, convert SAM file to BAM, and sort BAM file
 		samtools view -bS -f66 -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
 		
 		#Index BAM file
 		samtools index $output/sorted.bam
 		
-		#Remove PCR duplicates based on UMI and genomic start position and sort/index BAM file
+		#Remove PCR duplicates based on UMI and genomic start position and sort BAM file
 		umi_tools dedup -I $output/sorted.bam -v 0 | samtools sort - -o $output/$sample.bam
 		
 		#Index BAM file
@@ -143,13 +145,13 @@ if [[ $type == "PE" ]]; then
 		#Align reads to reference and save Bowtie statistics
 		bowtie2 -x $index -1 $output/Read1.fq -2 $output/Read2.fq 2> $statistics -S $output/mapped.sam
 		
-		#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
+		#Extract mapped reads, convert SAM file to BAM, and sort BAM file
 		samtools view -bS -f66 -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
 		
 		#Index BAM file
 		samtools index $output/sorted.bam
 		
-		#Remove PCR duplicates based on UMI and genomic start position and sort/index BAM file
+		#Remove PCR duplicates based on UMI and genomic start position and sort BAM file
 		umi_tools dedup -I $output/sorted.bam -v 0 | samtools sort - -o $output/deduped.bam
 		
 		#Filter BAM file based on barcode
