@@ -155,6 +155,7 @@ fi
 echo "Trimming, alignment, and de-duplication of $sample is complete"
 
 #Remove temporary files
-rm -f Paired*.fq Unpaired*.fq temp1.fq Read*.fq mapped.* dedup.* filtered.sam sorted.bam*
+rm -f $output/Reads.fq $output/Reverse.fq $output/Read1.fq \
+$output/mapped.* $output/sorted.bam* $output/deduped.* $output/filtered.sam
 
 done
