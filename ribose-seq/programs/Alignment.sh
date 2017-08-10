@@ -49,6 +49,7 @@ fi
 #############################################################################################################################
 #Create directory
 mkdir -p $directory/Ribose-Map/Results/$index/$sample/Alignment
+output=$directory/Ribose-Map/Results/$index/$sample/Alignment
 
 #Input files
 Read1Fastq=$directory/Ribose-Map/FASTQ-Files/$read1
