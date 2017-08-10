@@ -65,14 +65,14 @@ for sample in ${sample[@]}; do
 #Single End Reads
 if [[ $type == "SE" ]]; then
 	#Trim FASTQ files based on quality and adapter content
-	java -jar $path/trimmomatic-0.36.jar SE -phred33 $Read1Fastq $output/Reads.fq \
-	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 MINLEN:$min
+	#java -jar $path/trimmomatic-0.36.jar SE -phred33 $Read1Fastq $output/Reads.fq \
+	#ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 MINLEN:$min
 	
 	#Reverse complement reads
-	cat $output/Reads.fq | seqtk seq -r - > $output/Reverse.fq
+	#cat $output/Reads.fq | seqtk seq -r - > $output/Reverse.fq
 	
 	#Extract UMI from 3' ends of reads (append UMI to read name)
-	umi_tools extract -I $output/Reverse.fq -p $UMI --3prime -v 0 -S $output/Read1.fq
+	#umi_tools extract -I $output/Reverse.fq -p $UMI --3prime -v 0 -S $output/Read1.fq
 		
 		if [[ -n $UMI ]] && [[ -z $barcode ]]; then
 			#Align reads to reference and save Bowtie statistics
@@ -89,10 +89,13 @@ if [[ $type == "SE" ]]; then
 		
 		elif [[ -n $UMI ]] && [[ -n $barcode ]]; then
 			#Align reads to reference and save Bowtie statistics
-			bowtie2 -x $index -U $output/Read1.fq 2> $statistics > $output/mapped.sam
+			#bowtie2 -x $index -U $output/Read1.fq 2> $statistics > $output/mapped.sam
 			
 			#Extract mapped reads, convert SAM file to BAM format, and sort BAM file
-			samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
+			#samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
+			
+			#Index BAM file
+			samtools index $output/sorted.bam
 			
 			#Remove PCR duplicates based on UMI and genomic start position and sort BAM file
 			umi_tools dedup -I $output/sorted.bam -v 0 | samtools sort - -o $output/deduped.bam
