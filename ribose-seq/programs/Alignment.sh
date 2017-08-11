@@ -54,10 +54,6 @@ output=$directory/Ribose-Map/Results/$index/$sample/Alignment
 Read1Fastq=$directory/Ribose-Map/FASTQ-Files/$read1
 Read2Fastq=$directory/Ribose-Map/FASTQ-Files/$read2
 
-#Output files
-statistics=$output/Bowtie2.log
-finalReads=$output/$sample.bam
-
 #Create directory
 mkdir -p $output
 
@@ -78,7 +74,7 @@ if [[ $type == "SE" ]]; then
 		
 		if [[ -n $UMI ]] && [[ -z $barcode ]]; then
 			#Align reads to reference and save Bowtie statistics
-			bowtie2 -x $index -U $output/Read1.fq 2> $statistics > $output/mapped.sam
+			bowtie2 -x $index -U $output/Read1.fq 2> $output/Bowtie2.log > $output/mapped.sam
 			
 			#Extract mapped reads, convert SAM file to BAM format , and sort BAM file
 			samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
@@ -91,7 +87,7 @@ if [[ $type == "SE" ]]; then
 		
 		elif [[ -n $UMI ]] && [[ -n $barcode ]]; then
 			#Align reads to reference and save Bowtie statistics
-			bowtie2 -x $index -U $output/Read1.fq 2> $statistics > $output/mapped.sam
+			bowtie2 -x $index -U $output/Read1.fq 2> $output/Bowtie2.log > $output/mapped.sam
 			
 			#Extract mapped reads, convert SAM file to BAM format, and sort BAM file
 			samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
@@ -127,7 +123,7 @@ if [[ $type == "PE" ]]; then
 		
 	if [[ -n $UMI ]] && [[ -z $barcode ]]; then
 		#Align reads to reference and save Bowtie statistics
-		bowtie2 -x $index -1 $output/Read1.fq -2 $output/Read2.fq 2> $statistics -S $output/mapped.sam
+		bowtie2 -x $index -1 $output/Read1.fq -2 $output/Read2.fq 2> $output/Bowtie2.log -S $output/mapped.sam
 		
 		#Extract mapped reads, convert SAM file to BAM, and sort BAM file
 		samtools view -bS -f66 -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
@@ -143,7 +139,7 @@ if [[ $type == "PE" ]]; then
 	
 	elif [[ -n $UMI ]] && [[ -n $barcode ]]; then
 		#Align reads to reference and save Bowtie statistics
-		bowtie2 -x $index -1 $output/Read1.fq -2 $output/Read2.fq 2> $statistics -S $output/mapped.sam
+		bowtie2 -x $index -1 $output/Read1.fq -2 $output/Read2.fq 2> $output/Bowtie2.log -S $output/mapped.sam
 		
 		#Extract mapped reads, convert SAM file to BAM, and sort BAM file
 		samtools view -bS -f66 -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
