@@ -100,7 +100,7 @@ if [[ $type == "SE" ]]; then
 			
 			#Filter BAM file based on barcode
 			samtools view -h $output/deduped.bam -o $output/deduped.sam
-			grep -e "_$barcode" -e '@HG' -e '@SQ' -e '@PG' $output/deduped.sam > $output/filtered.sam
+			grep -e "_$barcode" -e '^@' $output/deduped.sam > $output/filtered.sam
 			samtools view $output/filtered.sam -bS | samtools sort -o $output/$sample.bam
 			
 			#Index BAM file
@@ -152,7 +152,7 @@ if [[ $type == "PE" ]]; then
 		
 		#Filter BAM file based on barcode
 		samtools view -h $output/deduped.bam -o $output/deduped.sam
-		grep -e "_$barcode" -e '@HG' -e '@SQ' -e '@PG' $output/deduped.sam > $output/filtered.sam
+		grep -e "_$barcode" -e '^@' $output/deduped.sam > $output/filtered.sam
 		samtools view $output/filtered.sam -bS | samtools sort -o $output/$sample.bam
 		
 		#Index BAM file
