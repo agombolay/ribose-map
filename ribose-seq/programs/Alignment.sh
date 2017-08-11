@@ -123,7 +123,7 @@ if [[ $type == "PE" ]]; then
 		
 	if [[ -n $UMI ]] && [[ -z $barcode ]]; then
 		#Align reads to reference and save Bowtie statistics
-		bowtie2 -x $index -1 $output/Read1.fq -2 $output/Read2.fq 2> $output/Bowtie2.log -S $output/mapped.sam
+		bowtie2 -x $index -1 $output/Read1.fq -2 $output/Read2.fq -S $output/mapped.sam
 		
 		#Extract mapped reads, convert SAM file to BAM, and sort BAM file
 		samtools view -bS -f66 -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
@@ -139,7 +139,7 @@ if [[ $type == "PE" ]]; then
 	
 	elif [[ -n $UMI ]] && [[ -n $barcode ]]; then
 		#Align reads to reference and save Bowtie statistics
-		bowtie2 -x $index -1 $output/Read1.fq -2 $output/Read2.fq 2> $output/Bowtie2.log -S $output/mapped.sam
+		bowtie2 -x $index -1 $output/Read1.fq -2 $output/Read2.fq -S $output/mapped.sam
 		
 		#Extract mapped reads, convert SAM file to BAM, and sort BAM file
 		samtools view -bS -f66 -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
