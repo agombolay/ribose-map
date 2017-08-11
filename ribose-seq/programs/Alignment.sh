@@ -165,8 +165,12 @@ fi
 echo "Trimming, alignment, and de-duplication of $sample is complete"
 
 #Remove temporary files
+#rm -f $output/Reads.fq $output/Reverse.fq $output/Read1.fq $output/mapped.* $output/sorted.bam* \
+#$output/deduped.* $output/filtered.sam $output/Paired1.fq $output/Unpaired1.fq $output/Paired2.fq \
+#$output/temp1.fq $output/Read2.fq $output/Read1.fq
+
 rm -f $output/Reads.fq $output/Reverse.fq $output/Read1.fq $output/mapped.* $output/sorted.bam* \
-$output/deduped.* $output/filtered.sam $output/Paired1.fq $output/Unpaired1.fq $output/Paired2.fq \
+$output/filtered.sam $output/Paired1.fq $output/Unpaired1.fq $output/Paired2.fq \
 $output/temp1.fq $output/Read2.fq $output/Read1.fq
 
 done
