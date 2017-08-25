@@ -62,15 +62,16 @@ for sample in ${sample[@]}; do
 
 #Single End Reads
 if [[ $type == "SE" ]]; then
-	#Trim FASTQ files based on quality and adapter content
-	java -jar $path/trimmomatic-0.36.jar SE -phred33 $Read1Fastq $output/Reads.fq \
-	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 MINLEN:$min
 	
 	#Reverse complement reads
 	cat $output/Reads.fq | seqtk seq -r - > $output/Reverse.fq
 	
 	#Extract UMI from 3' ends of reads (append UMI to read name)
 	umi_tools extract -I $output/Reverse.fq -p $UMI --3prime -v 0 -S $output/Read1.fq
+	
+	#Trim FASTQ files based on quality and adapter content
+	java -jar $path/trimmomatic-0.36.jar SE -phred33 $Read1Fastq $output/Reads.fq \
+	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 LEADING:10 MINLEN:$min
 		
 		if [[ -n $UMI ]] && [[ -z $barcode ]]; then
 			#Align reads to reference and save Bowtie statistics
