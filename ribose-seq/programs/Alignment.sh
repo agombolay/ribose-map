@@ -73,40 +73,37 @@ if [[ $type == "SE" ]]; then
 	java -jar $path/trimmomatic-0.36.jar SE -phred33 $output/Extract.fq $output/Read1.fq \
 	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 LEADING:10 MINLEN:$min
 		
-		if [[ -n $UMI ]] && [[ -z $barcode ]]; then
-			#Align reads to reference and save Bowtie statistics
-			bowtie2 -x $index -U $output/Read1.fq 2> $output/Bowtie2.log > $output/mapped.sam
+	#Align reads to reference and save Bowtie statistics
+	bowtie2 -x $index -U $output/Read1.fq 2> $output/Bowtie2.log > $output/mapped.sam
 			
-			#Extract mapped reads, convert SAM file to BAM format , and sort BAM file
-			samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
+	#Extract mapped reads, convert SAM file to BAM format , and sort BAM file
+	samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
 			
-			#Remove PCR duplicates based on UMI and genomic start position and sort BAM file
-			umi_tools dedup -I $output/sorted.bam -v 0 | samtools sort - -o $output/$sample.bam
+	#Index BAM file
+	samtools index $output/sorted.bam
 			
-			#Index BAM file
-			samtools index $output/$sample.bam
+	if [[ -n $UMI ]] && [[ -z $barcode ]]; then
+			
+		#Remove PCR duplicates based on UMI and genomic start position and sort BAM file
+		umi_tools dedup -I $output/sorted.bam -v 0 | samtools sort - -o $output/$sample.bam
+			
+		#Index BAM file
+		samtools index $output/$sample.bam
 		
-		elif [[ -n $UMI ]] && [[ -n $barcode ]]; then
-			#Align reads to reference and save Bowtie statistics
-			bowtie2 -x $index -U $output/Read1.fq 2> $output/Bowtie2.log > $output/mapped.sam
+	elif [[ -n $UMI ]] && [[ -n $barcode ]]; then
 			
-			#Extract mapped reads, convert SAM file to BAM format, and sort BAM file
-			samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
+		#Remove PCR duplicates based on UMI and genomic start position and sort BAM file
+		umi_tools dedup -I $output/sorted.bam -v 0 | samtools sort - -o $output/deduped.bam
 			
-			#Index BAM file
-			samtools index $output/sorted.bam
+		#Filter BAM file based on barcode
+		samtools view -h $output/deduped.bam -o $output/deduped.sam
+		grep -e "_$barcode" -e '^@' $output/deduped.sam > $output/filtered.sam
+		samtools view $output/filtered.sam -bS | samtools sort -o $output/$sample.bam
 			
-			#Remove PCR duplicates based on UMI and genomic start position and sort BAM file
-			umi_tools dedup -I $output/sorted.bam -v 0 | samtools sort - -o $output/deduped.bam
-			
-			#Filter BAM file based on barcode
-			samtools view -h $output/deduped.bam -o $output/deduped.sam
-			grep -e "_$barcode" -e '^@' $output/deduped.sam > $output/filtered.sam
-			samtools view $output/filtered.sam -bS | samtools sort -o $output/$sample.bam
-			
-			#Index BAM file
-			samtools index $output/$sample.bam
-		fi
+		#Index BAM file
+		samtools index $output/$sample.bam
+		
+	fi
 fi
 
 #Paired End Reads
