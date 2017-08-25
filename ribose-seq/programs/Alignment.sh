@@ -51,8 +51,8 @@ fi
 output=$directory/Ribose-Map/Results/$index/$sample/Alignment
 
 #Input files
-Read1=$directory/Ribose-Map/FASTQ-Files/$read1
-Read2=$directory/Ribose-Map/FASTQ-Files/$read2
+Fastq1=$directory/Ribose-Map/FASTQ-Files/$read1
+Fastq2=$directory/Ribose-Map/FASTQ-Files/$read2
 
 #Create directory
 mkdir -p $output
@@ -64,7 +64,7 @@ for sample in ${sample[@]}; do
 if [[ $type == "SE" ]]; then
 	
 	#Reverse complement reads
-	cat $Read1 | seqtk seq -r - > $output/Read1-Reverse.fq
+	cat $Fastq1 | seqtk seq -r - > $output/Read1-Reverse.fq
 	
 	#Extract UMI from 3' ends of reads (append UMI to read name)
 	umi_tools extract -I $output/Read1-Reverse.fq -p $UMI --3prime -v 0 -S $output/Read1-UMI.fq
