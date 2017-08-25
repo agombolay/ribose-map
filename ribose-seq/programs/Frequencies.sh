@@ -68,8 +68,8 @@ for sample in ${sample[@]}; do
 	G_BkgCount=$(grep -v '>' temp.fa | grep -o 'G' - | wc -l); T_BkgCount=$(grep -v '>' temp.fa | grep -o 'T' - | wc -l)
 	
 	#Calculate total number of nucleotides
-	total_Bkg=$((($A_BkgCount+$C_BkgCount+$G_BkgCount+$T_BkgCount))*2)
-	echo $total_Bkg
+	total_Bkg=$(($A_BkgCount+$C_BkgCount+$G_BkgCount+$T_BkgCount))
+	echo $total_Bkg*2
 	
 	#Calculate frequency of each nucleotide
 	A_BkgFreq=$(echo "scale=12; $A_BkgCount+T_BkgCount/$total_Bkg" | bc | awk '{printf "%.12f\n", $0}')
