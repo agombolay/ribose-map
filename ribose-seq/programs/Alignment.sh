@@ -64,10 +64,10 @@ for sample in ${sample[@]}; do
 if [[ $type == "SE" ]]; then
 	
 	#Reverse complement reads
-	cat $Fastq1 | seqtk seq -r - > $output/Read1-Reverse.fq
+	cat $Fastq1 | seqtk seq -r - > $output/Reverse.fq
 	
 	#Extract UMI from 3' ends of reads (append UMI to read name)
-	umi_tools extract -I $output/Read1-Reverse.fq -p $UMI --3prime -v 0 -S $output/Read1-UMI.fq
+	umi_tools extract -I $output/Reverse.fq -p $UMI --3prime -v 0 -S $output/Read1-UMI.fq
 	
 	#Trim FASTQ files based on quality and adapter content
 	java -jar $path/trimmomatic-0.36.jar SE -phred33 $output/Read1-UMI.fq $output/Read1.fq \
