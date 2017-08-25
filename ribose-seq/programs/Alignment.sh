@@ -22,19 +22,19 @@ function usage () {
 		-d Local user directory (e.g., /projects/home/agombolay3/data/repository)"
 }
 
-while getopts "s:f:r:u:m:t:p:i:b:d:h" opt; do
+while getopts "s:u:m:p:t:i:f:r:b:d:h" opt; do
     	case "$opt" in
         	#Allow multiple input arguments
         	s ) sample=($OPTARG) ;;
 		#Allow only one input argument
-		f ) read1=$OPTARG ;;
-		r ) read2=$OPTARG ;;
 		u ) UMI=$OPTARG ;;
-		b ) barcode=$OPTARG ;;
 		m ) min=$OPTARG ;;
 		p ) path=$OPTARG ;;
 		t ) type=$OPTARG ;;
 		i ) index=$OPTARG ;;
+		f ) read1=$OPTARG ;;
+		r ) read2=$OPTARG ;;
+		b ) barcode=$OPTARG ;;
 		d ) directory=$OPTARG ;;
         	#Print usage statement
         	h ) usage ;;
@@ -66,14 +66,14 @@ if [[ $type == "SE" ]]; then
 	#Reverse complement reads
 	cat $Fastq1 | seqtk seq -r - > $output/Reverse.fq
 	
-	#Extract UMI from 3' ends of reads (append UMI to read name)
+	#Extract UMI from 3' ends of reads and append to read name
 	umi_tools extract -I $output/Reverse.fq -p $UMI --3prime -v 0 -S $output/Extract.fq
 	
-	#Trim FASTQ files based on quality and adapter content
+	#Trim/drop reads based on quality, adapter content, and length
 	java -jar $path/trimmomatic-0.36.jar SE -phred33 $output/Extract.fq $output/Read1.fq \
 	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 LEADING:10 MINLEN:$min
 		
-	#Align reads to reference and save Bowtie statistics
+	#Align reads to reference genome and save Bowtie2 statistics log file
 	bowtie2 -x $index -U $output/Read1.fq 2> $output/Bowtie2.log > $output/mapped.sam
 			
 	#Extract mapped reads, convert SAM file to BAM format , and sort BAM file
