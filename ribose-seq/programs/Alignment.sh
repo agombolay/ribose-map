@@ -70,8 +70,8 @@ if [[ $type == "SE" ]]; then
 	umi_tools extract -I $output/Reverse.fq -p $UMI --3prime -v 0 -S $output/Extract.fq
 	
 	#Trim/drop reads based on quality, adapter content, and length
-	java -jar $path/trimmomatic-0.36.jar SE -phred33 $output/Extract.fq $output/Read1.fq \
-	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 LEADING:10 MINLEN:$minimum
+	java -jar $path/trimmomatic-0.36.jar SE -trimlog $output/Trimmomatic.log $output/Extract.fq \
+	$output/Read1.fq ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 LEADING:10 MINLEN:$minimum
 		
 	#Align reads to reference genome and save Bowtie2 statistics log file
 	bowtie2 -x $index -U $output/Read1.fq 2> $output/Bowtie2.log > $output/mapped.sam
