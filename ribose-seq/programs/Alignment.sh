@@ -22,18 +22,18 @@ function usage () {
 		-d Local user directory (e.g., /projects/home/agombolay3/data/repository)"
 }
 
-while getopts "s:u:m:p:t:i:f:r:b:d:h" opt; do
+while getopts "s:u:p:t:i:f:r:m:b:d:h" opt; do
     	case "$opt" in
         	#Allow multiple input arguments
         	s ) sample=($OPTARG) ;;
 		#Allow only one input argument
 		u ) UMI=$OPTARG ;;
-		m ) min=$OPTARG ;;
 		p ) path=$OPTARG ;;
 		t ) type=$OPTARG ;;
 		i ) index=$OPTARG ;;
 		f ) read1=$OPTARG ;;
 		r ) read2=$OPTARG ;;
+		m ) minimum=$OPTARG ;;
 		b ) barcode=$OPTARG ;;
 		d ) directory=$OPTARG ;;
         	#Print usage statement
@@ -71,7 +71,7 @@ if [[ $type == "SE" ]]; then
 	
 	#Trim/drop reads based on quality, adapter content, and length
 	java -jar $path/trimmomatic-0.36.jar SE -phred33 $output/Extract.fq $output/Read1.fq \
-	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 LEADING:10 MINLEN:$min
+	ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 LEADING:10 MINLEN:$minimum
 		
 	#Align reads to reference genome and save Bowtie2 statistics log file
 	bowtie2 -x $index -U $output/Read1.fq 2> $output/Bowtie2.log > $output/mapped.sam
