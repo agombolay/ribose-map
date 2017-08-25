@@ -72,10 +72,10 @@ for sample in ${sample[@]}; do
 	echo $((total_Bkg*2))
 	
 	#Calculate frequency of each nucleotide
-	A_BkgFreq=$(echo "scale=12; ($A_BkgCount+$T_BkgCount)/$total_Bkg" | bc | awk '{printf "%.12f\n", $0}')
-	C_BkgFreq=$(echo "scale=12; ($C_BkgCount+$G_BkgCount)/$total_Bkg" | bc | awk '{printf "%.12f\n", $0}')
-	G_BkgFreq=$(echo "scale=12; ($G_BkgCount+$C_BkgCount)/$total_Bkg" | bc | awk '{printf "%.12f\n", $0}')
-	T_BkgFreq=$(echo "scale=12; ($T_BkgCount+$A_BkgCount)/$total_Bkg" | bc | awk '{printf "%.12f\n", $0}')
+	A_BkgFreq=$(echo "scale=12; ($A_BkgCount+$T_BkgCount)/$total_Bkg*2" | bc | awk '{printf "%.12f\n", $0}')
+	C_BkgFreq=$(echo "scale=12; ($C_BkgCount+$G_BkgCount)/$total_Bkg*2" | bc | awk '{printf "%.12f\n", $0}')
+	G_BkgFreq=$(echo "scale=12; ($G_BkgCount+$C_BkgCount)/$total_Bkg*2" | bc | awk '{printf "%.12f\n", $0}')
+	T_BkgFreq=$(echo "scale=12; ($T_BkgCount+$A_BkgCount)/$total_Bkg*2" | bc | awk '{printf "%.12f\n", $0}')
 	
 	echo $A_BkgFreq $C_BkgFreq $G_BkgFreq $T_BkgFreq
 	
