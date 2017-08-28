@@ -67,22 +67,9 @@ for sample in ${sample[@]}; do
 		#Combine and save +/- coordinates into one file for later
 		cat <(echo "$positiveReads") <(echo "$negativeReads") > $output/temp3.txt
 
-		for subset in "mito" "nucleus"; do
-		
-			#Remove old files
-			rm -f $output/$sample-Coordinates.$subset.bed
-	
-			#Subset and sort coordinates based on genomic region
-			if [ $subset == "mito" ]; then
-				grep -E '(chrM|MT)' temp3.txt | sort -k1,1 -k2,2n - > $output/$sample-Coordinates.$subset.bed
-			elif [ $subset == "nucleus" ]; then
-				grep -vE '(chrM|MT)' temp3.txt | sort -k1,1 -k2,2n - > $output/$sample-Coordinates.$subset.bed
-			fi
+		#Print completion status
+		echo "Coordinates of rNMPs for $sample ($subset) have been determined"
 
-			#Print completion status
-			echo "Coordinates of rNMPs for $sample ($subset) have been determined"
-				
-		done
 	fi
 
 #############################################################################################################################
