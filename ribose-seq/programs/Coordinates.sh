@@ -47,7 +47,7 @@ for sample in ${sample[@]}; do
 	if [ -s $bam ]; then
 		
 	#Remove old file
-	rm -f $bam
+	rm -f $output/$sample-ReadInfo.txt
 
 	#Covert BAM file to BED format
 	bedtools bamtobed -i $bam > $output/temp1.txt
@@ -69,6 +69,9 @@ for sample in ${sample[@]}; do
 				
 	for subset in "mito" "nucleus"; do
 		
+		#Remove old files
+		rm -f $output/$sample-Coordinates.$subset.bed
+	
 		#Subset and sort coordinates based on genomic region
 		if [ $subset == "mito" ]; then
 			grep -E '(chrM|MT)' temp3.txt | sort -k1,1 -k2,2n - > $output/$sample-Coordinates.$subset.bed
