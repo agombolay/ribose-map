@@ -48,24 +48,21 @@ for sample in ${sample[@]}; do
 	reverse=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Reverse.bedgraph
 	
   ###########################################################################################################################
-	if [[ -s $bam ]]; then
+	if [[ -s $coordinates ]]; then
 		
-		#Separate BAM file by reverse strand
-		samtools view -bS -f 16 $bam > reverse.bam
+		#Count number of unique lines
+		uniq -c $coordinates > temp1.txt
+		
+		#Rearrange file so format is same as bedgraph format
+		awk -v "OFS=\t" '{print $2, $3, $4, $1}' temp1.txt > $coverage
 		
 		#Create bedgraph file for reverse strand to input into UCSC genome browser
 		bedtools genomecov -bg -3 -trackline -trackopts 'name="ReverseStrand" description="Ribose-seq ("$sample")" \
 		color=0,0,255 visibility=full' -ibam reverse.bam > $reverse
 		
-		#Separate BAM file by forward strand
-		samtools view -bS -F 16 $bam > forward.bam
-		
 		#Create bedgraph file for forward strand to input into UCSC genome browser
 		bedtools genomecov -bg -3 -trackline -trackopts 'name="ForwardStrand" description="Ribose-seq ("$sample")" \
 		color=0,128,0 visibility=full' -ibam forward.bam > $forward
-		
-		#Determine coverage of rNMPs
-		bedtools genomecov -ibam $bam -d -3 > $coverage
 		
 		#Save coverage of rNMPs per chromosome
 		for chr in $( awk '{print $1}' $bed ); do
@@ -77,7 +74,7 @@ for sample in ${sample[@]}; do
 	#Print completion status
 	echo "Hotspots in $sample have been located"
 		
-	#rm -f reverse.bam forward.bam
+	rm -f temp1.txt
 	
 	fi
 done
