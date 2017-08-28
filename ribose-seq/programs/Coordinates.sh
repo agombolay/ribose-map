@@ -83,7 +83,7 @@ for sample in ${sample[@]}; do
 		echo "Coordinates of rNMPs for $sample ($subset) have been determined"
 				
 	done
-fi
+	fi
 
 #############################################################################################################################
 	#Remove temp files
