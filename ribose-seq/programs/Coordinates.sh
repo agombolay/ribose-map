@@ -46,43 +46,43 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	if [ -s $bam ]; then
 		
-	#Remove old file
-	rm -f $output/$sample-ReadInfo.txt
+		#Remove old file
+		rm -f $output/$sample-ReadInfo.txt
 
-	#Covert BAM file to BED format
-	bedtools bamtobed -i $bam > $output/temp1.txt
+		#Covert BAM file to BED format
+		bedtools bamtobed -i $bam > $output/temp1.txt
 		
-	#Convert BAM file to FASTA then extract read sequences
-	samtools bam2fq $bam | seqtk seq -A - | grep -v '>' - > $output/temp2.txt
+		#Convert BAM file to FASTA then extract read sequences
+		samtools bam2fq $bam | seqtk seq -A - | grep -v '>' - > $output/temp2.txt
 		
-	#Extract read coordinates, sequences, and strand information
-	paste temp1.txt temp2.txt | awk -v "OFS=\t" '{print $1, $2, $3, $4, $6, $7}' > $output/$sample-ReadInfo.txt
+		#Extract read coordinates, sequences, and strand information
+		paste temp1.txt temp2.txt | awk -v "OFS=\t" '{print $1,$2,$3,$4,$6,$7}' > $output/$sample-ReadInfo.txt
 		
-	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
-	positiveReads=$(awk -v "OFS=\t" '$5 == "+" {print $1, ($3 - 1), $3, " ", " ", $5}' $output/$sample-ReadInfo.txt)
+		#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
+		positiveReads=$(awk -v "OFS=\t" '$5 == "+" {print $1,($3 - 1),$3," "," ",$5}' $output/$sample-ReadInfo.txt)
 			
-	#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-	negativeReads=$(awk -v "OFS=\t" '$5 == "-" {print $1, $2, ($2 + 1), " ", " ", $5}' $output/$sample-ReadInfo.txt)
+		#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
+		negativeReads=$(awk -v "OFS=\t" '$5 == "-" {print $1,$2,($2 + 1)," "," ",$5}' $output/$sample-ReadInfo.txt)
 	
-	#Combine and save +/- coordinates into one file for later
-	cat <(echo "$positiveReads") <(echo "$negativeReads") > $output/temp3.txt
+		#Combine and save +/- coordinates into one file for later
+		cat <(echo "$positiveReads") <(echo "$negativeReads") > $output/temp3.txt
 				
-	for subset in "mito" "nucleus"; do
+		for subset in "mito" "nucleus"; do
 		
-		#Remove old files
-		rm -f $output/$sample-Coordinates.$subset.bed
+			#Remove old files
+			rm -f $output/$sample-Coordinates.$subset.bed
 	
-		#Subset and sort coordinates based on genomic region
-		if [ $subset == "mito" ]; then
-			grep -E '(chrM|MT)' temp3.txt | sort -k1,1 -k2,2n - > $output/$sample-Coordinates.$subset.bed
-		elif [ $subset == "nucleus" ]; then
-			grep -vE '(chrM|MT)' temp3.txt | sort -k1,1 -k2,2n - > $output/$sample-Coordinates.$subset.bed
-		fi
+			#Subset and sort coordinates based on genomic region
+			if [ $subset == "mito" ]; then
+				grep -E '(chrM|MT)' temp3.txt | sort -k1,1 -k2,2n - > $output/$sample-Coordinates.$subset.bed
+			elif [ $subset == "nucleus" ]; then
+				grep -vE '(chrM|MT)' temp3.txt | sort -k1,1 -k2,2n - > $output/$sample-Coordinates.$subset.bed
+			fi
 
-		#Print completion status
-		echo "Coordinates of rNMPs for $sample ($subset) have been determined"
+			#Print completion status
+			echo "Coordinates of rNMPs for $sample ($subset) have been determined"
 				
-	done
+		done
 	fi
 
 #############################################################################################################################
