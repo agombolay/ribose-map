@@ -41,7 +41,7 @@ for sample in ${sample[@]}; do
 	output=$directory/Ribose-Map/Results/$reference/$sample/Coordinates
 		
 	#Create directory
-	mkdir -p
+	mkdir $output
 		
 #############################################################################################################################
 	if [ -s $bam ]; then
