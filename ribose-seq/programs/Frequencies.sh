@@ -47,6 +47,7 @@ for sample in ${sample[@]}; do
 
 	#Output file
 	dataset=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/$sample-Frequencies.$subset.txt
+	background=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/$sample-BackgroundFrequencies.txt
 	
 	#Remove old file
 	rm -f $dataset
@@ -69,15 +70,12 @@ for sample in ${sample[@]}; do
 	
 	#Calculate total number of nucleotides
 	total_Bkg=$(($A_BkgCount+$C_BkgCount+$G_BkgCount+$T_BkgCount))
-	echo $((total_Bkg*2))
 	
 	#Calculate frequency of each nucleotide
 	A_BkgFreq=$(echo "scale=12; ($A_BkgCount+$T_BkgCount)/($total_Bkg*2)" | bc | awk '{printf "%.12f\n", $0}')
 	C_BkgFreq=$(echo "scale=12; ($C_BkgCount+$G_BkgCount)/($total_Bkg*2)" | bc | awk '{printf "%.12f\n", $0}')
 	G_BkgFreq=$(echo "scale=12; ($G_BkgCount+$C_BkgCount)/($total_Bkg*2)" | bc | awk '{printf "%.12f\n", $0}')
 	T_BkgFreq=$(echo "scale=12; ($T_BkgCount+$A_BkgCount)/($total_Bkg*2)" | bc | awk '{printf "%.12f\n", $0}')
-	
-	echo $A_BkgFreq $C_BkgFreq $G_BkgFreq $T_BkgFreq
 	
 #############################################################################################################################
 	#STEP 2: Calculate frequencies of rNMPs in libraries
@@ -173,7 +171,19 @@ for sample in ${sample[@]}; do
 	
 	#Remove temp files
 	rm -f ./*Upstream.* ./*Downstream.* ./RiboBases.txt ./temp.fa*
+
+#############################################################################################################################
+	#STEP 7: Create and save file containing background nucleotide frequencies
+		
+	#Add nucleotides to header line
+	echo -e "A\tC\tG\tT" > $background
 	
+	#Add frequencies of nucleotides in reference genome
+	paste <(echo -e "$A_BkgFreq\t$C_BkgFreq\t$G_BkgFreq\t$T_BkgFreq") >> $background
+	
+	#Add total number of nucleotides in reference genome
+	echo -e "Total number of bases in reference genome: $((total_Bkg*2))" >> $background
+
 	fi
 	
 	done
