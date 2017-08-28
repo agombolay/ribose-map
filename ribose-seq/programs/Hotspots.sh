@@ -44,17 +44,19 @@ for sample in ${sample[@]}; do
 	#Create directory
 	mkdir -p $output
 
-  ###########################################################################################################################
+#############################################################################################################################
 	if [[ -s $coordinates ]]; then
-		
-		#Add trackline for forward strand to input into UCSC genome browser
-		echo "track type=bedGraph name="ForwardStrand" description="$sample" color=0,128,0 visibility=2" > $output/$sample-Forward.bedgraph
-		
-		#Create bedgraph file for reverse strand to input into UCSC genome browser
-		echo "track type=bedGraph name="ForwardStrand" description="$sample" color=0,128,0 visibility=2" > $output/$sample-Reverse.bedgraph
 		
 		#Count number of unique lines
 		uniq -c $coordinates > $output/temp1.txt
+		
+		#Add trackline for forward strand to input into UCSC genome browser
+		echo "track type=bedGraph name="ForwardStrand" description="$sample" \
+		color=0,128,0 visibility=2" > $output/$sample-Forward.bedgraph
+		
+		#Add trackline for reverse strand to input into UCSC genome browser
+		echo "track type=bedGraph name="ReverseStrand" description="$sample" \
+		color=0,128,0 visibility=2" > $output/$sample-Reverse.bedgraph
 		
 		#Create file containing coverage of both strands
 		awk -v "OFS=\t" '{print $2, $3, $4, $1}' temp1.txt) > $output/$sample-Coverage.bed
@@ -65,10 +67,9 @@ for sample in ${sample[@]}; do
 		#Rearrange file so format is same as bedgraph format (reverse)
 		awk -v "OFS=\t" '$5 == "-" {print $2, $3, $4, $1}' temp1.txt) >> $output/$sample-Reverse.bedgraph
 		
-		#Save coverage of rNMPs per chromosome
+		#Save coverage of rNMPs for each chromosome to separate files for plotting
 		for chr in $( awk '{print $1}' $directory/Ribose-Map/References/$reference.bed ); do
-			hotspots=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Hotspots.$chr.bed
-			grep -w "$chr" $directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.bed > $hotspots
+			grep -w "$chr" $output/$sample-Coverage.bed > $output/$sample-Hotspots.$chr.bed
 		done
 		
 #############################################################################################################################
