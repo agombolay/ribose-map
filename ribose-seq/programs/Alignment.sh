@@ -158,11 +158,12 @@ for sample in ${sample[@]}; do
 	fi
 
 #############################################################################################################################
-#Notify user alignment step is complete for input sample
-echo "Trimming, alignment, and de-duplication of $sample is complete"
+	#Notify user alignment step is complete for input sample
+	echo "Trimming, alignment, and de-duplication of $sample is complete"
 
-#Remove temporary files
-rm -f $output/Reverse.fq $output/Extract.fq $output/Read1.fq $output/Read2.fq $output/mapped.sam $output/sorted.bam*
-$output/deduped.bam* $output/filtered.sam $output/Paired1.fq $output/Unpaired1.fq $output/Paired2.fq $output/Unpaired2.fq
+	#Remove temporary files
+	rm -f $output/Reverse.fq $output/Extract.fq $output/Read1.fq $output/Read2.fq \
+	$output/mapped.sam $output/sorted.bam* $output/deduped.bam* $output/filtered.sam \
+	$output/Paired1.fq $output/Unpaired1.fq $output/Paired2.fq $output/Unpaired2.fq
 
 done
