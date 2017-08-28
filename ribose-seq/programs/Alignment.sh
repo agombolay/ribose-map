@@ -47,7 +47,7 @@ if [ "$1" == "-h" ]; then
 fi
 
 #############################################################################################################################
-#Create directory
+#Output directory
 output=$directory/Ribose-Map/Results/$index/$sample/Alignment
 
 #Input files
