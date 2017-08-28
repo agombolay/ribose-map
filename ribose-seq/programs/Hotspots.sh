@@ -52,13 +52,6 @@ for sample in ${sample[@]}; do
 		
 		#Count number of unique lines
 		uniq -c $coordinates > $output/temp1.txt
-		
-		#Subset and sort coordinates based on genomic region
-		awk -v "OFS=\t" '$5 == "+" {print $1,($3 - 1),$3," "," ",$5}'
-		grep -E '(chrM|MT)' temp3.txt | sort -k1,1 -k2,2n - > $output/$sample-Coordinates.forward.bed
-		grep -vE '(chrM|MT)' temp3.txt | sort -k1,1 -k2,2n - > $output/$sample-Coordinates.reverse.bed
-		
-#############################################################################################################################
 
 		#Add trackline for forward strand to input into UCSC genome browser
 		echo "track type=bedGraph name="ForwardStrand" description="$sample" \
