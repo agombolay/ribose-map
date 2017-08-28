@@ -53,16 +53,16 @@ for sample in ${sample[@]}; do
 		bedtools bamtobed -i $bam > $output/temp1.txt
 		
 		#Extract read coordinates, sequences, and strand information
-		#paste temp1.txt | awk -v "OFS=\t" '{print $1,$2,$3,$4,$6,$7}' > $output/$sample-ReadInfo.txt
+		awk -v "OFS=\t" '{print $1, $2, $3, $6}' temp1.txt > $output/$sample-ReadInfo.txt
 		
 		#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
-		#positiveReads=$(awk -v "OFS=\t" '$5 == "+" {print $1,($3 - 1),$3," "," ",$5}' $output/$sample-ReadInfo.txt)
+		positiveReads=$(awk -v "OFS=\t" '$4 == "+" {print $1,($3 - 1),$3," "," ",$5}' $output/$sample-ReadInfo.txt)
 			
 		#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-		#negativeReads=$(awk -v "OFS=\t" '$5 == "-" {print $1,$2,($2 + 1)," "," ",$5}' $output/$sample-ReadInfo.txt)
+		negativeReads=$(awk -v "OFS=\t" '$4 == "-" {print $1,$2,($2 + 1)," "," ",$5}' $output/$sample-ReadInfo.txt)
 	
 		#Combine and save +/- coordinates into one file for later
-		#cat <(echo "$positiveReads") <(echo "$negativeReads") > $output/temp3.txt
+		cat <(echo "$positiveReads") <(echo "$negativeReads") > $output/temp3.txt
 
 		#Sort coordinates
 		#RomanNumerals.sh
