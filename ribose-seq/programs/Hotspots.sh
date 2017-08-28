@@ -55,13 +55,11 @@ for sample in ${sample[@]}; do
 		#Rearrange file so format is same as bedgraph format
 		awk -v "OFS=\t" '{print $2, $3, $4, $1}' temp1.txt > $coverage
 		
-		#Create bedgraph file for reverse strand to input into UCSC genome browser
-		bedtools genomecov -bg -3 -trackline -trackopts 'name="ReverseStrand" description="Ribose-seq ("$sample")" \
-		color=0,0,255 visibility=full' -ibam reverse.bam > $reverse
-		
 		#Create bedgraph file for forward strand to input into UCSC genome browser
-		bedtools genomecov -bg -3 -trackline -trackopts 'name="ForwardStrand" description="Ribose-seq ("$sample")" \
-		color=0,128,0 visibility=full' -ibam forward.bam > $forward
+		echo "track type=bedGraph name="ForwardStrand" description="$sample" color=0,128,0 visibility=2" > $forward
+		
+		#Create bedgraph file for reverse strand to input into UCSC genome browser
+		echo "track type=bedGraph name="ForwardStrand" description="$sample" color=0,128,0 visibility=2" > $reverse
 		
 		#Save coverage of rNMPs per chromosome
 		for chr in $( awk '{print $1}' $bed ); do
