@@ -35,11 +35,11 @@ fi
 for sample in ${sample[@]}; do
 
 #############################################################################################################################
-	#Create directory
-	output=$directory/Ribose-Map/Results/$reference/$sample/Hotspots
-	
 	#Input file
 	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
+	
+	#Output directory
+	output=$directory/Ribose-Map/Results/$reference/$sample/Hotspots
 	
 	#Create directory
 	mkdir -p $output
