@@ -49,17 +49,20 @@ for sample in ${sample[@]}; do
   ###########################################################################################################################
 	if [[ -s $coordinates ]]; then
 		
-		#Count number of unique lines
-		uniq -c $coordinates > temp1.txt
-		
-		#Rearrange file so format is same as bedgraph format
-		awk -v "OFS=\t" '{print $2, $3, $4, $1}' temp1.txt > $coverage
-		
-		#Create bedgraph file for forward strand to input into UCSC genome browser
+		#Add trackline for forward strand to input into UCSC genome browser
 		echo "track type=bedGraph name="ForwardStrand" description="$sample" color=0,128,0 visibility=2" > $forward
 		
 		#Create bedgraph file for reverse strand to input into UCSC genome browser
 		echo "track type=bedGraph name="ForwardStrand" description="$sample" color=0,128,0 visibility=2" > $reverse
+		
+		#Count number of unique lines
+		uniq -c $coordinates > temp1.txt
+		
+		#Rearrange file so format is same as bedgraph format (forward)
+		awk -v "OFS=\t" '$5 == "+" {print $2, $3, $4, $1}' temp1.txt) >> $forward
+
+		#Rearrange file so format is same as bedgraph format (reverse)
+		awk -v "OFS=\t" '$5 == "-" {print $2, $3, $4, $1}' temp1.txt) >> $reverse
 		
 		#Save coverage of rNMPs per chromosome
 		for chr in $( awk '{print $1}' $bed ); do
