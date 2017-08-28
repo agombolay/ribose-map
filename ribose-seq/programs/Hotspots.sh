@@ -42,7 +42,6 @@ for sample in ${sample[@]}; do
 	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
 	
 	#Output files
-	coverage=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.bed
 	forward=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Forward.bedgraph
 	reverse=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Reverse.bedgraph
 	
@@ -58,6 +57,9 @@ for sample in ${sample[@]}; do
 		#Count number of unique lines
 		uniq -c $coordinates > temp1.txt
 		
+		#Create file containing coverage of both strands
+		awk -v "OFS=\t" '{print $2, $3, $4, $1}' temp1.txt) > $coverage
+		
 		#Rearrange file so format is same as bedgraph format (forward)
 		awk -v "OFS=\t" '$5 == "+" {print $2, $3, $4, $1}' temp1.txt) >> $forward
 
@@ -65,9 +67,9 @@ for sample in ${sample[@]}; do
 		awk -v "OFS=\t" '$5 == "-" {print $2, $3, $4, $1}' temp1.txt) >> $reverse
 		
 		#Save coverage of rNMPs per chromosome
-		for chr in $( awk '{print $1}' $bed ); do
+		for chr in $( awk '{print $1}' $directory/Ribose-Map/References/$reference.bed ); do
 			hotspots=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Hotspots.$chr.bed
-			grep -w "$chr" $coverage > $hotspots
+			grep -w "$chr" $directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.bed > $hotspots
 		done
 		
 #############################################################################################################################
