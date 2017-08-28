@@ -36,7 +36,7 @@ for sample in ${sample[@]}; do
 
 #############################################################################################################################
 	#Input file
-	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
+	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.bed
 	
 	#Output directory
 	output=$directory/Ribose-Map/Results/$reference/$sample/Hotspots
@@ -54,12 +54,12 @@ for sample in ${sample[@]}; do
 		uniq -c $coordinates > $output/temp1.txt
 
 		#Add trackline for forward strand to input into UCSC genome browser
-		echo "track type=bedGraph name="ForwardStrand" description="$sample" \
-		color=0,128,0 visibility=2" > $output/$sample-Forward.bedgraph
+		echo "track type=bedGraph name="$sample-ForwardStrand" description="$sample-ForwardStrand" \
+		color=0,128,0 visibility=full" > $output/$sample-Forward.bedgraph
 		
 		#Add trackline for reverse strand to input into UCSC genome browser
-		echo "track type=bedGraph name="ReverseStrand" description="$sample" \
-		color=0,128,0 visibility=2" > $output/$sample-Reverse.bedgraph
+		echo "track type=bedGraph name="$sample-ReverseStrand" description="$sample-ReverseStrand" \
+		color=0,128,0 visibility=full" > $output/$sample-Reverse.bedgraph
 		
 		#Rearrange file so format is same as bedgraph format (forward)
 		awk -v "OFS=\t" '$5 == "+" {print $2, $3, $4, $1}' temp1.txt) >> $output/$sample-Forward.bedgraph
