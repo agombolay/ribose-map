@@ -36,7 +36,7 @@ for sample in ${sample[@]}; do
 
 #############################################################################################################################
 	#Create directory
-	mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Hotspots
+	output=$directory/Ribose-Map/Results/$reference/$sample/Hotspots
 	
 	#Input files
 	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
@@ -45,6 +45,8 @@ for sample in ${sample[@]}; do
 	forward=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Forward.bedgraph
 	reverse=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Reverse.bedgraph
 	
+	mkdir -p $output
+
   ###########################################################################################################################
 	if [[ -s $coordinates ]]; then
 		
