@@ -86,7 +86,7 @@ for sample in ${sample[@]}; do
 fi
 
 #############################################################################################################################
-#Remove temp files
-rm -f $output/temp{1..3}.txt
+	#Remove temp files
+	rm -f $output/temp{1..3}.txt
 		
 done
