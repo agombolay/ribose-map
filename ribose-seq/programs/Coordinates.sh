@@ -43,6 +43,7 @@ for sample in ${sample[@]}; do
 
 #############################################################################################################################
 		if [ -s $bam ]; then
+		
 			#Covert BAM file to BED format
 			bedtools bamtobed -i $bam > temp1.txt
 		
@@ -65,18 +66,24 @@ for sample in ${sample[@]}; do
 			cat <(echo "$positiveReads") <(echo "$negativeReads") > temp3.txt
 				
 			for subset in "mito" "nucleus"; do
+			
 				#Output file
 				coordinates=$folder/$sample-Coordinates.$subset.bed
 		
 				#Subset and sort coordinates based on genomic region
 				if [ $subset == "mito" ]; then
+				
 					grep -E '(chrM|MT)' temp3.txt | sort -k1,1 -k2,2n - > $coordinates
+				
 				elif [ $subset == "nucleus" ]; then
+				
 					grep -vE '(chrM|MT)' temp3.txt | sort -k1,1 -k2,2n - > $coordinates
+				
 				fi
 
 				#Print completion status
 				echo "Coordinates of rNMPs for $sample ($subset) have been determined"
+				
 			done
 		fi
 
