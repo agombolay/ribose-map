@@ -66,7 +66,7 @@ for sample in ${sample[@]}; do
 	
 		#Combine and save +/- coordinates into one file for later
 		cat <(echo "$positiveReads") <(echo "$negativeReads") > $output/temp3.txt
-				
+
 		for subset in "mito" "nucleus"; do
 		
 			#Remove old files
