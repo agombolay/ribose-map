@@ -47,12 +47,12 @@ if [ "$1" == "-h" ]; then
 fi
 
 #############################################################################################################################
-#Output directory
-output=$directory/Ribose-Map/Results/$index/$sample/Alignment
-
 #Input files
 Fastq1=$directory/Ribose-Map/FASTQ-Files/$read1
 Fastq2=$directory/Ribose-Map/FASTQ-Files/$read2
+
+#Output directory
+output=$directory/Ribose-Map/Results/$index/$sample/Alignment
 
 #Create directory
 mkdir -p $output
