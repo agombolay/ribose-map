@@ -121,15 +121,16 @@ if [[ $type == "PE" ]]; then
 	$output/Read2.fq $output/Paired1.fq $output/Unpaired1.fq $output/Paired2.fq $output/Unpaired2.fq \
 	ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 LEADING:10 MINLEN:$minimum
 		
+	#Align reads to reference and save Bowtie statistics
+	bowtie2 -x $index -1 $output/Paired1.fq -2 $output/Paired2.fq -S $output/mapped.sam
+		
+	#Extract mapped reads, convert SAM file to BAM, and sort BAM file
+	samtools view -bS -f66 -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
+		
+	#Index BAM file
+	samtools index $output/sorted.bam
+		
 	if [[ -n $UMI ]] && [[ -z $barcode ]]; then
-		#Align reads to reference and save Bowtie statistics
-		bowtie2 -x $index -1 $output/Read1.fq -2 $output/Read2.fq -S $output/mapped.sam
-		
-		#Extract mapped reads, convert SAM file to BAM, and sort BAM file
-		samtools view -bS -f66 -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
-		
-		#Index BAM file
-		samtools index $output/sorted.bam
 		
 		#Remove PCR duplicates based on UMI and genomic start position and sort BAM file
 		umi_tools dedup -I $output/sorted.bam -v 0 | samtools sort - -o $output/$sample.bam
@@ -138,14 +139,6 @@ if [[ $type == "PE" ]]; then
 		samtools index $output/$sample.bam
 	
 	elif [[ -n $UMI ]] && [[ -n $barcode ]]; then
-		#Align reads to reference and save Bowtie statistics
-		bowtie2 -x $index -1 $output/Read1.fq -2 $output/Read2.fq -S $output/mapped.sam
-		
-		#Extract mapped reads, convert SAM file to BAM, and sort BAM file
-		samtools view -bS -f66 -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
-		
-		#Index BAM file
-		samtools index $output/sorted.bam
 		
 		#Remove PCR duplicates based on UMI and genomic start position and sort BAM file
 		umi_tools dedup -I $output/sorted.bam -v 0 | samtools sort - -o $output/deduped.bam
@@ -157,6 +150,7 @@ if [[ $type == "PE" ]]; then
 		
 		#Index BAM file
 		samtools index $output/$sample.bam
+	
 	fi
 fi
 
