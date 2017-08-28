@@ -76,7 +76,7 @@ if [[ $type == "SE" ]]; then
 	#Align reads to reference genome and save Bowtie2 statistics log file
 	bowtie2 -x $index -U $output/Read1.fq 2> $output/Bowtie2.log > $output/mapped.sam
 			
-	#Extract mapped reads, convert SAM file to BAM format , and sort BAM file
+	#Extract mapped reads, convert SAM file to BAM format, and sort BAM file
 	samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
 			
 	#Index BAM file
@@ -113,18 +113,18 @@ if [[ $type == "PE" ]]; then
 	cat $Fastq1.fq | seqtk seq -r - > $output/Read1.fq
 	cat $Fastq2.fq | seqtk seq -r - > $output/Read2.fq
 	
-	#Extract UMI from 3' ends of reads (append UMI to read name)
+	#Extract UMI from 3' ends of reads and append to read name
 	umi_tools extract -I $output/Read1.fq -p $UMI --3prime -v 0 -S $output/Extract.fq
 	
-	#Trim FASTQ files based on quality and adapter content
+	#Trim/drop reads based on quality, adapter content, and length
 	java -jar $path/trimmomatic-0.36.jar PE -trimlog $output/Trimmomatic.log $output/Extract.fq \
 	$output/Read2.fq $output/Paired1.fq $output/Unpaired1.fq $output/Paired2.fq $output/Unpaired2.fq \
 	ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 LEADING:10 MINLEN:$minimum
 		
-	#Align reads to reference and save Bowtie statistics
+	#Align reads to reference genome and save Bowtie2 statistics log file
 	bowtie2 -x $index -1 $output/Paired1.fq -2 $output/Paired2.fq -S $output/mapped.sam
 		
-	#Extract mapped reads, convert SAM file to BAM, and sort BAM file
+	#Extract mapped reads, convert SAM file to BAM format, and sort BAM file
 	samtools view -bS -f66 -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
 		
 	#Index BAM file
