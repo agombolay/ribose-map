@@ -38,35 +38,32 @@ for sample in ${sample[@]}; do
 	#Create directory
 	output=$directory/Ribose-Map/Results/$reference/$sample/Hotspots
 	
-	#Input files
+	#Input file
 	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
 	
-	#Output files
-	forward=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Forward.bedgraph
-	reverse=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Reverse.bedgraph
-	
+	#Create directory
 	mkdir -p $output
 
   ###########################################################################################################################
 	if [[ -s $coordinates ]]; then
 		
 		#Add trackline for forward strand to input into UCSC genome browser
-		echo "track type=bedGraph name="ForwardStrand" description="$sample" color=0,128,0 visibility=2" > $forward
+		echo "track type=bedGraph name="ForwardStrand" description="$sample" color=0,128,0 visibility=2" > $output/$sample-Forward.bedgraph
 		
 		#Create bedgraph file for reverse strand to input into UCSC genome browser
-		echo "track type=bedGraph name="ForwardStrand" description="$sample" color=0,128,0 visibility=2" > $reverse
+		echo "track type=bedGraph name="ForwardStrand" description="$sample" color=0,128,0 visibility=2" > $output/$sample-Reverse.bedgraph
 		
 		#Count number of unique lines
-		uniq -c $coordinates > temp1.txt
+		uniq -c $coordinates > $output/temp1.txt
 		
 		#Create file containing coverage of both strands
-		awk -v "OFS=\t" '{print $2, $3, $4, $1}' temp1.txt) > $coverage
+		awk -v "OFS=\t" '{print $2, $3, $4, $1}' temp1.txt) > $output/$sample-Coverage.bed
 		
 		#Rearrange file so format is same as bedgraph format (forward)
-		awk -v "OFS=\t" '$5 == "+" {print $2, $3, $4, $1}' temp1.txt) >> $forward
+		awk -v "OFS=\t" '$5 == "+" {print $2, $3, $4, $1}' temp1.txt) >> $output/$sample-Forward.bedgraph
 
 		#Rearrange file so format is same as bedgraph format (reverse)
-		awk -v "OFS=\t" '$5 == "-" {print $2, $3, $4, $1}' temp1.txt) >> $reverse
+		awk -v "OFS=\t" '$5 == "-" {print $2, $3, $4, $1}' temp1.txt) >> $output/$sample-Reverse.bedgraph
 		
 		#Save coverage of rNMPs per chromosome
 		for chr in $( awk '{print $1}' $directory/Ribose-Map/References/$reference.bed ); do
