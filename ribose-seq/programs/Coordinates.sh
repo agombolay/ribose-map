@@ -68,7 +68,9 @@ for sample in ${sample[@]}; do
 		cat <(echo "$positiveReads") <(echo "$negativeReads") > $output/temp3.txt
 
 		#Sort coordinates
-		$output/$sample-Coordinates.bed
+		RomanNumerals.sh
+		
+		sort -k1,1V -k2,2n $output/temp4.txt > $output/$sample-Coordinates.bed
 		
 	fi
 
