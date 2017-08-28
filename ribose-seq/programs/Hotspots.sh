@@ -47,6 +47,9 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	if [[ -s $coordinates ]]; then
 		
+		#Remove old files
+		rm -f $output/$sample-*.bedgraph
+		
 		#Count number of unique lines
 		uniq -c $coordinates > $output/temp1.txt
 		
@@ -58,14 +61,18 @@ for sample in ${sample[@]}; do
 		echo "track type=bedGraph name="ReverseStrand" description="$sample" \
 		color=0,128,0 visibility=2" > $output/$sample-Reverse.bedgraph
 		
-		#Create file containing coverage of both strands
-		awk -v "OFS=\t" '{print $2, $3, $4, $1}' temp1.txt) > $output/$sample-Coverage.bed
-		
 		#Rearrange file so format is same as bedgraph format (forward)
 		awk -v "OFS=\t" '$5 == "+" {print $2, $3, $4, $1}' temp1.txt) >> $output/$sample-Forward.bedgraph
 
 		#Rearrange file so format is same as bedgraph format (reverse)
 		awk -v "OFS=\t" '$5 == "-" {print $2, $3, $4, $1}' temp1.txt) >> $output/$sample-Reverse.bedgraph
+
+#############################################################################################################################
+		#Remove old files
+		rm -f $output/$sample-Coverage.bed $output/$sample-Hotspots.$chr.bed
+		
+		#Create file containing coverage of both strands
+		awk -v "OFS=\t" '{print $2, $3, $4, $1}' temp1.txt) > $output/$sample-Coverage.bed
 		
 		#Save coverage of rNMPs for each chromosome to separate files for plotting
 		for chr in $( awk '{print $1}' $directory/Ribose-Map/References/$reference.bed ); do
