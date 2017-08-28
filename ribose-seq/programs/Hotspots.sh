@@ -39,8 +39,7 @@ for sample in ${sample[@]}; do
 	mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Hotspots
 	
 	#Input files
-	bed=$directory/Ribose-Map/References/$reference.bed
-	bam=$directory/Ribose-Map/Results/$reference/$sample/Alignment/$sample.bam
+	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
 	
 	#Output files
 	coverage=$directory/Ribose-Map/Results/$reference/$sample/Hotspots/$sample-Coverage.bed
