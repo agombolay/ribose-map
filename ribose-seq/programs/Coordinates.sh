@@ -68,9 +68,9 @@ for sample in ${sample[@]}; do
 		cat <(echo "$positiveReads") <(echo "$negativeReads") > $output/temp3.txt
 
 		#Sort coordinates
-		RomanNumerals.sh
+		#RomanNumerals.sh
 		
-		sort -k1,1V -k2,2n $output/temp4.txt > $output/$sample-Coordinates.bed
+		#sort -k1,1V -k2,2n $output/temp4.txt > $output/$sample-Coordinates.bed
 		
 	fi
 
@@ -79,6 +79,6 @@ for sample in ${sample[@]}; do
 	echo "Coordinates of rNMPs for $sample have been determined"
 		
 	#Remove temp files
-	rm -f $output/temp{1..3}.txt
+	#rm -f $output/temp{1..3}.txt
 		
 done
