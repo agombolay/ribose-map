@@ -110,14 +110,14 @@ fi
 if [[ $type == "PE" ]]; then
 	
 	#Reverse complement reads
-	cat $Fastq1.fq | seqtk seq -r - > $output/temp1.fq
+	cat $Fastq1.fq | seqtk seq -r - > $output/Read1.fq
 	cat $Fastq2.fq | seqtk seq -r - > $output/Read2.fq
 	
 	#Extract UMI from 3' ends of reads (append UMI to read name)
-	umi_tools extract -I $output/temp1.fq -p $UMI --3prime -v 0 -S $output/Read1.fq
+	umi_tools extract -I $output/Read1.fq -p $UMI --3prime -v 0 -S $output/Extract.fq
 	
 	#Trim FASTQ files based on quality and adapter content
-	java -jar $path/trimmomatic-0.36.jar PE -trimlog $output/Trimmomatic.log $output/Read1.fq \
+	java -jar $path/trimmomatic-0.36.jar PE -trimlog $output/Trimmomatic.log $output/Extract.fq \
 	$output/Read2.fq $output/Paired1.fq $output/Unpaired1.fq $output/Paired2.fq $output/Unpaired2.fq \
 	ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 LEADING:10 MINLEN:$minimum
 		
