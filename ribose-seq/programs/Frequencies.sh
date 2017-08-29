@@ -35,13 +35,16 @@ for sample in ${sample[@]}; do
 	for subset in "mito" "nucleus"; do
 	
 #############################################################################################################################
-	#Create directory
-	mkdir -p $directory/Ribose-Map/Results/$reference/$sample/Frequencies
+	#Output directory
+	output=$directory/Ribose-Map/Results/$reference/$sample/Frequencies
 	
 	#Input files
 	reads=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-ReadInformation.$subset.txt
 	BED=$directory/Ribose-Map/References/$reference.bed; FASTA=$directory/Ribose-Map/References/$reference.fa
 	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
+	
+	#Create directory
+	mkdir -p $output
 	
 	if [ -s $coordinates ]; then
 
@@ -79,9 +82,16 @@ for sample in ${sample[@]}; do
 	
 #############################################################################################################################
 	#STEP 2: Calculate frequencies of rNMPs in libraries
-
+	
+	#Subset and sort coordinates based on genomic region
+	if [ $subset == "mito" ]; then
+		grep -E '(chrM|MT)' $coordinates > $output/$sample-Coordinates.$subset.bed
+	elif [ $subset == "nucleus" ]; then
+		grep -vE '(chrM|MT)' $coordinates > $output/$sample-Coordinates.$subset.bed
+	fi
+	
 	#Extract rNMP bases
-	bedtools getfasta -s -fi temp.fa -bed $coordinates | grep -v '>' - > RiboBases.txt
+	bedtools getfasta -s -fi temp.fa -bed $output/$sample-Coordinates.$subset.bed | grep -v '>' - > RiboBases.txt
 	
 	#Calculate counts of rNMPs
 	A_RiboCount=$(awk '$1 == "A"' RiboBases.txt | wc -l); C_RiboCount=$(awk '$1 == "C"' RiboBases.txt | wc -l)
