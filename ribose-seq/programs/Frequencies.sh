@@ -35,13 +35,13 @@ for sample in ${sample[@]}; do
 	for subset in "mito" "nucleus"; do
 	
 #############################################################################################################################
-	#Output directory
-	output=$directory/Ribose-Map/Results/$reference/$sample/Frequencies
-	
 	#Input files
 	reads=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-ReadInformation.$subset.txt
 	BED=$directory/Ribose-Map/References/$reference.bed; FASTA=$directory/Ribose-Map/References/$reference.fa
 	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.$subset.bed
+	
+	#Output directory
+	output=$directory/Ribose-Map/Results/$reference/$sample/Frequencies
 	
 	#Create directory
 	mkdir -p $output
