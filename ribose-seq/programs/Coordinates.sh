@@ -67,14 +67,19 @@ for sample in ${sample[@]}; do
 		cat <(echo "$positiveReads") <(echo "$negativeReads") > $output/temp3.txt
 
 #############################################################################################################################
-		#Convert roman numerals to arabic numbers
-		ArabicNumbers.sh
+		if [[ -n $numbers ]]
 		
-		#Sort coordinates in proper numeric order with '-V'
-		sort -k1,1V -k2,2n $output/temp4.txt > $output/temp5.txt
+			#Convert roman numerals to arabic numbers
+			ArabicNumbers.sh
 		
-		#Convert arabic numbers back to roman numerals
-		RomanNumerals.sh
+			#Sort coordinates in proper numeric order with '-V'
+			sort -k1,1V -k2,2n $output/temp4.txt > $output/temp5.txt
+		
+			#Convert arabic numbers back to roman numerals
+			RomanNumerals.sh
+			
+		fi
+		
 	fi
 
 #############################################################################################################################
