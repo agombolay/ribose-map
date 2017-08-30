@@ -22,7 +22,7 @@ make_option(c("-d", "--directory"), help="Local user directory (e.g., /projects/
 opt <- parse_args(OptionParser(option_list=option_list))
 
 for (strand in opt$forward opt$reverse) {
-	
+
 	data = c()
 	for (i in 1:opt$cells) {
 		data = sample(1:opt$positions, strand, replace=TRUE)
