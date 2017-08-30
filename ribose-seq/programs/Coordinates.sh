@@ -67,7 +67,7 @@ for sample in ${sample[@]}; do
 		cat <(echo "$positiveReads") <(echo "$negativeReads") > $output/temp3.txt
 
 #############################################################################################################################
-		if [[ -n $numbers ]]
+		if [[ -n $numbers ]]; then
 		
 			#Convert roman numerals to arabic numbers
 			ArabicNumbers.sh
