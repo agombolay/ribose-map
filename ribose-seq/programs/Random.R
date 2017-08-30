@@ -25,7 +25,7 @@ for(strand in c("Forward", "Reverse")) {
 	
 	#Specify output directory and file
 	output <- file.path(opt$directory, "Results", opt$reference, opt$sample, "Random")
-	file <- file.path(output, paste(opt$sample, "-", "Random", ".", j, ".txt", sep=""))
+	file <- file.path(output, paste(opt$sample, "-", "Random", ".", strand, ".txt", sep=""))
 	
 	data = c()
 	for (i in 1:opt$cells) {
