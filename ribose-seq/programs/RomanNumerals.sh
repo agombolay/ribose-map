@@ -1,3 +1,6 @@
+#Output directory
+output=$directory/Ribose-Map/Results/$reference/$sample/Coordinates
+
 sed 's/chrI/chr1/'      $output/temp3.txt > $output/temp4.txt
 sed 's/chrII/chr2/'     $output/temp3.txt > $output/temp4.txt
 sed 's/chrIII/chr3/'    $output/temp3.txt > $output/temp4.txt
