@@ -1,22 +1,22 @@
-sed 's/chrI/chr1/' $coverage | sort -k1 > $hotspots
-sed 's/chrII/chr2/' $coverage | sort -k1 > $hotspots
-sed 's/chrIII/chr3/' $coverage | sort -k1 > $hotspots
-sed 's/chrIV/chr4/' $coverage | sort -k1 > $hotspots
-sed 's/chrV/chr5/' $coverage | sort -k1 > $hotspots
-sed 's/chrVI/chr6/' $coverage | sort -k1 > $hotspots
-sed 's/chrVII/chr7/' $coverage | sort -k1 > $hotspots
-sed 's/chrVIII/chr8/' $coverage | sort -k1 > $hotspots
-sed 's/chrIX/chr9/' $coverage | sort -k1 > $hotspots
-sed 's/chrX/chr10/' $coverage | sort -k1 > $hotspots
-sed 's/chrXI/chr11/' $coverage | sort -k1 > $hotspots
-sed 's/chrXII/chr12/' $coverage | sort -k1 > $hotspots
-sed 's/chrXIII/chr13/' $coverage | sort -k1 > $hotspots
-sed 's/chrXIV/chr14/' $coverage | sort -k1 > $hotspots
-sed 's/chrXV/chr15/' $coverage | sort -k1 > $hotspots
-sed 's/chrXVI/chr16/' $coverage | sort -k1 > $hotspots
-sed 's/chrXVII/chr17/' $coverage | sort -k1 > $hotspots
-sed 's/chrXVIII/chr18/' $coverage | sort -k1 > $hotspots
-sed 's/chrXIX/chr19/' $coverage | sort -k1 > $hotspots
-sed 's/chrXX/chr20/' $coverage | sort -k1 > $hotspots
-sed 's/chrXXI/chr21/' $coverage | sort -k1 > $hotspots
-sed 's/chrXXII/chr22/' $coverage | sort -k1 > $hotspots
+sed 's/chrI/chr1/'      $coverage > $hotspots
+sed 's/chrII/chr2/'     $coverage > $hotspots
+sed 's/chrIII/chr3/'    $coverage > $hotspots
+sed 's/chrIV/chr4/'     $coverage > $hotspots
+sed 's/chrV/chr5/'      $coverage > $hotspots
+sed 's/chrVI/chr6/'     $coverage > $hotspots
+sed 's/chrVII/chr7/'    $coverage > $hotspots
+sed 's/chrVIII/chr8/'   $coverage > $hotspots
+sed 's/chrIX/chr9/'     $coverage > $hotspots
+sed 's/chrX/chr10/'     $coverage > $hotspots
+sed 's/chrXI/chr11/'    $coverage > $hotspots
+sed 's/chrXII/chr12/'   $coverage > $hotspots
+sed 's/chrXIII/chr13/'  $coverage > $hotspots
+sed 's/chrXIV/chr14/'   $coverage > $hotspots
+sed 's/chrXV/chr15/'    $coverage > $hotspots
+sed 's/chrXVI/chr16/'   $coverage > $hotspots
+sed 's/chrXVII/chr17/'  $coverage > $hotspots
+sed 's/chrXVIII/chr18/' $coverage > $hotspots
+sed 's/chrXIX/chr19/'   $coverage > $hotspots
+sed 's/chrXX/chr20/'    $coverage > $hotspots
+sed 's/chrXXI/chr21/'   $coverage > $hotspots
+sed 's/chrXXII/chr22/'  $coverage > $hotspots
