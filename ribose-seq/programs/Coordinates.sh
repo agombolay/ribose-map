@@ -69,7 +69,7 @@ for sample in ${sample[@]}; do
 		ArabicNumbers.sh
 		
 		#Sort coordinates in proper numeric order with '-V'
-		sort -k1,1V -k2,2n $output/temp4.txt > $output/$sample-Coordinates.bed
+		sort -k1,1V -k2,2n $output/temp4.txt > $output/temp5.txt
 		
 		#Convert arabic numbers back to roman numerals
 		RomanNumerals.sh
