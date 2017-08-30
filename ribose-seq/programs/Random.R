@@ -23,6 +23,10 @@ opt <- parse_args(OptionParser(option_list=option_list))
 
 for (strand in opt$forward opt$reverse) {
 
+	#Specify output directory and file
+	output <- file.path(opt$directory, "Ribose-Map", "Results", opt$reference, opt$sample, "Random")
+	file <- file.path(output, paste(opt$sample, "-", "Frequencies", ".", j, ".txt", sep=""))
+	
 	data = c()
 	for (i in 1:opt$cells) {
 		data = sample(1:opt$positions, strand, replace=TRUE)
