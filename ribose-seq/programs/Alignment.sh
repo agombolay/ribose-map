@@ -22,18 +22,18 @@ function usage () {
 		-d Local user directory (e.g., /projects/home/agombolay3/data/repository/Ribose-Map)"
 }
 
-while getopts "s:u:p:t:i:f:r:m:b:d:h" opt; do
+while getopts "s:u:m:p:t:i:f:r:b:d:h" opt; do
     	case "$opt" in
         	#Allow multiple input arguments
         	s ) sample=($OPTARG) ;;
 		#Allow only one input argument
 		u ) UMI=$OPTARG ;;
+		m ) min=$OPTARG ;;
 		p ) path=$OPTARG ;;
 		t ) type=$OPTARG ;;
 		i ) index=$OPTARG ;;
 		f ) read1=$OPTARG ;;
 		r ) read2=$OPTARG ;;
-		m ) minimum=$OPTARG ;;
 		b ) barcode=$OPTARG ;;
 		d ) directory=$OPTARG ;;
         	#Print usage statement
