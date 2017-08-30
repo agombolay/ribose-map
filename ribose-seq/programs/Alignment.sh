@@ -15,10 +15,10 @@ function usage () {
 		-r Input Read 2 FASTQ filename (reverse)
 		-u Length of UMI (e.g., NNNNNNNN or NNNNNNNNNNN)
 		-b Barcode contained within UMI (e.g., ..TGA......)
-		-m Minimum length of read to retain after trimming (e.g., 50)
 		-p Path (e.g., /projects/home/agombolay3/data/bin/Trimmomatic-0.36)
 		-t Type of Illumina Sequencing (e.g., SE = Single end, PE = Paired end)
 		-i Basename of Bowtie2 index (e.g., sacCer2, pombe, ecoli, mm9, hg38, etc.)
+		-m Minimum length of read to retain after trimming (e.g., 61 = 50 + NNNNNNNNNNN)
 		-d Local user directory (e.g., /projects/home/agombolay3/data/repository/Ribose-Map)"
 }
 
@@ -67,17 +67,14 @@ for sample in ${sample[@]}; do
 	if [[ $type == "SE" ]]; then
 	
 		#Trim/drop reads based on quality, adapter content, and length
-		java -jar $path/trimmomatic-0.36.jar SE $output/Extract.fq $output/Trim.fq \
-		ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10
+		java -jar $path/trimmomatic-0.36.jar SE $Fastq1 $output/Trim.fq \
+		ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 MINLEN:$min
 		
 		#Reverse complement reads
 		cat $output/Trim.fq | seqtk seq -r - > $output/Reverse.fq
 	
 		#Extract UMI from 3' ends of reads and append to read name
-		umi_tools extract -I $output/Reverse.fq -p $UMI --3prime -v 0 -S $output/Extract.fq
-	
-		#Trim/drop reads based on quality, adapter content, and length
-		java -jar $path/trimmomatic-0.36.jar SE $output/Extract.fq $output/Read1.fq MINLEN:$min
+		umi_tools extract -I $output/Reverse.fq -p $UMI --3prime -v 0 -S $output/Read1.fq
 		
 		#Align reads to reference genome and save Bowtie2 statistics log file
 		bowtie2 -x $directory/Indices/$index -U $output/Read1.fq --very-sensitive --time \
@@ -116,21 +113,21 @@ for sample in ${sample[@]}; do
 	#Paired End Reads
 	if [[ $type == "PE" ]]; then
 	
+		#Trim/drop reads based on quality, adapter content, and length
+		java -jar $path/trimmomatic-0.36.jar PE $Fastq1 $Fastq2 $output/Paired1.fq $output/Unpaired1.fq \
+		$output/Paired2.fq $output/Unpaired2.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 LEADING:10 \
+		MINLEN:$min
+		
 		#Reverse complement reads
-		cat $Fastq1.fq | seqtk seq -r - > $output/Read1.fq
-		cat $Fastq2.fq | seqtk seq -r - > $output/Read2.fq
+		cat $output/Paired1.fq | seqtk seq -r - > $output/temp1.fq
+		cat $output/Paired2.fq | seqtk seq -r - > $output/Read2.fq
 	
 		#Extract UMI from 3' ends of reads and append to read name
-		umi_tools extract -I $output/Read1.fq -p $UMI --3prime -v 0 -S $output/Extract.fq
-	
-		#Trim/drop reads based on quality, adapter content, and length
-		java -jar $path/trimmomatic-0.36.jar PE -trimlog $output/Trimmomatic.log $output/Extract.fq \
-		$output/Read2.fq $output/Paired1.fq $output/Unpaired1.fq $output/Paired2.fq $output/Unpaired2.fq \
-		ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 LEADING:10 MINLEN:$minimum
+		umi_tools extract -I $output/temp1.fq -p $UMI --3prime -v 0 -S $output/Read1.fq
 		
 		#Align reads to reference genome and save Bowtie2 statistics log file
-		bowtie2 -x $directory/Indices/$index -1 $output/Paired1.fq -2 $output/Paired2.fq \
-		--no-mixed --no-discordant --met-file $output/Bowtie2.log -S $output/mapped.sam
+		bowtie2 -x $directory/Indices/$index -1 $output/Read1.fq -2 $output/Read2.fq \
+		--no-mixed --no-discordant >2 $output/Bowtie2.log -S $output/mapped.sam
 		
 		#Extract mapped reads, convert SAM file to BAM format, and sort BAM file
 		samtools view -bS -f66 -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
