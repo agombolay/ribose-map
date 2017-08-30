@@ -78,7 +78,7 @@ for sample in ${sample[@]}; do
 		
 		#Align reads to reference genome and save Bowtie2 statistics log file
 		bowtie2 -x $directory/Indices/$index -U $output/Read1.fq --time \
-		--met-stderr -S $output/mapped.sam
+		--met-stderr $output/Bowtie2.log -S $output/mapped.sam
 			
 		#Extract mapped reads, convert SAM file to BAM format, and sort BAM file
 		samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
