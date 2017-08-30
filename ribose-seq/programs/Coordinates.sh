@@ -10,15 +10,17 @@ function usage () {
 	echo "Usage: Coordinates.sh [options]
 	-s Sample name(s) (e.g., FS1, FS2, FS3)
 	-r Reference genome (e.g., sacCer2, pombe, ecoli, mm9, hg38)
+	-n Reference genome chromosomes are formatted as Roman numerals
 	-d Local user directory (e.g., /projects/home/agombolay3/data/repository)"
 }
 
 #Command-line options
-while getopts "s:r:d:h" opt; do
+while getopts "s:n:r:d:h" opt; do
     case $opt in
         #Allow multiple input arguments
         s ) sample=($OPTARG) ;;
 	#Allow only one input argument
+	n ) numbers=$OPTARG ;;
 	r ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
         #Print usage statement
