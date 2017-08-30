@@ -132,8 +132,11 @@ for sample in ${sample[@]}; do
 		#Extract mapped reads, convert SAM file to BAM format, and sort BAM file
 		samtools view -bS -f66 -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
 		
-		#Index BAM file
-		samtools index $output/sorted.bam
+		#Extract unmapped reads, convert SAM file to BAM format, and sort BAM file
+		samtools view -bS -f66 -F260 $output/unmapped.sam | samtools sort - -o $output/unmapped.bam
+
+		#Index BAM files
+		samtools index $output/sorted.bam; samtools index $output/unmapped.bam
 		
 		if [[ -n $UMI ]] && [[ -z $barcode ]]; then
 		
