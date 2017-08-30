@@ -141,9 +141,9 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#STEP 5: Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
 
-	#Calculate frequencies at each position
 	for direction in "Up" "Down"; do
 		
+		#'-v' = natural sort of #'s
 		for file in `ls -v $output/$sample.$direction.$i.txt`; do
 		
 		#Calculate count of each dNMP
