@@ -68,7 +68,7 @@ for sample in ${sample[@]}; do
 	
 		#Trim/drop reads based on quality, adapter content, and length
 		java -jar $path/trimmomatic-0.36.jar SE $Fastq1 $output/Trim.fq \
-		ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:10 MINLEN:$min
+		ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 MINLEN:$min
 		
 		#Reverse complement reads
 		cat $output/Trim.fq | seqtk seq -r - > $output/Reverse.fq
