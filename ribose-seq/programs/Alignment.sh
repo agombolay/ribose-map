@@ -66,15 +66,18 @@ for sample in ${sample[@]}; do
 	#Single End Reads
 	if [[ $type == "SE" ]]; then
 	
+		#Trim/drop reads based on quality, adapter content, and length
+		java -jar $path/trimmomatic-0.36.jar SE $output/Extract.fq $output/Trim.fq \
+		ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 LEADING:10
+		
 		#Reverse complement reads
-		#cat $Fastq1 | seqtk seq -r - > $output/Reverse.fq
+		cat $output/Trim.fq | seqtk seq -r - > $output/Reverse.fq
 	
 		#Extract UMI from 3' ends of reads and append to read name
-		#umi_tools extract -I $output/Reverse.fq -p $UMI --3prime -v 0 -S $output/Extract.fq
+		umi_tools extract -I $output/Reverse.fq -p $UMI --3prime -v 0 -S $output/Extract.fq
 	
 		#Trim/drop reads based on quality, adapter content, and length
-		#java -jar $path/trimmomatic-0.36.jar SE -trimlog $output/Trimmomatic.log $output/Extract.fq \
-		#$output/Read1.fq ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 LEADING:10 MINLEN:$minimum
+		java -jar $path/trimmomatic-0.36.jar SE $output/Extract.fq $output/Read1.fq MINLEN:$min
 		
 		#Align reads to reference genome and save Bowtie2 statistics log file
 		bowtie2 -x $directory/Indices/$index -U $output/Read1.fq --very-sensitive --time \
