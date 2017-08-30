@@ -22,16 +22,16 @@ function usage () {
 		-d Local user directory (e.g., /projects/home/agombolay3/data/repository/Ribose-Map)"
 }
 
-while getopts "s:u:m:p:t:i:f:r:b:d:h" opt; do
+while getopts "s:u:m:i:p:t:f:r:b:d:h" opt; do
     	case "$opt" in
         	#Allow multiple input arguments
         	s ) sample=($OPTARG) ;;
 		#Allow only one input argument
 		u ) UMI=$OPTARG ;;
 		m ) min=$OPTARG ;;
+		i ) idx=$OPTARG ;;
 		p ) path=$OPTARG ;;
 		t ) type=$OPTARG ;;
-		i ) index=$OPTARG ;;
 		f ) read1=$OPTARG ;;
 		r ) read2=$OPTARG ;;
 		b ) barcode=$OPTARG ;;
@@ -48,6 +48,7 @@ fi
 
 #############################################################################################################################
 #Input files
+index=$directory/Indices/$idx
 Fastq1=$directory/FASTQ-Files/$read1
 Fastq2=$directory/FASTQ-Files/$read2
 
@@ -77,8 +78,7 @@ for sample in ${sample[@]}; do
 		umi_tools extract -I $output/Reverse.fq -p $UMI --3prime -v 0 -S $output/Read1.fq
 		
 		#Align reads to reference genome and save Bowtie2 statistics log file
-		bowtie2 -x $directory/Indices/$index -U $output/Read1.fq --time \
-		2> $output/Bowtie2.log -S $output/mapped.sam
+		bowtie2 -x $index -U $output/Read1.fq 2> $output/Bowtie2.log -S $output/mapped.sam
 			
 		#Extract mapped reads, convert SAM file to BAM format, and sort BAM file
 		samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
@@ -176,8 +176,8 @@ for sample in ${sample[@]}; do
 	echo "Trimming, alignment, and de-duplication of $sample is complete"
 
 	#Remove temporary files
-	rm -f $output/Reverse.fq $output/Extract.fq $output/Read1.fq $output/Read2.fq \
-	$output/mapped.sam $output/sorted.bam* $output/deduped.* $output/filtered.sam \
-	$output/Paired1.fq $output/Unpaired1.fq $output/Paired2.fq $output/Unpaired2.fq
+	rm -f $output/Trim.fq $output/Reverse.fq $output/Read1.fq $output/Read2.fq \
+	$output/mapped.sam $output/sorted.bam* $output/unmapped.bam* $output/deduped.* \
+	$output/filtered.sam $output/Paired1.fq $output/Unpaired1.fq $output/Paired2.fq $output/Unpaired2.fq
 
 done
