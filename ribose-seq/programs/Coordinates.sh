@@ -64,11 +64,15 @@ for sample in ${sample[@]}; do
 		#Combine and save +/- coordinates into one file for later
 		cat <(echo "$positiveReads") <(echo "$negativeReads") > $output/temp3.txt
 
-		#Sort coordinates
-		#RomanNumerals.sh
+#############################################################################################################################
+		#Convert roman numerals to arabic numbers
+		ArabicNumbers.sh
 		
-		#sort -k1,1V -k2,2n $output/temp4.txt > $output/$sample-Coordinates.bed
+		#Sort coordinates in proper numeric order with '-V'
+		sort -k1,1V -k2,2n $output/temp4.txt > $output/$sample-Coordinates.bed
 		
+		#Convert arabic numbers back to roman numerals
+		RomanNumerals.sh
 	fi
 
 #############################################################################################################################
