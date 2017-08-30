@@ -48,12 +48,8 @@ for sample in ${sample[@]}; do
 	
 	if [ -s $coordinates ]; then
 
-	#Output file
-	dataset=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/$sample-Frequencies.$subset.txt
-	background=$directory/Ribose-Map/Results/$reference/$sample/Frequencies/$sample-BackgroundFrequencies.txt
-	
 	#Remove old file
-	rm -f $dataset
+	rm -f $output/$sample-*.txt
 	
 #############################################################################################################################
 	#STEP 1: Calculate frequencies of reference genome
