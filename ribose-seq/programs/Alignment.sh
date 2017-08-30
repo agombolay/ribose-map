@@ -77,7 +77,7 @@ for sample in ${sample[@]}; do
 		umi_tools extract -I $output/Reverse.fq -p $UMI --3prime -v 0 -S $output/Read1.fq
 		
 		#Align reads to reference genome and save Bowtie2 statistics log file
-		bowtie2 -x $directory/Indices/$index -U $output/Read1.fq --very-sensitive --time \
+		bowtie2 -x $directory/Indices/$index -U $output/Read1.fq --time \
 		2> $output/Bowtie2.log -S $output/mapped.sam
 			
 		#Extract mapped reads, convert SAM file to BAM format, and sort BAM file
