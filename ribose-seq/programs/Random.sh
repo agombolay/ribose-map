@@ -11,8 +11,9 @@ library(optparse)
 #Command line options
 option_list <- list(
 make_option(c("-c", "--cells"), help="Estimated number of cells"),
-make_option(c("-c", "--ribos"), help="Number of observed ribonucleotides"),
 make_option(c("-s", "--sample"), help="Sample name(s) (e.g., FS1, FS2, FS3)"),
+make_option(c("-c", "--forward"), help="Number of observed ribonucleotides on forward strand"),
+make_option(c("-c", "--reverse"), help="Number of observed ribonucleotides on reverse strand"),
 make_option(c("-r", "--reference"), help="Reference genome (e.g., sacCer2, pombe, ecoli, mm9, hg38)"),
 make_option(c("-d", "--directory"), help="Local user directory (e.g., /projects/home/agombolay3/data/repository)")
 )
