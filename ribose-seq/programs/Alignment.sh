@@ -18,8 +18,8 @@ function usage () {
 		-m Minimum length of read to retain after trimming (e.g., 50)
 		-p Path (e.g., /projects/home/agombolay3/data/bin/Trimmomatic-0.36)
 		-t Type of Illumina Sequencing (e.g., SE = Single end, PE = Paired end)
-		-i Basename of Bowtie2 index (e.g., sacCer2, pombe, ecoli, mm9, or hg38)
-		-d Local user directory (e.g., /projects/home/agombolay3/data/repository)"
+		-i Basename of Bowtie2 index (e.g., sacCer2, pombe, ecoli, mm9, hg38, etc.)
+		-d Local user directory (e.g., /projects/home/agombolay3/data/repository/Ribose-Map)"
 }
 
 while getopts "s:u:p:t:i:f:r:m:b:d:h" opt; do
@@ -48,11 +48,11 @@ fi
 
 #############################################################################################################################
 #Input files
-Fastq1=$directory/Ribose-Map/FASTQ-Files/$read1
-Fastq2=$directory/Ribose-Map/FASTQ-Files/$read2
+Fastq1=$directory/FASTQ-Files/$read1
+Fastq2=$directory/FASTQ-Files/$read2
 
 #Output directory
-output=$directory/Ribose-Map/Results/$index/$sample/Alignment
+output=$directory/Results/$index/$sample/Alignment
 
 #Create directory
 mkdir -p $output
