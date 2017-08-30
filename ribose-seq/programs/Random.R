@@ -31,4 +31,4 @@ for (strand in opt$forward opt$reverse) {
 }
 
 hx=hist(vector,breaks=seq(1,opt$positions,l=opt$positions+1),plot=FALSE)
-plot(hx$counts)
+plot(hx$counts,xlab='Position on chromosome',ylab='Frequency of rNMPs')
