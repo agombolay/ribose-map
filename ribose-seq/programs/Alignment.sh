@@ -61,7 +61,7 @@ mkdir -p $output
 for sample in ${sample[@]}; do
 
 	#Remove old files
-	$output/$sample.bam*
+	rm -f $output/$sample.bam*
 
 	#Single End Reads
 	if [[ $type == "SE" ]]; then
