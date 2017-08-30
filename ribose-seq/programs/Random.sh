@@ -21,10 +21,21 @@ make_option(c("-d", "--directory"), help="Local user directory (e.g., /projects/
 #Get command line options, if -h encountered print help
 opt <- parse_args(OptionParser(option_list=option_list))
 
+#Forward strand
 data=c()
 for (i in 1:opt$cells) {
-	data=sample(1:opt$positions, opt$ribos, replace=TRUE)
-	vector <- append(data,sample(1:opt$positions, opt$ribos, replace=FALSE))
+	data=sample(1:opt$positions, opt$forward, replace=TRUE)
+	vector <- append(data,sample(1:opt$positions, opt$forward, replace=FALSE))
+}
+
+hx=hist(vector,breaks=seq(1,opt$positions,l=opt$positions+1),plot=FALSE)
+plot(hx$counts)
+
+#Reverse strand
+data=c()
+for (i in 1:opt$cells) {
+	data=sample(1:opt$positions, opt$reverse, replace=TRUE)
+	vector <- append(data,sample(1:opt$positions, opt$reverse, replace=FALSE))
 }
 
 hx=hist(vector,breaks=seq(1,opt$positions,l=opt$positions+1),plot=FALSE)
