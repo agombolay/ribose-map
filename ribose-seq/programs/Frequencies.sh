@@ -113,11 +113,11 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#STEP 3: Obtain coordinates/sequences of dNMPs +/- 100 bp from rNMPs
 
-	#Obtain coordinates of sequences up/downstream from rNMPs and remove coordinates that are 0,0
-	bedtools flank -i $coordinates -s -g $BED -l 100 -r 0 | awk '$2 != "0" && $3 != "0"' - > $output/Up.bed
-	bedtools flank -i $coordinates -s -g $BED -l 0 -r 100 | awk '$2 != "0" && $3 != "0"' - > $output/Down.bed
+	#Obtain coordinates of flanking sequences and remove coordinates where start = end
+	bedtools flank -i $coordinates -s -g $BED -l 100 -r 0 | awk '$2 != $3 - > $output/Up.bed
+	bedtools flank -i $coordinates -s -g $BED -l 0 -r 100 | awk '$2 != $3 - > $output/Down.bed
 	
-	#Obtain sequences of the sequences upstream/downstream from rNMPs
+	#Obtain nucleotide sequences flanking rNMPs using coordinates from above
 	bedtools getfasta -s -fi temp.fa -bed $output/Upstream.bed -fo $output/Up.fa
 	bedtools getfasta -s -fi temp.fa -bed $output/Downstream.bed -fo $output/Down.fa
 	
