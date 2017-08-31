@@ -53,7 +53,7 @@ Fastq1=$directory/FASTQ-Files/$read1
 Fastq2=$directory/FASTQ-Files/$read2
 
 #Output directory
-output=$directory/Results/$index/$sample/Alignment
+output=$directory/Results/$idx/$sample/Alignment
 
 #Create directory
 mkdir -p $output
