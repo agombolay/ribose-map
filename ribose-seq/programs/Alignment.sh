@@ -114,10 +114,10 @@ for sample in ${sample[@]}; do
 			samtools index $output/$sample.bam
 			
 			#Calculate percentage of reads that contain barcode
-			x=$(echo "$(samtools view -c $output/deduped.bam)/$(samtools view -c $output/$sample.bam)*100"|bc)
+			x=$(echo "$(samtools view -c $output/$sample.bam)/$(samtools view -c $output/deduped.bam)")
 			
 			#Save information about percentage of reads that contain barcode to log file
-			echo -e "Percentage of reads in $sample that contain correct barcode: $((x))%" > $output/Barcode.log
+			echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 5)%" > $output/Barcode.log
 		
 		fi
 	fi
@@ -175,10 +175,10 @@ for sample in ${sample[@]}; do
 			samtools index $output/$sample.bam
 			
 			#Calculate percentage of reads that contain barcode
-			x=$(echo "$(samtools view -c $output/deduped.bam)/$(samtools view -c $output/$sample.bam)*100"|bc)
+			x=$(echo "$(samtools view -c $output/$sample.bam)/$(samtools view -c $output/deduped.bam)")
 			
 			#Save information about percentage of reads that contain barcode to log file
-			echo -e "Percentage of reads in $sample that contain correct barcode: $((x))%" > $output/Barcode.log
+			echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 5)%" > $output/Barcode.log
 	
 		fi
 	fi
