@@ -188,7 +188,7 @@ for sample in ${sample[@]}; do
 
 	#Remove temporary files
 	rm -f $output/Trim.fq $output/Reverse.fq $output/Read*.fq $output/mapped.sam \
-	$output/sorted.bam* $output/unmapped.bam* $output/deduped.* $output/filtered.sam \
+	$output/sorted.bam* $output/unmapped.bam $output/deduped.* $output/filtered.sam \
 	$output/Paired1.fq $output/Unpaired1.fq $output/Paired2.fq $output/Unpaired2.fq
 
 done
