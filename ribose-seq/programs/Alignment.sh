@@ -115,7 +115,10 @@ for sample in ${sample[@]}; do
 			
 			#Calculate percentage of reads that contain barcode
 			x=$(echo "$(samtools view -c $output/deduped.bam)/$(samtools view -c $output/$sample.bam)*100" | bc)
-			echo
+			
+			#Save information about percentage of reads that contain barcode to log file
+			echo -e "Percentage of reads that contain barcode: $((x))%" >> $output/Barcode.log
+		
 		fi
 	fi
 
@@ -179,8 +182,8 @@ for sample in ${sample[@]}; do
 	echo "Trimming, alignment, and de-duplication of $sample is complete"
 
 	#Remove temporary files
-	rm -f $output/Trim.fq $output/Reverse.fq $output/Read1.fq $output/Read2.fq \
-	$output/mapped.sam $output/sorted.bam* $output/unmapped.bam* $output/deduped.* \
-	$output/filtered.sam $output/Paired1.fq $output/Unpaired1.fq $output/Paired2.fq $output/Unpaired2.fq
+	rm -f $output/Trim.fq $output/Reverse.fq $output/Read*.fq $output/mapped.sam \
+	$output/sorted.bam* $output/unmapped.bam* $output/deduped.* $output/filtered.sam \
+	$output/Paired1.fq $output/Unpaired1.fq $output/Paired2.fq $output/Unpaired2.fq
 
 done
