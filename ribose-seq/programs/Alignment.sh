@@ -89,8 +89,8 @@ for sample in ${sample[@]}; do
 		#Convert BAM file to FASTQ
 		bedtools bamtofastq -i $output/unmapped.bam -fq $output/unmapped.fq
 		
-		#Index BAM files
-		samtools index $output/sorted.bam; samtools index $output/unmapped.bam
+		#Index BAM file
+		samtools index $output/sorted.bam
 			
 		if [[ -n $UMI ]] && [[ -z $barcode ]]; then
 			
@@ -144,8 +144,8 @@ for sample in ${sample[@]}; do
 		#Convert BAM file to FASTQ
 		bedtools bamtofastq -i $output/unmapped.bam -fq $output/unmapped.fq
 		
-		#Index BAM files
-		samtools index $output/sorted.bam; samtools index $output/unmapped.bam
+		#Index BAM file
+		samtools index $output/sorted.bam
 		
 		if [[ -n $UMI ]] && [[ -z $barcode ]]; then
 		
