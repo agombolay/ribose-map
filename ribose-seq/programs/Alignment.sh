@@ -127,8 +127,7 @@ for sample in ${sample[@]}; do
 	
 		#Trim/drop reads based on quality, adapter content, and length
 		java -jar $path/trimmomatic-0.36.jar PE $Fastq1 $Fastq2 $output/Paired1.fq $output/Unpaired1.fq \
-		$output/Paired2.fq $output/Unpaired2.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 LEADING:10 \
-		MINLEN:$min
+		$output/Paired2.fq $output/Unpaired2.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 MINLEN:$min
 		
 		#Reverse complement reads
 		cat $output/Paired1.fq | seqtk seq -r - > $output/temp1.fq
@@ -138,8 +137,8 @@ for sample in ${sample[@]}; do
 		umi_tools extract -I $output/temp1.fq -p $UMI --3prime -v 0 -S $output/Read1.fq
 		
 		#Align reads to reference genome and save Bowtie2 statistics log file
-		bowtie2 -x $directory/Indices/$index -1 $output/Read1.fq -2 $output/Read2.fq \
-		--no-mixed --no-discordant >2 $output/Bowtie2.log -S $output/mapped.sam
+		bowtie2 -x $index -1 $output/Read1.fq -2 $output/Read2.fq --no-mixed --no-discordant \
+		>2 $output/Bowtie2.log -S $output/mapped.sam
 		
 		#Extract mapped reads, convert SAM file to BAM format, and sort BAM file
 		samtools view -bS -f66 -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
@@ -173,6 +172,12 @@ for sample in ${sample[@]}; do
 		
 			#Index BAM file
 			samtools index $output/$sample.bam
+			
+			#Calculate percentage of reads that contain barcode
+			x=$(echo "$(samtools view -c $output/deduped.bam)/$(samtools view -c $output/$sample.bam)*100"|bc)
+			
+			#Save information about percentage of reads that contain barcode to log file
+			echo -e "Percentage of reads in $sample that contain correct barcode: $((x))%" > $output/Barcode.log
 	
 		fi
 	fi
