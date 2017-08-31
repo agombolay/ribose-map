@@ -109,10 +109,13 @@ for sample in ${sample[@]}; do
 			samtools view -h $output/deduped.bam -o $output/deduped.sam
 			grep -e "_$barcode" -e '^@' $output/deduped.sam > $output/filtered.sam
 			samtools view $output/filtered.sam -bS | samtools sort -o $output/$sample.bam
-			
+						
 			#Index BAM file
 			samtools index $output/$sample.bam
-		
+			
+			
+			expr = $(samtools view -c $output/deduped.bam) / $(samtools view -c $output/$sample.bam)
+
 		fi
 	fi
 
