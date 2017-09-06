@@ -52,7 +52,7 @@ index=$directory/Indices/$idx
 Fastq1=$directory/FASTQ-Files/$read1
 Fastq2=$directory/FASTQ-Files/$read2
 
-echo $directory
+echo $UMI
 
 #Output directory
 output=$directory/Results/$idx/$sample/Alignment
