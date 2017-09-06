@@ -64,7 +64,7 @@ for sample in ${sample[@]}; do
 		negativeReads=$(awk -v "OFS=\t" '$4 == "-" {print $1,($2 - 1),$2," "," ",$4}' $output/temp2.txt)
 	
 		#Combine and save +/- coordinates into one file for later
-		cat <(echo "$positiveReads") <(echo "$negativeReads") > $output/temp3.txt
+		cat <(echo "$positiveReads") <(echo "$negativeReads") > $output/$sample-Coordinates.bed
 
 #############################################################################################################################
 		if [[ -n $numbers ]]; then
