@@ -68,7 +68,7 @@ for sample in ${sample[@]}; do
 	if [[ $type == "SE" ]]; then
 	
 		#Trim/drop reads based on adapter content and length
-		java -jar $path/trimmomatic-0.36.jar SE -phred 33 $Fastq1 $output/Trim.fq \
+		java -jar $path/trimmomatic-0.36.jar SE -phred33 $Fastq1 $output/Trim.fq \
 		ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 MINLEN:$min
 		
 		#Reverse complement reads
