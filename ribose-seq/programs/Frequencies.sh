@@ -204,6 +204,7 @@ for sample in ${sample[@]}; do
 	rm -f $output/*Up.* $output/*Down.* $output/RiboBases.txt $output/temp.fa*
 	
 	fi
+	fi
 	
 	done
 done
