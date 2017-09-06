@@ -46,7 +46,7 @@ for sample in ${sample[@]}; do
 	#Create directory
 	mkdir -p $output
 	
-	if [ -s $coordinates ]; then
+	if [[ -s $coordinates ]]; then
 
 	#Remove old file
 	rm -f $output/$sample-*.txt
