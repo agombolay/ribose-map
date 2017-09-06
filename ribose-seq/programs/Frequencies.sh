@@ -130,8 +130,8 @@ for sample in ${sample[@]}; do
 	grep -v '>' $output/Down.fa > $output/Down.txt
 	
 	#Insert tabs between each base for easier parsing
-	cat $output/Upstream.txt | sed 's/.../& /2g;s/./& /g' > $output/Up.tab
-	cat $output/Downstream.txt | sed 's/.../& /2g;s/./& /g' > $output/Down.tab
+	cat $output/Up.txt | sed 's/.../& /2g;s/./& /g' > $output/Up.tab
+	cat $output/Down.txt | sed 's/.../& /2g;s/./& /g' > $output/Down.tab
 
 	#Save lists of dNMPs at each of the +/-100 positions in separate files
 	for i in {1..100}; do
