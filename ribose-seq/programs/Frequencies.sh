@@ -147,7 +147,7 @@ for sample in ${sample[@]}; do
 		
 		#'-v' = natural sort of #'s
 		for file in `ls -v $output/$sample.$direction.{1..100}.txt`; do
-		echo $file
+		
 		#Calculate count of each dNMP
 		A_FlankCount=$(grep -o 'A' $file | wc -l); C_FlankCount=$(grep -o 'C' $file | wc -l)
 		G_FlankCount=$(grep -o 'G' $file | wc -l); T_FlankCount=$(grep -o 'T' $file | wc -l)
@@ -201,8 +201,8 @@ for sample in ${sample[@]}; do
 	echo "Calculation of frequencies for $sample ($subset) is complete"
 	
 	#Remove temp files
-	#rm -f $output/*Up.* $output/*Down.* $output/RiboBases.txt $output/temp.fa* \
-	#$output/$sample-Coordinates.$subset.bed
+	rm -f $output/*Up.* $output/*Down.* $output/RiboBases.txt $output/temp.fa* \
+	$output/$sample-Coordinates.$subset.bed
 	
 	fi
 	fi
