@@ -54,9 +54,9 @@ Fastq2=$directory/FASTQ-Files/$read2
 
 #Output directory
 output=$directory/Results/$idx/$sample/Alignment
-
+echo $output
 #Create directory
-mkdir -p $output
+#mkdir -p $output
 
 #############################################################################################################################
 for sample in ${sample[@]}; do
