@@ -181,10 +181,8 @@ for sample in ${sample[@]}; do
 	echo -e "\tA\tC\tG\tU/T" > $output/$sample-Frequencies.$subset.txt
 
 	#Add positions and frequencies of nucleotides in correct order to create dataset
-	#paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Up") <(echo "$Ribo") <(echo "$Down")) \
-	#>> $output/$sample-Frequencies.$subset.txt
-
-	paste <(cat <(echo "$Ribo")) >> $output/$sample-Frequencies.$subset.txt
+	paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Up") <(echo "$Ribo") <(echo "$Down")) \
+	>> $output/$sample-Frequencies.$subset.txt
 	
 #############################################################################################################################
 	#STEP 7: Create and save file containing background nucleotide frequencies
