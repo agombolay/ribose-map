@@ -32,7 +32,8 @@ if [ "$1" == "-h" ]; then
 fi
 
 for sample in ${sample[@]}; do
-	for subset in "mito" "nucleus"; do
+	#for subset in "mito" "nucleus"; do
+	for subset in "nucleus"; do
 	
 #############################################################################################################################
 	#Input files
