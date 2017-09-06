@@ -52,13 +52,11 @@ index=$directory/Indices/$idx
 Fastq1=$directory/FASTQ-Files/$read1
 Fastq2=$directory/FASTQ-Files/$read2
 
-echo $UMI
-
 #Output directory
 output=$directory/Results/$idx/$sample/Alignment
 
 #Create directory
-#mkdir -p $output
+mkdir -p $output
 
 #############################################################################################################################
 for sample in ${sample[@]}; do
@@ -70,8 +68,8 @@ for sample in ${sample[@]}; do
 	if [[ $type == "SE" ]]; then
 	
 		#Trim/drop reads based on adapter content and length
-		java -jar $path/trimmomatic-0.36.jar SE $Fastq1 $output/Trim.fq \
-		ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 MINLEN:$min
+		#java -jar $path/trimmomatic-0.36.jar SE $Fastq1 $output/Trim.fq \
+		#ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 MINLEN:$min
 		
 		#Reverse complement reads
 		cat $output/Trim.fq | seqtk seq -r - > $output/Reverse.fq
