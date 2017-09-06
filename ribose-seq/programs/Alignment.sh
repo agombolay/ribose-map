@@ -51,10 +51,12 @@ fi
 index=$directory/Indices/$idx
 Fastq1=$directory/FASTQ-Files/$read1
 Fastq2=$directory/FASTQ-Files/$read2
+
 echo $directory
+
 #Output directory
 output=$directory/Results/$idx/$sample/Alignment
-echo $output
+
 #Create directory
 #mkdir -p $output
 
