@@ -73,10 +73,10 @@ for sample in ${sample[@]}; do
 	total_Bkg=$(($A_BkgCount+$C_BkgCount+$G_BkgCount+$T_BkgCount))
 		
 	#Calculate frequency of each nucleotide
-	A_BkgFreq=$(echo "($A_BkgCount+$T_BkgCount)/($total_Bkg*2)" | bc -l | xargs printf "%.*f\n" 5)
-	C_BkgFreq=$(echo "($C_BkgCount+$G_BkgCount)/($total_Bkg*2)" | bc -l | xargs printf "%.*f\n" 5)
-	G_BkgFreq=$(echo "($G_BkgCount+$C_BkgCount)/($total_Bkg*2)" | bc -l | xargs printf "%.*f\n" 5)
-	T_BkgFreq=$(echo "($T_BkgCount+$A_BkgCount)/($total_Bkg*2)" | bc -l | xargs printf "%.*f\n" 5)
+	A_BkgFreq=$(echo "($A_BkgCount+$T_BkgCount)/($total_Bkg*2)" | bc -l | xargs printf "%.*f\n" 12)
+	C_BkgFreq=$(echo "($C_BkgCount+$G_BkgCount)/($total_Bkg*2)" | bc -l | xargs printf "%.*f\n" 12)
+	G_BkgFreq=$(echo "($G_BkgCount+$C_BkgCount)/($total_Bkg*2)" | bc -l | xargs printf "%.*f\n" 12)
+	T_BkgFreq=$(echo "($T_BkgCount+$A_BkgCount)/($total_Bkg*2)" | bc -l | xargs printf "%.*f\n" 12)
 	
 #############################################################################################################################
 	#STEP 2: Calculate frequencies of rNMPs in libraries
@@ -104,10 +104,10 @@ for sample in ${sample[@]}; do
 	RiboCount=$(($A_RiboCount+$C_RiboCount+$G_RiboCount+$U_RiboCount))
 	
 	#Calculate normalized frequency of each rNMP
-	A_RiboFreq=$(echo "($A_RiboCount/$RiboCount)/$A_BkgFreq" | bc -l | xargs printf "%.*f\n" 5)
-	C_RiboFreq=$(echo "($C_RiboCount/$RiboCount)/$C_BkgFreq" | bc -l | xargs printf "%.*f\n" 5)
-	G_RiboFreq=$(echo "($G_RiboCount/$RiboCount)/$G_BkgFreq" | bc -l | xargs printf "%.*f\n" 5)
-	U_RiboFreq=$(echo "($U_RiboCount/$RiboCount)/$T_BkgFreq" | bc -l | xargs printf "%.*f\n" 5)
+	A_RiboFreq=$(echo "($A_RiboCount/$RiboCount)/$A_BkgFreq" | bc -l | xargs printf "%.*f\n" 12)
+	C_RiboFreq=$(echo "($C_RiboCount/$RiboCount)/$C_BkgFreq" | bc -l | xargs printf "%.*f\n" 12)
+	G_RiboFreq=$(echo "($G_RiboCount/$RiboCount)/$G_BkgFreq" | bc -l | xargs printf "%.*f\n" 12)
+	U_RiboFreq=$(echo "($U_RiboCount/$RiboCount)/$T_BkgFreq" | bc -l | xargs printf "%.*f\n" 12)
 
 	#Save normalized frequencies of rNMPs together
 	Ribo=$(echo -e "$A_RiboFreq\t$C_RiboFreq\t$G_RiboFreq\t$U_RiboFreq")
@@ -156,10 +156,10 @@ for sample in ${sample[@]}; do
 		FlankCount=$(($A_FlankCount+$C_FlankCount+$G_FlankCount+$T_FlankCount))
 
 		#Calculate normalized frequencies of dNMPs
-		A_FlankFreq=$(echo "($A_FlankCount/$FlankCount)/$A_BkgFreq" | bc -l | xargs printf "%.*f\n" 5)
-		C_FlankFreq=$(echo "($C_FlankCount/$FlankCount)/$C_BkgFreq" | bc -l | xargs printf "%.*f\n" 5)
-		G_FlankFreq=$(echo "($G_FlankCount/$FlankCount)/$G_BkgFreq" | bc -l | xargs printf "%.*f\n" 5)
-		T_FlankFreq=$(echo "($T_FlankCount/$FlankCount)/$T_BkgFreq" | bc -l | xargs printf "%.*f\n" 5)
+		A_FlankFreq=$(echo "($A_FlankCount/$FlankCount)/$A_BkgFreq" | bc -l | xargs printf "%.*f\n" 12)
+		C_FlankFreq=$(echo "($C_FlankCount/$FlankCount)/$C_BkgFreq" | bc -l | xargs printf "%.*f\n" 12)
+		G_FlankFreq=$(echo "($G_FlankCount/$FlankCount)/$G_BkgFreq" | bc -l | xargs printf "%.*f\n" 12)
+		T_FlankFreq=$(echo "($T_FlankCount/$FlankCount)/$T_BkgFreq" | bc -l | xargs printf "%.*f\n" 12)
 		
 		#Save normalized dNMPs frequencies to TXT file
 		echo $A_FlankFreq >> $output/A_$direction.txt; echo $C_FlankFreq >> $output/C_$direction.txt
