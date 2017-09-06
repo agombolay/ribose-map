@@ -207,4 +207,4 @@ for sample in ${sample[@]}; do
 done
 
 #Remove temp files
-rm -f $output/*Up.* $output/*Down.* $output/RiboBases.txt $output/temp.fa* $output/$sample-Coordinates.$subset.bed
+rm -f $output/*Up.* $output/*Down.* $output/RiboBases.txt $output/temp.fa* $output/*.bed
