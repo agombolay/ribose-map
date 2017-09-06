@@ -170,7 +170,7 @@ for sample in ${sample[@]}; do
 		elif [ $direction == "Down" ]; then
 			Down=$(paste $output/A_Down.txt $output/C_Down.txt $output/G_Down.txt $output/T_Down.txt)
 		fi
-				
+		echo $Up		
 		done
 	done
 	
