@@ -146,7 +146,7 @@ for sample in ${sample[@]}; do
 	for direction in "Up" "Down"; do
 		
 		#'-v' = natural sort of #'s
-		for file in `ls -v $output/$sample.$direction.$i.txt`; do
+		for file in `ls -v $output/$sample.$direction.{1..100}.txt`; do
 		echo $file
 		#Calculate count of each dNMP
 		A_FlankCount=$(grep -o 'A' $file | wc -l); C_FlankCount=$(grep -o 'C' $file | wc -l)
