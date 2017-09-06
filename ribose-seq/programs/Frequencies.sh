@@ -71,12 +71,12 @@ for sample in ${sample[@]}; do
 	
 	#Calculate total number of nucleotides
 	total_Bkg=$(($A_BkgCount+$C_BkgCount+$G_BkgCount+$T_BkgCount))
-	
+		
 	#Calculate frequency of each nucleotide
-	A_BkgFreq=$(echo "scale=12; ($A_BkgCount+$T_BkgCount)/($total_Bkg*2)" | bc | awk '{printf "%.12f\n", $0}')
-	C_BkgFreq=$(echo "scale=12; ($C_BkgCount+$G_BkgCount)/($total_Bkg*2)" | bc | awk '{printf "%.12f\n", $0}')
-	G_BkgFreq=$(echo "scale=12; ($G_BkgCount+$C_BkgCount)/($total_Bkg*2)" | bc | awk '{printf "%.12f\n", $0}')
-	T_BkgFreq=$(echo "scale=12; ($T_BkgCount+$A_BkgCount)/($total_Bkg*2)" | bc | awk '{printf "%.12f\n", $0}')
+	A_BkgFreq=$(echo "($A_BkgCount+$T_BkgCount)/($total_Bkg*2)" | bc -l | xargs printf "%.*f\n" 5)
+	C_BkgFreq=$(echo "($C_BkgCount+$G_BkgCount)/($total_Bkg*2)" | bc -l | xargs printf "%.*f\n" 5)
+	G_BkgFreq=$(echo "($G_BkgCount+$C_BkgCount)/($total_Bkg*2)" | bc -l | xargs printf "%.*f\n" 5)
+	T_BkgFreq=$(echo "($T_BkgCount+$A_BkgCount)/($total_Bkg*2)" | bc -l | xargs printf "%.*f\n" 5)
 	
 #############################################################################################################################
 	#STEP 2: Calculate frequencies of rNMPs in libraries
