@@ -100,12 +100,12 @@ for sample in ${sample[@]}; do
 	
 	#Calculate total number of rNMPs
 	RiboCount=$(($A_RiboCount+$C_RiboCount+$G_RiboCount+$U_RiboCount))
-
+	
 	#Calculate normalized frequency of each rNMP
-	A_RiboFreq=$(echo "scale=12; ($A_RiboCount/$RiboCount)/$A_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
-	C_RiboFreq=$(echo "scale=12; ($C_RiboCount/$RiboCount)/$C_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
-	G_RiboFreq=$(echo "scale=12; ($G_RiboCount/$RiboCount)/$G_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
-	U_RiboFreq=$(echo "scale=12; ($U_RiboCount/$RiboCount)/$T_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+	A_RiboFreq=$(echo "($A_RiboCount/$RiboCount)/$A_BkgFreq" | bc -l | xargs printf "%.*f\n" 5)
+	C_RiboFreq=$(echo "($C_RiboCount/$RiboCount)/$C_BkgFreq" | bc -l | xargs printf "%.*f\n" 5)
+	G_RiboFreq=$(echo "($G_RiboCount/$RiboCount)/$G_BkgFreq" | bc -l | xargs printf "%.*f\n" 5)
+	U_RiboFreq=$(echo "($U_RiboCount/$RiboCount)/$T_BkgFreq" | bc -l | xargs printf "%.*f\n" 5)
 
 	#Save normalized frequencies of rNMPs together
 	Ribo=$(echo -e "$A_RiboFreq\t$C_RiboFreq\t$G_RiboFreq\t$U_RiboFreq")
@@ -154,10 +154,10 @@ for sample in ${sample[@]}; do
 		FlankCount=$(($A_FlankCount+$C_FlankCount+$G_FlankCount+$T_FlankCount))
 
 		#Calculate normalized frequencies of dNMPs
-		A_FlankFreq=$(echo "scale=12; ($A_FlankCount/$FlankCount)/$A_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
-		C_FlankFreq=$(echo "scale=12; ($C_FlankCount/$FlankCount)/$C_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
-		G_FlankFreq=$(echo "scale=12; ($G_FlankCount/$FlankCount)/$G_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
-		T_FlankFreq=$(echo "scale=12; ($T_FlankCount/$FlankCount)/$T_BkgFreq" | bc | awk '{printf "%.12f\n", $0}')
+		A_FlankFreq=$(echo "($A_FlankCount/$FlankCount)/$A_BkgFreq" | bc -l | xargs printf "%.*f\n" 5)
+		C_FlankFreq=$(echo "($C_FlankCount/$FlankCount)/$C_BkgFreq" | bc -l | xargs printf "%.*f\n" 5)
+		G_FlankFreq=$(echo "($G_FlankCount/$FlankCount)/$G_BkgFreq" | bc -l | xargs printf "%.*f\n" 5)
+		T_FlankFreq=$(echo "($T_FlankCount/$FlankCount)/$T_BkgFreq" | bc -l | xargs printf "%.*f\n" 5)
 		
 		#Save normalized dNMPs frequencies to TXT file
 		echo $A_FlankFreq >> $output/A_$direction.txt; echo $C_FlankFreq >> $output/C_$direction.txt
