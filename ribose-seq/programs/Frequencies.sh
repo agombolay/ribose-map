@@ -194,14 +194,15 @@ for sample in ${sample[@]}; do
 	paste <(echo -e "$A_BkgFreq\t$C_BkgFreq\t$G_BkgFreq\t$T_BkgFreq") >> $output/$sample-BackgroundFrequencies.txt
 	
 	#Add total number of nucleotides in reference genome
-	echo -e "Total number of nucleotides in $subset: $((total_Bkg*2))" >> $output/$sample-BackgroundFrequencies.txt
+	echo -e "Total # of nucleotides in $subset: $((total_Bkg*2))" >> $output/$sample-BackgroundFrequencies.txt
 
 #############################################################################################################################
 	#Print completion status
 	echo "Calculation of frequencies for $sample ($subset) is complete"
 	
 	#Remove temp files
-	rm -f $output/*Up.* $output/*Down.* $output/RiboBases.txt $output/temp.fa*
+	rm -f $output/*Up.* $output/*Down.* $output/RiboBases.txt $output/temp.fa* \
+	$output/$sample-Coordinates.$subset.bed
 	
 	fi
 	fi
