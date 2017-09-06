@@ -147,7 +147,7 @@ for sample in ${sample[@]}; do
 		
 		#'-v' = natural sort of #'s
 		for file in `ls -v $output/$sample.$direction.$i.txt`; do
-		
+		echo $file
 		#Calculate count of each dNMP
 		A_FlankCount=$(grep -o 'A' $file | wc -l); C_FlankCount=$(grep -o 'C' $file | wc -l)
 		G_FlankCount=$(grep -o 'G' $file | wc -l); T_FlankCount=$(grep -o 'T' $file | wc -l)
@@ -160,8 +160,6 @@ for sample in ${sample[@]}; do
 		C_FlankFreq=$(echo "($C_FlankCount/$FlankCount)/$C_BkgFreq" | bc -l | xargs printf "%.*f\n" 5)
 		G_FlankFreq=$(echo "($G_FlankCount/$FlankCount)/$G_BkgFreq" | bc -l | xargs printf "%.*f\n" 5)
 		T_FlankFreq=$(echo "($T_FlankCount/$FlankCount)/$T_BkgFreq" | bc -l | xargs printf "%.*f\n" 5)
-		
-		echo $A_FlankFreq
 		
 		#Save normalized dNMPs frequencies to TXT file
 		echo $A_FlankFreq >> $output/A_$direction.txt; echo $C_FlankFreq >> $output/C_$direction.txt
