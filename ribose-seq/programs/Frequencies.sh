@@ -88,6 +88,8 @@ for sample in ${sample[@]}; do
 		grep -vE '(chrM|MT)' $coordinates > $output/$sample-Coordinates.$subset.bed
 	fi
 	
+	if [[ -s $output/$sample-Coordinates.$subset.bed ]]; then
+	
 	#Extract rNMP bases
 	bedtools getfasta -s -fi $output/temp.fa -bed $output/$sample-Coordinates.$subset.bed \
 	| grep -v '>' - > $output/RiboBases.txt
