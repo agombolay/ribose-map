@@ -200,12 +200,11 @@ for sample in ${sample[@]}; do
 	#Print completion status
 	echo "Calculation of frequencies for $sample ($subset) is complete"
 	
-	#Remove temp files
-	rm -f $output/*Up.* $output/*Down.* $output/RiboBases.txt $output/temp.fa* \
-	$output/$sample-Coordinates.$subset.bed
-	
 	fi
 	fi
 	
 	done
 done
+
+#Remove temp files
+rm -f $output/*Up.* $output/*Down.* $output/RiboBases.txt $output/temp.fa* $output/$sample-Coordinates.$subset.bed
