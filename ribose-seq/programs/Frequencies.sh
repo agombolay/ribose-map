@@ -119,8 +119,8 @@ for sample in ${sample[@]}; do
 	bedtools flank -i $coordinates -s -g $BED -l 0 -r 100 | awk '$2 != $3' - > $output/Down.bed
 	
 	#Obtain nucleotide sequences flanking rNMPs using coordinates from above
-	bedtools getfasta -s -fi temp.fa -bed $output/Upstream.bed -fo $output/Up.fa
-	bedtools getfasta -s -fi temp.fa -bed $output/Downstream.bed -fo $output/Down.fa
+	bedtools getfasta -s -fi temp.fa -bed $output/Up.bed -fo $output/Up.fa
+	bedtools getfasta -s -fi temp.fa -bed $output/Down.bed -fo $output/Down.fa
 	
 #############################################################################################################################
 	#STEP 4: Insert tabs between sequences of dNMPs +/- 100 bp from rNMPs
