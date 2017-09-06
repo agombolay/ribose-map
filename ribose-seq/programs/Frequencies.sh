@@ -126,8 +126,8 @@ for sample in ${sample[@]}; do
 	#STEP 4: Insert tabs between sequences of dNMPs +/- 100 bp from rNMPs
 
 	#Extract sequences (reverse order of upstream)
-	grep -v '>' $output/Upstream.fa | rev > $output/Up.txt
-	grep -v '>' $output/Downstream.fa > $output/Down.txt
+	grep -v '>' $output/Up.fa | rev > $output/Up.txt
+	grep -v '>' $output/Down.fa > $output/Down.txt
 	
 	#Insert tabs between each base for easier parsing
 	cat $output/Upstream.txt | sed 's/.../& /2g;s/./& /g' > $output/Up.tab
