@@ -95,7 +95,7 @@ for sample in ${sample[@]}; do
 	
 			#Extract rNMP bases
 			bedtools getfasta -s -fi $output/temp.fa -bed \
-			$output/Coords.bed | grep -v '>' - > $output/Ribos.txt
+			$output/Coords.bed | grep -v '>' > $output/Ribos.txt
 	
 			#Calculate counts of rNMPs
 			A_Ribo=$(awk '$1 == "A"' $output/Ribos.txt | wc -l)
