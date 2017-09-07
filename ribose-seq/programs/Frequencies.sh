@@ -158,7 +158,7 @@ for sample in ${sample[@]}; do
 					T_Flank=$(grep -o 'T' $file | wc -l)
 
 					#Calculate total number of dNMPs
-					FlankTotal = $(($A_Flank + $C_Flank + $G_Flank + $T_Flank))
+					FlankTotal=$(($A_Flank + $C_Flank + $G_Flank + $T_Flank))
 
 					#Calculate normalized frequencies of dNMPs
 					A_FlankFreq=$(echo "($A_Flank/$FlankTotal)/$A_BkgFreq" | bc -l)
