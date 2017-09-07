@@ -52,7 +52,8 @@ for sample in ${sample[@]}; do
 		
 		#Count number of unique lines
 		uniq -c $coordinates > $output/temp1.txt
-
+		echo $output/temp1.txt $coordinates
+		
 		#Add trackline for forward strand to input into UCSC genome browser
 		echo "track type=bedGraph name="$sample-ForwardStrand" description="$sample-ForwardStrand" \
 		color=0,128,0 visibility=full" > $output/$sample-Forward.bedgraph
