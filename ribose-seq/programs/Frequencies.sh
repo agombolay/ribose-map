@@ -64,19 +64,19 @@ for sample in ${sample[@]}; do
 		fi
 
 		#Calculate counts of each nucleotide
-		A_BkgCount=$(grep -v '>' $output/temp.fa | grep -o 'A' - | wc -l)
-		C_BkgCount=$(grep -v '>' $output/temp.fa | grep -o 'C' - | wc -l)
-		G_BkgCount=$(grep -v '>' $output/temp.fa | grep -o 'G' - | wc -l)
-		T_BkgCount=$(grep -v '>' $output/temp.fa | grep -o 'T' - | wc -l)
+		A_Bkg = $(grep -v '>' $output/temp.fa | grep -o 'A' - | wc -l)
+		C_Bkg = $(grep -v '>' $output/temp.fa | grep -o 'C' - | wc -l)
+		G_Bkg = $(grep -v '>' $output/temp.fa | grep -o 'G' - | wc -l)
+		T_Bkg = $(grep -v '>' $output/temp.fa | grep -o 'T' - | wc -l)
 	
 		#Calculate total number of nucleotides
-		total_Bkg=$(($A_BkgCount+$C_BkgCount+$G_BkgCount+$T_BkgCount))
+		BkgTotal = $(($A_Bkg+$C_Bkg+$G_Bkg+$T_Bkg))
 		
 		#Calculate frequency of each nucleotide
-		A_BkgFreq=$(echo "($A_BkgCount+$T_BkgCount)/($total_Bkg*2)" | bc -l | xargs printf "%.*f\n" 12)
-		C_BkgFreq=$(echo "($C_BkgCount+$G_BkgCount)/($total_Bkg*2)" | bc -l | xargs printf "%.*f\n" 12)
-		G_BkgFreq=$(echo "($G_BkgCount+$C_BkgCount)/($total_Bkg*2)" | bc -l | xargs printf "%.*f\n" 12)
-		T_BkgFreq=$(echo "($T_BkgCount+$A_BkgCount)/($total_Bkg*2)" | bc -l | xargs printf "%.*f\n" 12)
+		A_BkgFreq = $(echo "($A_Bkg + $T_Bkg)/($BkgTotal*2)" | bc -l)
+		C_BkgFreq = $(echo "($C_Bkg + $G_Bkg)/($BkgTotal*2)" | bc -l)
+		G_BkgFreq = $(echo "($G_Bkg + $C_Bkg)/($BkgTotal*2)" | bc -l)
+		T_BkgFreq = $(echo "($T_Bkg + $A_Bkg)/($BkgTotal*2)" | bc -l)
 	
 #############################################################################################################################
 		#STEP 2: Calculate frequencies of rNMPs in libraries
@@ -95,19 +95,19 @@ for sample in ${sample[@]}; do
 			| grep -v '>' - > $output/RiboBases.txt
 	
 			#Calculate counts of rNMPs
-			A_RiboCount=$(awk '$1 == "A"' $output/RiboBases.txt | wc -l)
-			C_RiboCount=$(awk '$1 == "C"' $output/RiboBases.txt | wc -l)
-			G_RiboCount=$(awk '$1 == "G"' $output/RiboBases.txt | wc -l)
-			U_RiboCount=$(awk '$1 == "T"' $output/RiboBases.txt | wc -l)
+			A_Ribo = $(awk '$1 == "A"' $output/RiboBases.txt | wc -l)
+			C_Ribo = $(awk '$1 == "C"' $output/RiboBases.txt | wc -l)
+			G_Ribo = $(awk '$1 == "G"' $output/RiboBases.txt | wc -l)
+			U_Ribo = $(awk '$1 == "T"' $output/RiboBases.txt | wc -l)
 	
 			#Calculate total number of rNMPs
-			RiboCount=$(($A_RiboCount+$C_RiboCount+$G_RiboCount+$U_RiboCount))
+			RiboTotal = $(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
 	
 			#Calculate normalized frequency of each rNMP
-			A_RiboFreq=$(echo "($A_RiboCount/$RiboCount)/$A_BkgFreq" | bc -l | xargs printf "%.*f\n" 12)
-			C_RiboFreq=$(echo "($C_RiboCount/$RiboCount)/$C_BkgFreq" | bc -l | xargs printf "%.*f\n" 12)
-			G_RiboFreq=$(echo "($G_RiboCount/$RiboCount)/$G_BkgFreq" | bc -l | xargs printf "%.*f\n" 12)
-			U_RiboFreq=$(echo "($U_RiboCount/$RiboCount)/$T_BkgFreq" | bc -l | xargs printf "%.*f\n" 12)
+			A_RiboFreq = $(echo "($A_Ribo/$RiboTotal)/$A_BkgFreq" | bc -l)
+			C_RiboFreq = $(echo "($C_Ribo/$RiboTotal)/$C_BkgFreq" | bc -l)
+			G_RiboFreq = $(echo "($G_Ribo/$RiboTotal)/$G_BkgFreq" | bc -l)
+			U_RiboFreq = $(echo "($U_Ribo/$RiboTotal)/$T_BkgFreq" | bc -l)
 
 			#Save normalized frequencies of rNMPs together
 			Ribo=$(echo -e "$A_RiboFreq\t$C_RiboFreq\t$G_RiboFreq\t$U_RiboFreq")
@@ -149,26 +149,30 @@ for sample in ${sample[@]}; do
 				for file in `ls -v $output/$sample.$direction.{1..100}.txt`; do
 		
 					#Calculate count of each dNMP
-					A_FlankCount=$(grep -o 'A' $file | wc -l); C_FlankCount=$(grep -o 'C' $file | wc -l)
-					G_FlankCount=$(grep -o 'G' $file | wc -l); T_FlankCount=$(grep -o 'T' $file | wc -l)
+					A_Flank = $(grep -o 'A' $file | wc -l)
+					C_Flank = $(grep -o 'C' $file | wc -l)
+					G_Flank = $(grep -o 'G' $file | wc -l)
+					T_Flank = $(grep -o 'T' $file | wc -l)
 
 					#Calculate total number of dNMPs
-					FlankCount=$(($A_FlankCount+$C_FlankCount+$G_FlankCount+$T_FlankCount))
+					FlankTotal = $(($A_Flank + $C_Flank + $G_Flank + $T_Flank))
 
 					#Calculate normalized frequencies of dNMPs
-					A_FlankFreq=$(echo "($A_FlankCount/$FlankCount)/$A_BkgFreq" | bc -l | xargs printf "%.*f\n" 12)
-					C_FlankFreq=$(echo "($C_FlankCount/$FlankCount)/$C_BkgFreq" | bc -l | xargs printf "%.*f\n" 12)
-					G_FlankFreq=$(echo "($G_FlankCount/$FlankCount)/$G_BkgFreq" | bc -l | xargs printf "%.*f\n" 12)
-					T_FlankFreq=$(echo "($T_FlankCount/$FlankCount)/$T_BkgFreq" | bc -l | xargs printf "%.*f\n" 12)
+					A_FlankFreq = $(echo "($A_Flank/$FlankTotal)/$A_BkgFreq" | bc -l)
+					C_FlankFreq = $(echo "($C_Flank/$FlankTotal)/$C_BkgFreq" | bc -l)
+					G_FlankFreq = $(echo "($G_Flank/$FlankTotal)/$G_BkgFreq" | bc -l)
+					T_FlankFreq = $(echo "($T_Flank/$FlankTotal)/$T_BkgFreq" | bc -l)
 		
 					#Save normalized dNMPs frequencies to TXT file
-					echo $A_FlankFreq >> $output/A_$direction.txt; echo $C_FlankFreq >> $output/C_$direction.txt
-					echo $G_FlankFreq >> $output/G_$direction.txt; echo $T_FlankFreq >> $output/T_$direction.txt
+					echo $A_FlankFreq >> $output/A_$direction.txt
+					echo $C_FlankFreq >> $output/C_$direction.txt
+					echo $G_FlankFreq >> $output/G_$direction.txt
+					echo $T_FlankFreq >> $output/T_$direction.txt
 		
 					if [ $direction == "Up" ]; then
-						Up=$(paste $output/A_Up.txt $output/C_Up.txt $output/G_Up.txt $output/T_Up.txt | tac -)
+						Up=$(paste $output/{A,C,G,T}_Up.txt | tac -)
 					elif [ $direction == "Down" ]; then
-						Down=$(paste $output/A_Down.txt $output/C_Down.txt $output/G_Down.txt $output/T_Down.txt)
+						Down=$(paste $output/{A,C,G,T}_Down.txt)
 					fi
 				
 				done
@@ -191,10 +195,10 @@ for sample in ${sample[@]}; do
 			echo -e "A\tC\tG\tT" > $output/$sample-BackgroundFrequencies.txt
 	
 			#Add frequencies of nucleotides in reference genome
-			paste <(echo -e "$A_BkgFreq\t$C_BkgFreq\t$G_BkgFreq\t$T_BkgFreq") >> $output/$sample-BackgroundFrequencies.txt
+			paste <(echo -e "$A_Freq\t$C_Freq\t$G_Freq\t$T_Freq") >> $output/$sample-BackgroundFreqs.txt
 	
 			#Add total number of nucleotides in reference genome
-			echo -e "Total # of nucleotides in $subset: $((total_Bkg*2))" >> $output/$sample-BackgroundFrequencies.txt
+			echo -e "Total # of bases in $subset: $((total*2))" >> $output/$sample-BackgroundFreqs.txt
 
 #############################################################################################################################
 			#Print completion status
