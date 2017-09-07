@@ -67,10 +67,10 @@ for sample in ${sample[@]}; do
 		samtools faidx $output/temp.fa
 
 		#Calculate counts of each nucleotide
-		A_Bkg = $(grep -v '>' $output/temp.fa | grep -o 'A' - | wc -l)
-		C_Bkg = $(grep -v '>' $output/temp.fa | grep -o 'C' - | wc -l)
-		G_Bkg = $(grep -v '>' $output/temp.fa | grep -o 'G' - | wc -l)
-		T_Bkg = $(grep -v '>' $output/temp.fa | grep -o 'T' - | wc -l)
+		A_Bkg=$(grep -v '>' $output/temp.fa | grep -o 'A' - | wc -l)
+		C_Bkg=$(grep -v '>' $output/temp.fa | grep -o 'C' - | wc -l)
+		G_Bkg=$(grep -v '>' $output/temp.fa | grep -o 'G' - | wc -l)
+		T_Bkg=$(grep -v '>' $output/temp.fa | grep -o 'T' - | wc -l)
 	
 		#Calculate total number of nucleotides
 		BkgTotal = $(($A_Bkg + $C_Bkg + $G_Bkg + $T_Bkg))
