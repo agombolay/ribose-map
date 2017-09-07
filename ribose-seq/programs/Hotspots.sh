@@ -83,7 +83,7 @@ for sample in ${sample[@]}; do
 		#Print completion status
 		echo "Hotspots in $sample have been located"
 		
-		rm -f temp1.txt
+		rm -f $output/temp1.txt
 	
 	fi
 done
