@@ -73,13 +73,13 @@ for sample in ${sample[@]}; do
 		T_Bkg=$(grep -v '>' $output/temp.fa | grep -o 'T' - | wc -l)
 	
 		#Calculate total number of nucleotides
-		BkgTotal = $(($A_Bkg + $C_Bkg + $G_Bkg + $T_Bkg))
+		BkgTotal=$(($A_Bkg + $C_Bkg + $G_Bkg + $T_Bkg))
 		
 		#Calculate frequency of each nucleotide
-		A_BkgFreq = $(echo "($A_Bkg + $T_Bkg)/($BkgTotal*2)" | bc -l)
-		C_BkgFreq = $(echo "($C_Bkg + $G_Bkg)/($BkgTotal*2)" | bc -l)
-		G_BkgFreq = $(echo "($G_Bkg + $C_Bkg)/($BkgTotal*2)" | bc -l)
-		T_BkgFreq = $(echo "($T_Bkg + $A_Bkg)/($BkgTotal*2)" | bc -l)
+		A_BkgFreq=$(echo "($A_Bkg + $T_Bkg)/($BkgTotal*2)" | bc -l)
+		C_BkgFreq=$(echo "($C_Bkg + $G_Bkg)/($BkgTotal*2)" | bc -l)
+		G_BkgFreq=$(echo "($G_Bkg + $C_Bkg)/($BkgTotal*2)" | bc -l)
+		T_BkgFreq=$(echo "($T_Bkg + $A_Bkg)/($BkgTotal*2)" | bc -l)
 	
 #############################################################################################################################
 		#STEP 2: Calculate frequencies of rNMPs in libraries
@@ -98,19 +98,19 @@ for sample in ${sample[@]}; do
 			| grep -v '>' - > $output/RiboBases.txt
 	
 			#Calculate counts of rNMPs
-			A_Ribo = $(awk '$1 == "A"' $output/RiboBases.txt | wc -l)
-			C_Ribo = $(awk '$1 == "C"' $output/RiboBases.txt | wc -l)
-			G_Ribo = $(awk '$1 == "G"' $output/RiboBases.txt | wc -l)
-			U_Ribo = $(awk '$1 == "T"' $output/RiboBases.txt | wc -l)
+			A_Ribo=$(awk '$1 == "A"' $output/RiboBases.txt | wc -l)
+			C_Ribo=$(awk '$1 == "C"' $output/RiboBases.txt | wc -l)
+			G_Ribo=$(awk '$1 == "G"' $output/RiboBases.txt | wc -l)
+			U_Ribo=$(awk '$1 == "T"' $output/RiboBases.txt | wc -l)
 	
 			#Calculate total number of rNMPs
-			RiboTotal = $(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
+			RiboTotal=$(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
 	
 			#Calculate normalized frequency of each rNMP
-			A_RiboFreq = $(echo "($A_Ribo/$RiboTotal)/$A_BkgFreq" | bc -l)
-			C_RiboFreq = $(echo "($C_Ribo/$RiboTotal)/$C_BkgFreq" | bc -l)
-			G_RiboFreq = $(echo "($G_Ribo/$RiboTotal)/$G_BkgFreq" | bc -l)
-			U_RiboFreq = $(echo "($U_Ribo/$RiboTotal)/$T_BkgFreq" | bc -l)
+			A_RiboFreq=$(echo "($A_Ribo/$RiboTotal)/$A_BkgFreq" | bc -l)
+			C_RiboFreq=$(echo "($C_Ribo/$RiboTotal)/$C_BkgFreq" | bc -l)
+			G_RiboFreq=$(echo "($G_Ribo/$RiboTotal)/$G_BkgFreq" | bc -l)
+			U_RiboFreq=$(echo "($U_Ribo/$RiboTotal)/$T_BkgFreq" | bc -l)
 
 			#Save normalized frequencies of rNMPs together
 			Ribo=$(echo -e "$A_RiboFreq\t$C_RiboFreq\t$G_RiboFreq\t$U_RiboFreq")
@@ -152,19 +152,19 @@ for sample in ${sample[@]}; do
 				for file in `ls -v $output/$sample.$direction.{1..100}.txt`; do
 		
 					#Calculate count of each dNMP
-					A_Flank = $(grep -o 'A' $file | wc -l)
-					C_Flank = $(grep -o 'C' $file | wc -l)
-					G_Flank = $(grep -o 'G' $file | wc -l)
-					T_Flank = $(grep -o 'T' $file | wc -l)
+					A_Flank=$(grep -o 'A' $file | wc -l)
+					C_Flank=$(grep -o 'C' $file | wc -l)
+					G_Flank=$(grep -o 'G' $file | wc -l)
+					T_Flank=$(grep -o 'T' $file | wc -l)
 
 					#Calculate total number of dNMPs
 					FlankTotal = $(($A_Flank + $C_Flank + $G_Flank + $T_Flank))
 
 					#Calculate normalized frequencies of dNMPs
-					A_FlankFreq = $(echo "($A_Flank/$FlankTotal)/$A_BkgFreq" | bc -l)
-					C_FlankFreq = $(echo "($C_Flank/$FlankTotal)/$C_BkgFreq" | bc -l)
-					G_FlankFreq = $(echo "($G_Flank/$FlankTotal)/$G_BkgFreq" | bc -l)
-					T_FlankFreq = $(echo "($T_Flank/$FlankTotal)/$T_BkgFreq" | bc -l)
+					A_FlankFreq=$(echo "($A_Flank/$FlankTotal)/$A_BkgFreq" | bc -l)
+					C_FlankFreq=$(echo "($C_Flank/$FlankTotal)/$C_BkgFreq" | bc -l)
+					G_FlankFreq=$(echo "($G_Flank/$FlankTotal)/$G_BkgFreq" | bc -l)
+					T_FlankFreq=$(echo "($T_Flank/$FlankTotal)/$T_BkgFreq" | bc -l)
 		
 					#Save normalized dNMPs frequencies to TXT file
 					echo $A_FlankFreq >> $output/A_$direction.txt
