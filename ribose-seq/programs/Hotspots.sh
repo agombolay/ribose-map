@@ -62,10 +62,10 @@ for sample in ${sample[@]}; do
 		color=0,128,0 visibility=full" > $output/$sample-Reverse.bedgraph
 		
 		#Rearrange file so format is same as bedgraph format (forward)
-		awk -v "OFS=\t" '$5 == "+" {print $2, $3, $4, $1}' temp1.txt >> $output/$sample-Forward.bedgraph
+		awk -v "OFS=\t" '$5 == "+" {print $2, $3, $4, $1}' $output/temp1.txt >> $output/$sample-Forward.bedgraph
 
 		#Rearrange file so format is same as bedgraph format (reverse)
-		awk -v "OFS=\t" '$5 == "-" {print $2, $3, $4, $1}' temp1.txt >> $output/$sample-Reverse.bedgraph
+		awk -v "OFS=\t" '$5 == "-" {print $2, $3, $4, $1}' $output/temp1.txt >> $output/$sample-Reverse.bedgraph
 
 #############################################################################################################################
 		#Remove old files
