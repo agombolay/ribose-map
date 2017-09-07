@@ -94,13 +94,14 @@ for sample in ${sample[@]}; do
 		if [[ -s $output/Coords.bed ]]; then
 	
 			#Extract rNMP bases
-			bedtools getfasta -s -fi $output/temp.fa -bed $output/Coords.bed | grep -v '>' - > $output/RiboBases.txt
+			bedtools getfasta -s -fi $output/temp.fa -bed \
+			$output/Coords.bed | grep -v '>' - > $output/Ribos.txt
 	
 			#Calculate counts of rNMPs
-			A_Ribo=$(awk '$1 == "A"' $output/RiboBases.txt | wc -l)
-			C_Ribo=$(awk '$1 == "C"' $output/RiboBases.txt | wc -l)
-			G_Ribo=$(awk '$1 == "G"' $output/RiboBases.txt | wc -l)
-			U_Ribo=$(awk '$1 == "T"' $output/RiboBases.txt | wc -l)
+			A_Ribo=$(awk '$1 == "A"' $output/Ribos.txt | wc -l)
+			C_Ribo=$(awk '$1 == "C"' $output/Ribos.txt | wc -l)
+			G_Ribo=$(awk '$1 == "G"' $output/Ribos.txt | wc -l)
+			U_Ribo=$(awk '$1 == "T"' $output/Ribos.txt | wc -l)
 	
 			#Calculate total number of rNMPs
 			RiboTotal=$(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
@@ -121,19 +122,12 @@ for sample in ${sample[@]}; do
 			bedtools flank -i $output/Coords.bed -s -g $BED -l 100 -r 0 | awk '$2 != $3' - > $output/Up.bed
 			bedtools flank -i $output/Coords.bed -s -g $BED -l 0 -r 100 | awk '$2 != $3' - > $output/Down.bed
 	
-			#Obtain nucleotide sequences flanking rNMPs using coordinates from above
-			#bedtools getfasta -s -fi $output/temp.fa -bed $output/Up.bed -fo $output/Up.fa
-			#bedtools getfasta -s -fi $output/temp.fa -bed $output/Down.bed -fo $output/Down.fa
-	
+			#Obtain nucleotide sequences flanking rNMPs using coordinates from above (reverse order of up)
 			bedtools getfasta -s -fi $output/temp.fa -bed $output/Up.bed | grep -v '>' - | rev > $output/Up.txt
 			bedtools getfasta -s -fi $output/temp.fa -bed $output/Down.bed | grep -v '>' - > $output/Down.txt 
 			
 #############################################################################################################################
 			#STEP 4: Insert tabs between sequences of dNMPs +/- 100 bp from rNMPs
-
-			#Extract sequences (reverse order of upstream)
-			#grep -v '>' $output/Up.fa | rev > $output/Up.txt
-			#grep -v '>' $output/Down.fa > $output/Down.txt
 	
 			#Insert tabs between each base for easier parsing
 			cat $output/Up.txt | sed 's/.../& /2g;s/./& /g' > $output/Up.tab
