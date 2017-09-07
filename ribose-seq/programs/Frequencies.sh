@@ -57,11 +57,14 @@ for sample in ${sample[@]}; do
 		#Subset FASTA file based on region
 		if [ $subset == "mito" ]; then
 			chr=$(awk '{print $1}' $BED | grep -E '(chrM|MT)')
-			samtools faidx $FASTA $chr > $output/temp.fa; samtools faidx $output/temp.fa
+			samtools faidx $FASTA $chr > $output/temp.fa
 		elif [ $subset == "nucleus" ]; then
 			chr=$(awk '{print $1}' $BED | grep -vE '(chrM|MT)')
-			samtools faidx $FASTA $chr > $output/temp.fa; samtools faidx $output/temp.fa
+			samtools faidx $FASTA $chr > $output/temp.fa
 		fi
+		
+		#Index FASTA file
+		samtools faidx $output/temp.fa
 
 		#Calculate counts of each nucleotide
 		A_Bkg = $(grep -v '>' $output/temp.fa | grep -o 'A' - | wc -l)
@@ -70,7 +73,7 @@ for sample in ${sample[@]}; do
 		T_Bkg = $(grep -v '>' $output/temp.fa | grep -o 'T' - | wc -l)
 	
 		#Calculate total number of nucleotides
-		BkgTotal = $(($A_Bkg+$C_Bkg+$G_Bkg+$T_Bkg))
+		BkgTotal = $(($A_Bkg + $C_Bkg + $G_Bkg + $T_Bkg))
 		
 		#Calculate frequency of each nucleotide
 		A_BkgFreq = $(echo "($A_Bkg + $T_Bkg)/($BkgTotal*2)" | bc -l)
@@ -83,15 +86,15 @@ for sample in ${sample[@]}; do
 	
 		#Subset and sort coordinates based on genomic region
 		if [ $subset == "mito" ]; then
-			grep -E '(chrM|MT)' $coordinates > $output/$sample-Coordinates.$subset.bed
+			grep -E '(chrM|MT)' $coordinates > $output/Coords.bed
 		elif [ $subset == "nucleus" ]; then
-			grep -vE '(chrM|MT)' $coordinates > $output/$sample-Coordinates.$subset.bed
+			grep -vE '(chrM|MT)' $coordinates > $output/Coords.bed
 		fi
 	
-		if [[ -s $output/$sample-Coordinates.$subset.bed ]]; then
+		if [[ -s $output/Coords.bed ]]; then
 	
 			#Extract rNMP bases
-			bedtools getfasta -s -fi $output/temp.fa -bed $output/$sample-Coordinates.$subset.bed \
+			bedtools getfasta -s -fi $output/temp.fa -bed $output/Coords.bed \
 			| grep -v '>' - > $output/RiboBases.txt
 	
 			#Calculate counts of rNMPs
@@ -116,8 +119,8 @@ for sample in ${sample[@]}; do
 			#STEP 3: Obtain coordinates/sequences of dNMPs +/- 100 bp from rNMPs
 
 			#Obtain coordinates of flanking sequences and remove coordinates where start = end
-			bedtools flank -i $coordinates -s -g $BED -l 100 -r 0 | awk '$2 != $3' - > $output/Up.bed
-			bedtools flank -i $coordinates -s -g $BED -l 0 -r 100 | awk '$2 != $3' - > $output/Down.bed
+			bedtools flank -i $output/Coords.bed -s -g $BED -l 100 -r 0 | awk '$2 != $3' - > $output/Up.bed
+			bedtools flank -i $output/Coords.bed -s -g $BED -l 0 -r 100 | awk '$2 != $3' - > $output/Down.bed
 	
 			#Obtain nucleotide sequences flanking rNMPs using coordinates from above
 			bedtools getfasta -s -fi $output/temp.fa -bed $output/Up.bed -fo $output/Up.fa
@@ -198,7 +201,7 @@ for sample in ${sample[@]}; do
 			paste <(echo -e "$A_Freq\t$C_Freq\t$G_Freq\t$T_Freq") >> $output/$sample-BackgroundFreqs.txt
 	
 			#Add total number of nucleotides in reference genome
-			echo -e "Total # of bases in $subset: $((total*2))" >> $output/$sample-BackgroundFreqs.txt
+			echo -e "Total # of bases in $subset: $((total * 2))" >> $output/$sample-BackgroundFreqs.txt
 
 #############################################################################################################################
 			#Print completion status
@@ -207,8 +210,8 @@ for sample in ${sample[@]}; do
 		fi
 	fi
 	
+	#Remove temp files
+	rm -f $output/*Up.* $output/*Down.* $output/RiboBases.txt $output/temp.fa* $output/*.bed
+
 	done
 done
-
-#Remove temp files
-rm -f $output/*Up.* $output/*Down.* $output/RiboBases.txt $output/temp.fa* $output/*.bed
