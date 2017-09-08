@@ -36,7 +36,6 @@ for sample in ${sample[@]}; do
 	
 #############################################################################################################################
 	#Input files
-	reads=$directory/Results/$reference/$sample/Coordinates/$sample-ReadInformation.$subset.txt
 	BED=$directory/References/$reference.bed; FASTA=$directory/References/$reference.fa
 	coordinates=$directory/Results/$reference/$sample/Coordinates/$sample-Coordinates.bed
 	
