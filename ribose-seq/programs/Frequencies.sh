@@ -10,7 +10,7 @@ function usage () {
 	echo "Usage: Frequencies.sh [options]
 	-s Sample name(s) (e.g., FS1, FS2, FS3 etc.)
 	-r Reference genome (e.g., sacCer2, pombe, ecoli, mm9, hg38)
-	-d Local user directory (e.g., /projects/home/agombolay3/data/repository)"
+	-d Local user directory (e.g., /projects/home/agombolay3/data/repository/Ribose-Map)"
 }
 
 #Command-line options
@@ -36,9 +36,9 @@ for sample in ${sample[@]}; do
 	
 #############################################################################################################################
 	#Input files
-	reads=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-ReadInformation.$subset.txt
-	BED=$directory/Ribose-Map/References/$reference.bed; FASTA=$directory/Ribose-Map/References/$reference.fa
-	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.bed
+	reads=$directory/Results/$reference/$sample/Coordinates/$sample-ReadInformation.$subset.txt
+	BED=$directory/References/$reference.bed; FASTA=$directory/References/$reference.fa
+	coordinates=$directory/Results/$reference/$sample/Coordinates/$sample-Coordinates.bed
 	
 	#Output directory
 	output=$directory/Ribose-Map/Results/$reference/$sample/Frequencies
