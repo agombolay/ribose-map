@@ -40,7 +40,7 @@ for sample in ${sample[@]}; do
 	coordinates=$directory/Results/$reference/$sample/Coordinates/$sample-Coordinates.bed
 	
 	#Output directory
-	output=$directory/Ribose-Map/Results/$reference/$sample/Frequencies
+	output=$directory/Results/$reference/$sample/Frequencies
 	
 	#Create directory
 	mkdir -p $output
