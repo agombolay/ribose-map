@@ -10,7 +10,7 @@ function usage () {
 	echo "Usage: Hotspots.sh [options]
 		-s Sample name(s) (e.g., FS1, FS2, FS3)
 		-r Reference genome (e.g., sacCer2, pombe, ecoli, mm9, hg38)
-		-d Local user directory (e.g., /projects/home/agombolay3/data/repository)"
+		-d Local user directory (e.g., /projects/home/agombolay3/data/repository/Ribose-Map)"
 }
 
 #Command-line options
@@ -36,10 +36,10 @@ for sample in ${sample[@]}; do
 
 #############################################################################################################################
 	#Input file
-	coordinates=$directory/Ribose-Map/Results/$reference/$sample/Coordinates/$sample-Coordinates.bed
+	coordinates=$directory/Results/$reference/$sample/Coordinates/$sample-Coordinates.bed
 	
 	#Output directory
-	output=$directory/Ribose-Map/Results/$reference/$sample/Hotspots
+	output=$directory/Results/$reference/$sample/Hotspots
 	
 	#Create directory
 	mkdir -p $output
