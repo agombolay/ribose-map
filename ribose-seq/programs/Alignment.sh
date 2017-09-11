@@ -66,9 +66,10 @@ for sample in ${sample[@]}; do
 
 	#Single End Reads
 	if [[ $type == "SE" ]]; then
-	
+
+#############################################################################################################################
 		#Trim/drop reads based on adapter content and length
-		java -jar $path/trimmomatic-0.36.jar SE -phred33 $Fastq1 $output/Trim.fq \
+		java -jar $path/trimmomatic-0.36.jar SE $Fastq1 $output/Trim.fq \
 		ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 MINLEN:$min
 		
 		#Reverse complement reads
@@ -76,7 +77,8 @@ for sample in ${sample[@]}; do
 	
 		#Extract UMI from 3' ends of reads and append to read name
 		umi_tools extract -I $output/Reverse.fq -p $UMI --3prime -v 0 -S $output/Read1.fq
-		
+
+#############################################################################################################################
 		#Align reads to reference genome and save Bowtie2 statistics log file
 		bowtie2 -x $index -U $output/Read1.fq 2> $output/Bowtie2.log -S $output/mapped.sam
 			
@@ -85,39 +87,31 @@ for sample in ${sample[@]}; do
 		
 		#Index BAM file
 		samtools index $output/sorted.bam
-		
-		#Extract unmapped reads, convert SAM file to BAM format, and sort BAM file
-		samtools view -bS -f4 $output/mapped.sam | samtools sort - -o $output/unmapped.bam
-		
-		#Convert BAM file to FASTQ
-		bedtools bamtofastq -i $output/unmapped.bam -fq $output/unmapped.fq
+	
+#############################################################################################################################		
+		#Remove PCR duplicates based on UMI and genomic start position and sort BAM file
+		umi_tools dedup -I $output/sorted.bam -v 0 | samtools sort - -o $output/deduped.bam
 			
-		if [[ -n $UMI ]] && [[ -z $barcode ]]; then
-			
-			#Remove PCR duplicates based on UMI and genomic start position and sort BAM file
-			umi_tools dedup -I $output/sorted.bam -v 0 | samtools sort - -o $output/$sample.bam
-			
-			#Index BAM file
-			samtools index $output/$sample.bam
-		
-		elif [[ -n $UMI ]] && [[ -n $barcode ]]; then
-			
-			#Remove PCR duplicates based on UMI and genomic start position and sort BAM file
-			umi_tools dedup -I $output/sorted.bam -v 0 | samtools sort - -o $output/deduped.bam
-			
-			#Filter BAM file based on barcode
-			samtools view -h $output/deduped.bam -o $output/deduped.sam
-			grep -e "_$barcode" -e '^@' $output/deduped.sam > $output/filtered.sam
-			samtools view $output/filtered.sam -bS | samtools sort -o $output/$sample.bam
+		#Filter BAM file based on barcode
+		samtools view -h $output/deduped.bam -o $output/deduped.sam
+		grep -e "_$barcode" -e '^@' $output/deduped.sam > $output/filtered.sam
+		samtools view $output/filtered.sam -bS | samtools sort -o $output/$sample.bam
 						
-			#Index BAM file
-			samtools index $output/$sample.bam
+		#Index BAM file
+		samtools index $output/$sample.bam
 			
-			#Calculate percentage of reads that contain barcode
-			x=$(echo "$(samtools view -c $output/$sample.bam)/$(samtools view -c $output/deduped.bam)")
+#############################################################################################################################
+		#Calculate percentage of reads that contain correct barcode
+		x=$(echo "$(samtools view -c $output/$sample.bam)/$(samtools view -c $output/deduped.bam)")
+		
+		#Save information about percentage of reads that contain barcode to log file
+		echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 5)%" > $output/Barcode.log
 			
-			#Save information about percentage of reads that contain barcode to log file
-			echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 5)%" > $output/Barcode.log
+		#Calculate percentage of reads remaining after de-duplication
+		x=$(echo "$(samtools view -c $output/deduped.bam)/$(samtools view -c $output/sorted.bam)")
+			
+		#Save information about percentage of reads that contain barcode to log file
+		echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 5)%" > $output/Duplicates.log
 		
 		fi
 	fi
@@ -125,7 +119,8 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	#Paired End Reads
 	if [[ $type == "PE" ]]; then
-	
+
+#############################################################################################################################
 		#Trim/drop reads based on quality, adapter content, and length
 		java -jar $path/trimmomatic-0.36.jar PE $Fastq1 $Fastq2 $output/Paired1.fq $output/Unpaired1.fq \
 		$output/Paired2.fq $output/Unpaired2.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 MINLEN:$min
@@ -136,7 +131,8 @@ for sample in ${sample[@]}; do
 	
 		#Extract UMI from 3' ends of reads and append to read name
 		umi_tools extract -I $output/temp1.fq -p $UMI --3prime -v 0 -S $output/Read1.fq
-		
+
+#############################################################################################################################
 		#Align reads to reference genome and save Bowtie2 statistics log file
 		bowtie2 -x $index -1 $output/Read1.fq -2 $output/Read2.fq --no-mixed --no-discordant \
 		>2 $output/Bowtie2.log -S $output/mapped.sam
@@ -146,39 +142,31 @@ for sample in ${sample[@]}; do
 		
 		#Index BAM file
 		samtools index $output/sorted.bam
-		
-		#Extract unmapped reads, convert SAM file to BAM format, and sort BAM file
-		samtools view -bS -f4 $output/mapped.sam | samtools sort - -o $output/unmapped.bam
+#############################################################################################################################
 
-		#Convert BAM file to FASTQ
-		bedtools bamtofastq -i $output/unmapped.bam -fq $output/unmapped.fq
+		#Remove PCR duplicates based on UMI and genomic start position and sort BAM file
+		umi_tools dedup -I $output/sorted.bam -v 0 | samtools sort - -o $output/deduped.bam
 		
-		if [[ -n $UMI ]] && [[ -z $barcode ]]; then
+		#Filter BAM file based on barcode
+		samtools view -h $output/deduped.bam -o $output/deduped.sam
+		grep -e "_$barcode" -e '^@' $output/deduped.sam > $output/filtered.sam
+		samtools view $output/filtered.sam -bS | samtools sort -o $output/$sample.bam
 		
-			#Remove PCR duplicates based on UMI and genomic start position and sort BAM file
-			umi_tools dedup -I $output/sorted.bam -v 0 | samtools sort - -o $output/$sample.bam
-		
-			#Index BAM file
-			samtools index $output/$sample.bam
-	
-		elif [[ -n $UMI ]] && [[ -n $barcode ]]; then
-		
-			#Remove PCR duplicates based on UMI and genomic start position and sort BAM file
-			umi_tools dedup -I $output/sorted.bam -v 0 | samtools sort - -o $output/deduped.bam
-		
-			#Filter BAM file based on barcode
-			samtools view -h $output/deduped.bam -o $output/deduped.sam
-			grep -e "_$barcode" -e '^@' $output/deduped.sam > $output/filtered.sam
-			samtools view $output/filtered.sam -bS | samtools sort -o $output/$sample.bam
-		
-			#Index BAM file
-			samtools index $output/$sample.bam
+		#Index BAM file
+		samtools index $output/$sample.bam
+
+#############################################################################################################################
+		#Calculate percentage of reads that contain barcode
+		x=$(echo "$(samtools view -c $output/$sample.bam)/$(samtools view -c $output/deduped.bam)")
 			
-			#Calculate percentage of reads that contain barcode
-			x=$(echo "$(samtools view -c $output/$sample.bam)/$(samtools view -c $output/deduped.bam)")
+		#Save information about percentage of reads that contain barcode to log file
+		echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 5)%" > $output/Barcode.log
+		
+		#Calculate percentage of reads remaining after de-duplication
+		x=$(echo "$(samtools view -c $output/deduped.bam)/$(samtools view -c $output/sorted.bam)")
 			
-			#Save information about percentage of reads that contain barcode to log file
-			echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 5)%" > $output/Barcode.log
+		#Save information about percentage of reads that contain barcode to log file
+		echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 5)%" > $output/Duplicates.log
 	
 		fi
 	fi
