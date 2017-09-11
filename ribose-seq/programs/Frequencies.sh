@@ -33,12 +33,12 @@ fi
 
 for sample in ${sample[@]}; do
 	for subset in "mito" "nucleus"; do
-echo 'hello'	
+	
 #############################################################################################################################
 	#Input files
 	BED=$directory/References/$reference.bed; FASTA=$directory/References/$reference.fa
 	coordinates=$directory/Results/$reference/$sample/Coordinates/$sample-Coordinates.bed
-	
+	echo $coordinates
 	#Output directory
 	output=$directory/Results/$reference/$sample/Frequencies
 	
