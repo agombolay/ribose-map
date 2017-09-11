@@ -207,14 +207,14 @@ for sample in ${sample[@]}; do
 			#STEP 7: Create and save file containing background nucleotide frequencies
 		
 			#Add nucleotides to header line
-			echo -e "\t\t\tA\tC\tG\tT" > $output/BackgroundFreqs.txt
+			echo -e "\t\t\tA\tC\tG\tT" > $output/BackgroundFrequencies.txt
 	
 			#Add frequencies of nucleotides in reference genome
-			paste <(echo -e "$reference Mito:\n$reference Nucleus:") <(echo -e "\t$Bkg") >> $output/BackgroundFreqs.txt
+			paste <(echo -e "Mito:\nNucleus:") <(echo -e "\t$Bkg") >> $output/BackgroundFrequencies.txt
 			
 #############################################################################################################################
 			#Print completion status
-			echo "Calculation of frequencies for $sample ($subset) is complete"
+			echo "Calculation of rNMP and flanking frequencies for $sample ($subset) is complete"
 	
 		fi
 	fi
@@ -226,4 +226,4 @@ for sample in ${sample[@]}; do
 done
 
 #Remove temp files
-#rm -f $output/*Bkg.txt
+rm -f $output/*Bkg.txt
