@@ -81,10 +81,10 @@ for sample in ${sample[@]}; do
 		T_BkgFreq=$(echo "($T_Bkg + $A_Bkg)/($BkgTotal*2)" | bc -l)
 		
 		#Save background frequencies of dNMPs to TXT files
-		echo $A_BkgFreq | xargs printf "%.*f\n" 5 >> $output/A_Bkg.txt
-		echo $C_BkgFreq | xargs printf "%.*f\n" 5 >> $output/C_Bkg.txt
-		echo $G_BkgFreq | xargs printf "%.*f\n" 5 >> $output/G_Bkg.txt
-		echo $T_BkgFreq | xargs printf "%.*f\n" 5 >> $output/T_Bkg.txt
+		echo $A_BkgFreq | xargs printf "%.*f\n" 5 > $output/A_Bkg.txt
+		echo $C_BkgFreq | xargs printf "%.*f\n" 5 > $output/C_Bkg.txt
+		echo $G_BkgFreq | xargs printf "%.*f\n" 5 > $output/G_Bkg.txt
+		echo $T_BkgFreq | xargs printf "%.*f\n" 5 > $output/T_Bkg.txt
 
 		#Combine dNMP frequencies into one file
 		Bkg=$(paste $output/{A,C,G,T}_Bkg.txt)
