@@ -210,7 +210,7 @@ for sample in ${sample[@]}; do
 			echo -e "A\tC\tG\tT" > $output/BackgroundFreqs.txt
 	
 			#Add frequencies of nucleotides in reference genome
-			paste <(echo -e "Nucleus"\n"Mito"\"$Bkg") >> $output/BackgroundFreqs.txt
+			paste <(echo -e "Nucleus"\n"Mito"\t"$Bkg") >> $output/BackgroundFreqs.txt
 			
 			#Add total number of nucleotides in reference genome
 			echo -e "# of bases in $subset: $((BkgTotal * 2))" >> $output/BackgroundFreqs.txt
