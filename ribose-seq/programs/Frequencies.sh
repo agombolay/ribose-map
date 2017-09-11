@@ -156,7 +156,7 @@ for sample in ${sample[@]}; do
 					FlankTotal=$(($A_Flank + $C_Flank + $G_Flank + $T_Flank))
 
 					#Calculate normalized frequencies of dNMPs
-					A_FlankFreq=$(echo "($A_Flank/$FlankTotal)/$A_BkgFreq" | bc -l)
+					A_FlankFreq=$(echo "($A_Flank/$FlankTotal)/$A_BkgFreq" | bc -l | xargs printf "%.*f\n" 5)
 					C_FlankFreq=$(echo "($C_Flank/$FlankTotal)/$C_BkgFreq" | bc -l)
 					G_FlankFreq=$(echo "($G_Flank/$FlankTotal)/$G_BkgFreq" | bc -l)
 					T_FlankFreq=$(echo "($T_Flank/$FlankTotal)/$T_BkgFreq" | bc -l)
