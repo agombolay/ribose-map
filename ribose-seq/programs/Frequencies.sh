@@ -196,9 +196,10 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 			#STEP 6: Create and save dataset file containing nucleotide frequencies
 
+			
 			#Add nucleotides to header line
 			echo -e "\tA\tC\tG\tU/T" > $output/$sample-Frequencies.$subset.txt
-
+			
 			#Add positions and frequencies of nucleotides in correct order to create dataset
 			paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Up") <(echo "$Ribo") <(echo "$Down")) \
 			>> $output/$sample-Frequencies.$subset.txt
@@ -207,10 +208,10 @@ for sample in ${sample[@]}; do
 			#STEP 7: Create and save file containing background nucleotide frequencies
 		
 			#Add nucleotides to header line
-			echo -e "\t\t\tA\tC\tG\tT" > $output/BackgroundFrequencies.txt
+			echo -e "\t\tA\tC\tG\tT" > $output/References/$reference-Frequencies.txt
 	
 			#Add frequencies of nucleotides in reference genome
-			paste <(echo -e "Mito:\nNucleus:") <(echo -e "\t$Bkg") >> $output/BackgroundFrequencies.txt
+			paste <(echo -e "Mito:\nNucleus:") <(echo -e "\t$Bkg") >> $output/References/$reference-Freqs.txt
 			
 #############################################################################################################################
 			#Print completion status
