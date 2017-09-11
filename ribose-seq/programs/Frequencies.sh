@@ -111,15 +111,13 @@ for sample in ${sample[@]}; do
 			G_RiboFreq=$(echo "($G_Ribo/$RiboTotal)/$G_BkgFreq" | bc -l)
 			U_RiboFreq=$(echo "($U_Ribo/$RiboTotal)/$T_BkgFreq" | bc -l)
 
-			#Save normalized frequencies of rNMPs together
-			#Ribo=$(echo -e "$A_RiboFreq\t$C_RiboFreq\t$G_RiboFreq\t$U_RiboFreq")
-			
-			#Save normalized dNMPs frequencies to TXT file
+			#Save normalized frequencies of rNMPs to TXT files
 			echo $A_RiboFreq | xargs printf "%.*f\n" 5 >> $output/A_Ribo.txt
 			echo $C_RiboFreq | xargs printf "%.*f\n" 5 >> $output/C_Ribo.txt
 			echo $G_RiboFreq | xargs printf "%.*f\n" 5 >> $output/G_Ribo.txt
 			echo $T_RiboFreq | xargs printf "%.*f\n" 5 >> $output/T_Ribo.txt
 
+			#Combine rNMP frequencies into one file
 			Ribo=$(paste $output/{A,C,G,T}_Ribo.txt)
 
 #############################################################################################################################
@@ -169,13 +167,15 @@ for sample in ${sample[@]}; do
 					G_FlankFreq=$(echo "($G_Flank/$FlankTotal)/$G_BkgFreq" | bc -l)
 					T_FlankFreq=$(echo "($T_Flank/$FlankTotal)/$T_BkgFreq" | bc -l)
 		
-					#Save normalized dNMPs frequencies to TXT file
+					#Save normalized dNMPs frequencies to TXT files
 					echo $A_FlankFreq | xargs printf "%.*f\n" 5 >> $output/A_$direction.txt
 					echo $C_FlankFreq | xargs printf "%.*f\n" 5 >> $output/C_$direction.txt
 					echo $G_FlankFreq | xargs printf "%.*f\n" 5 >> $output/G_$direction.txt
 					echo $T_FlankFreq | xargs printf "%.*f\n" 5 >> $output/T_$direction.txt
 		
+					#Combine dNMP frequencies into one file per location
 					if [ $direction == "Up" ]; then
+						#Print upstream frequencies in reverse order
 						Up=$(paste $output/{A,C,G,T}_Up.txt | tac -)
 					elif [ $direction == "Down" ]; then
 						Down=$(paste $output/{A,C,G,T}_Down.txt)
