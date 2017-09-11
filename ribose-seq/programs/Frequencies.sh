@@ -79,6 +79,15 @@ for sample in ${sample[@]}; do
 		C_BkgFreq=$(echo "($C_Bkg + $G_Bkg)/($BkgTotal*2)" | bc -l)
 		G_BkgFreq=$(echo "($G_Bkg + $C_Bkg)/($BkgTotal*2)" | bc -l)
 		T_BkgFreq=$(echo "($T_Bkg + $A_Bkg)/($BkgTotal*2)" | bc -l)
+		
+		#Save background frequencies of dNMPs to TXT files
+		echo $A_BkgFreq | xargs printf "%.*f\n" 5 >> $output/A_Bkg.txt
+		echo $C_BkgFreq | xargs printf "%.*f\n" 5 >> $output/C_Bkg.txt
+		echo $G_BkgFreq | xargs printf "%.*f\n" 5 >> $output/G_Bkg.txt
+		echo $T_BkgFreq | xargs printf "%.*f\n" 5 >> $output/T_Bkg.txt
+
+		#Combine dNMP frequencies into one file
+		Bkg=$(paste $output/{A,C,G,T}_Bkg.txt)
 	
 #############################################################################################################################
 		#STEP 2: Calculate frequencies of rNMPs in libraries
@@ -200,11 +209,11 @@ for sample in ${sample[@]}; do
 			#Add nucleotides to header line
 			echo -e "A\tC\tG\tT" > $output/BackgroundFreqs.txt
 	
-			#Add total number of nucleotides in reference genome
-			echo -e "Total # of bases in $subset: $((BkgTotal * 2))" >> $output/BackgroundFreqs.txt
-	
 			#Add frequencies of nucleotides in reference genome
-			paste <(echo -e "$A_BkgFreq\t$C_BkgFreq\t$G_BkgFreq\t$T_BkgFreq") >> $output/BackgroundFreqs.txt
+			paste <(echo -e "$Bkg") >> $output/BackgroundFreqs.txt
+			
+			#Add total number of nucleotides in reference genome
+			echo -e "# of bases in $subset: $((BkgTotal * 2))" >> $output/BackgroundFreqs.txt
 
 #############################################################################################################################
 			#Print completion status
