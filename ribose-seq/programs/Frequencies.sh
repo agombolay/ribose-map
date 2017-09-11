@@ -112,8 +112,16 @@ for sample in ${sample[@]}; do
 			U_RiboFreq=$(echo "($U_Ribo/$RiboTotal)/$T_BkgFreq" | bc -l)
 
 			#Save normalized frequencies of rNMPs together
-			Ribo=$(echo -e "$A_RiboFreq\t$C_RiboFreq\t$G_RiboFreq\t$U_RiboFreq")
-	
+			#Ribo=$(echo -e "$A_RiboFreq\t$C_RiboFreq\t$G_RiboFreq\t$U_RiboFreq")
+			
+			#Save normalized dNMPs frequencies to TXT file
+			echo $A_RiboFreq | xargs printf "%.*f\n" 5 >> $output/A_Ribo.txt
+			echo $C_RiboFreq | xargs printf "%.*f\n" 5 >> $output/C_Ribo.txt
+			echo $G_RiboFreq | xargs printf "%.*f\n" 5 >> $output/G_Ribo.txt
+			echo $T_RiboFreq | xargs printf "%.*f\n" 5 >> $output/T_Ribo.txt
+
+			Ribo=$(paste $output/{A,C,G,T}_Ribo.txt)
+
 #############################################################################################################################
 			#STEP 3: Obtain coordinates/sequences of dNMPs +/- 100 bp from rNMPs
 
