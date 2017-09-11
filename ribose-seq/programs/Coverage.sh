@@ -45,5 +45,12 @@ for sample in ${sample[@]}; do
 	#Create directory
 	mkdir -p $output
 #############################################################################################################################
+	
+	if [[ -s $bedgraph* ]]; then
+		
+		#Remove old files
+		rm -f $output/$sample-*.bed
 
-	cat $bedgraph1 bedgraph2 > $output/$sample.bed
+		cat $bedgraph1 bedgraph2 > $output/$sample.bed
+
+	fi
