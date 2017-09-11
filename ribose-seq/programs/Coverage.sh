@@ -36,10 +36,11 @@ for sample in ${sample[@]}; do
 
 #############################################################################################################################
 #Input file
-coordinates=$directory/Results/$reference/$sample/Coordinates/$sample-Coordinates.bed
+bedgraph1=$directory/Results/$reference/$sample/Hotspots$sample-Forward.bedgraph
+bedgraph2=$directory/Results/$reference/$sample/Hotspots$sample-Reverse.bedgraph
 	
 #Output directory
-output=$directory/Results/$reference/$sample/Hotspots
+output=$directory/Results/$reference/$sample/Coverage
 	
 #Create directory
 mkdir -p $output
