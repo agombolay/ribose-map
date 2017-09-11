@@ -30,7 +30,7 @@ done
 if [ "$1" == "-h" ]; then
         exit
 fi
-
+echo 'hello'
 for sample in ${sample[@]}; do
 	for subset in "mito" "nucleus"; do
 	
