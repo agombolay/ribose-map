@@ -88,7 +88,16 @@ for sample in ${sample[@]}; do
 
 		#Combine dNMP frequencies into one file
 		Bkg=$(paste $output/{A,C,G,T}_Bkg.txt)
+
+#############################################################################################################################
+		#STEP 2: Create and save file containing background dNTP frequencies
+		
+		#Add nucleotides to header line
+		echo -e "A\tC\tG\tT" > $directory/References/$reference-Freqs.$subset.txt
 	
+		#Add frequencies of nucleotides in reference genome
+		paste <(echo -e "$Bkg") >> $directory/References/$reference-Freqs.$subset.txt
+			
 #############################################################################################################################
 		#STEP 2: Calculate frequencies of rNMPs in libraries
 	
@@ -202,15 +211,6 @@ for sample in ${sample[@]}; do
 			#Add positions and frequencies of nucleotides in correct order to create dataset
 			paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Up") <(echo "$Ribo") <(echo "$Down")) \
 			>> $output/$sample-Frequencies.$subset.txt
-	
-#############################################################################################################################
-			#STEP 7: Create and save file containing background nucleotide frequencies
-		
-			#Add nucleotides to header line
-			echo -e "\t\tA\tC\tG\tT" > $directory/References/$reference-Freqs.$subset.txt
-	
-			#Add frequencies of nucleotides in reference genome
-			paste <(echo -e "\t$Bkg") >> $directory/References/$reference-Freqs.$subset.txt
 						
 #############################################################################################################################
 			#Print completion status
