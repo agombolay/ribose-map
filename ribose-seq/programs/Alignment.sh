@@ -15,14 +15,15 @@ function usage () {
 		-r Input Read 2 FASTQ filename (reverse)
 		-u Length of UMI (e.g., NNNNNNNN or NNNNNNNNNNN)
 		-b Barcode contained within UMI (e.g., ..TGA......)
-		-p Path (e.g., /projects/home/agombolay3/data/bin/Trimmomatic-0.36)
 		-t Type of Illumina Sequencing (e.g., SE = Single end, PE = Paired end)
 		-i Basename of Bowtie2 index (e.g., sacCer2, pombe, ecoli, mm9, hg38, etc.)
 		-m Minimum length of read to retain after trimming (e.g., 61 = 50 + NNNNNNNNNNN)
-		-d Local user directory (e.g., /projects/home/agombolay3/data/repository/Ribose-Map)"
+		-d Local user directory (e.g., /projects/home/agombolay3/data/repository/Ribose-Map)
+		-j Path to Trimmomtaic Jar file (e.g., /data/bin/Trimmomatic-0.36/trimmomatic-0.36.jar)
+		-a Path to Trimmomtaic adapters file (/data/bin/Trimmomatic-0.36/adapters/TruSeq3-SE.fa)"
 }
 
-while getopts "s:u:m:i:p:t:f:r:b:d:h" opt; do
+while getopts "s:u:m:i:j:t:f:r:b:a:d:h" opt; do
     	case "$opt" in
         	#Allow multiple input arguments
         	s ) sample=($OPTARG) ;;
@@ -30,11 +31,12 @@ while getopts "s:u:m:i:p:t:f:r:b:d:h" opt; do
 		u ) UMI=$OPTARG ;;
 		m ) min=$OPTARG ;;
 		i ) idx=$OPTARG ;;
-		p ) path=$OPTARG ;;
+		j ) jar=$OPTARG ;;
 		t ) type=$OPTARG ;;
 		f ) read1=$OPTARG ;;
 		r ) read2=$OPTARG ;;
 		b ) barcode=$OPTARG ;;
+		a ) adapters=$OPTARG ;;
 		d ) directory=$OPTARG ;;
         	#Print usage statement
         	h ) usage ;;
@@ -47,6 +49,8 @@ if [ "$1" == "-h" ]; then
 fi
 
 #############################################################################################################################
+#Jar file
+
 #Input files
 index=$directory/Indices/$idx
 Fastq1=$directory/FASTQ-Files/$read1
@@ -69,8 +73,7 @@ for sample in ${sample[@]}; do
 
 #############################################################################################################################
 		#Trim/drop reads based on adapter content and length
-		java -jar $path/trimmomatic-0.36.jar SE $Fastq1 $output/Trim.fq \
-		ILLUMINACLIP:$path/adapters/TruSeq3-SE.fa:2:30:10 MINLEN:$min
+		java -jar $jar SE $Fastq1 $output/Trim.fq ILLUMINACLIP:$adapters:2:30:10 MINLEN:$min
 		
 		#Reverse complement reads
 		cat $output/Trim.fq | seqtk seq -r - > $output/Reverse.fq
@@ -122,8 +125,9 @@ for sample in ${sample[@]}; do
 
 #############################################################################################################################
 		#Trim/drop reads based on quality, adapter content, and length
-		java -jar $path/trimmomatic-0.36.jar PE $Fastq1 $Fastq2 $output/Paired1.fq $output/Unpaired1.fq \
-		$output/Paired2.fq $output/Unpaired2.fq ILLUMINACLIP:$path/adapters/TruSeq3-PE.fa:2:30:10 MINLEN:$min
+		java -jar $jar PE $Fastq1 $Fastq2 $output/Paired1.fq \
+		$output/Unpaired1.fq $output/Paired2.fq $output/Unpaired2.fq \
+		ILLUMINACLIP:$adapters:2:30:10 MINLEN:$min
 		
 		#Reverse complement reads
 		cat $output/Paired1.fq | seqtk seq -r - > $output/temp1.fq
