@@ -35,12 +35,15 @@ fi
 for sample in ${sample[@]}; do
 
 #############################################################################################################################
-#Input file
-bedgraph1=$directory/Results/$reference/$sample/Hotspots$sample-Forward.bedgraph
-bedgraph2=$directory/Results/$reference/$sample/Hotspots$sample-Reverse.bedgraph
+	#Input file
+	bedgraph1=$directory/Results/$reference/$sample/Hotspots$sample-Forward.bedgraph
+	bedgraph2=$directory/Results/$reference/$sample/Hotspots$sample-Reverse.bedgraph
 	
-#Output directory
-output=$directory/Results/$reference/$sample/Coverage
+	#Output directory
+	output=$directory/Results/$reference/$sample/Coverage
 	
-#Create directory
-mkdir -p $output
+	#Create directory
+	mkdir -p $output
+#############################################################################################################################
+
+	cat $bedgraph1 bedgraph2 > $output/$sample.bed
