@@ -199,23 +199,19 @@ for sample in ${sample[@]}; do
 			#Add nucleotides to header line
 			echo -e "\tA\tC\tG\tU/T" > $output/$sample-Frequencies.$subset.txt
 			
-			#Add nucleotides to header line
-			echo -e "\t\tA\tC\tG\tT" > $directory/References/$reference-Freqs.txt
-			
 			#Add positions and frequencies of nucleotides in correct order to create dataset
 			paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Up") <(echo "$Ribo") <(echo "$Down")) \
 			>> $output/$sample-Frequencies.$subset.txt
-			
-			#Add frequencies of nucleotides in reference genome
-			paste <(echo -e "Mito:\nNucleus:") <(echo -e \t"$Bkg") >> $directory/References/$reference-Freqs.txt
 	
 #############################################################################################################################
 			#STEP 7: Create and save file containing background nucleotide frequencies
 		
-			
+			#Add nucleotides to header line
+			echo -e "\t\tA\tC\tG\tT" > $directory/References/$reference-Freqs.txt
 	
-		
-			
+			#Add frequencies of nucleotides in reference genome
+			paste <(echo -e \t"$Bkg") >> $directory/References/$reference-Freqs.txt
+						
 #############################################################################################################################
 			#Print completion status
 			echo "Calculation of rNMP and flanking frequencies for $sample ($subset) is complete"
