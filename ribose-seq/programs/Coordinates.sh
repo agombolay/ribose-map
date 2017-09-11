@@ -56,10 +56,10 @@ for sample in ${sample[@]}; do
 		awk -v "OFS=\t" '{print $1, $2, $3, $6}' $output/temp1.txt > $output/temp2.txt
 		
 		#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
-		positiveReads=$(awk -v "OFS=\t" '$4 == "+" {print $1,($3 - 1),$3," "," ",$4}' $output/temp2.txt)
+		positiveReads=$(awk -v "OFS=\t" '$4=="+" {print $1,($3-1),$3," "," ",$4}' $output/temp2.txt)
 			
 		#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-		negativeReads=$(awk -v "OFS=\t" '$4 == "-" {print $1,$2,($2 + 1)," "," ",$4}' $output/temp2.txt)
+		negativeReads=$(awk -v "OFS=\t" '$4=="-" {print $1,$2,($2+1)," "," ",$4}' $output/temp2.txt)
 	
 		#Combine and save +/- coordinates into one file for later
 		cat <(echo "$positiveReads") <(echo "$negativeReads") | sort -k1,1V -k2,2n > $output/$sample-Coordinates.bed		
