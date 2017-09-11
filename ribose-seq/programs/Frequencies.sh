@@ -193,7 +193,7 @@ for sample in ${sample[@]}; do
 			echo -e "A\tC\tG\tT" > $output/BackgroundFreqs.txt
 	
 			#Add total number of nucleotides in reference genome
-			echo -e "Total # of bases in $subset: $((total * 2))" >> $output/BackgroundFreqs.txt
+			echo -e "Total # of bases in $subset: $((BkgTotal * 2))" >> $output/BackgroundFreqs.txt
 	
 			#Add frequencies of nucleotides in reference genome
 			paste <(echo -e "$A_BkgFreq\t$C_BkgFreq\t$G_BkgFreq\t$T_BkgFreq") >> $output/BackgroundFreqs.txt
@@ -206,7 +206,7 @@ for sample in ${sample[@]}; do
 	fi
 	
 	#Remove temp files
-	#rm -f $output/*Up.* $output/*Down.* $output/Ribos.txt $output/temp.fa* $output/*.bed
+	rm -f $output/*Up.* $output/*Down.* $output/Ribos.txt $output/temp.fa* $output/*.bed
 
 	done
 done
