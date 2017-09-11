@@ -156,16 +156,16 @@ for sample in ${sample[@]}; do
 					FlankTotal=$(($A_Flank + $C_Flank + $G_Flank + $T_Flank))
 
 					#Calculate normalized frequencies of dNMPs
-					A_FlankFreq=$(echo "($A_Flank/$FlankTotal)/$A_BkgFreq" | bc -l | xargs printf "%.*f\n" 5)
+					A_FlankFreq=$(echo "($A_Flank/$FlankTotal)/$A_BkgFreq" | bc -l)
 					C_FlankFreq=$(echo "($C_Flank/$FlankTotal)/$C_BkgFreq" | bc -l)
 					G_FlankFreq=$(echo "($G_Flank/$FlankTotal)/$G_BkgFreq" | bc -l)
 					T_FlankFreq=$(echo "($T_Flank/$FlankTotal)/$T_BkgFreq" | bc -l)
 		
 					#Save normalized dNMPs frequencies to TXT file
-					echo $A_FlankFreq >> $output/A_$direction.txt
-					echo $C_FlankFreq >> $output/C_$direction.txt
-					echo $G_FlankFreq >> $output/G_$direction.txt
-					echo $T_FlankFreq >> $output/T_$direction.txt
+					echo $A_FlankFreq | xargs printf "%.*f\n" 5 >> $output/A_$direction.txt
+					echo $C_FlankFreq | xargs printf "%.*f\n" 5 >> $output/C_$direction.txt
+					echo $G_FlankFreq | xargs printf "%.*f\n" 5 >> $output/G_$direction.txt
+					echo $T_FlankFreq | xargs printf "%.*f\n" 5 >> $output/T_$direction.txt
 		
 					if [ $direction == "Up" ]; then
 						Up=$(paste $output/{A,C,G,T}_Up.txt | tac -)
