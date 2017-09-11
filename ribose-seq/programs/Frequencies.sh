@@ -211,7 +211,7 @@ for sample in ${sample[@]}; do
 			echo -e "\t\tA\tC\tG\tT" > $directory/References/$reference-Frequencies.txt
 	
 			#Add frequencies of nucleotides in reference genome
-			paste <(echo -e "Mito:\nNucleus:") <(echo -e "\t$Bkg") >> $directory/References/$reference-Freqs.txt
+			paste <(echo -e "Mito:\nNucleus:\t$Bkg") >> $directory/References/$reference-Freqs.txt
 			
 #############################################################################################################################
 			#Print completion status
