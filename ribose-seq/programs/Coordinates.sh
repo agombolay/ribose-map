@@ -64,6 +64,8 @@ for sample in ${sample[@]}; do
 		#Combine and save +/- coordinates into one file for later
 		cat <(echo "$positiveReads") <(echo "$negativeReads") | sort -k1,1V -k2,2n > $output/$sample-Coordinates.bed		
 		
+		echo $positiveReads
+		echo $negativeReads
 	fi
 
 #############################################################################################################################
