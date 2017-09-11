@@ -18,12 +18,10 @@ function usage () {
 		-t Type of Illumina Sequencing (e.g., SE = Single end, PE = Paired end)
 		-i Basename of Bowtie2 index (e.g., sacCer2, pombe, ecoli, mm9, hg38, etc.)
 		-m Minimum length of read to retain after trimming (e.g., 61 = 50 + NNNNNNNNNNN)
-		-d Local user directory (e.g., /projects/home/agombolay3/data/repository/Ribose-Map)
-		-j Path to Trimmomtaic Jar file (e.g., /data/bin/Trimmomatic-0.36/trimmomatic-0.36.jar)
-		-a Path to Trimmomtaic adapters file (/data/bin/Trimmomatic-0.36/adapters/TruSeq3-SE.fa)"
+		-d Local user directory (e.g., /projects/home/agombolay3/data/repository/Ribose-Map)"
 }
 
-while getopts "s:u:m:i:j:t:f:r:b:a:d:h" opt; do
+while getopts "s:u:m:i:t:f:r:b:d:h" opt; do
     	case "$opt" in
         	#Allow multiple input arguments
         	s ) sample=($OPTARG) ;;
@@ -31,12 +29,10 @@ while getopts "s:u:m:i:j:t:f:r:b:a:d:h" opt; do
 		u ) UMI=$OPTARG ;;
 		m ) min=$OPTARG ;;
 		i ) idx=$OPTARG ;;
-		j ) jar=$OPTARG ;;
 		t ) type=$OPTARG ;;
 		f ) read1=$OPTARG ;;
 		r ) read2=$OPTARG ;;
 		b ) barcode=$OPTARG ;;
-		a ) adapters=$OPTARG ;;
 		d ) directory=$OPTARG ;;
         	#Print usage statement
         	h ) usage ;;
