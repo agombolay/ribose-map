@@ -57,6 +57,12 @@ for sample in ${sample[@]}; do
 		cat $bedgraph1 bedgraph2 > $output/$sample-rNMPs.bed
 		
 		#Calculate coverage of each position in genome
-		bedtools genomecov -dz -ibam $bam -g $bed > $output/$sample.bed
+		bedtools genomecov -dz -ibam $bam -g $bed > $output/$sample-genome.bed
+		
+		#Determine coverage at each rNMP position in genome
+		bedtools intersect -a $output/$sample-rNMPs.bed -b $output/$sample.bed > $output/$sample.bed
 
 	fi
+
+#Remove temporary files
+rm -f $output/$sample-rNMPs.bed $output/$sample-genome.bed
