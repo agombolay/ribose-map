@@ -99,7 +99,7 @@ for sample in ${sample[@]}; do
 		paste <(echo -e "$Bkg") >> $directory/References/$reference-Freqs.$subset.txt
 			
 #############################################################################################################################
-		#STEP 2: Calculate frequencies of rNMPs in libraries
+		#STEP 3: Calculate frequencies of rNMPs in libraries
 	
 		#Subset and sort coordinates based on genomic region
 		if [ $subset == "mito" ]; then
@@ -139,7 +139,7 @@ for sample in ${sample[@]}; do
 			Ribo=$(paste $output/{A,C,G,T}_Ribo.txt)
 
 #############################################################################################################################
-			#STEP 3: Obtain coordinates/sequences of dNMPs +/- 100 bp from rNMPs
+			#STEP 4: Obtain coordinates/sequences of dNMPs +/- 100 bp from rNMPs
 
 			#Obtain coordinates of flanking sequences and remove coordinates where start = end
 			bedtools flank -i $output/Coords.bed -s -g $BED -l 100 -r 0 | awk '$2 != $3' > $output/Up.bed
@@ -150,7 +150,7 @@ for sample in ${sample[@]}; do
 			bedtools getfasta -s -fi $output/temp.fa -bed $output/Down.bed | grep -v '>' > $output/Down.txt 
 			
 #############################################################################################################################
-			#STEP 4: Insert tabs between sequences of dNMPs +/- 100 bp from rNMPs
+			#STEP 5: Insert tabs between sequences of dNMPs +/- 100 bp from rNMPs
 	
 			#Insert tabs between each base for easier parsing
 			cat $output/Up.txt | sed 's/.../& /2g;s/./& /g' > $output/Up.tab
@@ -163,7 +163,7 @@ for sample in ${sample[@]}; do
 			done
 	
 #############################################################################################################################
-			#STEP 5: Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
+			#STEP 6: Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
 
 			for direction in "Up" "Down"; do
 		
@@ -203,7 +203,7 @@ for sample in ${sample[@]}; do
 			done
 	
 #############################################################################################################################
-			#STEP 6: Create and save dataset file containing nucleotide frequencies
+			#STEP 7: Create and save dataset file containing nucleotide frequencies
 			
 			#Add nucleotides to header line
 			echo -e "\tA\tC\tG\tU/T" > $output/$sample-Frequencies.$subset.txt
