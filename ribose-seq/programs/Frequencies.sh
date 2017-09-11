@@ -81,10 +81,10 @@ for sample in ${sample[@]}; do
 		T_BkgFreq=$(echo "($T_Bkg + $A_Bkg)/($BkgTotal*2)" | bc -l)
 		
 		#Save background frequencies of dNMPs to TXT files
-		echo $A_BkgFreq | xargs printf "%.*f\n" 5 >> $output/A_Bkg.txt
-		echo $C_BkgFreq | xargs printf "%.*f\n" 5 >> $output/C_Bkg.txt
-		echo $G_BkgFreq | xargs printf "%.*f\n" 5 >> $output/G_Bkg.txt
-		echo $T_BkgFreq | xargs printf "%.*f\n" 5 >> $output/T_Bkg.txt
+		echo $A_BkgFreq | xargs printf "%.*f\n" 5 > $output/A_Bkg.txt
+		echo $C_BkgFreq | xargs printf "%.*f\n" 5 > $output/C_Bkg.txt
+		echo $G_BkgFreq | xargs printf "%.*f\n" 5 > $output/G_Bkg.txt
+		echo $T_BkgFreq | xargs printf "%.*f\n" 5 > $output/T_Bkg.txt
 
 		#Combine dNMP frequencies into one file
 		Bkg=$(paste $output/{A,C,G,T}_Bkg.txt)
@@ -121,10 +121,10 @@ for sample in ${sample[@]}; do
 			U_RiboFreq=$(echo "($U_Ribo/$RiboTotal)/$T_BkgFreq" | bc -l)
 
 			#Save normalized frequencies of rNMPs to TXT files
-			echo $A_RiboFreq | xargs printf "%.*f\n" 5 >> $output/A_Ribo.txt
-			echo $C_RiboFreq | xargs printf "%.*f\n" 5 >> $output/C_Ribo.txt
-			echo $G_RiboFreq | xargs printf "%.*f\n" 5 >> $output/G_Ribo.txt
-			echo $T_RiboFreq | xargs printf "%.*f\n" 5 >> $output/T_Ribo.txt
+			echo $A_RiboFreq | xargs printf "%.*f\n" 5 > $output/A_Ribo.txt
+			echo $C_RiboFreq | xargs printf "%.*f\n" 5 > $output/C_Ribo.txt
+			echo $G_RiboFreq | xargs printf "%.*f\n" 5 > $output/G_Ribo.txt
+			echo $T_RiboFreq | xargs printf "%.*f\n" 5 > $output/T_Ribo.txt
 
 			#Combine rNMP frequencies into one file
 			Ribo=$(paste $output/{A,C,G,T}_Ribo.txt)
