@@ -123,8 +123,8 @@ for sample in ${sample[@]}; do
 		trim_galore --paired --length $min $Fastq1 $Fastq2 -o $output
 		
 		#Reverse complement reads to obtain reads of interest
-		cat $output/$sample_Paired1.fq | seqtk seq -r - > $output/temp1.fq
-		cat $output/$sample_Paired2.fq | seqtk seq -r - > $output/Read2.fq
+		cat $output/$sample*_val_1.fq | seqtk seq -r - > $output/temp1.fq
+		cat $output/$sample*_val_2.fq | seqtk seq -r - > $output/Read2.fq
 	
 		#Extract UMI from 3' ends of reads and append to read name
 		umi_tools extract -I $output/temp1.fq -p $UMI --3prime -v 0 -S $output/Read1.fq
