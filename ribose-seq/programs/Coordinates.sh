@@ -71,6 +71,6 @@ for sample in ${sample[@]}; do
 	echo "Coordinates of rNMPs for $sample have been determined"
 		
 	#Remove temp files
-	#rm -f $output/temp{1..4}.txt
+	rm -f $output/temp{1..4}.txt
 		
 done
