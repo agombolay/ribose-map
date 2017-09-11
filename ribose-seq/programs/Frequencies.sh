@@ -214,7 +214,7 @@ for sample in ${sample[@]}; do
 	fi
 	
 	#Remove temp files
-	rm -f $output/*Up.* $output/*Down.* $output/Ribos.txt $output/temp.fa* $output/*.bed
+	rm -f $output/*Up.* $output/*Down.* $output/*Ribo*.txt $output/temp.fa* $output/*.bed
 
 	done
 done
