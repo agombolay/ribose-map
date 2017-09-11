@@ -3,7 +3,7 @@
 #© 2016 Alli Gombolay
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
-#This program calculates the coveage at each rNMP position
+#This program creates bedgraph files for forward and reverse strands
 
 #Usage statement
 function usage () {
