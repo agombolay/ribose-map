@@ -203,10 +203,7 @@ for sample in ${sample[@]}; do
 			echo -e "\t\tA\tC\tG\tT" > $directory/References/$reference-Freqs.txt
 			
 			#Add positions and frequencies of nucleotides in correct order to create dataset
-			#paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Up") <(echo "$Ribo") <(echo "$Down")) \
-			#>> $output/$sample-Frequencies.$subset.txt
-			
-			paste <(echo "$(seq -100 1 100)") <(echo "$Up") <(echo "$Ribo") <(echo "$Down") \
+			paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Up") <(echo "$Ribo") <(echo "$Down")) \
 			>> $output/$sample-Frequencies.$subset.txt
 			
 			#Add frequencies of nucleotides in reference genome
