@@ -38,7 +38,7 @@ for sample in ${sample[@]}; do
 	#Input files
 	BED=$directory/References/$reference.bed; FASTA=$directory/References/$reference.fa
 	coordinates=$directory/Results/$reference/$sample/Coordinates/$sample-Coordinates.bed
-	echo $coordinates
+
 	#Output directory
 	output=$directory/Results/$reference/$sample/Frequencies
 	
@@ -46,7 +46,7 @@ for sample in ${sample[@]}; do
 	mkdir -p $output
 	
 	if [[ -s $coordinates ]]; then
-		echo 'hello'
+
 		#Remove old file
 		rm -f $output/$sample-*.txt
 	
