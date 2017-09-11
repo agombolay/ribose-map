@@ -208,10 +208,10 @@ for sample in ${sample[@]}; do
 			#STEP 7: Create and save file containing background nucleotide frequencies
 		
 			#Add nucleotides to header line
-			echo -e "\t\tA\tC\tG\tT" > $output/References/$reference-Frequencies.txt
+			echo -e "\t\tA\tC\tG\tT" > $directory/References/$reference-Frequencies.txt
 	
 			#Add frequencies of nucleotides in reference genome
-			paste <(echo -e "Mito:\nNucleus:") <(echo -e "\t$Bkg") >> $output/References/$reference-Freqs.txt
+			paste <(echo -e "Mito:\nNucleus:") <(echo -e "\t$Bkg") >> $directory/References/$reference-Freqs.txt
 			
 #############################################################################################################################
 			#Print completion status
