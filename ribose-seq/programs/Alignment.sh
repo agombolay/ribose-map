@@ -72,13 +72,11 @@ for sample in ${sample[@]}; do
 	if [[ $type == "SE" ]]; then
 
 #############################################################################################################################
-		#Trim/drop reads based on adapter content and length
-		#java -jar $jar SE $Fastq1 $output/Trim.fq ILLUMINACLIP:$adapters:2:30:10 MINLEN:$min
-		
+		#Trim reads based on adapters and length
 		trim_galore --length $min $Fastq1 -o $output
 		
-		#Reverse complement reads
-		cat $output/Trim.fq | seqtk seq -r - > $output/Reverse.fq
+		#Reverse complement reads to obtain reads of interest
+		cat $output/$sample_trimmed.fq | seqtk seq -r - > $output/Reverse.fq
 	
 		#Extract UMI from 3' ends of reads and append to read name
 		umi_tools extract -I $output/Reverse.fq -p $UMI --3prime -v 0 -S $output/Read1.fq
@@ -118,7 +116,6 @@ for sample in ${sample[@]}; do
 		#Save information about percentage of reads that contain barcode to log file
 		echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 5)%" > $output/Duplicates.log
 		
-		fi
 	fi
 
 #############################################################################################################################
@@ -126,14 +123,12 @@ for sample in ${sample[@]}; do
 	if [[ $type == "PE" ]]; then
 
 #############################################################################################################################
-		#Trim/drop reads based on quality, adapter content, and length
-		java -jar $jar PE $Fastq1 $Fastq2 -baseout <outputBase> $output/Paired1.fq \
-		$output/Unpaired1.fq $output/Paired2.fq $output/Unpaired2.fq \
-		ILLUMINACLIP:$adapters:2:30:10 MINLEN:$min
+		#Trimreads based on adapters and quality
+		trim_galore --paired --length $min $Fastq1 $Fastq2 -o $output
 		
-		#Reverse complement reads
-		cat $output/Paired1.fq | seqtk seq -r - > $output/temp1.fq
-		cat $output/Paired2.fq | seqtk seq -r - > $output/Read2.fq
+		#Reverse complement reads to obtain reads of interest
+		cat $output/$sample_Paired1.fq | seqtk seq -r - > $output/temp1.fq
+		cat $output/$sample_Paired2.fq | seqtk seq -r - > $output/Read2.fq
 	
 		#Extract UMI from 3' ends of reads and append to read name
 		umi_tools extract -I $output/temp1.fq -p $UMI --3prime -v 0 -S $output/Read1.fq
@@ -148,8 +143,8 @@ for sample in ${sample[@]}; do
 		
 		#Index BAM file
 		samtools index $output/sorted.bam
+		
 #############################################################################################################################
-
 		#Remove PCR duplicates based on UMI and genomic start position and sort BAM file
 		umi_tools dedup -I $output/sorted.bam -v 0 | samtools sort - -o $output/deduped.bam
 		
@@ -174,7 +169,6 @@ for sample in ${sample[@]}; do
 		#Save information about percentage of reads that contain barcode to log file
 		echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 5)%" > $output/Duplicates.log
 	
-		fi
 	fi
 
 #############################################################################################################################
