@@ -73,7 +73,9 @@ for sample in ${sample[@]}; do
 
 #############################################################################################################################
 		#Trim/drop reads based on adapter content and length
-		java -jar $jar SE $Fastq1 $output/Trim.fq ILLUMINACLIP:$adapters:2:30:10 MINLEN:$min
+		#java -jar $jar SE $Fastq1 $output/Trim.fq ILLUMINACLIP:$adapters:2:30:10 MINLEN:$min
+		
+		trim_galore --length $min $Fastq1 -o $output
 		
 		#Reverse complement reads
 		cat $output/Trim.fq | seqtk seq -r - > $output/Reverse.fq
@@ -125,7 +127,7 @@ for sample in ${sample[@]}; do
 
 #############################################################################################################################
 		#Trim/drop reads based on quality, adapter content, and length
-		java -jar $jar PE $Fastq1 $Fastq2 $output/Paired1.fq \
+		java -jar $jar PE $Fastq1 $Fastq2 -baseout <outputBase> $output/Paired1.fq \
 		$output/Unpaired1.fq $output/Paired2.fq $output/Unpaired2.fq \
 		ILLUMINACLIP:$adapters:2:30:10 MINLEN:$min
 		
