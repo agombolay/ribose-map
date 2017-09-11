@@ -36,8 +36,10 @@ for sample in ${sample[@]}; do
 
 #############################################################################################################################
 	#Input file
-	bedgraph1=$directory/Results/$reference/$sample/Hotspots$sample-Forward.bedgraph
-	bedgraph2=$directory/Results/$reference/$sample/Hotspots$sample-Reverse.bedgraph
+	bed=$directory/References/$reference.bed
+	bam=$directory/Results/$reference/$sample/Alignment/$sample.bam
+	bedgraph1=$directory/Results/$reference/$sample/Hotspots/$sample-Forward.bedgraph
+	bedgraph2=$directory/Results/$reference/$sample/Hotspots/$sample-Reverse.bedgraph
 	
 	#Output directory
 	output=$directory/Results/$reference/$sample/Coverage
@@ -51,6 +53,10 @@ for sample in ${sample[@]}; do
 		#Remove old files
 		rm -f $output/$sample-*.bed
 
-		cat $bedgraph1 bedgraph2 > $output/$sample.bed
+		#Combine forward and reverse bedgraph files
+		cat $bedgraph1 bedgraph2 > $output/$sample-rNMPs.bed
+		
+		#Calculate coverage of each position in genome
+		bedtools genomecov -dz -ibam $bam -g $bed > $output/$sample.bed
 
 	fi
