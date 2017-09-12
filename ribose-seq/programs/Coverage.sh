@@ -60,7 +60,7 @@ for sample in ${sample[@]}; do
 		bedtools genomecov -d -ibam $bam -g $bed > $output/$sample-genome.bed
 		
 		#Determine coverage at each rNMP position in genome
-		bedtools intersect -a $output/$sample-rNMPs.bed -b $output/$sample.bed > $output/$sample.bed
+		bedtools intersect -a $output/$sample.bed -b $output/$sample-rNMPs.bed > $output/$sample.bed
 
 	fi
 
