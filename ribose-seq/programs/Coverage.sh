@@ -53,14 +53,14 @@ for sample in ${sample[@]}; do
 		#Remove old files
 		rm -f $output/$sample-*.bed
 
-		#Combine forward and reverse bedgraph files
-		cat $bedgraph1 $bedgraph2 > $output/$sample-rNMPs.bed
-		
 		#Calculate coverage of each position in genome
-		bedtools genomecov -d -ibam $bam -g $bed > $output/temp-genome.bed
+		bedtools genomecov -d -ibam $bam -g $bed > $output/temp.bed
 		
 		#Re-print genomic coordinates in 0-based format
-		awk -v "OFS=\t" '{print $1,($2-1),$2,$3}' $output/temp-genome.bed > $output/$sample-genome.bed
+		awk -v "OFS=\t" '{print $1,($2-1),$2,$3}' $output/temp.bed > $output/$sample-genome.bed
+		
+		#Count number of unique lines and rearrange file so format is same as bedgraph format
+		uniq -c $coordinates | awk -v "OFS=\t" '{print $2,$3,$4,$1}' > $output/$sample-rNMPs.bed
 		
 		#Determine coverage at each rNMP position in genome
 		bedtools intersect -a $output/$sample.bed -b $output/$sample-rNMPs.bed > $output/$sample.bed
@@ -68,6 +68,6 @@ for sample in ${sample[@]}; do
 	fi
 
 	#Remove temporary files
-	#rm -f $output/$sample-rNMPs.bed $output/$sample-genome.bed
+	#rm -f $output/$sample-rNMPs.bed $output/temp.bed $output/$sample-genome.bed
 
 done
