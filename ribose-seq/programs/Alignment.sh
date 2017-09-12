@@ -45,8 +45,6 @@ if [ "$1" == "-h" ]; then
 fi
 
 #############################################################################################################################
-#Jar file
-
 #Input files
 index=$directory/Indices/$idx
 Fastq1=$directory/FASTQ-Files/$read1
