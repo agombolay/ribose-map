@@ -119,7 +119,7 @@ for sample in ${sample[@]}; do
 	if [[ $type == "PE" ]]; then
 
 #############################################################################################################################
-		#Trimreads based on adapters and quality
+		#Trim reads based on adapters and quality
 		trim_galore --paired --length $min $Fastq1 $Fastq2 -o $output
 		
 		#Reverse complement reads to obtain reads of interest
