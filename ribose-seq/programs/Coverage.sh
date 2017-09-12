@@ -48,7 +48,7 @@ for sample in ${sample[@]}; do
 	mkdir -p $output
 #############################################################################################################################
 	
-	#if [[ -s $bedgraph* ]]; then
+	if [[ -s $bedgraph{1,2} ]]; then
 		
 		#Remove old files
 		rm -f $output/$sample-*.bed
@@ -65,7 +65,7 @@ for sample in ${sample[@]}; do
 		#Determine coverage at each rNMP position in genome
 		bedtools intersect -a $output/$sample.bed -b $output/$sample-rNMPs.bed > $output/$sample.bed
 
-	#fi
+	fi
 
 	#Remove temporary files
 	#rm -f $output/$sample-rNMPs.bed $output/$sample-genome.bed
