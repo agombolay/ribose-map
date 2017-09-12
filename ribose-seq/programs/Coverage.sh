@@ -58,11 +58,11 @@ for sample in ${sample[@]}; do
 		#Re-print genomic coordinates in 0-based format
 		awk -v "OFS=\t" '{print $1,($2-1),$2,$3}' $output/temp.bed > $output/genome.bed
 		
-		#Count number of unique lines and rearrange file so format is same as bedgraph format
-		uniq -c $coordinates | awk -v "OFS=\t" '{print $2,$3,$4,$1}' > $output/$sample-rNMPs.bed
+		#Count number of unique lines and rearrange file so format is bedgraph
+		uniq -c $coordinates | awk -v "OFS=\t" '{print $2,$3,$4,$1}' > $output/rNMPs.bed
 		
-		#Determine coverage at each rNMP position in genome
-		bedtools intersect -a $output/genome.bed -b $output/$sample-rNMPs.bed -nonamecheck > $output/$sample-Coverage.bed
+		#Determine depth of coverage at each genomic position where there is rNMP
+		bedtools intersect -a $output/genome.bed -b $output/rNMPs.bed -nonamecheck > $output/$sample-Coverage.bed
 
 	fi
 
