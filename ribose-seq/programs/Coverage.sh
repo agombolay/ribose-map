@@ -59,6 +59,8 @@ for sample in ${sample[@]}; do
 		#Calculate coverage of each position in genome
 		bedtools genomecov -d -ibam $bam -g $bed > $output/$sample-genome.bed
 		
+		awk -v "OFS=\t" '{print $1,$3,$4,$1}'
+		
 		#Determine coverage at each rNMP position in genome
 		bedtools intersect -a $output/$sample.bed -b $output/$sample-rNMPs.bed > $output/$sample.bed
 
