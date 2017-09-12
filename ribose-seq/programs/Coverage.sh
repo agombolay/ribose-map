@@ -61,7 +61,7 @@ for sample in ${sample[@]}; do
 		uniq -c $coordinates | awk -v "OFS=\t" '{print $2,$3,$4,$1}' > $output/$sample-rNMPs.bed
 		
 		#Determine coverage at each rNMP position in genome
-		bedtools intersect -a $output/$sample.bed -b $output/$sample-rNMPs.bed > $output/$sample.bed
+		bedtools intersect -a $output/$sample-genome.bed -b $output/$sample-rNMPs.bed > $output/$sample.bed
 
 	fi
 
