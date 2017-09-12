@@ -54,7 +54,7 @@ for sample in ${sample[@]}; do
 		rm -f $output/$sample-*.bed
 
 		#Combine forward and reverse bedgraph files
-		cat $bedgraph1 bedgraph2 > $output/$sample-rNMPs.bed
+		cat $bedgraph1 $bedgraph2 > $output/$sample-rNMPs.bed
 		
 		#Calculate coverage of each position in genome
 		bedtools genomecov -d -ibam $bam -g $bed > $output/temp-genome.bed
