@@ -56,17 +56,18 @@ for sample in ${sample[@]}; do
 		bedtools genomecov -d -ibam $bam -g $bed > $output/temp.bed
 		
 		#Re-print genomic coordinates in 0-based format
-		awk -v "OFS=\t" '{print $1,($2-1),$2,$3}' $output/temp.bed > $output/genome.bed
+		awk -v "OFS=\t" '{print $1,($2-1),$2,$3}' $output/temp.bed > $output/$reference-genome.bed
 		
 		#Count number of unique lines and rearrange file so format is bedgraph
-		uniq -c $coordinates | awk -v "OFS=\t" '{print $2,$3,$4,$1}' > $output/rNMPs.bed
+		uniq -c $coordinates | awk -v "OFS=\t" '{print $2,$3,$4,$1}' > $output/$sample-rNMPs.bed
 		
 		#Determine depth of coverage at each genomic position where there is rNMP
-		bedtools intersect -a $output/genome.bed -b $output/rNMPs.bed -nonamecheck > $output/$sample-Coverage.bed
+		bedtools intersect -a $output/$reference-genome.bed -b $output/$sample-rNMPs.bed \
+		-nonamecheck > $output/$sample-Coverage.bed
 
 	fi
 
 	#Remove temporary files
-	rm -f $output/$sample-rNMPs.bed $output/temp.bed $output/genome.bed
+	rm -f $output/$sample-rNMPs.bed $output/temp.bed $output/$reference-genome.bed
 
 done
