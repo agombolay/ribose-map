@@ -68,6 +68,6 @@ for sample in ${sample[@]}; do
 	fi
 
 	#Remove temporary files
-	rm -f $output/$sample-rNMPs.bed $output/$sample-genome.bed
+	#rm -f $output/$sample-rNMPs.bed $output/$sample-genome.bed
 
 done
