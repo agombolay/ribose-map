@@ -57,9 +57,9 @@ for sample in ${sample[@]}; do
 		cat $bedgraph1 bedgraph2 > $output/$sample-rNMPs.bed
 		
 		#Calculate coverage of each position in genome
-		bedtools genomecov -d -ibam $bam -g $bed > $output/$sample-genome.bed
+		bedtools genomecov -d -ibam $bam -g $bed > $output/temp-genome.bed
 		
-		awk -v "OFS=\t" '{print $1,$3,$4,$1}'
+		awk -v "OFS=\t" '{print $1,($2-1),$2,$3}' $output/temp-genome.bed > $output/$sample-genome.bed
 		
 		#Determine coverage at each rNMP position in genome
 		bedtools intersect -a $output/$sample.bed -b $output/$sample-rNMPs.bed > $output/$sample.bed
