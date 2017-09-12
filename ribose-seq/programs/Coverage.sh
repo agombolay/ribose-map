@@ -47,7 +47,7 @@ for sample in ${sample[@]}; do
 	mkdir -p $output
 #############################################################################################################################
 	
-	if [[ -s $bam $coordinates ]]; then
+	if [[ -s $bam ]]; then
 		
 		#Remove old files
 		rm -f $output/$sample-*.bed
