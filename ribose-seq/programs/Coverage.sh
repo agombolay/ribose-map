@@ -38,6 +38,7 @@ for sample in ${sample[@]}; do
 	#Input file
 	bed=$directory/References/$reference.bed
 	bam=$directory/Results/$reference/$sample/Alignment/$sample.bam
+	coordinates=$directory/Results/$reference/$sample/Coordinates/$sample-Coordinates.bed
 	
 	#Output directory
 	output=$directory/Results/$reference/$sample/Coverage
@@ -46,7 +47,7 @@ for sample in ${sample[@]}; do
 	mkdir -p $output
 #############################################################################################################################
 	
-	if [[ -s $bam ]]; then
+	if [[ -s $bam $coordinates ]]; then
 		
 		#Remove old files
 		rm -f $output/$sample-*.bed
