@@ -52,7 +52,7 @@ for(i in opt$sample) {
 			axis.line=element_line(colour="black")) +
 			
 			#Add axes titles and plot title
-			xlab("Position") + ylab("Frequency") +
+			xlab("Position") + ylab("rNMP Frequency") +
 				
 			#Plot data as scatterplot with connecting lines
                     	geom_line(aes(y=A, colour="A")) + geom_point(aes(y=A, colour="A")) +
@@ -60,7 +60,7 @@ for(i in opt$sample) {
                     	geom_line(aes(y=G, colour="G")) + geom_point(aes(y=G, colour="G")) +
                     	geom_line(aes(y=T, colour="U/T")) + geom_point(aes(y=T, colour="U/T")) +
 				
-                    	#Specify font size and center title (if any) of plot on page
+                    	#Specify font size and remove grey background of legend key
                     	theme(text=element_text(size=20)) + theme(legend.key = element_blank()) +
 
                     	#Specify color values for each nucleotide and remove legend title
