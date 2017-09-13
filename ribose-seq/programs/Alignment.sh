@@ -155,13 +155,13 @@ for sample in ${sample[@]}; do
 		x=$(echo "$(samtools view -c $output/$sample.bam)/$(samtools view -c $output/deduped.bam)")
 		
 		#Calculate percentage of reads that remain after de-duplication
-		x=$(echo "$(samtools view -c $output/deduped.bam)/$(samtools view -c $output/sorted.bam)")
+		y=$(echo "$(samtools view -c $output/deduped.bam)/$(samtools view -c $output/sorted.bam)")
 		
 		#Save information about percentage of reads that contain correct barcode
 		echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Barcode.log
 		
 		#Save information about percentage of reads that remain after de-duplication
-		echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Duplicates.log
+		echo -e "Percentage: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Duplicates.log
 	
 	fi
 
