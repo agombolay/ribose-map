@@ -67,10 +67,8 @@ for sample in ${sample[@]}; do
 
 #############################################################################################################################
 		#Trim reads based on adapters and length
-		#trim_galore --length $min $Fastq1 -o $output
-		
-		echo $output/$sample_trimmed.fq
-		
+		trim_galore --length $min $Fastq1 -o $output
+				
 		#Reverse complement reads to obtain reads of interest
 		cat $output/${sample}_trimmed.fq | seqtk seq -r - > $output/Reverse.fq
 	
