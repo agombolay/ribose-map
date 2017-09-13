@@ -86,8 +86,8 @@ for sample in ${sample[@]}; do
 		samtools index $output/sorted.bam
 	
 #############################################################################################################################		
-		#Remove PCR duplicates based on UMI and genomic start position and sort BAM file
-		umi_tools dedup -I $output/sorted.bam -v 0 | samtools sort - -o $output/deduped.bam
+		#Remove PCR duplicates
+		umi_tools dedup -I $output/sorted.bam -v 0 > $output/deduped.bam
 			
 		#Filter BAM file based on barcode
 		samtools view -h $output/deduped.bam -o $output/deduped.sam
@@ -98,17 +98,17 @@ for sample in ${sample[@]}; do
 		samtools index $output/$sample.bam
 			
 #############################################################################################################################
-		#Calculate percentage of reads that contain correct barcode
-		x=$(echo "$(samtools view -c $output/$sample.bam)/$(samtools view -c $output/deduped.bam)")
-			
 		#Calculate percentage of reads that remain after de-duplication
-		y=$(echo "$(samtools view -c $output/deduped.bam)/$(samtools view -c $output/sorted.bam)")
+		x=$(echo "$(samtools view -c $output/deduped.bam)/$(samtools view -c $output/sorted.bam)")
 		
-		#Save information about percentage of reads that contain correct barcode
-		echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Barcode.log
-			
-		#Save information about percentage of reads that remain after de-duplication
-		echo -e "Percentage: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Duplicates.log
+		#Calculate percentage of reads that contain correct barcode sequence
+		y=$(echo "$(samtools view -c $output/$sample.bam)/$(samtools view -c $output/deduped.bam)")
+		
+		#Save info about percentage of reads that remain after de-duplication
+		echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Unique.log
+		
+		#Save info about percentage of reads that contain correct barcode sequence
+		echo -e "Percentage: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Barcode.log
 		
 	fi
 
@@ -139,8 +139,8 @@ for sample in ${sample[@]}; do
 		samtools index $output/sorted.bam
 		
 #############################################################################################################################
-		#Remove PCR duplicates based on UMI and genomic start position and sort BAM file
-		umi_tools dedup -I $output/sorted.bam -v 0 | samtools sort - -o $output/deduped.bam
+		#Remove PCR duplicates
+		umi_tools dedup -I $output/sorted.bam -v 0 > $output/deduped.bam
 		
 		#Filter BAM file based on barcode
 		samtools view -h $output/deduped.bam -o $output/deduped.sam
@@ -151,17 +151,17 @@ for sample in ${sample[@]}; do
 		samtools index $output/$sample.bam
 
 #############################################################################################################################
-		#Calculate percentage of reads that contain correct barcode
-		x=$(echo "$(samtools view -c $output/$sample.bam)/$(samtools view -c $output/deduped.bam)")
-		
 		#Calculate percentage of reads that remain after de-duplication
-		y=$(echo "$(samtools view -c $output/deduped.bam)/$(samtools view -c $output/sorted.bam)")
+		x=$(echo "$(samtools view -c $output/deduped.bam)/$(samtools view -c $output/sorted.bam)")
 		
-		#Save information about percentage of reads that contain correct barcode
-		echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Barcode.log
+		#Calculate percentage of reads that contain correct barcode sequence
+		y=$(echo "$(samtools view -c $output/$sample.bam)/$(samtools view -c $output/deduped.bam)")
 		
-		#Save information about percentage of reads that remain after de-duplication
-		echo -e "Percentage: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Duplicates.log
+		#Save info about percentage of reads that remain after de-duplication
+		echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Unique.log
+		
+		#Save info about percentage of reads that contain correct barcode sequence
+		echo -e "Percentage: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Barcode.log
 	
 	fi
 
@@ -170,7 +170,7 @@ for sample in ${sample[@]}; do
 	echo "Trimming, alignment, and de-duplication of $sample is complete"
 
 	#Remove temporary files
-	#rm -f $output/${sample}_trimmed.fq $output/$sample*_val_*.fq $output/Reverse.fq $output/Read*.fq \
-	#$output/mapped.sam $output/sorted.bam* $output/unmapped.bam $output/deduped.* $output/filtered.sam
+	rm -f $output/${sample}_trimmed.fq $output/$sample*_val_*.fq $output/Reverse.fq $output/Read*.fq \
+	$output/mapped.sam $output/sorted.bam* $output/deduped.sam $output/deduped.bam $output/filtered.sam
 
 done
