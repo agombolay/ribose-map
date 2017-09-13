@@ -14,7 +14,6 @@ library(ggplot2)
 #Command line options
 option_list <- list(
 make_option(c("-s", "--sample"), help="Sample name(s) (e.g., FS1, FS2, FS3)"),
-make_option(c("-t", "--title"), help="Title will be same for all plots; blank space=no titles"),
 make_option(c("-r", "--reference"), help="Reference genome (e.g., sacCer2, pombe, ecoli, mm9, hg38)"),
 make_option(c("-d", "--directory"), help="Directory (e.g., /projects/home/agombolay3/data/repository/Ribose-Map)")
 )
@@ -53,7 +52,7 @@ for(i in opt$sample) {
 			axis.line=element_line(colour="black")) +
 			
 			#Add axes titles and plot title
-			xlab("Position") + ylab("Frequency") + ggtitle(opt$title) +
+			xlab("Position") + ylab("Frequency") +
 				
 			#Plot data as scatterplot with connecting lines
                     	geom_line(aes(y=A, colour="A")) + geom_point(aes(y=A, colour="A")) +
@@ -62,13 +61,11 @@ for(i in opt$sample) {
                     	geom_line(aes(y=T, colour="U/T")) + geom_point(aes(y=T, colour="U/T")) +
 				
                     	#Specify font size and center title (if any) of plot on page
-                    	theme(text=element_text(size=20)) + theme(plot.title=element_text(hjust=0.5)) +
+                    	theme(text=element_text(size=20)) + theme(legend.key = element_blank()) +
 
                     	#Specify color values for each nucleotide and remove legend title
-                    	scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="") + 
-				
-			theme(legend.key = element_blank())
-											     
+                    	scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="")
+														     
 #############################################################################################################################
 #Save plot as PNG file
 ggsave(filename=file.path(output, paste(opt$sample, "-", "Frequencies", "-", k, ".", j, ".png", sep="")), plot=myplot)
