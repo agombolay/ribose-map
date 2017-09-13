@@ -101,13 +101,13 @@ for sample in ${sample[@]}; do
 		#Calculate percentage of reads that contain correct barcode
 		x=$(echo "$(samtools view -c $output/$sample.bam)/$(samtools view -c $output/deduped.bam)")
 		
-		#Save information about percentage of reads that contain barcode to log file
+		#Save information about percentage of reads that contain correct barcode
 		echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Barcode.log
 			
-		#Calculate percentage of reads remaining after de-duplication
+		#Calculate percentage of reads that remain after de-duplication
 		x=$(echo "$(samtools view -c $output/deduped.bam)/$(samtools view -c $output/sorted.bam)")
 			
-		#Save information about percentage of reads remaining after de-duplication
+		#Save information about percentage of reads that remain after de-duplication
 		echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Duplicates.log
 		
 	fi
@@ -151,16 +151,16 @@ for sample in ${sample[@]}; do
 		samtools index $output/$sample.bam
 
 #############################################################################################################################
-		#Calculate percentage of reads that contain barcode
+		#Calculate percentage of reads that contain correct barcode
 		x=$(echo "$(samtools view -c $output/$sample.bam)/$(samtools view -c $output/deduped.bam)")
 			
-		#Save information about percentage of reads that contain barcode to log file
+		#Save information about percentage of reads that contain correct barcode
 		echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Barcode.log
 		
-		#Calculate percentage of reads remaining after de-duplication
+		#Calculate percentage of reads that remain after de-duplication
 		x=$(echo "$(samtools view -c $output/deduped.bam)/$(samtools view -c $output/sorted.bam)")
 			
-		#Save information about percentage of reads remaining after de-duplication
+		#Save information about percentage of reads that remain after de-duplication
 		echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Duplicates.log
 	
 	fi
