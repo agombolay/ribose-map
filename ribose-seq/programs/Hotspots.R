@@ -36,7 +36,7 @@ for(i in opt$sample) {
 
 #############################################################################################################################
         		#Plot hotspots
-        		myplot <- ggplot(data, aes(x=1:length(data[,3]), y=data[,3])) +
+        		myplot <- ggplot(data, aes(x=data[,2], y=data[,3])) +
 
 			#Replace default theme
                 	theme(panel.grid=element_blank(),
