@@ -16,7 +16,7 @@ option_list <- list(
 make_option(c("-s", "--sample"), help="Sample name(s) (e.g., FS1, FS2, FS3)"),
 make_option(c("-t", "--title"), help="Title will be same for all plots; blank space=no titles"),
 make_option(c("-r", "--reference"), help="Reference genome (e.g., sacCer2, pombe, ecoli, mm9, hg38)"),
-make_option(c("-d", "--directory"), help="Local user directory (e.g., /projects/home/agombolay3/data/repository)")
+make_option(c("-d", "--directory"), help="Directory (e.g., /projects/home/agombolay3/data/repository/Ribose-Map)")
 )
 
 #Get command line options, if -h encountered print help
@@ -27,7 +27,7 @@ for(i in opt$sample) {
 	for(j in c("mito", "nucleus")) {
 
 		#Specify output directory and file
-		output <- file.path(opt$directory, "Ribose-Map", "Results", opt$reference, opt$sample, "Frequencies")
+		output <- file.path(opt$directory, "Results", opt$reference, opt$sample, "Frequencies")
 		file <- file.path(output, paste(opt$sample, "-", "Frequencies", ".", j, ".txt", sep=""))
 
  		#Plot only if files exist
