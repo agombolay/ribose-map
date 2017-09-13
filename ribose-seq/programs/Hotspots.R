@@ -35,7 +35,7 @@ for(i in opt$sample) {
             		data=read.table(file, sep="\t", header=FALSE)
 
 #############################################################################################################################
-        		#Plot coverage
+        		#Plot hotspots
         		myplot <- ggplot(data, aes(x=1:length(data[,3]), y=data[,3])) +
 
 			#Replace default theme
