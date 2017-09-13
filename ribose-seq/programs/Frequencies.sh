@@ -133,10 +133,10 @@ for sample in ${sample[@]}; do
 			echo $A_RiboFreq | xargs printf "%.*f\n" 5 > $output/A_Ribo.txt
 			echo $C_RiboFreq | xargs printf "%.*f\n" 5 > $output/C_Ribo.txt
 			echo $G_RiboFreq | xargs printf "%.*f\n" 5 > $output/G_Ribo.txt
-			echo $T_RiboFreq | xargs printf "%.*f\n" 5 > $output/T_Ribo.txt
+			echo $U_RiboFreq | xargs printf "%.*f\n" 5 > $output/U_Ribo.txt
 
 			#Combine rNMP frequencies into one file
-			Ribo=$(paste $output/{A,C,G,T}_Ribo.txt)
+			Ribo=$(paste $output/{A,C,G,U}_Ribo.txt)
 
 #############################################################################################################################
 			#STEP 4: Obtain coordinates/sequences of dNMPs +/- 100 bp from rNMPs
