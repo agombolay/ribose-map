@@ -102,13 +102,13 @@ for sample in ${sample[@]}; do
 		x=$(echo "$(samtools view -c $output/$sample.bam)/$(samtools view -c $output/deduped.bam)")
 		
 		#Save information about percentage of reads that contain barcode to log file
-		echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 5)%" > $output/Barcode.log
+		echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Barcode.log
 			
 		#Calculate percentage of reads remaining after de-duplication
 		x=$(echo "$(samtools view -c $output/deduped.bam)/$(samtools view -c $output/sorted.bam)")
 			
-		#Save information about percentage of reads that contain barcode to log file
-		echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 5)%" > $output/Duplicates.log
+		#Save information about percentage of reads remaining after de-duplication
+		echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Duplicates.log
 		
 	fi
 
@@ -155,13 +155,13 @@ for sample in ${sample[@]}; do
 		x=$(echo "$(samtools view -c $output/$sample.bam)/$(samtools view -c $output/deduped.bam)")
 			
 		#Save information about percentage of reads that contain barcode to log file
-		echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 5)%" > $output/Barcode.log
+		echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Barcode.log
 		
 		#Calculate percentage of reads remaining after de-duplication
 		x=$(echo "$(samtools view -c $output/deduped.bam)/$(samtools view -c $output/sorted.bam)")
 			
-		#Save information about percentage of reads that contain barcode to log file
-		echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 5)%" > $output/Duplicates.log
+		#Save information about percentage of reads remaining after de-duplication
+		echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Duplicates.log
 	
 	fi
 
