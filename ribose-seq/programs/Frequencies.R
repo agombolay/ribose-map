@@ -44,7 +44,7 @@ for(i in opt$sample) {
 
 #############################################################################################################################
                     	#Plot frequencies
-                    	myplot <- ggplot(data=data, aes(x=position)) +
+                    	myplot <- ggplot(data, aes(x=position)) +
     
                     	#Replace default theme
         		theme(panel.grid=element_blank(),
