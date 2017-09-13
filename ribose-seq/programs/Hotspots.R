@@ -13,7 +13,6 @@ library(tools)
 #Command line options
 option_list <- list(
 make_option(c("-s", "--sample"), help="Sample name(s) (e.g., FS1, FS2, FS3)"),
-make_option(c("-t", "--title"), help="Title will be same for all plots; blank space = no titles"),
 make_option(c("-r", "--reference"), help="Reference genome (e.g., sacCer2, pombe, ecoli, mm9, hg38)"),
 make_option(c("-d", "--directory"), help="Directory (e.g., /projects/home/agombolay3/data/repository/Ribose-Map)")
 )
@@ -44,17 +43,14 @@ for(i in opt$sample) {
                       	      panel.background=element_blank(),
                       	      axis.line=element_line(colour="black")) +
 			
-        		#Add axes titles and plot title
-        		xlab("Position in genome") + ylab("Frequency of rNMPs") + ggtitle("") +
+        		#Add axes titles and specify font size
+        		xlab("Position") + ylab("rNMP Frequency") + theme(text=element_text(size=20)) +
 
 			#Plot data as scatterchart with connecting lines
         		geom_point(shape=1, colour="blue4") + geom_line(aes(y=data[,3]), colour="blue4") +
 				
         		#Decrease space between scatterplot and x-axis/y-axis
-        		scale_y_continuous(expand=c(0.015,0)) + scale_x_continuous(expand=c(0.015,0)) +
-
-        		#Specify font size and center title (if any) of plot on page
-        		theme(text=element_text(size=20)) + theme(plot.title=element_text(hjust=0.5))
+        		scale_y_continuous(expand=c(0.015,0)) + scale_x_continuous(expand=c(0.015,0))
 
 #############################################################################################################################
 #Save plot as PNG file
