@@ -72,7 +72,7 @@ for sample in ${sample[@]}; do
 		echo $output/$sample_trimmed.fq
 		
 		#Reverse complement reads to obtain reads of interest
-		cat $output/$sample_trimmed.fq | seqtk seq -r - > $output/Reverse.fq
+		cat $output/$sample*trimmed.fq | seqtk seq -r - > $output/Reverse.fq
 	
 		#Extract UMI from 3' ends of reads and append to read name
 		umi_tools extract -I $output/Reverse.fq -p $UMI --3prime -v 0 -S $output/Read1.fq
