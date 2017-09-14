@@ -59,15 +59,14 @@ for sample in ${sample[@]}; do
 		awk -v "OFS=\t" '$4 == "-" {print $1,$2,($2 + 1)," "," ",$4}' $output/temp2.txt > $output/temp4.txt
 
 		#Combine and save +/- coordinates into one file for later
-		cat $output/temp3.txt $output/temp4.txt | sort -k1,1V -k2,2n > $output/$sample-Coordinates.bed		
-		
-	fi
+		cat $output/temp3.txt $output/temp4.txt | sort -k1,1V -k2,2n > $output/$sample-Coordinates.bed
 
 #############################################################################################################################
-	#Remove temp files
-	rm -f $output/temp{1..4}.txt
+		#Remove temp files
+		rm -f $output/temp{1..4}.txt
 
-	#Print completion status
-	echo "Coordinates of rNMPs for $sample have been determined"
-		
+		#Print completion status
+		echo "Coordinates of rNMPs for $sample have been determined"
+	
+	fi
 done
