@@ -10,18 +10,16 @@
 #Usage statement
 function usage () {
 	echo "Usage: Alignment.sh [options]
-		-s Sample name(s) (e.g., FS1, FS2, FS3)
+		-s Sample name (e.g., FS1, FS2, FS3)
 		-f Input Read 1 FASTQ filename (forward)
-		-r Input Read 2 FASTQ filename (reverse)
 		-u Length of UMI (e.g., NNNNNNNN or NNNNNNNNNNN)
 		-b Barcode contained within UMI (e.g., ..TGA......)
-		-t Type of Illumina Sequencing (e.g., SE = Single end, PE = Paired end)
-		-i Basename of Bowtie2 index (e.g., sacCer2, pombe, ecoli, mm9, hg38, etc.)
+		-i Basename of Bowtie2 index (e.g., sacCer2, pombe, ecoli, mm9, hg38)
 		-m Minimum length of read to retain after trimming (e.g., 61 = 50 + NNNNNNNNNNN)
 		-d Local user directory (e.g., /projects/home/agombolay3/data/repository/Ribose-Map)"
 }
 
-while getopts "s:u:m:i:t:f:r:b:d:h" opt; do
+while getopts "s:u:m:i:f:b:d:h" opt; do
     	case "$opt" in
         	#Allow multiple input arguments
         	s ) sample=($OPTARG) ;;
@@ -29,9 +27,7 @@ while getopts "s:u:m:i:t:f:r:b:d:h" opt; do
 		u ) UMI=$OPTARG ;;
 		m ) min=$OPTARG ;;
 		i ) idx=$OPTARG ;;
-		t ) type=$OPTARG ;;
 		f ) read1=$OPTARG ;;
-		r ) read2=$OPTARG ;;
 		b ) barcode=$OPTARG ;;
 		d ) directory=$OPTARG ;;
         	#Print usage statement
@@ -48,7 +44,6 @@ fi
 #Input files
 index=$directory/Indices/$idx
 Fastq1=$directory/FASTQ-Files/$read1
-Fastq2=$directory/FASTQ-Files/$read2
 
 #Output directory
 output=$directory/Results/$idx/$sample/Alignment
