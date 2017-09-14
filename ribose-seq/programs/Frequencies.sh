@@ -35,19 +35,17 @@ for sample in ${sample[@]}; do
 	for subset in "mito" "nucleus"; do
 	
 #############################################################################################################################
-	#Input files
-	BED=$directory/References/$reference.bed; FASTA=$directory/References/$reference.fa
-	coordinates=$directory/Results/$reference/$sample/Coordinates/$sample-Coordinates.bed
+		#Input files
+		BED=$directory/References/$reference.bed; FASTA=$directory/References/$reference.fa
+		coordinates=$directory/Results/$reference/$sample/Coordinates/$sample-Coordinates.bed
 
-	#Output directory
-	output=$directory/Results/$reference/$sample/Frequencies
+		#Output directory
+		output=$directory/Results/$reference/$sample/Frequencies
 	
-	#Create directory
-	mkdir -p $output
+		#Create directory
+		mkdir -p $output
 
 #############################################################################################################################
-	if [[ -s $coordinates ]]; then
-
 		#Remove old file
 		rm -f $output/$sample-*.txt
 	
@@ -221,8 +219,6 @@ for sample in ${sample[@]}; do
 	
 		#Remove temp files
 		rm -f $output/*Up.* $output/*Down.* $output/*Ribo*.txt $output/temp.fa* $output/*.bed $output/*Bkg.txt
-	
-	fi
 
 	done
 done
