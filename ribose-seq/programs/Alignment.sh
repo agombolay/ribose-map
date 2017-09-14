@@ -52,58 +52,54 @@ output=$directory/Results/$idx/$sample/Alignment
 mkdir -p $output
 
 #############################################################################################################################
-if [ -s $Fastq1 ]; then
-	
-	#Trim reads based on adapters and length
-	trim_galore --length $min $Fastq1 -o $output
+#Trim reads based on adapters and length
+trim_galore --length $min $Fastq1 -o $output
 				
-	#Reverse complement reads to obtain reads of interest
-	cat $output/${sample}_trimmed.fq | seqtk seq -r - > $output/Reverse.fq
+#Reverse complement reads to obtain reads of interest
+cat $output/${sample}_trimmed.fq | seqtk seq -r - > $output/Reverse.fq
 	
-	#Extract UMI from 3' ends of reads and append to read name
-	umi_tools extract -I $output/Reverse.fq -p $UMI --3prime -v 0 -S $output/Read1.fq
+#Extract UMI from 3' ends of reads and append to read name
+umi_tools extract -I $output/Reverse.fq -p $UMI --3prime -v 0 -S $output/Read1.fq
 
 #############################################################################################################################
-	#Align reads to reference genome and save Bowtie2 statistics log file
-	bowtie2 -x $index -U $output/Read1.fq 2> $output/Bowtie2.log -S $output/mapped.sam
+#Align reads to reference genome and save Bowtie2 statistics log file
+bowtie2 -x $index -U $output/Read1.fq 2> $output/Bowtie2.log -S $output/mapped.sam
 			
-	#Extract mapped reads, convert SAM file to BAM format, and sort BAM file
-	samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
+#Extract mapped reads, convert SAM file to BAM format, and sort BAM file
+samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
 		
-	#Index BAM file
-	samtools index $output/sorted.bam
+#Index BAM file
+samtools index $output/sorted.bam
 	
 #############################################################################################################################		
-	#Remove PCR duplicates
-	umi_tools dedup -I $output/sorted.bam -v 0 > $output/deduped.bam
+#Remove PCR duplicates
+umi_tools dedup -I $output/sorted.bam -v 0 > $output/deduped.bam
 			
-	#Filter BAM file based on barcode
-	samtools view -h $output/deduped.bam -o $output/deduped.sam
-	grep -e "_$barcode" -e '^@' $output/deduped.sam > $output/filtered.sam
-	samtools view $output/filtered.sam -bS | samtools sort -o $output/$sample.bam
+#Filter BAM file based on barcode
+samtools view -h $output/deduped.bam -o $output/deduped.sam
+grep -e "_$barcode" -e '^@' $output/deduped.sam > $output/filtered.sam
+samtools view $output/filtered.sam -bS | samtools sort -o $output/$sample.bam
 						
-	#Index BAM file
-	samtools index $output/$sample.bam
+#Index BAM file
+samtools index $output/$sample.bam
 			
 #############################################################################################################################
-	#Calculate percentage of reads that remain after de-duplication
-	x=$(echo "$(samtools view -c $output/deduped.bam)/$(samtools view -c $output/sorted.bam)")
+#Calculate percentage of reads that remain after de-duplication
+x=$(echo "$(samtools view -c $output/deduped.bam)/$(samtools view -c $output/sorted.bam)")
 		
-	#Calculate percentage of reads that contain correct barcode sequence
-	y=$(echo "$(samtools view -c $output/$sample.bam)/$(samtools view -c $output/deduped.bam)")
+#Calculate percentage of reads that contain correct barcode sequence
+y=$(echo "$(samtools view -c $output/$sample.bam)/$(samtools view -c $output/deduped.bam)")
 		
-	#Save info about percentage of reads that remain after de-duplication
-	echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Unique.log
+#Save info about percentage of reads that remain after de-duplication
+echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Unique.log
 		
-	#Save info about percentage of reads that contain correct barcode sequence
-	echo -e "Percentage: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Barcode.log
+#Save info about percentage of reads that contain correct barcode sequence
+echo -e "Percentage: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Barcode.log
 		
 #############################################################################################################################
-	#Notify user alignment step is complete for input sample
-	echo "Trimming, alignment, and de-duplication of $sample is complete"
+#Notify user alignment step is complete for input sample
+echo "Trimming, alignment, and de-duplication of $sample is complete"
 
-	#Remove temporary files
-	rm -f $output/${sample}_trimmed.fq $output/$sample*_val_*.fq $output/Reverse.fq $output/Read*.fq \
-	$output/mapped.sam $output/sorted.bam* $output/deduped.sam $output/deduped.bam $output/filtered.sam
-
-fi
+#Remove temporary files
+rm -f $output/${sample}_trimmed.fq $output/$sample*_val_*.fq $output/Reverse.fq $output/Read*.fq \
+$output/mapped.sam $output/sorted.bam* $output/deduped.sam $output/deduped.bam $output/filtered.sam
