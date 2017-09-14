@@ -44,29 +44,26 @@ for sample in ${sample[@]}; do
 	mkdir -p $output
 		
 #############################################################################################################################
-	if [ -s $bam ]; then
-
-		#Covert BAM file to BED format
-		bedtools bamtobed -i $bam > $output/temp1.txt
+	#Covert BAM file to BED format
+	bedtools bamtobed -i $bam > $output/temp1.txt
 		
-		#Extract read coordinates, sequences, and strand information
-		awk -v "OFS=\t" '{print $1, $2, $3, $6}' $output/temp1.txt > $output/temp2.txt
+	#Extract read coordinates, sequences, and strand information
+	awk -v "OFS=\t" '{print $1, $2, $3, $6}' $output/temp1.txt > $output/temp2.txt
 		
-		#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
-		awk -v "OFS=\t" '$4 == "+" {print $1,($3 - 1),$3," "," ",$4}' $output/temp2.txt > $output/temp3.txt 
+	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
+	awk -v "OFS=\t" '$4 == "+" {print $1,($3 - 1),$3," "," ",$4}' $output/temp2.txt > $output/temp3.txt 
 	
-		#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-		awk -v "OFS=\t" '$4 == "-" {print $1,$2,($2 + 1)," "," ",$4}' $output/temp2.txt > $output/temp4.txt
+	#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
+	awk -v "OFS=\t" '$4 == "-" {print $1,$2,($2 + 1)," "," ",$4}' $output/temp2.txt > $output/temp4.txt
 
-		#Combine and save +/- coordinates into one file for later
-		cat $output/temp3.txt $output/temp4.txt | sort -k1,1V -k2,2n > $output/$sample-Coordinates.bed
+	#Combine and save +/- coordinates into one file for later
+	cat $output/temp3.txt $output/temp4.txt | sort -k1,1V -k2,2n > $output/$sample-Coordinates.bed
 
 #############################################################################################################################
-		#Remove temp files
-		rm -f $output/temp{1..4}.txt
+	#Remove temp files
+	rm -f $output/temp{1..4}.txt
 
-		#Print completion status
-		echo "Coordinates of rNMPs for $sample have been determined"
+	#Print completion status
+	echo "Coordinates of rNMPs for $sample have been determined"
 	
-	fi
 done
