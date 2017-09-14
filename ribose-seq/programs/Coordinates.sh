@@ -45,9 +45,6 @@ for sample in ${sample[@]}; do
 		
 #############################################################################################################################
 	if [ -s $bam ]; then
-		
-		#Remove old file
-		rm -f $output/$sample-ReadInfo.txt
 
 		#Covert BAM file to BED format
 		bedtools bamtobed -i $bam > $output/temp1.txt
