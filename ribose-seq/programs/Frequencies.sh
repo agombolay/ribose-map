@@ -44,7 +44,8 @@ for sample in ${sample[@]}; do
 	
 	#Create directory
 	mkdir -p $output
-	
+
+#############################################################################################################################
 	if [[ -s $coordinates ]]; then
 
 		#Remove old file
