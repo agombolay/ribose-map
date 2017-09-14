@@ -64,10 +64,10 @@ for sample in ${sample[@]}; do
 	fi
 
 #############################################################################################################################
-	#Print completion status
-	echo "Coordinates of rNMPs for $sample have been determined"
-		
 	#Remove temp files
 	rm -f $output/temp{1..4}.txt
+
+	#Print completion status
+	echo "Coordinates of rNMPs for $sample have been determined"
 		
 done
