@@ -218,10 +218,11 @@ for sample in ${sample[@]}; do
 			echo "Calculation of rNMP and flanking frequencies for $sample ($subset) is complete"
 	
 		fi
-	fi
 	
-	#Remove temp files
-	rm -f $output/*Up.* $output/*Down.* $output/*Ribo*.txt $output/temp.fa* $output/*.bed $output/*Bkg.txt
+		#Remove temp files
+		rm -f $output/*Up.* $output/*Down.* $output/*Ribo*.txt $output/temp.fa* $output/*.bed $output/*Bkg.txt
+	
+	fi
 
 	done
 done
