@@ -52,12 +52,6 @@ output=$directory/Results/$idx/$sample/Alignment
 mkdir -p $output
 
 #############################################################################################################################
-for sample in ${sample[@]}; do
-
-	#Remove old files
-	rm -f $output/$sample.bam*
-
-#############################################################################################################################
 	#Trim reads based on adapters and length
 	trim_galore --length $min $Fastq1 -o $output
 				
