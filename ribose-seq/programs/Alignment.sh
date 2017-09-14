@@ -52,6 +52,8 @@ output=$directory/Results/$idx/$sample/Alignment
 mkdir -p $output
 
 #############################################################################################################################
+if [ -s $Fastq1 ]; then
+	
 	#Trim reads based on adapters and length
 	trim_galore --length $min $Fastq1 -o $output
 				
@@ -104,4 +106,4 @@ mkdir -p $output
 	rm -f $output/${sample}_trimmed.fq $output/$sample*_val_*.fq $output/Reverse.fq $output/Read*.fq \
 	$output/mapped.sam $output/sorted.bam* $output/deduped.sam $output/deduped.bam $output/filtered.sam
 
-done
+fi
