@@ -47,7 +47,7 @@ for sample in ${sample[@]}; do
 
 #############################################################################################################################
 		#Remove old file
-		rm -f $output/$sample-*.txt
+		rm -f $output/$sample-Frequencies.$subset.txt
 	
 #############################################################################################################################
 		#STEP 1: Calculate frequencies of reference genome
