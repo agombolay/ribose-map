@@ -36,6 +36,8 @@ for sample in ${sample[@]}; do
 
 #############################################################################################################################
 	#Input file
+	bed=$directory/References/$reference.fa
+	bam=$directory/Results/$reference/$sample/Alignment/$sample.bam
 	coordinates=$directory/Results/$reference/$sample/Coordinates/$sample-Coordinates.bed
 	
 	#Output directory
@@ -48,42 +50,42 @@ for sample in ${sample[@]}; do
 	if [[ -s $coordinates ]]; then
 		
 		#Remove old files
-		rm -f $output/$sample-*.bedgraph
+		rm -f $output/$sample-*.bg
 		
 		#Count number of unique lines
 		uniq -c $coordinates > $output/temp1.txt
 		
 		#Add trackline for forward strand to input into UCSC genome browser
 		echo "track type=bedGraph name="$sample-ForwardStrand" description="$sample-ForwardStrand" \
-		color=0,128,0 visibility=full" > $output/$sample-Forward.bedgraph
+		color=0,128,0 visibility=full" > $output/$sample-Forward.bg
 		
 		#Add trackline for reverse strand to input into UCSC genome browser
 		echo "track type=bedGraph name="$sample-ReverseStrand" description="$sample-ReverseStrand" \
-		color=0,128,0 visibility=full" > $output/$sample-Reverse.bedgraph
+		color=0,128,0 visibility=full" > $output/$sample-Reverse.bg
 		
 		#Rearrange file so format is same as bedgraph format (forward)
-		awk -v "OFS=\t" '$5 == "+" {print $2,$3,$4,$1}' $output/temp1.txt >> $output/$sample-Forward.bedgraph
+		awk -v "OFS=\t" '$5 == "+" {print $2,$3,$4,$1}' $output/temp1.txt >> $output/$sample-Forward.bg
 
 		#Rearrange file so format is same as bedgraph format (reverse)
-		awk -v "OFS=\t" '$5 == "-" {print $2,$3,$4,$1}' $output/temp1.txt >> $output/$sample-Reverse.bedgraph
+		awk -v "OFS=\t" '$5 == "-" {print $2,$3,$4,$1}' $output/temp1.txt >> $output/$sample-Reverse.bg
 
 #############################################################################################################################
 		#Remove old files
-		rm -f $output/$sample-Coverage.bed $output/$sample-Hotspots.$chr.bed
+		rm -f $output/$sample-Hotspots.$chr.bed
 		
 		#Create file containing coverage of both strands
-		awk -v "OFS=\t" '{print $2,$3,$4,$1}' $output/temp1.txt > $output/$sample-Coverage.bed
-		
-		#Save coverage of rNMPs for each chromosome to separate files
-		for chr in $( awk '{print $1}' $directory/References/$reference.bed ); do
-			grep -w "$chr" $output/$sample-Coverage.bed > $output/$sample-Hotspots.$chr.bed
+		bedtools genomecov -d -3 -ibam $bam -g $bed > $output/temp2.bed
+
+		#Save coverage/chr to separate files
+		for chr in $( awk '{print $1}' $bed ); do
+			grep -w "$chr" $output/temp2.bed > $output/$sample-Hotspots.$chr.bed
 		done
 		
 #############################################################################################################################
 		#Print completion status
-		echo "Hotspots in $sample have been located"
+		echo "Hotspots in $sample were located"
 		
-		rm -f $output/temp1.txt
+		rm -f $output/temp1.txt $output/temp2.bed
 	
 	fi
 done
