@@ -74,8 +74,8 @@ for sample in ${sample[@]}; do
 		#Create file containing coverage of both strands
 		awk -v "OFS=\t" '{print $2,$3,$4,$1}' $output/temp1.txt > $output/$sample-Coverage.bed
 		
-		#Save coverage of rNMPs for each chromosome to separate files for plotting
-		for chr in $( awk '{print $1}' $directory/Ribose-Map/References/$reference.bed ); do
+		#Save coverage of rNMPs for each chromosome to separate files
+		for chr in $( awk '{print $1}' $directory/References/$reference.bed ); do
 			grep -w "$chr" $output/$sample-Coverage.bed > $output/$sample-Hotspots.$chr.bed
 		done
 		
