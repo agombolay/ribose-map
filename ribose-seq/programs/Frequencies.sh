@@ -89,7 +89,7 @@ for sample in ${sample[@]}; do
 		Bkg=$(paste $output/{A,C,G,T}_Bkg.txt)
 
 #############################################################################################################################
-		#STEP 2: Create and save file containing background dNTP frequencies
+		#STEP 2: Create and save file containing background dNMP frequencies
 		
 		#Add nucleotides to header line
 		echo -e "A\tC\tG\tT" > $directory/References/$reference-Freqs.$subset.txt
