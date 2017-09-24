@@ -61,7 +61,7 @@ for sample in ${sample[@]}; do
 		
 		#Add trackline for reverse strand to input into UCSC genome browser
 		echo "track type=bedGraph name="$sample-ReverseStrand" description="$sample-ReverseStrand" \
-		color=0,128,0 visibility=full" > $output/$sample-Reverse.bg
+		color=0,0,255 visibility=full" > $output/$sample-Reverse.bg
 		
 		#Rearrange file so format is same as bedgraph format (forward)
 		awk -v "OFS=\t" '$5 == "+" {print $2,$3,$4,$1}' $output/temp1.txt >> $output/$sample-Forward.bg
