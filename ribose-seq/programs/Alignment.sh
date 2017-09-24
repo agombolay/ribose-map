@@ -101,5 +101,5 @@ echo -e "Percentage: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $out
 echo "Trimming, alignment, and de-duplication of $sample is complete"
 
 #Remove temporary files
-rm -f $output/${sample}_trimmed.fq $output/$sample*_val_*.fq $output/Reverse.fq $output/Read*.fq \
-$output/mapped.sam $output/sorted.bam* $output/deduped.sam $output/deduped.bam $output/filtered.sam
+#rm -f $output/${sample}_trimmed.fq $output/$sample*_val_*.fq $output/Reverse.fq $output/Read*.fq \
+#$output/mapped.sam $output/sorted.bam* $output/deduped.sam $output/deduped.bam $output/filtered.sam
