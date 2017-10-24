@@ -71,21 +71,22 @@ for sample in ${sample[@]}; do
 
 #############################################################################################################################
 		#Remove old files
-		rm -f $output/$sample-Hotspots.$chr.bed
+		#rm -f $output/$sample-Hotspots.$chr.bed
 		
 		#Create file containing coverage of both strands
-		bedtools genomecov -d -3 -ibam $bam -g $bed > $output/temp2.bed
+		#bedtools genomecov -d -3 -ibam $bam -g $bed > $output/temp2.bed
 
 		#Save coverage/chr to separate files
-		for chr in $( awk '{print $1}' $bed ); do
-			grep -w "$chr" $output/temp2.bed > $output/$sample-Hotspots.$chr.bed
-		done
+		#for chr in $( awk '{print $1}' $bed ); do
+		#	grep -w "$chr" $output/temp2.bed > $output/$sample-Hotspots.$chr.bed
+		#done
 		
 #############################################################################################################################
 		#Print completion status
 		echo "Hotspots in $sample were located"
 		
-		rm -f $output/temp1.txt $output/temp2.bed
+		rm -f $output/temp1.txt
+		#$output/temp2.bed
 	
 	fi
 done
