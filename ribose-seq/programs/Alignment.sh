@@ -63,8 +63,11 @@ cat $output/${sample}_trimmed.fq | seqtk seq -r - > $output/Reverse.fq
 #Extract UMI from 3' ends of reads and append to read name
 umi_tools extract -I $output/Reverse.fq -p $UMI --3prime -v 0 -S $output/Read1.fq
 
+#Filter FASTQ file based on barcode
+grep --no-group-separator -B1 -A2 ^[ACGTN].*[$barcode]$ $output/Read1.fq
+
 #Remove bardcode from read before alignment
-grep -A1 --no-group-separator ^[@] $output/Read1.fq | grep ^[ACGTN].*[$barcode]$
+
 
 #############################################################################################################################
 #Align reads to reference genome and save Bowtie2 statistics log file
