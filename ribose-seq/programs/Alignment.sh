@@ -61,13 +61,13 @@ trim_galore --length $min $Fastq1 -o $output
 cat $output/${sample}_trimmed.fq | seqtk seq -r - > $output/Reverse.fq
 	
 #Extract UMI from 3' ends of reads and append to read name
-umi_tools extract -I $output/Reverse.fq -p $UMI --3prime -v 0 -S $output/Read1.fq
+umi_tools extract -I $output/Reverse.fq -p $UMI --3prime -v 0 -S $output/UMI.fq
 
 #Filter FASTQ file based on barcode
-grep --no-group-separator -B1 -A2 ^[ACGTN].*[$barcode]$ $output/Read1.fq
+grep --no-group-separator -B1 -A2 ^[ACGTN].*[$barcode]$ $output/UMI.fq > $output/filtered.fq
 
 #Remove bardcode from read before alignment
-
+cutadapt -u -3 $output/filtered.fq > $output/Read1.fq
 
 #############################################################################################################################
 #Align reads to reference genome and save Bowtie2 statistics log file
