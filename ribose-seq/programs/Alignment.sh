@@ -58,8 +58,8 @@ trim_galore --length $min $Fastq1 -o $output
 #trim_galore --clip_R1 4 --length $min $Fastq1 -o $output
 				
 #Reverse complement reads to obtain reads of interest
-cat $output/${sample}_trimmed.fq | seqtk seq -r - > $output/Reverse.fq
-	
+cat $output/$(basename $Fastq1 | cut -d. -f1)_trimmed.fq | seqtk seq -r - > $output/Reverse.fq
+
 #Extract UMI from 3' ends of reads and append to read name
 umi_tools extract -I $output/Reverse.fq -p $UMI --3prime -v 0 -S $output/UMI.fq
 
