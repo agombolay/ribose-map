@@ -67,7 +67,7 @@ mkdir -p $output
 #Filter FASTQ file based on barcode
 #grep --no-group-separator -B1 -A2 ^[ACGTN].*[$barcode]$ $output/UMI.fq > $output/filtered.fq
 
-#Remove bardcode from read before alignment
+#Remove barcode from read before alignment
 #cutadapt -u -3 $output/filtered.fq > $output/Read1.fq
 fastx_trimmer -t 3 $output/filtered.fq > $output/Read1.fq
 
