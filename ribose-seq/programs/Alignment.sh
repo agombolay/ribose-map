@@ -63,21 +63,21 @@ mkdir -p $output
 #umi_tools extract -I $output/Reverse.fq -p $UMI --3prime -v 0 -S $output/UMI.fq
 
 #Filter FASTQ file based on barcode
-grep --no-group-separator -B1 -A2 ^[ACGTN].*$barcode$ $output/UMI.fq > $output/filtered.fq
+#grep --no-group-separator -B1 -A2 ^[ACGTN].*$barcode$ $output/UMI.fq > $output/filtered.fq
 
 #Remove barcode from read before alignment
 #cutadapt -u -3 $output/filtered.fq > $output/Read1.fq
-fastx_trimmer -t 3 -Q33 -i $output/filtered.fq -o $output/Read1.fq
+#fastx_trimmer -t 3 -Q33 -i $output/filtered.fq -o $output/Read1.fq
 
 #############################################################################################################################
 #Align reads to reference genome and save Bowtie2 statistics log file
-#bowtie2 -x $index -U $output/Read1.fq 2> $output/Bowtie2.log -S $output/mapped.sam
+bowtie2 -x $index -U $output/Read1.fq 2> $output/Bowtie2.log -S $output/mapped.sam
 			
 #Extract mapped reads, convert SAM file to BAM format, and sort BAM file
-#samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
+samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
 		
 #Index BAM file
-#samtools index $output/sorted.bam
+samtools index $output/sorted.bam
 	
 #############################################################################################################################		
 #Remove PCR duplicates
