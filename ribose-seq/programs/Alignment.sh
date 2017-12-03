@@ -63,7 +63,7 @@ mkdir -p $output
 #umi_tools extract -I $output/Reverse.fq -p $UMI --3prime -v 0 -S $output/UMI.fq
 
 #Filter FASTQ file based on barcode
-#grep --no-group-separator -B1 -A2 ^[ACGTN].*[$barcode]$ $output/UMI.fq > $output/filtered.fq
+#grep --no-group-separator -B1 -A2 ^[ACGTN].*$barcode$ $output/UMI.fq > $output/filtered.fq
 
 #Remove barcode from read before alignment
 #cutadapt -u -3 $output/filtered.fq > $output/Read1.fq
