@@ -53,16 +53,16 @@ mkdir -p $output
 
 #############################################################################################################################
 #Trim reads based on adapters and length
-trim_galore --gzip --length $min $Fastq1 -o $output
+#trim_galore --gzip --length $min $Fastq1 -o $output
 
 #trim_galore --clip_R1 4 --length $min $Fastq1 -o $output
 				
 #Reverse complement reads to obtain reads of interest
 #cat $output/$(basename $Fastq1 | cut -d. -f1)_trimmed.fq | seqtk seq -r - > $output/Reverse.fq
-seqtk seq -r $output/$(basename $Fastq1 | cut -d. -f1)_trimmed.fq.gz > $output/Reverse.fq
+#seqtk seq -r $output/$(basename $Fastq1 | cut -d. -f1)_trimmed.fq.gz > $output/Reverse.fq
 
 #Extract UMI from 3' ends of reads and append to read name
-#umi_tools extract -I $output/Reverse.fq -p $UMI --3prime -v 0 -S $output/UMI.fq
+umi_tools extract -I $output/Reverse.fq -p $UMI --3prime -v 0 -S $output/UMI.fq
 
 #Filter FASTQ file based on barcode
 #grep --no-group-separator -B1 -A2 ^[ACGTN].*[$barcode]$ $output/UMI.fq > $output/filtered.fq
