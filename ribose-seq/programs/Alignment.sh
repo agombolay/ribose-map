@@ -67,7 +67,7 @@ mkdir -p $output
 
 #Remove barcode from read before alignment
 #cutadapt -u -3 $output/filtered.fq > $output/Read1.fq
-fastx_trimmer -t 3 $output/filtered.fq > $output/Read1.fq
+fastx_trimmer -t 3 -i $output/filtered.fq -o $output/Read1.fq
 
 #############################################################################################################################
 #Align reads to reference genome and save Bowtie2 statistics log file
