@@ -53,7 +53,7 @@ mkdir -p $output
 
 #############################################################################################################################
 #Trim reads based on adapters and length
-#trim_galore --gzip --length $min $Fastq1 -o $output
+#trim_galore --gzip --no_report_file --length $min $Fastq1 -o $output
 
 #trim_galore --clip_R1 4 --length $min $Fastq1 -o $output
 				
