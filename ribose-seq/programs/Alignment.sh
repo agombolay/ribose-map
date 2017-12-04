@@ -71,17 +71,17 @@ mkdir -p $output
 
 #############################################################################################################################
 #Align reads to reference genome and save Bowtie2 statistics log file
-bowtie2 -x $index -U $output/Read1.fq 2> $output/Bowtie2.log -S $output/mapped.sam
+#bowtie2 -x $index -U $output/Read1.fq 2> $output/Bowtie2.log -S $output/mapped.sam
 			
 #Extract mapped reads, convert SAM file to BAM format, and sort BAM file
-samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
+#samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
 		
 #Index BAM file
-samtools index $output/sorted.bam
+#samtools index $output/sorted.bam
 	
 #############################################################################################################################		
 #Remove PCR duplicates
-#umi_tools dedup -I $output/sorted.bam -v 0 > $output/$sample.bam
+umi_tools dedup -I $output/sorted.bam -v 0 > $output/$sample.bam
 			
 #Filter BAM file based on barcode
 #samtools view -h $output/deduped.bam -o $output/deduped.sam
@@ -89,7 +89,7 @@ samtools index $output/sorted.bam
 #samtools view $output/filtered.sam -bS | samtools sort -o $output/$sample.bam
 						
 #Index BAM file
-#samtools index $output/$sample.bam
+samtools index $output/$sample.bam
 			
 #############################################################################################################################
 #Calculate percentage of reads that remain after de-duplication
