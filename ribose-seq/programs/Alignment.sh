@@ -111,5 +111,8 @@ samtools index $output/$sample.bam
 echo "Trimming, alignment, and de-duplication of $sample is complete"
 
 #Remove temporary files
-#rm -f $output/${sample}_trimmed.fq $output/Reverse.fq $output/Read1.fq \
-#$output/mapped.sam $output/sorted.bam* $output/deduped.* $output/filtered.sam
+rm -f $output/Reverse.fq $output/Read1.fq $output/UMI.fq \
+$output/mapped.sam $output/sorted.bam* $output/deduped.bam* $output/filtered.fq \
+$output/$(basename $Fastq1 | cut -d. -f1)_trimmed.fq.gz
+
+#$output/${sample}_trimmed.fq
