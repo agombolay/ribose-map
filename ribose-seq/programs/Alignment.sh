@@ -95,16 +95,16 @@ samtools index $output/$sample.bam
 			
 #############################################################################################################################
 #Calculate percentage of reads that remain after de-duplication
-#x=$(echo "$(samtools view -c $output/deduped.bam)/$(samtools view -c $output/sorted.bam)")
+x=$(echo "$(samtools view -c $output/deduped.bam)/$(samtools view -c $output/sorted.bam)")
 		
 #Calculate percentage of reads that contain correct barcode sequence
-#y=$(echo "$(samtools view -c $output/$sample.bam)/$(samtools view -c $output/deduped.bam)")
+y=$(echo "$(samtools view -c $output/$sample.bam)/$(samtools view -c $output/deduped.bam)")
 		
 #Save info about percentage of reads that remain after de-duplication
-#echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Unique.log
+echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Unique.log
 		
 #Save info about percentage of reads that contain correct barcode sequence
-#echo -e "Percentage: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Barcode.log
+echo -e "Percentage: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Barcode.log
 		
 #############################################################################################################################
 #Notify user alignment step is complete for input sample
