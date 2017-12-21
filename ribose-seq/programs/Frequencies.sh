@@ -100,11 +100,14 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 		#STEP 3: Calculate frequencies of rNMPs in libraries
 	
+		#Save only unique coordinates
+		uniq $coordinates > $output/Unique.bed
+		
 		#Subset and sort coordinates based on genomic region
 		if [ $subset == "mito" ]; then
-			grep -E '(chrM|MT)' $coordinates > $output/Coords.bed
+			grep -E '(chrM|MT)' $output/Unique.bed > $output/Coords.bed
 		elif [ $subset == "nucleus" ]; then
-			grep -vE '(chrM|MT)' $coordinates > $output/Coords.bed
+			grep -vE '(chrM|MT)' $output/Unique.bed > $output/Coords.bed
 		fi
 	
 		if [[ -s $output/Coords.bed ]]; then
