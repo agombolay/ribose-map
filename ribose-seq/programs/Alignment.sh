@@ -53,8 +53,8 @@ mkdir -p $output
 
 #############################################################################################################################
 #Trim reads based on adapters and length
-#trim_galore --gzip --no_report_file --length $min $Fastq1 -o $output
-trim_galore --gzip --no_report_file --clip_R1 4 --length $min $Fastq1 -o $output
+trim_galore --gzip --no_report_file --length $min $Fastq1 -o $output
+#trim_galore --gzip --no_report_file --clip_R1 4 --length $min $Fastq1 -o $output
 				
 #Reverse complement reads to obtain reads of interest
 seqtk seq -r $output/$(basename $Fastq1 | cut -d. -f1)_trimmed.fq.gz > $output/Reverse.fq
@@ -112,7 +112,8 @@ echo "Trimming, alignment, and de-duplication of $sample is complete"
 
 #Remove temporary files
 rm -f $output/Reverse.fq $output/Read1.fq $output/UMI.fq \
-$output/mapped.sam $output/sorted.bam* $output/deduped.bam* $output/filtered.fq \
+$output/mapped.sam $output/sorted.bam* $output/filtered.fq \
 $output/$(basename $Fastq1 | cut -d. -f1)_trimmed.fq.gz
 
 #$output/${sample}_trimmed.fq
+#$output/deduped.bam*
