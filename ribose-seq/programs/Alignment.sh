@@ -54,9 +54,6 @@ mkdir -p $output
 #############################################################################################################################
 #Trim reads based on adapters and length
 trim_galore --gzip --no_report_file --length $min $Fastq1 -o $output
-				
-#Reverse complement reads to obtain reads of interest
-seqtk seq -r $output/$(basename $Fastq1 | cut -d. -f1)_trimmed.fq.gz > $output/Reverse.fq
 
 #Extract UMI from 3' ends of reads and append to read name
 umi_tools extract -I $output/Reverse.fq -p $UMI --3prime -v 0 -S $output/UMI.fq
