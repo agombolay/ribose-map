@@ -43,8 +43,12 @@ for sample in ${sample[@]}; do
 	#Output directory
 	output=$directory/Results/$reference/$sample/Hotspots
 	
+#############################################################################################################################
 	#Create directory
 	mkdir -p $output
+	
+	#Remove any old files
+	rm -f $output/*.{bed,bg}
 
 #############################################################################################################################
 	if [[ -s $coordinates ]]; then
