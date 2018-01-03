@@ -81,12 +81,8 @@ samtools index $output/sorted.bam
 #############################################################################################################################		
 #Remove PCR duplicates
 umi_tools dedup -I $output/sorted.bam -v 0 > $output/deduped.bam
-			
-#Filter BAM file based on barcode
-#samtools view -h $output/deduped.bam -o $output/deduped.sam
-#grep -e "_$barcode" -e '^@' $output/deduped.sam > $output/filtered.sam
-#samtools view $output/filtered.sam -bS | samtools sort -o $output/$sample.bam
 
+#Sort BAM file
 samtools sort $output/deduped.bam -o $output/$sample.bam
 
 #Index BAM file
