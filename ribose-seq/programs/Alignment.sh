@@ -68,18 +68,11 @@ samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.b
 	
 #############################################################################################################################		
 #Remove PCR duplicates
-#umi_tools dedup -I $output/sorted.bam -v 0 > $output/deduped.bam
 umi_tools dedup -I $output/sorted.bam -v 0 | samtools sort - -o $output/$sample.bam && samtools index $output/$sample.bam
-
-#Sort BAM file
-#samtools sort $output/deduped.bam -o $output/$sample.bam
-
-#Index BAM file
-#samtools index $output/$sample.bam
 			
 #############################################################################################################################
 #Calculate percentage of reads that contain correct barcode sequence
-x=$(echo "$(samtools view -c $output/filtered.fq)/$(samtools view -c $output/UMI.fq)")
+x=$(echo "$(wc -l $output/filtered.fq)/$(wc -l $output/UMI.fq)")
 
 #Calculate percentage of reads that remain after de-duplication
 y=$(echo "$(samtools view -c $output/$sample.bam)/$(samtools view -c $output/sorted.bam)")
