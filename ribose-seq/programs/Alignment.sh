@@ -15,17 +15,19 @@ function usage () {
 		-u UMI (e.g., NNNNNNNN or NNNNXXXNNNN)
 		-b Barcode contained within UMI (e.g., TGA)
 		-i Basename of Bowtie2 index (e.g., sacCer2)
+		-a Adapter sequence to be removed from reads
 		-m Minimum length of read to retain (e.g., 50)
 		-d Local directory (e.g., /path/to/Ribose-Map)"
 }
 
-while getopts "u:m:i:f:s:b:d:h" opt; do
+while getopts "u:m:i:f:s:a:b:d:h" opt; do
     	case "$opt" in
 		u ) UMI=$OPTARG ;;
 		m ) min=$OPTARG ;;
 		i ) idx=$OPTARG ;;
 		f ) read1=$OPTARG ;;
 		s ) sample=$OPTARG ;;
+		a ) adapter=$OPTARG ;;
 		b ) barcode=$OPTARG ;;
 		d ) directory=$OPTARG ;;
         	#Print usage statement
@@ -61,7 +63,7 @@ umi_tools extract -I $Fastq1 -p $UMI -v 0 -S $output/UMI.fq
 grep --no-group-separator -B1 -A2 ^$barcode $output/UMI.fq > $output/filtered.fq
 
 #Trim Illumina adapters and remove barcode from 5' end of reads
-trim_galore --gzip --no_report_file --length $min --clip_R1 3 $output/filtered.fq -o $output
+trim_galore --gzip --no_report_file --length $min --clip_R1 3 -a $adapter $output/filtered.fq -o $output
 
 #############################################################################################################################
 #Align reads to reference genome and save Bowtie2 statistics log file
