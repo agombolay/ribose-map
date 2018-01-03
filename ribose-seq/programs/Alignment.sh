@@ -68,26 +68,27 @@ samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.b
 	
 #############################################################################################################################		
 #Remove PCR duplicates
-umi_tools dedup -I $output/sorted.bam -v 0 > $output/deduped.bam
+#umi_tools dedup -I $output/sorted.bam -v 0 > $output/deduped.bam
+umi_tools dedup -I $output/sorted.bam -v 0 | samtools sort - -o $output/$sample.bam && samtools index $output/$sample.bam
 
 #Sort BAM file
-samtools sort $output/deduped.bam -o $output/$sample.bam
+#samtools sort $output/deduped.bam -o $output/$sample.bam
 
 #Index BAM file
-samtools index $output/$sample.bam
+#samtools index $output/$sample.bam
 			
 #############################################################################################################################
-#Calculate percentage of reads that remain after de-duplication
-x=$(echo "$(samtools view -c $output/deduped.bam)/$(samtools view -c $output/sorted.bam)")
-		
 #Calculate percentage of reads that contain correct barcode sequence
-y=$(echo "$(samtools view -c $output/$sample.bam)/$(samtools view -c $output/deduped.bam)")
-		
-#Save info about percentage of reads that remain after de-duplication
-echo -e "Percentage: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Unique.log
-		
+x=$(echo "$(samtools view -c $output/filtered.fq)/$(samtools view -c $output/UMI.fq)")
+
+#Calculate percentage of reads that remain after de-duplication
+y=$(echo "$(samtools view -c $output/$sample.bam)/$(samtools view -c $output/sorted.bam)")
+
 #Save info about percentage of reads that contain correct barcode sequence
-echo -e "Percentage: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Barcode.log
+echo -e "Percentage of reads with barcode: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Barcode.log
+
+#Save info about percentage of reads that remain after de-duplication
+echo -e "Percentage of reads that are unique: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/Unique.log
 		
 #############################################################################################################################
 #Notify user alignment step is complete for input sample
