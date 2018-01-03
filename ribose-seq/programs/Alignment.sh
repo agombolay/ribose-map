@@ -53,17 +53,13 @@ mkdir -p $output
 
 #############################################################################################################################
 #Extract UMI from 3' ends of reads and append to read name
-umi_tools extract -I $output/Reverse.fq -p $UMI -v 0 -S $output/UMI.fq
+umi_tools extract -I $Fastq1 -p $UMI -v 0 -S $output/UMI.fq
 
 #Filter FASTQ file based on barcode
 grep --no-group-separator -B1 -A2 ^[ACGTN].*$barcode$ $output/UMI.fq > $output/filtered.fq
 
-#Trim reads based on adapters and length
-trim_galore --gzip --no_report_file --length $min --clip_R1 3 $Fastq1 -o $output
-
-#Remove barcode from read before alignment
-#cutadapt -u -3 $output/filtered.fq > $output/Read1.fq
-fastx_trimmer -t 3 -Q33 -i $output/filtered.fq -o $output/Read1.fq
+#Trim Illumina adapters from end of reads and remove barcode from reads
+trim_galore --gzip --no_report_file --length $min --clip_R1 3 $output/filtered.fq -o $output
 
 #############################################################################################################################
 #Align reads to reference genome and save Bowtie2 statistics log file
