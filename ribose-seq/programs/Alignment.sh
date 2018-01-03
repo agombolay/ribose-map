@@ -58,7 +58,7 @@ umi_tools extract -I $Fastq1 -p $UMI -v 0 -S $output/UMI.fq
 #Filter FASTQ file based on barcode sequence
 grep --no-group-separator -B1 -A2 ^[ACGTN].*$barcode$ $output/UMI.fq > $output/filtered.fq
 
-#Trim Illumina adapters from end of reads and remove barcode from reads
+#Trim Illumina adapters and remove barcode from 5' end of reads
 trim_galore --gzip --no_report_file --length $min --clip_R1 3 $output/filtered.fq -o $output
 
 #############################################################################################################################
