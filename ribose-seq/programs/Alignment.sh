@@ -63,13 +63,10 @@ trim_galore --gzip --no_report_file --length $min --clip_R1 3 $output/filtered.f
 
 #############################################################################################################################
 #Align reads to reference genome and save Bowtie2 statistics log file
-bowtie2 -x $index -U $output/Read1.fq 2> $output/Bowtie2.log -S $output/mapped.sam
+bowtie2 -x $index -U $output/$(basename $Fastq1 | cut -d. -f1)_trimmed.fq.gz 2> $output/Align.log -S $output/mapped.sam
 			
-#Extract mapped reads, convert SAM file to BAM format, and sort BAM file
-samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
-		
-#Index BAM file
-samtools index $output/sorted.bam
+#Extract mapped reads, convert SAM file to BAM format, and sort and index BAM file
+samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam && samtools index $output/sorted.bam
 	
 #############################################################################################################################		
 #Remove PCR duplicates
@@ -99,8 +96,5 @@ echo -e "Percentage: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $out
 echo "Trimming, alignment, and de-duplication of $sample is complete"
 
 #Remove temporary files
-rm -f $output/Reverse.fq $output/Read1.fq $output/UMI.fq $output/mapped.sam $output/filtered.fq \
-$output/$(basename $Fastq1 | cut -d. -f1)_trimmed.fq.gz $output/deduped.bam*
-
-#$output/${sample}_trimmed.fq
-#$output/sorted.bam*
+rm -f $output/UMI.fq $output/$(basename $Fastq1 | cut -d. -f1)_trimmed.fq.gz \
+$output/filtered.fq $output/mapped.sam $output/sorted.bam* $output/deduped.bam*
