@@ -10,13 +10,13 @@
 #Usage statement
 function usage () {
 	echo "Usage: Alignment.sh [options]
-		-s Sample name (e.g., FS1, FS2, FS3)
-		-f Input Read 1 FASTQ filename (forward)
-		-u Length of UMI (e.g., NNNNNNNN or NNNNNNNNNNN)
-		-b Barcode contained within UMI (e.g., ..TGA......)
-		-i Basename of Bowtie2 index (e.g., sacCer2, pombe, ecoli, mm9, hg38)
-		-m Minimum length of read to retain after trimming (e.g., 61 = 50 + NNNNNNNNNNN)
-		-d Local user directory (e.g., /projects/home/agombolay3/data/repository/Ribose-Map)"
+		-s Sample name (e.g., FS100)
+		-f Input Read 1 FASTQ filename
+		-u UMI (e.g., NNNNNNNN or NNNNXXXNNNN)
+		-b Barcode contained within UMI (e.g., TGA)
+		-i Basename of Bowtie2 index (e.g., sacCer2)
+		-m Minimum length of read to retain (e.g., 50)
+		-d Local directory (e.g., /path/to/Ribose-Map)"
 }
 
 while getopts "u:m:i:f:s:b:d:h" opt; do
