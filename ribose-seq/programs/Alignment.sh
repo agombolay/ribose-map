@@ -61,7 +61,7 @@ trim_galore --gzip --no_report_file --length $min --clip_R1 3 $output/filtered.f
 
 #############################################################################################################################
 #Align reads to reference genome and save Bowtie2 statistics log file
-bowtie2 -x $index -U $output/$(basename $Fastq1 | cut -d. -f1)_trimmed.fq.gz 2> $output/Align.log -S $output/mapped.sam
+bowtie2 -x $index -U $output/filtered_trimmed.fq.gz 2> $output/Align.log -S $output/mapped.sam
 			
 #Extract mapped reads, convert SAM file to BAM format, and sort and index BAM file
 samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam && samtools index $output/sorted.bam
