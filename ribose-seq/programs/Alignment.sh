@@ -52,14 +52,14 @@ output=$directory/Results/$idx/$sample/Alignment
 mkdir -p $output
 
 #############################################################################################################################
-#Trim reads based on adapters and length
-trim_galore --gzip --no_report_file --length $min $Fastq1 -o $output
-
 #Extract UMI from 3' ends of reads and append to read name
-umi_tools extract -I $output/Reverse.fq -p $UMI --3prime -v 0 -S $output/UMI.fq
+umi_tools extract -I $output/Reverse.fq -p $UMI -v 0 -S $output/UMI.fq
 
 #Filter FASTQ file based on barcode
 grep --no-group-separator -B1 -A2 ^[ACGTN].*$barcode$ $output/UMI.fq > $output/filtered.fq
+
+#Trim reads based on adapters and length
+trim_galore --gzip --no_report_file --length $min --clip_R1 3 $Fastq1 -o $output
 
 #Remove barcode from read before alignment
 #cutadapt -u -3 $output/filtered.fq > $output/Read1.fq
