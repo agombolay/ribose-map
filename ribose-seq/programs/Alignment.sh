@@ -66,7 +66,6 @@ bowtie2 -x $index -U $output/filtered_trimmed.fq.gz 2> $output/Align.log -S $out
 #Extract mapped reads, convert SAM file to BAM format, and sort/index BAM file
 samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam && samtools index $output/sorted.bam
 	
-#############################################################################################################################		
 #Remove PCR duplicates based on UMI and mapping coordinates and sort/index BAM file
 umi_tools dedup -I $output/sorted.bam -v 0 | samtools sort - -o $output/$sample.bam && samtools index $output/$sample.bam
 			
