@@ -46,8 +46,12 @@ Fastq1=$directory/FASTQ-Files/$read1
 #Output directory
 output=$directory/Results/$idx/$sample/Alignment
 
+#############################################################################################################################
 #Create directory
 mkdir -p $output
+
+#Remove any old files
+rm -f $output/*.{bam,log}
 
 #############################################################################################################################
 #Extract UMI from 5' ends of reads
