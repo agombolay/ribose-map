@@ -72,7 +72,7 @@ umi_tools dedup -I $output/sorted.bam -v 0 | samtools sort - -o $output/$sample.
 			
 #############################################################################################################################
 #Calculate percentage of reads that contain correct barcode sequence
-x=$(echo "$(wc -l $output/filtered.fq)/$(wc -l $output/UMI.fq)")
+x=$(echo $((`wc -l < $output/filtered.fq` / 4))/$((`wc -l < $output/UMI.fq` / 4)))
 
 #Calculate percentage of reads that remain after de-duplication
 y=$(echo "$(samtools view -c $output/$sample.bam)/$(samtools view -c $output/sorted.bam)")
