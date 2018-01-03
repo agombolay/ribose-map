@@ -3,7 +3,8 @@
 #© 2016 Alli Gombolay
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
-#This program determines the coordinates of rNMPs (3' position of aligned reads)
+#This program determines the coordinates of rNMPs
+#Ribose-seq rNMP = RC of 5' position of aligned reads
 
 #Usage statement
 function usage () {
