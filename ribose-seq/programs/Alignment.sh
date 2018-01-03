@@ -52,10 +52,10 @@ output=$directory/Results/$idx/$sample/Alignment
 mkdir -p $output
 
 #############################################################################################################################
-#Extract UMI from 3' ends of reads and append to read name
+#Extract UMI from 5' ends of reads
 umi_tools extract -I $Fastq1 -p $UMI -v 0 -S $output/UMI.fq
 
-#Filter FASTQ file based on barcode
+#Filter FASTQ file based on barcode sequence
 grep --no-group-separator -B1 -A2 ^[ACGTN].*$barcode$ $output/UMI.fq > $output/filtered.fq
 
 #Trim Illumina adapters from end of reads and remove barcode from reads
