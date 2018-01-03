@@ -40,9 +40,13 @@ for sample in ${sample[@]}; do
 
 	#Output directory
 	output=$directory/Results/$reference/$sample/Coordinates
-		
+
+#############################################################################################################################
 	#Create directory
 	mkdir -p $output
+
+	#Remove any old files
+	rm -f $output/*.{txt,bed}
 		
 #############################################################################################################################
 	#Covert BAM file to BED format
