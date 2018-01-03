@@ -88,5 +88,5 @@ echo -e "Percentage of reads that are unique: $(echo "$y*100" | bc -l | xargs pr
 echo "Trimming, alignment, and de-duplication of $sample is complete"
 
 #Remove temporary files
-#rm -f $output/UMI.fq $output/$(basename $Fastq1 | cut -d. -f1)_trimmed.fq.gz \
-#$output/filtered.fq $output/mapped.sam $output/sorted.bam* $output/deduped.bam*
+rm -f $output/UMI.fq $output/$(basename $Fastq1 | cut -d. -f1)_trimmed.fq.gz \
+$output/filtered.fq $output/mapped.sam $output/sorted.bam* $output/deduped.bam*
