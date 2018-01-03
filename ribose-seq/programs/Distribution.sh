@@ -35,7 +35,7 @@ fi
 for sample in ${sample[@]}; do
 
 #############################################################################################################################
-	#Input file
+	#Input files
 	bed=$directory/References/$reference.bed
 	bam=$directory/Results/$reference/$sample/Alignment/$sample.bam
 	coordinates=$directory/Results/$reference/$sample/Coordinates/$sample-Coordinates.bed
