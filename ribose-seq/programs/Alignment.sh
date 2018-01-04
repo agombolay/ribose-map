@@ -63,10 +63,10 @@ umi_tools extract -I $Fastq1 -p $UMI -v 0 -S $output/UMI.fq
 grep --no-group-separator -B1 -A2 ^$barcode $output/UMI.fq > $output/filtered.fq
 
 if [[ ! $adapter ]]; then
-	#Trim Illumina and remove barcode from 3' end of reads
+	#Trim Illumina and remove barcode from 5' end of reads
 	trim_galore --gzip --length $min --clip_R1 3 $output/filtered.fq -o $output
 elif [[ $adapter ]]; then
-	#Trim Illumina/custom adapters and remove barcode from 3' end of reads
+	#Trim Illumina/custom adapters and remove barcode from 5' end of reads
 	trim_galore --gzip --length $min --clip_R1 3 -a $adapter $output/filtered.fq -o $output
 
 fi
