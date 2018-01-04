@@ -62,8 +62,14 @@ umi_tools extract -I $Fastq1 -p $UMI -v 0 -S $output/UMI.fq
 #Filter FASTQ file based on barcode sequence
 grep --no-group-separator -B1 -A2 ^$barcode $output/UMI.fq > $output/filtered.fq
 
-#Trim Illumina and custom adapters and remove barcode from 5' end of reads
-trim_galore --gzip --length $min --clip_R1 3 -a $adapter $output/filtered.fq -o $output
+if [[ ! $adapter ]]; then
+	#Trim Illumina and custom adapters and remove barcode from 5' end of reads
+	trim_galore --gzip --length $min --clip_R1 3 $output/filtered.fq -o $output
+elif [[ $adapter ]]; then
+	#Trim Illumina and custom adapters and remove barcode from 5' end of reads
+	trim_galore --gzip --length $min --clip_R1 3 -a $adapter $output/filtered.fq -o $output
+
+fi
 
 #############################################################################################################################
 #Align reads to reference genome and save Bowtie2 statistics log file
