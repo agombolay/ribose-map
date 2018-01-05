@@ -8,9 +8,9 @@
 #Usage statement
 function usage () {
 	echo "Usage: Hotspots.sh [options]
-		-s Sample name(s) (e.g., FS1, FS2, FS3)
-		-r Reference genome (e.g., sacCer2, pombe, ecoli, mm9, hg38)
-		-d Local user directory (e.g., /projects/home/agombolay3/data/repository/Ribose-Map)"
+		-s Sample name(s) (e.g., FS1)
+		-r Reference genome (e.g., sacCer2)
+		-d Local directory (e.g., /path/to/Ribose-Map)"
 }
 
 #Command-line options
