@@ -10,8 +10,8 @@
 function usage () {
 	echo "Usage: Coordinates.sh [options]
 	-s Sample name(s) (e.g., FS1, FS2, FS3)
-	-r Reference genome name (e.g., sacCer2)
-	-d Local directory (e.g., /path/to/Ribose-Map)"
+	-r Reference genome/Basename of Bowtie2 index
+	-d Ribose-Map directory (e.g., /path/to/Ribose-Map)"
 }
 
 #Command-line options
