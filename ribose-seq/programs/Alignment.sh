@@ -15,9 +15,9 @@ function usage () {
 		-u UMI (e.g., NNNNNNNN or NNNNXXXNNNN)
 		-b Barcode contained within UMI (e.g., TGA)
 		-i Basename of Bowtie2 index (e.g., sacCer2)
-		-a Adapter sequence to be removed from reads
-		-m Minimum length of read to retain (e.g., 50)
-		-d Local directory (e.g., /path/to/Ribose-Map)"
+		-a Extra adapter sequence to be removed from reads
+		-m Minimum length of reads to retain after trimming
+		-d Ribose-Map directory (e.g., /path/to/Ribose-Map)"
 }
 
 while getopts "u:m:i:f:s:a:b:d:h" opt; do
