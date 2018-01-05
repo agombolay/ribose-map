@@ -41,7 +41,7 @@ for sample in ${sample[@]}; do
 	coordinates=$directory/Results/$reference/$sample/Coordinates/$sample-Coordinates.bed
 	
 	#Output directory
-	output=$directory/Results/$reference/$sample/Hotspots
+	output=$directory/Results/$reference/$sample/Distribution
 	
 #############################################################################################################################
 	#Create directory
