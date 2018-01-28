@@ -66,6 +66,12 @@ for sample in ${sample[@]}; do
 		#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
 		awk -v "OFS=\t" '$4 == "+" {print $1,$2,($2 + 1)," "," ",$4}' $output/temp2.txt > $output/temp4.txt
 	
+	elif [[ "$technqiue" == "emRiboSeq" ]]; then
+	
+	elif [[ "$technqiue" == "HydEn-seq" ]]; then
+	
+	elif [[ "$technqiue" == "Pu-seq" ]]; then
+	
 	fi
 	
 	#Combine and save +/- coordinates into one file for later
