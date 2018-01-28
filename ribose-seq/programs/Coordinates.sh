@@ -11,15 +11,17 @@ function usage () {
 	echo "Usage: Coordinates.sh [options]
 	-s Sample name(s) (e.g., FS1, FS2, FS3)
 	-r Reference genome/Basename of Bowtie2 index
+	-t rNMP sequencing technique used for library prep
 	-d Ribose-Map directory (e.g., /path/to/Ribose-Map)"
 }
 
 #Command-line options
-while getopts "s:r:d:h" opt; do
+while getopts "s:t:r:d:h" opt; do
     case $opt in
         #Allow multiple input arguments
         s ) sample=($OPTARG) ;;
 	#Allow only one input argument
+	t ) technique=$OPTARG ;;
 	r ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
         #Print usage statement
@@ -57,12 +59,14 @@ for sample in ${sample[@]}; do
 	
 	#ribose-seq
 	
-	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
-	awk -v "OFS=\t" '$4 == "-" {print $1,($3 - 1),$3," "," ",$4}' $output/temp2.txt > $output/temp3.txt 
+	if == 'ribose-seq'; then
+		#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
+		awk -v "OFS=\t" '$4 == "-" {print $1,($3 - 1),$3," "," ",$4}' $output/temp2.txt > $output/temp3.txt 
 	
-	#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-	awk -v "OFS=\t" '$4 == "+" {print $1,$2,($2 + 1)," "," ",$4}' $output/temp2.txt > $output/temp4.txt
-
+		#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
+		awk -v "OFS=\t" '$4 == "+" {print $1,$2,($2 + 1)," "," ",$4}' $output/temp2.txt > $output/temp4.txt
+	fi
+	
 	#Combine and save +/- coordinates into one file for later
 	cat $output/temp3.txt $output/temp4.txt | sort -k1,1V -k2,2n > $output/$sample-Coordinates.bed
 
