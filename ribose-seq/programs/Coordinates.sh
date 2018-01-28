@@ -68,9 +68,27 @@ for sample in ${sample[@]}; do
 	
 	elif [[ "$technqiue" == "emRiboSeq" ]]; then
 	
+		#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
+		awk -v "OFS=\t" '$4 == "-" {print $1,$3,($3 + 1)," "," ",$4}' $output/temp2.txt > $output/temp3.txt 
+	
+		#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
+		awk -v "OFS=\t" '$4 == "+" {print $1,($2 - 1),$2," "," ",$4}' $output/temp2.txt > $output/temp4.txt
+	
 	elif [[ "$technqiue" == "HydEn-seq" ]]; then
 	
+		#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
+		awk -v "OFS=\t" '$4 == "+" {print $1,($2 - 1),$2," "," ",$4}' $output/temp2.txt > $output/temp3.txt 
+	
+		#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
+		awk -v "OFS=\t" '$4 == "-" {print $1,$3,($3 + 1)," "," ",$4}' $output/temp2.txt > $output/temp4.txt
+	
 	elif [[ "$technqiue" == "Pu-seq" ]]; then
+	
+		#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
+		awk -v "OFS=\t" '$4 == "+" {print $1,($2 - 1),$2," "," ",$4}' $output/temp2.txt > $output/temp3.txt 
+	
+		#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
+		awk -v "OFS=\t" '$4 == "-" {print $1,$3,($3 + 1)," "," ",$4}' $output/temp2.txt > $output/temp4.txt
 	
 	fi
 	
