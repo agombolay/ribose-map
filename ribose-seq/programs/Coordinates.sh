@@ -7,8 +7,8 @@
 
 ribose-seq (Koh et al. Nature Methods 2015): rNMP = reverse complement of 5' position of aligned reads
 emRiboSeq (Koh et al. Nature Methods 2015): rNMP = 1 nucleotide upstream from 5' end of aligned read and on opposite strand
-Pu-seq (Koh et al. Nature Methods 2015): rNMP = 1 nucleotide upstream from 5' end of aligned read and on same strand
 HydEn-seq (Koh et al. Nature Methods 2015): rNMP = 1 nucleotide upstream from 5' end of aligned read and on same strand
+Pu-seq (Koh et al. Nature Methods 2015): rNMP = 1 nucleotide upstream from 5' end of aligned read and on same strand
 
 #Usage statement
 function usage () {
