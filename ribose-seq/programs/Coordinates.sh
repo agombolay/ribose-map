@@ -53,8 +53,8 @@ for sample in ${sample[@]}; do
 	#Covert BAM file to BED format
 	bedtools bamtobed -i $bam > $output/temp1.bed
 	
-	#Coordinates for ribose-seq
-	if [[ "$technique" == "ribose-seq" ]]; then
+	#Determine coordinates for each sequencing technique
+	if [[ "$technique" == "ribose-seq" ]]; then #ribose-seq
 	
 		#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 		awk -v "OFS=\t" '$6 == "-" {print $1,($3 - 1),$3," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
@@ -62,8 +62,7 @@ for sample in ${sample[@]}; do
 		#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
 		awk -v "OFS=\t" '$6 == "+" {print $1,$2,($2 + 1)," "," ","-"}' $output/temp1.bed >> $output/temp2.bed
 	
-	#Coordinates for emRiboSeq
-	elif [[ "$technique" == "emRiboSeq" ]]; then
+	elif [[ "$technique" == "emRiboSeq" ]]; then #emRiboSeq
 	
 		#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 		awk -v "OFS=\t" '$4 == "-" {print $1,$3,($3 + 1)," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
@@ -71,8 +70,7 @@ for sample in ${sample[@]}; do
 		#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
 		awk -v "OFS=\t" '$4 == "+" {print $1,($2 - 1),$2," "," ","-"}' $output/temp1.bed >> $output/temp2.bed
 	
-	#Coordinates for HydEn-seq
-	elif [[ "$technique" == "HydEn-seq" ]]; then
+	elif [[ "$technique" == "HydEn-seq" ]]; then #HydEn-seq
 	
 		#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 		awk -v "OFS=\t" '$4 == "+" {print $1,($2 - 1),$2," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
@@ -80,8 +78,7 @@ for sample in ${sample[@]}; do
 		#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
 		awk -v "OFS=\t" '$4 == "-" {print $1,$3,($3 + 1)," "," ","-"}' $output/temp1.bed >> $output/temp2.bed
 	
-	#Coordinates for Pu-seq
-	elif [[ "$technique" == "Pu-seq" ]]; then
+	elif [[ "$technique" == "Pu-seq" ]]; then #Pu-seq
 	
 		#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 		awk -v "OFS=\t" '$4 == "+" {print $1,($2 - 1),$2," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
@@ -91,7 +88,7 @@ for sample in ${sample[@]}; do
 	
 	fi
 	
-	#Sort chromosome coordinates
+	#Sort chromosome coordinates of rNMPs
 	sort -k1,1V -k2,2n $output/temp2.bed > $output/$sample-Coordinates.bed
 
 #############################################################################################################################
