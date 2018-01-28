@@ -95,10 +95,11 @@ for sample in ${sample[@]}; do
 	sort -k1,1V -k2,2n $output/temp2.bed > $output/$sample-Coordinates.bed
 
 #############################################################################################################################
+	
+	#Print completion status
+	echo "Chromosome coordinates of rNMPs for $sample have been determined"
+	
 	#Remove temp files
 	rm -f $output/temp{1..3}.bed
-
-	#Print completion status
-	echo "Coordinates of rNMPs for $sample have been determined"
 	
 done
