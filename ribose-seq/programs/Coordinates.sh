@@ -5,11 +5,6 @@
 #E-mail: alli.gombolay@gatech.edu
 #This program determines the coordinates of rNMPs
 
-ribose-seq (Koh et al. Nature Methods 2015): rNMP = reverse complement of 5' position of aligned reads
-emRiboSeq (Koh et al. Nature Methods 2015): rNMP = 1 nucleotide upstream from 5' end of aligned read and on opposite strand
-HydEn-seq (Koh et al. Nature Methods 2015): rNMP = 1 nucleotide upstream from 5' end of aligned read and on same strand
-Pu-seq (Koh et al. Nature Methods 2015): rNMP = 1 nucleotide upstream from 5' end of aligned read and on same strand
-
 #Usage statement
 function usage () {
 	echo "Usage: Coordinates.sh [options]
