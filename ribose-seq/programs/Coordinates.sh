@@ -54,7 +54,9 @@ for sample in ${sample[@]}; do
 		
 	#Extract read coordinates, sequences, and strand information
 	awk -v "OFS=\t" '{print $1, $2, $3, $6}' $output/temp1.txt > $output/temp2.txt
-		
+	
+	#ribose-seq
+	
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 	awk -v "OFS=\t" '$4 == "-" {print $1,($3 - 1),$3," "," ",$4}' $output/temp2.txt > $output/temp3.txt 
 	
