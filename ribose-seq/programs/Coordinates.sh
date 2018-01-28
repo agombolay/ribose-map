@@ -50,7 +50,7 @@ for sample in ${sample[@]}; do
 	rm -f $output/*.{bed}
 		
 #############################################################################################################################
-	#Covert BAM file to BED format
+	#Convert BAM file to BED format
 	bedtools bamtobed -i $bam > $output/temp1.bed
 	
 	#Determine coordinates for each sequencing technique
