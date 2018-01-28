@@ -65,10 +65,10 @@ grep --no-group-separator -B1 -A2 ^$barcode $output/UMI.fq > $output/filtered.fq
 if [[ ! $adapter ]]; then
 	#Trim Illumina and remove barcode from 5' end of reads
 	trim_galore --gzip --length $min --clip_R1 3 $output/filtered.fq -o $output
+
 elif [[ $adapter ]]; then
 	#Trim Illumina/custom adapters and remove barcode from 5' end of reads
 	trim_galore --gzip --length $min --clip_R1 3 -a $adapter $output/filtered.fq -o $output
-
 fi
 
 #############################################################################################################################
