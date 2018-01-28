@@ -60,7 +60,7 @@ for sample in ${sample[@]}; do
 		awk -v "OFS=\t" '$6 == "-" {print $1,($3 - 1),$3," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
 	
 		#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-		awk -v "OFS=\t" '$6 == "+" {print $1,$2,($2 + 1)," "," ","-"}' $output/temp1.bed > $output/temp3.bed
+		awk -v "OFS=\t" '$6 == "+" {print $1,$2,($2 + 1)," "," ","-"}' $output/temp1.bed >> $output/temp2.bed
 	
 	#Coordinates for emRiboSeq
 	elif [[ "$technique" == "emRiboSeq" ]]; then
@@ -69,7 +69,7 @@ for sample in ${sample[@]}; do
 		awk -v "OFS=\t" '$4 == "-" {print $1,$3,($3 + 1)," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
 	
 		#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-		awk -v "OFS=\t" '$4 == "+" {print $1,($2 - 1),$2," "," ","-"}' $output/temp1.bed > $output/temp3.bed
+		awk -v "OFS=\t" '$4 == "+" {print $1,($2 - 1),$2," "," ","-"}' $output/temp1.bed >> $output/temp2.bed
 	
 	#Coordinates for HydEn-seq
 	elif [[ "$technique" == "HydEn-seq" ]]; then
@@ -78,7 +78,7 @@ for sample in ${sample[@]}; do
 		awk -v "OFS=\t" '$4 == "+" {print $1,($2 - 1),$2," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
 	
 		#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-		awk -v "OFS=\t" '$4 == "-" {print $1,$3,($3 + 1)," "," ","-"}' $output/temp1.bed > $output/temp3.bed
+		awk -v "OFS=\t" '$4 == "-" {print $1,$3,($3 + 1)," "," ","-"}' $output/temp1.bed >> $output/temp2.bed
 	
 	#Coordinates for Pu-seq
 	elif [[ "$technique" == "Pu-seq" ]]; then
@@ -87,12 +87,12 @@ for sample in ${sample[@]}; do
 		awk -v "OFS=\t" '$4 == "+" {print $1,($2 - 1),$2," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
 	
 		#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-		awk -v "OFS=\t" '$4 == "-" {print $1,$3,($3 + 1)," "," ","-"}' $output/temp1.bed > $output/temp3.bed
+		awk -v "OFS=\t" '$4 == "-" {print $1,$3,($3 + 1)," "," ","-"}' $output/temp1.bed >> $output/temp2.bed
 	
 	fi
 	
-	#Combine and save +/- coordinates into one file for later
-	cat $output/temp2.bed $output/temp3.bed | sort -k1,1V -k2,2n > $output/$sample-Coordinates.bed
+	#Sort chromosome coordinates
+	sort -k1,1V -k2,2n $output/temp2.bed > $output/$sample-Coordinates.bed
 
 #############################################################################################################################
 	#Remove temp files
