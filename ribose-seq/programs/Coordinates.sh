@@ -36,12 +36,12 @@ fi
 for sample in ${sample[@]}; do
 
 #############################################################################################################################
-	#Input file
-	bam=$directory/Results/$reference/$sample/Alignment/$sample.bam
-
 	#Output directory
 	output=$directory/Results/$reference/$sample/Coordinates
 
+	#Path to input file
+	bam=$directory/Results/$reference/$sample/Alignment/$sample.bam
+	
 #############################################################################################################################
 	#Create directory
 	mkdir -p $output
