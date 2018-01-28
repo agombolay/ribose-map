@@ -59,7 +59,7 @@ for sample in ${sample[@]}; do
 	
 	#ribose-seq
 	
-	if == 'ribose-seq'; then
+	if [[ $technqiue == 'ribose-seq' ]]; then
 		#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 		awk -v "OFS=\t" '$4 == "-" {print $1,($3 - 1),$3," "," ",$4}' $output/temp2.txt > $output/temp3.txt 
 	
