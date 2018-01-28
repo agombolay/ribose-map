@@ -54,7 +54,7 @@ for sample in ${sample[@]}; do
 	bedtools bamtobed -i $bam > $output/temp1.bed
 	
 	#Determine coordinates for each sequencing technique
-	if [[ "$technique" == "ribose-seq" ]]; then #ribose-seq
+	if [[ "$technique" == "ribose-seq" ]]; then
 	
 		#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 		awk -v "OFS=\t" '$6 == "-" {print $1,($3 - 1),$3," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
@@ -62,7 +62,7 @@ for sample in ${sample[@]}; do
 		#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
 		awk -v "OFS=\t" '$6 == "+" {print $1,$2,($2 + 1)," "," ","-"}' $output/temp1.bed >> $output/temp2.bed
 	
-	elif [[ "$technique" == "emRiboSeq" ]]; then #emRiboSeq
+	elif [[ "$technique" == "emRiboSeq" ]]; then
 	
 		#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 		awk -v "OFS=\t" '$4 == "-" {print $1,$3,($3 + 1)," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
@@ -70,7 +70,7 @@ for sample in ${sample[@]}; do
 		#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
 		awk -v "OFS=\t" '$4 == "+" {print $1,($2 - 1),$2," "," ","-"}' $output/temp1.bed >> $output/temp2.bed
 	
-	elif [[ "$technique" == "HydEn-seq" ]]; then #HydEn-seq
+	elif [[ "$technique" == "HydEn-seq" ]]; then
 	
 		#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 		awk -v "OFS=\t" '$4 == "+" {print $1,($2 - 1),$2," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
@@ -78,7 +78,7 @@ for sample in ${sample[@]}; do
 		#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
 		awk -v "OFS=\t" '$4 == "-" {print $1,$3,($3 + 1)," "," ","-"}' $output/temp1.bed >> $output/temp2.bed
 	
-	elif [[ "$technique" == "Pu-seq" ]]; then #Pu-seq
+	elif [[ "$technique" == "Pu-seq" ]]; then
 	
 		#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 		awk -v "OFS=\t" '$4 == "+" {print $1,($2 - 1),$2," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
