@@ -4,7 +4,9 @@
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
 #This program pre-processes reads, aligns reads to reference genome, and de-duplicates reads based on UMI
-#Note1: FASTQ files must be located in Ribose-Map 'fastqs' directory (/LocalDirectory/Ribose-Map/fastqs)
+
+#Note: Input FASTQ files must be located in Ribose-Map 'fastqs' directory (filepath/Ribose-Map/fastqs)
+#Note: Bowtie2 index files must be located in Ribose-Map 'indexes' directory (filepath/Ribose-Map/indexes)
 
 #Usage statement
 function usage () {
@@ -41,7 +43,7 @@ fi
 
 #############################################################################################################################
 #Input files
-index=$directory/indices/$idx
+index=$directory/indexes/$idx
 fastq1=$directory/fastqs/$read1
 fastq2=$directory/fastqs/$read2
 
