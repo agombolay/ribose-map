@@ -12,15 +12,17 @@
 #Usage statement
 function usage () {
 	echo "Usage: Alignment.sh [options]
-		-s Sample name (e.g., FS100)
+		Required:
+		-d Ribose-Map repository
+		-s Name of sequenced library
 		-i Basename of Bowtie2 index
 		-f Input Read 1 FASTQ filename
 		-r Input Read 2 FASTQ filename
-		-b Molecular barcode (e.g., TGA)
+		Optional:
+		-a Custom adapter sequence to remove
+		-m Minimum length of reads to retain
 		-u UMI (e.g., NNNNNNNN or NNNNXXXNNNN)
-		-a Custom adapter sequence to remove from reads
-		-m Min length of reads to retain after trimming
-		-d Ribose-Map repository (e.g., path/Ribose-Map)"
+		-b Molecular barcode in UMI (e.g., TGA)"
 }
 
 while getopts "u:m:i:f:s:a:b:d:h" opt; do
