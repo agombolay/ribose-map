@@ -4,10 +4,10 @@
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
 
-#1. Pre-process reads, 2. align reads to reference genome, and 3. de-duplicate reads based on UMI
+#1. Pre-processing, 2. Alignment, and 3. De-duplication based on UMI
 
-#Note: Input FASTQ files must be located in Ribose-Map 'fastqs' directory (filepath/Ribose-Map/fastqs)
-#Note: Bowtie2 index files must be located in Ribose-Map 'indexes' directory (filepath/Ribose-Map/indexes)
+#Note: Input FASTQ files must be located in Ribose-Map 'fastqs' directory (Ribose-Map/fastqs)
+#Note: Bowtie2 index files must be located in Ribose-Map 'indexes' directory (Ribose-Map/indexes)
 
 #Usage statement
 function usage () {
