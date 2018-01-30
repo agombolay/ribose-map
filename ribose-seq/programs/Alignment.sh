@@ -14,6 +14,7 @@ function usage () {
 	echo "Usage: Alignment.sh [options]
 		-s Sample name (e.g., FS100)
 		-f Input Read 1 FASTQ filename
+		-r Input Read 2 FASTQ filename
 		-u UMI (e.g., NNNNNNNN or NNNNXXXNNNN)
 		-b Barcode contained within UMI (e.g., TGA)
 		-i Basename of Bowtie2 index (e.g., sacCer2)
