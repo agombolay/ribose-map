@@ -3,9 +3,8 @@
 #© 2016 Alli Gombolay
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
-#This program aligns trimmed reads to reference genome using Bowtie2 and de-duplicates reads based on UMI
-#Note1: FASTQ files must be located in users's FASTQ-Files folder (/LocalDirectory/Ribose-Map/FASTQ-Files)
-#Note2: rNMP is the reverse complement of the 5' base of the sequenced read in FASTQ file
+#This program pre-processes reads, aligns reads to reference genome, and de-duplicates reads based on UMI
+#Note1: FASTQ files must be located in Ribose-Map 'fastqs' directory (/LocalDirectory/Ribose-Map/fastqs)
 
 #Usage statement
 function usage () {
@@ -42,11 +41,12 @@ fi
 
 #############################################################################################################################
 #Input files
-index=$directory/Indices/$idx
-Fastq1=$directory/FASTQ-Files/$read1
+index=$directory/indices/$idx
+fastq1=$directory/fastqs/$read1
+fastq2=$directory/fastqs/$read2
 
 #Output directory
-output=$directory/Results/$idx/$sample/Alignment
+output=$directory/results/$idx/$sample/alignment
 
 #############################################################################################################################
 #Create directory
@@ -57,7 +57,7 @@ rm -f $output/*.{bam,log}
 
 #############################################################################################################################
 #Extract UMI from 5' ends of reads
-umi_tools extract -I $Fastq1 -p $UMI -v 0 -S $output/UMI.fq
+umi_tools extract -I $fastq1 -p $UMI -v 0 -S $output/UMI.fq
 
 #Filter FASTQ file based on barcode sequence
 grep --no-group-separator -B1 -A2 ^$barcode $output/UMI.fq > $output/filtered.fq
