@@ -97,6 +97,6 @@ for sample in ${sample[@]}; do
 	echo "Chromosome coordinates of rNMPs for $sample have been determined"
 	
 	#Remove temp files
-	rm -f $output/temp{1..3}.bed
+	rm -f $output/temp{1..2}.bed
 	
 done
