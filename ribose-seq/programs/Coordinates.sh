@@ -3,15 +3,17 @@
 #© 2016 Alli Gombolay
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
-#This program determines the coordinates of rNMPs
+
+#1. Determine the genomic coordinates of rNMPs
+#2. Can be applied to rNMP sequencing technique
 
 #Usage statement
 function usage () {
 	echo "Usage: Coordinates.sh [options]
+	-d Ribose-Map repository
 	-s Name of sequenced library
-	-r Reference genome/Basename of Bowtie2 index
-	-t rNMP sequencing technique used for library prep
-	-d Ribose-Map repository"
+	-i Basename of Bowtie2 index
+	-t rNMP sequencing technique"
 }
 
 #Command-line options
