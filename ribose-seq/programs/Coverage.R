@@ -19,7 +19,7 @@ make_option(c("-s"), help="Name of sequenced library"),
 make_option(c("-r"), help="Basename of Bowtie2 index")
 )
 
-#Get command line options, if -h encountered print help
+#Get command line options, if -h invoked print help
 opt <- parse_args(OptionParser(option_list=option_list))
 
 #############################################################################################################################
