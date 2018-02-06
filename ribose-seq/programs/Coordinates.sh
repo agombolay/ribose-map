@@ -37,10 +37,10 @@ for sample in ${sample[@]}; do
 
 #############################################################################################################################
 	#Output directory
-	output=$directory/Results/$reference/$sample/Coordinates
+	output=$directory/results/$reference/$sample/coordinates
 
 	#Path to input file
-	bam=$directory/Results/$reference/$sample/Alignment/$sample.bam
+	bam=$directory/results/$reference/$sample/alignment/$sample.bam
 	
 #############################################################################################################################
 	#Create directory
