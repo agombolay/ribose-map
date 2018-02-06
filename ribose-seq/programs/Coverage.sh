@@ -37,7 +37,7 @@ fi
 output=$directory/Results/$reference/$sample/Coverage
 
 #Input reference and coordinates files
-reference=$directory/References/$reference.chrom.sizes
+reference=$directory/References/$reference.fa.fai
 coordinates=$directory/Results/$reference/$sample/Coordinates/$sample-Coordinates.bed
 
 #Create directory and remove old files
@@ -45,9 +45,11 @@ mkdir -p $output; rm -rf $output/*{bg,bed}
 
 #############################################################################################################################
 if [[ -s $coordinates ]]; then
-		
+	
+	cut -f 1,2 $reference > $output/$reference.bed
+	
 	#Save coverage of rNMPs per chromosome to separate files
-	for chr in $( awk '{print $1}' $bed ); do
+	for chr in $( awk '{print $1}' $output/$reference.bed ); do
 		uniq -c $coordinates | grep -w "$chr" - > $output/$sample-Coverage.$chr.bed
 	done
 		
