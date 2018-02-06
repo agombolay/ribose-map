@@ -22,6 +22,7 @@ make_option(c("-r"), help="Basename of Bowtie2 index")
 #Get command line options, if -h encountered print help
 opt <- parse_args(OptionParser(option_list=option_list))
 
+#############################################################################################################################
 for(i in opt$sample) {
         
         #Specify output directory and file
@@ -40,9 +41,10 @@ for(i in opt$sample) {
 			values <- ifelse(data$V6=='-',data$V3*-1,data$V3)
 
 #############################################################################################################################
-        		myplot <- ggplot(data, aes(x=data[,2], y=values)) +
+			#Create plot
+			myplot <- ggplot(data, aes(x=data[,2], y=values)) +
 			
-			#Axes titles
+			#Titles for axes
         		xlab("Chromosome Position") + ylab("rNMP Frequency") +
 			
 			#Replace default background theme
