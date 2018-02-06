@@ -4,8 +4,8 @@
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
 
-#1. Determine the genomic coordinates of rNMPs
-#2. Can be applied to rNMP sequencing technique
+#1. Determine the chromosome coordinates of rNMPs
+#2. Can be applied to any rNMP sequencing technique
 
 #Usage statement
 function usage () {
