@@ -11,7 +11,7 @@ function usage () {
 	-s Sample name(s) (e.g., FS1, FS2, FS3)
 	-r Reference genome/Basename of Bowtie2 index
 	-t rNMP sequencing technique used for library prep
-	-d Ribose-Map directory (e.g., /path/to/Ribose-Map)"
+	-d Ribose-Map repository"
 }
 
 #Command-line options
