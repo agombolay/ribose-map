@@ -62,7 +62,7 @@ if [[ -s $coordinates ]]; then
 	awk -v "OFS=\t" '$5 == "-" {print $2,$3,$4,$1}' $output/temp1.txt >> $output/$sample-Reverse.bg
 
 #############################################################################################################################
-	#Print completion status for program
+	#Print completion status
 	echo "Status: Program complete for $sample"
 	
 fi
