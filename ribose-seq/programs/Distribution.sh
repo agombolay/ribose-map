@@ -53,9 +53,6 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	if [[ -s $coordinates ]]; then
 		
-		#Remove old files
-		rm -f $output/$sample-*.bg
-		
 		#Count number of unique lines
 		uniq -c $coordinates > $output/temp1.txt
 		
