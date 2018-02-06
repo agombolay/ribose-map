@@ -65,15 +65,7 @@ elif [[ "$technique" == "emRiboSeq" ]]; then
 	#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
 	awk -v "OFS=\t" '$4 == "+" {print $1,($2 - 1),$2," "," ","-"}' $output/temp1.bed >> $output/temp2.bed
 	
-elif [[ "$technique" == "HydEn-seq" ]]; then
-	
-	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
-	awk -v "OFS=\t" '$4 == "+" {print $1,($2 - 1),$2," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
-	
-	#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-	awk -v "OFS=\t" '$4 == "-" {print $1,$3,($3 + 1)," "," ","-"}' $output/temp1.bed >> $output/temp2.bed
-	
-elif [[ "$technique" == "Pu-seq" ]]; then
+elif [[ "$technique" == "HydEn-seq" or "Pu-seq"]]; then
 	
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 	awk -v "OFS=\t" '$4 == "+" {print $1,($2 - 1),$2," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
