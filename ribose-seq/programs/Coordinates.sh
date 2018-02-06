@@ -35,14 +35,11 @@ fi
 #Output directory
 output=$directory/results/$reference/$sample/coordinates
 
-#Path to input file
+#Input alignment file
 bam=$directory/results/$reference/$sample/alignment/$sample.bam
 	
-#Create directory
-mkdir -p $output
-
-#Remove old files
-rm -f $output/*.{bed}
+#Create directory and remove old files
+mkdir -p $output; rm -f $output/*.{bed}
 		
 #############################################################################################################################
 #Determine coordinates for each technique
@@ -86,7 +83,7 @@ sort -k1,1V -k2,2n $output/temp2.bed > $output/$sample-Coordinates.bed
 
 #############################################################################################################################
 #Print completion status
-echo "Status: Program complete for $sample"
+echo "Status: Genomic coordinates of rNMPs were identified for $sample"
 	
 #Remove temporary files
 rm -f $output/temp{1..2}.bed
