@@ -37,19 +37,12 @@ fi
 for sample in ${sample[@]}; do
 
 #############################################################################################################################
-	#Output directory
-	output=$directory/Results/$reference/$sample/Coverage
-	
 	#Input files
 	reference=$directory/References/$reference.bed
 	coordinates=$directory/Results/$reference/$sample/Coordinates/$sample-Coordinates.bed
 	
-#############################################################################################################################
-	#Create directory
-	mkdir -p $output
-	
-	#Remove any old files
-	rm -f $output/*.{bed,bg}
+	#Create output directory and remove old files
+	output=$directory/Results/$reference/$sample/Coverage; mkdir -p $output; rm -f $output/*.{bed,bg}
 
 #############################################################################################################################
 	if [[ -s $coordinates ]]; then
