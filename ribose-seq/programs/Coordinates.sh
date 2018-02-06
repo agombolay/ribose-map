@@ -17,9 +17,7 @@ function usage () {
 #Command-line options
 while getopts "s:t:r:d:h" opt; do
     case $opt in
-        #Allow multiple input arguments
-        s ) sample=($OPTARG) ;;
-	#Allow only one input argument
+        s ) sample=$OPTARG ;;
 	t ) technique=$OPTARG ;;
 	r ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
@@ -33,70 +31,66 @@ if [ "$1" == "-h" ]; then
 	exit
 fi
 
-for sample in ${sample[@]}; do
-
 #############################################################################################################################
-	#Output directory
-	output=$directory/results/$reference/$sample/coordinates
+#Output directory
+output=$directory/results/$reference/$sample/coordinates
 
-	#Path to input file
-	bam=$directory/results/$reference/$sample/alignment/$sample.bam
+#Path to input file
+bam=$directory/results/$reference/$sample/alignment/$sample.bam
 	
 #############################################################################################################################
-	#Create directory
-	mkdir -p $output
+#Create directory
+mkdir -p $output
 
-	#Remove old files
-	rm -f $output/*.{bed}
+#Remove old files
+rm -f $output/*.{bed}
 		
 #############################################################################################################################
-	#Convert BAM file to BED format
-	bedtools bamtobed -i $bam > $output/temp1.bed
+#Convert BAM file to BED format
+bedtools bamtobed -i $bam > $output/temp1.bed
 	
-	#Determine coordinates for each sequencing technique
-	if [[ "$technique" == "ribose-seq" ]]; then
+#Determine coordinates for each sequencing technique
+if [[ "$technique" == "ribose-seq" ]]; then
 	
-		#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
-		awk -v "OFS=\t" '$6 == "-" {print $1,($3 - 1),$3," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
+	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
+	awk -v "OFS=\t" '$6 == "-" {print $1,($3 - 1),$3," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
 	
-		#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-		awk -v "OFS=\t" '$6 == "+" {print $1,$2,($2 + 1)," "," ","-"}' $output/temp1.bed >> $output/temp2.bed
+	#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
+	awk -v "OFS=\t" '$6 == "+" {print $1,$2,($2 + 1)," "," ","-"}' $output/temp1.bed >> $output/temp2.bed
 	
-	elif [[ "$technique" == "emRiboSeq" ]]; then
+elif [[ "$technique" == "emRiboSeq" ]]; then
 	
-		#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
-		awk -v "OFS=\t" '$4 == "-" {print $1,$3,($3 + 1)," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
+	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
+	awk -v "OFS=\t" '$4 == "-" {print $1,$3,($3 + 1)," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
 	
-		#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-		awk -v "OFS=\t" '$4 == "+" {print $1,($2 - 1),$2," "," ","-"}' $output/temp1.bed >> $output/temp2.bed
+	#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
+	awk -v "OFS=\t" '$4 == "+" {print $1,($2 - 1),$2," "," ","-"}' $output/temp1.bed >> $output/temp2.bed
 	
-	elif [[ "$technique" == "HydEn-seq" ]]; then
+elif [[ "$technique" == "HydEn-seq" ]]; then
 	
-		#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
-		awk -v "OFS=\t" '$4 == "+" {print $1,($2 - 1),$2," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
+	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
+	awk -v "OFS=\t" '$4 == "+" {print $1,($2 - 1),$2," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
 	
-		#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-		awk -v "OFS=\t" '$4 == "-" {print $1,$3,($3 + 1)," "," ","-"}' $output/temp1.bed >> $output/temp2.bed
+	#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
+	awk -v "OFS=\t" '$4 == "-" {print $1,$3,($3 + 1)," "," ","-"}' $output/temp1.bed >> $output/temp2.bed
 	
-	elif [[ "$technique" == "Pu-seq" ]]; then
+elif [[ "$technique" == "Pu-seq" ]]; then
 	
-		#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
-		awk -v "OFS=\t" '$4 == "+" {print $1,($2 - 1),$2," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
+	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
+	awk -v "OFS=\t" '$4 == "+" {print $1,($2 - 1),$2," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
 	
-		#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-		awk -v "OFS=\t" '$4 == "-" {print $1,$3,($3 + 1)," "," ","-"}' $output/temp1.bed >> $output/temp2.bed
+	#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
+	awk -v "OFS=\t" '$4 == "-" {print $1,$3,($3 + 1)," "," ","-"}' $output/temp1.bed >> $output/temp2.bed
 	
-	fi
+fi
 	
-	#Sort chromosome coordinates of rNMPs
-	sort -k1,1V -k2,2n $output/temp2.bed > $output/$sample-Coordinates.bed
+#Sort chromosome coordinates of rNMPs
+sort -k1,1V -k2,2n $output/temp2.bed > $output/$sample-Coordinates.bed
 
 #############################################################################################################################
 	
-	#Print completion status
-	echo "Status: Program complete for $sample"
+#Print completion status
+echo "Status: Program complete for $sample"
 	
-	#Remove temporary files
-	rm -f $output/temp{1..2}.bed
-	
-done
+#Remove temporary files
+rm -f $output/temp{1..2}.bed
