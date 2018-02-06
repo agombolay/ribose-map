@@ -35,10 +35,10 @@ fi
 
 #############################################################################################################################
 #Output directory
-output=$directory/results/$reference/$sample/coordinates
+output=$directory/results/$sample/coordinates
 
 #Input alignment file
-bam=$directory/results/$reference/$sample/alignment/$sample.bam
+bam=$directory/results/$sample/alignment/$sample.bam
 	
 #Create directory and remove old files
 mkdir -p $output; rm -f $output/*.{bed}
