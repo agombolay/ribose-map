@@ -41,7 +41,7 @@ for sample in ${sample[@]}; do
 	reference=$directory/References/$reference.bed
 	coordinates=$directory/Results/$reference/$sample/Coordinates/$sample-Coordinates.bed
 	
-	#Create output directory and remove old files
+	#Create output directory and remove old directory if present
 	output=$directory/Results/$reference/$sample/Coverage; mkdir -p $output; rm -rf $output
 
 #############################################################################################################################
@@ -67,7 +67,6 @@ for sample in ${sample[@]}; do
 		awk -v "OFS=\t" '$5 == "-" {print $2,$3,$4,$1}' $output/temp1.txt >> $output/$sample-Reverse.bg
 
 #############################################################################################################################
-		
 		#Print completion status for program
 		echo "Status: Program complete for $sample"
 	
