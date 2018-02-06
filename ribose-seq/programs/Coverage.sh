@@ -7,7 +7,7 @@
 
 #Usage statement
 function usage () {
-	echo "Usage: Distribution.sh [options]
+	echo "Usage: Coverage.sh [options]
 		-d Ribose-Map repository
 		-s Name of sequenced library
 		-i Basename of Bowtie2 index"
