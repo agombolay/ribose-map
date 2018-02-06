@@ -45,11 +45,11 @@ mkdir -p $output
 rm -f $output/*.{bed}
 		
 #############################################################################################################################
-#Convert BAM file to BED format
-bedtools bamtobed -i $bam > $output/temp1.bed
-	
-#Determine coordinates for each sequencing technique
+#Determine coordinates for each technique
 if [[ "$technique" == "ribose-seq" ]]; then
+	
+	#Convert BAM file to BED format
+	bedtools bamtobed -i $bam > $output/temp1.bed
 	
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 	awk -v "OFS=\t" '$6 == "-" {print $1,($3 - 1),$3," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
@@ -59,6 +59,9 @@ if [[ "$technique" == "ribose-seq" ]]; then
 	
 elif [[ "$technique" == "emRiboSeq" ]]; then
 	
+	#Convert BAM file to BED format
+	bedtools bamtobed -i $bam > $output/temp1.bed
+	
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 	awk -v "OFS=\t" '$4 == "-" {print $1,$3,($3 + 1)," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
 	
@@ -66,6 +69,9 @@ elif [[ "$technique" == "emRiboSeq" ]]; then
 	awk -v "OFS=\t" '$4 == "+" {print $1,($2 - 1),$2," "," ","-"}' $output/temp1.bed >> $output/temp2.bed
 	
 elif [[ "$technique" == "HydEn-seq" ]] || [[ "Pu-seq" ]]; then
+	
+	#Convert BAM file to BED format
+	bedtools bamtobed -i $bam > $output/temp1.bed
 	
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 	awk -v "OFS=\t" '$4 == "+" {print $1,($2 - 1),$2," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
