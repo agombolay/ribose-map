@@ -8,18 +8,18 @@
 #Usage statement
 function usage () {
 	echo "Usage: Distribution.sh [options]
+		-d Ribose-Map repository
 		-s Name of sequenced library
-		-r Reference genome/Basename of Bowtie2 index
-		-d Ribose-Map repository"
+		-i Basename of Bowtie2 index"
 }
 
 #Command-line options
-while getopts "s:r:d:h" opt; do
+while getopts "d:s:i:h" opt; do
     case "$opt" in
         #Allow multiple input arguments
         s ) sample=($OPTARG) ;;
 	#Allow only one input argument
-	r ) reference=$OPTARG ;;
+	i ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
         #Print usage statement
         h ) usage ;;
