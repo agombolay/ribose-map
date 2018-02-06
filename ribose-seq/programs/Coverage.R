@@ -3,7 +3,9 @@
 #© 2016 Alli Gombolay
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
-#This program plots the number of rNMPs at each chromosome position.
+
+#1. Plots rNMP coverage at each chromosome position
+#2. Saves plots as png files to appropriate directory
 
 #Libraries
 library(tools)
@@ -28,7 +30,7 @@ for(i in opt$sample) {
         
 	for(file in input_files){
 		
-		#Plot only if files exist
+		#Plot if file exists
         	if (file.exists(file)) {
             
         		#Specify dataset
@@ -38,20 +40,21 @@ for(i in opt$sample) {
 			values <- ifelse(data$V6=='-',data$V3*-1,data$V3)
 
 #############################################################################################################################
-        		#Plot hotspots
+        		#Plot coverage of rNMPs for each chromosome
         		myplot <- ggplot(data, aes(x=data[,2], y=values)) +
-
-			geom_bar(stat = "identity",colour="black", fill="black")
 			
-			#Replace default theme
+			#Axes titles
+        		xlab("Chromosome Position") + ylab("rNMP Frequency")
+			
+			#Replace default background theme
                 	theme(panel.grid=element_blank(), panel.background=element_blank(),
 			      axis.line=element_line(colour="black")) +
-				
-        		#Decrease space between plot and axes
-        		scale_y_continuous(expand=c(0.015,0)) + scale_x_continuous(expand=c(0.015,0)) +
 			
-			#Add axes titles and specify font size
-        		xlab("Chromosome Position") + ylab("rNMP Frequency") + theme(text=element_text(size=15))
+			#Specify plot as barchart and increase font size
+			geom_bar(stat="identity", fill="black") + theme(text=element_text(size=15)) +
+			
+        		#Decrease spacing between bar chart and both axes
+        		scale_y_continuous(expand=c(0.015, 0)) + scale_x_continuous(expand=c(0.015, 0))
 
 #############################################################################################################################
 #Save plot as PNG file
