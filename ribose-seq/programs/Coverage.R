@@ -40,7 +40,6 @@ for(i in opt$sample) {
 			values <- ifelse(data$V6=='-',data$V3*-1,data$V3)
 
 #############################################################################################################################
-        		#Plot coverage of rNMPs for each chromosome
         		myplot <- ggplot(data, aes(x=data[,2], y=values)) +
 			
 			#Axes titles
