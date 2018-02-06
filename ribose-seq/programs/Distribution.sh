@@ -53,12 +53,9 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	if [[ -s $coordinates ]]; then
 		
-		#Count number of unique lines
-		uniq -c $coordinates > $output/temp1.txt
-		
 		#Save coverage of rNMPs per chromosome to separate files
 		for chr in $( awk '{print $1}' $bed ); do
-			grep -w "$chr" $output/temp1.txt > $output/$sample-Distribution.$chr.bed
+			uniq -c $coordinates | grep -w "$chr" - > $output/$sample-Distribution.$chr.bed
 		done
 		
 		#Add trackline for forward strand to input into UCSC genome browser
@@ -76,9 +73,6 @@ for sample in ${sample[@]}; do
 		awk -v "OFS=\t" '$5 == "-" {print $2,$3,$4,$1}' $output/temp1.txt >> $output/$sample-Reverse.bg
 
 #############################################################################################################################
-				
-		#Remove temporary files
-		rm -f $output/temp1.txt
 		
 		#Print completion status for program
 		echo "Status: Program complete for $sample"
