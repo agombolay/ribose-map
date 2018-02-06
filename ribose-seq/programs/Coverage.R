@@ -14,9 +14,9 @@ library(optparse)
 
 #Command-line options
 option_list <- list(
-make_option(c("-d"), help="Ribose-Map repository"),
-make_option(c("-s"), help="Name of sequenced library"),
-make_option(c("-r"), help="Basename of Bowtie2 index")
+make_option(c("-r", "--idx"), help="Basename of Bowtie2 index"),
+make_option(c("-s", "--sample"), help="Sequenced library name"),
+make_option(c("-d", "--directory"), help="Ribose-Map repository")
 )
 
 #Get command line options, if -h invoked print help
@@ -24,8 +24,8 @@ opt <- parse_args(OptionParser(option_list=option_list))
 
 #############################################################################################################################
 #Specify output directory and file
-directory <- file.path(opt$d, "Results", opt$r, opt$s, "Coverage")
-input_files <- list.files(path=directory, pattern=".bed", full.names=T)
+directory <- file.path(opt$directory, "Results", opt$idx, opt$sample, "Coverage")
+input_files <- list.files(path=directory, pattern=".bed", full.names=T, recursive=F)
         
 for(file in input_files){
 		
