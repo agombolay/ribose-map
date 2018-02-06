@@ -63,6 +63,6 @@ if [[ -s $coordinates ]]; then
 
 #############################################################################################################################
 	#Print completion status
-	echo "Status: Program complete for $sample"
+	echo "Status: Coverage of rNMPs have been determined for $sample"
 	
 fi
