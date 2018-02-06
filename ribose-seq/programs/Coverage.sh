@@ -3,7 +3,9 @@
 #© 2016 Alli Gombolay
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
-#This program creates bedgraph files for forward and reverse strands
+
+#1. Creates bedgraph files for forward and reverse strands
+#2. Saves coverage of rNMPs per chromosome to separate files
 
 #Usage statement
 function usage () {
@@ -35,13 +37,12 @@ fi
 for sample in ${sample[@]}; do
 
 #############################################################################################################################
-	#Input files
-	bed=$directory/References/$reference.bed
-	bam=$directory/Results/$reference/$sample/Alignment/$sample.bam
-	coordinates=$directory/Results/$reference/$sample/Coordinates/$sample-Coordinates.bed
-	
 	#Output directory
-	output=$directory/Results/$reference/$sample/Distribution
+	output=$directory/Results/$reference/$sample/Coverage
+	
+	#Input files
+	reference=$directory/References/$reference.bed
+	coordinates=$directory/Results/$reference/$sample/Coordinates/$sample-Coordinates.bed
 	
 #############################################################################################################################
 	#Create directory
