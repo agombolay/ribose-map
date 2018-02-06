@@ -94,7 +94,7 @@ for sample in ${sample[@]}; do
 #############################################################################################################################
 	
 	#Print completion status
-	echo "Chromosome coordinates of rNMPs for $sample have been determined"
+	echo "Status: Program complete for $sample"
 	
 	#Remove temporary files
 	rm -f $output/temp{1..2}.bed
