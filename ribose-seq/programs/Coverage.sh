@@ -18,9 +18,7 @@ function usage () {
 #Command-line options
 while getopts "d:s:i:h" opt; do
     case "$opt" in
-        #Allow multiple input arguments
         s ) sample=($OPTARG) ;;
-	#Allow only one input argument
 	i ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
         #Print usage statement
