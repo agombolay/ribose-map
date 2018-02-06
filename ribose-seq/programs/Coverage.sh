@@ -32,12 +32,14 @@ if [ "$1" == "-h" ]; then
 fi
 
 #############################################################################################################################
+
+output=$directory/Results/$reference/$sample/Coverage
+
+mkdir -p $output; rm -rf $output
+
 #Input files
 reference=$directory/References/$reference.bed
 coordinates=$directory/Results/$reference/$sample/Coordinates/$sample-Coordinates.bed
-	
-#Create output directory and remove old directory if present
-output=$directory/Results/$reference/$sample/Coverage; mkdir -p $output; rm -rf $output
 
 #############################################################################################################################
 if [[ -s $coordinates ]]; then
