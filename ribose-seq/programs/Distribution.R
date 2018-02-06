@@ -13,7 +13,7 @@ library(optparse)
 #Command-line options
 option_list <- list(
 make_option(c("-s", "--sample"), help="Name of sequenced library"),
-make_option(c("-r", "--reference"), help="Reference genome (e.g., sacCer2, pombe, ecoli, mm9, hg38)"),
+make_option(c("-r", "--reference"), help="Basename of Bowtie2 index"),
 make_option(c("-d", "--directory"), help="Directory (e.g., /projects/home/agombolay3/data/repository/Ribose-Map)")
 )
 
