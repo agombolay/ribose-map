@@ -33,7 +33,7 @@ fi
 
 #############################################################################################################################
 #Output directory
-output=$directory/Results/$reference/$sample/Coverage
+output=$directory/Results/$sample/Coverage
 
 #Input reference and coordinates files
 reference=$directory/References/$reference.fa.fai
