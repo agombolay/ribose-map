@@ -14,9 +14,9 @@ library(optparse)
 
 #Command-line options
 option_list <- list(
-make_option(c("-d"), help="Ribose-Map repository"),
-make_option(c("-s"), help="Name of sequenced library"),
-make_option(c("-r"), help="Basename of Bowtie2 index")
+	make_option(c("-d", "--dir"), help="Ribose-Map repository"),
+	make_option(c("-s", "--sample"), help="Name of sequenced library"),
+	make_option(c("-r", "--refence"), help="Basename of Bowtie2 index")
 )
 
 #Get command line options, if -h invoked print help
