@@ -23,39 +23,33 @@ make_option(c("-r"), help="Basename of Bowtie2 index")
 opt <- parse_args(OptionParser(option_list=option_list))
 
 #############################################################################################################################
-for(i in opt$sample) {
+#Specify output directory and file
+directory <- file.path(opt$directory, "Results", opt$reference, opt$sample, "Coverage")
+input_files <- list.files(path=directory, pattern=".bed", full.names=TRUE, recursive=FALSE)
         
-        #Specify output directory and file
-        directory <- file.path(opt$directory, "Results", opt$reference, opt$sample, "Coverage")
-	input_files <- list.files(path=directory, pattern=".bed", full.names=TRUE, recursive=FALSE)
-        
-	for(file in input_files){
+for(file in input_files){
 		
-		#Plot if file exists
-        	if (file.exists(file)) {
+	#Plot if file exists
+        if (file.exists(file)) {
             
-        		#Specify dataset
-            		data=read.table(file, sep="\t", header=FALSE)
+        #Specify dataset
+	data=read.table(file, sep="\t", header=FALSE)
 			
-			#Transform values on negative strand
-			values <- ifelse(data$V6=='-',data$V3*-1,data$V3)
+	#Transform values on negative strand
+	values <- ifelse(data$V6=='-',data$V3*-1,data$V3)
 
 #############################################################################################################################
-			#Create plot
-			myplot <- ggplot(data, aes(x=data[,2], y=values)) +
-			
-			#Titles for axes
-        		xlab("Chromosome Position") + ylab("rNMP Frequency") +
-			
-			#Replace default background theme
-                	theme(panel.grid=element_blank(), panel.background=element_blank(),
-			      axis.line=element_line(colour="black")) +
-			
-			#Specify plot as barchart and increase font size
-			geom_bar(stat="identity", fill="black") + theme(text=element_text(size=15)) +
-			
-        		#Decrease spacing between bar chart and both axes
-        		scale_y_continuous(expand=c(0.015, 0)) + scale_x_continuous(expand=c(0.015, 0))
+	#Create plot
+	myplot <- ggplot(data, aes(x=data[,2], y=values))+
+		
+	#Create barchart and add titles for axes
+        geom_bar(stat="identity", fill="black") + xlab("Chromosome Position") + ylab("rNMP Frequency")+ 
+		
+	#Remove and replace default background theme of plot
+	theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black"))+
+		
+	#Decrease spacing between plot and axes and increase font
+	theme(text=element_text(size=15)) + scale_y_discrete(expand=c(0.015,0)) + scale_x_discrete(expand=c(0.015,0))
 
 #############################################################################################################################
 #Save plot as PNG file
