@@ -101,8 +101,8 @@ echo -e "Percentage of reads with barcode: $(echo "$x*100" | bc -l | xargs print
 echo -e "Percentage of reads that are unique: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/unique.log
 		
 #############################################################################################################################
-#Print completion status for program
+#Print completion status
 echo "Status: Program complete for $sample"
 
-#Remove temporary files
+#Remove temporary files from directory
 rm -f $output/*.{fq,fq.gz,sam} $output/sorted.{bam,bai}
