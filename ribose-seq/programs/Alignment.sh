@@ -47,19 +47,11 @@ fi
 
 #############################################################################################################################
 #Input files
-index=$directory/indexes/$idx
-fastq1=$directory/fastqs/$read1
-fastq2=$directory/fastqs/$read2
+index=$directory/indexes/$idx;
+fq1=$directory/fastqs/$read1; fq2=$directory/fastqs/$read2
 
-#Output directory
-output=$directory/results/$idx/$sample/alignment
-
-#############################################################################################################################
-#Create directory
-mkdir -p $output
-
-#Remove any old files
-rm -f $output/*.{bam,log}
+#Create output directory and remove old directory if present
+output=$directory/results/$index/$sample/alignment; mkdir -p $output; rm -rf $output/*
 
 #############################################################################################################################
 #Extract UMI from 5' ends of reads
