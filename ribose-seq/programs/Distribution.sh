@@ -59,6 +59,11 @@ for sample in ${sample[@]}; do
 		#Count number of unique lines
 		uniq -c $coordinates > $output/temp1.txt
 		
+		#Save coverage of rNMPs per chromosome to separate files
+		for chr in $( awk '{print $1}' $bed ); do
+			grep -w "$chr" $output/temp1.txt > $output/$sample-Distribution.$chr.bed
+		done
+		
 		#Add trackline for forward strand to input into UCSC genome browser
 		echo "track type=bedGraph name="$sample-ForwardStrand" description="$sample-ForwardStrand" \
 		color=0,128,0 visibility=full" > $output/$sample-Forward.bg
@@ -74,22 +79,12 @@ for sample in ${sample[@]}; do
 		awk -v "OFS=\t" '$5 == "-" {print $2,$3,$4,$1}' $output/temp1.txt >> $output/$sample-Reverse.bg
 
 #############################################################################################################################
-		#Remove old files
-		rm -f $output/$sample-Hotspots.$chr.bed
+				
+		#Remove temporary files
+		rm -f $output/temp1.txt
 		
-		#Create file containing coverage of both strands
-		#bedtools genomecov -d -3 -ibam $bam -g $bed > $output/temp2.bed
-
-		#Save coverage/chr to separate files
-		#for chr in $( awk '{print $1}' $bed ); do
-		#	grep -w "$chr" $output/temp2.bed > $output/$sample-Hotspots.$chr.bed
-		#done
-		
-#############################################################################################################################
-		#Print completion status
-		echo "Hotspots in $sample were located"
-		
-		rm -f $output/temp1.txt $output/temp2.bed
+		#Print completion status for program
+		echo "Status: Program complete for $sample"
 	
 	fi
 done
