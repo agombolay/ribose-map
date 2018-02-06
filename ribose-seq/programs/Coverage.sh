@@ -38,7 +38,7 @@ output=$directory/Results/$reference/$sample/Coverage
 
 #Input reference and coordinates files
 reference=$directory/References/$reference.fa.fai
-coordinates=$directory/Results/$reference/$sample/Coordinates/$sample-Coordinates.bed
+bed=$directory/Results/$sample/Coordinates/$sample.bed
 
 #Create directory and remove old files
 mkdir -p $output; rm -rf $output/*{bg,bed}
