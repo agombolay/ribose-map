@@ -8,7 +8,7 @@
 #Usage statement
 function usage () {
 	echo "Usage: Coordinates.sh [options]
-	-s Sample name(s) (e.g., FS1, FS2, FS3)
+	-s Name of sequenced library
 	-r Reference genome/Basename of Bowtie2 index
 	-t rNMP sequencing technique used for library prep
 	-d Ribose-Map repository"
