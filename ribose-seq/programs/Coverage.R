@@ -44,7 +44,7 @@ for(i in opt$sample) {
         		myplot <- ggplot(data, aes(x=data[,2], y=values)) +
 			
 			#Axes titles
-        		xlab("Chromosome Position") + ylab("rNMP Frequency")
+        		xlab("Chromosome Position") + ylab("rNMP Frequency") +
 			
 			#Replace default background theme
                 	theme(panel.grid=element_blank(), panel.background=element_blank(),
