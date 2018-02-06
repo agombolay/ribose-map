@@ -3,7 +3,7 @@
 #© 2016 Alli Gombolay
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
-#This program plots the number of rNMPs at each genomic position.
+#This program plots the number of rNMPs at each chromosome position.
 
 #Libraries
 library(tools)
