@@ -101,8 +101,8 @@ echo -e "Percentage of reads with barcode: $(echo "$x*100" | bc -l | xargs print
 echo -e "Percentage of reads that are unique: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/unique.log
 		
 #############################################################################################################################
-#Notify user alignment step is complete for input sample
-echo "Trimming, alignment, and de-duplication of $sample is complete"
+#Print completion status for program
+echo "Status: Program complete for $sample"
 
 #Remove temporary files
-rm -f $output/*.fq $output/*.fq.gz $output/mapped.sam $output/sorted.bam*
+rm -f $output/*.{fq,fq.gz,sam} $output/sorted.{bam,bai}
