@@ -49,7 +49,7 @@ if [[ -s $coordinates ]]; then
 	
 	#Save coverage of rNMPs per chromosome to separate files
 	for chr in $( awk '{print $1}' $output/$reference.bed ); do
-		uniq -c $coordinates | grep -w "$chr" - > $output/$sample-Coverage.$chr.bed
+		uniq -c $bed | grep -w "$chr" - > $output/$sample.$chr.bed
 	done
 		
 	#Add trackline for forward strand to input into UCSC genome browser
