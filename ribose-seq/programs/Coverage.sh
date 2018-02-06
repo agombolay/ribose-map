@@ -42,7 +42,7 @@ for sample in ${sample[@]}; do
 	coordinates=$directory/Results/$reference/$sample/Coordinates/$sample-Coordinates.bed
 	
 	#Create output directory and remove old files
-	output=$directory/Results/$reference/$sample/Coverage; mkdir -p $output; rm -f $output/*.{bed,bg}
+	output=$directory/Results/$reference/$sample/Coverage; mkdir -p $output; rm -rf $output
 
 #############################################################################################################################
 	if [[ -s $coordinates ]]; then
