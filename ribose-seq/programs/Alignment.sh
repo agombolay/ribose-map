@@ -48,7 +48,7 @@ fi
 #############################################################################################################################
 #Input files
 index=$directory/indexes/$idx;
-fq1=$directory/fastqs/$read1; fq2=$directory/fastqs/$read2
+fastq1=$directory/fastqs/$read1; fastq2=$directory/fastqs/$read2
 
 #Create output directory and remove old directory if present
 output=$directory/results/$index/$sample/alignment; mkdir -p $output; rm -rf $output/*
