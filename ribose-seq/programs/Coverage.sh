@@ -33,13 +33,15 @@ fi
 
 #############################################################################################################################
 
+#Output directory
 output=$directory/Results/$reference/$sample/Coverage
 
-mkdir -p $output; rm -rf $output
-
-#Input files
-reference=$directory/References/$reference.bed
+#Input reference and coordinates files
+reference=$directory/References/$reference.chrom.sizes
 coordinates=$directory/Results/$reference/$sample/Coordinates/$sample-Coordinates.bed
+
+#Create directory and remove old files
+mkdir -p $output; rm -rf $output/*{bg,bed}
 
 #############################################################################################################################
 if [[ -s $coordinates ]]; then
