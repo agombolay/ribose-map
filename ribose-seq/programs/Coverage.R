@@ -8,15 +8,13 @@
 #2. Saves plots as png files to appropriate directory
 
 #Libraries
-library(tools)
-library(ggplot2)
-library(optparse)
+library(tools); library(ggplot2); library(optparse)
 
 #Command-line options
 option_list <- list(
-make_option(c("-r", "--idx"), help="Basename of Bowtie2 index"),
-make_option(c("-s", "--sample"), help="Sequenced library name"),
-make_option(c("-d", "--directory"), help="Ribose-Map repository")
+	make_option(c("-r", "--idx"), help="Basename of Bowtie2 index"),
+	make_option(c("-s", "--sample"), help="Sequenced library name"),
+	make_option(c("-d", "--directory"), help="Ribose-Map repository")
 )
 
 #Get command line options, if -h invoked print help
