@@ -5,12 +5,12 @@
 #E-mail: alli.gombolay@gatech.edu
 #This program plots the number of rNMPs at each genomic position.
 
-#Load libraries
-library(optparse)
-library(ggplot2)
+#Libraries
 library(tools)
+library(ggplot2)
+library(optparse)
 
-#Command line options
+#Command-line options
 option_list <- list(
 make_option(c("-s", "--sample"), help="Sample name(s) (e.g., FS1, FS2, FS3)"),
 make_option(c("-r", "--reference"), help="Reference genome (e.g., sacCer2, pombe, ecoli, mm9, hg38)"),
@@ -23,34 +23,35 @@ opt <- parse_args(OptionParser(option_list=option_list))
 for(i in opt$sample) {
         
         #Specify output directory and file
-        output <- file.path(opt$directory, "Results", opt$reference, opt$sample, "Hotspots")
-	files <- list.files(path=output, pattern=".bed", full.names=TRUE, recursive=FALSE)
+        directory <- file.path(opt$directory, "Results", opt$reference, opt$sample, "Coverage")
+	input_files <- list.files(path=directory, pattern=".bed", full.names=TRUE, recursive=FALSE)
         
-	for(file in files){
+	for(file in input_files){
 		
 		#Plot only if files exist
         	if (file.exists(file)) {
             
         		#Specify dataset
             		data=read.table(file, sep="\t", header=FALSE)
+			
+			#Transform values on negative strand
+			values <- ifelse(data$V6=='-',data$V3*-1,data$V3)
 
 #############################################################################################################################
         		#Plot hotspots
-        		myplot <- ggplot(data, aes(x=data[,2], y=data[,3])) +
+        		myplot <- ggplot(data, aes(x=data[,2], y=values)) +
 
-			#Replace default theme
-                	theme(panel.grid=element_blank(),
-                      	      panel.background=element_blank(),
-                      	      axis.line=element_line(colour="black")) +
+			geom_bar(stat = "identity",colour="black", fill="black")
 			
-        		#Add axes titles and specify font size
-        		xlab("Position") + ylab("rNMP Frequency") + theme(text=element_text(size=20)) +
-
-			#Plot data as scatterchart with connecting lines
-        		geom_point(shape=1, colour="blue4") + geom_line(aes(y=data[,3]), colour="blue4") +
+			#Replace default theme
+                	theme(panel.grid=element_blank(), panel.background=element_blank(),
+			      axis.line=element_line(colour="black")) +
 				
-        		#Decrease space between scatterplot and x-axis/y-axis
-        		scale_y_continuous(expand=c(0.015,0)) + scale_x_continuous(expand=c(0.015,0))
+        		#Decrease space between plot and axes
+        		scale_y_continuous(expand=c(0.015,0)) + scale_x_continuous(expand=c(0.015,0)) +
+			
+			#Add axes titles and specify font size
+        		xlab("Chromosome Position") + ylab("rNMP Frequency") + theme(text=element_text(size=15))
 
 #############################################################################################################################
 #Save plot as PNG file
