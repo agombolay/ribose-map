@@ -51,14 +51,19 @@ index=$directory/indexes/$idx;
 fastq1=$directory/fastqs/$read1; fastq2=$directory/fastqs/$read2
 
 #Create output directory and remove old directory if present
-output=$directory/results/$index/$sample/alignment; mkdir -p $output; rm -rf $output/*
+output=$directory/results/$sample/alignment; mkdir -p $output; rm -rf $output/*
 
 #############################################################################################################################
-if [[ $umi ]]; then
-	#Extract UMI from 5' ends of reads
-	umi_tools extract -I $fastq1 -p $UMI -v 0 -S $output/UMI.fq
+#Extract UMI from 5' ends of reads
+if [[ $umi ]] && [[ ! $read2 ]]; then
+	umi_tools extract -v 0 -I $fastq1 --bc-pattern=$UMI -S processed.fq.gz
+	
+elif [[ $umi ]] && [[ $read2 ]]; then
+	umi_tools extract -v 0 -I $fastq1 --bc-pattern=$UMI --read2-in=$fastq2 \
+	--stdout=processed1.fq.gz --read2-out=processed2.fq.gz
 fi
 
+#############################################################################################################################
 if [[ $barcode ]]; then
 	#Filter FASTQ file based on barcode sequence
 	grep --no-group-separator -B1 -A2 ^$barcode $output/UMI.fq > $output/filtered.fq
@@ -89,6 +94,7 @@ fi
 if [[ $umi ]]; then
 	#Remove PCR duplicates based on UMI and mapping coordinates and sort/index BAM file
 	umi_tools dedup -I $output/sorted.bam -v 0 | samtools sort - -o $output/$sample.bam && samtools index $output/$sample.bam
+	umi_tools dedup -I mapped.bam --paired -S deduplicated.bam
 fi
 
 #############################################################################################################################
