@@ -54,31 +54,43 @@ fastq1=$directory/fastqs/$read1; fastq2=$directory/fastqs/$read2
 output=$directory/results/$index/$sample/alignment; mkdir -p $output; rm -rf $output/*
 
 #############################################################################################################################
-#Extract UMI from 5' ends of reads
-umi_tools extract -I $fastq1 -p $UMI -v 0 -S $output/UMI.fq
+if [[ $umi ]]; then
+	#Extract UMI from 5' ends of reads
+	umi_tools extract -I $fastq1 -p $UMI -v 0 -S $output/UMI.fq
+fi
 
-#Filter FASTQ file based on barcode sequence
-grep --no-group-separator -B1 -A2 ^$barcode $output/UMI.fq > $output/filtered.fq
+if [[ $barcode ]]; then
+	#Filter FASTQ file based on barcode sequence
+	grep --no-group-separator -B1 -A2 ^$barcode $output/UMI.fq > $output/filtered.fq
+fi
 
-if [[ ! $adapter ]]; then
+if [[ ! $adapter ]] && [[ $illumina ]]; then
 	#Trim Illumina and remove barcode from 5' end of reads
 	trim_galore --gzip --length $min --clip_R1 3 $output/filtered.fq -o $output
 
-elif [[ $adapter ]]; then
+elif [[ $adapter ]] && [[ $illumina ]]; then
 	#Trim Illumina/custom adapters and remove barcode from 5' end of reads
 	trim_galore --gzip --length $min --clip_R1 3 -a $adapter $output/filtered.fq -o $output
 fi
 
 #############################################################################################################################
-#Align reads to reference genome and save Bowtie2 statistics log file
-bowtie2 -x $index -U $output/filtered_trimmed.fq.gz 2> $output/alignment.log -S $output/mapped.sam
-			
-#Extract mapped reads, convert SAM file to BAM format, and sort/index BAM file
-samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam && samtools index $output/sorted.bam
+if [[ $type == 'se' ]]; then
+	#Align reads to reference genome and save Bowtie2 statistics log file
+	bowtie2 -x $index -U $output/filtered_trimmed.fq.gz 2> $output/alignment.log -S $output/mapped.sam
 	
-#Remove PCR duplicates based on UMI and mapping coordinates and sort/index BAM file
-umi_tools dedup -I $output/sorted.bam -v 0 | samtools sort - -o $output/$sample.bam && samtools index $output/$sample.bam
-			
+	#Extract mapped reads, convert SAM file to BAM format, and sort/index BAM file
+	samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam && samtools index $output/sorted.bam
+
+elif [[ $type == 'pe' ]]; then
+	#Align reads to reference genome and save Bowtie2 statistics log file
+	bowtie2 -x $index -1 $output/.fq.gz -2 $output/.fq.gz 2> $output/alignment.log -S $output/mapped.sam
+fi
+
+if [[ $umi ]]; then
+	#Remove PCR duplicates based on UMI and mapping coordinates and sort/index BAM file
+	umi_tools dedup -I $output/sorted.bam -v 0 | samtools sort - -o $output/$sample.bam && samtools index $output/$sample.bam
+fi
+
 #############################################################################################################################
 #Calculate percentage of reads that contain correct barcode sequence
 x=$(echo $((`wc -l < $output/filtered.fq` / 4))/$((`wc -l < $output/UMI.fq` / 4)))
