@@ -73,29 +73,33 @@ fi
 if [[ ! $read2 ]]; then
 	if [[ ! $adapter ]]; then
 		if [[ ! $barcode ]]; then
-			trim_galore --gzip --length $min $output/filtered.fq -o $output
+			trim_galore --gzip --length $min $output/file1.fq -o $output
 		elif [[ $barcode ]]; then
-			trim_galore --gzip --length $min --clip_R1 3 $output/filtered.fq -o $output
+			grep --no-group-separator -B1 -A2 ^$barcode $output/file1.fq \
+			| trim_galore --gzip --length $min --clip_R1 3 - -o $output
 			
 	elif [[ $adapter ]]; then
 		if [[ ! $barcode ]]; then
-			trim_galore --gzip --length $min -a $adapter $output/filtered.fq -o $output
+			trim_galore --gzip --length $min -a $adapter $output/file1.fq -o $output
 		elif [[ $barcode ]]; then
-			trim_galore --gzip --length $min --clip_R1 3 -a $adapter $output/filtered.fq -o $output
+			grep --no-group-separator -B1 -A2 ^$barcode $output/file1.fq | trim_galore \
+			--gzip--length $min --clip_R1 3 -a $adapter - -o $output
 
 elif [[ $read2 ]]; then
 	
 	if [[ ! $adapter ]]; then
 		if [[ ! $barcode ]]; then
-			trim_galore --gzip --paired --length $min $output/filtered.fq -o $output
+			trim_galore --gzip --paired --length $min $output/processed1.fq -o $output
 		elif [[ $barcode ]]; then
-			trim_galore --gzip --paired --length $min --clip_R1 3 $output/filtered.fq -o $output
+			grep --no-group-separator -B1 -A2 ^$barcode $output/processed1.fq > $output/processed2.fq
+			trim_galore --gzip --paired --length $minimum --clip_R1 3 $output/filtered.fq -o $output
 			
 	elif [[ $adapter ]]; then
 		if [[ ! $barcode ]]; then
-			trim_galore --gzip --paired --length $min -a $adapter $output/filtered.fq -o $output
+			trim_galore --gzip --paired --length $minimum -a $adapter $output/processed1.fq -o $output
 		elif [[ $barcode ]]; then
-			trim_galore --gzip --paired --length $min --clip_R1 3 -a $adapter $output/filtered.fq -o $output
+			grep --no-group-separator -B1 -A2 ^$barcode $output/processed1.fq > $output/processed2.fq
+			trim_galore --gzip --paired --length $minimum --clip_R1 3 -a $adapter $output/filtered.fq -o $output
 
 fi
 
