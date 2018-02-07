@@ -54,23 +54,11 @@ fastq1=$directory/fastqs/$read1; fastq2=$directory/fastqs/$read2
 output=$directory/results/$sample/alignment; mkdir -p $output; rm -rf $output/*
 
 #############################################################################################################################
-#Extract UMI from 5' ends of reads
-if [[ $umi ]] && [[ ! $read2 ]]; then
-	umi_tools extract -v 0 -I $fastq1 --bc-pattern=$UMI -S processed.fq.gz
-	
-elif [[ $umi ]] && [[ $read2 ]]; then
-	umi_tools extract -v 0 -I $fastq1 --bc-pattern=$UMI --read2-in=$fastq2 \
-	--stdout=processed1.fq.gz --read2-out=processed2.fq.gz
-fi
-
-#############################################################################################################################
-if [[ $barcode ]]; then
-	#Filter FASTQ file based on barcode sequence
-	grep --no-group-separator -B1 -A2 ^$barcode $output/UMI.fq > $output/filtered.fq
-fi
-
-#############################################################################################################################
 if [[ ! $read2 ]]; then
+	
+	if [[ $umi ]]; then
+		umi_tools extract -v 0 -I $fastq1 --bc-pattern=$UMI -S processed.fq.gz
+		
 	if [[ ! $adapter ]]; then
 		if [[ ! $barcode ]]; then
 			trim_galore --gzip --length $min $output/file1.fq -o $output
@@ -86,6 +74,10 @@ if [[ ! $read2 ]]; then
 			--gzip--length $min --clip_R1 3 -a $adapter - -o $output
 
 elif [[ $read2 ]]; then
+	
+	if [[ $umi ]]; then
+		umi_tools extract -v 0 -I $fastq1 --bc-pattern=$UMI --read2-in=$fastq2 \
+		--stdout=processed1.fq.gz --read2-out=processed2.fq.gz
 	
 	if [[ ! $adapter ]]; then
 		if [[ ! $barcode ]]; then
