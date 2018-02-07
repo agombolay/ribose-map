@@ -79,9 +79,9 @@ if [[ ! $read2 ]]; then
 			
 	elif [[ $adapter ]]; then
 		if [[ ! $barcode ]]; then
-			trim_galore --gzip --paired --length $min -a $adapter $output/filtered.fq -o $output
+			trim_galore --gzip --length $min -a $adapter $output/filtered.fq -o $output
 		elif [[ $barcode ]]; then
-			trim_galore --gzip --paired --length $min --clip_R1 3 -a $adapter $output/filtered.fq -o $output
+			trim_galore --gzip --length $min --clip_R1 3 -a $adapter $output/filtered.fq -o $output
 
 elif [[ $read2 ]]; then
 	
