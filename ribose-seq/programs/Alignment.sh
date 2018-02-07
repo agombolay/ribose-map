@@ -69,6 +69,7 @@ if [[ $barcode ]]; then
 	grep --no-group-separator -B1 -A2 ^$barcode $output/UMI.fq > $output/filtered.fq
 fi
 
+#############################################################################################################################
 if [[ ! $adapter ]] && [[ $illumina ]]; then
 	#Trim Illumina and remove barcode from 5' end of reads
 	trim_galore --gzip --length $min --clip_R1 3 $output/filtered.fq -o $output
@@ -76,6 +77,9 @@ if [[ ! $adapter ]] && [[ $illumina ]]; then
 elif [[ $adapter ]] && [[ $illumina ]]; then
 	#Trim Illumina/custom adapters and remove barcode from 5' end of reads
 	trim_galore --gzip --length $min --clip_R1 3 -a $adapter $output/filtered.fq -o $output
+	
+	trim_galore --gzip --length $min --clip_R1 3 $output/filtered.fq -o $output
+	trim_galore --gzip --paired --length $min --clip_R1 3 -a $adapter $output/filtered.fq -o $output
 fi
 
 #############################################################################################################################
@@ -89,12 +93,16 @@ if [[ $type == 'se' ]]; then
 elif [[ $type == 'pe' ]]; then
 	#Align reads to reference genome and save Bowtie2 statistics log file
 	bowtie2 -x $index -1 $output/.fq.gz -2 $output/.fq.gz 2> $output/alignment.log -S $output/mapped.sam
+
 fi
 
-if [[ $umi ]]; then
+#############################################################################################################################
+if [[ $umi ]] && [[ ! $read2 ]]; then
 	#Remove PCR duplicates based on UMI and mapping coordinates and sort/index BAM file
 	umi_tools dedup -I $output/sorted.bam -v 0 | samtools sort - -o $output/$sample.bam && samtools index $output/$sample.bam
-	umi_tools dedup -I mapped.bam --paired -S deduplicated.bam
+
+elif [[ $umi ]] && [[ $read2 ]]; then
+	umi_tools dedup --paired -I mapped.bam -S deduplicated.bam
 fi
 
 #############################################################################################################################
