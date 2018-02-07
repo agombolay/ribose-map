@@ -70,16 +70,33 @@ if [[ $barcode ]]; then
 fi
 
 #############################################################################################################################
-if [[ ! $adapter ]] && [[ $illumina ]]; then
-	#Trim Illumina and remove barcode from 5' end of reads
-	trim_galore --gzip --length $min --clip_R1 3 $output/filtered.fq -o $output
+if [[ ! $read2 ]]; then
+	if [[ ! $adapter ]]; then
+		if [[ ! $barcode ]]; then
+			trim_galore --gzip --length $min $output/filtered.fq -o $output
+		elif [[ $barcode ]]; then
+			trim_galore --gzip --length $min --clip_R1 3 $output/filtered.fq -o $output
+			
+	elif [[ $adapter ]]; then
+		if [[ ! $barcode ]]; then
+			trim_galore --gzip --paired --length $min -a $adapter $output/filtered.fq -o $output
+		elif [[ $barcode ]]; then
+			trim_galore --gzip --paired --length $min --clip_R1 3 -a $adapter $output/filtered.fq -o $output
 
-elif [[ $adapter ]] && [[ $illumina ]]; then
-	#Trim Illumina/custom adapters and remove barcode from 5' end of reads
-	trim_galore --gzip --length $min --clip_R1 3 -a $adapter $output/filtered.fq -o $output
+elif [[ $read2 ]]; then
 	
-	trim_galore --gzip --length $min --clip_R1 3 $output/filtered.fq -o $output
-	trim_galore --gzip --paired --length $min --clip_R1 3 -a $adapter $output/filtered.fq -o $output
+	if [[ ! $adapter ]]; then
+		if [[ ! $barcode ]]; then
+			trim_galore --gzip --paired --length $min $output/filtered.fq -o $output
+		elif [[ $barcode ]]; then
+			trim_galore --gzip --paired --length $min --clip_R1 3 $output/filtered.fq -o $output
+			
+	elif [[ $adapter ]]; then
+		if [[ ! $barcode ]]; then
+			trim_galore --gzip --paired --length $min -a $adapter $output/filtered.fq -o $output
+		elif [[ $barcode ]]; then
+			trim_galore --gzip --paired --length $min --clip_R1 3 -a $adapter $output/filtered.fq -o $output
+
 fi
 
 #############################################################################################################################
