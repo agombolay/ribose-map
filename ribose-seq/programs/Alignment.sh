@@ -74,11 +74,13 @@ fi
 #Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
 if [[ ! $read2 ]]; then
 	bowtie2 -x $index -U $output/filtered_trimmed.fq.gz 2> $output/alignment.log -S $output/mapped.sam
-	samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam && samtools index $output/sorted.bam
+	samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
+	samtools index $output/sorted.bam
 	
 elif [[ $read2 ]]; then
 	bowtie2 -x $index -1 $output/.fq.gz -2 $output/.fq.gz 2> $output/alignment.log -S $output/mapped.sam
-	samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam && samtools index $output/sorted.bam
+	samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
+	samtools index $output/sorted.bam
 fi
 
 #############################################################################################################################
