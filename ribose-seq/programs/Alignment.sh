@@ -47,10 +47,14 @@ fi
 #############################################################################################################################
 #Input files
 index=$directory/indexes/$idx;
-fastq1=$directory/fastqs/$read1; fastq2=$directory/fastqs/$read2
+fastq1=$directory/fastqs/$read1
+fastq2=$directory/fastqs/$read2
 
-#Create output directory and remove old directory if present
-output=$directory/results/$sample/alignment; mkdir -p $output; rm -rf $output/*
+#Create output directory
+output=$directory/results/$sample/alignment
+
+#Remove old directory if present
+mkdir -p $output; rm -f $output/*.{bam,bai,log}
 
 #############################################################################################################################
 #Extract UMI from reads and append UMI to read name
