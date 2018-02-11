@@ -73,8 +73,8 @@ if [[ $barcode ]]; then
 fi
 
 #############################################################################################################################
-#Align reads to reference genome and save Bowtie2 statistics log file
-#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
+#Align reads to reference genome and save Bowtie2 log file
+#Extract mapped reads, convert SAM file to BAM, and sort/index
 if [[ ! $read2 ]]; then
 	bowtie2 -x $index -U $output/filtered_trimmed.fq.gz 2> $output/alignment.log -S $output/mapped.sam
 	samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
@@ -96,16 +96,16 @@ elif [[ $umi ]] && [[ $read2 ]]; then
 fi
 
 #############################################################################################################################
-#Calculate percentage of reads that contain correct barcode sequence
+#Calculate % of reads that contain correct barcode sequence
 x=$(echo $((`wc -l < $output/filtered.fq` / 4))/$((`wc -l < $output/UMI.fq` / 4)))
 
-#Calculate percentage of reads that remain after de-duplication
+#Calculate % of reads that remain after de-duplication step
 y=$(echo "$(samtools view -c $output/$sample.bam)/$(samtools view -c $output/sorted.bam)")
 
-#Save info about percentage of reads that contain correct barcode sequence
+#Save info about %of reads that contain correct barcode sequence
 echo -e "Percentage of reads with barcode: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/barcode.log
 
-#Save info about percentage of reads that remain after de-duplication
+#Save info about % of reads that remain after de-duplication step
 echo -e "Percentage of reads that are unique: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/unique.log
 		
 #############################################################################################################################
