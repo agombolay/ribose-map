@@ -54,6 +54,7 @@ fastq1=$directory/fastqs/$read1; fastq2=$directory/fastqs/$read2
 output=$directory/results/$sample/alignment; mkdir -p $output; rm -rf $output/*
 
 #############################################################################################################################
+#Extract UMI from reads and append UMI to read name
 if [[ $umi ]] && [[ ! $read2 ]]; then
 	umi_tools extract -v 0 -I $fastq1 -p $UMI -S $output/processed1.fq.gz
 
@@ -62,27 +63,31 @@ elif [[ $umi ]] && [[ $read2 ]]; then
 	--read2-in=$fastq2 --read2-out=$output/processed2.fq.gz
 fi
 
-#############################################################################################################################
-if [[ ! $read2 ]]; then
-	#Align reads to reference genome and save Bowtie2 statistics log file
-	bowtie2 -x $index -U $output/filtered_trimmed.fq.gz 2> $output/alignment.log -S $output/mapped.sam
-	
-	#Extract mapped reads, convert SAM file to BAM format, and sort/index BAM file
-	samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam && samtools index $output/sorted.bam
-
-elif [[ $read2 ]]; then
-	#Align reads to reference genome and save Bowtie2 statistics log file
-	bowtie2 -x $index -1 $output/.fq.gz -2 $output/.fq.gz 2> $output/alignment.log -S $output/mapped.sam
-
+#Filter reads by barcode and remove barcode from reads
+if [[ $barcode ]]; then
+	grep --no-group-separator -B1 -A2 ^$barcode $output/processed1.fq.gz \ 
+	| cutadapt - --cut ${#barcode} -o $output/output.fq.gz
 fi
 
 #############################################################################################################################
+#Align reads to reference genome and save Bowtie2 statistics log file
+#Extract mapped reads, convert SAM file to BAM, and sort/index BAM file
+if [[ ! $read2 ]]; then
+	bowtie2 -x $index -U $output/filtered_trimmed.fq.gz 2> $output/alignment.log -S $output/mapped.sam
+	samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam && samtools index $output/sorted.bam
+	
+elif [[ $read2 ]]; then
+	bowtie2 -x $index -1 $output/.fq.gz -2 $output/.fq.gz 2> $output/alignment.log -S $output/mapped.sam
+	samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam && samtools index $output/sorted.bam
+fi
+
+#############################################################################################################################
+#De-duplicate aligned reads based on UMI and chromosome coordinates
 if [[ $umi ]] && [[ ! $read2 ]]; then
-	#Remove PCR duplicates based on UMI and mapping coordinates and sort/index BAM file
-	umi_tools dedup -I $output/sorted.bam -v 0 | samtools sort - -o $output/$sample.bam && samtools index $output/$sample.bam
+	umi_tools dedup -v 0 -I $output/mapped.bam | samtools sort - -o $output/mapped.bam
 
 elif [[ $umi ]] && [[ $read2 ]]; then
-	umi_tools dedup --paired -I mapped.bam -S deduplicated.bam
+	umi_tools dedup -v 0 --paired -I $output/mapped.bam | samtools sort - -o $output/mapped.bam
 fi
 
 #############################################################################################################################
