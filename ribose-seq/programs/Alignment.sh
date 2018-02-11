@@ -54,8 +54,13 @@ fastq1=$directory/fastqs/$read1; fastq2=$directory/fastqs/$read2
 output=$directory/results/$sample/alignment; mkdir -p $output; rm -rf $output/*
 
 #############################################################################################################################
+if [[ $umi ]] && [[ ! $read2 ]]; then
+	umi_tools extract -v 0 -I $fastq1 -p $UMI -S $output/processed1.fq.gz
 
-
+elif [[ $umi ]] && [[ $read2 ]]; then
+	umi_tools extract -v 0 -I $fastq1 -p $UMI -S $output/processed1.fq.gz \
+	--read2-in=$fastq2 --read2-out=$output/processed2.fq.gz
+fi
 
 #############################################################################################################################
 if [[ ! $read2 ]]; then
