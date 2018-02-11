@@ -54,56 +54,18 @@ fastq1=$directory/fastqs/$read1; fastq2=$directory/fastqs/$read2
 output=$directory/results/$sample/alignment; mkdir -p $output; rm -rf $output/*
 
 #############################################################################################################################
-if [[ ! $read2 ]]; then
-	
-	if [[ $umi ]]; then
-		umi_tools extract -v 0 -I $fastq1 --bc-pattern=$UMI -S processed.fq.gz
-		
-	if [[ ! $adapter ]]; then
-		if [[ ! $barcode ]]; then
-			trim_galore --gzip --length $min $output/file1.fq -o $output
-		elif [[ $barcode ]]; then
-			grep --no-group-separator -B1 -A2 ^$barcode $output/file1.fq \
-			| trim_galore --gzip --length $min --clip_R1 3 - -o $output
-			
-	elif [[ $adapter ]]; then
-		if [[ ! $barcode ]]; then
-			trim_galore --gzip --length $min -a $adapter $output/file1.fq -o $output
-		elif [[ $barcode ]]; then
-			grep --no-group-separator -B1 -A2 ^$barcode $output/file1.fq | trim_galore \
-			--gzip--length $min --clip_R1 3 -a $adapter - -o $output
 
-elif [[ $read2 ]]; then
-	
-	if [[ $umi ]]; then
-		umi_tools extract -v 0 -I $fastq1 --bc-pattern=$UMI --read2-in=$fastq2 \
-		--stdout=processed1.fq.gz --read2-out=processed2.fq.gz
-	
-	if [[ ! $adapter ]]; then
-		if [[ ! $barcode ]]; then
-			trim_galore --gzip --paired --length $min $output/processed1.fq -o $output
-		elif [[ $barcode ]]; then
-			grep --no-group-separator -B1 -A2 ^$barcode $output/processed1.fq > $output/processed2.fq
-			trim_galore --gzip --paired --length $minimum --clip_R1 3 $output/filtered.fq -o $output
-			
-	elif [[ $adapter ]]; then
-		if [[ ! $barcode ]]; then
-			trim_galore --gzip --paired --length $minimum -a $adapter $output/processed1.fq -o $output
-		elif [[ $barcode ]]; then
-			grep --no-group-separator -B1 -A2 ^$barcode $output/processed1.fq > $output/processed2.fq
-			trim_galore --gzip --paired --length $minimum --clip_R1 3 -a $adapter $output/filtered.fq -o $output
 
-fi
 
 #############################################################################################################################
-if [[ $type == 'se' ]]; then
+if [[ ! $read2 ]]; then
 	#Align reads to reference genome and save Bowtie2 statistics log file
 	bowtie2 -x $index -U $output/filtered_trimmed.fq.gz 2> $output/alignment.log -S $output/mapped.sam
 	
 	#Extract mapped reads, convert SAM file to BAM format, and sort/index BAM file
 	samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam && samtools index $output/sorted.bam
 
-elif [[ $type == 'pe' ]]; then
+elif [[ $read2 ]]; then
 	#Align reads to reference genome and save Bowtie2 statistics log file
 	bowtie2 -x $index -1 $output/.fq.gz -2 $output/.fq.gz 2> $output/alignment.log -S $output/mapped.sam
 
