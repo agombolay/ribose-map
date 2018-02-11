@@ -46,7 +46,7 @@ fi
 
 #############################################################################################################################
 #Input files
-index=$directory/indexes/$idx;
+index=$directory/indexes/$idx
 fastq1=$directory/fastqs/$read1
 fastq2=$directory/fastqs/$read2
 
