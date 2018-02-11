@@ -4,7 +4,9 @@
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
 
-#1. Pre-processing, 2. Alignment, and 3. De-duplication based on UMI
+#1. Pre-processing (if UMI and/or barcode)
+#2. Alignment or SE or PE reads to reference
+#3. De-duplication based on UMI and chr coords
 
 #Note: Input FASTQ files must be located in Ribose-Map 'fastqs' directory (Ribose-Map/fastqs)
 #Note: Bowtie2 index files must be located in Ribose-Map 'indexes' directory (Ribose-Map/indexes)
@@ -19,20 +21,17 @@ function usage () {
 		-f Input Read 1 FASTQ filename
 		-r Input Read 2 FASTQ filename
 		Optional:
-		-a Custom adapter sequence to remove
-		-m Minimum length of reads to retain
 		-u UMI (e.g., NNNNNNNN or NNNNXXXNNNN)
 		-b Molecular barcode in UMI (e.g., TGA)"
 }
 
-while getopts "u:m:i:f:s:a:b:d:h" opt; do
+while getopts "u:i:f:r:s:b:d:h" opt; do
     	case "$opt" in
 		u ) UMI=$OPTARG ;;
-		m ) min=$OPTARG ;;
-		i ) idx=$OPTARG ;;
+		i ) index=$OPTARG ;;
 		f ) read1=$OPTARG ;;
+		r ) read2=$OPTARG ;;
 		s ) sample=$OPTARG ;;
-		a ) adapter=$OPTARG ;;
 		b ) barcode=$OPTARG ;;
 		d ) directory=$OPTARG ;;
         	#Print usage statement
