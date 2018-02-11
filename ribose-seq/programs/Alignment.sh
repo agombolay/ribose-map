@@ -53,7 +53,7 @@ fastq2=$directory/fastqs/$read2
 #Create output directory
 output=$directory/results/$sample/alignment
 
-#Remove old directory if present
+#Create directory and remove old files
 mkdir -p $output; rm -f $output/*.{bam,bai,log}
 
 #############################################################################################################################
