@@ -57,52 +57,6 @@ output=$directory/results/$sample/alignment
 mkdir -p $output; rm -f $output/*.{bam,bai,log}
 
 #############################################################################################################################
-#Extract UMI from reads and append UMI to read name
-if [[ ! $umi ]] && [[ ! $read2 ]]; then
-	cp $fastq1 $output/extract1.fq
-	
-elif [[ ! $umi ]] && [[ $read2 ]]; then
-	cp $fastq1 $output/extract1.fq && cp $fastq2 $output/extract2.fq
-
-elif [[ $umi ]] && [[ ! $read2 ]]; then
-	umi_tools extract -v 0 -I $fastq1 -p $UMI -S $output/extract1.fq
-
-elif [[ $umi ]] && [[ $read2 ]]; then
-	umi_tools extract -v 0 -I $fastq1 -p $UMI -S $output/extract1.fq \
-	--read2-in=$fastq2 --read2-out=$output/extract2.fq
-fi
-
-#Filter reads by barcode and remove barcode from reads
-if [[ ! $barcode ]]; then 
-	cp $output/extract1.fq $output/filter.fq
-	
-elif [[ $barcode ]]; then
-	grep --no-group-separator -B1 -A2 ^$barcode $output/extract1.fq \
-	| cutadapt - --cut ${#barcode} -o $output/filter.fq
-fi
-
-#############################################################################################################################
-#Align reads to reference genome and save Bowtie2 log file
-#Extract mapped reads, convert SAM file to BAM, and sort/index
-if [[ ! $read2 ]]; then
-	bowtie2 -x $index -U $output/filter.fq 2> $output/align.log -S $output/mapped.sam
-	samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
-	samtools index $output/sorted.bam
-	
-elif [[ $read2 ]]; then
-	bowtie2 -x $index -1 $output/filter.fq -2 $output/extract2.fq 2> $output/align.log -S $output/mapped.sam
-	samtools view -bS -f67 -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
-	samtools index $output/sorted.bam
-fi
-
-#############################################################################################################################
-#De-duplicate aligned reads based on UMI and chromosome coordinates
-if [[ $umi ]] && [[ ! $read2 ]]; then
-	umi_tools dedup -v 0 -I $output/mapped.bam | samtools sort - -o $output/mapped.bam
-
-elif [[ $umi ]] && [[ $read2 ]]; then
-	umi_tools dedup -v 0 --paired -I $output/mapped.bam | samtools sort - -o $output/mapped.bam
-fi
 
 #############################################################################################################################
 #Calculate % of reads that contain correct barcode sequence
