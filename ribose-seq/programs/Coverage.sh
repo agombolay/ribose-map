@@ -46,7 +46,7 @@ mkdir -p $output; rm -rf $output/*{bg,bed}
 if [[ -s $bed ]]; then
 	
 	#Create BED file for reference genome
-	cut -f 1,2 $reference > $output/$reference.bed
+	cut -f 1,2 $fasta > $output/$reference.bed
 	
 	#Save coverage of rNMPs per chromosome to separate files
 	for chr in $( awk '{print $1}' $output/$reference.bed ); do
