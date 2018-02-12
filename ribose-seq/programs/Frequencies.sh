@@ -35,11 +35,11 @@ fi
 for subset in "mito" "nucleus"; do
 	
 	#Input files
-	BED=$directory/References/$reference.bed; FASTA=$directory/References/$reference.fa
-	coordinates=$directory/Results/$sample/Coordinates/$sample-Coordinates.bed
+	FASTA=$directory/References/$reference.fa
+	coordinates=$directory/results/$sample/coordinates/$sample-Coordinates.bed
 
 	#Output directory
-	output=$directory/Results/$sample/Frequencies
+	output=$directory/results/$sample/frequencies
 	
 	#Create directory
 	mkdir -p $output
@@ -50,12 +50,15 @@ for subset in "mito" "nucleus"; do
 #############################################################################################################################
 	#STEP 1: Calculate frequencies of reference genome
 	
+	#Create BED file for reference genome
+	cut -f 1,2 $reference > $output/$reference.bed
+
 	#Subset FASTA file based on region
 	if [ $subset == "mito" ]; then
-		chr=$(awk '{print $1}' $BED | grep -E '(chrM|MT)')
+		chr=$(awk '{print $1}' $output/$reference.bed | grep -E '(chrM|MT)')
 		samtools faidx $FASTA $chr > $output/temp.fa
 	elif [ $subset == "nucleus" ]; then
-		chr=$(awk '{print $1}' $BED | grep -vE '(chrM|MT)')
+		chr=$(awk '{print $1}' $output/$reference.bed | grep -vE '(chrM|MT)')
 		samtools faidx $FASTA $chr > $output/temp.fa
 	fi
 		
