@@ -39,13 +39,13 @@ fastq2=$directory/fastqs/$read2
 output=$directory/results/$sample/alignment
 
 #Create directory and remove old files
-mkdir -p $output; rm -f $output/*.{bam,bai,log}
+mkdir -p $output; rm -f $output/*_trimmed{1,2}.fq
 
 #############################################################################################################################
 #Single-end reads
 fastqc $fastq1
-cutadapt $fastq1 -m $minimum -a $adapter -o $output/$sample_trimmed.fq
+cutadapt $fastq1 -m $minimum -a 'AGTTGCGACACGGATCTCTCA' -o $output/$sample_trimmed.fq
 
 #Paired-end reads
-fastqc $fastq1
-cutadapt $fastq1 $fastq2 -m $minimum -a $adapter -o $output/$sample_trimmed1.fq -p $output/$sample_trimmed2.fq
+fastqc $fastq1 $fastq2
+cutadapt $fastq1 $fastq2 -m $minimum -a 'AGTTGCGACACGGATCTCTCA' -o $output/$sample_trimmed1.fq -p $output/$sample_trimmed2.fq
