@@ -9,9 +9,8 @@
 function usage () {
 	echo "Usage: Frequencies.sh [options]
 	-d Ribose-Map repository
-	-s Sample name(s) (e.g., FS1, FS2, FS3 etc.)
-	-r Reference genome (e.g., sacCer2, pombe, ecoli, mm9, hg38)
-	-d Local user directory (e.g., /projects/home/agombolay3/data/repository/Ribose-Map)"
+	-s Name of sequenced library
+	-r Reference genome (e.g., sacCer2, pombe, ecoli, mm9, hg38)"
 }
 
 #Command-line options
