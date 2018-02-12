@@ -34,18 +34,15 @@ fi
 #############################################################################################################################
 for subset in "mito" "nucleus"; do
 	
-	#Input files
-	FASTA=$directory/References/$reference.fa
-	coordinates=$directory/results/$sample/coordinates/$sample-Coordinates.bed
-
 	#Output directory
 	output=$directory/results/$sample/frequencies
 	
-	#Create directory
-	mkdir -p $output
-
-	#Remove old file
-	rm -f $output/$sample-Frequencies.$subset.txt
+	#Input reference and coordinates files
+	reference=$directory/References/$reference.fa
+	bed=$directory/results/$sample/coordinates/$sample.bed
+	
+	#Create directory and remove old files
+	mkdir -p $output; rm -rf $output/*{txt}
 	
 #############################################################################################################################
 	#STEP 1: Calculate frequencies of reference genome
