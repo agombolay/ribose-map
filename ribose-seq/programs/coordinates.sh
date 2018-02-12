@@ -17,21 +17,15 @@ function usage () {
 }
 
 #Command-line options
-while getopts "s:t:r:d:h" opt; do
+while getopts "h:s:t:r:d" opt; do
     case $opt in
+    	h ) usage ;;
         s ) sample=$OPTARG ;;
 	t ) technique=$OPTARG ;;
 	r ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
-        #Print usage statement
-        h ) usage ;;
     esac
 done
-
-#Exit program if [-h]
-if [ "$1" == "-h" ]; then
-	exit
-fi
 
 #############################################################################################################################
 #Output directory
