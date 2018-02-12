@@ -3,8 +3,9 @@
 #Copyright 2016 Alli Gombolay
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
-#This program plots rNMP and flanking nucleotide frequencies (100 bp upstream and downstream)
-#rNMP frequencies = position 0, upstream frequencies = -100 -> -1, and downstream = +1 -> +100
+
+#1. Plots rNMP nt frequencies for mito and nucleus
+#2. Saves plots as png files to appropriate directory
 
 #############################################################################################################################
 #Load libraries
