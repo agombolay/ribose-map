@@ -15,7 +15,7 @@
 function usage () {
 	echo "Usage: Alignment.sh [options]
 		Required:
-		-d Ribose-Map repository
+		-d Ribose-Map directory
 		-s Name of sequenced library
 		-i Basename of Bowtie2 index
 		-f Input Read 1 FASTQ filename
@@ -28,7 +28,7 @@ function usage () {
 while getopts "u:i:f:r:s:b:d:h" opt; do
     	case "$opt" in
 		u ) UMI=$OPTARG ;;
-		i ) index=$OPTARG ;;
+		i ) idx=$OPTARG ;;
 		f ) read1=$OPTARG ;;
 		r ) read2=$OPTARG ;;
 		s ) sample=$OPTARG ;;
@@ -46,9 +46,9 @@ fi
 
 #############################################################################################################################
 #Input files
-index=$directory/indexes/$idx
 fastq1=$directory/fastqs/$read1
 fastq2=$directory/fastqs/$read2
+index=$directory/references/$idx
 
 #Create output directory
 output=$directory/results/$sample/alignment
