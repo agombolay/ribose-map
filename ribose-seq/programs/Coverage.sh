@@ -12,14 +12,14 @@ function usage () {
 	echo "Usage: Coverage.sh [options]
 		-d Ribose-Map repository
 		-s Name of sequenced library
-		-i Basename of Bowtie2 index"
+		-r Basename of reference fasta"
 }
 
 #Command-line options
-while getopts "d:s:i:h" opt; do
+while getopts "s:r:d:h" opt; do
     case "$opt" in
         s ) sample=$OPTARG ;;
-	i ) reference=$OPTARG ;;
+	r ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
         #Print usage statement
         h ) usage ;;
