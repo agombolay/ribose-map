@@ -24,5 +24,5 @@ if [[ $barcode ]]; then
   x=$(echo $((`wc -l < $output/bc.fq` / 4))/$((`wc -l < $output/UMI1.fq` / 4)))
 
   #Save info about % of reads that contain correct barcode sequence
-  echo -e "Barcoded Reads: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/barcode.log
+  echo -e "Reads with barcode: $(echo "$x*100" | bc -l)%" > $output/barcode.log
 fi
