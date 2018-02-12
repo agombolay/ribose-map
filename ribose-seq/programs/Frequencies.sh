@@ -100,7 +100,7 @@ for subset in "mito" "nucleus"; do
 	#STEP 3: Calculate frequencies of rNMPs in libraries
 	
 	#Save only unique coordinates
-	uniq $coordinates > $output/Unique.bed
+	uniq $bed > $output/Unique.bed
 		
 	#Subset and sort coordinates based on genomic region
 	if [[ $subset == "mito" ]]; then
