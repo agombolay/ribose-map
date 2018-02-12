@@ -12,8 +12,8 @@ function usage () {
 	echo "Usage: Coordinates.sh [options]
 	-d Ribose-Map repository
 	-s Name of sequenced library
-	-i Basename of Bowtie2 index
-	-t rNMP sequencing technique"
+	-t rNMP sequencing technique
+	-r Basename of reference fasta"
 }
 
 #Command-line options
