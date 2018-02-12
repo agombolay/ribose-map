@@ -5,8 +5,10 @@
 #E-mail: alli.gombolay@gatech.edu
 
 #############################################################################################################################
-umi_tools extract -v 0 -I $fastq1 -p $UMI -S $output/extract1.fq
+$output=$directory/results/alignment
 
-umi_tools extract -v 0 -I $fastq1 -p $UMI -S $output/extract1.fq --read2-in=$fastq2 --read2-out=$output/extract2.fq
+umi_tools extract -v 0 -I $fastq1 -p $UMI -S $output/UMI1.fq
 
-grep -B 1 -A 2 ^$bc $output/extract1.fq | sed '/^--$/d' | awk 'NR%2 == 0 {sub(/^.{'${#bc}'}/,"")} {print}' > $output/filter.fq
+umi_tools extract -v 0 -I $fastq1 -p $UMI -S $output/UMI1.fq --read2-in=$fastq2 --read2-out=$output/UMI2.fq
+
+grep -B 1 -A 2 ^$bc $output/UMI1.fq | sed '/^--$/d' | awk 'NR%2==0 {sub(/^.{'${#bc}'}/,"")} {print}' > $output/bc.fq
