@@ -43,7 +43,7 @@ bed=$directory/results/$sample/coordinates/$sample.bed
 mkdir -p $output; rm -rf $output/*{bg,bed}
 
 #############################################################################################################################
-if [[ -s $coordinates ]]; then
+if [[ -s $bed ]]; then
 	
 	#Create BED file for reference genome
 	cut -f 1,2 $reference > $output/$reference.bed
