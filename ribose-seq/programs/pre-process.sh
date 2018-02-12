@@ -30,8 +30,22 @@ if [ "$1" == "-h" ]; then
         exit
 fi
 
+#############################################################################################################################
+#Input files
+fastq1=$directory/fastqs/$read1
+fastq2=$directory/fastqs/$read2
+
+#Create output directory
+output=$directory/results/$sample/alignment
+
+#Create directory and remove old files
+mkdir -p $output; rm -f $output/*.{bam,bai,log}
+
+#############################################################################################################################
 #Single-end reads
-trim_galore $fastq1 --fastqc --length $minimum -a $adapter -o $output
+fastqc $fastq1
+cutadapt $fastq1 --minimum-length $minimum -a $adapter -o $output/$sample_trimmed.fq
 
 #Paired-end reads
-trim_galore $fastq1 $fastq2 --fastqc --paired --length $minimum -a $adapter $output/filtered.fq -o $output
+fastqc $fastq1
+cutadapt $fastq1 $fastq2 -m $minimum -a $adapter -o $output/$sample_trimmed1.fq -p $output/$sample_trimmed2.fq
