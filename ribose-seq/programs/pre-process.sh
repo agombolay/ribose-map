@@ -14,21 +14,15 @@ function usage () {
 		-r Input Read 2 FASTQ filename"
 }
 
-while getopts "f:r:s:d:h" opt; do
+while getopts "h:f:r:s:d" opt; do
 	case "$opt" in
+		h ) usage ;;
 		f ) read1=$OPTARG ;;
 		r ) read2=$OPTARG ;;
 		s ) sample=$OPTARG ;;
 		d ) directory=$OPTARG ;;
-    		#Print usage statement
-    		h ) usage ;;
 	esac
 done
-
-#Exit program if [-h]
-if [ "$1" == "-h" ]; then
-        exit
-fi
 
 #############################################################################################################################
 #Input files
