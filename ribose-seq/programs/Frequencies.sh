@@ -36,8 +36,7 @@ fi
 output=$directory/results/$sample/frequencies
 	
 #Input reference and coordinates files
-reference1=$directory/references/$reference.fa
-reference2=$directory/references/$reference.fai
+reference=$directory/references/$reference.fa
 bed=$directory/results/$sample/coordinates/$sample.bed
 	
 #Create directory and remove old files
@@ -49,7 +48,7 @@ for subset in "mito" "nucleus"; do
 	#STEP 1: Calculate frequencies of reference genome
 	
 	#Create BED file for reference genome
-	cut -f 1,2 $reference2 > $output/$reference.bed
+	cut -f 1,2 $reference.fai > $output/$reference.bed
 
 	#Subset FASTA file based on region
 	if [ $subset == "mito" ]; then
