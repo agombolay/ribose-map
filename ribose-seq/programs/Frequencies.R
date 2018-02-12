@@ -71,4 +71,3 @@ ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".",
 }
 }
 }
-}
