@@ -53,10 +53,10 @@ for subset in "mito" "nucleus"; do
 	cut -f 1,2 $output/$reference.fa.fai > $output/$reference.bed
 
 	#Subset FASTA file based on region
-	if [ $subset == "mito" ]; then
+	if [[ $subset == "mito" ]]; then
 		chr=$(awk '{print $1}' $output/$reference.bed | grep -E '(chrM|MT)')
 		samtools faidx $FASTA $chr > $output/temp.fa
-	elif [ $subset == "nucleus" ]; then
+	elif [[ $subset == "nucleus" ]]; then
 		chr=$(awk '{print $1}' $output/$reference.bed | grep -vE '(chrM|MT)')
 		samtools faidx $FASTA $chr > $output/temp.fa
 	fi
@@ -104,9 +104,9 @@ for subset in "mito" "nucleus"; do
 	uniq $coordinates > $output/Unique.bed
 		
 	#Subset and sort coordinates based on genomic region
-	if [ $subset == "mito" ]; then
+	if [[ $subset == "mito" ]]; then
 		grep -E '(chrM|MT)' $output/Unique.bed > $output/Coords.bed
-	elif [ $subset == "nucleus" ]; then
+	elif [[ $subset == "nucleus" ]]; then
 		grep -vE '(chrM|MT)' $output/Unique.bed > $output/Coords.bed
 	fi
 	
@@ -194,10 +194,10 @@ for subset in "mito" "nucleus"; do
 				echo $T_FlankFreq | xargs printf "%.*f\n" 5 >> $output/T_$direction.txt
 		
 				#Combine dNMP frequencies into one file per location
-				if [ $direction == "Up" ]; then
+				if [[ $direction == "Up" ]]; then
 					#Print upstream frequencies in reverse order
 					Up=$(paste $output/{A,C,G,T}_Up.txt | tac -)
-				elif [ $direction == "Down" ]; then
+				elif [[ $direction == "Down" ]]; then
 					Down=$(paste $output/{A,C,G,T}_Down.txt)
 				fi
 				
