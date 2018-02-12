@@ -13,9 +13,8 @@ library(ggplot2)
 
 #Command line options
 option_list <- list(
-make_option(c("-s", "--sample"), help="Sample name(s) (e.g., FS1, FS2, FS3)"),
-make_option(c("-r", "--reference"), help="Reference genome (e.g., sacCer2, pombe, ecoli, mm9, hg38)"),
-make_option(c("-d", "--directory"), help="Directory (e.g., /projects/home/agombolay3/data/repository/Ribose-Map)")
+	make_option(c("-s", "--sample"), help="Sample name(s) (e.g., FS1, FS2, FS3)"),
+	make_option(c("-d", "--directory"), help="Directory (e.g., /projects/home/agombolay3/data/repository/Ribose-Map)")
 )
 
 #Get command line options, if -h encountered print help
