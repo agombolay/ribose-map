@@ -35,8 +35,7 @@ fi
 #Output directory
 output=$directory/results/$sample/coverage
 
-#Input reference and coordinates files
-fasta=$directory/references/$reference.fa.fai
+#Input coordinates files
 bed=$directory/results/$sample/coordinates/$sample.bed
 
 #Create directory and remove old files
@@ -45,8 +44,11 @@ mkdir -p $output; rm -rf $output/*{bg,bed}
 #############################################################################################################################
 if [[ -s $bed ]]; then
 	
+	#Index FASTA file
+	samtools faidx $directory/references/$reference.fa
+	
 	#Create BED file for reference genome
-	cut -f 1,2 $fasta > $output/$reference.bed
+	cut -f 1,2 $output/$reference.fa.fai > $output/$reference.bed
 	
 	#Save coverage of rNMPs per chromosome to separate files
 	for chr in $( awk '{print $1}' $output/$reference.bed ); do
