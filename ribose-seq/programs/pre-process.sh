@@ -44,7 +44,7 @@ mkdir -p $output; rm -f $output/*.{bam,bai,log}
 #############################################################################################################################
 #Single-end reads
 fastqc $fastq1
-cutadapt $fastq1 --minimum-length $minimum -a $adapter -o $output/$sample_trimmed.fq
+cutadapt $fastq1 -m $minimum -a $adapter -o $output/$sample_trimmed.fq
 
 #Paired-end reads
 fastqc $fastq1
