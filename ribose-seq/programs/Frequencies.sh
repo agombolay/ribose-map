@@ -55,14 +55,11 @@ for subset in "mito" "nucleus"; do
 	#Subset FASTA file based on region
 	if [[ $subset == "mito" ]]; then
 		chr=$(awk '{print $1}' $output/$reference.bed | grep -E '(chrM|MT)')
-		samtools faidx $FASTA $chr > $output/temp.fa
+		samtools faidx $FASTA $chr > $output/temp.fa && samtools faidx $output/temp.fa
 	elif [[ $subset == "nucleus" ]]; then
 		chr=$(awk '{print $1}' $output/$reference.bed | grep -vE '(chrM|MT)')
-		samtools faidx $FASTA $chr > $output/temp.fa
+		samtools faidx $FASTA $chr > $output/temp.fa && samtools faidx $output/temp.fa
 	fi
-		
-	#Index FASTA file
-	samtools faidx $output/temp.fa
 
 	#Calculate counts of each nucleotide
 	A_Bkg=$(grep -v '>' $output/temp.fa | grep -o 'A' - | wc -l)
