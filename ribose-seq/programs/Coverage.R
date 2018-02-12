@@ -12,7 +12,6 @@ library(tools); library(ggplot2); library(optparse)
 
 #Command-line options
 option_list <- list(
-	make_option(c("-r", "--idx"), help="Basename of Bowtie2 index"),
 	make_option(c("-s", "--sample"), help="Sequenced library name"),
 	make_option(c("-d", "--directory"), help="Ribose-Map repository")
 )
@@ -22,10 +21,10 @@ opt <- parse_args(OptionParser(option_list=option_list))
 
 #############################################################################################################################
 #Specify output directory and file
-directory <- file.path(opt$directory, "Results", opt$idx, opt$sample, "Coverage")
-input_files <- list.files(path=directory, pattern=".bed", full.names=T, recursive=F)
+directory <- file.path(opt$directory, "Results", opt$sample, "Coverage")
+input <- list.files(path=directory, pattern=".bed", full.names=T, recursive=F)
         
-for(file in input_files){
+for(file in input){
 		
 	#Plot if file exists
         if (file.exists(file)) {
