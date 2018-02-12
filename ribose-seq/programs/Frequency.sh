@@ -34,10 +34,10 @@ for subset in "mito" "nucleus"; do
 	
 	#Input files
 	BED=$directory/References/$reference.bed; FASTA=$directory/References/$reference.fa
-	coordinates=$directory/Results/$reference/$sample/Coordinates/$sample-Coordinates.bed
+	coordinates=$directory/Results/$sample/Coordinates/$sample-Coordinates.bed
 
 	#Output directory
-	output=$directory/Results/$reference/$sample/Frequencies
+	output=$directory/Results/$sample/Frequencies
 	
 	#Create directory
 	mkdir -p $output
