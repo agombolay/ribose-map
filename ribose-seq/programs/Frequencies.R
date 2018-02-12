@@ -41,32 +41,29 @@ for(file in input){
 			position <- data$X; A <- data$A; C <- data$C; G <- data$G; T <- data$U.T
 
 #############################################################################################################################
-			#Plot frequencies
-			myplot <- ggplot(data, aes(x=position)) +
-    
-			#Replace default theme
-			theme(panel.grid=element_blank(),
-              		panel.background=element_blank(),
-			axis.line=element_line(colour="black")) +
-			
-			#Add axes titles and plot title
-			xlab("Position") + ylab("rNMP Frequency") +
-				
-			#Plot data as scatterplot with connecting lines
-                    	geom_line(aes(y=A, colour="A")) + geom_point(aes(y=A, colour="A")) +
-                    	geom_line(aes(y=C, colour="C")) + geom_point(aes(y=C, colour="C")) +
-                    	geom_line(aes(y=G, colour="G")) + geom_point(aes(y=G, colour="G")) +
-                    	geom_line(aes(y=T, colour="U/T")) + geom_point(aes(y=T, colour="U/T")) +
-				
-                    	#Specify font size and remove grey background of legend key
-                    	theme(text=element_text(size=20)) + theme(legend.key = element_blank()) +
+		#Create plot
+		myplot <- ggplot(data, aes(x=position)) +
 
-                    	#Specify color values for each nucleotide and remove legend title
-                    	scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="")
-														     
+		#Remove and replace default background theme of plot
+		theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black"))+
+			
+		#Add axes titles and plot title
+		xlab("Chromosome Position") + ylab("rNMP Frequency") +
+		
+		#Specify font size and remove grey background of legend key
+		theme(text=element_text(size=20)) + theme(legend.key = element_blank()) +
+		
+		#Specify color values for each nucleotide and remove legend title
+                scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="") +
+	
+		#Plot data as scatterplot with connecting lines
+                geom_line(aes(y=A, colour="A")) + geom_point(aes(y=A, colour="A")) + geom_line(aes(y=C, colour="C"))+ 
+		geom_point(aes(y=C, colour="C")) + geom_line(aes(y=G, colour="G")) + geom_point(aes(y=G, colour="G"))+
+                geom_line(aes(y=T, colour="U/T")) + geom_point(aes(y=T, colour="U/T"))
+
 #############################################################################################################################
-#Save plot as PNG file
-ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep="")), plot=myplot)
+		#Save plot as PNG file
+		ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep="")), plot=myplot)
 			
 }
 }
