@@ -45,6 +45,7 @@ mkdir -p $output; rm -rf $output/*{bg,bed}
 #############################################################################################################################
 if [[ -s $coordinates ]]; then
 	
+	#Create BED file for reference genome
 	cut -f 1,2 $reference > $output/$reference.bed
 	
 	#Save coverage of rNMPs per chromosome to separate files
