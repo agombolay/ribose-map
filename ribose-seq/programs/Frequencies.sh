@@ -93,7 +93,6 @@ for subset in "mito" "nucleus"; do
 		
 	#Add nucleotides to header line
 	echo -e "A\tC\tG\tT" > $directory/references/$reference-Freqs.$subset.txt
-	
 	#Add frequencies of nucleotides in reference genome
 	paste <(echo -e "$Bkg") >> $directory/references/$reference-Freqs.$subset.txt
 			
