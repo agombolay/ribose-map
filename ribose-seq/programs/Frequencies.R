@@ -13,7 +13,7 @@ library(ggplot2); library(optparse)
 #Command line options
 option_list <- list(
 	make_option(c("-s", "--sample"), help="Sequenced library name"),
-	make_option(c("-d", "--directory"), help="Ribose-Map repository")")
+	make_option(c("-d", "--directory"), help="Ribose-Map repository")
 )
 
 #Get command line options, if -h invoked print help
