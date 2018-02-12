@@ -18,7 +18,7 @@ if [[ $fastq1 ]] && [[ ! $fastq2 ]]; then
     #Calculate % of reads that contain correct barcode sequence
     x=$(echo $((`wc -l < $output/filtered.fq` / 4))/$((`wc -l < $output/UMI.fq` / 4)))
 
-    #Save info about %of reads that contain correct barcode sequence
+    #Save info about % of reads that contain correct barcode sequence
     echo -e "Percentage of reads with barcode: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/barcode.log
 
   fi
@@ -34,7 +34,7 @@ elif [[ $fastq1 ]] && [[ $fastq2 ]]; then
     #Calculate % of reads that contain correct barcode sequence
     x=$(echo $((`wc -l < $output/filtered.fq` / 4))/$((`wc -l < $output/UMI.fq` / 4)))
 
-    #Save info about %of reads that contain correct barcode sequence
+    #Save info about % of reads that contain correct barcode sequence
     echo -e "Percentage of reads with barcode: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/barcode.log
 
   fi
