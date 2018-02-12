@@ -36,7 +36,7 @@ fi
 output=$directory/results/$sample/coverage
 
 #Input reference and coordinates files
-reference=$directory/references/$reference.fa.fai
+fasta=$directory/references/$reference.fa.fai
 bed=$directory/results/$sample/coordinates/$sample.bed
 
 #Create directory and remove old files
