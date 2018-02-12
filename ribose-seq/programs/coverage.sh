@@ -10,7 +10,7 @@
 #Usage statement
 function usage () {
 	echo "Usage: Coverage.sh [options]
-		-d Ribose-Map repository
+		-d Ribose-Map directory
 		-s Name of sequenced library
 		-r Basename of reference fasta"
 }
