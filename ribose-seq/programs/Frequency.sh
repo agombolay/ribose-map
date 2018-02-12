@@ -3,14 +3,16 @@
 #© 2016 Alli Gombolay
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
-#This program calculates rNMP frequencies and flanking dNMP frequencies (+/- 100 bp)
+
+#1. Calculate frequencies of rNMP nucleotides
+#2. Calculate frequencies of flanking nucleotides
 
 #Usage statement
 function usage () {
-	echo "Usage: Frequencies.sh [options]
+	echo "Usage: Frequency.sh [options]
 	-d Ribose-Map repository
 	-s Name of sequenced library
-	-r Reference genome (e.g., sacCer2, pombe, ecoli, mm9, hg38)"
+	-i Basename of Bowtie2 index"
 }
 
 #Command-line options
