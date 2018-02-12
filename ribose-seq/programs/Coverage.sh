@@ -33,11 +33,11 @@ fi
 
 #############################################################################################################################
 #Output directory
-output=$directory/Results/$sample/Coverage
+output=$directory/Results/$sample/coverage
 
 #Input reference and coordinates files
-reference=$directory/References/$reference.fa.fai
-bed=$directory/Results/$sample/Coordinates/$sample.bed
+reference=$directory/references/$reference.fa.fai
+bed=$directory/results/$sample/coordinates/$sample.bed
 
 #Create directory and remove old files
 mkdir -p $output; rm -rf $output/*{bg,bed}
