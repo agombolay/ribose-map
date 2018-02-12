@@ -36,7 +36,7 @@ fi
 output=$directory/results/$sample/frequencies
 	
 #Input reference and coordinates files
-reference=$directory/References/$reference.fa
+reference=$directory/references/$reference.fa
 bed=$directory/results/$sample/coordinates/$sample.bed
 	
 #Create directory and remove old files
