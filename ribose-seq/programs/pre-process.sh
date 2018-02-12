@@ -44,8 +44,8 @@ mkdir -p $output; rm -f $output/*_trimmed{1,2}.fq
 #############################################################################################################################
 #Single-end reads
 fastqc $fastq1 -o $output
-cutadapt $fastq1 -m $minimum -a 'AGTTGCGACACGGATCTCTCA' -o $output/$sample_trimmed.fq
+cutadapt $fastq1 -m 50 -a 'AGTTGCGACACGGATCTCTCA' -o $output/$sample_trimmed.fq
 
 #Paired-end reads
 fastqc $fastq1 $fastq2 -o $output
-cutadapt $fastq1 $fastq2 -m $minimum -a 'AGTTGCGACACGGATCTCTCA' -o $output/$sample_trimmed1.fq -p $output/$sample_trimmed2.fq
+cutadapt $fastq1 $fastq2 -m 50 -a 'AGTTGCGACACGGATCTCTCA' -o $output/$sample_trimmed1.fq -p $output/$sample_trimmed2.fq
