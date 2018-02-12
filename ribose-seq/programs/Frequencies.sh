@@ -19,7 +19,7 @@ function usage () {
 while getopts "s:r:d:h" opt; do
     case $opt in
         s ) sample=$OPTARG ;;
-	b ) reference=$OPTARG ;;
+	r ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
         #Print usage statement
         h ) usage ;;
