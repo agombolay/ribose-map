@@ -21,4 +21,4 @@ elif [[ $fastq1 ]] && [[ $fastq2 ]]; then
     grep -B 1 -A 2 ^$bc $output/UMI1.fq | sed '/^--$/d' | awk 'NR%2==0 {sub(/^.{'${#bc}'}/,"")} {print}' > $output/bc.fq
   fi
  
- fi
+fi
