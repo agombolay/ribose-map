@@ -163,10 +163,10 @@ for subset in "mito" "nucleus"; do
 #############################################################################################################################
 		#STEP 6: Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
 
-		for direction in "Up" "Down"; do
+		for dir in "Up" "Down"; do
 		
 			#'-v' = natural sort of #'s
-			for file in $(ls -v $output/$sample.$direction.{1..100}.txt); do
+			for file in $(ls -v $output/$sample.$dir.{1..100}.txt); do
 		
 				#Calculate count of each dNMP
 				A_Flank=$(grep -o 'A' $file | wc -l)
@@ -184,16 +184,16 @@ for subset in "mito" "nucleus"; do
 				T_FlankFreq=$(echo "($T_Flank/$FlankTotal)/$T_BkgFreq" | bc -l)
 		
 				#Save normalized dNMPs frequencies to TXT files
-				echo $A_FlankFreq | xargs printf "%.*f\n" 5 >> $output/A_$direction.txt
-				echo $C_FlankFreq | xargs printf "%.*f\n" 5 >> $output/C_$direction.txt
-				echo $G_FlankFreq | xargs printf "%.*f\n" 5 >> $output/G_$direction.txt
-				echo $T_FlankFreq | xargs printf "%.*f\n" 5 >> $output/T_$direction.txt
+				echo $A_FlankFreq | xargs printf "%.*f\n" 5 >> $output/A_$dir.txt
+				echo $C_FlankFreq | xargs printf "%.*f\n" 5 >> $output/C_$dir.txt
+				echo $G_FlankFreq | xargs printf "%.*f\n" 5 >> $output/G_$dir.txt
+				echo $T_FlankFreq | xargs printf "%.*f\n" 5 >> $output/T_$dir.txt
 		
 				#Combine dNMP frequencies into one file per location
-				if [[ $direction == "Up" ]]; then
+				if [[ $dir == "Up" ]]; then
 					#Print upstream frequencies in reverse order
 					Up=$(paste $output/{A,C,G,T}_Up.txt | tac -)
-				elif [[ $direction == "Down" ]]; then
+				elif [[ $dir == "Down" ]]; then
 					Down=$(paste $output/{A,C,G,T}_Down.txt)
 				fi
 				
