@@ -34,15 +34,9 @@ while getopts "u:i:f:r:s:b:d:h" opt; do
 		s ) sample=$OPTARG ;;
 		b ) barcode=$OPTARG ;;
 		d ) directory=$OPTARG ;;
-        	#Print usage statement
-        	h ) usage ;;
+        	h ) usage;;
     	esac
 done
-
-#Exit program if [-h]
-if [ "$1" == "-h" ]; then
-        exit
-fi
 
 #############################################################################################################################
 #Input files
