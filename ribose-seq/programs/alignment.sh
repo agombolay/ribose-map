@@ -25,8 +25,9 @@ function usage () {
 		-b Molecular barcode in UMI (e.g., TGA)"
 }
 
-while getopts "u:i:f:r:s:b:d:h" opt; do
+while getopts "h:u:i:f:r:s:b:d" opt; do
     	case "$opt" in
+		h ) usage ;;
 		u ) UMI=$OPTARG ;;
 		i ) index=$OPTARG ;;
 		f ) read1=$OPTARG ;;
@@ -34,7 +35,6 @@ while getopts "u:i:f:r:s:b:d:h" opt; do
 		s ) sample=$OPTARG ;;
 		b ) barcode=$OPTARG ;;
 		d ) directory=$OPTARG ;;
-        	h ) usage;;
     	esac
 done
 
