@@ -49,8 +49,8 @@ for(file in input){
 		theme(text=element_text(size=15)) + scale_y_discrete(expand=c(0.015,0)) + scale_x_discrete(expand=c(0.015,0))
 
 #############################################################################################################################
-#Save plot as PNG file
-ggsave(filename=file.path(path, paste(file_path_sans_ext(basename(file)), ".png", sep="")), plot=myplot, width=20)
+		#Save plot as PNG file
+		ggsave(filename=file.path(path, paste(file_path_sans_ext(basename(file)), ".png", sep="")), plot=myplot, width=20)
 
 }
 }
