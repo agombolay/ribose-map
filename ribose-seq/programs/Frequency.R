@@ -8,45 +8,44 @@
 
 #############################################################################################################################
 #Load libraries
-library(optparse)
-library(ggplot2)
+library(ggplot2); library(optparse)
 
 #Command line options
 option_list <- list(
-	make_option(c("-s", "--sample"), help="Sample name(s) (e.g., FS1, FS2, FS3)"),
-	make_option(c("-d", "--directory"), help="Directory (e.g., /projects/home/agombolay3/data/repository/Ribose-Map)")
+	make_option(c("-s", "--sample"), help="Sequenced library name"),
+	make_option(c("-d", "--directory"), help="Ribose-Map repository")")
 )
 
-#Get command line options, if -h encountered print help
+#Get command line options, if -h invoked print help
 opt <- parse_args(OptionParser(option_list=option_list))
 
 #############################################################################################################################
-for(i in opt$sample) {
-	for(j in c("mito", "nucleus")) {
+for(j in c("mito", "nucleus")) {
 
-		#Specify output directory and file
-		output <- file.path(opt$directory, "Results", opt$reference, opt$sample, "Frequencies")
-		file <- file.path(output, paste(opt$sample, "-", "Frequencies", ".", j, ".txt", sep=""))
+	#Specify output directory and file
+	path <- file.path(opt$directory, "Results", opt$sample, "Frequency")
+	input <- file.path(path, paste(opt$sample, "-", "Frequency", ".", j, ".txt", sep=""))
 
- 		#Plot only if files exist
-        	if (file.exists(file)) {
-			#Plot regular and zoomed datasets
-                	for(k in c("Regular", "Zoomed")) {
-
-#############################################################################################################################
-                    	#Specify datasets to be used for each round of loop
-                    	if (k=="Regular") {data=read.table(file, sep="\t", header=TRUE)}
-                    	if (k=="Zoomed") {data=read.table(file, sep="\t", header=TRUE)[86:116,]}
-    
-                    	#Define variables to store nucleotide positions and frequency values
-                    	position <- data$X; A <- data$A; C <- data$C; G <- data$G; T <- data$U.T
+ 	#Plot only if files exist
+        if (file.exists(input)) {
+		
+		#Plot regular and zoomed datasets
+                for(k in c("Regular", "Zoomed")) {
 
 #############################################################################################################################
-                    	#Plot frequencies
-                    	myplot <- ggplot(data, aes(x=position)) +
+			#Specify datasets to be used for each round of loop
+			if (k=="Regular") {data=read.table(file, sep="\t", header=TRUE)}
+			if (k=="Zoomed") {data=read.table(file, sep="\t", header=TRUE)[86:116,]}
     
-                    	#Replace default theme
-        		theme(panel.grid=element_blank(),
+			#Define variables to store nucleotide positions and frequency values
+			position <- data$X; A <- data$A; C <- data$C; G <- data$G; T <- data$U.T
+
+#############################################################################################################################
+			#Plot frequencies
+			myplot <- ggplot(data, aes(x=position)) +
+    
+			#Replace default theme
+			theme(panel.grid=element_blank(),
               		panel.background=element_blank(),
 			axis.line=element_line(colour="black")) +
 			
