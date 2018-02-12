@@ -20,22 +20,22 @@ option_list <- list(
 opt <- parse_args(OptionParser(option_list=option_list))
 
 #############################################################################################################################
-for(j in c("mito", "nucleus")) {
+#Specify output directory and file
+path <- file.path(opt$directory, "Results", opt$sample, "Frequencies")
+input <- list.files(path=path, pattern=".txt", full.names=T, recursive=F)
 
-	#Specify output directory and file
-	path <- file.path(opt$directory, "Results", opt$sample, "Frequency")
-	input <- file.path(path, paste(opt$sample, "-", "Frequency", ".", j, ".txt", sep=""))
+for(file in input){
 
- 	#Plot only if files exist
-        if (file.exists(input)) {
+	#Plot if file exists
+	if (file.exists(input)) {
 		
 		#Plot regular and zoomed datasets
-                for(k in c("Regular", "Zoomed")) {
+		for(i in c("Normal", "Zoomed")) {
 
 #############################################################################################################################
 			#Specify datasets to be used for each round of loop
-			if (k=="Regular") {data=read.table(file, sep="\t", header=TRUE)}
-			if (k=="Zoomed") {data=read.table(file, sep="\t", header=TRUE)[86:116,]}
+			if (i=="Normal") {data=read.table(file, sep="\t", header=TRUE)}
+			if (i=="Zoomed") {data=read.table(file, sep="\t", header=TRUE)[86:116,]}
     
 			#Define variables to store nucleotide positions and frequency values
 			position <- data$X; A <- data$A; C <- data$C; G <- data$G; T <- data$U.T
@@ -66,7 +66,7 @@ for(j in c("mito", "nucleus")) {
 														     
 #############################################################################################################################
 #Save plot as PNG file
-ggsave(filename=file.path(output, paste(opt$sample, "-", "Frequencies", "-", k, ".", j, ".png", sep="")), plot=myplot)
+ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep="")), plot=myplot)
 			
 }
 }
