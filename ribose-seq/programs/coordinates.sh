@@ -10,7 +10,7 @@
 #Usage statement
 function usage () {
 	echo "Usage: Coordinates.sh [options]
-	-d Ribose-Map repository
+	-d Ribose-Map directory
 	-s Name of sequenced library
 	-t rNMP sequencing technique
 	-r Basename of reference fasta"
