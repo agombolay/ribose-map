@@ -170,7 +170,7 @@ for subset in "mito" "nucleus"; do
 		for direction in "Up" "Down"; do
 		
 			#'-v' = natural sort of #'s
-			for file in `ls -v $output/$sample.$direction.{1..100}.txt`; do
+			for file in $(ls -v $output/$sample.$direction.{1..100}.txt); do
 		
 				#Calculate count of each dNMP
 				A_Flank=$(grep -o 'A' $file | wc -l)
