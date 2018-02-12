@@ -47,8 +47,8 @@ fi
 #############################################################################################################################
 #Input files
 index=$directory/indexes/$idx
-fastq1=$directory/alignment/$read1
-fastq2=$directory/alignment/$read2
+fastq1=$directory/fastqs/$read1
+fastq2=$directory/fastqs/$read2
 
 #Create output directory
 output=$directory/results/$sample/alignment
