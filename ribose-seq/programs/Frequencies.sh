@@ -32,19 +32,19 @@ if [ "$1" == "-h" ]; then
 fi
 
 #############################################################################################################################
-for subset in "mito" "nucleus"; do
+#Output directory
+output=$directory/results/$sample/frequencies
 	
-	#Output directory
-	output=$directory/results/$sample/frequencies
+#Input reference and coordinates files
+reference=$directory/References/$reference.fa
+bed=$directory/results/$sample/coordinates/$sample.bed
 	
-	#Input reference and coordinates files
-	reference=$directory/References/$reference.fa
-	bed=$directory/results/$sample/coordinates/$sample.bed
-	
-	#Create directory and remove old files
-	mkdir -p $output; rm -rf $output/*{txt}
+#Create directory and remove old files
+mkdir -p $output; rm -rf $output/*{txt}
 	
 #############################################################################################################################
+for subset in "mito" "nucleus"; do
+
 	#STEP 1: Calculate frequencies of reference genome
 	
 	#Create BED file for reference genome
