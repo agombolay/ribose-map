@@ -35,11 +35,8 @@ fi
 fastq1=$directory/fastqs/$read1
 fastq2=$directory/fastqs/$read2
 
-#Create output directory
-output=$directory/results/$sample/alignment
-
-#Create directory and remove old files
-mkdir -p $output; rm -f $output/*_trimmed{1,2}.fq
+#Remove old files
+rm -f $output/*_trimmed{1,2}.fq
 
 #############################################################################################################################
 #Single-end reads
