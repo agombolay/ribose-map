@@ -8,7 +8,7 @@
 function usage () {
 	echo "Usage: pre-process.sh [options]
 		Required:
-		-d Ribose-Map repository
+		-d Ribose-Map directory
 		-s Name of sequenced library
 		-f Input Read 1 FASTQ filename
 		-r Input Read 2 FASTQ filename"
