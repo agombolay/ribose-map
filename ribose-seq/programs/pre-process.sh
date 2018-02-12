@@ -15,14 +15,14 @@ function usage () {
 }
 
 while getopts "f:r:s:d:h" opt; do
-    	case "$opt" in
+	case "$opt" in
 		f ) read1=$OPTARG ;;
 		r ) read2=$OPTARG ;;
 		s ) sample=$OPTARG ;;
 		d ) directory=$OPTARG ;;
-    #Print usage statement
-    h ) usage ;;
-    esac
+    		#Print usage statement
+    		h ) usage ;;
+	esac
 done
 
 #Exit program if [-h]
