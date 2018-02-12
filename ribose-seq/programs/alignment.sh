@@ -28,7 +28,7 @@ function usage () {
 while getopts "u:i:f:r:s:b:d:h" opt; do
     	case "$opt" in
 		u ) UMI=$OPTARG ;;
-		i ) idx=$OPTARG ;;
+		i ) index=$OPTARG ;;
 		f ) read1=$OPTARG ;;
 		r ) read2=$OPTARG ;;
 		s ) sample=$OPTARG ;;
