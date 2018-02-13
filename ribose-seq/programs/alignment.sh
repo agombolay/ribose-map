@@ -40,15 +40,15 @@ done
 
 #############################################################################################################################
 #Input files
-fastq1=$directory/fastqs/$read1
-fastq2=$directory/fastqs/$read2
-index=$directory/references/$idx
+#fastq1=$directory/fastqs/$read1
+#fastq2=$directory/fastqs/$read2
+#index=$directory/references/$idx
 
 #Create output directory
-output=$directory/results/$sample/alignment
+#output=$directory/results/$sample/alignment
 
 #Create directory and remove old files
-mkdir -p $output; rm -f $output/*.{bam,bai,log}
+#mkdir -p $output; rm -f $output/*.{bam,bai,log}
 
 #############################################################################################################################
 if [[ ! $read2 ]]; then
@@ -85,14 +85,14 @@ elif [[ $read2 ]]; then
 fi
 
 #Calculate % of reads that remain after de-duplication step
-y=$(echo "$(samtools view -c $output/$sample.bam)/$(samtools view -c $output/sorted.bam)")
+#y=$(echo "$(samtools view -c $output/$sample.bam)/$(samtools view -c $output/sorted.bam)")
 
 #Save info about % of reads that remain after de-duplication step
-echo -e "Percentage of reads that are unique: $(echo "$y*100" | bc -l)%" > $output/unique.log
+#echo -e "Percentage of reads that are unique: $(echo "$y*100" | bc -l)%" > $output/unique.log
 
 #############################################################################################################################
 #Print completion status
-echo "Status: Program complete for $sample"
+#echo "Status: Program complete for $sample"
 
 #Remove temporary files from directory
-rm -f $output/*.{fq,sam} $output/sorted.{bam,bai}
+#rm -f $output/*.{fq,sam} $output/sorted.{bam,bai}
