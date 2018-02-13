@@ -9,6 +9,7 @@
 output=$directory/results/$sample/pre-processing
 mkdir -p $output
 
+#############################################################################################################################
 if [[ $fastq1 ]] && [[ ! $fastq2 ]]; then
   umi_tools extract -v 0 -I $fastq1 -p $UMI -S $output/umi_extracted1.fq
   
