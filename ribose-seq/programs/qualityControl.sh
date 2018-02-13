@@ -14,7 +14,7 @@
 #############################################################################################################################
 if [[ ! $read2 ]]; then
 	#Single-end reads
-	fastqc $fastq1 -o $directory/$sample/alignment
+	fastqc $fastq1 -o $directory/$name/alignment
 	#cutadapt $fastq1 -m 50 -a 'AGTTGCGACACGGATCTCTCA' -o $directory/fastqs/${sample}_trimmed1.fq
 
 elif [[ $read2 ]]; then
