@@ -42,7 +42,7 @@ if [[ ! $read2 ]]; then
   
 			bowtie2 -x $idx -U $output/filter.fq -S $output/aligned.sam 2> $output/align.log
 			samtools view -bS -F260 $output/aligned.sam | samtools sort - -o $output/sorted.bam
-			samtools index $output/sort.bam
+			samtools index $output/sorted.bam
 	
 			umi_tools dedup -v 0 -I $output/sorted.bam | samtools sort - -o $output/$sample.bam
 			samtools index $output/$sample.bam
