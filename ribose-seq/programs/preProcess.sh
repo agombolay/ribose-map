@@ -27,5 +27,5 @@ if [[ $barcode ]]; then
   x=$(echo $(bc -l <<< "$(wc -l < $output/barcode.fq)/4")/$(bc -l <<< "$(wc -l < $output/umi_extracted1.fq)/4"))
   
   #Save info about % of reads that contain correct barcode sequence
-  echo -e "Reads with the molecular barcode, $barcode: $(bc -l <<< "scale = 2; $x * 100")%" > $output/barcode.log
+  echo -e "Reads with barcode, $barcode: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/barcode.log
 fi
