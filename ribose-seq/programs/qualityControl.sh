@@ -7,15 +7,19 @@
 #Usage statement
 function usage () {
 	echo "Usage: qualityControl.sh [options]
+		-f Filepath of read 1
+		-r Filepath of read 2
 		-d Ribose-Map directory
 		-s Name of sequenced library
 		-n Sequencing instrument used"
 }
 
 #Command-line options
-while getopts "s:d:i:h" opt; do
+while getopts "s:f:r:d:i:h" opt; do
     case "$opt" in
-        s ) sample=$OPTARG ;;
+	s ) sample=$OPTARG ;;
+	f ) forward=$OPTARG ;;
+	r ) reverse=$OPTARG ;;
 	d ) directory=$OPTARG ;;
 	i ) instrument=$OPTARG ;;
 	h ) usage ;;
@@ -41,12 +45,12 @@ elif [[ $instrument ]]: then
 
 #Single-end reads
 if [[ ! $read2 ]]; then
-	fastqc $read1_fastq -o $output
-	cutadapt $nextseq -a $adapter -m 50 $read1_fastq -o $output/trimmed.fq
+	fastqc $forward -o $output
+	cutadapt $nextseq -a $adapter -m 50 $forward -o $output/trimmed.fq
 
 #Paired-end reads
 elif [[ $read2 ]]; then
-	fastqc $read1 $read2 -o $output
+	fastqc $forward $reverse -o $output
 	cutadapt $nextseq -a $adapter -m 50 -p $read1 $read2 -o $output/trimmed1.fq -p $output/trimmed2.fq
 
 fi
