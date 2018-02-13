@@ -11,16 +11,19 @@
 #fastq1=$directory/fastqs/$read1
 #fastq2=$directory/fastqs/$read2
 
-mkdir -p $directory/$name/pre-processing
+output=$directory/$name/pre-processing; mkdir -p $output
 
 #############################################################################################################################
 if [[ ! $read2 ]]; then
 	#Single-end reads
 	fastqc $read1_fastq -o $directory/$name/pre-processing
-	#cutadapt $fastq1 -m 50 -a 'AGTTGCGACACGGATCTCTCA' -o $directory/fastqs/${sample}_trimmed1.fq
+	
+	cutadapt $read1_fastq -m 50 -a $adapter -o $output/${name}_trimmed1.fq
 
 elif [[ $read2 ]]; then
 	#Paired-end reads
-	fastqc $fastq1 $fastq2 -o $output
-	cutadapt $fastq1 $fastq2 -m 50 -a 'AGTTGCGACACGGATCTCTCA' -o $directory/fastqs/$sample_trimmed1.fq -p $directory/fastqs/$sample_trimmed2.fq
+	fastqc $read1_fastq $read2_fastq -o $directory/$name/pre-processing
+	
+	cutadapt $read1_fastq $read2_fastq -m 50 -a $adapter -o $output/${name}_trimmed1.fq \
+	-p $output/${name}_trimmed1.fq
 fi
