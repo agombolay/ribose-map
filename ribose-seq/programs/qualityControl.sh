@@ -48,16 +48,16 @@ fi
 if [[ ! $read2 ]]; then
 	fastqc $forward -o $output
 	
-	cutadapt $nextseq -a $adapter -m 50 $forward -o $output/trimmed.fq
+	cutadapt $nextseq -a $adapter -m 50 $forward -o $output/qc.fq
 	
-	fastqc $output/trimmed.fq -o $output
+	fastqc $output/qc.fq -o $output
 
 #Paired-end reads
 elif [[ $read2 ]]; then
 	fastqc $forward $reverse -o $output
 	
-	cutadapt $nextseq -a $adapter -m 50 $forward $reverse -o $output/trimmed1.fq -p $output/trimmed2.fq
+	cutadapt $nextseq -a $adapter -m 50 $forward $reverse -o $output/qc1.fq -p $output/qc2.fq
 	
-	fastqc $output/trimmed1.fq -$output/trimmed2.fq -o $output
+	fastqc $output/qc1.fq -$output/qc2.fq -o $output
 
 fi
