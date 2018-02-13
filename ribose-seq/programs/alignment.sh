@@ -46,6 +46,7 @@ if [[ ! $read2 ]]; then
 	
 			umi_tools dedup -v 0 -I $output/sorted.bam | samtools sort - -o $output/$sample.bam
 			samtools index $output/$sample.bam
+		fi
 	fi
 	
 elif [[ $read2 ]]; then
@@ -82,6 +83,7 @@ elif [[ $read2 ]]; then
 	
 			umi_tools dedup -v 0 --paired -I $output/sorted.bam | samtools sort - -o $output/$sample.bam
 			samtools index $output/$sample.bam
+		fi
 	fi
 fi
 
