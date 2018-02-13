@@ -4,16 +4,10 @@
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
 
-. /data2/users/agombolay3/Ribose-Map/config.txt
-
 #############################################################################################################################
-#Input files
-#fastq1=$directory/fastqs/$read1
-#fastq2=$directory/fastqs/$read2
-
+. /data2/users/agombolay3/Ribose-Map/config.txt
 output=$directory/$name/pre-processing; mkdir -p $output
 
-#############################################################################################################################
 if [[ ! $read2 ]]; then
 	#Single-end reads
 	fastqc $read1_fastq -o $directory/$name/pre-processing
