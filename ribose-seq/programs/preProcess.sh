@@ -4,7 +4,10 @@
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
 
-output=$directory/results/alignment
+. /data2/users/agombolay3/Ribose-Map/config.txt
+
+output=$directory/results/$sample/pre-processing
+mkdir -p $output
 
 if [[ $fastq1 ]] && [[ ! $fastq2 ]]; then
   umi_tools extract -v 0 -I $fastq1 -p $UMI -S $output/umi_extracted1.fq
