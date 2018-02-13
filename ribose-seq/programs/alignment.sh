@@ -21,17 +21,17 @@ if [[ ! $read2 ]]; then
 	
 	if [[ ! $umi ]]; then
 	
-		bowtie2 -x $index -U $read1_fastq -S $output/mapped.sam 2> $output/alignment.log
+		bowtie2 -x $index -U $read1 -S $output/mapped.sam 2> $output/alignment.log
 		samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/$sample.bam
 		samtools index $output/$sample.bam	
 
 	elif [[ $umi ]]; then
 		
-		umi_tools extract -v 0 -I $read1_fastq -p $UMI -S $output/umi_extracted1.fq
+		umi_tools extract -v 0 -I $read1 -p $UMI -S $output/umi_extracted1.fq
 		
 		if [[ ! $barcode ]]; then
 		
-			bowtie2 -x $index -U $read1_fastq -S $output/mapped.sam 2> $output/alignment.log
+			bowtie2 -x $index -U $read1 -S $output/mapped.sam 2> $output/alignment.log
 			samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
 			samtools index $output/sort.bam
 	
@@ -43,7 +43,7 @@ if [[ ! $read2 ]]; then
 			grep -B 1 -A 2 ^$barcode $output/umi_extracted1.fq | sed '/^--$/d' \
   			| awk 'NR % 2 == 0 {sub(/^.{'${#barcode}'}/,"")} {print}' > $output/barcode.fq
   
-			bowtie2 -x $index -U $read1_fastq -S $output/mapped.sam 2> $output/alignment.log
+			bowtie2 -x $index -U $read1 -S $output/mapped.sam 2> $output/alignment.log
 			samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
 			samtools index $output/sort.bam
 	
@@ -55,21 +55,21 @@ elif [[ $read2 ]]; then
 	
 	if [[ ! $umi ]]; then
 	
-		bowtie2 -x $index -1 $read1_fastq -2 $read2_fastq -S $output/mapped.sam 2> $output/alignment.log
+		bowtie2 -x $index -1 $read1 -2 $read2 -S $output/mapped.sam 2> $output/alignment.log
 		samtools view -bS -f67 -F260 $output/mapped.sam | samtools sort - -o $output/$sample.bam
 		samtools index $output/$sample.bam
 	
 	elif [[ $umi ]]; then
 		
-		umi_tools extract -v 0 -I $read1_fastq -p $UMI -S $output/umi_extracted1.fq \
-  		--read2-in=$read2_fastq --read2-out=$output/umi_extracted2.fq
+		umi_tools extract -v 0 -I $read1 -p $UMI -S $output/umi_extracted1.fq \
+  		--read2-in=$read2 --read2-out=$output/umi_extracted2.fq
   
 		if [[ ! $barcode ]]; then
 		
 			grep -B 1 -A 2 ^$barcode $output/umi_extracted1.fq | sed '/^--$/d' \
   			| awk 'NR % 2 == 0 {sub(/^.{'${#barcode}'}/,"")} {print}' > $output/barcode.fq
   
-			bowtie2 -x $index -1 $read1_fastq -2 $read2_fastq -S $output/mapped.sam 2> $output/alignment.log
+			bowtie2 -x $index -1 $read1 -2 $read2 -S $output/mapped.sam 2> $output/alignment.log
 			samtools view -bS -f67 -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
 			samtools index $output/sorted.bam
 	
@@ -78,7 +78,7 @@ elif [[ $read2 ]]; then
 		
 		elif [[ $barcode ]]; then
 		
-			bowtie2 -x $index -1 $read1_fastq -2 $read2_fastq -S $output/mapped.sam 2> $output/alignment.log
+			bowtie2 -x $index -1 $read1 -2 $read2 -S $output/mapped.sam 2> $output/alignment.log
 			samtools view -bS -f67 -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
 			samtools index $output/sorted.bam
 	
