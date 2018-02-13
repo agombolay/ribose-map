@@ -7,21 +7,21 @@
 output=$directory/results/alignment
 
 if [[ $fastq1 ]] && [[ ! $fastq2 ]]; then
-  umi_tools extract -v 0 -I $fastq1 -p $UMI -S $output/UMI1.fq
+  umi_tools extract -v 0 -I $fastq1 -p $UMI -S $output/umi_extracted.fq
   
 elif [[ $fastq1 ]] && [[ $fastq2 ]]; then
-  umi_tools extract -v 0 -I $fastq1 -p $UMI -S $output/UMI1.fq \
+  umi_tools extract -v 0 -I $fastq1 -p $UMI -S $output/umi_extracted.fq \
   --read2-in=$fastq2 --read2-out=$output/UMI2.fq
 fi
 
 if [[ $barcode ]]; then
   #Filter reads by barcode and remove barcode from reads
-  grep -B 1 -A 2 ^$bc $output/UMI1.fq | sed '/^--$/d' \
-  | awk 'NR%2==0 {sub(/^.{'${#bc}'}/,"")} {print}' > $output/bc.fq
+  grep -B 1 -A 2 ^$barcode $output/umi_extracted.fq | sed '/^--$/d' \
+  | awk 'NR % 2 == 0 {sub(/^.{'${#barcode}'}/,"")} {print}' > $output/barcode.fq
   
   #Calculate % of reads that contain correct barcode sequence
-  x=$(echo $((`wc -l < $output/bc.fq` / 4))/$((`wc -l < $output/UMI1.fq` / 4)))
+  x=$(echo $((`wc -l < $output/barcode.fq`/4))/$((`wc -l < $output/umi_extracted.fq`/4)))
 
   #Save info about % of reads that contain correct barcode sequence
-  echo -e "Reads with barcode: $(echo "$x*100" | bc -l)%" > $output/barcode.log
+  echo -e "Reads with molecular barcode: $(echo "$x * 100" | bc -l)%" > $output/barcode.log
 fi
