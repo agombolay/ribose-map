@@ -42,6 +42,7 @@ if [[ ! $instrument ]]; then
 	nextseq=''
 elif [[ $instrument ]]; then
 	nextseq='--nextseq-trim=20'
+fi
 
 #Single-end reads
 if [[ ! $read2 ]]; then
