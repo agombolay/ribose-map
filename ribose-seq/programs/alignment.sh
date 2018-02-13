@@ -54,73 +54,39 @@ mkdir -p $output; rm -f $output/*.{bam,bai,log}
 if [[ ! $read2 ]]; then
 	
 	if [[ ! $umi ]]; then
-		bowtie2 -x $idx -U $fastq1 -S $output/map.sam 2> $output/align.log
+		bowtie2 -x $idx -U $fastq1 -S $output/mapped.sam 2> $output/alignment.log
 		
-		samtools view -bS -F260 $output/map.sam | samtools sort - -o $output/$sample.bam
+		samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/$sample.bam
 		samtools index $output/$sample.bam	
 
 	elif [[ $umi ]]; then
-		umi_tools extract -v 0 -I $fastq1 -p $UMI -S $output/extract.fq
-		
-		if [[ ! $barcode ]]; then
-			bowtie2 -x $idx -U $output/extract.fq -S $output/map.sam 2> $output/align.log
-
-			samtools view -bS -F260 $output/map.sam | samtools sort - -o $output/sort.bam
-			samtools index $output/sort.bam
-	
-			umi_tools dedup -v 0 -I $output/sort.bam | samtools sort - -o $output/$sample.bam
-			samtools index $output/$sample.bam
-		
-		elif [[ $barcode ]]; then
-			grep -B 1 -A 2 ^$barcode $output/extract.fq | sed '/^--$/d' \
-			| awk 'NR%2 == 0 {sub(/^.{'${#barcode}'}/,"")} {print}' > $output/filter.fq
-		
-			bowtie2 -x $idx -U $output/filter.fq -S $output/map.sam 2> $output/align.log
 			
-			samtools view -bS -F260 $output/map.sam | samtools sort - -o $output/sort.bam
-			samtools index $output/sort.bam
+		bowtie2 -x $idx -U $fastq1 -S $output/mapped.sam 2> $output/alignment.log
+			
+		samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
+		samtools index $output/sort.bam
 	
-			umi_tools dedup -v 0 -I $output/sort.bam | samtools sort - -o $output/$sample.bam
-			samtools index $output/$sample.bam
-		fi
+		umi_tools dedup -v 0 -I $output/sorted.bam | samtools sort - -o $output/$sample.bam
+		samtools index $output/$sample.bam
 	fi
 	
 elif [[ $read2 ]]; then
 	
 	if [[ ! $umi ]]; then
-		bowtie2 -x $idx -1 $fastq1 -2 $fastq2 -S $output/map.sam 2> $output/align.log
+		bowtie2 -x $idx -1 $fastq1 -2 $fastq2 -S $output/mapped.sam 2> $output/alignment.log
 		
-		samtools view -bS -f67 -F260 $output/map.sam | samtools sort - -o $output/$sample.bam
+		samtools view -bS -f67 -F260 $output/mapped.sam | samtools sort - -o $output/$sample.bam
 		samtools index $output/$sample.bam
 	
 	elif [[ $umi ]]; then
-	
-		umi_tools extract -v 0 -I $fastq1 -p $UMI -S $output/extract1.fq --read2-in=$fastq2 \
-		--read2-out=$output/extract2.fq
-	
-		if [[ ! $barcode ]]; then
-			bowtie2 -x $idx -1 $output/extract1.fq -2 $output/extract2.fq -S $output/map.sam \
-			2> $output/align.log
+				
+		bowtie2 -x $idx -1 $fastq1 -2 $fastq2 -S $output/mapped.sam 2> $output/alignment.log
 		
-			samtools view -bS -f67 -F260 $output/map.sam | samtools sort - -o $output/sort.bam
-			samtools index $output/sort.bam
+		samtools view -bS -f67 -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
+		samtools index $output/sorted.bam
 	
-			umi_tools dedup -v 0 --paired -I $output/sort.bam | samtools sort - -o $output/$sample.bam
-			samtools index $output/$sample.bam
-	
-		elif [[ $barcode ]]; then
-			grep -B 1 -A 2 ^$barcode $output/extract.fq | sed '/^--$/d' \
-			| awk 'NR%2 == 0 {sub(/^.{'${#barcode}'}/,"")} {print}' > $output/filter.fq
-		
-			bowtie2 -x $idx -1 $output/filter.fq -2 $output/extract2.fq  -S $output/map.sam \
-			2> $output/align.log
-		
-			samtools view -bS -f67 -F260 $output/map.sam | samtools sort - -o $output/sort.bam
-			samtools index $output/sort.bam
-	
-			umi_tools dedup -v 0 --paired -I $output/sort.bam | samtools sort - -o $output/$sample.bam
-			samtools index $output/$sample.bam
-		fi
+		umi_tools dedup -v 0 --paired -I $output/sorted.bam | samtools sort - -o $output/$sample.bam
+		samtools index $output/$sample.bam
 	fi
 fi
 		
