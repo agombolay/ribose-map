@@ -8,9 +8,6 @@
 #2. Alignment or SE or PE reads to reference
 #3. De-duplication based on UMI and chr coords
 
-#Note: Input FASTQ files must be located in Ribose-Map 'fastqs' directory (Ribose-Map/fastqs)
-#Note: Bowtie2 index files must be located in Ribose-Map 'indexes' directory (Ribose-Map/indexes)
-
 . /data2/users/agombolay3/Ribose-Map/config.txt
 
 output=$directory/results/$sample/alignment
