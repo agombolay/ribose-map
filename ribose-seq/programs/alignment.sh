@@ -40,8 +40,8 @@ if [[ ! $read2 ]]; then
 		
 		elif [[ $barcode ]]; then
 		
-			grep -B 1 -A 2 ^$barcode $output/umi.fq | sed '/^--$/d' > $output/trim.fq
-  			awk 'NR % 2 == 0 {sub(/^.{'${#barcode}'}/,"")} {print}' > $output/filter.fq
+			grep -B 1 -A 2 ^$barcode $output/umi1.fq | sed '/^--$/d' > $output/trim.fq
+			awk 'NR % 2 == 0 {sub(/^.{'${#barcode}'}/,"")} {print}' $output/trim.fq > $output/filter.fq
   
 			bowtie2 -x $idx -U $output/filter.fq -S $output/aligned.sam 2> $output/align.log
 			samtools view -bS -F260 $output/aligned.sam | samtools sort - -o $output/sorted.bam
