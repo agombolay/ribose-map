@@ -20,8 +20,8 @@ if [[ $barcode ]]; then
   | awk 'NR % 2 == 0 {sub(/^.{'${#barcode}'}/,"")} {print}' > $output/barcode.fq
   
   #Calculate % of reads that contain correct barcode sequence
-  x=$(echo $((`wc -l < $output/barcode.fq`/4))/$((`wc -l < $output/umi_extracted.fq`/4)))
+  x=$(wc -l < $output/barcode.fq)/4; y=$(wc -l < $output/umi_extracted.fq)/4
 
   #Save info about % of reads that contain correct barcode sequence
-  echo -e "Reads with molecular barcode: $(echo "$x * 100" | bc -l)%" > $output/barcode.log
+  echo -e "Reads with barcode: $(echo "$((x/y))*100" | bc -l)%" > $output/barcode.log
 fi
