@@ -7,7 +7,7 @@
 #############################################################################################################################
 . /data2/users/agombolay3/Ribose-Map/config.txt
 
-output=$directory/Results/$sample/pre-processing
+output=$directory/results/$sample/pre-processing
 mkdir -p $output
 
 #Single-end reads
