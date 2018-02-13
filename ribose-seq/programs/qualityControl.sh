@@ -36,7 +36,7 @@ rm -f $directory/fastqs/*_trimmed{1,2}.fq
 if [[ ! $read2 ]]; then
 	#Single-end reads
 	fastqc $fastq1 -o $directory/fastqs
-	cutadapt $fastq1 -m 50 -a 'AGTTGCGACACGGATCTCTCA' -o $directory/fastqs/$sample_trimmed.fq
+	cutadapt $fastq1 -m 50 -a 'AGTTGCGACACGGATCTCTCA' -o $directory/fastqs/${sample}_trimmed.fq
 
 elif [[ $read2 ]]; then
 	#Paired-end reads
