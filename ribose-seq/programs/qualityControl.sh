@@ -14,7 +14,7 @@ function usage () {
 		-r Input Read 2 FASTQ filename"
 }
 
-while getopts "h:f:r:s:d" opt; do
+while getopts "f:r:s:d:h" opt; do
 	case "$opt" in
 		h ) usage ;;
 		f ) read1=$OPTARG ;;
