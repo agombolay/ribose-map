@@ -9,15 +9,15 @@ function usage () {
 	echo "Usage: qualityControl.sh [options]
 		-d Ribose-Map directory
 		-s Name of sequenced library
-		-a Sequencing adapter to trim"
+		-n Sequencing instrument used"
 }
 
 #Command-line options
-while getopts "s:d:a:h" opt; do
+while getopts "s:d:i:h" opt; do
     case "$opt" in
         s ) sample=$OPTARG ;;
-	r ) reference=$OPTARG ;;
 	d ) directory=$OPTARG ;;
+	i ) instrument=$OPTARG ;;
 	h ) usage ;;
     esac
 done
@@ -34,15 +34,28 @@ output=$directory/results/$sample/alignment
 mkdir -p $output
 
 #Single-end reads
-if [[ ! $read2 ]]; then
-	fastqc $read1_fastq -o $output
-	cutadapt-a $adapter -m 50 $read1_fastq -o $output/${sample}_trimmed.fq
+if [[ ! $nextseq ]]: then
 
-#Paired-end reads
-elif [[ $read2 ]]; then
-	fastqc $read1 $read2 -o $output
-	cutadapt -a $adapter -m --paired $read1 $read2 -o $output/${sample}_trimmed1.fq -p $output/${sample}_trimmed2.fq
+	if [[ ! $read2 ]]; then
+		fastqc $read1_fastq -o $output
+		cutadapt -a $adapter -m 50 $read1_fastq -o $output/trimmed.fq
 
+	#Paired-end reads
+	elif [[ $read2 ]]; then
+		fastqc $read1 $read2 -o $output
+		cutadapt -a $adapter -m 50 -p $read1 $read2 -o $output/trimmed1.fq -p $output/trimmed2.fq
+
+	fi
+	
+elif [[ ! $nextseq ]]: then
+
+	if [[ ! $read2 ]]; then
+		fastqc $read1_fastq -o $output
+		cutadapt --nextseq-trim=20 -a $adapter -m 50 $read1_fastq -o $output/trimmed.fq
+
+	#Paired-end reads
+	elif [[ $read2 ]]; then
+		fastqc $read1 $read2 -o $output
+		cutadapt --nextseq-trim=20 -a $adapter -m 50 -p $read1 $read2 -o $output/trimmed1.fq -p $output/trimmed2.fq
+	fi
 fi
-
---nextseq-trim=20
