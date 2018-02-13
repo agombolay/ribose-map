@@ -11,10 +11,12 @@
 #fastq1=$directory/fastqs/$read1
 #fastq2=$directory/fastqs/$read2
 
+mkdir -p $directory/$name/pre-processing
+
 #############################################################################################################################
 if [[ ! $read2 ]]; then
 	#Single-end reads
-	fastqc $fastq1 -o $directory/$name/alignment
+	fastqc $fastq1 -o $directory/$name/pre-processing
 	#cutadapt $fastq1 -m 50 -a 'AGTTGCGACACGGATCTCTCA' -o $directory/fastqs/${sample}_trimmed1.fq
 
 elif [[ $read2 ]]; then
