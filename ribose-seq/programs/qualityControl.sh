@@ -51,6 +51,6 @@ if [[ ! $read2 ]]; then
 #Paired-end reads
 elif [[ $read2 ]]; then
 	fastqc $forward $reverse -o $output
-	cutadapt $nextseq -a $adapter -m 50 -p $read1 $read2 -o $output/trimmed1.fq -p $output/trimmed2.fq
+	cutadapt $nextseq -a $adapter -m 50 -p $forward $reverse -o $output/trimmed1.fq -p $output/trimmed2.fq
 
 fi
