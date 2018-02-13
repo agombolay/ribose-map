@@ -91,4 +91,4 @@ fi
 echo "Status: Program complete for $sample"
 
 #Remove temporary files from directory
-rm -f $output/*.{fq,sam} $output/sorted.bam*
+rm -f $output/*.{fq,sam} $output/sorted.{bam,bai}
