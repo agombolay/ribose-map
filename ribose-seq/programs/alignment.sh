@@ -24,7 +24,7 @@ if [[ ! $read2 ]]; then
 
 	elif [[ $umi ]]; then
 		
-		umi_tools extract -v 0 -I $read1 -p $UMI -S $output/umi.fq
+		umi_tools extract -v 0 -I $read1 -p $umi -S $output/umi.fq
 		
 		if [[ ! $barcode ]]; then
 		
@@ -59,7 +59,7 @@ elif [[ $read2 ]]; then
 	
 	elif [[ $umi ]]; then
 		
-		umi_tools extract -v 0 -I $read1 -p $UMI -S $output/umi1.fq --read2-in=$read2 --read2-out=$output/umi2.fq
+		umi_tools extract -v 0 -I $read1 -p $umi -S $output/umi1.fq --read2-in=$read2 --read2-out=$output/umi2.fq
   
 		if [[ ! $barcode ]]; then
 		
