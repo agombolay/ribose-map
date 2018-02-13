@@ -59,7 +59,6 @@ if [[ ! $read2 ]]; then
 		samtools index $output/$sample.bam	
 
 	elif [[ $umi ]]; then
-			
 		bowtie2 -x $idx -U $fastq1 -S $output/mapped.sam 2> $output/alignment.log
 		samtools view -bS -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
 		samtools index $output/sort.bam
@@ -75,8 +74,7 @@ elif [[ $read2 ]]; then
 		samtools view -bS -f67 -F260 $output/mapped.sam | samtools sort - -o $output/$sample.bam
 		samtools index $output/$sample.bam
 	
-	elif [[ $umi ]]; then
-				
+	elif [[ $umi ]]; then	
 		bowtie2 -x $idx -1 $fastq1 -2 $fastq2 -S $output/mapped.sam 2> $output/alignment.log
 		samtools view -bS -f67 -F260 $output/mapped.sam | samtools sort - -o $output/sorted.bam
 		samtools index $output/sorted.bam
