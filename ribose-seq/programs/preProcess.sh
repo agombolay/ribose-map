@@ -10,12 +10,12 @@ output=$directory/results/$sample/pre-processing
 mkdir -p $output
 
 #############################################################################################################################
-if [[ $fastq1 ]] && [[ ! $fastq2 ]]; then
-  umi_tools extract -v 0 -I $fastq1 -p $UMI -S $output/umi_extracted1.fq
+if [[ $read1_fastq ]] && [[ ! $read2_fastq ]]; then
+  umi_tools extract -v 0 -I $read1_fastq -p $UMI -S $output/umi_extracted1.fq
   
-elif [[ $fastq1 ]] && [[ $fastq2 ]]; then
-  umi_tools extract -v 0 -I $fastq1 -p $UMI -S $output/umi_extracted1.fq \
-  --read2-in=$fastq2 --read2-out=$output/umi_extracted2.fq
+elif [[ $read1_fastq ]] && [[ $read2_fastq ]]; then
+  umi_tools extract -v 0 -I $read1_fastq -p $UMI -S $output/umi_extracted1.fq \
+  --read2-in=$read2_fastq --read2-out=$output/umi_extracted2.fq
 fi
 
 if [[ $barcode ]]; then
