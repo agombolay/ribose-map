@@ -65,7 +65,7 @@ elif [[ $read2 ]]; then
 			bowtie2 -x $idx -1 $output/filter.fq -2 $output/umi2.fq -S $output/aligned.sam 2> $output/align.log
 			
 			samtools view -bS -f67 -F260 $output/aligned.sam | samtools sort - -o $output/sorted.bam
-			samtools index $output/sort.bam
+			samtools index $output/sorted.bam
 	
 			umi_tools dedup -v 0 --paired -I $output/sorted.bam | samtools sort - -o $output/$sample.bam
 			samtools index $output/$sample.bam
@@ -88,9 +88,15 @@ fi
 #############################################################################################################################
 #Calculate % of reads that contain correct barcode sequence
 #x=$(echo $(bc -l <<< "$(wc -l < $output/barcode.fq)/4")/$(bc -l <<< "$(wc -l < $output/umi_extracted1.fq)/4"))
-  
+
+#Save info about % of reads that remain after de-duplication step
+#echo -e "Reads that are unique molecules: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/duplication.log
+
+#Calculate % of reads that remain after de-duplication step
+#y=$(echo $(bc -l <<< "$(samtools view -c < $output/$sample.bam)")/$(bc -l <<< "$(samtools view -c < $output/sorted.bam)"))
+
 #Save info about % of reads that contain correct barcode sequence
-#echo -e "Reads with barcode, $barcode: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/barcode.log
+#echo -e "Reads with molecular barcode, $barcode: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/barcode.log
 
 #Print completion status
 #echo "Status: Program complete for $sample"
