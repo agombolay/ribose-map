@@ -85,7 +85,13 @@ elif [[ $read2 ]]; then
 		samtools index $output/$sample.bam
 	fi
 fi
-		
+
+#Calculate % of reads that remain after de-duplication step
+y=$(echo "$(samtools view -c $output/$sample.bam)/$(samtools view -c $output/sorted.bam)")
+
+#Save info about % of reads that remain after de-duplication step
+echo -e "Percentage of reads that are unique: $(echo "$y*100" | bc -l)%" > $output/unique.log
+
 #############################################################################################################################
 #Print completion status
 echo "Status: Program complete for $sample"
