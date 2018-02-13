@@ -38,7 +38,7 @@ mkdir -p $output
 adapter='AGTTGCGACACGGATCTCTCA'
 #############################################################################################################################
 
-if [[ $instrument ]]: then
+if [[ ! $instrument ]]: then
 	nextseq=''
 elif [[ $instrument ]]: then
 	nextseq='--nextseq-trim=20'
