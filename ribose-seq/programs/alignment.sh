@@ -50,6 +50,11 @@ done
 #Create directory and remove old files
 #mkdir -p $output; rm -f $output/*.{bam,bai,log}
 
+. /data2/users/agombolay3/Ribose-Map/config.txt
+
+output=$directory/results/$sample/alignment
+mkdir -p $output
+
 #############################################################################################################################
 if [[ ! $read2 ]]; then
 	
