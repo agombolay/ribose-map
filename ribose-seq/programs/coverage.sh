@@ -14,13 +14,13 @@ mkdir -p $output
 
 #############################################################################################################################
 #Create BED file for reference genome
-cut -f 1,2 $reference.fai > $output/$reference.bed
+cut -f 1,2 $reference.fai > $output/reference.bed
 	
 #Create file of rNMP coverage at chromosome coordinates
 uniq -c $directory/results/$sample/coordinates/$sample.bed > $output/temp1.txt
 	
 #Save coverage of rNMPs per chromosome to separate files
-for chromosome in $( awk '{print $1}' $output/$reference.bed ); do
+for chromosome in $( awk '{print $1}' $output/reference.bed ); do
 	grep -w "$chromosome" $output/temp1.txt > $output/$sample.$chromosome.bed
 done
 		
@@ -43,4 +43,4 @@ awk -v "OFS=\t" '$5 == "-" {print $2,$3,$4,$1}' $output/temp1.txt >> $output/$sa
 echo "Status: Coverage of rNMPs have been determined for $sample"
 	
 #Remove temporary files
-rm $output/$reference.bed $output/temp1.txt
+rm $output/reference.bed $output/temp1.txt
