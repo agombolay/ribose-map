@@ -32,10 +32,10 @@ color=0,128,0 visibility=full" > $output/$sample-Forward.bg
 echo "track type=bedGraph name="$sample-ReverseStrand" description="$sample-ReverseStrand" \
 color=0,0,255 visibility=full" > $output/$sample-Reverse.bg
 		
-#Rearrange file so format is same as bedgraph format (forward)
+#Rearrange forward strand file so format is the same as bedgraph format
 awk -v "OFS=\t" '$5 == "+" {print $2,$3,$4,$1}' $output/temp1.txt >> $output/$sample-Forward.bg
 
-#Rearrange file so format is same as bedgraph format (reverse)
+#Rearrange reverse strand file so format is the same as bedgraph format
 awk -v "OFS=\t" '$5 == "-" {print $2,$3,$4,$1}' $output/temp1.txt >> $output/$sample-Reverse.bg
 
 #############################################################################################################################
