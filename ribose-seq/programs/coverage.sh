@@ -7,52 +7,21 @@
 #1. Creates bedgraph files for forward and reverse strands
 #2. Saves coverage of rNMPs per chromosome to separate files
 
-#Usage statement
-function usage () {
-	echo "Usage: Coverage.sh [options]
-		-d Ribose-Map directory
-		-s Name of sequenced library
-		-r Basename of reference fasta"
-}
-
-#Command-line options
-while getopts "h:s:r:d" opt; do
-    case "$opt" in
-    	h ) usage ;;
-        s ) sample=$OPTARG ;;
-	r ) reference=$OPTARG ;;
-	d ) directory=$OPTARG ;;
-    esac
-done
-
-
 . /data2/users/agombolay3/Ribose-Map/config.txt
 
-output=$directory/results/$sample/coordinates
+output=$directory/results/$sample/distribution
 mkdir -p $output
 
 #############################################################################################################################
-#Output directory
-output=$directory/results/$sample/coverage
-
-#Input coordinates files
-bed=$directory/results/$sample/coordinates/$sample.bed
-
-#Create directory and remove old files
-mkdir -p $output; rm -rf $output/*{bg,bed}
-
-#############################################################################################################################
 if [[ -s $bed ]]; then
-	
-	#Index FASTA file
-	samtools faidx $directory/references/$reference.fa
 	
 	#Create BED file for reference genome
 	cut -f 1,2 $output/$reference.fa.fai > $output/$reference.bed
 	
 	#Save coverage of rNMPs per chromosome to separate files
-	for chr in $( awk '{print $1}' $output/$reference.bed ); do
-		uniq -c $bed | grep -w "$chr" - > $output/$sample.$chr.bed
+	for chromosome in $( awk '{print $1}' $output/$reference.bed ); do
+		uniq -c $directory/results/$sample/coordinates/$sample.bed \
+		| grep -w "$chromosome" - > $output/$sample.$chromosome.bed
 	done
 		
 	#Add trackline for forward strand to input into UCSC genome browser
