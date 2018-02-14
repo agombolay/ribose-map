@@ -18,10 +18,12 @@ if [[ -s $bed ]]; then
 	#Create BED file for reference genome
 	cut -f 1,2 $output/$reference.fa.fai > $output/$reference.bed
 	
+	#Create file of rNMP coverage at chromosome coordinates
+	uniq -c $directory/results/$sample/coordinates/$sample.bed > $output/temp1.txt
+	
 	#Save coverage of rNMPs per chromosome to separate files
 	for chromosome in $( awk '{print $1}' $output/$reference.bed ); do
-		uniq -c $directory/results/$sample/coordinates/$sample.bed \
-		| grep -w "$chromosome" - > $output/$sample.$chromosome.bed
+		grep -w "$chromosome" $output/temp1.txt > $output/$sample.$chromosome.bed
 	done
 		
 	#Add trackline for forward strand to input into UCSC genome browser
@@ -43,3 +45,5 @@ if [[ -s $bed ]]; then
 	echo "Status: Coverage of rNMPs have been determined for $sample"
 	
 fi
+
+rm $output/temp1.txt
