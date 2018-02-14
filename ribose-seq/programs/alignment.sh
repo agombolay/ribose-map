@@ -64,7 +64,6 @@ elif [[ $read2 ]]; then
 		if [[ ! $barcode ]]; then
 		
 			bowtie2 -x $idx -1 $output/filter.fq -2 $output/umi2.fq -S $output/aligned.sam 2> $output/align.log
-			
 			samtools view -bS -f67 -F260 $output/aligned.sam | samtools sort - -o $output/sorted.bam
 			samtools index $output/sorted.bam
 	
@@ -77,7 +76,6 @@ elif [[ $read2 ]]; then
 			awk 'NR % 2 == 0 {sub(/^.{'${#barcode}'}/,"")} {print}' $output/trim.fq > $output/filter.fq
 			
 			bowtie2 -x $idx -1 $output/filter.fq -2 $output/umi2.fq -S $output/aligned.sam 2> $output/align.log
-			
 			samtools view -bS -f67 -F260 $output/aligned.sam | samtools sort - -o $output/sorted.bam
 			samtools index $output/sort.bam
 	
