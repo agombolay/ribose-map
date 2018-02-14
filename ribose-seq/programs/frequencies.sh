@@ -7,51 +7,25 @@
 #1. Calculate frequencies of rNMP nucleotides
 #2. Calculate frequencies of flanking nucleotides
 
-#Usage statement
-function usage () {
-	echo "Usage: Frequency.sh [options]
-	-d Ribose-Map directory
-	-s Name of sequenced library
-	-r Basename of reference fasta"
-}
+. /data2/users/agombolay3/Ribose-Map/config.txt
 
-#Command-line options
-while getopts "h:s:r:d" opt; do
-    case $opt in
-    	h ) usage ;;
-        s ) sample=$OPTARG ;;
-	r ) reference=$OPTARG ;;
-	d ) directory=$OPTARG ;;
-    esac
-done
-
-#############################################################################################################################
-#Output directory
 output=$directory/results/$sample/frequencies
-	
-#Input coordinates file
-bed=$directory/results/$sample/coordinates/$sample.bed
-	
-#Create directory and remove old files
-mkdir -p $output; rm -rf $output/*{txt}
+mkdir -p $output
 	
 #############################################################################################################################
 for subset in "mito" "nucleus"; do
 
 	#STEP 1: Calculate frequencies of reference genome
 	
-	#Index FASTA file
-	samtools faidx $directory/references/$reference.fa
-	
 	#Create BED file for reference genome
-	cut -f 1,2 $output/$reference.fa.fai > $output/$reference.bed
+	cut -f 1,2 $output/$reference.fa.fai > $output/reference.bed
 
 	#Subset FASTA file based on region
 	if [[ $subset == "mito" ]]; then
-		chr=$(awk '{print $1}' $output/$reference.bed | grep -E '(chrM|MT)')
+		chr=$(awk '{print $1}' $output/reference.bed | grep -E '(chrM|MT)')
 		samtools faidx $FASTA $chr > $output/temp.fa && samtools faidx $output/temp.fa
 	elif [[ $subset == "nucleus" ]]; then
-		chr=$(awk '{print $1}' $output/$reference.bed | grep -vE '(chrM|MT)')
+		chr=$(awk '{print $1}' $output/reference.bed | grep -vE '(chrM|MT)')
 		samtools faidx $FASTA $chr > $output/temp.fa && samtools faidx $output/temp.fa
 	fi
 
@@ -89,22 +63,18 @@ for subset in "mito" "nucleus"; do
 			
 #############################################################################################################################
 	#STEP 3: Calculate frequencies of rNMPs in libraries
-	
-	#Save only unique coordinates
-	uniq $bed > $output/Unique.bed
 		
-	#Subset and sort coordinates based on genomic region
+	#Subset and sort unique coordinates based on genomic region
 	if [[ $subset == "mito" ]]; then
-		grep -E '(chrM|MT)' $output/Unique.bed > $output/Coords.bed
+		uniq $directory/results/$sample/coordinates/$sample.bed | grep -E '(chrM|MT)' > $output/Coords.bed
 	elif [[ $subset == "nucleus" ]]; then
-		grep -vE '(chrM|MT)' $output/Unique.bed > $output/Coords.bed
+		uniq $directory/results/$sample/coordinates/$sample.bed | grep -vE '(chrM|MT)' > $output/Coords.bed
 	fi
 	
 	if [[ -s $output/Coords.bed ]]; then
 	
 		#Extract rNMP bases
-		bedtools getfasta -s -fi $output/temp.fa -bed \
-		$output/Coords.bed | grep -v '>' > $output/Ribos.txt
+		bedtools getfasta -s -fi $output/temp.fa -bed $output/Coords.bed | grep -v '>' > $output/Ribos.txt
 	
 		#Calculate counts of rNMPs
 		A_Ribo=$(awk '$1 == "A"' $output/Ribos.txt | wc -l)
