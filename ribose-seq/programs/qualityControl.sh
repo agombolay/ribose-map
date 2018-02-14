@@ -20,7 +20,7 @@ fi
 #Single-end reads
 if [[ ! $raw2 ]]; then
 	fastqc $raw1 -o $output
-	cutadapt $nextseq -a $adapter -m 45 $raw1 -o $output/${sample}_trimmed.fq
+	cutadapt $nextseq -a $adapter -m 55 $raw1 -o $output/${sample}_trimmed.fq
 	fastqc $output/${sample}_trimmed.fq -o $output
 
 #Paired-end reads
