@@ -103,8 +103,8 @@ for subset in "mito" "nucleus"; do
 		#STEP 4: Obtain coordinates/sequences of dNMPs +/- 100 bp from rNMPs
 
 		#Obtain coordinates of flanking sequences and remove coordinates where start = end
-		bedtools flank -i $output/Coords.bed -s -g $BED -l 100 -r 0 | awk '$2 != $3' > $output/Up.bed
-		bedtools flank -i $output/Coords.bed -s -g $BED -l 0 -r 100 | awk '$2 != $3' > $output/Down.bed
+		bedtools flank -i $output/Coords.bed -s -g $directory/results/$sample/coordinates/$sample.bed -l 100 -r 0 | awk '$2 != $3' > $output/Up.bed
+		bedtools flank -i $output/Coords.bed -s -g $directory/results/$sample/coordinates/$sample.bed -l 0 -r 100 | awk '$2 != $3' > $output/Down.bed
 	
 		#Obtain nucleotide sequences flanking rNMPs using coordinates from above (reverse order of up)
 		bedtools getfasta -s -fi $output/temp.fa -bed $output/Down.bed | grep -v '>' > $output/Down.txt
