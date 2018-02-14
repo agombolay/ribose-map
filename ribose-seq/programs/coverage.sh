@@ -39,8 +39,8 @@ awk -v "OFS=\t" '$5 == "+" {print $2,$3,$4,$1}' $output/temp1.txt >> $output/$sa
 awk -v "OFS=\t" '$5 == "-" {print $2,$3,$4,$1}' $output/temp1.txt >> $output/$sample-Reverse.bg
 
 #############################################################################################################################
-#Print completion status
+#Print status
 echo "Status: Coverage of rNMPs have been determined for $sample"
 	
-#Remove temp file
-rm $output/temp1.txt
+#Remove temporary files
+rm $output/$reference.bed $output/temp1.txt
