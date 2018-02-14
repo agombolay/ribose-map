@@ -18,7 +18,7 @@ cut -f 1,2 $reference.fai > $output/reference.bed
 	
 #Create file of rNMP coverage at chromosome coordinates
 uniq -c $directory/results/$sample/coordinates/$sample.bed \
-| awk -v "OFS=\t" '{print $2,$3,$4,$1}' > $output/temp1.txt
+| awk -v "OFS=\t" '{print $2,$3,$4,$1,$5}' > $output/temp1.txt
 	
 #Save coverage of rNMPs per chromosome to separate files
 for chromosome in $( awk '{print $1}' $output/reference.bed ); do
