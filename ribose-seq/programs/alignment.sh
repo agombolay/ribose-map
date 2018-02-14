@@ -104,4 +104,4 @@ echo -e "Reads that are unique molecules: $(echo "$y*100" | bc -l | xargs printf
 echo "Status: Program complete for $sample"
 
 #Remove temporary files from directory
-#rm -f $output/*.{fq,sam} $output/sorted.{bam,bai}
+rm -f $output/aligned.sam $output/umi.fq $output/filter.fq $output/trim.fq $output/sorted.{bam,bai}
