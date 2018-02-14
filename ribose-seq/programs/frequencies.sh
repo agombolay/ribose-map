@@ -56,10 +56,9 @@ for subset in "mito" "nucleus"; do
 #############################################################################################################################
 	#STEP 2: Create and save file containing background dNMP frequencies
 		
-	#Add nucleotides to header line
-	echo -e "A\tC\tG\tT" > $directory/references/reference-Freqs.$subset.txt
-	#Add frequencies of nucleotides in reference genome
-	paste <(echo -e "$Bkg") >> $directory/references/reference-Freqs.$subset.txt
+	#Add nucleotides to header line and background frequencies
+	echo -e "A\tC\tG\tT" > $directory/references/"${file%.*}"-Freqs.$subset.txt
+	paste <(echo -e "$Bkg") >> $directory/references/"${file%.*}"-Freqs.$subset.txt
 			
 #############################################################################################################################
 	#STEP 3: Calculate frequencies of rNMPs in libraries
