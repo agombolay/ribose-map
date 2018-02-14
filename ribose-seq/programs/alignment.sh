@@ -95,10 +95,10 @@ x=$(echo $(bc -l <<< "$(wc -l < $output/filter.fq)/4")/$(bc -l <<< "$(wc -l < $o
 y=$(echo $(bc -l <<< "$(samtools view -c < $output/$sample.bam)")/$(bc -l <<< "$(samtools view -c < $output/sorted.bam)"))
 
 #Save info about % of reads that contain correct barcode sequence
-echo -e "Reads with molecular barcode, $barcode: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/barcode.log
+echo -e "Reads with molecular barcode, $barcode: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/barcode.log
 
 #Save info about % of reads that remain after de-duplication step
-echo -e "Reads that are unique molecules: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/de-duplication.log
+echo -e "Reads that are unique molecules: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/de-duplication.log
 
 #Print completion status
 echo "Status: Program complete for $sample"
