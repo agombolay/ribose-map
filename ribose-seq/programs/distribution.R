@@ -34,7 +34,7 @@ for(file in input){
 
 #############################################################################################################################
 	#Create plot
-	myplot <- ggplot(data, aes(x=data[,2], y=values))+
+	myplot <- ggplot(data, aes(x=data[,3], y=values))+
 		
 	#Create barchart and add titles for axes
         geom_bar(stat="identity", fill="black") + xlab("Chromosome Position") + ylab("rNMP Frequency")+ 
