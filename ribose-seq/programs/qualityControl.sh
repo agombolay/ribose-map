@@ -7,8 +7,8 @@
 #Usage statement
 function usage () {
 	echo "Usage: qualityControl.sh [options]
-		-f Filepath of read 1
-		-r Filepath of read 2
+		-a Filepath of read 1
+		-b Filepath of read 2
 		-d Ribose-Map directory
 		-s Name of sequenced library
 		-n Sequencing instrument used"
