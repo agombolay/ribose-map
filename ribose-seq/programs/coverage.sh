@@ -25,6 +25,12 @@ while getopts "h:s:r:d" opt; do
     esac
 done
 
+
+. /data2/users/agombolay3/Ribose-Map/config.txt
+
+output=$directory/results/$sample/coordinates
+mkdir -p $output
+
 #############################################################################################################################
 #Output directory
 output=$directory/results/$sample/coverage
