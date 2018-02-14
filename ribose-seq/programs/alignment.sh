@@ -89,7 +89,7 @@ fi
 
 #############################################################################################################################
 #Calculate % of reads that contain correct barcode sequence
-x=$(echo $(bc -l <<< "$(wc -l < $output/barcode.fq)/4")/$(bc -l <<< "$(wc -l < $output/umi_extracted1.fq)/4"))
+x=$(echo $(bc -l <<< "$(wc -l < $output/filter.fq)/4")/$(bc -l <<< "$(wc -l < $output/umi.fq)/4"))
 
 #Save info about % of reads that remain after de-duplication step
 echo -e "Reads that are unique molecules: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/duplication.log
