@@ -15,11 +15,11 @@ function usage () {
 }
 
 #Command-line options
-while getopts "s:a:b:d:i:h" opt; do
+while getopts "a:b:s:d:i:h" opt; do
     case "$opt" in
+	a ) read1=$OPTARG ;;
+	b ) read2=$OPTARG ;;
 	s ) sample=$OPTARG ;;
-	a ) forward=$OPTARG ;;
-	b ) reverse=$OPTARG ;;
 	d ) directory=$OPTARG ;;
 	i ) instrument=$OPTARG ;;
 	h ) usage ;;
