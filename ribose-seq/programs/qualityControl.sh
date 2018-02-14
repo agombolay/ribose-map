@@ -46,13 +46,13 @@ fi
 
 #Single-end reads
 if [[ ! $read2 ]]; then
-	fastqc $forward -o $output
+	fastqc $read1 -o $output
 	cutadapt $nextseq -a $adapter -m 50 $read1 -o $output/${sample}_trimmed.fq
 	fastqc $output/${sample}_trimmed.fq -o $output
 
 #Paired-end reads
 elif [[ $read2 ]]; then
-	fastqc $forward $reverse -o $output
+	fastqc $read1 $read2 -o $output
 	cutadapt $nextseq -a $adapter -m 50 $read1 $read2 -o $output/${sample}_trimmed1.fq -p $output/${sample}_trimmed2.fq
 	fastqc $output/${sample}_trimmed1.fq -$output/qc2.fq -o $output
 
