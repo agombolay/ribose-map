@@ -50,5 +50,3 @@ for(file in input){
 	ggsave(filename=file.path(path, paste(file_path_sans_ext(basename(file)), ".png", sep="")), plot=myplot, width=20)
 
 }
-}
-}
