@@ -21,7 +21,8 @@ uniq -c $directory/results/$sample/coordinates/$sample.bed > $output/temp1.txt
 	
 #Save coverage of rNMPs per chromosome to separate files
 for chromosome in $( awk '{print $1}' $output/reference.bed ); do
-	grep -w "$chromosome" $output/temp1.txt > $output/$sample.$chromosome.bed
+	grep -w "$chromosome" $output/temp1.txt \
+	| awk -v "OFS=\t" '$5 == "+" {print $2,$3,$4,$1}'> $output/$sample.$chromosome.bed
 done
 		
 #Add trackline for forward strand to input into UCSC genome browser
