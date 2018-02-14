@@ -21,7 +21,7 @@ opt <- parse_args(OptionParser(option_list=option_list))
 
 #############################################################################################################################
 #Specify output directory and file
-path <- file.path(opt$directory, "Results", opt$sample, "Coverage")
+path <- file.path(opt$directory, "results", opt$sample, "distribution")
 input <- list.files(path=path, pattern=".bed", full.names=T, recursive=F)
         
 for(file in input){
