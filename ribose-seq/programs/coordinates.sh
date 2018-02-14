@@ -54,7 +54,7 @@ sort -k1,1V -k2,2n $output/temp2.bed > $output/$sample.bed
 
 #############################################################################################################################
 #Print status
-echo "Status: Genomic coordinates of rNMPs were identified for $sample"
+echo "Status: Coordinates of rNMPs have been determined for $sample"
 	
 #Remove temporary files
 rm -f $output/temp{1..2}.bed
