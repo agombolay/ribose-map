@@ -47,17 +47,13 @@ fi
 #Single-end reads
 if [[ ! $read2 ]]; then
 	fastqc $forward -o $output
-	
-	cutadapt $nextseq -a $adapter -m 50 $forward -o $output/qc.fq
-	
+	cutadapt $nextseq -a $adapter -m 50 $forward -o $output/${sample}_trimmed.fq
 	fastqc $output/qc.fq -o $output
 
 #Paired-end reads
 elif [[ $read2 ]]; then
 	fastqc $forward $reverse -o $output
-	
-	cutadapt $nextseq -a $adapter -m 50 $forward $reverse -o $output/qc1.fq -p $output/qc2.fq
-	
+	cutadapt $nextseq -a $adapter -m 50 $forward $reverse -o $output/${sample}_trimmed1.fq -p $output/${sample}_trimmed2.fq
 	fastqc $output/qc1.fq -$output/qc2.fq -o $output
 
 fi
