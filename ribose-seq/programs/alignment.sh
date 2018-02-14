@@ -98,8 +98,8 @@ y=$(echo $(bc -l <<< "$(samtools view -c < $output/$sample.bam)")/$(bc -l <<< "$
 #Save info about % of reads that remain after de-duplication step
 echo -e "Reads that are unique based on UMI: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/duplication.log
 
-#Print completion status
+#Print status
 echo "Status: Alignment of reads to reference genome complete for $sample"
 
-#Remove temp files
+#Remove temporary files
 rm -f $output/aligned.sam $output/umi.fq $output/filter.fq $output/trim.fq $output/sorted.{bam,bam.bai}
