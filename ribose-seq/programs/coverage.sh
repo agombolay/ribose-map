@@ -14,7 +14,7 @@ mkdir -p $output
 
 #############################################################################################################################
 #Create BED file for reference genome
-cut -f 1,2 $output/$reference.fa.fai > $output/$reference.bed
+cut -f 1,2 $reference.fai > $output/$reference.bed
 	
 #Create file of rNMP coverage at chromosome coordinates
 uniq -c $directory/results/$sample/coordinates/$sample.bed > $output/temp1.txt
