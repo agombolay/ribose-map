@@ -25,7 +25,7 @@ if [[ ! $raw2 ]]; then
 
 #Paired-end reads
 elif [[ $read2 ]]; then
-	fastqc $read1 $read2 -o $output
+	fastqc $raw1 $raw2 -o $output
 	cutadapt $nextseq -a $adapter -m 50 $raw1 $raw2 -o $output/${sample}_trimmed1.fq -p $output/${sample}_trimmed2.fq
 	fastqc $output/${sample}_trimmed1.fq $output/${sample}_trimmed2.fq -o $output
 
