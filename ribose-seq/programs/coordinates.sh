@@ -7,42 +7,17 @@
 #1. Determine the chromosome coordinates of rNMPs
 #2. Can be applied to any rNMP sequencing technique
 
-#Usage statement
-function usage () {
-	echo "Usage: Coordinates.sh [options]
-	-d Ribose-Map directory
-	-s Name of sequenced library
-	-t rNMP sequencing technique
-	-r Basename of reference fasta"
-}
+. /data2/users/agombolay3/Ribose-Map/config.txt
 
-#Command-line options
-while getopts "h:s:t:r:d" opt; do
-    case $opt in
-    	h ) usage ;;
-        s ) sample=$OPTARG ;;
-	t ) technique=$OPTARG ;;
-	r ) reference=$OPTARG ;;
-	d ) directory=$OPTARG ;;
-    esac
-done
-
-#############################################################################################################################
-#Output directory
 output=$directory/results/$sample/coordinates
-
-#Input alignment file
-bam=$directory/results/$sample/alignment/$sample.bam
-	
-#Create directory and remove old files
-mkdir -p $output; rm -f $output/*.{bed}
-		
+mkdir -p $output
+			
 #############################################################################################################################
 #Determine coordinates for each technique
 if [[ "$technique" == "ribose-seq" ]]; then
 	
 	#Convert BAM file to BED format
-	bedtools bamtobed -i $bam > $output/temp1.bed
+	bedtools bamtobed -i $directory/results/$sample/alignment/$sample.bam > $output/temp1.bed
 	
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 	awk -v "OFS=\t" '$6 == "-" {print $1,($3 - 1),$3," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
