@@ -30,7 +30,7 @@ for(file in input){
 	data=read.table(file, sep="\t", header=FALSE)
 			
 	#Transform values on negative strand
-	values <- ifelse(data$V6=='-',data$V3*-1,data$V3)
+	values <- ifelse(data$V5=='-',data$V4*-1,data$V4)
 
 #############################################################################################################################
 	#Create plot
