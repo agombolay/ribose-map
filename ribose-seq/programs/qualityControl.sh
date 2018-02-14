@@ -17,7 +17,8 @@ function usage () {
 #Command-line options
 while getopts "a:b:s:d:i:h" opt; do
     case "$opt" in
-	a ) read1=$OPTARG ;; b ) read2=$OPTARG ;;
+	a ) read1=$OPTARG ;;
+	b ) read2=$OPTARG ;;
 	s ) sample=$OPTARG ;;
 	d ) directory=$OPTARG ;;
 	i ) instrument=$OPTARG ;;
