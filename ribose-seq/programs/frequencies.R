@@ -7,13 +7,17 @@
 #1. Plots rNMP nt frequencies for mito and nucleus
 #2. Saves plots as png files to appropriate directory
 
-#Config file
-source("config.R")
+#############################################################################################################################
+#!/usr/bin/env bash
 
-write('sample <- ,file="cat.txt",append=TRUE)
+. /data2/users/agombolay3/Ribose-Map/config.txt
+echo "sample <- '$sample'; directory <- '$directory'" > config.R
 
-#Load libraries
-library(tools); library(ggplot2); library(optparse)
+#############################################################################################################################
+#!/usr/bin/env Rscript
+
+#Load config file and libraries
+source('config.R'); library(tools); library(ggplot2); library(optparse)
 
 #Command line options
 option_list <- list(
