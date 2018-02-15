@@ -20,14 +20,14 @@ fi
 
 #Single-end reads
 if [[ ! $raw2 ]]; then
-	fastqc $raw1 -o $output
-	cutadapt $nextseq -a $adapter -m 50 "$2" -o $output/$sample-trimmed.fq
+	fastqc "$2" -o $output
+	cutadapt $nextseq -a $adapter -m 50 "$2" -o $output/$sample-trimmed.fastq
 	fastqc $output/$sample-trimmed.fq -o $output
 
 #Paired-end reads
 elif [[ $read2 ]]; then
-	fastqc $raw1 $raw2 -o $output
-	cutadapt $nextseq -a $adapter -m 50 "$2" "$3" -o $output/$sample-trimmed1.fq -p $output/$sample-trimmed2.fq
+	fastqc "$2" "$3" -o $output
+	cutadapt $nextseq -a $adapter -m 50 "$2" "$3" -o $output/$sample-trimmed1.fastq -p $output/$sample-trimmed2.fastq
 	fastqc $output/$sample-trimmed1.fq $output/$sample-trimmed2.fq -o $output
 
 fi
