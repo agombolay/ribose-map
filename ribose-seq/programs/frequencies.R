@@ -9,7 +9,7 @@
 
 #############################################################################################################################
 #Load libraries
-library(ggplot2); library(optparse)
+library(tools); library(ggplot2); library(optparse)
 
 #Command line options
 option_list <- list(
