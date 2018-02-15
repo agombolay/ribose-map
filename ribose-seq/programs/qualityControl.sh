@@ -4,8 +4,7 @@
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
 
-path="$1"
-. $path/config.txt
+. "$1"
 
 output=$directory/results/$sample/trimmed
 mkdir -p $output
