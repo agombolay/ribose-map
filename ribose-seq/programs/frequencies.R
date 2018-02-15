@@ -22,7 +22,7 @@ opt <- parse_args(OptionParser(option_list=option_list))
 
 #############################################################################################################################
 #Specify output directory and file
-path <- file.path(opt$directory, "Results", opt$sample, "frequencies")
+path <- file.path(opt$directory, "results", opt$sample, "frequencies")
 input <- list.files(path=path, pattern=".txt", full.names=T, recursive=F)
 
 for(file in input){
