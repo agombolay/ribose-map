@@ -7,6 +7,9 @@
 #1. Plots rNMP coverage at each chromosome position
 #2. Saves plots as png files to appropriate directory
 
+#Config file
+source("config.R")
+
 #Libraries
 library(tools); library(ggplot2); library(optparse)
 
