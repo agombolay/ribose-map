@@ -8,8 +8,7 @@
 #2. Alignment or SE or PE reads to reference
 #3. De-duplication based on UMI and chr coords
 
-path="$1"
-. $path/config.txt
+. "$1"
 
 output=$directory/results/$sample/alignment
 mkdir -p $output
