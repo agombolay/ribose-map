@@ -9,17 +9,17 @@
 
 #############################################################################################################################
 #Load config file
-source('/data2/users/agombolay3/Ribose-Map/config.R')
+path <- commandArgs(TRUE)[1]; source(path/config.R)
 
 #Load R libraries
 library(tools); library(ggplot2); library(optparse)
 
 #############################################################################################################################
 #Specify output directory and file
-path <- file.path(directory, "results", sample, "distribution")
-input <- list.files(path=path, pattern=".bed", full.names=T, recursive=F)
+file_path <- file.path(directory, "results", sample, "distribution")
+input_files <- list.files(path=path, pattern=".bed", full.names=T, recursive=F)
         
-for(file in input){
+for(file in input_files){
             
         #Specify dataset
 	data=read.table(file, sep="\t", header=FALSE)
