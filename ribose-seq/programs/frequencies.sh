@@ -7,11 +7,14 @@
 #1. Calculate frequencies of rNMP nucleotides
 #2. Calculate frequencies of flanking nucleotides
 
+#############################################################################################################################
 . /data2/users/agombolay3/Ribose-Map/config.txt
 
-output=$directory/results/$sample/frequencies
+output=$directory/results/$sample/distribution
 mkdir -p $output
-	
+
+echo "sample <- '$sample'; directory <- '$directory'" > /data2/users/agombolay3/Ribose-Map/config.R
+
 #############################################################################################################################
 for subset in "mito" "nucleus"; do
 
