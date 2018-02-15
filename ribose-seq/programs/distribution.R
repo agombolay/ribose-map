@@ -33,7 +33,7 @@ for(file in input_files){
 	myplot <- ggplot(data, aes(x=data[,3], y=values)) +
 		
 	#Remove and replace default background theme of plot
-	#theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black")) +
+	theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black")) +
 	
 	#Create barchart and add titles for axes
         geom_bar(stat="identity", fill="black") + xlab("Chromosome Position") + ylab("rNMP Frequency") 
