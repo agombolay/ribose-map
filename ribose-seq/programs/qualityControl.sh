@@ -6,7 +6,7 @@
 
 . "$1"
 
-output=$directory/results/$sample/trimmed
+output=$directory/trimmed
 mkdir -p $output
 
 #############################################################################################################################
