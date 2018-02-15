@@ -9,17 +9,17 @@
 
 #############################################################################################################################
 #Load config file
-source('/data2/users/agombolay3/Ribose-Map/config.R')
+path <- commandArgs(TRUE)[1]; source(path/config.R)
 
 #Load R libraries
 library(tools); library(ggplot2); library(optparse)
 
 #############################################################################################################################
 #Specify output directory and file
-path <- file.path(directory, "results", sample, "frequencies")
-input <- list.files(path=path, pattern=".txt", full.names=T, recursive=F)
+file_path <- file.path(directory, "results", sample, "frequencies")
+input_files <- list.files(path=path, pattern=".txt", full.names=T, recursive=F)
 
-for(file in input){
+for(file in input_files){
 		
 	#Plot regular and zoomed datasets
 	for(i in c("Normal", "Zoomed")) {
