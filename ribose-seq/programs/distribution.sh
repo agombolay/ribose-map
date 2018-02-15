@@ -12,6 +12,8 @@
 output=$directory/results/$sample/distribution
 mkdir -p $output
 
+echo "sample <- '$sample'; directory <- '$directory'" > /data2/users/agombolay3/Ribose-Map/config.R
+
 #############################################################################################################################
 #Create BED file for reference genome
 cut -f 1,2 $reference.fai > $output/reference.bed
