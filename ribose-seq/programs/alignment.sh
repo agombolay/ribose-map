@@ -8,7 +8,8 @@
 #2. Alignment or SE or PE reads to reference
 #3. De-duplication based on UMI and chr coords
 
-. /data2/users/agombolay3/Ribose-Map/config.txt
+path="$1"
+. $path/config.txt
 
 output=$directory/results/$sample/alignment
 mkdir -p $output
