@@ -8,21 +8,11 @@
 #2. Saves plots as png files to appropriate directory
 
 #############################################################################################################################
-#Load config file and libraries
+#Load config file
 source('/data2/users/agombolay3/Ribose-Map/config.R')
 
+#Load R libraries
 library(tools); library(ggplot2); library(optparse)
-
-#Command-line options
-#option_list <- list(
-#	make_option(c("-s", "--sample"), help="Sequenced library name"),
-#	make_option(c("-d", "--directory"), help="Ribose-Map repository")
-#)
-
-#Get command line options, if -h invoked print help
-#opt <- parse_args(OptionParser(option_list=option_list))
-
-print(directory)
 
 #############################################################################################################################
 #Specify output directory and file
