@@ -1,3 +1,5 @@
+#!/usr/bin/env Rscript
+
 #© 2016 Alli Gombolay
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
@@ -6,10 +8,10 @@
 #2. Saves plots as png files to appropriate directory
 
 #############################################################################################################################
-#!/usr/bin/env Rscript
-
 #Load config file and libraries
-source('config.R'); library(tools); library(ggplot2); library(optparse)
+source('config.R')
+
+library(tools); library(ggplot2); library(optparse)
 
 #Command-line options
 #option_list <- list(
