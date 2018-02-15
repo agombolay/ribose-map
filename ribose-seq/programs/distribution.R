@@ -17,7 +17,7 @@ library(tools); library(ggplot2); library(optparse)
 
 #############################################################################################################################
 #Specify output directory and file
-file_path <- file.path(directory, "results", sample, "distribution")
+output <- file.path(directory, "results", sample, "distribution")
 input_files <- list.files(path=file_path, pattern=".bed", full.names=T, recursive=F)
         
 for(file in input_files){
@@ -43,6 +43,6 @@ for(file in input_files){
 
 #############################################################################################################################
 	#Save plot as PNG file
-	ggsave(filename=file.path(path, paste(file_path_sans_ext(basename(file)), ".png", sep="")), plot=myplot, width=20)
+	ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep="")), plot=myplot, width=20)
 
 }
