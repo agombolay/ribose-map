@@ -8,9 +8,11 @@
 #2. Calculate frequencies of flanking nucleotides
 
 #############################################################################################################################
-. $directory/config.txt
+path="$1"
+. $path/config.txt
+
 output=$directory/results/$sample/distribution; mkdir -p $output
-echo "sample <- '$sample'; directory <- '$directory'" > $directory/config.R
+echo "sample <- '$sample'; directory <- '$directory'" > $path/config.R
 
 #############################################################################################################################
 for subset in "mito" "nucleus"; do
