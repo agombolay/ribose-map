@@ -34,7 +34,9 @@ for(file in input_files){
 		
 	myplot <- ggplot(data, aes(x=data[,3], y=values)) +
         geom_segment(aes(x = data[,3], y = 0, xend = data[,3], yend = values), color = "grey50") +
-        geom_point()
+        geom_point() +
+	
+	scale_y_discrete(expand=c(0.015,0)) + scale_x_discrete(expand=c(0.015,0))
 	
 	#Remove and replace default background theme of plot
 	#theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black")) +
