@@ -8,29 +8,15 @@
 #2. Saves plots as png files to appropriate directory
 
 #############################################################################################################################
-#!/usr/bin/env bash
+#Load config file
+source('/data2/users/agombolay3/Ribose-Map/config.R')
 
-. /data2/users/agombolay3/Ribose-Map/config.txt
-echo "sample <- '$sample'; directory <- '$directory'" > config.R
-
-#############################################################################################################################
-#!/usr/bin/env Rscript
-
-#Load config file and libraries
-source('config.R'); library(tools); library(ggplot2); library(optparse)
-
-#Command line options
-option_list <- list(
-	make_option(c("-s", "--sample"), help="Sequenced library name"),
-	make_option(c("-d", "--directory"), help="Ribose-Map repository")
-)
-
-#Get command line options, if -h invoked print help
-opt <- parse_args(OptionParser(option_list=option_list))
+#Load R libraries
+library(tools); library(ggplot2); library(optparse)
 
 #############################################################################################################################
 #Specify output directory and file
-path <- file.path(opt$directory, "results", opt$sample, "frequencies")
+path <- file.path(directory, "results", sample, "frequencies")
 input <- list.files(path=path, pattern=".txt", full.names=T, recursive=F)
 
 for(file in input){
