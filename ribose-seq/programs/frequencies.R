@@ -10,6 +10,8 @@
 #Config file
 source("config.R")
 
+write('sample <- ,file="cat.txt",append=TRUE)
+
 #Load libraries
 library(tools); library(ggplot2); library(optparse)
 
