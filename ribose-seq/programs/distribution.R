@@ -36,13 +36,13 @@ for(file in input_files){
 	theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black")) +
 	
 	#Create barchart and add titles for axes
-        geom_bar(stat="identity", fill="black", color="black", width = 1) + xlab("Chromosome Position") + ylab("rNMP Frequency") 
+        geom_bar(stat="identity", fill="black", color="black", width = 0.1) + xlab("Chromosome Position") + ylab("rNMP Frequency") 
 	
 	#Decrease spacing between plot and axes and increase font
 	#theme(text=element_text(size=15)) + scale_y_discrete(expand=c(0.015,0)) + scale_x_discrete(expand=c(0.015,0))
 
 #############################################################################################################################
 	#Save plot as PNG file
-	ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep="")), plot=myplot, width=20)
+	ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep="")), plot=myplot, width=50)
 
 }
