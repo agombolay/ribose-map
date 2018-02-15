@@ -7,7 +7,7 @@
 path="$1"
 . $path/config.txt
 
-output=$directory/results/$sample/alignment
+output=$directory/results/$sample/trimmed
 mkdir -p $output
 
 #############################################################################################################################
