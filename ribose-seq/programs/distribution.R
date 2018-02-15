@@ -8,7 +8,7 @@
 #2. Saves plots as png files to appropriate directory
 
 #Libraries
-library(tools); library(ggplot2); library(optparse)
+library(ggplot2); library(optparse)
 
 #Command-line options
 option_list <- list(
