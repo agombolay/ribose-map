@@ -26,6 +26,8 @@ echo "sample <- '$sample'; directory <- '$directory'" > /data2/users/agombolay3/
 #Get command line options, if -h invoked print help
 #opt <- parse_args(OptionParser(option_list=option_list))
 
+print(directory)
+
 #############################################################################################################################
 #Specify output directory and file
 path <- file.path(opt$directory, "results", opt$sample, "distribution")
