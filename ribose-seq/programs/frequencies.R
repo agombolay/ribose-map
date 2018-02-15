@@ -23,7 +23,7 @@ input_files <- list.files(path=output, pattern=".txt", full.names=T, recursive=F
 for(file in input_files){
 		
 	#Plot regular and zoomed datasets
-	for(i in c("Normal", "Zoomed")) {
+	for(i in c("normal", "zoomed")) {
 
 #############################################################################################################################
 		#Specify datasets to be used for each round of loop
