@@ -33,7 +33,7 @@ for(file in input_files){
 	#myplot <- ggplot(data, aes(x=data[,3], y=values)) +
 		
 	myplot <- ggplot(data, aes(x=data[,3], y=values)) +
-        geom_segment(aes(x = 0, y = values, xend = data[,3], yend = values), color = "grey50") +
+        geom_segment(aes(x = values, y = 0, xend = values, yend = data[,3]), color = "grey50") +
         geom_point()
 	
 	#Remove and replace default background theme of plot
