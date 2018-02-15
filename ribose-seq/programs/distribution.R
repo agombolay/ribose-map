@@ -7,11 +7,17 @@
 #1. Plots rNMP coverage at each chromosome position
 #2. Saves plots as png files to appropriate directory
 
-#Config file
-source("config.R")
+#############################################################################################################################
+#!/usr/bin/env bash
 
-#Libraries
-library(tools); library(ggplot2); library(optparse)
+. /data2/users/agombolay3/Ribose-Map/config.txt
+echo "sample <- '$sample'; directory <- '$directory'" > config.R
+
+#############################################################################################################################
+#!/usr/bin/env Rscript
+
+#Load config file and libraries
+source('config.R'); library(tools); library(ggplot2); library(optparse)
 
 #Command-line options
 option_list <- list(
