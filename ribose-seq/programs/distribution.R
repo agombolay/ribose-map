@@ -11,22 +11,22 @@
 #!/usr/bin/env bash
 
 . /data2/users/agombolay3/Ribose-Map/config.txt
-echo "sample <- '$sample'; directory <- '$directory'" > config.R
+echo "sample <- '$sample'; directory <- '$directory'" > /data2/users/agombolay3/Ribose-Map/config.R
 
 #############################################################################################################################
 #!/usr/bin/env Rscript
 
 #Load config file and libraries
-source('config.R'); library(tools); library(ggplot2); library(optparse)
+#source('config.R'); library(tools); library(ggplot2); library(optparse)
 
 #Command-line options
-option_list <- list(
-	make_option(c("-s", "--sample"), help="Sequenced library name"),
-	make_option(c("-d", "--directory"), help="Ribose-Map repository")
-)
+#option_list <- list(
+#	make_option(c("-s", "--sample"), help="Sequenced library name"),
+#	make_option(c("-d", "--directory"), help="Ribose-Map repository")
+#)
 
 #Get command line options, if -h invoked print help
-opt <- parse_args(OptionParser(option_list=option_list))
+#opt <- parse_args(OptionParser(option_list=option_list))
 
 #############################################################################################################################
 #Specify output directory and file
