@@ -21,12 +21,12 @@ fi
 if [[ ! $raw2 ]]; then
 	fastqc "$2" -o $output
 	cutadapt $nextseq -a $adapter -m 50 "$2" -o $output/$sample-trimmed.fastq
-	fastqc $output/$sample-trimmed.fq -o $output
+	fastqc $output/$sample-trimmed.fastq -o $output
 
 #Paired-end reads
 elif [[ $read2 ]]; then
 	fastqc "$2" "$3" -o $output
 	cutadapt $nextseq -a $adapter -m 50 "$2" "$3" -o $output/$sample-trimmed1.fastq -p $output/$sample-trimmed2.fastq
-	fastqc $output/$sample-trimmed1.fq $output/$sample-trimmed2.fq -o $output
+	fastqc $output/$sample-trimmed1.fastq $output/$sample-trimmed2.fastq -o $output
 
 fi
