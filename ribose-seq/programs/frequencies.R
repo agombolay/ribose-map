@@ -17,7 +17,7 @@ library(tools); library(ggplot2); library(optparse)
 
 #############################################################################################################################
 #Specify output directory and file
-file_path <- file.path(directory, "results", sample, "frequencies")
+output <- file.path(directory, "results", sample, "frequencies")
 input_files <- list.files(path=file_path, pattern=".txt", full.names=T, recursive=F)
 
 for(file in input_files){
@@ -56,7 +56,7 @@ for(file in input_files){
 
 #############################################################################################################################
 		#Save plot as PNG file
-		ggsave(filename=file.path(path, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep="")), plot=myplot)
+		ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep="")), plot=myplot)
 			
 }
 }
