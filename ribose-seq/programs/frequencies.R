@@ -7,7 +7,9 @@
 #1. Plots rNMP nt frequencies for mito and nucleus
 #2. Saves plots as png files to appropriate directory
 
-#############################################################################################################################
+#Config file
+source("config.R")
+
 #Load libraries
 library(tools); library(ggplot2); library(optparse)
 
