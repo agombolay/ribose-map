@@ -26,7 +26,7 @@ print(directory)
 
 #############################################################################################################################
 #Specify output directory and file
-path <- file.path(opt$directory, "results", opt$sample, "distribution")
+path <- file.path(directory, "results", sample, "distribution")
 input <- list.files(path=path, pattern=".bed", full.names=T, recursive=F)
         
 for(file in input){
