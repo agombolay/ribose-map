@@ -6,16 +6,10 @@
 #2. Saves plots as png files to appropriate directory
 
 #############################################################################################################################
-#!/usr/bin/env bash
-
-. /data2/users/agombolay3/Ribose-Map/config.txt
-echo "sample <- '$sample'; directory <- '$directory'" > /data2/users/agombolay3/Ribose-Map/config.R
-
-#############################################################################################################################
 #!/usr/bin/env Rscript
 
 #Load config file and libraries
-#source('config.R'); library(tools); library(ggplot2); library(optparse)
+source('config.R'); library(tools); library(ggplot2); library(optparse)
 
 #Command-line options
 #option_list <- list(
