@@ -8,12 +8,9 @@
 #2. Saves coverage of rNMPs per chromosome to separate files
 
 #############################################################################################################################
-. /data2/users/agombolay3/Ribose-Map/config.txt
-
-output=$directory/results/$sample/distribution
-mkdir -p $output
-
-echo "sample <- '$sample'; directory <- '$directory'" > /data2/users/agombolay3/Ribose-Map/config.R
+. /$directory/config.txt
+output=$directory/results/$sample/distribution; mkdir -p $output
+echo "sample <- '$sample'; directory <- '$directory'" > $directory/config.R
 
 #############################################################################################################################
 #Create BED file for reference genome
