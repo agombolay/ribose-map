@@ -7,6 +7,7 @@
 #1. Creates bedgraph files for forward and reverse strands
 #2. Saves coverage of rNMPs per chromosome to separate files
 
+#############################################################################################################################
 . /data2/users/agombolay3/Ribose-Map/config.txt
 
 output=$directory/results/$sample/distribution
