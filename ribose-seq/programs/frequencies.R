@@ -18,7 +18,7 @@ library(tools); library(ggplot2); library(optparse)
 #############################################################################################################################
 #Specify output directory and file
 file_path <- file.path(directory, "results", sample, "frequencies")
-input_files <- list.files(path=path, pattern=".txt", full.names=T, recursive=F)
+input_files <- list.files(path=file_path, pattern=".txt", full.names=T, recursive=F)
 
 for(file in input_files){
 		
