@@ -61,7 +61,7 @@ for(file in input){
 
 #############################################################################################################################
 		#Save plot as PNG file
-		ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep="")), plot=myplot)
+		ggsave(filename=file.path(path, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep="")), plot=myplot)
 			
 }
 }
