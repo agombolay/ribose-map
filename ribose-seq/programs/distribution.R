@@ -9,7 +9,7 @@
 
 #############################################################################################################################
 #Load config file and libraries
-source('config.R')
+source('/data2/users/agombolay3/Ribose-Map/config.R')
 
 library(tools); library(ggplot2); library(optparse)
 
