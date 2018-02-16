@@ -10,7 +10,7 @@
 . "$1"
 
 output=$directory/results/$sample/frequencies; mkdir -p $output
-echo "sample <- '$sample'; directory <- '$directory'" > $directory/config.R
+echo "sample <- '$sample'; directory <- '$directory'" > $directory/config-$sample.R
 
 #############################################################################################################################
 for subset in "mito" "nucleus"; do
