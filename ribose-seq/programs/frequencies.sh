@@ -9,7 +9,7 @@
 
 . "$1"
 
-output=$directory/results/$sample/distribution; mkdir -p $output
+output=$directory/results/$sample/frequences; mkdir -p $output
 echo "sample <- '$sample'; directory <- '$directory'" > $directory/config.R
 
 #############################################################################################################################
