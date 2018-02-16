@@ -7,9 +7,7 @@
 #1. Calculate frequencies of rNMP nucleotides
 #2. Calculate frequencies of flanking nucleotides
 
-#############################################################################################################################
-path="$1"
-. $path/config.txt
+. "$1"
 
 output=$directory/results/$sample/distribution; mkdir -p $output
 echo "sample <- '$sample'; directory <- '$directory'" > $path/config.R
