@@ -7,7 +7,7 @@
 #1. Determine the chromosome coordinates of rNMPs
 #2. Can be applied to any rNMP sequencing technique
 
-. /data2/users/agombolay3/Ribose-Map/config.txt
+. "$1"
 
 output=$directory/results/$sample/coordinates
 mkdir -p $output
