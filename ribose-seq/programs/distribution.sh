@@ -11,7 +11,7 @@
 . "$1"
 
 output=$directory/results/$sample/distribution; mkdir -p $output
-echo "sample <- '$sample'; directory <- '$directory'" > $directory/config.R
+echo "sample <- '$sample'; directory <- '$directory'" > $directory/config-$sample.R
 
 #############################################################################################################################
 #Create fasta index
