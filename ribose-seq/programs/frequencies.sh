@@ -7,6 +7,7 @@
 #1. Calculate frequencies of rNMP nucleotides
 #2. Calculate frequencies of flanking nucleotides
 
+#############################################################################################################################
 . "$1"
 
 output=$directory/results/$sample/frequencies; mkdir -p $output
