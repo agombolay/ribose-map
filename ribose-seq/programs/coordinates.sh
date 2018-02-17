@@ -7,6 +7,7 @@
 #1. Determine the chromosome coordinates of rNMPs
 #2. Can be applied to any rNMP sequencing technique
 
+#############################################################################################################################
 . "$1"
 
 output=$directory/results/$sample/coordinates
