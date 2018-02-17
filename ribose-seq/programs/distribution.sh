@@ -8,11 +8,10 @@
 #2. Saves coverage of rNMPs per chromosome to separate files
 
 #############################################################################################################################
-path="$1"
-. $path/config.txt
+. "$1"
 
 output=$directory/results/$sample/distribution; mkdir -p $output
-echo "sample <- '$sample'; directory <- '$directory'" > $path/config.R
+echo "sample <- '$sample'; directory <- '$directory'" > $directory/config.R
 
 #############################################################################################################################
 #Create fasta index
