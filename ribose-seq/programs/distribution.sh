@@ -15,6 +15,9 @@ output=$directory/results/$sample/distribution; mkdir -p $output
 echo "sample <- '$sample'; directory <- '$directory'" > $path/config.R
 
 #############################################################################################################################
+#Create fasta index
+samtools faidx $reference
+
 #Create BED file for reference genome
 cut -f 1,2 $reference.fai > $output/reference.bed
 	
