@@ -17,8 +17,8 @@ for subset in "mito" "nucleus"; do
 
 	#STEP 1: Calculate frequencies of reference genome
 	
-	#Create BED file for reference genome
-	cut -f 1,2 $reference.fai > $output/reference.bed
+	#Create fasta index and BED file for reference genome
+	samtools faidx $reference && cut -f 1,2 $reference.fai > $output/reference.bed
 
 	#Subset FASTA file based on region
 	if [[ $subset == "mito" ]]; then
