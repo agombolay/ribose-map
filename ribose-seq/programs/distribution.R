@@ -9,8 +9,9 @@
 
 #############################################################################################################################
 #Load config file
-path <- commandArgs(TRUE)[1]
-source(file.path(path,"config.R"))
+config <- commandArgs(TRUE)[1]
+#source(file.path(path,"config.R"))
+source(config)
 
 #Load R libraries
 library(tools); library(ggplot2); library(optparse)
