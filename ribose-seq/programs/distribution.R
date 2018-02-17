@@ -31,7 +31,7 @@ for(file in input_files){
 
 #############################################################################################################################
 	#Create plot
-	myplot <- ggplot(data, aes(x=data[,3], y=values)) + geom_point()
+	myplot <- ggplot(data, aes(x=data[,3], y=values)) + geom_point() +
 		
 	#myplot <- ggplot(data, aes(x=data[,3], y=values)) +
         #geom_segment(aes(x = data[,3], y = 0, xend = data[,3], yend = values), color = "grey50") +
@@ -40,16 +40,16 @@ for(file in input_files){
 	#scale_y_discrete(expand=c(0.015,0)) + scale_x_discrete(expand=c(0.015,0))
 	
 	#Remove and replace default background theme of plot
-	#theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black")) +
+	theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black")) +
 	
 	#Create barchart and add titles for axes
         #geom_bar(stat="identity", fill="black", color="black", width = .0001) + xlab("Chromosome Position") + ylab("rNMP Frequency")+ 
 	
 	#Decrease spacing between plot and axes and increase font
-	#theme(text=element_text(size=15))
+	theme(text=element_text(size=15))
 
 #############################################################################################################################
 	#Save plot as PNG file
-	ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep="")), plot=myplot, width=40)
+	ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep="")), plot=myplot, width=20)
 
 }
