@@ -8,6 +8,7 @@
 #2. Alignment or SE or PE reads to reference
 #3. De-duplication based on UMI and chr coords
 
+#############################################################################################################################
 . "$1"
 
 output=$directory/results/$sample/alignment
