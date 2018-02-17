@@ -4,6 +4,7 @@
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
 
+#############################################################################################################################
 . "$1"
 
 output=$directory/trimmed
