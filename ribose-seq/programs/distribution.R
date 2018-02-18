@@ -28,6 +28,9 @@ for(file in input_files){
 			
 	#Transform values on negative strand
 	values <- ifelse(data$V5=='-',data$V4*-1,data$V4)
+	
+	forward <- data[ which(data$V5=='+'), ]
+	reverse <- data[ which(data$V5=='-'), ]
 
 #############################################################################################################################
 	#Create plot
