@@ -31,7 +31,9 @@ for(file in input_files){
 
 #############################################################################################################################
 	#Create plot
-	myplot <- ggplot(data, aes(x=data[,3], y=values)) + geom_point() +
+	myplot <- ggplot(data, aes(x=data[,3], y=values)) + geom_point(aes(y=A, colour="forward")) + 
+	
+	geom_point(aes(y=A, colour="reverse")) + scale_colour_manual(values=c("#CC79A7", "#56B4E9"), name="")
 	
 	#scale_y_discrete(expand=c(0.015,0)) + scale_x_discrete(expand=c(0.015,0)) +
 	
@@ -39,10 +41,7 @@ for(file in input_files){
 	theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black")) +
 	
 	#Decrease spacing between plot and axes and increase font
-        xlab("Chromosome Position") + ylab("rNMP Frequency") + theme(text=element_text(size=15)) +
-	
-	#Specify color values and remove legend title
-	scale_colour_manual(values=c("#CC79A7", "#56B4E9"), name="")
+        xlab("Chromosome Position") + ylab("rNMP Frequency") + theme(text=element_text(size=15))
 
 #############################################################################################################################
 	#Save plot as PNG file
