@@ -27,16 +27,15 @@ for(file in input_files){
 	data=read.table(file, sep="\t", header=FALSE)
 			
 	#Transform values on negative strand
-	values <- ifelse(data$V5=='-',data$V4*-1,data$V4)
-	
-	forward <- data[ which(data$V5=='+'), ]
-	reverse <- data[ which(data$V5=='-'), ]
+	forward <- data[ which(data$V5=='+'), ]; reverse <- data[ which(data$V5=='-'), ]
 
 #############################################################################################################################
 	#Create plot
-	myplot <- ggplot(data, aes(x=data[,3], y=values)) + geom_point(aes(y=A, colour="forward")) + 
+	myplot <- ggplot() + geom_point(aes(x=forward$V3, y=forward$V4, colour="forward")) +
 	
-	geom_point(aes(y=A, colour="reverse")) + scale_colour_manual(values=c("#CC79A7", "#56B4E9"), name="")
+	geom_point(aes(x=reverse$V3, y=reverse$V4*-1, colour="reverse")) +
+	
+	scale_colour_manual(values=c("#CC79A7", "#56B4E9"), name="") +
 	
 	#scale_y_discrete(expand=c(0.015,0)) + scale_x_discrete(expand=c(0.015,0)) +
 	
