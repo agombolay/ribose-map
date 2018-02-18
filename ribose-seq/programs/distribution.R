@@ -33,17 +33,15 @@ for(file in input_files){
 	#Create plot
 	myplot <- ggplot() + geom_point(aes(x=forward$V3, y=forward$V4, colour="forward")) +
 	
-	geom_point(aes(x=reverse$V3, y=reverse$V4*-1, colour="reverse")) +
+	geom_point(aes(x=reverse$V3, y=reverse$V4*-1, colour="reverse")) + theme(text=element_text(size=15))
 	
 	scale_colour_manual(values=c("#CC79A7", "#56B4E9"), name="") +
-	
-	#scale_y_discrete(expand=c(0.015,0)) + scale_x_discrete(expand=c(0.015,0)) +
 	
 	#Remove and replace default background theme of plot
 	theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black")) +
 	
 	#Decrease spacing between plot and axes and increase font
-        xlab("Chromosome Position") + ylab("rNMP Frequency") + theme(text=element_text(size=15))
+        xlab("Chromosome Position") + ylab("rNMP Frequency") 
 
 #############################################################################################################################
 	#Save plot as PNG file
