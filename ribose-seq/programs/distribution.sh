@@ -48,7 +48,7 @@ awk -v "OFS=\t" '$5 == "-" {print $1,$2,$3,$4}' $output/temp1.txt >> $output/$sa
 
 #############################################################################################################################
 #Print status
-echo "Status: Distribution module is complete for $sample"
+echo "Status: Distribution module for $sample is complete"
 	
 #Remove temporary files
 rm $output/reference.bed $output/temp1.txt
