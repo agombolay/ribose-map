@@ -11,12 +11,11 @@
 #Load config file
 . "$1"
 
+#Create output directory and remove any old files
+output=$directory/results/$sample/distribution; rm -rf $output; mkdir -p $output
+
 #Create R config file
 echo "sample <- '$sample'; directory <- '$directory'" > $directory/config-$sample.R
-
-#Create output directory and remove any old files
-output=$directory/results/$sample/distribution; mkdir -p $output; rm -f $output/*.{txt,bed,bg}
-
 #############################################################################################################################
 #Create fasta index
 samtools faidx $reference
