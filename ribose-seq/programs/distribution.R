@@ -8,11 +8,11 @@
 #2. Saves plots as png files to appropriate directory
 
 #############################################################################################################################
-#Load library
-library(ggplot2)
-
-#Load config file
+#Load config
 source(commandArgs(TRUE)[1])
+
+#Load libraries
+library(ggplot2); library(tools)
 
 #############################################################################################################################
 #Specify output directory and file
