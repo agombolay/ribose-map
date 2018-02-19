@@ -8,8 +8,10 @@
 #2. Can be applied to any rNMP sequencing technique
 
 #############################################################################################################################
+#Load config file
 . "$1"
 
+#Create output directory
 output=$directory/results/$sample/coordinates; mkdir -p $output
 			
 #############################################################################################################################
