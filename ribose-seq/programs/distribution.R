@@ -24,31 +24,31 @@ for(file in input_files){
 	#Check size of file > 0
 	if (file.info(input_files)$size > 0){
 	
-        #Specify dataset
-	data=read.table(file, sep="\t", header=FALSE)
+        	#Specify dataset
+		data=read.table(file, sep="\t", header=FALSE)
 	
-	#Re-order levels of strand
-	data$V5_new = factor(data$V5, levels=c('+','-'))
+		#Re-order levels of strand
+		data$V5_new = factor(data$V5, levels=c('+','-'))
 	
-	#Strand labels for facet wrap
-	labels <- c('+' = 'Forward Strand', '-' = 'Reverse Strand')
+		#Strand labels for facet wrap
+		labels <- c('+' = 'Forward Strand', '-' = 'Reverse Strand')
 	
 #############################################################################################################################
-	#Create plot
-	myplot <- ggplot(data,aes(V3, V4, colour=V5_new)) + geom_point() + ylim(1, max(data$V4)) +
+		#Create plot
+		myplot <- ggplot(data,aes(V3, V4, colour=V5_new)) + geom_point() + ylim(1, max(data$V4)) +
 	
-	#Plot forward and reverse strands, no legend
-	facet_wrap(~V5_new, ncol=1, labeller=labeller(V5_new = labels)) + theme(legend.position="none") +
+		#Plot forward and reverse strands, no legend
+		facet_wrap(~V5_new, ncol=1, labeller=labeller(V5_new = labels)) + theme(legend.position="none") +
 	
-	#Specify colors for scatterplot and titles for axes
-	scale_colour_manual(values=c("blue", "green3")) + xlab("Chromosome Position") + ylab("rNMP Frequency") +
+		#Specify colors for scatterplot and titles for axes
+		scale_colour_manual(values=c("blue", "green3")) + xlab("Chromosome Position") + ylab("rNMP Frequency") +
 	
-	#Remove and replace default background theme of plot
-	theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black"))
+		#Remove and replace default background theme of plot
+		theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black"))
 
 #############################################################################################################################
-	#Save plot as PNG file
-	ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep="")), plot=myplot, width=20)
+		#Save plot as PNG file
+		ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep="")), plot=myplot, width=20)
 
 }
 }
