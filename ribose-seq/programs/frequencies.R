@@ -21,7 +21,7 @@ input_files <- list.files(path=output, pattern=".txt", full.names=T, recursive=F
 for(file in input_files){
 	
 	#Check size of file > 0
-	if (file.info(input_files)$size > 0){
+	if (file.info(file)$size > 0){
 	
 		#Plot regular and zoomed datasets
 		for(i in c("normal", "zoomed")) {
