@@ -11,8 +11,8 @@
 #Load config file
 . "$1"
 
-#Create output directory and config file for R script
-output=$directory/results/$sample/distribution; mkdir -p $output
+#Create output directory and create config file for R script
+output=$directory/results/$sample/distribution; mkdir -p $output/*.{txt,bed,bg}
 echo "sample <- '$sample'; directory <- '$directory'" > $directory/config-$sample.R
 
 #############################################################################################################################
