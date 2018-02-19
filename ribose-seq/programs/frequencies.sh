@@ -118,8 +118,8 @@ for subset in "mito" "nucleus"; do
 		#STEP 5: Insert tabs between sequences of dNMPs +/- 100 bp from rNMPs
 	
 		#Insert tabs between each base for easier parsing
-		cat $output/Up.txt | sed 's/.../& /2g;s/./& /g' > $output/Up.tab
-		cat $output/Down.txt | sed 's/.../& /2g;s/./& /g' > $output/Down.tab
+		cat $output/Up.txt | sed 's/.../& /2g;s/./& /g' > $output/Up.txt
+		cat $output/Down.txt | sed 's/.../& /2g;s/./& /g' > $output/Down.txt
 
 		#Save lists of dNMPs at each of the +/-100 positions in separate files
 		for i in {1..100}; do
