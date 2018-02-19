@@ -8,13 +8,11 @@
 #2. Saves plots as png files to appropriate directory
 
 #############################################################################################################################
+#Load library
+library(ggplot2)
+
 #Load config file
-path <- commandArgs(TRUE)[1]
-source(file.path(path,"config.R"))
-
-#Load R libraries
-library(tools); library(ggplot2); library(optparse)
-
+source(commandArgs(TRUE)[1])
 #############################################################################################################################
 #Specify output directory and file
 output <- file.path(directory, "results", sample, "frequencies")
