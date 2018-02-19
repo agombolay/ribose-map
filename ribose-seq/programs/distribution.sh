@@ -14,8 +14,8 @@
 #Create R config file
 echo "sample <- '$sample'; directory <- '$directory'" > $directory/config-$sample.R
 
-#Create output directory
-output=$directory/results/$sample/distribution mkdir -p $output; rm -f $output/*.{txt,bed,bg}
+#Create output directory and remove any old files
+output=$directory/results/$sample/distribution; mkdir -p $output; rm -f $output/*.{txt,bed,bg}
 
 #############################################################################################################################
 #Create fasta index
