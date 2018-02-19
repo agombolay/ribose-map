@@ -19,7 +19,10 @@ output <- file.path(directory, "results", sample, "frequencies")
 input_files <- list.files(path=output, pattern=".txt", full.names=T, recursive=F)
 
 for(file in input_files){
-		
+	
+	#Check size of file > 0
+	if (file.info(input_files)$size > 0){
+	
 	#Plot regular and zoomed datasets
 	for(i in c("normal", "zoomed")) {
 
@@ -56,5 +59,6 @@ for(file in input_files){
 		#Save plot as PNG file
 		ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep="")), plot=myplot)
 			
+}
 }
 }
