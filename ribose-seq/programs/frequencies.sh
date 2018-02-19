@@ -14,7 +14,7 @@
 #Create R config file
 echo "sample <- '$sample'; directory <- '$directory'" > $directory/config-$sample.R
 
-#Create output directory
+#Create output directory and remove any old files
 output=$directory/results/$sample/frequencies mkdir -p $output; rm -f $output/*.{txt,bed}
 
 #############################################################################################################################
