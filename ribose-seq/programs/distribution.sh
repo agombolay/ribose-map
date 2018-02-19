@@ -11,9 +11,11 @@
 #Load config file
 . "$1"
 
-#Create output directory and create config file for R script
-output=$directory/results/$sample/distribution; mkdir -p $output/*.{txt,bed,bg}
+#Create R config file
 echo "sample <- '$sample'; directory <- '$directory'" > $directory/config-$sample.R
+
+#Create output directory
+output=$directory/results/$sample/distribution mkdir -p $output; rm -f $output/*.{txt,bed,bg}
 
 #############################################################################################################################
 #Create fasta index
