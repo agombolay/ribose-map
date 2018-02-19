@@ -123,8 +123,8 @@ for subset in "mito" "nucleus"; do
 
 		#Save lists of dNMPs at each of the +/-100 positions in separate files
 		for i in {1..100}; do
-			awk -v field=$i '{ print $field }' $output/Up.tab > $output/$sample.Up.$i.txt
-			awk -v field=$i '{ print $field }' $output/Down.tab > $output/$sample.Down.$i.txt
+			awk -v field=$i '{ print $field }' $output/Up.txt > $output/$sample.Up.$i.txt
+			awk -v field=$i '{ print $field }' $output/Down.txt > $output/$sample.Down.$i.txt
 		done
 		
 		#while read line; do printf "%5s\n" "$line"; done < $output/Up.tab
@@ -189,10 +189,9 @@ for subset in "mito" "nucleus"; do
 #############################################################################################################################
 		#Print status
 		echo "Status: Frequencies module for $sample ($subset) is complete"
-				
-		#Remove temp files
-		rm -f $output/*.{txt,bed,fa,fa.fai}
-		
+					
 	fi
+	#Remove temp files
+	rm -f $output/*.{txt,bed,fa,fa.fai}
 
 done
