@@ -18,12 +18,12 @@ library(ggplot2); library(tools)
 #Specify output directory and file
 output <- file.path(directory, "results", sample, "distribution")
 input_files <- list.files(path=output, pattern=".bed", full.names=T, recursive=F)
-
-#Check size of file > 0
-if (file.info(input_files)$size > 0){
 	
 for(file in input_files){
-            
+        
+	#Check size of file > 0
+	if (file.info(input_files)$size > 0){
+	
         #Specify dataset
 	data=read.table(file, sep="\t", header=FALSE)
 	
