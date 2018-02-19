@@ -178,9 +178,9 @@ for subset in "mito" "nucleus"; do
 		>> $output/$sample-Frequencies.$subset.tab
 						
 #############################################################################################################################
-		#Print completion status
-		echo "Calculation of rNMP and flanking nucleotide frequencies for $sample ($subset) is complete"
-		
+		#Print status
+		echo "Status: Calculation of rNMP and flanking nucleotide frequencies for $sample ($subset) is complete"
+				
 		#Remove temp files
 		rm -f $output/*.{txt,bed fa,fa.fai}
 		
