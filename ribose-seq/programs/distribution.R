@@ -30,8 +30,14 @@ for(file in input_files){
 #############################################################################################################################
 	#Create plot
 	myplot <- ggplot(data,aes(V3, V4, colour=V5_new)) + geom_point() + ylim(1,max(data$V4)) +
+	
+	#Plot forward and reverse strands, no legend
 	facet_wrap(~V5_new,ncol=1,labeller=labeller(V5_new = labels)) + theme(legend.position="none") +
+	
+	#Specify colors for scatterplot and titles for axes
 	scale_colour_manual(values=c("blue", "green3")) + xlab("Chromosome Position") + ylab("rNMP Frequency") +
+	
+	#Remove and replace default background theme of plot
 	theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black"))
 
 #############################################################################################################################
