@@ -5,10 +5,11 @@
 #E-mail: alli.gombolay@gatech.edu
 
 #############################################################################################################################
+#Load config file
 . "$1"
 
-output=$directory/trimmed
-mkdir -p $output
+#Create output directory
+output=$directory/trimmed; mkdir -p $output
 
 #############################################################################################################################
 
