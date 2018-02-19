@@ -10,8 +10,7 @@
 #############################################################################################################################
 . "$1"
 
-output=$directory/results/$sample/coordinates
-mkdir -p $output
+output=$directory/results/$sample/coordinates; mkdir -p $output
 			
 #############################################################################################################################
 #Determine coordinates for each technique
