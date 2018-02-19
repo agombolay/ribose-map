@@ -9,7 +9,7 @@
 
 #############################################################################################################################
 #Load library
-library(ggplot2); library(tools)
+library(ggplot2)
 
 #Load config file
 source(commandArgs(TRUE)[1])
@@ -17,9 +17,6 @@ source(commandArgs(TRUE)[1])
 #Specify output directory and file
 output <- file.path(directory, "results", sample, "frequencies")
 input_files <- list.files(path=output, pattern=".txt", full.names=T, recursive=F)
-
-print(output)
-print(input_files)
 
 for(file in input_files){
 		
