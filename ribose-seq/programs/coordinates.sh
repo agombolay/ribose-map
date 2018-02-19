@@ -56,7 +56,7 @@ sort -k1,1V -k2,2n $output/temp2.bed > $output/$sample.bed
 
 #############################################################################################################################
 #Print status
-echo "Status: Location of coordinates of rNMPs for $sample is complete"
+echo "Status: Coordinates module for $sample is complete"
 	
 #Remove temporary files
 rm -f $output/temp{1..2}.bed
