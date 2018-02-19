@@ -11,8 +11,11 @@
 #Load config file
 . "$1"
 
-#Create output directory and config file for R script
-output=$directory/results/$sample/frequencies; mkdir -p $output
+#Create output directory
+output=$directory/results/$sample/frequencies
+mkdir -p $output; rm -f $output/$sample-Frequencies.$subset.txt
+
+#Create config file for R script
 echo "sample <- '$sample'; directory <- '$directory'" > $directory/config-$sample.R
 
 #############################################################################################################################
