@@ -18,6 +18,9 @@ source(commandArgs(TRUE)[1])
 output <- file.path(directory, "results", sample, "frequencies")
 input_files <- list.files(path=output, pattern=".txt", full.names=T, recursive=F)
 
+print(output)
+print(input_files)
+
 for(file in input_files){
 		
 	#Plot regular and zoomed datasets
