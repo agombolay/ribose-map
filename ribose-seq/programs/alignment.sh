@@ -102,7 +102,7 @@ echo -e "Reads that are unique based on UMI: $(echo "$y*100" | bc -l | xargs pri
 
 #############################################################################################################################
 #Print status
-echo "Status: Alignment of reads to reference genome complete for $sample"
+echo "Status: Alignment of reads to reference genome for $sample is complete"
 
 #Remove temporary files
 rm -f $output/aligned.sam $output/umi.fq $output/filter.fq $output/trim.fq $output/sorted.{bam,bam.bai}
