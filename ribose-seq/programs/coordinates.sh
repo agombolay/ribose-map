@@ -12,7 +12,8 @@
 . "$1"
 
 #Create output directory
-output=$directory/results/$sample/coordinates; mkdir -p $output
+output=$directory/results/$sample/coordinates
+mkdir -p $output; rm -f $output/$sample.bed
 			
 #############################################################################################################################
 #Determine coordinates for each technique
