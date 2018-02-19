@@ -191,7 +191,7 @@ for subset in "mito" "nucleus"; do
 		echo "Status: Frequencies module for $sample ($subset) is complete"
 				
 		#Remove temp files
-		rm -f $output/*.{txt,bed fa,fa.fai}
+		rm -f $output/*.{txt,bed,fa,fa.fai}
 		
 	fi
 
