@@ -12,7 +12,7 @@
 . "$1"
 
 #Create output directory and remove any old files
-output=$directory/results/$sample/coordinates; mkdir -p $output; rm -f $output/*.bed
+output=$directory/results/$sample/coordinates; rm -rf $output; mkdir -p $output
 			
 #############################################################################################################################
 #Determine coordinates for each technique
