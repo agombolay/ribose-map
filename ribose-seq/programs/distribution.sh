@@ -48,7 +48,7 @@ awk -v "OFS=\t" '$5 == "-" {print $1,$2,$3,$4}' $output/temp1.txt >> $output/$sa
 
 #############################################################################################################################
 #Print status
-echo "Status: Coverage of rNMPs have been determined for $sample"
+echo "Status: Distribution module complete for $sample"
 	
 #Remove temporary files
 rm $output/reference.bed $output/temp1.txt
