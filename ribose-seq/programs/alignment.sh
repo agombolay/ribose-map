@@ -9,10 +9,11 @@
 #3. De-duplication based on UMI and chr coords
 
 #############################################################################################################################
+#Load config file
 . "$1"
 
-output=$directory/results/$sample/alignment
-mkdir -p $output
+#Create output directory
+output=$directory/results/$sample/alignment; mkdir -p $output
 
 #############################################################################################################################
 if [[ ! $read2 ]]; then
