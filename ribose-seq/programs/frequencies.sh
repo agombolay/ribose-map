@@ -122,30 +122,33 @@ for subset in "mito" "nucleus"; do
 		cat $output/Down.txt | sed 's/.../& /2g;s/./& /g' > $output/Down.tab
 
 		#Save lists of dNMPs at each of the +/-100 positions in separate files
-		#for i in {1..100}; do
-		#	awk -v field=$i '{ print $field }' $output/Up.tab > $output/$sample.Up.$i.txt
-		#	awk -v field=$i '{ print $field }' $output/Down.tab > $output/$sample.Down.$i.txt
-		#done
+		for i in {1..100}; do
+			awk -v field=$i '{ print $field }' $output/Up.tab > $output/$sample.Up.$i.txt
+			awk -v field=$i '{ print $field }' $output/Down.tab > $output/$sample.Down.$i.txt
+		done
+		
+		#while read line; do printf "%5s\n" "$line"; done < $output/Up.tab
+		#while read line; do printf "%5s\n" "$line"; done < $output/Down.tab
 		
 #############################################################################################################################
 		#STEP 6: Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
 
 		for dir in "Up" "Down"; do
 		
-			for i in {1..100}; do
+			#for i in {1..100}; do
 			#'-v' = natural sort of #'s
-			#for file in $(ls -v $output/$sample.$dir.{1..100}.txt); do
+			for file in $(ls -v $output/$sample.$dir.{1..100}.txt); do
 		
 				#Calculate count of each dNMP
-				#A_Flank=$(grep -o 'A' $file | wc -l)
-				#C_Flank=$(grep -o 'C' $file | wc -l)
-				#G_Flank=$(grep -o 'G' $file | wc -l)
-				#T_Flank=$(grep -o 'T' $file | wc -l)
+				A_Flank=$(grep -o 'A' $file | wc -l)
+				C_Flank=$(grep -o 'C' $file | wc -l)
+				G_Flank=$(grep -o 'G' $file | wc -l)
+				T_Flank=$(grep -o 'T' $file | wc -l)
 				
-				A_Flank=$(awk -v field=$i '{ print $field }' $output/$dir.tab | grep -o 'A' | wc -l);
-				C_Flank=$(awk -v field=$i '{ print $field }' $output/$dir.tab | grep -o 'C' | wc -l);
-				G_Flank=$(awk -v field=$i '{ print $field }' $output/$dir.tab | grep -o 'G' | wc -l);
-				T_Flank=$(awk -v field=$i '{ print $field }' $output/$dir.tab | grep -o 'T' | wc -l);
+				#A_Flank=$(awk -v field=$i '{ print $field }' $output/$dir.tab | grep -o 'A' | wc -l);
+				#C_Flank=$(awk -v field=$i '{ print $field }' $output/$dir.tab | grep -o 'C' | wc -l);
+				#G_Flank=$(awk -v field=$i '{ print $field }' $output/$dir.tab | grep -o 'G' | wc -l);
+				#T_Flank=$(awk -v field=$i '{ print $field }' $output/$dir.tab | grep -o 'T' | wc -l);
 
 				#Calculate total number of dNMPs
 				FlankTotal=$(($A_Flank + $C_Flank + $G_Flank + $T_Flank))
