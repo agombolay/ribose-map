@@ -175,15 +175,15 @@ for subset in "mito" "nucleus"; do
 			
 		#Add positions and frequencies of nucleotides in correct order to create dataset
 		paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Up") <(echo "$Ribo") <(echo "$Down")) \
-		>> $output/$sample-Frequencies.$subset.txt
+		>> $output/$sample-Frequencies.$subset.tab
 						
 #############################################################################################################################
 		#Print completion status
 		echo "Calculation of rNMP and flanking frequencies for $sample ($subset) is complete"
-	
+		
+		#Remove temp files
+		rm -f $output/*.{txt,bed fa,fa.fai}
+		
 	fi
-	
-	#Remove temp files
-	rm -f $output/*Up.* $output/*Down.* $output/*Ribo*.txt $output/temp.fa* $output/*.bed $output/*Bkg.txt
 
 done
