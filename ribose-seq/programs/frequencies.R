@@ -9,7 +9,7 @@
 
 #############################################################################################################################
 #Load library
-library(ggplot2)
+library(ggplot2); library(tools)
 
 #Load config file
 source(commandArgs(TRUE)[1])
