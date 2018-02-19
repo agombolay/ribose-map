@@ -11,9 +11,8 @@
 #Load config file
 . "$1"
 
-#Create output directory
-output=$directory/results/$sample/coordinates
-mkdir -p $output; rm -f $output/$sample.bed
+#Create output directory and remove any old files
+output=$directory/results/$sample/coordinates; mkdir -p $output; rm -f $output/*.bed
 			
 #############################################################################################################################
 #Determine coordinates for each technique
