@@ -8,8 +8,10 @@
 #2. Calculate frequencies of flanking nucleotides
 
 #############################################################################################################################
+#Load config file
 . "$1"
 
+#Create output directory and config file for R script
 output=$directory/results/$sample/frequencies; mkdir -p $output
 echo "sample <- '$sample'; directory <- '$directory'" > $directory/config-$sample.R
 
