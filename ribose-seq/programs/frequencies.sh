@@ -160,7 +160,7 @@ for subset in "mito" "nucleus"; do
 					G_FlankFreq=$(echo "($G_Flank/$FlankTotal)/$G_BkgFreq" | bc -l)
 					T_FlankFreq=$(echo "($T_Flank/$FlankTotal)/$T_BkgFreq" | bc -l)
 				
-				elif [[ $FlankTotal != 0 ]]; then
+				elif [[ $FlankTotal == 0 ]]; then
 					A_FlankFreq='NA'; C_FlankFreq='NA'; G_FlankFreq='NA'; T_FlankFreq='NA'
 				fi
 				
