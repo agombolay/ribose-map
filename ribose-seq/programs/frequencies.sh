@@ -153,12 +153,14 @@ for subset in "mito" "nucleus"; do
 				#Calculate total number of dNMPs
 				FlankTotal=$(($A_Flank + $C_Flank + $G_Flank + $T_Flank))
 
-				#Calculate normalized frequencies of dNMPs
-				A_FlankFreq=$(echo "($A_Flank/$FlankTotal)/$A_BkgFreq" | bc -l)
-				C_FlankFreq=$(echo "($C_Flank/$FlankTotal)/$C_BkgFreq" | bc -l)
-				G_FlankFreq=$(echo "($G_Flank/$FlankTotal)/$G_BkgFreq" | bc -l)
-				T_FlankFreq=$(echo "($T_Flank/$FlankTotal)/$T_BkgFreq" | bc -l)
-		
+				if [[ $FlankTotal != 0 ]]; then
+					#Calculate normalized frequencies of dNMPs
+					A_FlankFreq=$(echo "($A_Flank/$FlankTotal)/$A_BkgFreq" | bc -l)
+					C_FlankFreq=$(echo "($C_Flank/$FlankTotal)/$C_BkgFreq" | bc -l)
+					G_FlankFreq=$(echo "($G_Flank/$FlankTotal)/$G_BkgFreq" | bc -l)
+					T_FlankFreq=$(echo "($T_Flank/$FlankTotal)/$T_BkgFreq" | bc -l)
+				fi
+				
 				#Save normalized dNMPs frequencies to TXT files
 				echo $A_FlankFreq | xargs printf "%.*f\n" 5 >> $output/A_$dir.txt
 				echo $C_FlankFreq | xargs printf "%.*f\n" 5 >> $output/C_$dir.txt
