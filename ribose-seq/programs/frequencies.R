@@ -16,7 +16,7 @@ library(ggplot2); library(tools)
 #############################################################################################################################
 #Specify output directory and file
 output <- file.path(directory, "results", sample, "frequencies")
-input_files <- list.files(path=output, pattern=".txt", full.names=T, recursive=F)
+input_files <- list.files(path=output, pattern=".tab", full.names=T, recursive=F)
 
 for(file in input_files){
 	
