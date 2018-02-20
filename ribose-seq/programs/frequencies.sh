@@ -111,8 +111,8 @@ for subset in "mito" "nucleus"; do
 		bedtools flank -i $output/Coords.bed -s -g $output/reference.bed -l 0 -r 100 | awk '$2 != $3' > $output/Down.bed
 	
 		#Obtain nucleotides flanking rNMPs (reverse order of up) and insert tabs bases for easier parsing
-		bedtools getfasta -s -fi $output/temp.fa -bed $output/Down.bed | grep -v '>' | sed 's/.../& /2g;s/./& /g' > $output/Down.txt
-		bedtools getfasta -s -fi $output/temp.fa -bed $output/Up.bed | grep -v '>' | rev | sed 's/.../& /2g;s/./& /g' > $output/Up.txt
+		bedtools getfasta -s -fi $output/temp.fa -bed $output/Down.bed | grep -v '>' | sed 's/.../& /2g;s/./& /g' > $output/Down.tab
+		bedtools getfasta -s -fi $output/temp.fa -bed $output/Up.bed | grep -v '>' | rev | sed 's/.../& /2g;s/./& /g' > $output/Up.tab
 				
 #############################################################################################################################
 		#STEP 6: Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
