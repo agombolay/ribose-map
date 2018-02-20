@@ -39,7 +39,8 @@ if [[ ! $read2 ]]; then
 		
 		elif [[ $barcode ]]; then
 			
-			grep -B 1 -A 2 ^$bc $output/umi.fq | sed '/^--$/d' | cutadapt -u ${#bc} - -o $output/filter.fq
+			grep -B 1 -A 2 ^$barcode $output/umi.fq | sed '/^--$/d' | cutadapt --cut \
+			${#barcode} - -o $output/filter.fq
   
 			bowtie2 -x $idx -U $output/filter.fq -S $output/aligned.sam 2> $output/align.log
 			samtools view -bS -F260 $output/aligned.sam | samtools sort - -o $output/sorted.bam
@@ -73,7 +74,8 @@ elif [[ $read2 ]]; then
 		
 		elif [[ $barcode ]]; then
 		
-			grep -B 1 -A 2 ^$bc $output/umi1.fq | sed '/^--$/d' | cutadapt -u ${#bc} - -o $output/filter.fq
+			grep -B 1 -A 2 ^$barcode $output/umi1.fq | sed '/^--$/d' | cutadapt --cut \
+			${#barcode} - -o $output/filter.fq
 			
 			bowtie2 -x $idx -1 $output/filter.fq -2 $output/umi2.fq -S $output/aligned.sam 2> $output/align.log
 			samtools view -bS -f67 -F260 $output/aligned.sam | samtools sort - -o $output/sorted.bam
