@@ -118,13 +118,13 @@ for subset in "mito" "nucleus"; do
 		#STEP 5: Insert tabs between sequences of dNMPs +/- 100 bp from rNMPs
 	
 		#Insert tabs between each base for easier parsing
-		cat $output/Up.txt | sed 's/.../& /2g;s/./& /g' > $output/Up.txt
-		cat $output/Down.txt | sed 's/.../& /2g;s/./& /g' > $output/Down.txt
+		cat $output/Up.txt | sed 's/.../& /2g;s/./& /g' > $output/Up.ext
+		cat $output/Down.txt | sed 's/.../& /2g;s/./& /g' > $output/Down.ext
 
 		#Save lists of dNMPs at each of the +/-100 positions in separate files
 		for i in {1..100}; do
-			awk -v field=$i '{ print $field }' $output/Up.txt > $output/$sample.Up.$i.txt
-			awk -v field=$i '{ print $field }' $output/Down.txt > $output/$sample.Down.$i.txt
+			awk -v field=$i '{ print $field }' $output/Up.ext > $output/$sample.Up.$i.txt
+			awk -v field=$i '{ print $field }' $output/Down.ext > $output/$sample.Down.$i.txt
 		done
 		
 		#while read line; do printf "%5s\n" "$line"; done < $output/Up.tab
