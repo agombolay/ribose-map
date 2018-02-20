@@ -122,10 +122,10 @@ for subset in "mito" "nucleus"; do
 			for i in {1..100}; do
 		
 				#Calculate count of each dNMP
-				A_Flank=$(awk -v field=$i '{ print $field }' $output/$dir-tabs.txt | grep -o 'A' | wc -l)
-				C_Flank=$(awk -v field=$i '{ print $field }' $output/$dir-tabs.txt | grep -o 'C' | wc -l)
-				G_Flank=$(awk -v field=$i '{ print $field }' $output/$dir-tabs.txt | grep -o 'G' | wc -l)
-				T_Flank=$(awk -v field=$i '{ print $field }' $output/$dir-tabs.txt | grep -o 'T' | wc -l)
+				A_Flank=$(awk -v field=$i '{ print $field }' $output/$dir.tab | grep -o 'A' | wc -l)
+				C_Flank=$(awk -v field=$i '{ print $field }' $output/$dir.tab | grep -o 'C' | wc -l)
+				G_Flank=$(awk -v field=$i '{ print $field }' $output/$dir.tab | grep -o 'G' | wc -l)
+				T_Flank=$(awk -v field=$i '{ print $field }' $output/$dir.tab | grep -o 'T' | wc -l)
 
 				#Calculate total number of dNMPs
 				FlankTotal=$(($A_Flank + $C_Flank + $G_Flank + $T_Flank))
