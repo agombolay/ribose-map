@@ -24,8 +24,7 @@ samtools faidx $reference
 cut -f 1,2 $reference.fai > $output/reference.bed
 	
 #Create file of rNMP coverage at chromosome coordinates
-uniq -c $directory/results/$sample/coordinates/$sample.bed \
-| awk -v "OFS=\t" '{print $2,$3,$4,$1,$5}' > $output/temp.tab
+uniq -c $directory/results/$sample/coordinates/$sample.bed | awk -v "OFS=\t" '{print $2,$3,$4,$1,$5}' > $output/temp.tab
 	
 #Save coverage of rNMPs per chromosome to separate files
 for chromosome in $( awk '{print $1}' $output/reference.bed ); do
@@ -33,12 +32,10 @@ for chromosome in $( awk '{print $1}' $output/reference.bed ); do
 done
 		
 #Add trackline for forward strand to input into UCSC genome browser
-echo "track type=bedGraph name="$sample-ForwardStrand" description="$sample-ForwardStrand" \
-color=0,128,0 visibility=full" > $output/$sample-Forward.bg
+echo "track type=bedGraph name="$sample-ForwardStrand" description="$sample-ForwardStrand" color=0,128,0 visibility=full" > $output/$sample-Forward.bg
 		
 #Add trackline for reverse strand to input into UCSC genome browser
-echo "track type=bedGraph name="$sample-ReverseStrand" description="$sample-ReverseStrand" \
-color=0,0,255 visibility=full" > $output/$sample-Reverse.bg
+echo "track type=bedGraph name="$sample-ReverseStrand" description="$sample-ReverseStrand" color=0,0,255 visibility=full" > $output/$sample-Reverse.bg
 		
 #Rearrange forward strand file so format is the same as bedgraph format
 awk -v "OFS=\t" '$5 == "+" {print $1,$2,$3,$4}' $output/temp.tab >> $output/$sample-Forward.bg
