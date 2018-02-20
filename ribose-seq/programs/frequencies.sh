@@ -114,8 +114,8 @@ for subset in "mito" "nucleus"; do
 		bedtools getfasta -s -fi $output/temp.fa -bed $output/Down.bed | grep -v '>' > $output/Down.txt
 		bedtools getfasta -s -fi $output/temp.fa -bed $output/Up.bed | grep -v '>' | rev > $output/Up.txt 
 		
-		cat $output/Down.txt | sed 's/.../& /2g;s/./& /g' > $output/Down_tabs.txt
-		cat $output/Up.txt | sed 's/.../& /2g;s/./& /g' > $output/Up_tabs.txt
+		cat $output/Down.txt | sed 's/.../& /2g;s/./& /g' > $output/Down-tabs.txt
+		cat $output/Up.txt | sed 's/.../& /2g;s/./& /g' > $output/Up-tabs.txt
 		
 #############################################################################################################################
 		#STEP 5: Insert tabs between sequences of dNMPs +/- 100 bp from rNMPs
@@ -145,10 +145,10 @@ for subset in "mito" "nucleus"; do
 				#G_Flank=$(grep -o 'G' $file | wc -l)
 				#T_Flank=$(grep -o 'T' $file | wc -l)
 				
-				A_Flank=$(awk -v field=$i '{ print $field }' $output/$dir_tabs.txt | grep -o 'A' | wc -l)
-				C_Flank=$(awk -v field=$i '{ print $field }' $output/$dir_tabs.txt | grep -o 'C' | wc -l)
-				G_Flank=$(awk -v field=$i '{ print $field }' $output/$dir_tabs.txt | grep -o 'G' | wc -l)
-				T_Flank=$(awk -v field=$i '{ print $field }' $output/$dir_tabs.txt | grep -o 'T' | wc -l)
+				A_Flank=$(awk -v field=$i '{ print $field }' $output/$dir-tabs.txt | grep -o 'A' | wc -l)
+				C_Flank=$(awk -v field=$i '{ print $field }' $output/$dir-tabs.txt | grep -o 'C' | wc -l)
+				G_Flank=$(awk -v field=$i '{ print $field }' $output/$dir-tabs.txt | grep -o 'G' | wc -l)
+				T_Flank=$(awk -v field=$i '{ print $field }' $output/$dir-tabs.txt | grep -o 'T' | wc -l)
 
 				#Calculate total number of dNMPs
 				FlankTotal=$(($A_Flank + $C_Flank + $G_Flank + $T_Flank))
