@@ -181,11 +181,11 @@ for subset in "mito" "nucleus"; do
 		#STEP 7: Create and save dataset file containing nucleotide frequencies
 			
 		#Add nucleotides to header line
-		echo -e "\tA\tC\tG\tU/T" > $output/$sample-Frequencies.$subset.tab
+		echo -e "\tA\tC\tG\tU/T" > $output/$sample-$subset.tab
 			
 		#Add positions and frequencies of nucleotides in correct order to create dataset
 		paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Up") <(echo "$Ribo") <(echo "$Down")) \
-		>> $output/$sample-Frequencies.$subset.tab
+		>> $output/$sample-$subset.tab
 						
 #############################################################################################################################
 		#Print status
@@ -193,6 +193,6 @@ for subset in "mito" "nucleus"; do
 					
 	fi
 	#Remove temp files
-	rm -f $output/*.{txt,bed,fa,fa.fai}
+	rm -f $output/*.{txt,bed,fa,fa.fai} $output/Up.tab $output/Down.tab
 
 done
