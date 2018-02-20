@@ -105,4 +105,4 @@ echo -e "Reads that are unique based on UMI: $(echo "$y*100" | bc -l | xargs pri
 echo "Status: Alignment module for $sample is complete"
 
 #Remove temporary files
-#rm -f $output/aligned.sam $output/umi.fq $output/filter.fq $output/trim.fq $output/sorted.{bam,bam.bai}
+rm -f $output/aligned.sam $output/{umi,filter,trim}.fq $output/sorted.{bam,bam.bai}
