@@ -114,14 +114,8 @@ for subset in "mito" "nucleus"; do
 		bedtools getfasta -s -fi $output/temp.fa -bed $output/Down.bed | grep -v '>' > $output/Down.txt
 		bedtools getfasta -s -fi $output/temp.fa -bed $output/Up.bed | grep -v '>' | rev > $output/Up.txt 
 		
-		while read line; do printf "%100s\n" "$line"; done < $output/Down.txt > $output/Down_justify.txt
-		while read line; do printf "%100s\n" "$line"; done < $output/Up.txt > $output/Up_justify.txt
-		
-		cat $output/Down_justify.txt | sed -e 's/\s/0/g' > $output/Down_zeros.txt
-		cat $output/Up_justify.txt | sed -e 's/\s/0/g' > $output/Up_zeros.txt
-		
-		cat $output/Down_zeros.txt | sed 's/.../& /2g;s/./& /g' > $output/Down_tabs.txt
-		cat $output/Up_zeros.txt | sed 's/.../& /2g;s/./& /g' > $output/Up_tabs.txt
+		cat $output/Down.txt | sed 's/.../& /2g;s/./& /g' > $output/Down_tabs.txt
+		cat $output/Up.txt | sed 's/.../& /2g;s/./& /g' > $output/Up_tabs.txt
 		
 #############################################################################################################################
 		#STEP 5: Insert tabs between sequences of dNMPs +/- 100 bp from rNMPs
@@ -135,9 +129,6 @@ for subset in "mito" "nucleus"; do
 		#	awk -v field=$i '{ print $field }' $output/Up.ext > $output/$sample.Up.$i.txt
 		#	awk -v field=$i '{ print $field }' $output/Down.ext > $output/$sample.Down.$i.txt
 		#done
-		
-		#while read line; do printf "%5s\n" "$line"; done < $output/Up.tab
-		#while read line; do printf "%5s\n" "$line"; done < $output/Down.tab
 		
 #############################################################################################################################
 		#STEP 6: Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
