@@ -165,7 +165,11 @@ for subset in "mito" "nucleus"; do
 				fi
 				
 				#Save normalized dNMPs frequencies to TXT files
-				echo $A_FlankFreq | xargs printf "%.*f\n" 5 >> $output/A_$dir.txt
+				if [[ A_FlankFreq != 'NA']]; then
+					echo $A_FlankFreq | xargs printf "%.*f\n" 5 >> $output/A_$dir.txt
+				elif [[ A_FlankFreq == 'NA']]; then
+					echo $A_FlankFreq >> $output/A_$dir.txt
+				fi
 				echo $C_FlankFreq | xargs printf "%.*f\n" 5 >> $output/C_$dir.txt
 				echo $G_FlankFreq | xargs printf "%.*f\n" 5 >> $output/G_$dir.txt
 				echo $T_FlankFreq | xargs printf "%.*f\n" 5 >> $output/T_$dir.txt
