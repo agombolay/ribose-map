@@ -170,9 +170,28 @@ for subset in "mito" "nucleus"; do
 				elif [[ $A_FlankFreq == 'NA' ]]; then
 					echo $A_FlankFreq >> $output/A_$dir.txt
 				fi
-				echo $C_FlankFreq | xargs printf "%.*f\n" 5 >> $output/C_$dir.txt
-				echo $G_FlankFreq | xargs printf "%.*f\n" 5 >> $output/G_$dir.txt
-				echo $T_FlankFreq | xargs printf "%.*f\n" 5 >> $output/T_$dir.txt
+				
+				if [[ $C_FlankFreq != 'NA' ]]; then
+					echo $C_FlankFreq | xargs printf "%.*f\n" 5 >> $output/C_$dir.txt
+				elif [[ $C_FlankFreq == 'NA' ]]; then
+					echo $C_FlankFreq >> $output/C_$dir.txt
+				fi
+				
+				if [[ $G_FlankFreq != 'NA' ]]; then
+					echo $G_FlankFreq | xargs printf "%.*f\n" 5 >> $output/G_$dir.txt
+				elif [[ $G_FlankFreq == 'NA' ]]; then
+					echo $G_FlankFreq >> $output/G_$dir.txt
+				fi
+				
+				if [[ $T_FlankFreq != 'NA' ]]; then
+					echo $T_FlankFreq | xargs printf "%.*f\n" 5 >> $output/T_$dir.txt
+				elif [[ $T_FlankFreq == 'NA' ]]; then
+					echo $T_FlankFreq >> $output/T_$dir.txt
+				fi
+				
+				#echo $C_FlankFreq | xargs printf "%.*f\n" 5 >> $output/C_$dir.txt
+				#echo $G_FlankFreq | xargs printf "%.*f\n" 5 >> $output/G_$dir.txt
+				#echo $T_FlankFreq | xargs printf "%.*f\n" 5 >> $output/T_$dir.txt
 		
 				#Combine dNMP frequencies into one file per location
 				if [[ $dir == "Up" ]]; then
