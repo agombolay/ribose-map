@@ -193,6 +193,6 @@ for subset in "mito" "nucleus"; do
 					
 	fi
 	#Remove temp files
-	rm -f $output/*.{txt,bed,fa,fa.fai} $output/Up.tab $output/Down.tab
+	rm -f $output/*.{txt,bed,fa,fa.fai} $output/{Up,Down}.tab
 
 done
