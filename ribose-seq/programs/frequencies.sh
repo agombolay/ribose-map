@@ -110,41 +110,18 @@ for subset in "mito" "nucleus"; do
 		bedtools flank -i $output/Coords.bed -s -g $output/reference.bed -l 100 -r 0 | awk '$2 != $3' > $output/Up.bed
 		bedtools flank -i $output/Coords.bed -s -g $output/reference.bed -l 0 -r 100 | awk '$2 != $3' > $output/Down.bed
 	
-		#Obtain nucleotide sequences flanking rNMPs using coordinates from above (reverse order of up)
-		bedtools getfasta -s -fi $output/temp.fa -bed $output/Down.bed | grep -v '>' > $output/Down.txt
-		bedtools getfasta -s -fi $output/temp.fa -bed $output/Up.bed | grep -v '>' | rev > $output/Up.txt 
-		
-		cat $output/Down.txt | sed 's/.../& /2g;s/./& /g' > $output/Down-tabs.txt
-		cat $output/Up.txt | sed 's/.../& /2g;s/./& /g' > $output/Up-tabs.txt
-		
-#############################################################################################################################
-		#STEP 5: Insert tabs between sequences of dNMPs +/- 100 bp from rNMPs
-	
-		#Insert tabs between each base for easier parsing
-		#cat $output/Up.txt | sed 's/.../& /2g;s/./& /g' > $output/Up.ext
-		#cat $output/Down.txt | sed 's/.../& /2g;s/./& /g' > $output/Down.ext
-
-		#Save lists of dNMPs at each of the +/-100 positions in separate files
-		#for i in {1..100}; do
-		#	awk -v field=$i '{ print $field }' $output/Up.ext > $output/$sample.Up.$i.txt
-		#	awk -v field=$i '{ print $field }' $output/Down.ext > $output/$sample.Down.$i.txt
-		#done
-		
+		#Obtain nucleotides flanking rNMPs (reverse order of up) and insert tabs bases for easier parsing
+		bedtools getfasta -s -fi $output/temp.fa -bed $output/Down.bed | grep -v '>' | sed 's/.../& /2g;s/./& /g' > $output/Down.txt
+		bedtools getfasta -s -fi $output/temp.fa -bed $output/Up.bed | grep -v '>' | rev | sed 's/.../& /2g;s/./& /g' > $output/Up.txt
+				
 #############################################################################################################################
 		#STEP 6: Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
 
 		for dir in "Up" "Down"; do
 		
 			for i in {1..100}; do
-			#'-v' = natural sort of #'s
-			#for file in $(ls -v $output/$sample.$dir.{1..100}.txt); do
 		
 				#Calculate count of each dNMP
-				#A_Flank=$(grep -o 'A' $file | wc -l)
-				#C_Flank=$(grep -o 'C' $file | wc -l)
-				#G_Flank=$(grep -o 'G' $file | wc -l)
-				#T_Flank=$(grep -o 'T' $file | wc -l)
-				
 				A_Flank=$(awk -v field=$i '{ print $field }' $output/$dir-tabs.txt | grep -o 'A' | wc -l)
 				C_Flank=$(awk -v field=$i '{ print $field }' $output/$dir-tabs.txt | grep -o 'C' | wc -l)
 				G_Flank=$(awk -v field=$i '{ print $field }' $output/$dir-tabs.txt | grep -o 'G' | wc -l)
