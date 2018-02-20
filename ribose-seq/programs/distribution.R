@@ -37,8 +37,12 @@ for(file in input_files){
 		#Create plot
 		myplot <- ggplot(data,aes(V3, V4, colour=V5_new)) +
 		
+		#Plot scatterplot and set font size
 		geom_point() + ylim(1, max(data$V4)) + theme(text=element_text(size=20)) +
 	
+		#Decrease space between data and axes
+		scale_y_continuous(expand=c(0.015,0)) + scale_x_continuous(expand=c(0.015,0)) +
+		
 		#Plot forward and reverse strands, no legend
 		facet_wrap(~V5_new, ncol=1, labeller=labeller(V5_new=labels)) + theme(legend.position="none") +
 	
