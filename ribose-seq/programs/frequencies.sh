@@ -153,12 +153,15 @@ for subset in "mito" "nucleus"; do
 				#Calculate total number of dNMPs
 				FlankTotal=$(($A_Flank + $C_Flank + $G_Flank + $T_Flank))
 
+				#Calculate normalized frequencies of dNMPs
 				if [[ $FlankTotal != 0 ]]; then
-					#Calculate normalized frequencies of dNMPs
 					A_FlankFreq=$(echo "($A_Flank/$FlankTotal)/$A_BkgFreq" | bc -l)
 					C_FlankFreq=$(echo "($C_Flank/$FlankTotal)/$C_BkgFreq" | bc -l)
 					G_FlankFreq=$(echo "($G_Flank/$FlankTotal)/$G_BkgFreq" | bc -l)
 					T_FlankFreq=$(echo "($T_Flank/$FlankTotal)/$T_BkgFreq" | bc -l)
+				
+				elif [[ $FlankTotal != 0 ]]; then
+					A_FlankFreq=0; C_FlankFreq=0; G_FlankFreq=0; T_FlankFreq=0
 				fi
 				
 				#Save normalized dNMPs frequencies to TXT files
