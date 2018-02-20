@@ -161,7 +161,7 @@ for subset in "mito" "nucleus"; do
 					T_FlankFreq=$(echo "($T_Flank/$FlankTotal)/$T_BkgFreq" | bc -l)
 				
 				elif [[ $FlankTotal != 0 ]]; then
-					A_FlankFreq=0; C_FlankFreq=0; G_FlankFreq=0; T_FlankFreq=0
+					A_FlankFreq='NA'; C_FlankFreq='NA'; G_FlankFreq='NA'; T_FlankFreq='NA'
 				fi
 				
 				#Save normalized dNMPs frequencies to TXT files
