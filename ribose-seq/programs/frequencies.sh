@@ -114,41 +114,41 @@ for subset in "mito" "nucleus"; do
 		bedtools getfasta -s -fi $output/temp.fa -bed $output/Down.bed | grep -v '>' > $output/Down.txt
 		bedtools getfasta -s -fi $output/temp.fa -bed $output/Up.bed | grep -v '>' | rev > $output/Up.txt 
 		
-		#cat $output/Down.txt | sed 's/.../& /2g;s/./& /g' > $output/Down_tabs.txt
-		#cat $output/Up.txt | sed 's/.../& /2g;s/./& /g' > $output/Up_tabs.txt
+		cat $output/Down.txt | sed 's/.../& /2g;s/./& /g' > $output/Down_tabs.txt
+		cat $output/Up.txt | sed 's/.../& /2g;s/./& /g' > $output/Up_tabs.txt
 		
 #############################################################################################################################
 		#STEP 5: Insert tabs between sequences of dNMPs +/- 100 bp from rNMPs
 	
 		#Insert tabs between each base for easier parsing
-		cat $output/Up.txt | sed 's/.../& /2g;s/./& /g' > $output/Up.ext
-		cat $output/Down.txt | sed 's/.../& /2g;s/./& /g' > $output/Down.ext
+		#cat $output/Up.txt | sed 's/.../& /2g;s/./& /g' > $output/Up.ext
+		#cat $output/Down.txt | sed 's/.../& /2g;s/./& /g' > $output/Down.ext
 
 		#Save lists of dNMPs at each of the +/-100 positions in separate files
-		for i in {1..100}; do
-			awk -v field=$i '{ print $field }' $output/Up.ext > $output/$sample.Up.$i.txt
-			awk -v field=$i '{ print $field }' $output/Down.ext > $output/$sample.Down.$i.txt
-		done
+		#for i in {1..100}; do
+		#	awk -v field=$i '{ print $field }' $output/Up.ext > $output/$sample.Up.$i.txt
+		#	awk -v field=$i '{ print $field }' $output/Down.ext > $output/$sample.Down.$i.txt
+		#done
 		
 #############################################################################################################################
 		#STEP 6: Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
 
 		for dir in "Up" "Down"; do
 		
-			#for i in {1..100}; do
+			for i in {1..100}; do
 			#'-v' = natural sort of #'s
-			for file in $(ls -v $output/$sample.$dir.{1..100}.txt); do
+			#for file in $(ls -v $output/$sample.$dir.{1..100}.txt); do
 		
 				#Calculate count of each dNMP
-				A_Flank=$(grep -o 'A' $file | wc -l)
-				C_Flank=$(grep -o 'C' $file | wc -l)
-				G_Flank=$(grep -o 'G' $file | wc -l)
-				T_Flank=$(grep -o 'T' $file | wc -l)
+				#A_Flank=$(grep -o 'A' $file | wc -l)
+				#C_Flank=$(grep -o 'C' $file | wc -l)
+				#G_Flank=$(grep -o 'G' $file | wc -l)
+				#T_Flank=$(grep -o 'T' $file | wc -l)
 				
-				#A_Flank=$(awk -v field=$i '{ print $field }' $output/$dir_tabs.txt | grep -o 'A' | wc -l)
-				#C_Flank=$(awk -v field=$i '{ print $field }' $output/$dir_tabs.txt | grep -o 'C' | wc -l)
-				#G_Flank=$(awk -v field=$i '{ print $field }' $output/$dir_tabs.txt | grep -o 'G' | wc -l)
-				#T_Flank=$(awk -v field=$i '{ print $field }' $output/$dir_tabs.txt | grep -o 'T' | wc -l)
+				A_Flank=$(awk -v field=$i '{ print $field }' $output/$dir_tabs.txt | grep -o 'A' | wc -l)
+				C_Flank=$(awk -v field=$i '{ print $field }' $output/$dir_tabs.txt | grep -o 'C' | wc -l)
+				G_Flank=$(awk -v field=$i '{ print $field }' $output/$dir_tabs.txt | grep -o 'G' | wc -l)
+				T_Flank=$(awk -v field=$i '{ print $field }' $output/$dir_tabs.txt | grep -o 'T' | wc -l)
 
 				#Calculate total number of dNMPs
 				FlankTotal=$(($A_Flank + $C_Flank + $G_Flank + $T_Flank))
