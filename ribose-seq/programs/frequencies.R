@@ -53,7 +53,10 @@ for(file in input_files){
                 	geom_line(aes(y=T, colour="U/T")) + geom_point(aes(y=T, colour="U/T")) +
 	
 			#Remove and replace default background theme of plot
-			theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black"))
+			theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black")) +
+			
+			guides(fill = guide_legend(override.aes = list(linetype = 0)),
+			color = guide_legend(override.aes = list(linetype = 0)))
 
 #############################################################################################################################
 			#Save plot as PNG file
