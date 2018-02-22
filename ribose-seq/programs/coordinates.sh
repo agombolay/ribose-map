@@ -29,26 +29,32 @@ if [[ "$technique" == "ribose-seq" ]]; then
 	
 elif [[ "$technique" == "emRiboSeq" ]]; then
 	
+	#Create fasta index and BED file for reference genome
+	samtools faidx $reference && cut -f 1,2 $reference.fai > $output/reference.bed
+	
 	#Convert BAM file to BED format
 	bedtools bamtobed -i $directory/results/$sample/alignment/$sample.bam > $output/temp1.bed
-	
+
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
-	awk -v "OFS=\t" '$6 == "-" {print $1,$3,($3 + 1)," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
+	awk -v "OFS=\t" '$6 == "-" {print $1,$3,($3 + 1)," "," ","+"}' $output/temp1.bed | awk '$2 >= 0 { print }' > $output/temp2.bed 
 	
 	#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-	awk -v "OFS=\t" '$6 == "+" {print $1,($2 - 1),$2," "," ","-"}' $output/temp1.bed >> $output/temp2.bed
+	awk -v "OFS=\t" '$6 == "+" {print $1,($2 - 1),$2," "," ","-"}' $output/temp1.bed | awk '$2 >= 0 { print }' >> $output/temp2.bed
 	
 elif [[ "$technique" == "HydEn-seq" ]] || [[ "Pu-seq" ]]; then
 	
+	#Create fasta index and BED file for reference genome
+	samtools faidx $reference && cut -f 1,2 $reference.fai > $output/reference.bed
+	
 	#Convert BAM file to BED format
 	bedtools bamtobed -i $directory/results/$sample/alignment/$sample.bam > $output/temp1.bed
 	
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
-	awk -v "OFS=\t" '$6 == "+" {print $1,($2 - 1),$2," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
+	awk -v "OFS=\t" '$6 == "+" {print $1,($2 - 1),$2," "," ","+"}' $output/temp1.bed | awk '$2 >= 0 { print }' > $output/temp2.bed 
 	
 	#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-	awk -v "OFS=\t" '$6 == "-" {print $1,$3,($3 + 1)," "," ","-"}' $output/temp1.bed >> $output/temp2.bed
-	
+	awk -v "OFS=\t" '$6 == "-" {print $1,$3,($3 + 1)," "," ","-"}' $output/temp1.bed | awk '$2 >= 0 { print }' >> $output/temp2.bed
+
 fi
 	
 #Sort chromosome coordinates of rNMPs
