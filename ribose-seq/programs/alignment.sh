@@ -86,17 +86,21 @@ elif [[ $read2 ]]; then
 fi
 
 #############################################################################################################################
-#Calculate % of reads that contain correct barcode sequence
-x=$(echo $(bc -l <<< "$(wc -l < $output/filter.fq)/4")/$(bc -l <<< "$(wc -l < $output/umi.fq)/4"))
+if [[ $umi]]; then
+	#Calculate % of reads that remain after de-duplication step
+	x=$(echo $(bc -l <<< "$(samtools view -c < $output/$sample.bam)")/$(bc -l <<< "$(samtools view -c < $output/sorted.bam)"))
 
-#Save info about % of reads that contain correct barcode sequence
-echo -e "Reads with the barcode, $barcode: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/barcode.log
+	#Save info about % of reads that remain after de-duplication step
+	echo -e "Reads that are unique based on UMI: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/duplication.log
+fi
 
-#Calculate % of reads that remain after de-duplication step
-y=$(echo $(bc -l <<< "$(samtools view -c < $output/$sample.bam)")/$(bc -l <<< "$(samtools view -c < $output/sorted.bam)"))
+if [[ $barcode ]]; then
+	#Calculate % of reads that contain correct barcode sequence
+	y=$(echo $(bc -l <<< "$(wc -l < $output/filter.fq)/4")/$(bc -l <<< "$(wc -l < $output/umi.fq)/4"))
 
-#Save info about % of reads that remain after de-duplication step
-echo -e "Reads that are unique based on UMI: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/duplication.log
+	#Save info about % of reads that contain correct barcode sequence
+	echo -e "Reads that contain the barcode, $barcode: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/barcode.log
+fi
 
 #############################################################################################################################
 #Print status
