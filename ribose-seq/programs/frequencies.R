@@ -55,7 +55,8 @@ for(file in input_files){
 			#Remove and replace default background theme of plot
 			theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black")) +
 			
-			guides(colour = guide_legend(override.aes = list(size=5, linetype = 0)))
+			#Specify size of legend symbols and remove line through them
+			guides(colour=guide_legend(override.aes=list(size=5, linetype=0)))
 
 #############################################################################################################################
 			#Save plot as PNG file
