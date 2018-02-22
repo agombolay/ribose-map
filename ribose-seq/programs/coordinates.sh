@@ -70,4 +70,4 @@ sort -k1,1V -k2,2n $output/temp3.bed > $output/$sample.bed
 echo "Status: Coordinates module for $sample is complete"
 	
 #Remove temporary files
-rm -f $output/temp{1..3}.bed $output/reference.bed
+rm -f $output/reference.bed $output/temp{1..3}.bed
