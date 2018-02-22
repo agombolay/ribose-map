@@ -63,11 +63,11 @@ elif [[ "$technique" == "HydEn-seq" ]] || [[ "Pu-seq" ]]; then
 fi
 	
 #Sort chromosome coordinates of rNMPs
-sort -k1,1V -k2,2n $output/temp2.bed > $output/$sample.bed
+sort -k1,1V -k2,2n $output/temp3.bed > $output/$sample.bed
 
 #############################################################################################################################
 #Print status
 echo "Status: Coordinates module for $sample is complete"
 	
 #Remove temporary files
-rm -f $output/temp{1..2}.bed
+rm -f $output/temp{1..3}.bed
