@@ -20,7 +20,7 @@ if [[ ! $read2 ]]; then
 	
 	if [[ ! $umi ]]; then
 	
-		bowtie2 -x $idx -U $read1 -S $output/aligned.sam 2> $output/alignment.log
+		bowtie2 -x $index -U $read1 -S $output/aligned.sam 2> $output/alignment.log
 		samtools view -bS -F260 $output/aligned.sam | samtools sort - -o $output/$sample.bam
 		samtools index $output/$sample.bam	
 
@@ -30,7 +30,7 @@ if [[ ! $read2 ]]; then
 		
 		if [[ ! $barcode ]]; then
 		
-			bowtie2 -x $idx -U $output/umi.fq -S $output/aligned.sam 2> $output/align.log
+			bowtie2 -x $index -U $output/umi.fq -S $output/aligned.sam 2> $output/align.log
 			samtools view -bS -F260 $output/aligned.sam | samtools sort - -o $output/sorted.bam
 			samtools index $output/sorted.bam
 	
@@ -41,7 +41,7 @@ if [[ ! $read2 ]]; then
 			
 			grep -B 1 -A 2 ^$barcode $output/umi.fq | sed '/^--$/d' | cutadapt --cut ${#barcode} - -o $output/filter.fq
   
-			bowtie2 -x $idx -U $output/filter.fq -S $output/aligned.sam 2> $output/align.log
+			bowtie2 -x $index -U $output/filter.fq -S $output/aligned.sam 2> $output/align.log
 			samtools view -bS -F260 $output/aligned.sam | samtools sort - -o $output/sorted.bam
 			samtools index $output/sorted.bam
 	
@@ -54,7 +54,7 @@ elif [[ $read2 ]]; then
 	
 	if [[ ! $umi ]]; then
 	
-		bowtie2 -x $idx -1 $read1 -2 $read2 -S $output/aligned.sam 2> $output/align.log
+		bowtie2 -x $index -1 $read1 -2 $read2 -S $output/aligned.sam 2> $output/align.log
 		samtools view -bS -f67 -F260 $output/aligned.sam | samtools sort - -o $output/$sample.bam
 		samtools index $output/$sample.bam
 	
@@ -64,7 +64,7 @@ elif [[ $read2 ]]; then
   
 		if [[ ! $barcode ]]; then
 		
-			bowtie2 -x $idx -1 $output/filter.fq -2 $output/umi2.fq -S $output/aligned.sam 2> $output/align.log
+			bowtie2 -x $index -1 $output/filter.fq -2 $output/umi2.fq -S $output/aligned.sam 2> $output/align.log
 			samtools view -bS -f67 -F260 $output/aligned.sam | samtools sort - -o $output/sorted.bam
 			samtools index $output/sorted.bam
 	
@@ -75,7 +75,7 @@ elif [[ $read2 ]]; then
 		
 			grep -B 1 -A 2 ^$barcode $output/umi1.fq | sed '/^--$/d' | cutadapt --cut ${#barcode} - -o $output/filter.fq
 			
-			bowtie2 -x $idx -1 $output/filter.fq -2 $output/umi2.fq -S $output/aligned.sam 2> $output/align.log
+			bowtie2 -x $index -1 $output/filter.fq -2 $output/umi2.fq -S $output/aligned.sam 2> $output/align.log
 			samtools view -bS -f67 -F260 $output/aligned.sam | samtools sort - -o $output/sorted.bam
 			samtools index $output/sort.bam
 	
