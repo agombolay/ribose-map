@@ -22,10 +22,10 @@ if [[ "$technique" == "ribose-seq" ]]; then
 	bedtools bamtobed -i $directory/results/$sample/alignment/$sample.bam > $output/temp1.bed
 	
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
-	awk -v "OFS=\t" '$6 == "-" {print $1,($3 - 1),$3," "," ","+"}' $output/temp1.bed > $output/temp2.bed 
+	awk -v "OFS=\t" '$6 == "-" {print $1,($3 - 1),$3," "," ","+"}' $output/temp1.bed > $output/temp3.bed 
 	
 	#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-	awk -v "OFS=\t" '$6 == "+" {print $1,$2,($2 + 1)," "," ","-"}' $output/temp1.bed >> $output/temp2.bed
+	awk -v "OFS=\t" '$6 == "+" {print $1,$2,($2 + 1)," "," ","-"}' $output/temp1.bed >> $output/temp3.bed
 	
 elif [[ "$technique" == "emRiboSeq" ]]; then
 	
