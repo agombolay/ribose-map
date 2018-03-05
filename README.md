@@ -1,21 +1,42 @@
-<h2><p align="center">Ribose-Map: A Bioinformatics Toolkit to Profile rNMPs Embedded in DNA</p></h2>
+# Ribose-Map Bioinformatics Toolkit
+## Toolkit for profiling the identity and distribution of rNMPs embedded in DNA
+**© 2017 Alli Gombolay, Fredrik Vannberg, and Francesca Storici**  
+**School of Biological Sciences, Georgia Institute of Technology**
 
-Alli Gombolay, M.P.H.  
-alli.gombolay@gatech.edu  
-[Storici Lab](http://www.storicilab.gatech.edu/) | [Vannberg Lab](http://vannberg.biology.gatech.edu:8080/VannbergLab/home.html)  
-[School of Biological Sciences](http://www.biology.gatech.edu/)  
-[Georgia Institute of Technology](http://www.gatech.edu/)
+## Modules:
+1. **Alignment**: Align reads to the reference with Bowtie2 and de-depulicated based on UMI's UMI-tools
+2. **Coordinates**: Locate genomic coordinates of rNMPs for ribose-seq, Pu-seq, emRibo-seq, or HydEn-seq
+3. **Frequencies**: Calculate and visualize frequencies of nucleotides at and flanking sites of rNMP incorporation
+4. **Distribution**: Visualize coverage of rNMPs across chromosomes and create bedgraph files for genome browser
 
-## Project Overview
-**Goal**: To create a user-friendly bioinformatics toolkit to analyze ribose-seq libraries
+## How to set up repository:
+git clone https://github.com/agombolay/Ribose-Map/
 
-<p align="justify">
-<b>About</b>: The pipeline used to analyze ribose-seq libraries described in Nature Methods required proprietary software that is not readily available to many users, Platform Load Sharing Facility (LSF) workload management software.  To enable users to readily and efficiently analyze their ribose-seq libraries, I have created Ribose-Map, a user-friendly bioinformatics toolkit.  With minimal software dependencies and environment set-up, Ribose-Map allows users to readily profile the identity and distribution of rNMPs embedded in the DNA of any organism of interest.  On this site, I have included extensive documentation on how to automatically download the required input files, download and install the required software, and set up the appropriate directory structure (as a GitHub repository).
-</p>
+* It is recommended to add the scripts to your $PATH  
+* Mitochondria should be named chrM or MT in FASTA 
 
-## Usage
-To display help menu: `script -h`  
+## Required software dependencies:
+* [Bowtie2](https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.1), [UMI-tools](https://github.com/CGATOxford/UMI-tools), [Samtools](http://www.htslib.org/download/), [Bedtools](http://bedtools.readthedocs.io/en/latest/content/installation.html), and [R](https://cran.r-project.org/) (required libraries: tools, optparse and ggplot2)
 
-## References  
-* [Ribose-seq *Nature Methods* Paper, 2015](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4686381/pdf/nihms742750.pdf)
-* [Georgia Tech News Article on ribose-seq](http://www.news.gatech.edu/2015/01/26/ribose-seq-identifies-and-locates-ribonucleotides-genomic-dna)
+## Command usage:
+
+|   Alignment Module   |   Coordinates Module   |   Frequencies Module   |   Distribution Module   |
+| -------------------- | ---------------------- | ---------------------  | ----------------------- |
+| Alignment.sh config  | Coordinates.sh config  | Frequencies.sh config  | Distribution.sh config  |
+|                      |                        | Frequencies.R config   | Distribution.R config   |
+
+## Example config file:
+```
+#Optional
+barcode='TCA'
+umi='NNNNNNXXXNN'
+
+#Required
+sample='sample1'
+technique='ribose-seq'
+directory='/data2/users/agombolay3/Ribose-Map'
+idx='/data2/users/agombolay3/Ribose-Map/indices/sacCer2'
+reference='/data2/users/agombolay3/Ribose-Map/references/sacCer2.fa'
+read1='/data2/users/agombolay3/Ribose-Map/trimmed/FS120-trimmed1.fastq'
+read2='/data2/users/agombolay3/Ribose-Map/trimmed/FS120-trimmed2.fastq'
+```
