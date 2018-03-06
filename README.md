@@ -35,7 +35,7 @@ git clone https://github.com/agombolay/ribose-map/
 
 * Note: The config.R file will be created automatically upon executing Frequencies.sh and/or Distribution.sh.
 
-## Example config file:
+## Example config.sh file:
 ```
 #Optional
 barcode='TCA'
