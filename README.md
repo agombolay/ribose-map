@@ -22,7 +22,7 @@ git clone https://github.com/agombolay/ribose-map/
 ### Additional software:
 * [cutadapt](http://cutadapt.readthedocs.io/en/stable/) is required if libraries contain a 5' molecular barcode
 * [UMI-tools](https://github.com/CGATOxford/UMI-tools) is required if libraries contain a unique molecular identifier
-  * Note: UMI-tools and cutadapt require [Python](https://www.python.org/)
+  * Note: UMI-tools and cutadapt both require [Python](https://www.python.org/) to install and run
 
 ## Command usage:
 
