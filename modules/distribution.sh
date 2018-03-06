@@ -16,13 +16,11 @@ output=$directory/results/$sample/distribution; rm -rf $output; mkdir -p $output
 
 #Create R config file
 echo "sample <- '$sample'; directory <- '$directory'" > $directory/config-$sample.R
-#############################################################################################################################
-#Create fasta index
-samtools faidx $reference
 
-#Create BED file for reference genome
-cut -f 1,2 $reference.fai > $output/reference.bed
-	
+#############################################################################################################################
+#Create fasta index and BED file for reference genome
+samtools faidx $reference && cut -f 1,2 $reference.fai > $output/reference.bed
+
 #Create file of rNMP coverage at chromosome coordinates
 uniq -c $directory/results/$sample/coordinates/$sample.bed | awk -v "OFS=\t" '{print $2,$3,$4,$1,$5}' > $output/temp.tab
 	
