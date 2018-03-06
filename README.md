@@ -15,10 +15,13 @@ git clone https://github.com/agombolay/ribose-map/
 * It is recommended to add the scripts to your $PATH  
 * Mitochondria should be named chrM or MT in FASTA 
 
-## Required software dependencies:
-* [Bowtie2](https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.1), [UMI-tools](https://github.com/CGATOxford/UMI-tools), [SAMtools](http://www.htslib.org/download/), [BEDtools](http://bedtools.readthedocs.io/en/latest/content/installation.html), [cutadapt](http://cutadapt.readthedocs.io/en/stable/), and [R](https://cran.r-project.org/)
-  * Note: Required R libraries: tools and ggplot2
-  * Note: UMI-tools and cutadapt require [Python](https://www.python.org/)
+## Software dependencies:
+* [Bowtie2](https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.1), [BEDtools](http://bedtools.readthedocs.io/en/latest/content/installation.html), [SAMtools](http://www.htslib.org/download/), and [R](https://cran.r-project.org/)
+* [cutadapt](http://cutadapt.readthedocs.io/en/stable/) is required if libraries contain a 5' molecular barcode
+* [UMI-tools](https://github.com/CGATOxford/UMI-tools) is required if libraries contain a unique molecular identifier
+
+* Note: Required R libraries: tools and ggplot2
+* Note: UMI-tools and cutadapt require [Python](https://www.python.org/)
 
 ## Command usage:
 
