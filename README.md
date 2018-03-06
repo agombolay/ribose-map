@@ -33,6 +33,8 @@ git clone https://github.com/agombolay/ribose-map/
 | Alignment.sh config.sh  | Coordinates.sh config.sh  | Frequencies.sh config.sh  | Distribution.sh config.sh |
 |                         |                           | Frequencies.R config.R    | Distribution.R config.R   |
 
+* Note: The config.R file will be created automatically upon exectuing Frequencies.sh and/or Distribution.sh.
+
 ## Example config file:
 ```
 #Optional
