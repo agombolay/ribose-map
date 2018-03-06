@@ -96,7 +96,7 @@ fi
 
 if [[ $barcode ]]; then
 	#Calculate % of reads that contain correct barcode sequence
-	y=$(echo $(bc -l <<< "$(wc -l < $output/filter.fq)/4")/$(bc -l <<< "$(wc -l < $output/umi.fq)/4"))
+	y=$(echo $(bc -l <<< "$(wc -l < $output/filtered.fq)/4")/$(bc -l <<< "$(wc -l < $output/umi.fq)/4"))
 
 	#Save info about % of reads that contain correct barcode sequence
 	echo -e "Reads that contain the barcode, $barcode: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/barcode.log
