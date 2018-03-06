@@ -16,7 +16,7 @@ git clone https://github.com/agombolay/ribose-map/
 * Mitochondria should be named chrM or MT in FASTA 
 
 ## Required software dependencies:
-* [Bowtie2](https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.1), [UMI-tools](https://github.com/CGATOxford/UMI-tools), [Samtools](http://www.htslib.org/download/), [Bedtools](http://bedtools.readthedocs.io/en/latest/content/installation.html), and [R](https://cran.r-project.org/) (required libraries: tools, optparse and ggplot2)
+* [Bowtie2](https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.1), [UMI-tools](https://github.com/CGATOxford/UMI-tools), [Samtools](http://www.htslib.org/download/), [Bedtools](http://bedtools.readthedocs.io/en/latest/content/installation.html), [cutadapt](http://cutadapt.readthedocs.io/en/stable/), [Python](https://www.python.org/), and [R](https://cran.r-project.org/) (required libraries: tools, optparse and ggplot2)
 
 ## Command usage:
 
