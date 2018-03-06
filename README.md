@@ -37,16 +37,24 @@ git clone https://github.com/agombolay/ribose-map/
 
 ## Example config.sh file:
 ```
-#Optional
+#Sample name
+sample='sample1'
+
+#Library prep
 barcode='TCA'
 umi='NNNNNNXXXNN'
 
-#Required
-sample='sample1'
+#Sequencing technique
 technique='ribose-seq'
+
+#Ribose-Map directory
 directory='/filepath/ribose-map'
+
+#Reference genome
 index='/filepath/ribose-map/indices/sacCer2'
 reference='/filepath/ribose-map/references/sacCer2.fa'
+
+#FASTQs
 read1='/filepath/ribose-map/trimmed/FS120-trimmed1.fastq'
 read2='/filepath/ribose-map/trimmed/FS120-trimmed2.fastq'
 ```
