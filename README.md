@@ -10,7 +10,7 @@
 4. **Distribution**: Visualize coverage of rNMPs across chromosomes and create bedgraph files for genome browser
 
 ## How to set up repository:
-git clone https://github.com/agombolay/Ribose-Map/
+git clone https://github.com/agombolay/ribose-map/
 
 * It is recommended to add the scripts to your $PATH  
 * Mitochondria should be named chrM or MT in FASTA 
