@@ -50,11 +50,11 @@ technique='ribose-seq'
 #Ribose-Map directory
 directory='/filepath/ribose-map'
 
-#Reference genome
-index='/filepath/ribose-map/indices/sacCer2'
-reference='/filepath/ribose-map/references/sacCer2.fa'
+#Reference genome info
+index='/filepath/sacCer2'
+reference='/filepath/sacCer2.fa'
 
-#FASTQs
-read1='/filepath/ribose-map/trimmed/FS120-trimmed1.fastq'
-read2='/filepath/ribose-map/trimmed/FS120-trimmed2.fastq'
+#FASTQs files of reads
+read1='/filepath/sample1_1.fastq'
+read2='/filepath/sample1_2.fastq'
 ```
