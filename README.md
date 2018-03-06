@@ -28,10 +28,10 @@ git clone https://github.com/agombolay/ribose-map/
 
 ## Command usage:
 
-|   Alignment Module   |   Coordinates Module   |   Frequencies Module   |   Distribution Module   |
-| -------------------- | ---------------------- | ---------------------  | ----------------------- |
-| Alignment.sh config  | Coordinates.sh config  | Frequencies.sh config  | Distribution.sh config  |
-|                      |                        | Frequencies.R config   | Distribution.R config   |
+|   Alignment Module      |   Coordinates Module      |   Frequencies Module      |   Distribution Module     |
+| ----------------------- | ------------------------- | ------------------------- | ------------------------- |
+| Alignment.sh config.sh  | Coordinates.sh config.sh  | Frequencies.sh config.sh  | Distribution.sh config.sh |
+|                         |                           | Frequencies.R config.R    | Distribution.R config.R   |
 
 ## Example config file:
 ```
