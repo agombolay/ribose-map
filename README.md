@@ -17,8 +17,8 @@ git clone https://github.com/agombolay/ribose-map/
 
 ## Required software dependencies:
 * [Bowtie2](https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.1), [UMI-tools](https://github.com/CGATOxford/UMI-tools), [SAMtools](http://www.htslib.org/download/), [BEDtools](http://bedtools.readthedocs.io/en/latest/content/installation.html), [cutadapt](http://cutadapt.readthedocs.io/en/stable/), and [R](https://cran.r-project.org/)
-* Note: Required R libraries: tools, optparse and ggplot2
-* Note: UMI-tools and cutadapt require [Python](https://www.python.org/) to install and run
+* Note: Required R libraries: tools and ggplot2
+* Note: UMI-tools and cutadapt require [Python](https://www.python.org/)
 
 ## Command usage:
 
