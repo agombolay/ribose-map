@@ -26,11 +26,11 @@ if [[ ! $read2 ]]; then
 
 	elif [[ $umi ]]; then
 		
-		umi_tools extract -v 0 -I $read1 -p $umi -S $output/umi.fq
+		umi_tools extract -v 0 -I $read1 -p $umi -S $output/extracted.fq
 		
 		if [[ ! $barcode ]]; then
 		
-			bowtie2 -x $index -U $output/umi.fq -S $output/aligned.sam 2> $output/alignment.log
+			bowtie2 -x $index -U $output/extracted.fq -S $output/aligned.sam 2> $output/alignment.log
 			samtools view -bS -F260 $output/aligned.sam | samtools sort - -o $output/sorted.bam
 			samtools index $output/sorted.bam
 	
@@ -39,7 +39,7 @@ if [[ ! $read2 ]]; then
 		
 		elif [[ $barcode ]]; then
 			
-			grep -B 1 -A 2 ^$barcode $output/umi.fq | sed '/^--$/d' | cutadapt -u ${#barcode} - -o $output/filtered.fq
+			grep -B 1 -A 2 ^$barcode $output/extracted.fq | sed '/^--$/d' | cutadapt -u ${#barcode} - -o $output/filtered.fq
   
 			bowtie2 -x $index -U $output/filtered.fq -S $output/aligned.sam 2> $output/alignment.log
 			samtools view -bS -F260 $output/aligned.sam | samtools sort - -o $output/sorted.bam
@@ -60,11 +60,11 @@ elif [[ $read2 ]]; then
 	
 	elif [[ $umi ]]; then
 		
-		umi_tools extract -v 0 -I $read1 -p $umi -S $output/umi1.fq --read2-in=$read2 --read2-out=$output/umi2.fq
+		umi_tools extract -v 0 -I $read1 -p $umi -S $output/extracted1.fq --read2-in=$read2 --read2-out=$output/extracted2.fq
   
 		if [[ ! $barcode ]]; then
 		
-			bowtie2 -x $index -1 $output/filter.fq -2 $output/umi2.fq -S $output/aligned.sam 2> $output/alignment.log
+			bowtie2 -x $index -1 $output/extracted1.fq -2 $output/extracted2.fq -S $output/aligned.sam 2> $output/alignment.log
 			samtools view -bS -f67 -F260 $output/aligned.sam | samtools sort - -o $output/sorted.bam
 			samtools index $output/sorted.bam
 	
@@ -73,9 +73,9 @@ elif [[ $read2 ]]; then
 		
 		elif [[ $barcode ]]; then
 		
-			grep -B 1 -A 2 ^$barcode $output/umi1.fq | sed '/^--$/d' | cutadapt -u ${#barcode} - -o $output/filtered.fq
+			grep -B 1 -A 2 ^$barcode $output/extracted1.fq | sed '/^--$/d' | cutadapt -u ${#barcode} - -o $output/filtered.fq
 			
-			bowtie2 -x $index -1 $output/filtered.fq -2 $output/umi2.fq -S $output/aligned.sam 2> $output/alignment.log
+			bowtie2 -x $index -1 $output/filtered.fq -2 $output/extracted2.fq -S $output/aligned.sam 2> $output/alignment.log
 			samtools view -bS -f67 -F260 $output/aligned.sam | samtools sort - -o $output/sorted.bam
 			samtools index $output/sort.bam
 	
