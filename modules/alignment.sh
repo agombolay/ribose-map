@@ -21,7 +21,7 @@ if [[ ! $read2 ]]; then
 	if [[ ! $umi ]]; then
 	
 		bowtie2 -x $index -U $read1 -S $output/aligned.sam 2> $output/alignment.log
-		samtools view -bS -F260 $output/aligned.sam | samtools sort - -o $output/$sample.bam
+		samtools view -bS $output/aligned.sam | samtools sort - -o $output/$sample.bam
 		samtools index $output/$sample.bam	
 
 	elif [[ $umi ]]; then
@@ -31,7 +31,7 @@ if [[ ! $read2 ]]; then
 		if [[ ! $barcode ]]; then
 		
 			bowtie2 -x $index -U $output/extracted.fq -S $output/aligned.sam 2> $output/alignment.log
-			samtools view -bS -F260 $output/aligned.sam | samtools sort - -o $output/sorted.bam
+			samtools view -bS $output/aligned.sam | samtools sort - -o $output/sorted.bam
 			samtools index $output/sorted.bam
 	
 			umi_tools dedup -v 0 -I $output/sorted.bam | samtools sort - -o $output/$sample.bam
@@ -42,7 +42,7 @@ if [[ ! $read2 ]]; then
 			grep -B 1 -A 2 ^$barcode $output/extracted.fq | sed '/^--$/d' | cutadapt -u ${#barcode} - -o $output/filtered.fq
   
 			bowtie2 -x $index -U $output/filtered.fq -S $output/aligned.sam 2> $output/alignment.log
-			samtools view -bS -F260 $output/aligned.sam | samtools sort - -o $output/sorted.bam
+			samtools view -bS $output/aligned.sam | samtools sort - -o $output/sorted.bam
 			samtools index $output/sorted.bam
 	
 			umi_tools dedup -v 0 -I $output/sorted.bam | samtools sort - -o $output/$sample.bam
@@ -55,7 +55,7 @@ elif [[ $read2 ]]; then
 	if [[ ! $umi ]]; then
 	
 		bowtie2 -x $index -1 $read1 -2 $read2 -S $output/aligned.sam 2> $output/alignment.log
-		samtools view -bS -f67 -F260 $output/aligned.sam | samtools sort - -o $output/$sample.bam
+		samtools view -bS $output/aligned.sam | samtools sort - -o $output/$sample.bam
 		samtools index $output/$sample.bam
 	
 	elif [[ $umi ]]; then
@@ -68,8 +68,7 @@ elif [[ $read2 ]]; then
 			samtools view -bS $output/aligned.sam | samtools sort - -o $output/sorted.bam
 			samtools index $output/sorted.bam
 	
-			umi_tools dedup -v 0 --paired -I $output/sorted.bam | samtools sort - -o $output/deduped.bam
-			samtools view -f67 -F260 $output/deduped.bam | samtools sort - -o $output/$sample.bam
+			umi_tools dedup -v 0 --paired -I $output/sorted.bam | samtools sort - -o $output/$sample.bam
 			samtools index $output/$sample.bam
 		
 		elif [[ $barcode ]]; then
@@ -80,8 +79,7 @@ elif [[ $read2 ]]; then
 			samtools view -bS $output/aligned.sam | samtools sort - -o $output/sorted.bam
 			samtools index $output/sorted.bam
 	
-			umi_tools dedup -v 0 --paired -I $output/sorted.bam | samtools sort - -o $output/deduped.bam
-			samtools view -f67 -F260 $output/deduped.bam | samtools sort - -o $output/$sample.bam
+			umi_tools dedup -v 0 --paired -I $output/sorted.bam | samtools sort - -o $output/$sample.bam
 			samtools index $output/$sample.bam
 		fi
 	fi
