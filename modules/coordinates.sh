@@ -15,16 +15,21 @@
 output=$directory/results/$sample/coordinates; rm -rf $output; mkdir -p $output
 			
 #############################################################################################################################
-if [[ read2 ]]; then
+#Retain read 1 and remove unaligned reads from BAM
+if [[ ! read2 ]]; then
+	samtools view -F260 $directory/results/$sample/alignment/$sample.bam | samtools sort - -o $output/temp.bam
+	samtools index $output/temp.bam
+
+elif [[ read2 ]]; then
 	samtools view -f67 -F260 $directory/results/$sample/alignment/$sample.bam | samtools sort - -o $output/temp.bam
 	samtools index $output/temp.bam
 fi
 
-#Determine coordinates for each technique
+#Determine coordinates for each sequencing technique
 if [[ "$technique" == "ribose-seq" ]]; then
 	
 	#Convert BAM file to BED format
-	bedtools bamtobed -i $directory/results/$sample/alignment/$sample.bam > $output/temp1.bed
+	bedtools bamtobed -i $output/temp.bam > $output/temp1.bed
 	
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 	awk -v "OFS=\t" '$6 == "-" {print $1,($3 - 1),$3," "," ","+"}' $output/temp1.bed > $output/temp3.bed 
@@ -34,11 +39,14 @@ if [[ "$technique" == "ribose-seq" ]]; then
 	
 elif [[ "$technique" == "emRiboSeq" ]]; then
 	
+	#Create FASTA index
+	samtools faidx $reference
+	
 	#Create BED file for reference
-	samtools faidx $reference && cut -f 1,2 $reference.fai > $output/reference.bed
+	cut -f 1,2 $reference.fai > $output/reference.bed
 	
 	#Convert BAM file to BED format
-	bedtools bamtobed -i $directory/results/$sample/alignment/$sample.bam > $output/temp1.bed
+	bedtools bamtobed -i $output/temp.bam > $output/temp1.bed
 
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 	awk -v "OFS=\t" '$6 == "-" {print $1,$3,($3 + 1)," "," ","+"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' > $output/temp2.bed 
@@ -51,11 +59,14 @@ elif [[ "$technique" == "emRiboSeq" ]]; then
 	
 elif [[ "$technique" == "HydEn-seq" ]] || [[ "Pu-seq" ]]; then
 	
-	#Create fasta index and BED file for reference genome
-	samtools faidx $reference && cut -f 1,2 $reference.fai > $output/reference.bed
+	#Create FASTA index
+	samtools faidx $reference
+	
+	#Create BED file for reference
+	cut -f 1,2 $reference.fai > $output/reference.bed
 	
 	#Convert BAM file to BED format
-	bedtools bamtobed -i $directory/results/$sample/alignment/$sample.bam > $output/temp1.bed
+	bedtools bamtobed -i $output/temp.bam > $output/temp1.bed
 	
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 	awk -v "OFS=\t" '$6 == "+" {print $1,($2 - 1),$2," "," ","+"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' > $output/temp2.bed 
