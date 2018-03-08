@@ -25,11 +25,11 @@ elif [[ read2 ]]; then
 	samtools index $output/temp.bam
 fi
 
+#Convert BAM file to BED format
+bedtools bamtobed -i $output/temp.bam > $output/temp1.bed
+	
 #Determine coordinates for each sequencing technique
 if [[ "$technique" == "ribose-seq" ]]; then
-	
-	#Convert BAM file to BED format
-	bedtools bamtobed -i $output/temp.bam > $output/temp1.bed
 	
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 	awk -v "OFS=\t" '$6 == "-" {print $1,($3 - 1),$3," "," ","+"}' $output/temp1.bed > $output/temp3.bed 
@@ -39,14 +39,8 @@ if [[ "$technique" == "ribose-seq" ]]; then
 	
 elif [[ "$technique" == "emRiboSeq" ]]; then
 	
-	#Create FASTA index
-	samtools faidx $reference
-	
-	#Create BED file for reference
-	cut -f 1,2 $reference.fai > $output/reference.bed
-	
-	#Convert BAM file to BED format
-	bedtools bamtobed -i $output/temp.bam > $output/temp1.bed
+	#Create FASTA index and BED file for reference
+	samtools faidx $reference && cut -f 1,2 $reference.fai > $output/reference.bed
 
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 	awk -v "OFS=\t" '$6 == "-" {print $1,$3,($3 + 1)," "," ","+"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' > $output/temp2.bed 
@@ -59,14 +53,8 @@ elif [[ "$technique" == "emRiboSeq" ]]; then
 	
 elif [[ "$technique" == "HydEn-seq" ]] || [[ "Pu-seq" ]]; then
 	
-	#Create FASTA index
-	samtools faidx $reference
-	
-	#Create BED file for reference
-	cut -f 1,2 $reference.fai > $output/reference.bed
-	
-	#Convert BAM file to BED format
-	bedtools bamtobed -i $output/temp.bam > $output/temp1.bed
+	#Create FASTA index and BED file for reference
+	samtools faidx $reference && cut -f 1,2 $reference.fai > $output/reference.bed
 	
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 	awk -v "OFS=\t" '$6 == "+" {print $1,($2 - 1),$2," "," ","+"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' > $output/temp2.bed 
