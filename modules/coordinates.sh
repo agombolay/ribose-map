@@ -15,20 +15,21 @@
 output=$directory/results/$sample/coordinates; rm -rf $output; mkdir -p $output
 			
 #############################################################################################################################
-#Retain read 1 and remove unaligned reads from BAM
+#Remove unaligned reads
 if [[ ! read2 ]]; then
 	samtools view -F260 $directory/results/$sample/alignment/$sample.bam | samtools sort - -o $output/temp.bam
 	samtools index $output/temp.bam
 
+#Keeep only first read in pair
 elif [[ read2 ]]; then
 	samtools view -f67 -F260 $directory/results/$sample/alignment/$sample.bam | samtools sort - -o $output/temp.bam
 	samtools index $output/temp.bam
 fi
 
-#Convert BAM file to BED format
+#Convert alignment file to BED format
 bedtools bamtobed -i $output/temp.bam > $output/temp1.bed
 	
-#Determine coordinates for each sequencing technique
+#Determine coordinates for each technique
 if [[ "$technique" == "ribose-seq" ]]; then
 	
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
