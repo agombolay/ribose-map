@@ -16,7 +16,7 @@ output=$directory/results/$sample/coordinates; rm -rf $output; mkdir -p $output
 			
 #############################################################################################################################
 if [[ read2 ]]; then
-	samtools view -f67 $directory/results/$sample/alignment/$sample.bam | samtools sort - -o $output/temp.bam
+	samtools view -f67 -F260 $directory/results/$sample/alignment/$sample.bam | samtools sort - -o $output/temp.bam
 	samtools index $output/temp.bam
 fi
 
