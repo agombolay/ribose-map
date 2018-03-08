@@ -14,14 +14,14 @@
 #Create output directory and remove any old files
 output=$directory/results/$sample/frequencies; rm -rf $output; mkdir -p $output
 
-#Create R config file
+#Create config file to use as input into R scripts
 echo "sample <- '$sample'; directory <- '$directory'" > $directory/config-$sample.R
 #############################################################################################################################
 for subset in "mito" "nucleus"; do
 
 	#STEP 1: Calculate frequencies of reference genome
 	
-	#Create fasta index and BED file for reference genome
+	#Create FASTA index and BED file for reference genome
 	samtools faidx $reference && cut -f 1,2 $reference.fai > $output/reference.bed
 
 	#Subset FASTA file based on region
