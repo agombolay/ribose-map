@@ -14,11 +14,11 @@
 #Create output directory and remove any old files
 output=$directory/results/$sample/distribution; rm -rf $output; mkdir -p $output
 
-#Create R config file
+#Create config file to use as input into R scripts
 echo "sample <- '$sample'; directory <- '$directory'" > $directory/config-$sample.R
 
 #############################################################################################################################
-#Create fasta index and BED file for reference genome
+#Create FASTA index and BED file for reference genome
 samtools faidx $reference && cut -f 1,2 $reference.fai > $output/reference.bed
 
 #Create file of rNMP coverage at chromosome coordinates
