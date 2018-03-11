@@ -30,8 +30,8 @@ for chromosome in $( awk '{print $1}' $output/reference.bed ); do
 done
 
 #Calculate normalized per-nucleotide coverage
-for i in $(ls $output/$sample-$chromosome.bed); do
-	awk -v x="$(samtools view -c < $output/$sample.bam)" '{print $4/total*1000000}' $i
+for coverage in $(ls $output/$sample-$chromosome.bed); do
+	awk -v x="$(samtools view -c $directory/results/$sample/alignment/$sample.bam)" '{print $4/total*1000000}' $coverage
 done
 
 #Add trackline for forward strand to input into UCSC genome browser
