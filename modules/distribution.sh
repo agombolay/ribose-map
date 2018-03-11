@@ -29,7 +29,10 @@ for chromosome in $( awk '{print $1}' $output/reference.bed ); do
 	grep -w "$chromosome" $output/temp.tab > $output/$sample-$chromosome.bed
 done
 
-normalized = #/(samtools view -c)*1000000
+#Calculate normalized per-nucleotide coverage
+for i in $(ls $output/$sample-$chromosome.bed); do
+	awk -v x="$(samtools view -c < $output/$sample.bam)" '{print $4/total*1000000}' $i
+done
 
 #Add trackline for forward strand to input into UCSC genome browser
 echo "track type=bedGraph name="$sample-ForwardStrand" description="$sample-ForwardStrand" color=0,128,0 visibility=full" > $output/$sample-Forward.bg
