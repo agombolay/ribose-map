@@ -28,7 +28,9 @@ uniq -c $directory/results/$sample/coordinates/$sample.bed | awk -v "OFS=\t" '{p
 for chromosome in $( awk '{print $1}' $output/reference.bed ); do
 	grep -w "$chromosome" $output/temp.tab > $output/$sample-$chromosome.bed
 done
-		
+
+normalized = #/(samtools view -c)*1000000
+
 #Add trackline for forward strand to input into UCSC genome browser
 echo "track type=bedGraph name="$sample-ForwardStrand" description="$sample-ForwardStrand" color=0,128,0 visibility=full" > $output/$sample-Forward.bg
 		
