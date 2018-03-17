@@ -30,7 +30,7 @@ fi
 bedtools bamtobed -i $output/temp.bam > $output/temp1.bed
 	
 #Determine coordinates for each technique
-if [[ "$technique" == "ribose-seq" ]]; then
+if [[ $technique == "ribose-seq" ]]; then
 	
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 	awk -v "OFS=\t" '$6 == "-" {print $1,($3 - 1),$3," "," ","+"}' $output/temp1.bed > $output/temp3.bed 
@@ -75,4 +75,4 @@ sort -k1,1V -k2,2n $output/temp3.bed > $output/$sample.bed
 echo "Status: Coordinates module for $sample is complete"
 	
 #Remove temporary files
-#rm -f $output/reference.bed $output/temp.{bam,bam.bai} $output/temp{1..3}.bed
+rm -f $output/reference.bed $output/temp.{bam,bam.bai} $output/temp{1..3}.bed
