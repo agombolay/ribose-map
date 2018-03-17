@@ -38,7 +38,7 @@ if [[ $technique == "ribose-seq" ]]; then
 	#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
 	awk -v "OFS=\t" '$6 == "+" {print $1,$2,($2 + 1)," "," ","-"}' $output/temp1.bed >> $output/temp3.bed
 	
-elif [[ "$technique" == "emRiboSeq" ]]; then
+elif [[ $technique == "emRiboSeq" ]]; then
 	
 	#Create FASTA index and BED file for reference
 	samtools faidx $reference && cut -f 1,2 $reference.fai > $output/reference.bed
@@ -52,7 +52,7 @@ elif [[ "$technique" == "emRiboSeq" ]]; then
 	#Remove coordinates of rNMPs if the end position is greater than length of chromosome
 	join -t $'\t' <(sort $output/reference.bed) <(sort $output/temp2.bed) | awk -v "OFS=\t" '$2 >= $4 { print $1,$3,$4," "," ",$5 }' > $output/temp3.bed
 	
-elif [[ "$technique" == "HydEn-seq" ]] || [[ "Pu-seq" ]]; then
+elif [[ $technique == "HydEn-seq" ]] || [[ "Pu-seq" ]]; then
 	
 	#Create FASTA index and BED file for reference
 	samtools faidx $reference && cut -f 1,2 $reference.fai > $output/reference.bed
