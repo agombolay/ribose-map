@@ -18,15 +18,15 @@ output=$repository/results/$sample/alignment; rm -rf $output; mkdir -p $output
 #############################################################################################################################
 if [[ ! $read2 ]]; then
 	
-	if [[ ! $umi ]]; then
+	if [[ ! $pattern ]]; then
 	
 		bowtie2 -x $basename -U $read1 -S $output/aligned.sam 2> $output/alignment.log
 		samtools view -bS $output/aligned.sam | samtools sort - -o $output/$sample.bam
 		samtools index $output/$sample.bam	
 
-	elif [[ $umi ]]; then
+	elif [[ $pattern ]]; then
 		
-		umi_tools extract -v 0 -I $read1 -p $umi -S $output/extracted1.fq
+		umi_tools extract -v 0 -I $read1 -p $pattern -S $output/extracted1.fq
 		
 		if [[ ! $barcode ]]; then
 		
@@ -52,15 +52,15 @@ if [[ ! $read2 ]]; then
 	
 elif [[ $read2 ]]; then
 	
-	if [[ ! $umi ]]; then
+	if [[ ! $pattern ]]; then
 	
 		bowtie2 -x $basename -1 $read1 -2 $read2 -S $output/aligned.sam 2> $output/alignment.log
 		samtools view -bS $output/aligned.sam | samtools sort - -o $output/$sample.bam
 		samtools index $output/$sample.bam
 	
-	elif [[ $umi ]]; then
+	elif [[ $pattern ]]; then
 		
-		umi_tools extract -v 0 -I $read1 -p $umi -S $output/extracted1.fq --read2-in=$read2 --read2-out=$output/extracted2.fq
+		umi_tools extract -v 0 -I $read1 -p $pattern -S $output/extracted1.fq --read2-in=$read2 --read2-out=$output/extracted2.fq
   
 		if [[ ! $barcode ]]; then
 		
