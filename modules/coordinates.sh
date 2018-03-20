@@ -12,17 +12,17 @@
 . "$1"
 
 #Create output directory and remove any old files
-output=$directory/results/$sample/coordinates; rm -rf $output; mkdir -p $output
+output=$repository/results/$sample/coordinates; rm -rf $output; mkdir -p $output
 			
 #############################################################################################################################
 #Remove unaligned reads
 if [[ ! $read2 ]]; then
-	samtools view -b -F260 $directory/results/$sample/alignment/$sample.bam | samtools sort - -o $output/temp.bam
+	samtools view -b -F260 $repository/results/$sample/alignment/$sample.bam | samtools sort - -o $output/temp.bam
 	samtools index $output/temp.bam
 
 #Keep only first read in pair
 elif [[ $read2 ]]; then
-	samtools view -b -f67 -F260 $directory/results/$sample/alignment/$sample.bam | samtools sort - -o $output/temp.bam
+	samtools view -b -f67 -F260 $repository/results/$sample/alignment/$sample.bam | samtools sort - -o $output/temp.bam
 	samtools index $output/temp.bam
 fi
 
