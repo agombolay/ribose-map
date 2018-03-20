@@ -54,7 +54,7 @@ elif [[ $technique == "emRiboSeq" ]]; then
 	#Remove coordinates of rNMPs if the end position is greater than length of chromosome
 	join -t $'\t' <(sort $output/reference.bed) <(sort $output/temp2.bed) | awk -v "OFS=\t" '$2 >= $4 { print $1,$3,$4," "," ",$5 }' > $output/temp3.bed
 	
-elif [[ $technique == "HydEn-seq" ]] || [[ "Pu-seq" ]]; then
+elif [[ $technique == "HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
 	echo $technique
 	#Create FASTA index and BED file for reference
 	samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
