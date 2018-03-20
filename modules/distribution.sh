@@ -12,17 +12,17 @@
 . "$1"
 
 #Create output directory and remove any old files
-output=$directory/results/$sample/distribution; rm -rf $output; mkdir -p $output
+output=$repository/results/$sample/distribution; rm -rf $output; mkdir -p $output
 
 #Create config file to use as input into R scripts
-echo "sample <- '$sample'; directory <- '$directory'" > $directory/config-$sample.R
+echo "sample <- '$sample'; repository <- '$repository'" > $directory/config-$sample.R
 
 #############################################################################################################################
 #Create FASTA index and BED file for reference genome
 samtools faidx $reference && cut -f 1,2 $reference.fai > $output/reference.bed
 
 #Create file of rNMP coverage at chromosome coordinates
-uniq -c $directory/results/$sample/coordinates/$sample.bed | awk -v "OFS=\t" '{print $2,$3,$4,$1,$5}' > $output/temp.tab
+uniq -c $repository/results/$sample/coordinates/$sample.bed | awk -v "OFS=\t" '{print $2,$3,$4,$1,$5}' > $output/temp.tab
 	
 #Save coverage of rNMPs per chromosome to separate files
 for chromosome in $( awk '{print $1}' $output/reference.bed ); do
