@@ -22,15 +22,15 @@ for subset in "mito" "nucleus"; do
 	#STEP 1: Calculate frequencies of reference genome
 	
 	#Create FASTA index and BED file for reference genome
-	samtools faidx $reference && cut -f 1,2 $reference.fai > $output/reference.bed
+	samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 
 	#Subset FASTA file based on region
 	if [[ $subset == "mito" ]]; then
 		chr=$(awk '{print $1}' $output/reference.bed | grep -E '(chrM|MT)')
-		samtools faidx $reference $chr > $output/temp.fa && samtools faidx $output/temp.fa
+		samtools faidx $fasta $chr > $output/temp.fa && samtools faidx $output/temp.fa
 	elif [[ $subset == "nucleus" ]]; then
 		chr=$(awk '{print $1}' $output/reference.bed | grep -vE '(chrM|MT)')
-		samtools faidx $reference $chr > $output/temp.fa && samtools faidx $output/temp.fa
+		samtools faidx $fasta $chr > $output/temp.fa && samtools faidx $output/temp.fa
 	fi
 
 	#Calculate counts of each nucleotide
