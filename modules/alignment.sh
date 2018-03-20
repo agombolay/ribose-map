@@ -86,7 +86,7 @@ elif [[ $read2 ]]; then
 fi
 
 #############################################################################################################################
-if [[ $umi ]]; then
+if [[ $pattern ]]; then
 	#Calculate % of reads that remain after de-duplication step
 	x=$(echo $(bc -l <<< "$(samtools view -c < $output/$sample.bam)")/$(bc -l <<< "$(samtools view -c < $output/sorted.bam)"))
 
