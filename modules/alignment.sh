@@ -26,11 +26,11 @@ if [[ ! $read2 ]]; then
 
 	elif [[ $umi ]]; then
 		
-		umi_tools extract -v 0 -I $read1 -p $umi -S $output/extracted.fq
+		umi_tools extract -v 0 -I $read1 -p $umi -S $output/extracted1.fq
 		
 		if [[ ! $barcode ]]; then
 		
-			bowtie2 -x $basename -U $output/extracted.fq -S $output/aligned.sam 2> $output/alignment.log
+			bowtie2 -x $basename -U $output/extracted1.fq -S $output/aligned.sam 2> $output/alignment.log
 			samtools view -bS $output/aligned.sam | samtools sort - -o $output/sorted.bam
 			samtools index $output/sorted.bam
 	
@@ -39,9 +39,9 @@ if [[ ! $read2 ]]; then
 		
 		elif [[ $barcode ]]; then
 			
-			grep -B 1 -A 2 ^$barcode $output/extracted.fq | sed '/^--$/d' | cutadapt -u ${#barcode} - -o $output/demultiplexed.fq
+			grep -B 1 -A 2 ^$barcode $output/extracted1.fq | sed '/^--$/d' | cutadapt -u ${#barcode} - -o $output/demultiplexed1.fq
   
-			bowtie2 -x $basename -U $output/demultiplexed.fq -S $output/aligned.sam 2> $output/alignment.log
+			bowtie2 -x $basename -U $output/demultiplexed1.fq -S $output/aligned.sam 2> $output/alignment.log
 			samtools view -bS $output/aligned.sam | samtools sort - -o $output/sorted.bam
 			samtools index $output/sorted.bam
 	
@@ -96,7 +96,7 @@ fi
 
 if [[ $barcode ]]; then
 	#Calculate % of reads that contain correct barcode sequence
-	y=$(echo $(bc -l <<< "$(wc -l < $output/demultiplexed.fq)/4")/$(bc -l <<< "$(wc -l < $output/umi.fq)/4"))
+	y=$(echo $(bc -l <<< "$(wc -l < $output/demultiplexed1.fq)/4")/$(bc -l <<< "$(wc -l < $read1)/4"))
 
 	#Save info about % of reads that contain correct barcode sequence
 	echo -e "Reads that contain the barcode, $barcode: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/barcode.log
