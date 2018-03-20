@@ -96,7 +96,7 @@ fi
 
 if [[ $barcode ]]; then
 	#Calculate % of reads that contain correct barcode sequence
-	y=$(echo $(bc -l <<< "$(wc -l < $output/filtered.fq)/4")/$(bc -l <<< "$(wc -l < $output/umi.fq)/4"))
+	y=$(echo $(bc -l <<< "$(wc -l < $output/demultiplexed.fq)/4")/$(bc -l <<< "$(wc -l < $output/umi.fq)/4"))
 
 	#Save info about % of reads that contain correct barcode sequence
 	echo -e "Reads that contain the barcode, $barcode: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/barcode.log
@@ -107,4 +107,4 @@ fi
 echo "Status: Alignment module for $sample is complete"
 
 #Remove temporary files
-rm -f $output/aligned.sam $output/{extracted*,filtered*}.fq $output/sorted.{bam,bam.bai}
+rm -f $output/aligned.sam $output/{extracted*,demultiplexed*}.fq $output/sorted.{bam,bam.bai}
