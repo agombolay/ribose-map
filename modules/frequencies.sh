@@ -69,9 +69,9 @@ for subset in "mito" "nucleus"; do
 		
 	#Subset and sort unique coordinates based on genomic region
 	if [[ $subset == "mito" ]]; then
-		uniq $directory/results/$sample/coordinates/$sample.bed | grep -E '(chrM|MT)' > $output/Coords.bed
+		uniq $repository/results/$sample/coordinates/$sample.bed | grep -E '(chrM|MT)' > $output/Coords.bed
 	elif [[ $subset == "nucleus" ]]; then
-		uniq $directory/results/$sample/coordinates/$sample.bed | grep -vE '(chrM|MT)' > $output/Coords.bed
+		uniq $repository/results/$sample/coordinates/$sample.bed | grep -vE '(chrM|MT)' > $output/Coords.bed
 	fi
 	
 	if [[ -s $output/Coords.bed ]]; then
