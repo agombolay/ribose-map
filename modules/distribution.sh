@@ -19,7 +19,7 @@ echo "sample <- '$sample'; repository <- '$repository'" > $repository/config-$sa
 
 #############################################################################################################################
 #Create FASTA index and BED file for reference genome
-samtools faidx $reference && cut -f 1,2 $reference.fai > $output/reference.bed
+samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 
 #Create file of rNMP coverage at chromosome coordinates
 uniq -c $repository/results/$sample/coordinates/$sample.bed | awk -v "OFS=\t" '{print $2,$3,$4,$1,$5}' > $output/temp.tab
