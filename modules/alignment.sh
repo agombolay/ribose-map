@@ -39,7 +39,7 @@ if [[ ! $read2 ]]; then
 		
 		elif [[ $barcode ]]; then
 			
-			grep -B 1 -A 2 ^$barcode $output/extracted.fq | sed '/^--$/d' | cutadapt -u ${#barcode} - -o $output/filtered.fq
+			grep -B 1 -A 2 ^$barcode $output/extracted.fq | sed '/^--$/d' | cutadapt -u ${#barcode} - -o $output/demultiplexed.fq
   
 			bowtie2 -x $basename -U $output/filtered.fq -S $output/aligned.sam 2> $output/alignment.log
 			samtools view -bS $output/aligned.sam | samtools sort - -o $output/sorted.bam
