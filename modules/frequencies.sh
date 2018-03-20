@@ -12,10 +12,10 @@
 . "$1"
 
 #Create output directory and remove any old files
-output=$directory/results/$sample/frequencies; rm -rf $output; mkdir -p $output
+output=$repository/results/$sample/frequencies; rm -rf $output; mkdir -p $output
 
 #Create config file to use as input into R scripts
-echo "sample <- '$sample'; directory <- '$directory'" > $directory/config-$sample.R
+echo "sample <- '$sample'; repository <- '$repository'" > $repository/config-$sample.R
 #############################################################################################################################
 for subset in "mito" "nucleus"; do
 
