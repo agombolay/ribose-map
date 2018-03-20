@@ -9,7 +9,7 @@
 . "$1"
 
 #Create output directory
-output=$directory/trimmed; mkdir -p $output
+output=$repository/trimmed; mkdir -p $output
 
 #############################################################################################################################
 
