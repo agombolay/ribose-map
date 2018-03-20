@@ -20,7 +20,7 @@ if [[ ! $read2 ]]; then
 	
 	if [[ ! $umi ]]; then
 	
-		bowtie2 -x $index -U $read1 -S $output/aligned.sam 2> $output/alignment.log
+		bowtie2 -x $basename -U $read1 -S $output/aligned.sam 2> $output/alignment.log
 		samtools view -bS $output/aligned.sam | samtools sort - -o $output/$sample.bam
 		samtools index $output/$sample.bam	
 
@@ -30,7 +30,7 @@ if [[ ! $read2 ]]; then
 		
 		if [[ ! $barcode ]]; then
 		
-			bowtie2 -x $index -U $output/extracted.fq -S $output/aligned.sam 2> $output/alignment.log
+			bowtie2 -x $basename -U $output/extracted.fq -S $output/aligned.sam 2> $output/alignment.log
 			samtools view -bS $output/aligned.sam | samtools sort - -o $output/sorted.bam
 			samtools index $output/sorted.bam
 	
@@ -41,7 +41,7 @@ if [[ ! $read2 ]]; then
 			
 			grep -B 1 -A 2 ^$barcode $output/extracted.fq | sed '/^--$/d' | cutadapt -u ${#barcode} - -o $output/filtered.fq
   
-			bowtie2 -x $index -U $output/filtered.fq -S $output/aligned.sam 2> $output/alignment.log
+			bowtie2 -x $basename -U $output/filtered.fq -S $output/aligned.sam 2> $output/alignment.log
 			samtools view -bS $output/aligned.sam | samtools sort - -o $output/sorted.bam
 			samtools index $output/sorted.bam
 	
@@ -54,7 +54,7 @@ elif [[ $read2 ]]; then
 	
 	if [[ ! $umi ]]; then
 	
-		bowtie2 -x $index -1 $read1 -2 $read2 -S $output/aligned.sam 2> $output/alignment.log
+		bowtie2 -x $basename -1 $read1 -2 $read2 -S $output/aligned.sam 2> $output/alignment.log
 		samtools view -bS $output/aligned.sam | samtools sort - -o $output/$sample.bam
 		samtools index $output/$sample.bam
 	
@@ -64,7 +64,7 @@ elif [[ $read2 ]]; then
   
 		if [[ ! $barcode ]]; then
 		
-			bowtie2 -x $index -1 $output/extracted1.fq -2 $output/extracted2.fq -S $output/aligned.sam 2> $output/alignment.log
+			bowtie2 -x $basename -1 $output/extracted1.fq -2 $output/extracted2.fq -S $output/aligned.sam 2> $output/alignment.log
 			samtools view -bS $output/aligned.sam | samtools sort - -o $output/sorted.bam
 			samtools index $output/sorted.bam
 	
@@ -75,7 +75,7 @@ elif [[ $read2 ]]; then
 		
 			grep -B 1 -A 2 ^$barcode $output/extracted1.fq | sed '/^--$/d' | cutadapt -u ${#barcode} - -o $output/filtered1.fq
 			
-			bowtie2 -x $index -1 $output/filtered1.fq -2 $output/extracted2.fq -S $output/aligned.sam 2> $output/alignment.log
+			bowtie2 -x $basename -1 $output/filtered1.fq -2 $output/extracted2.fq -S $output/aligned.sam 2> $output/alignment.log
 			samtools view -bS $output/aligned.sam | samtools sort - -o $output/sorted.bam
 			samtools index $output/sorted.bam
 	
