@@ -11,6 +11,8 @@
 #Load config file
 . "$1"
 
+echo $technique
+
 #Create output directory and remove any old files
 output=$repository/results/$sample/coordinates; rm -rf $output; mkdir -p $output
 			
