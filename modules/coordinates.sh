@@ -33,7 +33,7 @@ bedtools bamtobed -i $output/temp.bam > $output/temp1.bed
 	
 #Determine coordinates for each technique
 if [[ $technique == "ribose-seq" ]]; then
-	
+	echo $technique
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 	awk -v "OFS=\t" '$6 == "-" {print $1,($3 - 1),$3," "," ","+"}' $output/temp1.bed > $output/temp3.bed 
 	
@@ -41,7 +41,7 @@ if [[ $technique == "ribose-seq" ]]; then
 	awk -v "OFS=\t" '$6 == "+" {print $1,$2,($2 + 1)," "," ","-"}' $output/temp1.bed >> $output/temp3.bed
 	
 elif [[ $technique == "emRiboSeq" ]]; then
-	
+	echo $technique
 	#Create FASTA index and BED file for reference
 	samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 
@@ -55,7 +55,7 @@ elif [[ $technique == "emRiboSeq" ]]; then
 	join -t $'\t' <(sort $output/reference.bed) <(sort $output/temp2.bed) | awk -v "OFS=\t" '$2 >= $4 { print $1,$3,$4," "," ",$5 }' > $output/temp3.bed
 	
 elif [[ $technique == "HydEn-seq" ]] || [[ "Pu-seq" ]]; then
-	
+	echo $technique
 	#Create FASTA index and BED file for reference
 	samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 	
