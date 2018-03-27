@@ -1,5 +1,5 @@
 ![Logo](https://github.com/agombolay/ribose-map/blob/master/logo.png)
-# A Bioinformatics Toolkit for mapping rNMPs embedded in DNA
+# A bioinformatics Toolkit for mapping rNMPs embedded in DNA
 **© 2017 Alli Gombolay, Fredrik Vannberg, and Francesca Storici**  
 **School of Biological Sciences, Georgia Institute of Technology**
 
