@@ -28,33 +28,33 @@ git clone https://github.com/agombolay/ribose-map/
 
 ## Command usage:
 
-|   Alignment Module      |   Coordinates Module      |   Frequencies Module      |   Distribution Module     |
-| ----------------------- | ------------------------- | ------------------------- | ------------------------- |
-| Alignment.sh config.sh  | Coordinates.sh config.sh  | Frequencies.sh config.sh  | Distribution.sh config.sh |
-|                         |                           | Frequencies.R config.R    | Distribution.R config.R   |
+|      Alignment Module      |      Coordinate Module      |      Sequence Module      |      Distribution Module      |
+| -------------------------- | --------------------------- | ------------------------- | ----------------------------- |
+| alignment.sh sample.config | coordinate.sh sample.config | sequence.sh sample.config | distribution.sh sample.config |
+|                            |                             | sequence.R sample.config  | distribution.R sample.config  |
 
 * Note: The config.R file will be created automatically upon running Frequencies.sh and/or Distribution.sh.
 
-## Example config.sh file:
+## Example sample.config:
 ```
 #Sample name
 sample='sample1'
 
 #Library prep
 barcode='TCA'
-umi='NNNNNNXXXNN'
+pattern='NNNNNNXXXNN'
 
 #Sequencing technique
 technique='ribose-seq'
 
-#Ribose-Map directory
-directory='/filepath/ribose-map'
-
 #Reference genome info
-index='/filepath/sacCer2'
-reference='/filepath/sacCer2.fa'
+fasta='/filepath/sacCer2.fa'
+basename='/filepath/sacCer2'
 
 #FASTQs files of reads
 read1='/filepath/sample1_1.fastq'
 read2='/filepath/sample1_2.fastq'
+
+#Ribose-Map repository
+repository='/filepath/ribose-map'
 ```
