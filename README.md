@@ -1,4 +1,4 @@
-<img src="https://github.com/agombolay/ribose-map/blob/master/logo.pdf" width="400px" height="300px" />
+<img src="https://github.com/agombolay/ribose-map/blob/master/logo.png" width="400px" height="300px" />
 
 ![Image of Yaktocat](https://github.com/agombolay/ribose-map/blob/master/logo.png)
 
