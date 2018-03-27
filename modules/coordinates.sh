@@ -11,8 +11,6 @@
 #Load config file
 . "$1"
 
-echo $technique
-
 #Create output directory and remove any old files
 output=$repository/results/$sample/coordinates; rm -rf $output; mkdir -p $output
 			
@@ -33,7 +31,7 @@ bedtools bamtobed -i $output/temp.bam > $output/temp1.bed
 	
 #Determine coordinates for each technique
 if [[ $technique == "ribose-seq" ]]; then
-	echo $technique
+	
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 	awk -v "OFS=\t" '$6 == "-" {print $1,($3 - 1),$3," "," ","+"}' $output/temp1.bed > $output/temp3.bed 
 	
