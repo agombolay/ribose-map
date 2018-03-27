@@ -1,4 +1,4 @@
-![Image of Yaktocat](ribose-map/logo.pdf)
+![alt text](https://github.com/agombolay/ribose-map/logo.pdf "Logo Title Text 1")
 
 # Ribose-Map Bioinformatics Toolkit
 ## Toolkit for mapping rNMPs embedded in DNA
