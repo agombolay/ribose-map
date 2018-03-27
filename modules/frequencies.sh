@@ -14,8 +14,6 @@
 #Create output directory and remove any old files
 output=$repository/results/$sample/frequencies; rm -rf $output; mkdir -p $output
 
-#Create config file to use as input into R scripts
-echo "sample <- '$sample'; repository <- '$repository'" > $repository/config-$sample.R
 #############################################################################################################################
 for subset in "mito" "nucleus"; do
 
