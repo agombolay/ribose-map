@@ -10,7 +10,7 @@ Data Processing:
 
 Data Analysis:
 * **Sequence**: Calculate and visualize frequencies of nucleotides at and flanking sites of rNMP incorporation
-* **Distribution**: Visualize coverage of rNMPs across chromosomes and create bedgraph files for genome browser
+* **Distribution**: Visualize coverage of rNMPs across genome and create bedgraph files for genome browser
 
 ## How to set up repository:
 ```
