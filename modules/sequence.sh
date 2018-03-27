@@ -190,7 +190,7 @@ for subset in "mitochondria" "nucleus"; do
 		echo "Status: Frequencies module for $sample ($subset) is complete"
 					
 	fi
-	#Remove temp files
+	#Remove temporary files
 	rm -f $output/*.{txt,bed,fa,fa.fai} $output/{Up,Down}.tab
 
 done
