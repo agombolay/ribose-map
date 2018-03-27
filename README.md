@@ -1,6 +1,6 @@
 <img src="https://github.com/agombolay/ribose-map/blob/master/logo.pdf" width="400px" height="300px" />
 
-![Image of Yaktocat](Screen Shot 2018-03-27 at 12.23.28 PM.png)
+![Image of Yaktocat](https://github.com/agombolay/ribose-map/blob/master/logo.png)
 
 # Ribose-Map Bioinformatics Toolkit
 ## Toolkit for mapping rNMPs embedded in DNA
