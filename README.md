@@ -1,4 +1,4 @@
-![alt text](https://github.com/agombolay/ribose-map/logo.pdf)
+![alt text](https://github.com/agombolay/ribose-map/blob/master/logo.pdf)
 
 # Ribose-Map Bioinformatics Toolkit
 ## Toolkit for mapping rNMPs embedded in DNA
