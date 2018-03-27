@@ -4,10 +4,13 @@
 **School of Biological Sciences, Georgia Institute of Technology**
 
 ## Modules:
-1. **Alignment**: Align reads to the reference with Bowtie2 and de-depulicated based on UMI's UMI-tools
-2. **Coordinate**: Locate genomic coordinates of rNMPs for ribose-seq, Pu-seq, emRibo-seq, or HydEn-seq
-3. **Sequence**: Calculate and visualize frequencies of nucleotides at and flanking sites of rNMP incorporation
-4. **Distribution**: Visualize coverage of rNMPs across chromosomes and create bedgraph files for genome browser
+Data Processing:
+* **Alignment**: Align reads to the reference with Bowtie2 and de-depulicated based on UMI's UMI-tools
+* **Coordinate**: Locate genomic coordinates of rNMPs for ribose-seq, Pu-seq, emRibo-seq, or HydEn-seq
+
+Data Analysis:
+* **Sequence**: Calculate and visualize frequencies of nucleotides at and flanking sites of rNMP incorporation
+* **Distribution**: Visualize coverage of rNMPs across chromosomes and create bedgraph files for genome browser
 
 ## How to set up repository:
 ```
