@@ -14,9 +14,6 @@
 #Create output directory and remove any old files
 output=$repository/results/$sample/distribution; rm -rf $output; mkdir -p $output
 
-#Create config file to use as input into R scripts
-echo "sample <- '$sample'; repository <- '$repository'" > $repository/config-$sample.R
-
 #############################################################################################################################
 #Create FASTA index and BED file for reference genome
 samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
