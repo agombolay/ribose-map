@@ -1,4 +1,5 @@
 <img src="https://github.com/agombolay/ribose-map/blob/master/logo.pdf" width="400px" height="300px" />
+![hustlin_erd](https://github.com/agombolay/ribose-map/blob/master/logo.pdf)
 
 # Ribose-Map Bioinformatics Toolkit
 ## Toolkit for mapping rNMPs embedded in DNA
