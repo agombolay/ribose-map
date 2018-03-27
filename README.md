@@ -1,12 +1,12 @@
 # Ribose-Map Bioinformatics Toolkit
-## Toolkit for profiling the identity and distribution of rNMPs embedded in DNA
+## Toolkit for mapping rNMPs embedded in DNA
 **© 2017 Alli Gombolay, Fredrik Vannberg, and Francesca Storici**  
 **School of Biological Sciences, Georgia Institute of Technology**
 
 ## Modules:
 1. **Alignment**: Align reads to the reference with Bowtie2 and de-depulicated based on UMI's UMI-tools
-2. **Coordinates**: Locate genomic coordinates of rNMPs for ribose-seq, Pu-seq, emRibo-seq, or HydEn-seq
-3. **Frequencies**: Calculate and visualize frequencies of nucleotides at and flanking sites of rNMP incorporation
+2. **Coordinate**: Locate genomic coordinates of rNMPs for ribose-seq, Pu-seq, emRibo-seq, or HydEn-seq
+3. **Sequence**: Calculate and visualize frequencies of nucleotides at and flanking sites of rNMP incorporation
 4. **Distribution**: Visualize coverage of rNMPs across chromosomes and create bedgraph files for genome browser
 
 ## How to set up repository:
@@ -42,10 +42,10 @@ sample='sample1'
 barcode='TCA'
 pattern='NNNNNNXXXNN'
 
-#Sequencing technique
+#rNMP Sequencing
 technique='ribose-seq'
 
-#Reference genome info
+#Reference genome
 fasta='/filepath/sacCer2.fa'
 basename='/filepath/sacCer2'
 
