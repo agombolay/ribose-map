@@ -9,7 +9,7 @@
 * **Coordinate**: Locate genomic coordinates of rNMPs for ribose-seq, Pu-seq, emRibo-seq, or HydEn-seq
 
 **Analyzing genome-wide distribution of rNMPs and their sequence context**:
-* **Sequence**: Calculate and visualize frequencies of nucleotides at and flanking sites of rNMP incorporation
+* **Sequence**: Calculate and visualize frequencies of nucleotides at and flanking sites of embedded rNMPs
 * **Distribution**: Visualize coverage of rNMPs across genome and create bedgraph files for genome browser
 
 ## How to set up repository:
