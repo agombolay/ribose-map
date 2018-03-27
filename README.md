@@ -1,4 +1,4 @@
-![Image of Yaktocat]( ribose-map/logo.pdf)
+![Image of Yaktocat](ribose-map/logo.pdf)
 
 # Ribose-Map Bioinformatics Toolkit
 ## Toolkit for mapping rNMPs embedded in DNA
