@@ -15,7 +15,7 @@
 output=$repository/results/$sample/frequencies; rm -rf $output; mkdir -p $output
 
 #############################################################################################################################
-for subset in "mito" "nucleus"; do
+for subset in "mitochondria" "nucleus"; do
 
 	#STEP 1: Calculate frequencies of reference genome
 	
@@ -23,11 +23,11 @@ for subset in "mito" "nucleus"; do
 	samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 
 	#Subset FASTA file based on region
-	if [[ $subset == "mito" ]]; then
-		chr=$(awk '{print $1}' $output/reference.bed | grep -E '(chrM|MT)')
-		samtools faidx $fasta $chr > $output/temp.fa && samtools faidx $output/temp.fa
-	elif [[ $subset == "nucleus" ]]; then
+	if [[ $subset == "nucleus" ]]; then
 		chr=$(awk '{print $1}' $output/reference.bed | grep -vE '(chrM|MT)')
+		samtools faidx $fasta $chr > $output/temp.fa && samtools faidx $output/temp.fa
+	elif [[ $subset == "mitochondria" ]]; then
+		chr=$(awk '{print $1}' $output/reference.bed | grep -E '(chrM|MT)')
 		samtools faidx $fasta $chr > $output/temp.fa && samtools faidx $output/temp.fa
 	fi
 
@@ -66,10 +66,10 @@ for subset in "mito" "nucleus"; do
 	#STEP 3: Calculate frequencies of rNMPs in libraries
 		
 	#Subset and sort unique coordinates based on genomic region
-	if [[ $subset == "mito" ]]; then
-		uniq $repository/results/$sample/coordinates/$sample.bed | grep -E '(chrM|MT)' > $output/Coords.bed
-	elif [[ $subset == "nucleus" ]]; then
+	if [[ $subset == "nucleus" ]]; then
 		uniq $repository/results/$sample/coordinates/$sample.bed | grep -vE '(chrM|MT)' > $output/Coords.bed
+	elif [[ $subset == "mitochondria" ]]; then
+		uniq $repository/results/$sample/coordinates/$sample.bed | grep -E '(chrM|MT)' > $output/Coords.bed
 	fi
 	
 	if [[ -s $output/Coords.bed ]]; then
