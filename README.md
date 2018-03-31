@@ -15,6 +15,7 @@
 ## How to set up repository:
 
 1. **Download git repository**:
+Click [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for information on installing git
 ```
 git clone https://github.com/agombolay/ribose-map/
 ```
