@@ -41,8 +41,8 @@ Source your .bashrc:
 source ~/.bashrc
 ```
 
-Verify Miniconda was installed:
-Installed packages are displayed.
+Verify Miniconda was installed:  
+(Installed packages are displayed)
 ```
 conda list
 ```
