@@ -39,38 +39,38 @@ python3 -m pip install pycosat pyyaml requests --user
 
 Press ENTER when prompted; when asked for the installation path for Miniconda, type yes and press ENTER to use your HOME folder as the site of installation or enter the path to an alternative folder; when asked if you want to add Miniconda to your .bashrc, type yes and press ENTER to add Miniconda to your PATH (recommended).
 
-Source your .bashrc:
-```
-source ~/.bashrc
-```
+     b. Source your .bashrc:
+     ```
+     source ~/.bashrc
+     ```
 
-Verify Miniconda was installed:  
-(Installed packages are displayed)
-```
-conda list
-```
+     c. Verify Miniconda was installed:  
+     (Installed packages are displayed)
+     ```
+     conda list
+     ```
 
-Update conda:
-```
-conda update conda
-```
+     d. Update conda:
+     ```
+     conda update conda
+     ```
 
-Install anaconda client:
-```
-conda install anaconda-client anaconda-build conda-build
-```
+     e. Install anaconda client:
+     ```
+     conda install anaconda-client anaconda-build conda-build
+     ```
 
-Create conda environment for Ribose-Map:
-```
-conda env create -n ribosemap_env --file ribosemap_env.yaml
-```
+     f. Create conda environment for Ribose-Map:
+     ```
+     conda env create -n ribosemap_env --file ribosemap_env.yaml
+     ```
 
-Activate conda environment to use Ribose-Map:
+4. Activate conda environment to use Ribose-Map:
 ```
 source activate ribosemap_env
 ```
 
-Once the analysis is complete, exit the environment:  
+5. Once the analysis is complete, exit the environment:  
 ```
 source deactivate ribosemap_env
 ```
