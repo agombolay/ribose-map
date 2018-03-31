@@ -31,8 +31,8 @@ python3 -m pip install pycosat pyyaml requests --user
 
 3. Install MiniConda and download third party software:
 
-     1. Install MiniConda (.sh scripts can be found at https://conda.io/miniconda.html):  
-        When, prompted press ENTER or type yes to install Miniconda and add it to your PATH 
+     1. Install MiniConda (visit https://conda.io/miniconda.html):  
+        Follow the prompts to install Miniconda and add it to your PATH 
         ```
         wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
         sh Miniconda3-latest-Linux-x86_64.sh
