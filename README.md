@@ -25,6 +25,9 @@ git clone https://github.com/agombolay/ribose-map/
 Ribose-Map uses several standard bioinformatics tools for data analysis and R's ggplot2 for visualizing the results.  
 To ensure easy installation and versioning of this software, we recommend using the MiniConda package manager.
 
+**Required software**:
+* [Bowtie2](https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.1), [BEDtools](http://bedtools.readthedocs.io/en/latest/content/installation.html), [SAMtools](http://www.htslib.org/download/), [R](https://cran.r-project.org/) (ggplot2), [cutadapt](http://cutadapt.readthedocs.io/en/stable/), and [UMI-tools](https://github.com/CGATOxford/UMI-tools)
+
 2. **Install pre-requisites for conda**:
 ```
 python3 -m pip install pycosat pyyaml requests --user
@@ -70,10 +73,6 @@ source activate ribosemap_env
 ```
 source deactivate ribosemap_env
 ```
-
-## Software dependencies:
-### Required software:
-* [Bowtie2](https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.1), [BEDtools](http://bedtools.readthedocs.io/en/latest/content/installation.html), [SAMtools](http://www.htslib.org/download/), and [R](https://cran.r-project.org/) (ggplot2), [cutadapt](http://cutadapt.readthedocs.io/en/stable/), [UMI-tools](https://github.com/CGATOxford/UMI-tools)
 
 ## Command usage:
 
