@@ -49,6 +49,21 @@ python3 -m pip install pycosat pyyaml requests --user
         ```
         conda list
         ```
+        
+     4. Update conda:
+        ```
+        conda update conda
+        ```
+
+     5. Install anaconda client:
+        ```
+        conda install anaconda-client anaconda-build conda-build
+        ```
+
+     6. Create conda environment for Ribose-Map:
+        ```
+        conda env create -n ribosemap_env --file ribosemap_env.yaml
+        ```
 
 4. Activate conda environment to use Ribose-Map:
 ```
