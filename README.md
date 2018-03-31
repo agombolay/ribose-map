@@ -29,7 +29,7 @@ Install conda prerequisites:
 python3 -m pip install pycosat pyyaml requests --user
 ```
 
-Install MiniConda:
+Install MiniConda (https://conda.io/miniconda.html):
 ```
 sh Miniconda3-latest-Linux-x86_64.sh
 ```
