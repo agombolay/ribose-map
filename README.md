@@ -21,7 +21,7 @@ git clone https://github.com/agombolay/ribose-map/
 * It is recommended to add the scripts to your $PATH  
 * Mitochondria should be named chrM or MT in FASTA 
 
-Ribose-Map uses several standard bioinformatics tools for data analysis and R for visualizing the results.  
+Ribose-Map uses several standard bioinformatics tools for data analysis and R's ggplot2 for visualizing the results.  
 To ensure easy installation and versioning of this software, we recommend using the MiniConda package manager.
 
 Install conda prerequisites:
