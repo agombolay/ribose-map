@@ -41,8 +41,6 @@ Press ENTER when prompted; when asked for the installation path for Miniconda, t
 
 3. Installing MiniConda and downloading third party libraries:
 
-   NeST uses many Python and R modules along with standard bioinformatics tools for the analysis pipeline. To ensure easy installation and versioning of these tools, we using MiniConda package manager. The following steps detail the installation of MiniConda and the listed tools.
-
      1. Installing MiniConda:
         If you do not have MiniConda or Anaconda installed already, follow the steps below to setup the MiniConda environment.
 
