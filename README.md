@@ -14,7 +14,7 @@
 
 ## How to set up repository:
 
-1. Download git repository:
+1. **Download git repository**:
 ```
 git clone https://github.com/agombolay/ribose-map/
 ```
@@ -24,15 +24,16 @@ git clone https://github.com/agombolay/ribose-map/
 Ribose-Map uses several standard bioinformatics tools for data analysis and R's ggplot2 for visualizing the results.  
 To ensure easy installation and versioning of this software, we recommend using the MiniConda package manager.
 
-2. Install pre-requisites for conda:
+2. **Install pre-requisites for conda**:
 ```
 python3 -m pip install pycosat pyyaml requests --user
 ```
 
-3. Install MiniConda and download third party software:
+3. **Install MiniConda and download third party software**:
 
-     1. Install MiniConda (visit https://conda.io/miniconda.html):  
-        Follow the prompts to install Miniconda and add it to your PATH 
+     1. Install MiniConda
+        Visit https://conda.io/miniconda.html for Mac .sh script:  
+        Follow prompts to install Miniconda and add it to your PATH 
         ```
         wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
         sh Miniconda3-latest-Linux-x86_64.sh
@@ -59,12 +60,12 @@ python3 -m pip install pycosat pyyaml requests --user
          conda env create -n ribosemap_env --file ribosemap_env.yaml
          ```
 
-4. Activate conda environment to use Ribose-Map:
+4. **Activate conda environment to use Ribose-Map**:
 ```
 source activate ribosemap_env
 ```
 
-5. Once the analysis is complete, exit environment:  
+5. **Once the analysis is complete, exit environment**:  
 ```
 source deactivate ribosemap_env
 ```
