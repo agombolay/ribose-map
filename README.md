@@ -18,6 +18,8 @@ Download git repository:
 ```
 git clone https://github.com/agombolay/ribose-map/
 ```
+* It is recommended to add the scripts to your $PATH  
+* Mitochondria should be named chrM or MT in FASTA 
 
 Installing perquisites for Conda:
 Ribose-Map requires Python3 to be installed along with pip.
@@ -74,9 +76,6 @@ Once the analysis is complete, exit the environment:
 ```
 source deactivate ribosemap_env
 ```
-
-* It is recommended to add the scripts to your $PATH  
-* Mitochondria should be named chrM or MT in FASTA 
 
 ## Software dependencies:
 ### Required software:
