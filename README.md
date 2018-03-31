@@ -55,7 +55,7 @@ python3 -m pip install pycosat pyyaml requests --user
         conda install anaconda-client anaconda-build conda-build
         ```
         
-      5. Create conda environment for Ribose-Map:
+      5. Create conda environment for Ribose-Map:  
          The ribosemap_env.yaml file can be found [here]()
          ```
          conda env create -n ribosemap_env --file ribosemap_env.yaml
