@@ -44,7 +44,8 @@ Press ENTER when prompted; when asked for the installation path for Miniconda, t
    NeST uses many Python and R modules along with standard bioinformatics tools for the analysis pipeline. To ensure easy installation and versioning of these tools, we using MiniConda package manager. The following steps detail the installation of MiniConda and the listed tools.
 
      b. Source your .bashrc:
-
+     words
+     
         ```
         source ~/.bashrc
         ```
