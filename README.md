@@ -32,13 +32,24 @@ python3 -m pip install pycosat pyyaml requests --user
 3. Install MiniConda and download third party software:
 
      a. Install MiniConda (.sh scripts can be found at https://conda.io/miniconda.html):
-     ```
-     wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-     sh Miniconda3-latest-Linux-x86_64.sh
-     ```
+```
+wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+sh Miniconda3-latest-Linux-x86_64.sh
+```
 
 Press ENTER when prompted; when asked for the installation path for Miniconda, type yes and press ENTER to use your HOME folder as the site of installation or enter the path to an alternative folder; when asked if you want to add Miniconda to your .bashrc, type yes and press ENTER to add Miniconda to your PATH (recommended).
 
+3. Installing MiniConda and downloading third party libraries:
+
+   NeST uses many Python and R modules along with standard bioinformatics tools for the analysis pipeline. To ensure easy installation and versioning of these tools, we using MiniConda package manager. The following steps detail the installation of MiniConda and the listed tools.
+
+     1. Installing MiniConda:
+        If you do not have MiniConda or Anaconda installed already, follow the steps below to setup the MiniConda environment.
+
+        ```
+        sh lib/Miniconda3-latest-Linux-x86_64.sh
+        ```
+        
      b. Source your .bashrc:
      ```
      source ~/.bashrc
