@@ -56,7 +56,7 @@ python3 -m pip install pycosat pyyaml requests --user
         ```
         
       5. Create conda environment for Ribose-Map:  
-         The ribosemap_env.yaml file can be found in ribose-map/lib
+         ribosemap_env.yaml is located in ribose-map/lib
          ```
          conda env create -n ribosemap_env --file ribosemap_env.yaml
          ```
