@@ -25,7 +25,7 @@ Install MiniConda and download third party software:
 Ribose-Map uses several standard bioinformatics tools for data analysis and R for visualizing the results.  
 To ensure easy installation and versioning of this software, we recommend using the MiniConda package manager.
 
-Install the perquisites for conda:
+Install conda prerequisites:
 ```
 python3 -m pip install pycosat pyyaml requests --user
 ```
@@ -37,23 +37,23 @@ sh Miniconda3-latest-Linux-x86_64.sh
 
 Press ENTER when prompted, when asked for installation path, type yes and press ENTER to use your HOME folder as the site of installation or enter path to the folder where you want Miniconda3 to be installed. When asked if you want to add Miniconda3 to your .bashrc, type yes and press ENTER, this will add Miniconda3 to your PATH.
 
-Source your .bashrc to ensure that MiniConda loads:
+Source your .bashrc:
 ```
 source ~/.bashrc
 ```
 
-To verify Miniconda was installed, type the following command:
-This displays the packages installed in the Miniconda environment.
+Verify Miniconda was installed:
+Installed packages are displayed.
 ```
 conda list
 ```
 
-Update conda after installation:
+Update conda:
 ```
 conda update conda
 ```
 
-Install anaconda client to allow R packages to be used in conda environment:
+Install anaconda client:
 ```
 conda install anaconda-client anaconda-build conda-build
 ```
