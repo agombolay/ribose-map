@@ -60,7 +60,7 @@ Install anaconda client to allow R packages to be used in conda environment:
 conda install anaconda-client anaconda-build conda-build
 ```
 
-Create conda environment:
+Create conda environment for Ribose-Map:
 ```
 conda env create -n ribosemap_env --file ribosemap_env.yaml
 ```
