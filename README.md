@@ -31,46 +31,36 @@ python3 -m pip install pycosat pyyaml requests --user
 
 3. Install MiniConda and download third party software:
 
-     a. Install MiniConda (.sh scripts can be found at https://conda.io/miniconda.html):
-```
-wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-sh Miniconda3-latest-Linux-x86_64.sh
-```
+     1. Install MiniConda (.sh scripts can be found at https://conda.io/miniconda.html):
+     ```
+     wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+     sh Miniconda3-latest-Linux-x86_64.sh
+     ```
 
 Press ENTER when prompted; when asked for the installation path for Miniconda, type yes and press ENTER to use your HOME folder as the site of installation or enter the path to an alternative folder; when asked if you want to add Miniconda to your .bashrc, type yes and press ENTER to add Miniconda to your PATH (recommended).
-
-3. Installing MiniConda and downloading third party libraries:
-
-     1. Installing MiniConda:
-        If you do not have MiniConda or Anaconda installed already, follow the steps below to setup the MiniConda environment.
-
-        ```
-        sh lib/Miniconda3-latest-Linux-x86_64.sh
-        ```
         
      2. Source your .bashrc:
-     
         ```
         source ~/.bashrc
         ```
 
-     c. Verify Miniconda was installed:  
+     3. Verify Miniconda was installed:  
      (Installed packages are displayed)
      ```
      conda list
      ```
 
-     d. Update conda:
+     4. Update conda:
      ```
      conda update conda
      ```
 
-     e. Install anaconda client:
+     5. Install anaconda client:
      ```
      conda install anaconda-client anaconda-build conda-build
      ```
 
-     f. Create conda environment for Ribose-Map:
+     6. Create conda environment for Ribose-Map:
      ```
      conda env create -n ribosemap_env --file ribosemap_env.yaml
      ```
