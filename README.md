@@ -48,7 +48,7 @@ Press ENTER when prompted; when asked for the installation path for Miniconda, t
         sh lib/Miniconda3-latest-Linux-x86_64.sh
         ```
         
-     b. Source your .bashrc:
+     2. Source your .bashrc:
      
         ```
         source ~/.bashrc
