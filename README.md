@@ -13,9 +13,47 @@
 * **Distribution**: Visualize coverage of rNMPs across genome and create bedgraph files for genome browser
 
 ## How to set up repository:
-```
+
+Download git repository:
 git clone https://github.com/agombolay/ribose-map/
-```
+
+Installing perquisites for Conda:
+Ribose-Map requires Python3 to be installed along with pip.
+To setup your runtime environment, we recommend using conda.
+
+Install the perquisites for conda:
+python3 -m pip install pycosat pyyaml requests --user
+
+Install MiniConda and download third party software:
+
+Ribose-Map uses several standard bioinformatics tools for data analysis and R for visualizing the results.
+To ensure easy installation and versioning of this software, we recommend using the MiniConda package manager.
+
+Install MiniConda:
+sh lib/Miniconda3-latest-Linux-x86_64.sh
+
+Press ENTER when prompted, when asked for installation path, type yes and press ENTER to use your HOME folder as the site of installation or enter path to the folder where you want Miniconda3 to be installed. When asked if you want to add Miniconda3 to your .bashrc, type yes and press ENTER, this will just add Miniconda3 to your PATH.
+
+Source your .bashrc to ensure that MiniConda loads:
+source ~/.bashrc
+
+To verify Miniconda was installed, type the following command:
+This displays the packages installed in the Miniconda environment.
+conda list
+
+Update conda after installation:
+conda update conda
+
+Install anaconda client to allow R packages to be used in conda environment:
+conda install anaconda-client anaconda-build conda-build
+
+Load conda environment:
+conda env create -n ribosemap_env --file ribosemap_env.yaml
+source activate ribosemap_env
+
+Once the analysis is complete, exit the Ribose-Map environment with this command:
+To perform analyses with Ribose-Map, you will activate the ribosemap_env environment.
+source deactivate ribosemap_env
 
 * It is recommended to add the scripts to your $PATH  
 * Mitochondria should be named chrM or MT in FASTA 
