@@ -51,9 +51,9 @@ Press ENTER when prompted; when asked for the installation path for Miniconda, t
         ```
         
      b. Source your .bashrc:
-     ```
-     source ~/.bashrc
-     ```
+        ```
+        source ~/.bashrc
+        ```
 
      c. Verify Miniconda was installed:  
      (Installed packages are displayed)
