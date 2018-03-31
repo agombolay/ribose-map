@@ -24,7 +24,7 @@ git clone https://github.com/agombolay/ribose-map/
 Ribose-Map uses several standard bioinformatics tools for data analysis and R's ggplot2 for visualizing the results.  
 To ensure easy installation and versioning of this software, we recommend using the MiniConda package manager.
 
-Install conda prerequisites:
+Install pre-requisites for conda:
 ```
 python3 -m pip install pycosat pyyaml requests --user
 ```
