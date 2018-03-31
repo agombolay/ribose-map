@@ -39,13 +39,12 @@ python3 -m pip install pycosat pyyaml requests --user
 
      Press ENTER when prompted; when asked for the installation path for Miniconda, type yes and press ENTER to use your HOME folder as the site of installation or enter the path to an alternative folder; when asked if you want to add Miniconda to your .bashrc, type yes and press ENTER to add Miniconda to your PATH (recommended).
         
-     2. Source your .bashrc:
+     2. Source your .bashrc to ensure that MiniConda loads properly:
         ```
         source ~/.bashrc
         ```
 
-     3. Verify Miniconda was installed:  
-     (Installed packages are displayed)
+     3. Verify Miniconda was installed (Installed packages are displayed):
         ```
         conda list
         ```
