@@ -15,10 +15,10 @@
 ## How to set up repository:
 
 1. **Download Git repository**:  
-  Click [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for information on installing Git
-  ```
-  git clone https://github.com/agombolay/ribose-map/
-  ```
+    Click [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for information on installing Git
+    ```
+    git clone https://github.com/agombolay/ribose-map/
+    ```
 * It is recommended to add the scripts to your $PATH  
 * Mitochondria should be named chrM or MT in FASTA 
 
