@@ -65,13 +65,12 @@ Create conda environment:
 conda env create -n ribosemap_env --file ribosemap_env.yaml
 ```
 
-Activate conda environment:
+Activate conda environment to use Ribose-Map:
 ```
 source activate ribosemap_env
 ```
 
-Once the analysis is complete, exit the Ribose-Map environment with this command:  
-To perform analyses with Ribose-Map, you will activate the ribosemap_env environment.
+Once the analysis is complete, exit the environment:  
 ```
 source deactivate ribosemap_env
 ```
