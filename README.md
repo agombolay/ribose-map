@@ -34,7 +34,7 @@ Install MiniConda:
 sh Miniconda3-latest-Linux-x86_64.sh
 ```
 
-Press ENTER when prompted; when asked for installation path, type yes and press ENTER to use your HOME folder as the site of installation of Miniconda3 or enter the path to an alternative folder where you would rather have it be installed.
+Press ENTER when prompted; when asked for the installation path for Miniconda3, type yes and press ENTER to use your HOME folder as the site of installation or enter the path to an alternative folder where you would rather have it be installed.
 
 When asked if you want to add Miniconda3 to your .bashrc, type yes and press ENTER.
 
