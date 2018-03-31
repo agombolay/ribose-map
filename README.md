@@ -31,6 +31,7 @@ python3 -m pip install pycosat pyyaml requests --user
 
 Install MiniConda (https://conda.io/miniconda.html):
 ```
+wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 sh Miniconda3-latest-Linux-x86_64.sh
 ```
 
