@@ -43,18 +43,13 @@ To ensure easy installation and versioning of this software, we recommend using 
         source ~/.bashrc
         ```
 
-     3. Verify Miniconda was installed (Installed packages are displayed):
-        ```
-        conda list
-        ```
-
-     4. Update conda and install anaconda-client:
+     3. Update conda and install anaconda-client:
         ```
         conda update conda
         conda install anaconda-client anaconda-build conda-build
         ```
         
-      5. Create conda environment for Ribose-Map:  
+      4. Create conda environment for Ribose-Map:  
          ribosemap_env.yaml is located in ribose-map/lib
          ```
          conda env create -n ribosemap_env --file ribosemap_env.yaml
