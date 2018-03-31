@@ -41,7 +41,7 @@ Press ENTER when prompted; when asked for the installation path for Miniconda, t
 
 3. Installing MiniConda and downloading third party libraries:
 
-     1. Installing MiniConda:
+     b. Installing MiniConda:
         If you do not have MiniConda or Anaconda installed already, follow the steps below to setup the MiniConda environment.
 
         ```
