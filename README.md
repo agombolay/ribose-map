@@ -70,7 +70,7 @@ Activate conda environment:
 source activate ribosemap_env
 ```
 
-Once the analysis is complete, exit the Ribose-Map environment with this command:
+Once the analysis is complete, exit the Ribose-Map environment with this command:  
 To perform analyses with Ribose-Map, you will activate the ribosemap_env environment.
 ```
 source deactivate ribosemap_env
