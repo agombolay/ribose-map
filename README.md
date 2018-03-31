@@ -14,7 +14,7 @@
 
 ## How to set up repository:
 
-Download git repository:
+1. Download git repository:
 ```
 git clone https://github.com/agombolay/ribose-map/
 ```
@@ -24,16 +24,18 @@ git clone https://github.com/agombolay/ribose-map/
 Ribose-Map uses several standard bioinformatics tools for data analysis and R's ggplot2 for visualizing the results.  
 To ensure easy installation and versioning of this software, we recommend using the MiniConda package manager.
 
-Install pre-requisites for conda:
+2. Install pre-requisites for conda:
 ```
 python3 -m pip install pycosat pyyaml requests --user
 ```
 
-Install MiniConda (.sh scripts can be found at https://conda.io/miniconda.html):
-```
-wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-sh Miniconda3-latest-Linux-x86_64.sh
-```
+3. Install MiniConda and download third party software:
+
+ a. Install MiniConda (.sh scripts can be found at https://conda.io/miniconda.html):
+ ```
+ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+ sh Miniconda3-latest-Linux-x86_64.sh
+ ```
 
 Press ENTER when prompted; when asked for the installation path for Miniconda, type yes and press ENTER to use your HOME folder as the site of installation or enter the path to an alternative folder; when asked if you want to add Miniconda to your .bashrc, type yes and press ENTER to add Miniconda to your PATH (recommended).
 
