@@ -59,7 +59,7 @@ source deactivate ribosemap_env
 &nbsp;
 ## How to run Ribose-Map from command-line:
 
-| Alignment Module        | Coordinate Module       | Sequence Module         | Distribution Module     |
+| 1. Alignment Module        | 2. Coordinate Module       | 3. Sequence Module         | 4. Distribution Module     |
 | ----------------------- | ----------------------- | ----------------------- | ----------------------- |
 | alignment.sh config     | coordinate.sh config    | sequence.sh config      | distribution.sh onfig   |
 |                         |                         | sequence.R config       | distribution.R config   |
