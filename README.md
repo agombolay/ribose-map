@@ -47,7 +47,7 @@ To ensure easy installation and versioning of these software, we recommend using
    ```
    conda update conda
    conda install anaconda-client anaconda-build conda-build
-   conda env create -n lib/ribosemap_env --file ribosemap_env.yaml
+   conda env create -n ribosemap_env --file lib/ribosemap_env.yaml
    ```
 
 &nbsp;
