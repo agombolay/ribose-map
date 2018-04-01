@@ -12,7 +12,7 @@
 * **Sequence**: Calculate and visualize frequencies of nucleotides at and flanking sites of embedded rNMPs
 * **Distribution**: Visualize coverage of rNMPs across genome and create bedgraph files for genome browser
 
-## How to set up repository:
+## How to run Ribose-Map:
 
 1. **Download Git repository**:  
     Click [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for information on installing Git
