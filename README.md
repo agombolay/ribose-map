@@ -50,7 +50,7 @@ To ensure easy installation and versioning of this software, we recommend using 
         ```
         
       4. Create conda environment for Ribose-Map:  
-         ribosemap_env.yaml is located in ribose-map/lib
+         ribosemap_env.yaml is located in /ribose-map/lib
          ```
          conda env create -n ribosemap_env --file ribosemap_env.yaml
          ```
