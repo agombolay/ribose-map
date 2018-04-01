@@ -40,6 +40,7 @@ To ensure easy installation and versioning of this software, we recommend using 
         ```
 
      2. Create conda environment for Ribose-Map:
+        Software dependencies will be installed in environment
         ```
         conda update conda
         conda install anaconda-client anaconda-build conda-build
