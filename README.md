@@ -34,13 +34,13 @@ To ensure easy installation and versioning of this software, we recommend using 
      Note: .sh and .yaml files are located in /ribose-map/lib
      
      1. Install MiniConda and source .bashrc:  
-        Follow prompts to install Miniconda and add it to PATH 
+        * Follow prompts to install Miniconda and add it to PATH 
         ```
         sh Miniconda3-latest-Linux-x86_64.sh && source ~/.bashrc
         ```
 
      2. Create conda environment for Ribose-Map:  
-        Software dependencies will be installed in environment
+        * Software dependencies will be installed in environment
         ```
         conda update conda
         conda install anaconda-client anaconda-build conda-build
