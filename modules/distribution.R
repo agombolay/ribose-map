@@ -17,7 +17,7 @@ library(ggplot2); library(tools)
 #############################################################################################################################
 #Specify output directory and file
 output <- file.path(repository, "results", sample, "distribution")
-input_files <- list.files(path=output, pattern=".bed", full.names=T, recursive=F)
+input_files <- list.files(path=output, pattern=".tab", full.names=T, recursive=F)
 	
 for(file in input_files){
         
