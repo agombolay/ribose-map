@@ -61,7 +61,7 @@ source activate ribosemap_env
 ```
 
 2. **Run .sh and .R scripts along with configuration_file**:
-* Example configuration_file is available at lib/config
+    * Example configuration_file is available at lib/config
 
      1. **Process the data**
      ```
