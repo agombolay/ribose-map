@@ -53,23 +53,22 @@ To ensure easy installation and versioning of this software, we recommend using 
         conda env create -n lib/ribosemap_env --file ribosemap_env.yaml
         ```
 
-4. **Activate conda environment to use Ribose-Map**:
+&nbsp;
+## How to run Ribose-Map from command-line
+**Activate conda environment to use Ribose-Map**:
 ```
 source activate ribosemap_env
 ```
-
-5. **Once the analysis is complete, exit environment**:  
-```
-source deactivate ribosemap_env
-```
-
-&nbsp;
-## How to run Ribose-Map from command-line
 
 | 1. Alignment Module     | 2. Coordinate Module    | 3. Sequence Module      | 4. Distribution Module  |
 | ----------------------- | ----------------------- | ----------------------- | ----------------------- |
 | alignment.sh config     | coordinate.sh config    | sequence.sh config      | distribution.sh onfig   |
 |                         |                         | sequence.R config       | distribution.R config   |
+
+**Once the analysis is complete, exit environment**:  
+```
+source deactivate ribosemap_env
+```
 
 ## Example config file
 ```
