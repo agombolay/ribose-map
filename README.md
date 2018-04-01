@@ -54,7 +54,7 @@ To ensure easy installation and versioning of this software, we recommend using 
         ```
 
 &nbsp;
-## How to run Ribose-Map from command-line
+## How to run Ribose-Map
 **Activate conda environment to use Ribose-Map**:
 ```
 source activate ribosemap_env
