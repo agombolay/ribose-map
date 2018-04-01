@@ -55,12 +55,12 @@ To ensure easy installation and versioning of this software, we recommend using 
 
 &nbsp;
 ## How to run Ribose-Map
-**Activate conda environment to use Ribose-Map**:
+1. **Activate conda environment to use Ribose-Map**:
 ```
 source activate ribosemap_env
 ```
 
-**Run .sh and .R scripts along with configuration_file**:
+2. **Run .sh and .R scripts along with configuration_file**:
 * Example configuration_file is available at lib/config
 
 1. **Process data**
@@ -79,7 +79,7 @@ sequence.R configuration_file
 distribution.R configuration_file
 ```
 
-**Once the analysis is complete, exit environment**:  
+3. **Once the analysis is complete, exit environment**:  
 ```
 source deactivate ribosemap_env
 ```
