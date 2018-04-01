@@ -38,7 +38,7 @@ To ensure easy installation and versioning of this software, we recommend using 
      ```
 
 3. **Install MiniConda and software dependencies**:  
-
+   * Example configuration_file is available at lib/config
      1. Install MiniConda and source .bashrc:  
         * Follow series of prompts (press ENTER and type yes)
         ```
