@@ -37,20 +37,18 @@ To ensure easy installation and versioning of this software, we recommend using 
      python3 -m pip install pycosat pyyaml requests --user
      ```
 
-3. **Install MiniConda and software dependencies**:  
+3. Install MiniConda and source your .bashrc file:  
+   * Follow series of prompts (press ENTER and type yes)
+     ```
+     sh lib/Miniconda3-latest-Linux-x86_64.sh && source ~/.bashrc
+     ```
 
-     1. Install MiniConda and source your .bashrc file:  
-        * Follow series of prompts (press ENTER and type yes)
-        ```
-        sh lib/Miniconda3-latest-Linux-x86_64.sh && source ~/.bashrc
-        ```
-
-     2. Create conda environment in which to run Ribose-Map:  
-        ```
-        conda update conda
-        conda install anaconda-client anaconda-build conda-build
-        conda env create -n lib/ribosemap_env --file ribosemap_env.yaml
-        ```
+2. Create conda environment in which to run Ribose-Map:  
+   ```
+   conda update conda
+   conda install anaconda-client anaconda-build conda-build
+   conda env create -n lib/ribosemap_env --file ribosemap_env.yaml
+   ```
 
 &nbsp;
 ## How to run Ribose-Map
