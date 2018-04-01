@@ -12,7 +12,7 @@
 . "$1"
 
 #Create output directory and remove any old files
-output=$repository/results/$sample/frequencies; rm -rf $output; mkdir -p $output
+output=$repository/results/$sample/sequence; rm -rf $output; mkdir -p $output
 
 #############################################################################################################################
 for subset in "mitochondria" "nucleus"; do
