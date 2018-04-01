@@ -38,7 +38,7 @@ To ensure easy installation and versioning of this software, we recommend using 
 3. **Install MiniConda and software dependencies**:  
 
      1. Install MiniConda and source .bashrc:  
-        * Follow series of prompts to install Miniconda
+        * Follow series of user prompts to install Miniconda
         ```
         sh lib/Miniconda3-latest-Linux-x86_64.sh && source ~/.bashrc
         ```
