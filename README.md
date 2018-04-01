@@ -31,7 +31,7 @@ To ensure easy installation and versioning of this software, we recommend using 
      ```
 
 3. **Install MiniConda and software dependencies**:  
-     .sh and .yaml files are located in /ribose-map/lib
+     Note: .sh and .yaml files are located in /ribose-map/lib
      
      1. Install MiniConda and source .bashrc:  
         Follow prompts to install Miniconda and add it to PATH 
