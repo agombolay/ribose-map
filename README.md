@@ -38,7 +38,7 @@ To ensure easy installation and versioning of this software, we recommend using 
         sh Miniconda3-latest-Linux-x86_64.sh
         ```
         
-     2. Source your .bashrc to ensure that MiniConda loads properly:
+     2. Source your .bashrc to load MiniConda:
         ```
         source ~/.bashrc
         ```
