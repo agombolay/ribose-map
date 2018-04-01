@@ -43,7 +43,7 @@ To ensure easy installation and versioning of this software, we recommend using 
    sh lib/Miniconda3-latest-Linux-x86_64.sh && source ~/.bashrc
    ```
 
-4. **Create conda environment in which to run Ribose-Map**:  
+4. **Create environment in which to run Ribose-Map**:  
    ```
    conda update conda
    conda install anaconda-client anaconda-build conda-build
