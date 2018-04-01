@@ -15,11 +15,11 @@
 &nbsp;
 
 ## Required Data
-Ribose-Map requires the following data files:
-1. Bowtie2 indexes (extension .bt2) for reference genome
+Ribose-Map requires the following files:
+1. FASTQ files of rNMP sequencing data
+2. Bowtie2 indexes (extension .bt2) for reference genome
 2. FASTA file of nucleotide sequence of reference genome
    * Mitochondria should be named either chrM or MT
-3. FASTQ files of rNMP sequencing data generated using NGS
 
 &nbsp;
 ## Software Installation:
