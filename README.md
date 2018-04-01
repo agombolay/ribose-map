@@ -30,7 +30,7 @@ To ensure easy installation and versioning of this software, we recommend using 
      python3 -m pip install pycosat pyyaml requests --user
      ```
 
-3. **Install MiniConda and software dependencies**:
+3. **Install MiniConda and software dependencies**:  
      .sh and .yaml files are located in /ribose-map/lib
      
      1. Install MiniConda and source .bashrc:  
