@@ -37,7 +37,7 @@ awk -v "OFS=\t" '$5 == "-" {print $1,$2,$3,$4}' $output/temp.tab >> $output/$sam
 #############################################################################################################################
 #Calculate normalized per-nucleotide coverage
 for coverage in $(ls $output/temp.tab); do
-	awk -v total="$(samtools view -c $repository/results/$sample/alignment/$sample.bam)" '{print $1,$2,$3,$4/total*1000000}' $coverage > $output/normalized.bed
+	awk -v "OFS=\t" -v total="$(samtools view -c $repository/results/$sample/alignment/$sample.bam)" '{print $1,$2,$3,$4/total*1000000}' $coverage > $output/normalized.bed
 done
 
 #Save coverage of rNMPs per chromosome to separate files
