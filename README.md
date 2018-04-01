@@ -15,7 +15,11 @@
 &nbsp;
 
 ## Required Data
-and mitochondria should be named chrM or MT in FASTA file
+Ribose-Map requires the following data files:
+1. Bowtie2 indexes (extension .bt2) for reference genome
+2. FASTA file of nucleotide sequence of reference genome
+* Mitochondria should be named either chrM or MT in this file
+3. FASTQ files of rNMP sequencing data generated using NGS
 
 &nbsp;
 ## Software Installation:
