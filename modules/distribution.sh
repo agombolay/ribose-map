@@ -11,8 +11,11 @@
 #Load config file
 . "$1"
 
-#Create output directory and remove any old files
-output=$repository/results/$sample/distribution; rm -rf $output; mkdir -p $output
+#Output directory
+output=$repository/results/$sample/distribution
+
+#Create new directory
+rm -rf $output; mkdir -p $output
 
 #############################################################################################################################
 #Create FASTA index and BED file for reference genome
