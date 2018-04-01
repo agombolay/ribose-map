@@ -22,6 +22,18 @@ samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 uniq -c $repository/results/$sample/coordinates/$sample.bed | awk -v "OFS=\t" '{print $2,$3,$4,$1,$5}' > $output/temp.tab
 
 #############################################################################################################################
+#Calculate normalized per-nucleotide coverage
+for coverage in $(ls $output/temp.tab); do
+	total_reads=$(samtools view -c $repository/results/$sample/alignment/$sample.bam)
+	awk -v "OFS=\t" -v total="$total_reads" '{print $1,$2,$3,$4/total*1000000,$5}' $coverage > $output/normalized.tab
+done
+
+#Save coverage of rNMPs per chromosome to separate files
+for chromosome in $( awk '{print $1}' $output/reference.bed ); do
+	grep -w "$chromosome" $output/normalized.tab > $output/$sample-$chromosome.tab
+done
+
+#############################################################################################################################
 #Add trackline for forward strand to input into UCSC genome browser
 echo "track type=bedGraph name="$sample-ForwardStrand" description="$sample-ForwardStrand" color=0,128,0 visibility=full" > $output/$sample-Forward.bg
 		
@@ -33,18 +45,6 @@ awk -v "OFS=\t" '$5 == "+" {print $1,$2,$3,$4}' $output/temp.tab >> $output/$sam
 
 #Rearrange reverse strand file so format is the same as bedgraph format
 awk -v "OFS=\t" '$5 == "-" {print $1,$2,$3,$4}' $output/temp.tab >> $output/$sample-Reverse.bg
-
-#############################################################################################################################
-#Calculate normalized per-nucleotide coverage
-for coverage in $(ls $output/temp.tab); do
-	total=$(samtools view -c $repository/results/$sample/alignment/$sample.bam)
-	awk -v "OFS=\t" -v total="$total" '{print $1,$2,$3,$4/total*1000000,$5}' $coverage > $output/normalized.tab
-done
-
-#Save coverage of rNMPs per chromosome to separate files
-for chromosome in $( awk '{print $1}' $output/reference.bed ); do
-	grep -w "$chromosome" $output/normalized.tab > $output/$sample-$chromosome.tab
-done
 
 #############################################################################################################################
 #Print status
