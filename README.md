@@ -29,7 +29,7 @@ To ensure easy installation and versioning of this software, we recommend using 
      python3 -m pip install pycosat pyyaml requests --user
      ```
 
-3. **Install MiniConda and download third party software**:
+3. **Install MiniConda and software dependencies**:
 
      1. Install MiniConda:  
         Download .sh script from https://conda.io/miniconda.html  
