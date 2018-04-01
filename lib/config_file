@@ -1,10 +1,10 @@
-#Example configuration file
+#Example config file
 
-#Optional
+#Optional Parameters
 barcode='TCA'
 pattern='NNNNNNXXXNN'
 
-#Required
+#Required Parameters
 sample='sample1'
 technique='ribose-seq'
 fasta='/filepath/sacCer2.fa'
