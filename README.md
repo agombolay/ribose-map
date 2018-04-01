@@ -11,8 +11,7 @@
 **Analyzing genome-wide distribution of rNMPs and their sequence context**:
 * **Sequence**: Calculate and visualize frequencies of nucleotides at and flanking sites of embedded rNMPs
 * **Distribution**: Visualize coverage of rNMPs across genome and create bedgraph files for genome browser
-
-\_
+\ 
 ## Software Installation:
 
 1. **Download Git repository**:  
