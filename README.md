@@ -38,10 +38,10 @@ To ensure easy installation and versioning of this software, we recommend using 
    ```
 
 3. **Install MiniConda and source your .bashrc file**:  
+   * Download Miniconda3-latest-Linux-x86_64.sh from [here](https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh)
    * Follow prompts (press ENTER and type yes)
    ```
-   wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-   sh lib/Miniconda3-latest-Linux-x86_64.sh && source ~/.bashrc
+   sh Miniconda3-latest-Linux-x86_64.sh && source ~/.bashrc
    ```
 
 4. **Create environment in which to run Ribose-Map**:  
