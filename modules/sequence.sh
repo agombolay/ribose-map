@@ -59,8 +59,8 @@ for subset in "mitochondria" "nucleus"; do
 	#STEP 2: Create and save file containing background dNMP frequencies
 		
 	#Add nucleotides to header line and background frequencies
-	echo -e "A\tC\tG\tT" > "${reference%.*}"-Freqs.$subset.txt
-	paste <(echo -e "$Bkg") >> "${reference%.*}"-Freqs.$subset.txt
+	echo -e "A\tC\tG\tT" > "${fasta%.*}"-Freqs.$subset.txt
+	paste <(echo -e "$Bkg") >> "${fasta%.*}"-Freqs.$subset.txt
 			
 #############################################################################################################################
 	#STEP 3: Calculate frequencies of rNMPs in libraries
