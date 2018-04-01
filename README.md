@@ -39,13 +39,13 @@ To ensure easy installation and versioning of this software, we recommend using 
 
 3. **Install MiniConda and software dependencies**:  
 
-     1. Install MiniConda and source your .bashrc to load Miniconda:  
+     1. Install MiniConda and source your .bashrc file:  
         * Follow series of prompts (press ENTER and type yes)
         ```
         sh lib/Miniconda3-latest-Linux-x86_64.sh && source ~/.bashrc
         ```
 
-     2. Create conda environment with installed software dependencies:  
+     2. Create conda environment in which to run Ribose-Map:  
         ```
         conda update conda
         conda install anaconda-client anaconda-build conda-build
