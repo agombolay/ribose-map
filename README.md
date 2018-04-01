@@ -3,7 +3,7 @@
 **© 2017 Alli Gombolay, Fredrik Vannberg, and Francesca Storici**  
 **School of Biological Sciences, Georgia Institute of Technology**
 
-## Modules:
+## Modules
 **Process rNMP sequencing data independent of the rNMP sequencing technique**:  
 * **Alignment**: Align reads to the reference with Bowtie2 and de-depulicated based on UMI's UMI-tools  
 * **Coordinate**: Locate genomic coordinates of rNMPs for ribose-seq, Pu-seq, emRibo-seq, or HydEn-seq  
@@ -20,7 +20,7 @@
 3. FASTA file of nucleotide sequence of reference genome
 
 &nbsp;
-## Software Installation:
+## Software Installation
 
 1. **Download Git repository**:  
     * Click [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for information on installing Git on Linux
@@ -64,14 +64,14 @@ source deactivate ribosemap_env
 ```
 
 &nbsp;
-## How to run Ribose-Map from command-line:
+## How to run Ribose-Map from command-line
 
 | 1. Alignment Module     | 2. Coordinate Module    | 3. Sequence Module      | 4. Distribution Module  |
 | ----------------------- | ----------------------- | ----------------------- | ----------------------- |
 | alignment.sh config     | coordinate.sh config    | sequence.sh config      | distribution.sh onfig   |
 |                         |                         | sequence.R config       | distribution.R config   |
 
-## Example config file:
+## Example config file
 ```
 #Sample name
 sample='sample1'
