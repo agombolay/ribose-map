@@ -61,18 +61,20 @@ source activate ribosemap_env
 ```
 
 ```
-alignment.sh config
-coordinate.sh config
-sequence.sh config
-sequence.R config
-distribution.sh onfig
-distribution.R config
-```
+#Alignment Module
+alignment.sh configuration_file
 
-| 1. Alignment Module     | 2. Coordinate Module    | 3. Sequence Module      | 4. Distribution Module  |
-| ----------------------- | ----------------------- | ----------------------- | ----------------------- |
-| alignment.sh config     | coordinate.sh config    | sequence.sh config      | distribution.sh onfig   |
-|                         |                         | sequence.R config       | distribution.R config   |
+#Coordinate Module
+coordinate.sh configuration_file
+
+#Sequence Module
+sequence.sh configuration_file
+sequence.R configuration_file
+
+#Distribution Module
+distribution.sh configuration_file
+distribution.R configuration_file
+```
 
 **Once the analysis is complete, exit environment**:  
 ```
