@@ -50,4 +50,4 @@ done
 echo "Status: Distribution module for $sample is complete"
 	
 #Remove temporary files
-#rm $output/reference.bed $output/temp.tab
+rm $output/reference.bed $output/temp.tab
