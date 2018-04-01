@@ -63,21 +63,21 @@ source activate ribosemap_env
 2. **Run .sh and .R scripts along with configuration_file**:
 * Example configuration_file is available at lib/config
 
-1. **Process data**
-```
-alignment.sh configuration_file
-coordinate.sh configuration_file
-```
-2. **Analyze data**
-```
-sequence.sh configuration_file
-distribution.sh configuration_file
-```
-3. **Visualize the results**
-```
-sequence.R configuration_file
-distribution.R configuration_file
-```
+     1. **Process data**
+     ```
+     alignment.sh configuration_file
+     coordinate.sh configuration_file
+     ```
+     2. **Analyze data**
+     ```
+     sequence.sh configuration_file
+     distribution.sh configuration_file
+     ```
+     3. **Visualize the results**
+     ```
+     sequence.R configuration_file
+     distribution.R configuration_file
+     ```
 
 3. **Once the analysis is complete, exit environment**:  
 ```
