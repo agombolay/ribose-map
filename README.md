@@ -12,7 +12,7 @@
 3. **Sequence**: Calculate and visualize frequencies of nucleotides at and flanking sites of embedded rNMPs  
 4. **Distribution**: Visualize coverage of rNMPs across genome and create bedgraph files for genome browser  
  
-&nbsp;
+
 ## Software Installation:
 
 1. **Download Git repository**:  
