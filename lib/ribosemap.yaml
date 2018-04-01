@@ -1,1 +1,14 @@
-file
+channels:
+  - r
+  - defaults
+  - bioconda
+  - conda-forge
+
+dependencies:
+  - bowtie2
+  - samtools
+  - bedtools
+  - cutadapt
+  - umi_tools
+  - r-ggplot2
+  - python=3.5.2
