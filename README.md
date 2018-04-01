@@ -66,11 +66,13 @@ source activate ribosemap_env
 #Process data
 alignment.sh configuration_file
 coordinate.sh configuration_file
-
+```
+```
 #Analyze data
 sequence.sh configuration_file
 distribution.sh configuration_file
-
+```
+```
 #Visualize the results
 sequence.R configuration_file
 distribution.R configuration_file
