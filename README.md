@@ -4,11 +4,11 @@
 **School of Biological Sciences, Georgia Institute of Technology**
 
 ## Modules:
-**Efficient and standardized processing of rNMP sequencing data**:  
+**Process rNMP sequencing data independent of the rNMP sequencing technique**:  
 * **Alignment**: Align reads to the reference with Bowtie2 and de-depulicated based on UMI's UMI-tools  
 * **Coordinate**: Locate genomic coordinates of rNMPs for ribose-seq, Pu-seq, emRibo-seq, or HydEn-seq  
 
-**Analyzing sequence context of embedded rNMPs and their genome-wide distribution**:  
+**Analyze sequence context of embedded rNMPs and their genome-wide distribution**:  
 * **Sequence**: Calculate and visualize frequencies of nucleotides at and flanking sites of embedded rNMPs  
 * **Distribution**: Visualize coverage of rNMPs across genome and create bedgraph files for genome browser  
  
