@@ -61,7 +61,7 @@ source activate ribosemap_env
 ```
 
 **Run .sh and .R scripts along with configuration_file**:
-* Example configuration_file is available at /lib/config
+* Example configuration_file is available at lib/config
 ```
 #Alignment Module
 alignment.sh configuration_file
