@@ -13,13 +13,12 @@
 * **Distribution**: Visualize coverage of rNMPs across genome and create bedgraph files for genome browser  
  
 &nbsp;
-
 ## Required Data
 Ribose-Map requires the following files:
 1. FASTQ files of rNMP sequencing data
 2. Bowtie2 indexes (extension .bt2) for reference genome
 2. FASTA file of nucleotide sequence of reference genome
-   * Mitochondria should be named chrM or MT in this file
+   * Mitochondria should be named chrM or MT in the file
 
 &nbsp;
 ## Software Installation:
