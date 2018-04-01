@@ -38,7 +38,7 @@ To ensure easy installation and versioning of this software, we recommend using 
    ```
 
 3. **Install MiniConda and source your .bashrc file**:  
-   * Follow prompts to install Miniconda in home directory
+   * Follow prompts to install MiniConda in home directory
    ```
    sh lib/Miniconda3-latest-Linux-x86_64.sh && source ~/.bashrc
    ```
