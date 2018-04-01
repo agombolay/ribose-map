@@ -60,6 +60,8 @@ To ensure easy installation and versioning of this software, we recommend using 
 source activate ribosemap_env
 ```
 
+**Run .sh and .R scripts along with configuration_file
+* Example configuration_file is available at /lib/config
 ```
 #Alignment Module
 alignment.sh configuration_file
@@ -79,28 +81,4 @@ distribution.R configuration_file
 **Once the analysis is complete, exit environment**:  
 ```
 source deactivate ribosemap_env
-```
-
-## Example config file
-```
-#Sample name
-sample='sample1'
-
-#Library prep
-barcode='TCA'
-pattern='NNNNNNXXXNN'
-
-#rNMP Sequencing
-technique='ribose-seq'
-
-#Reference genome
-fasta='/filepath/sacCer2.fa'
-basename='/filepath/sacCer2'
-
-#FASTQs files of reads
-read1='/filepath/sample1_1.fastq'
-read2='/filepath/sample1_2.fastq'
-
-#Ribose-Map repository
-repository='/filepath/ribose-map'
 ```
