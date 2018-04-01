@@ -1,0 +1,23 @@
+## Example config file
+```
+#Sample name
+sample='sample1'
+
+#Library prep
+barcode='TCA'
+pattern='NNNNNNXXXNN'
+
+#rNMP Sequencing
+technique='ribose-seq'
+
+#Reference genome
+fasta='/filepath/sacCer2.fa'
+basename='/filepath/sacCer2'
+
+#FASTQs files of reads
+read1='/filepath/sample1_1.fastq'
+read2='/filepath/sample1_2.fastq'
+
+#Ribose-Map repository
+repository='/filepath/ribose-map'
+```
