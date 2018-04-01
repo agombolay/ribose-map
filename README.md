@@ -22,7 +22,6 @@ and mitochondria should be named chrM or MT in FASTA file
 
 1. **Download Git repository**:  
     * Click [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for information on installing Git on Linux
-    * Scripts in ribose-map/modules should be added to your PATH 
     ```
     git clone https://github.com/agombolay/ribose-map/
     ```
