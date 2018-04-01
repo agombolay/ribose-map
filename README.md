@@ -64,7 +64,7 @@ source deactivate ribosemap_env
 | alignment.sh config     | coordinate.sh config    | sequence.sh config      | distribution.sh onfig   |
 |                         |                         | sequence.R config       | distribution.R config   |
 
-## Example config:
+## Example config file:
 ```
 #Sample name
 sample='sample1'
