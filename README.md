@@ -66,6 +66,7 @@ source activate ribosemap_env
 source deactivate ribosemap_env
 ```
 
+&nbsp;
 ## How to run Ribose-Map from command-line:
 
 | Alignment Module        | Coordinate Module       | Sequence Module         | Distribution Module     |
