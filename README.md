@@ -39,7 +39,7 @@ To ensure easy installation and versioning of this software, we recommend using 
         sh Miniconda3-latest-Linux-x86_64.sh && source ~/.bashrc
         ```
 
-     2. Create conda environment for Ribose-Map:
+     2. Create conda environment for Ribose-Map:  
         ribosemap_env.yaml is located in /ribose-map/lib
         ```
         conda update conda
