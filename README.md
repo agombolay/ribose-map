@@ -63,18 +63,14 @@ source activate ribosemap_env
 **Run .sh and .R scripts along with configuration_file**:
 * Example configuration_file is available at lib/config
 ```
-#Alignment Module
+#Process and analyze
 alignment.sh configuration_file
-
-#Coordinate Module
 coordinate.sh configuration_file
-
-#Sequence Module
-sequence.sh configuration_file
-sequence.R configuration_file
-
-#Distribution Module
+frequencies.sh configuration_file
 distribution.sh configuration_file
+
+#Visualize the results
+frequencies.R configuration_file
 distribution.R configuration_file
 ```
 
