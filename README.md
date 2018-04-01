@@ -4,7 +4,7 @@
 **School of Biological Sciences, Georgia Institute of Technology**
 
 ## Modules:
-**Processing rNMP sequencing data**:  
+**Efficient and standardized processing of rNMP sequencing data**:  
 * **Alignment**: Align reads to the reference with Bowtie2 and de-depulicated based on UMI's UMI-tools  
 * **Coordinate**: Locate genomic coordinates of rNMPs for ribose-seq, Pu-seq, emRibo-seq, or HydEn-seq  
 
