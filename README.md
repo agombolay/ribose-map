@@ -44,17 +44,13 @@ To ensure easy installation and versioning of this software, we recommend using 
         source ~/.bashrc
         ```
 
-     3. Update conda and install anaconda-client:
+     3. Create conda environment for Ribose-Map:
+        ribosemap_env.yaml is located in /ribose-map/lib
         ```
         conda update conda
         conda install anaconda-client anaconda-build conda-build
+        conda env create -n ribosemap_env --file ribosemap_env.yaml
         ```
-        
-      4. Create conda environment for Ribose-Map:  
-         ribosemap_env.yaml is located in /ribose-map/lib
-         ```
-         conda env create -n ribosemap_env --file ribosemap_env.yaml
-         ```
 
 4. **Activate conda environment to use Ribose-Map**:
 ```
