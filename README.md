@@ -16,7 +16,7 @@
 ## Software Installation:
 
 1. **Download Git repository**:  
-    Click [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for information on installing Git
+    Click [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for information on installing Git on Linux
     ```
     git clone https://github.com/agombolay/ribose-map/
     ```
