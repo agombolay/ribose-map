@@ -60,6 +60,15 @@ To ensure easy installation and versioning of this software, we recommend using 
 source activate ribosemap_env
 ```
 
+```
+alignment.sh config
+coordinate.sh config
+sequence.sh config
+sequence.R config
+distribution.sh onfig
+distribution.R config
+```
+
 | 1. Alignment Module     | 2. Coordinate Module    | 3. Sequence Module      | 4. Distribution Module  |
 | ----------------------- | ----------------------- | ----------------------- | ----------------------- |
 | alignment.sh config     | coordinate.sh config    | sequence.sh config      | distribution.sh onfig   |
