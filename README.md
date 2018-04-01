@@ -5,12 +5,12 @@
 
 ## Modules:
 **Processing rNMP sequencing data**:  
-1. **Alignment**: Align reads to the reference with Bowtie2 and de-depulicated based on UMI's UMI-tools  
-2. **Coordinate**: Locate genomic coordinates of rNMPs for ribose-seq, Pu-seq, emRibo-seq, or HydEn-seq  
+* **Alignment**: Align reads to the reference with Bowtie2 and de-depulicated based on UMI's UMI-tools  
+* **Coordinate**: Locate genomic coordinates of rNMPs for ribose-seq, Pu-seq, emRibo-seq, or HydEn-seq  
 
 **Analyzing genome-wide distribution of rNMPs and their sequence context**:  
-3. **Sequence**: Calculate and visualize frequencies of nucleotides at and flanking sites of embedded rNMPs  
-4. **Distribution**: Visualize coverage of rNMPs across genome and create bedgraph files for genome browser  
+* **Sequence**: Calculate and visualize frequencies of nucleotides at and flanking sites of embedded rNMPs  
+* **Distribution**: Visualize coverage of rNMPs across genome and create bedgraph files for genome browser  
  
 
 ## Software Installation:
