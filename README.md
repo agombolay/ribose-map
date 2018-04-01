@@ -60,7 +60,7 @@ To ensure easy installation and versioning of this software, we recommend using 
 source activate ribosemap_env
 ```
 
-**Run .sh and .R scripts along with configuration_file
+**Run .sh and .R scripts along with configuration_file**:
 * Example configuration_file is available at /lib/config
 ```
 #Alignment Module
