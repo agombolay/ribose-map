@@ -60,7 +60,7 @@ source activate ribosemap_env
 ```
 
 2. **Run .sh and .R scripts along with configuration_file**:
-   * .sh and R scripts should be run in ribose-map/modules directory
+   * Run these commands from within ribose-map/modules directory
 
      1. **Process the data**
      ```
