@@ -18,6 +18,7 @@
 1. FASTQ files of sequencing data generating using NGS
 2. Bowtie2 indexes (extension .bt2) for reference genome
 3. FASTA file of nucleotide sequence of reference genome
+4. Configuration file (example file is provided in lib)
 
 &nbsp;
 ## Software Installation
@@ -57,7 +58,6 @@ source activate ribosemap_env
 ```
 
 2. **Run .sh and .R scripts along with configuration_file**:
-   * An example configuration file is available at lib/configuration_file
    * .sh and R scripts should be run in ribose-map/modules directory
 
      1. **Process the data**
