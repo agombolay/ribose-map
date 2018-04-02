@@ -18,7 +18,7 @@
 1. FASTQ files of sequencing data generating using NGS
 2. Bowtie2 indexes (extension .bt2) for reference genome
 3. FASTA file of nucleotide sequence of reference genome
-4. Configuration file (example file is provided in ribose-map/lib)
+4. Configuration file (example is provided in ribose-map/lib)
 
 &nbsp;
 ## Software Installation
