@@ -41,7 +41,7 @@ To ensure easy installation and versioning of these software, we recommend using
    * Follow prompts to install MiniConda in home directory
    * Run these commands from within ribose-map/lib directory
    ```
-   sh lib/Miniconda3-latest-Linux-x86_64.sh && source ~/.bashrc
+   sh Miniconda3-latest-Linux-x86_64.sh && source ~/.bashrc
    ```
 
 4. **Create environment in which to run Ribose-Map**:  
