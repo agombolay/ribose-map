@@ -32,8 +32,6 @@
     Ribose-Map uses [Bowtie 2](https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.1), [BEDtools](http://bedtools.readthedocs.io/en/latest/content/installation.html), [SAMtools](http://www.htslib.org/download/), [cutadapt](http://cutadapt.readthedocs.io/en/stable/), [UMI-tools](https://github.com/CGATOxford/UMI-tools), [R](https://cran.r-project.org/), and [Python](https://www.python.org/) to analyze and visualize data.  
 To ensure easy installation and versioning of these software, we recommend using the MiniConda package manager.
 
-**Steps 3 and 4 should be run from withing ribose-map/lib**
-
 2. **Install pre-requisite packages for conda**:
    ```
    python3 -m pip install pycosat pyyaml requests --user
@@ -41,11 +39,13 @@ To ensure easy installation and versioning of these software, we recommend using
 
 3. **Install MiniConda and source your .bashrc file**:  
    * Follow prompts to install MiniConda in home directory
+   * Run these commands from within ribose-map/lib directory
    ```
    sh lib/Miniconda3-latest-Linux-x86_64.sh && . ~/.bashrc
    ```
 
 4. **Create environment in which to run Ribose-Map**:  
+   * Run these commands from within ribose-map/lib directory
    ```
    conda update conda
    conda install anaconda-client anaconda-build conda-build
