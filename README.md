@@ -24,12 +24,9 @@
 
 1. **Clone Ribose-Map GitHub repository**:  
    * Click [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for information on installing Git on Linux
+   * Add ribose-map/modules to your PATH
    ```
    git clone https://github.com/agombolay/ribose-map/
-   ```
-2. **Add directory of scripts to your PATH**:
-   ```
-   export PATH=path/to/ribose-map/modules:$PATH
    ```
    
     Ribose-Map uses [Bowtie 2](https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.1), [BEDtools](http://bedtools.readthedocs.io/en/latest/content/installation.html), [SAMtools](http://www.htslib.org/download/), [cutadapt](http://cutadapt.readthedocs.io/en/stable/), [UMI-tools](https://github.com/CGATOxford/UMI-tools), [R](https://cran.r-project.org/), and [Python](https://www.python.org/) to analyze and visualize data.  
