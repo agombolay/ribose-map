@@ -11,4 +11,5 @@ dependencies:
   - cutadapt
   - umi_tools
   - r-ggplot2
+  - sra-tools
   - python=3.5.2
