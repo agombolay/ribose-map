@@ -29,7 +29,7 @@
    ```
 2. **Add directory of scripts to your PATH**:
    ```
-   export PATH=$HOME/ribose-map/modules:$PATH
+   export PATH=path/to/ribose-map/modules:$PATH
    ```
    
     Ribose-Map uses [Bowtie 2](https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.1), [BEDtools](http://bedtools.readthedocs.io/en/latest/content/installation.html), [SAMtools](http://www.htslib.org/download/), [cutadapt](http://cutadapt.readthedocs.io/en/stable/), [UMI-tools](https://github.com/CGATOxford/UMI-tools), [R](https://cran.r-project.org/), and [Python](https://www.python.org/) to analyze and visualize data.  
