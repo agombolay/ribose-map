@@ -24,7 +24,7 @@
 
 1. **Clone Ribose-Map GitHub repository**:  
    * Click [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for information on installing Git on Linux
-   * Add ribose-map/modules to your PATH
+   * Add ribose-map/modules directory to your PATH
    ```
    git clone https://github.com/agombolay/ribose-map/
    ```
