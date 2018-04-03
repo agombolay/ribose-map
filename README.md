@@ -5,7 +5,7 @@
 
 ## Modules
 **Process rNMP sequencing data independent of the rNMP sequencing technique**:  
-* **Alignment**: Align reads to the reference with Bowtie2 and de-depulicated based on UMI's UMI-tools  
+* **Alignment**: Align reads to reference, de-depulicate based on UMIs, and de-multiplex by barcode  
 * **Coordinate**: Locate genomic coordinates of rNMPs for ribose-seq, Pu-seq, emRibo-seq, or HydEn-seq  
 
 **Analyze sequence context of embedded rNMPs and their genome-wide distribution**:  
@@ -15,7 +15,7 @@
 &nbsp;
 ## Required Data
 **Ribose-Map requires the following files**:
-1. FASTQ files of sequencing data generating using NGS
+1. FASTQ files of sequencing data generated using NGS
 2. Bowtie2 indexes (extension .bt2) for reference genome
 3. FASTA file of nucleotide sequence of reference genome
 4. Configuration file (example is provided in ribose-map/lib)
