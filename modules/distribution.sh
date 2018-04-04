@@ -39,7 +39,9 @@ elif [[ $read2 ]]; then
 		total_reads=$(samtools view -f67 -F260 -c $repository/results/$sample/alignment/$sample.bam)
 		awk -v "OFS=\t" -v total="$total_reads" '{print $1,$2,$3,$4/total*1000000,$5}' $coverage > $output/normalized.tab
 	done
-	
+
+fi
+
 #Save coverage of rNMPs per chromosome to separate files
 for chromosome in $( awk '{print $1}' $output/reference.bed ); do
 	grep -w "$chromosome" $output/normalized.tab > $output/$sample-$chromosome.tab
