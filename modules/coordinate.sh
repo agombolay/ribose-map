@@ -28,7 +28,9 @@ fi
 
 #Convert alignment file to BED format
 bedtools bamtobed -i $output/temp.bam > $output/temp1.bed
-	
+
+echo $technique
+
 #Determine coordinates for each technique
 if [[ $technique == "ribose-seq" ]]; then
 	
