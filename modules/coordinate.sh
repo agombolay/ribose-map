@@ -29,8 +29,6 @@ fi
 #Convert alignment file to BED format
 bedtools bamtobed -i $output/temp.bam > $output/temp1.bed
 
-echo $technique
-
 #Determine coordinates for each technique
 if [[ $technique == "ribose-seq" ]]; then
 	
@@ -41,7 +39,7 @@ if [[ $technique == "ribose-seq" ]]; then
 	awk -v "OFS=\t" '$6 == "+" {print $1,$2,($2 + 1)," "," ","-"}' $output/temp1.bed >> $output/temp3.bed
 	
 elif [[ $technique == "emRiboSeq" ]]; then
-	echo $technique
+	
 	#Create FASTA index and BED file for reference
 	samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 
