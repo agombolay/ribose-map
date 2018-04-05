@@ -64,18 +64,18 @@ source activate ribosemap_env
 
      1. **Process the data**
      ```
-     sh alignment.sh configuration_file
-     sh coordinate.sh configuration_file
+     ./alignment.sh configuration_file
+     ./coordinate.sh configuration_file
      ```
      2. **Analyze the data**
      ```
-     sh sequence.sh configuration_file
-     sh distribution.sh configuration_file
+     ./sequence.sh configuration_file
+     ./distribution.sh configuration_file
      ```
      3. **Visualize the results**
      ```
-     R sequence.R configuration_file
-     R distribution.R configuration_file
+     ./sequence.R configuration_file
+     ./distribution.R configuration_file
      ```
 
 3. **Once the analysis is complete, exit environment**:  
