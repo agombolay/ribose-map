@@ -5,6 +5,7 @@ channels:
   - conda-forge
 
 dependencies:
+  - fastqc
   - bowtie2
   - samtools
   - bedtools
