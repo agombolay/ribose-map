@@ -5,7 +5,6 @@ channels:
   - conda-forge
 
 dependencies:
-  - fastqc
   - bowtie2
   - samtools
   - bedtools
@@ -13,4 +12,5 @@ dependencies:
   - umi_tools
   - r-ggplot2
   - sra-tools
+  -trim-galore
   - python=3.5.2
