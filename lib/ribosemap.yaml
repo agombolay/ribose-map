@@ -12,5 +12,5 @@ dependencies:
   - umi_tools
   - r-ggplot2
   - sra-tools
-  -trim-galore
+  - trim-galore
   - python=3.5.2
