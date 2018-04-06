@@ -17,7 +17,7 @@ output=$repository/results/$sample/coordinates; rm -rf $output; mkdir -p $output
 #############################################################################################################################
 #Remove unaligned reads
 if [[ ! $read2 ]]; then
-	samtools view -b -q 30 -F260 $repository/results/$sample/alignment/$sample.bam | samtools sort - -o $output/temp.bam
+	samtools view -b -q 20 -F260 $repository/results/$sample/alignment/$sample.bam | samtools sort - -o $output/temp.bam
 	samtools index $output/temp.bam
 
 #Keep only first read in pair
