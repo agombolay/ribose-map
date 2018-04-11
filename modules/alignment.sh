@@ -28,26 +28,26 @@ if [[ ! $read2 ]]; then
 		
 		umi_tools extract -v 0 -I $read1 -p $pattern -S $output/extracted1.fq
 		
-		if [[ ! $barcode ]]; then
+		#if [[ ! $barcode ]]; then
 		
-			bowtie2 -x $basename -U $output/extracted1.fq -S $output/aligned.sam 2> $output/alignment.log
-			samtools view -bS $output/aligned.sam | samtools sort - -o $output/sorted.bam
-			samtools index $output/sorted.bam
+		#	bowtie2 -x $basename -U $output/extracted1.fq -S $output/aligned.sam 2> $output/alignment.log
+		#	samtools view -bS $output/aligned.sam | samtools sort - -o $output/sorted.bam
+		#	samtools index $output/sorted.bam
 	
-			umi_tools dedup -v 0 -I $output/sorted.bam | samtools sort - -o $output/$sample.bam
-			samtools index $output/$sample.bam
+		#	umi_tools dedup -v 0 -I $output/sorted.bam | samtools sort - -o $output/$sample.bam
+		#	samtools index $output/$sample.bam
 		
-		elif [[ $barcode ]]; then
+		#elif [[ $barcode ]]; then
 			
-			grep -B 1 -A 2 ^$barcode $output/extracted1.fq | sed '/^--$/d' | cutadapt -u ${#barcode} - -o $output/demultiplexed1.fq
+		#	grep -B 1 -A 2 ^$barcode $output/extracted1.fq | sed '/^--$/d' | cutadapt -u ${#barcode} - -o $output/demultiplexed1.fq
   
-			bowtie2 -x $basename -U $output/demultiplexed1.fq -S $output/aligned.sam 2> $output/alignment.log
-			samtools view -bS $output/aligned.sam | samtools sort - -o $output/sorted.bam
-			samtools index $output/sorted.bam
+		#	bowtie2 -x $basename -U $output/demultiplexed1.fq -S $output/aligned.sam 2> $output/alignment.log
+		#	samtools view -bS $output/aligned.sam | samtools sort - -o $output/sorted.bam
+		#	samtools index $output/sorted.bam
 	
-			umi_tools dedup -v 0 -I $output/sorted.bam | samtools sort - -o $output/$sample.bam
-			samtools index $output/$sample.bam
-		fi
+		#	umi_tools dedup -v 0 -I $output/sorted.bam | samtools sort - -o $output/$sample.bam
+		#	samtools index $output/$sample.bam
+		#fi
 	fi
 	
 elif [[ $read2 ]]; then
@@ -86,21 +86,21 @@ elif [[ $read2 ]]; then
 fi
 
 #############################################################################################################################
-if [[ $pattern ]]; then
+#if [[ $pattern ]]; then
 	#Calculate % of reads that remain after de-duplication step
-	x=$(echo $(bc -l <<< "$(samtools view -c < $output/$sample.bam)")/$(bc -l <<< "$(samtools view -c < $output/sorted.bam)"))
+#	x=$(echo $(bc -l <<< "$(samtools view -c < $output/$sample.bam)")/$(bc -l <<< "$(samtools view -c < $output/sorted.bam)"))
 
 	#Save info about % of reads that remain after de-duplication step
-	echo -e "Reads that are unique based on UMI: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/duplication.log
-fi
+#	echo -e "Reads that are unique based on UMI: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/duplication.log
+#fi
 
-if [[ $barcode ]]; then
+#if [[ $barcode ]]; then
 	#Calculate % of reads that contain correct barcode sequence
-	y=$(echo $(bc -l <<< "$(wc -l < $output/demultiplexed1.fq)/4")/$(bc -l <<< "$(wc -l < $read1)/4"))
+#	y=$(echo $(bc -l <<< "$(wc -l < $output/demultiplexed1.fq)/4")/$(bc -l <<< "$(wc -l < $read1)/4"))
 
 	#Save info about % of reads that contain correct barcode sequence
-	echo -e "Reads that contain the barcode, $barcode: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/barcode.log
-fi
+#	echo -e "Reads that contain the barcode, $barcode: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/barcode.log
+#fi
 
 #############################################################################################################################
 #Print status
