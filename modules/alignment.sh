@@ -88,7 +88,7 @@ fi
 #############################################################################################################################
 if [[ $pattern ]]; then
 	#Calculate % of reads that remain after de-duplication step
-	x=$(echo $(bc -l <<< "$(samtools view -c < $output/$sample.bam)")/$(bc -l <<< "$(samtools view -c < $output/sorted.bam)"))
+	x=$(echo $(bc -l <<< "$(samtools view -F260 -c < $output/$sample.bam)")/$(bc -l <<< "$(samtools view -F260 -c < $output/sorted.bam)"))
 
 	#Save info about % of reads that remain after de-duplication step
 	echo -e "Reads that are unique based on UMI: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/duplication.log
