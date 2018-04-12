@@ -99,7 +99,7 @@ if [[ $barcode ]]; then
 	y=$(echo $(bc -l <<< "$(wc -l < $output/demultiplexed1.fq)/4")/$(bc -l <<< "$(wc -l < $read1)/4"))
 
 	#Save info about % of reads that contain correct barcode sequence
-	echo -e "Reads that contain the barcode, $barcode: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/barcode.log
+	echo -e "Reads that contain barcode, $barcode: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/barcode.log
 fi
 
 #############################################################################################################################
