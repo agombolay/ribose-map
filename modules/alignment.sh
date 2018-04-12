@@ -91,7 +91,7 @@ if [[ $pattern ]]; then
 	x=$(echo $(bc -l <<< "$(samtools view -F260 -c < $output/$sample.bam)")/$(bc -l <<< "$(samtools view -F260 -c < $output/sorted.bam)"))
 
 	#Save info about % of reads that remain after de-duplication step
-	echo -e "Reads that are unique based on UMI: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/duplication.log
+	echo -e "% of aligned reads that are unique based on UMI: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/duplication.log
 fi
 
 if [[ $barcode ]]; then
