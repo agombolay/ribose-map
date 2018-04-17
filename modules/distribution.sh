@@ -12,19 +12,12 @@
 . "$1"
 
 #Output directory
-output=$repository/results/$sample/distribution
-
-#Create new directory
-rm -rf $output; mkdir -p $output
+output=$repository/results/$sample/distribution; rm -rf $output; mkdir -p $output
 
 #############################################################################################################################
-#Create FASTA index and BED file for reference genome
-samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
-
 #Create file of rNMP coverage at chromosome coordinates
 uniq -c $repository/results/$sample/coordinates/$sample.bed | awk -v "OFS=\t" '{print $2,$3,$4,$1,$5}' > $output/temp.tab
 
-#############################################################################################################################
 #Calculate normalized per-nucleotide coverage
 if [[ ! $read2 ]]; then
 
@@ -41,6 +34,9 @@ elif [[ $read2 ]]; then
 	done
 
 fi
+
+#Create FASTA index and BED file for reference genome
+samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 
 #Save coverage of rNMPs per chromosome to separate files
 for chromosome in $( awk '{print $1}' $output/reference.bed ); do
