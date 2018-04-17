@@ -11,7 +11,7 @@
 #Load config file
 . "$1"
 
-#Output directory
+#Create output directory
 output=$repository/results/$sample/distribution; rm -rf $output; mkdir -p $output
 
 #############################################################################################################################
