@@ -18,7 +18,7 @@ output=$repository/results/$sample/distribution; rm -rf $output; mkdir -p $outpu
 #Create file of rNMP coverage at chromosome coordinates
 uniq -c $repository/results/$sample/coordinates/$sample.bed | awk -v "OFS=\t" '{print $2,$3,$4,$1,$5}' > $output/temp.tab
 
-#Calculate normalized per-nucleotide coverage
+#Calculate normalized per-nucleotide coverage (reads per million)
 if [[ ! $read2 ]]; then
 
 	for file in $(ls $output/temp.tab); do
