@@ -87,7 +87,7 @@ fi
 
 #############################################################################################################################
 #Save info about # of reads per chromosome
-samtools idxstats $output/$sample.bam | cut -f 1,3 > ReadsPerChromosome.txt
+samtools idxstats $output/$sample.bam | cut -f 1,3 > $output/ReadsPerChromosome.txt
 
 if [[ $pattern ]]; then
 	#Calculate % of reads that remain after de-duplication step
