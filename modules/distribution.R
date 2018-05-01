@@ -35,7 +35,7 @@ for(file in input_files){
 	
 #############################################################################################################################
 		#Create plot
-		myplot <- ggplot(data,aes(V3, V4, colour = V5_new))+
+		myplot <- ggplot(data,aes(V3, V4, colour = V5_new)) +
 		
 		#Plot scatterplot and set font size
 		geom_point() + ylim(1, max(data$V4)) + theme(text=element_text(size = 20)) +
