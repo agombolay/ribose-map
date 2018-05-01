@@ -86,6 +86,9 @@ elif [[ $read2 ]]; then
 fi
 
 #############################################################################################################################
+#Save info about # of reads per chromosome
+samtools idxstats $output/$sample.bam | cut -f 1,3 > ReadsPerChromosome.txt
+
 if [[ $pattern ]]; then
 	#Calculate % of reads that remain after de-duplication step
 	x=$(echo $(bc -l <<< "$(samtools view -F260 -c < $output/$sample.bam)")/$(bc -l <<< "$(samtools view -F260 -c < $output/sorted.bam)"))
