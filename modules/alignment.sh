@@ -101,6 +101,8 @@ fi
 samtools idxstats $output/temp.bam | cut -f 1,3 | grep 'chrM' > $output/$sample.log
 echo -e "Nucleus\t$(echo $(samtools view -c $output/temp.bam)-$(samtools idxstats $output/temp.bam | cut -f 1,3 | grep -E '(chrM|MT)' | cut -f 2) | bc -l)" >> $output/$sample.log
 
+tail -1 $output/alignment.log >> $output/$sample.log
+
 if [[ $pattern ]]; then
 	#Calculate % of reads that remain after de-duplication step
 	x=$(echo $(bc -l <<< "$(samtools view -F260 -c < $output/$sample.bam)")/$(bc -l <<< "$(samtools view -F260 -c < $output/sorted.bam)"))
