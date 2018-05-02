@@ -97,7 +97,7 @@ elif [[ $read2 ]]; then
 	samtools index $output/temp.bam
 fi
 
-#Save info about # of reads per chromosome
+#Save info about number of reads per nucleus and mito
 samtools idxstats $output/temp.bam | cut -f 1,3 | grep 'chrM' > $output/ReadsPerRegion.log
 echo -e "Nucleus\t$(echo $(samtools view -c < $output/temp.bam)-$(samtools idxstats $output/temp.bam | cut -f 1,3 | grep -E '(chrM|MT)') | cut -f 2) | bc -l)" >> $output/ReadsPerRegion.log
 
