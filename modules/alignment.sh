@@ -86,6 +86,20 @@ elif [[ $read2 ]]; then
 fi
 
 #############################################################################################################################
+if [[ ! $read2 ]]; then
+	#Remove unaligned reads
+	samtools view -b -q 20 -F260 $output/$sample.bam | samtools sort - -o $output/temp.bam
+	samtools index $output/temp.bam
+
+elif [[ $read2 ]]; then
+	#Keep only first read in pair
+	samtools view -b -q 20 -f67 -F260 $output/$sample.bam | samtools sort - -o $output/temp.bam
+	samtools index $output/temp.bam
+fi
+
+#Save info about # of reads per chromosome
+samtools idxstats $output/temp.bam | cut -f 1,3 > $output/ReadsPerChromosome.txt
+
 if [[ $pattern ]]; then
 	#Calculate % of reads that remain after de-duplication step
 	x=$(echo $(bc -l <<< "$(samtools view -F260 -c < $output/$sample.bam)")/$(bc -l <<< "$(samtools view -F260 -c < $output/sorted.bam)"))
