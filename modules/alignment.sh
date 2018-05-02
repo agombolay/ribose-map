@@ -122,4 +122,4 @@ fi
 echo "Status: Alignment module for $sample is complete"
 
 #Remove temporary files
-rm -f $output/aligned.sam $output/{extracted*,demultiplexed*}.fq $output/sorted.{bam,bam.bai} $output/temp.bam
+rm -f $output/aligned.sam $output/{extracted*,demultiplexed*}.fq $output/sorted.{bam,bam.bai} $output/temp.{bam,bam.bai}
