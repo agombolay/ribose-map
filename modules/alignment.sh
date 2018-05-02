@@ -98,15 +98,15 @@ elif [[ $read2 ]]; then
 fi
 
 #Save info about number of reads per nucleus and mito
-samtools idxstats $output/temp.bam | cut -f 1,3 | grep 'chrM' > $output/ReadsPerRegion.log
-echo -e "Nucleus\t$(echo $(samtools view -c $output/temp.bam)-$(samtools idxstats $output/temp.bam | cut -f 1,3 | grep -E '(chrM|MT)' | cut -f 2) | bc -l)" >> $output/ReadsPerRegion.log
+samtools idxstats $output/temp.bam | cut -f 1,3 | grep 'chrM' > $output/$sample.log
+echo -e "Nucleus\t$(echo $(samtools view -c $output/temp.bam)-$(samtools idxstats $output/temp.bam | cut -f 1,3 | grep -E '(chrM|MT)' | cut -f 2) | bc -l)" >> $output/$sample.log
 
 if [[ $pattern ]]; then
 	#Calculate % of reads that remain after de-duplication step
 	x=$(echo $(bc -l <<< "$(samtools view -F260 -c < $output/$sample.bam)")/$(bc -l <<< "$(samtools view -F260 -c < $output/sorted.bam)"))
 
 	#Save info about % of reads that remain after de-duplication step
-	echo -e "% of aligned reads that are unique based on UMI: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/duplication.log
+	echo -e "Aligned reads that remain after de-duplication: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" >> $output/$sample.log
 fi
 
 if [[ $barcode ]]; then
@@ -114,7 +114,7 @@ if [[ $barcode ]]; then
 	y=$(echo $(bc -l <<< "$(wc -l < $output/demultiplexed1.fq)/4")/$(bc -l <<< "$(wc -l < $read1)/4"))
 
 	#Save info about % of reads that contain correct barcode sequence
-	echo -e "% of raw reads that contain barcode, $barcode: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" > $output/barcode.log
+	echo -e "Raw reads that contain the 5' barcode, $barcode: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" >> $output/$sample.log
 fi
 
 #############################################################################################################################
