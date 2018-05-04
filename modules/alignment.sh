@@ -98,8 +98,8 @@ elif [[ $read2 ]]; then
 fi
 
 #Save info about number of reads per nucleus and mito
-samtools idxstats $output/temp.bam | cut -f 1,3 | grep 'chrM' > $output/$sample.log
-echo -e "Nucleus\t$(echo $(samtools view -c $output/temp.bam)-$(samtools idxstats $output/temp.bam | cut -f 1,3 | grep -E '(chrM|MT)' | cut -f 2) | bc -l)" >> $output/$sample.log
+samtools idxstats $output/temp.bam | cut -f 1,3 | grep -wE '(chrM|MT)' > $output/$sample.log
+echo -e "Nucleus\t$(echo $(samtools view -c $output/temp.bam)-$(samtools idxstats $output/temp.bam | cut -f 1,3 | grep -wE '(chrM|MT)' | cut -f 2) | bc -l)" >> $output/$sample.log
 
 tail -1 $output/alignment.log >> $output/$sample.log
 
