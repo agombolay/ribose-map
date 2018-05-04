@@ -24,7 +24,7 @@ for subset in "mitochondria" "nucleus"; do
 
 	#Subset FASTA file based on region
 	if [[ $subset == "nucleus" ]]; then
-		chr=$(awk '{print $1}' $output/reference.bed | grep -vE '(chrM|MT)')
+		chr=$(awk '{print $1}' $output/reference.bed | grep -wvE '(chrM|MT)')
 		samtools faidx $fasta $chr > $output/temp.fa && samtools faidx $output/temp.fa
 	elif [[ $subset == "mitochondria" ]]; then
 		chr=$(awk '{print $1}' $output/reference.bed | grep -wE '(chrM|MT)')
@@ -67,7 +67,7 @@ for subset in "mitochondria" "nucleus"; do
 		
 	#Subset and sort unique coordinates based on genomic region
 	if [[ $subset == "nucleus" ]]; then
-		uniq $repository/results/$sample/coordinates/$sample.bed | grep -vE '(chrM|MT)' > $output/Coords.bed
+		uniq $repository/results/$sample/coordinates/$sample.bed | grep -wvE '(chrM|MT)' > $output/Coords.bed
 	elif [[ $subset == "mitochondria" ]]; then
 		uniq $repository/results/$sample/coordinates/$sample.bed | grep -wE '(chrM|MT)' > $output/Coords.bed
 	fi
