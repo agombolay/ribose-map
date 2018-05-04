@@ -69,7 +69,7 @@ for subset in "mitochondria" "nucleus"; do
 	if [[ $subset == "nucleus" ]]; then
 		uniq $repository/results/$sample/coordinates/$sample.bed | grep -vE '(chrM|MT)' > $output/Coords.bed
 	elif [[ $subset == "mitochondria" ]]; then
-		uniq $repository/results/$sample/coordinates/$sample.bed | grep -E '(chrM|MT)' > $output/Coords.bed
+		uniq $repository/results/$sample/coordinates/$sample.bed | grep -wE '(chrM|MT)' > $output/Coords.bed
 	fi
 	
 	if [[ -s $output/Coords.bed ]]; then
