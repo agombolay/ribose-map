@@ -27,7 +27,7 @@ for subset in "mitochondria" "nucleus"; do
 		chr=$(awk '{print $1}' $output/reference.bed | grep -vE '(chrM|MT)')
 		samtools faidx $fasta $chr > $output/temp.fa && samtools faidx $output/temp.fa
 	elif [[ $subset == "mitochondria" ]]; then
-		chr=$(awk '{print $1}' $output/reference.bed | grep -E '(chrM|MT)')
+		chr=$(awk '{print $1}' $output/reference.bed | grep -wE '(chrM|MT)')
 		samtools faidx $fasta $chr > $output/temp.fa && samtools faidx $output/temp.fa
 	fi
 
