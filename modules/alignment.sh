@@ -43,7 +43,6 @@ if [[ ! $read2 ]]; then
 			#grep -B 1 -A 2 ^$barcode $output/extracted1.fq | sed '/^--$/d' | cutadapt -u ${#barcode} - -o $output/demultiplexed1.fq
   
   			bowtie2 -x $basename -U $output/extracted1.fq -S $output/aligned.sam 2> $output/alignment.log
-			
 			#bowtie2 -x $basename -U $output/demultiplexed1.fq -S $output/aligned.sam 2> $output/alignment.log
 			samtools view -bS $output/aligned.sam | samtools sort - -o $output/sorted.bam
 			samtools index $output/sorted.bam
@@ -91,22 +90,22 @@ elif [[ $read2 ]]; then
 fi
 
 #############################################################################################################################
-if [[ ! $read2 ]]; then
+#if [[ ! $read2 ]]; then
 	#Remove unaligned and low-quality reads
-	samtools view -b -q 20 -F260 $output/$sample.bam | samtools sort - -o $output/temp.bam
-	samtools index $output/temp.bam
+#	samtools view -b -q 20 -F260 $output/$sample.bam | samtools sort - -o $output/temp.bam
+#	samtools index $output/temp.bam
 
-elif [[ $read2 ]]; then
+#elif [[ $read2 ]]; then
 	#Keep only first read in pair for PE reads
-	samtools view -b -q 20 -f67 -F260 $output/$sample.bam | samtools sort - -o $output/temp.bam
-	samtools index $output/temp.bam
-fi
+#	samtools view -b -q 20 -f67 -F260 $output/$sample.bam | samtools sort - -o $output/temp.bam
+#	samtools index $output/temp.bam
+#fi
 
 #Save info about number of reads per nucleus and mito
-samtools idxstats $output/temp.bam | cut -f 1,3 | grep -wE '(chrM|MT)' > $output/$sample.log
-echo -e "Nucleus\t$(echo $(samtools view -c $output/temp.bam)-$(samtools idxstats $output/temp.bam | cut -f 1,3 | grep -wE '(chrM|MT)' | cut -f 2) | bc -l)" >> $output/$sample.log
+#samtools idxstats $output/temp.bam | cut -f 1,3 | grep -wE '(chrM|MT)' > $output/$sample.log
+#echo -e "Nucleus\t$(echo $(samtools view -c $output/temp.bam)-$(samtools idxstats $output/temp.bam | cut -f 1,3 | grep -wE '(chrM|MT)' | cut -f 2) | bc -l)" >> $output/$sample.log
 
-tail -1 $output/alignment.log >> $output/$sample.log
+#tail -1 $output/alignment.log >> $output/$sample.log
 
 if [[ $pattern ]]; then
 	#Calculate % of reads that remain after de-duplication step
@@ -116,13 +115,13 @@ if [[ $pattern ]]; then
 	echo -e "Aligned reads that remain after de-duplication: $(echo "$x*100" | bc -l | xargs printf "%.*f\n" 2)%" >> $output/$sample.log
 fi
 
-if [[ $barcode ]]; then
+#if [[ $barcode ]]; then
 	#Calculate % of reads that contain correct barcode sequence
-	y=$(echo $(bc -l <<< "$(wc -l < $output/demultiplexed1.fq)/4")/$(bc -l <<< "$(wc -l < $read1)/4"))
+#	y=$(echo $(bc -l <<< "$(wc -l < $output/demultiplexed1.fq)/4")/$(bc -l <<< "$(wc -l < $read1)/4"))
 
 	#Save info about % of reads that contain correct barcode sequence
-	echo -e "Raw reads that contain the 5' barcode, $barcode: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" >> $output/$sample.log
-fi
+#	echo -e "Raw reads that contain the 5' barcode, $barcode: $(echo "$y*100" | bc -l | xargs printf "%.*f\n" 2)%" >> $output/$sample.log
+#fi
 
 #############################################################################################################################
 #Print status
