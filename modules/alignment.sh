@@ -26,7 +26,8 @@ if [[ ! $read2 ]]; then
 
 	elif [[ $pattern ]]; then
 		
-		umi_tools extract -v 0 -I $read1 -p $pattern -S $output/extracted1.fq
+		#umi_tools extract -v 0 -I $read1 -p $pattern -S $output/extracted1.fq
+		umitools trim --end 5 $read1 $pattern > $output/extracted1.fq
 		
 		if [[ ! $barcode ]]; then
 		
@@ -39,13 +40,17 @@ if [[ ! $read2 ]]; then
 		
 		elif [[ $barcode ]]; then
 			
-			grep -B 1 -A 2 ^$barcode $output/extracted1.fq | sed '/^--$/d' | cutadapt -u ${#barcode} - -o $output/demultiplexed1.fq
+			#grep -B 1 -A 2 ^$barcode $output/extracted1.fq | sed '/^--$/d' | cutadapt -u ${#barcode} - -o $output/demultiplexed1.fq
   
-			bowtie2 -x $basename -U $output/demultiplexed1.fq -S $output/aligned.sam 2> $output/alignment.log
+  			bowtie2 -x $basename -U $output/extracted1.fq -S $output/aligned.sam 2> $output/alignment.log
+			
+			#bowtie2 -x $basename -U $output/demultiplexed1.fq -S $output/aligned.sam 2> $output/alignment.log
 			samtools view -bS $output/aligned.sam | samtools sort - -o $output/sorted.bam
 			samtools index $output/sorted.bam
 	
-			umi_tools dedup -v 0 -I $output/sorted.bam | samtools sort - -o $output/$sample.bam
+			#umi_tools dedup -v 0 -I $output/sorted.bam | samtools sort - -o $output/$sample.bam
+			umitools rmdup $output/sorted.bam $output/out.bam
+			samtools sort $output/out.bam -o $output/$sample.bam
 			samtools index $output/$sample.bam
 		fi
 	fi
