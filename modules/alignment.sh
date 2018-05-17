@@ -103,14 +103,14 @@ fi
 
 #Metrics
 total=$(echo $(wc -l $read1 | awk '{print $1}')/4)
+mito=$(samtools idxstats $output/temp.bam | grep -wE '(chrM|MT)' | cut -f 3)
+nucleus=$(samtools view -c $output/temp.bam)-$(echo $mito)
 
 #Log file
-echo -e "Total: $(echo $total | bc -l | xargs printf "%.*f\n" 2)" > $output/$sample.log
+echo -e "Reads Aligned to Mito: $(echo $mito)" > $output/$sample.log
+echo -e "Reads Aligned to Nucleus: $(echo $nucleus | bc -l)" >> $output/$sample.log
 
-#Save info about number of reads per nucleus and mito
-samtools idxstats $output/temp.bam | cut -f 1,3 | grep -wE '(chrM|MT)' >> $output/$sample.log
-echo -e "Nucleus\t$(echo $(samtools view -c $output/temp.bam)-$(samtools idxstats $output/temp.bam | cut -f 1,3 | grep -wE '(chrM|MT)' | cut -f 2) | bc -l)" >> $output/$sample.log
-
+echo -e "Total Raw Reads: $(echo $total | bc -l | xargs printf "%.*f\n" 2)" >> $output/$sample.log
 tail -1 $output/alignment.log >> $output/$sample.log
 
 if [[ $pattern ]]; then
