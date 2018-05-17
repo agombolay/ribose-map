@@ -101,6 +101,7 @@ elif [[ $read2 ]]; then
 	samtools index $output/temp.bam
 fi
 
+#############################################################################################################################
 #Metrics
 mito=$(samtools idxstats $output/temp.bam | grep -wE '(chrM|MT)' | cut -f 3)
 nucleus=$(echo $(samtools view -c $output/temp.bam)-$(echo $mito) | bc -l)
@@ -113,6 +114,7 @@ echo -e "Reads Aligned to Nuclear Chromosomes: $(echo $nucleus)" >> $output/$sam
 
 tail -1 $output/alignment.log >> $output/$sample.log
 
+#############################################################################################################################
 if [[ $pattern ]]; then
 	#Calculate % of reads that remain after de-duplication step
 	x=$(echo $(bc -l <<< "$(samtools view -F260 -c < $output/$sample.bam)")/$(bc -l <<< "$(samtools view -F260 -c < $output/sorted.bam)"))
