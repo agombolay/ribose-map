@@ -102,15 +102,15 @@ elif [[ $read2 ]]; then
 fi
 
 #Metrics
-total=$(echo $(wc -l $read1 | awk '{print $1}')/4)
 mito=$(samtools idxstats $output/temp.bam | grep -wE '(chrM|MT)' | cut -f 3)
-nucleus=$(samtools view -c $output/temp.bam)-$(echo $mito)
+nucleus=$(echo $(samtools view -c $output/temp.bam)-$(echo $mito) | bc -l)
+total=$(echo $(wc -l $read1 | awk '{print $1}')/4 | bc -l | xargs printf "%.*f\n" 2)
 
 #Log file
-echo -e "Reads Aligned to Mito: $(echo $mito)" > $output/$sample.log
-echo -e "Reads Aligned to Nucleus: $(echo $nucleus | bc -l)" >> $output/$sample.log
+echo -e "Total Raw Reads: $(echo $total)" > $output/$sample.log
+echo -e "Reads Aligned to Mitochondrial DNA: $(echo $mito)" >> $output/$sample.log
+echo -e "Reads Aligned to Nuclear Chromosomes: $(echo $nucleus)" >> $output/$sample.log
 
-echo -e "Total Raw Reads: $(echo $total | bc -l | xargs printf "%.*f\n" 2)" >> $output/$sample.log
 tail -1 $output/alignment.log >> $output/$sample.log
 
 if [[ $pattern ]]; then
