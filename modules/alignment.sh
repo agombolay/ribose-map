@@ -49,7 +49,7 @@ if [[ ! $read2 ]]; then
 	
 			umi_tools dedup -v 0 -I $output/sorted.bam | samtools sort - -o $output/$sample.bam
 			#umitools rmdup $output/sorted.bam $output/out.bam
-			samtools sort $output/out.bam -o $output/$sample.bam
+			#samtools sort $output/out.bam -o $output/$sample.bam
 			samtools index $output/$sample.bam
 		fi
 	fi
