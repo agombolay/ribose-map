@@ -101,7 +101,11 @@ elif [[ $read2 ]]; then
 	samtools index $output/temp.bam
 fi
 
-echo $(wc -l $read1 | awk '{print $1}')/4 | bc -l > $output/$sample.log
+#Metrics
+total=$(echo $(wc -l $read1 | awk '{print $1}')/4)
+
+#Log file
+echo -e "Total: $(echo $total | bc -l | xargs printf "%.*f\n" 2)" > $output/$sample.log
 
 #Save info about number of reads per nucleus and mito
 samtools idxstats $output/temp.bam | cut -f 1,3 | grep -wE '(chrM|MT)' >> $output/$sample.log
