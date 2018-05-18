@@ -40,11 +40,11 @@ for(file in input_files){
 				 #Plot forward and reverse strands separately
 				 facet_wrap(~V5_new, ncol = 1, labeller = labeller(V5_new = labels)) + 
 		
+				 #Specify font size, no legend, and y-axis limits
+				 theme(text = element_text(size = 20)) + theme(legend.position = "none") +
+		
 				 #Decrease space between barcharts and x/y axes
 				 scale_y_continuous(expand = c(0.015, 0)) + scale_x_continuous(expand = c(0.015, 0)) +
-		
-				 #Specify font size, no legend, and y-axis limits
-				 theme(text = element_text(size = 20)) + theme(legend.position = "none") + ylim(1, max(data$V4)) +
 	
 				 #Specify titles for axes and colors for barcharts
 				 xlab("Chromosome Coordinate") + ylab("rNMP Coverage (RPM)") + scale_colour_manual(values = c("blue", "green3")) +
