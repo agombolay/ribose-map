@@ -35,22 +35,22 @@ for(file in input_files){
 	
 #############################################################################################################################
 		#Create plot
-		myplot <- ggplot(data,aes(V3, V4, colour = V5_new)) +
+		myplot <- ggplot(data, aes(V3, V4, colour = V5_new)) + geom_bar(stat = "identity") +
 		
-		#Plot scatterplot and set font size
-		geom_bar(stat = "identity") + ylim(1, max(data$V4)) + theme(text=element_text(size = 20)) +
-	
-		#Decrease space between data and axes
-		scale_y_continuous(expand = c(0.015,0)) + scale_x_continuous(expand = c(0.015,0)) +
+			  #Plot forward and reverse strands, no legend
+			  facet_wrap(~V5_new, ncol = 1, labeller = labeller(V5_new = labels)) + 
 		
-		#Plot forward and reverse strands, no legend
-		facet_wrap(~V5_new, ncol = 1, labeller = labeller(V5_new = labels)) + theme(legend.position = "none") +
+			  #Decrease space between data and axes
+			  scale_y_continuous(expand = c(0.015, 0)) + scale_x_continuous(expand = c(0.015, 0)) +
+		
+			  #Plot scatterplot and set font size
+			  theme(text = element_text(size = 20)) + theme(legend.position = "none") + ylim(1, max(data$V4)) +
 	
-		#Specify colors for scatterplot and titles for axes
-		scale_colour_manual(values = c("blue", "green3")) + xlab("Chromosome Position") + ylab("rNMP Coverage (RPM)") +
+			  #Specify colors for scatterplot and titles for axes
+			  xlab("Chromosome Coordinate") + ylab("rNMP Coverage (RPM)") + scale_colour_manual(values = c("blue", "green3"))
 	
-		#Remove and replace default background theme of plot
-		theme(panel.grid = element_blank(), panel.background = element_blank(), axis.line=element_line(colour = "black"))
+			  #Remove and replace default background theme of plot
+			  theme(panel.grid = element_blank(), panel.background = element_blank(), axis.line=element_line(colour = "black"))
 		
 #############################################################################################################################
 		#Save plot as PNG file
