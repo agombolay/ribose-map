@@ -61,4 +61,4 @@ awk -v "OFS=\t" '$5 == "-" {print $1,$2,$3,$4}' $output/temp.tab >> $output/$sam
 echo "Status: Distribution module for $sample is complete"
 	
 #Remove temporary files
-rm $output/reference.bed $output/temp.tab $output/normalized.tab
+#rm $output/reference.bed $output/temp.tab $output/normalized.tab
