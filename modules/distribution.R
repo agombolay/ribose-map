@@ -47,7 +47,7 @@ for(file in input_files){
 			  theme(text = element_text(size = 20)) + theme(legend.position = "none") + ylim(1, max(data$V4)) +
 	
 			  #Specify colors for scatterplot and titles for axes
-			  xlab("Chromosome Coordinate") + ylab("rNMP Coverage (RPM)") + scale_colour_manual(values = c("blue", "green3"))
+			  xlab("Chromosome Coordinate") + ylab("rNMP Coverage (RPM)") + scale_colour_manual(values = c("blue", "green3")) +
 	
 			  #Remove and replace default background theme of plot
 			  theme(panel.grid = element_blank(), panel.background = element_blank(), axis.line=element_line(colour = "black"))
