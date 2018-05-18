@@ -17,12 +17,12 @@ output=$repository/results/$sample/coordinates; rm -rf $output; mkdir -p $output
 #############################################################################################################################
 if [[ ! $read2 ]]; then
 	#Remove unaligned reads
-	samtools view -b -F260 $repository/results/$sample/alignment/$sample.bam | samtools sort - -o $output/temp.bam
+	samtools view -b -F2308 $repository/results/$sample/alignment/$sample.bam | samtools sort - -o $output/temp.bam
 	samtools index $output/temp.bam
 
 elif [[ $read2 ]]; then
 	#Keep first read in pair
-	samtools view -b -f67 -F260 $repository/results/$sample/alignment/$sample.bam | samtools sort - -o $output/temp.bam
+	samtools view -b -f67 -F2308 $repository/results/$sample/alignment/$sample.bam | samtools sort - -o $output/temp.bam
 	samtools index $output/temp.bam
 fi
 
