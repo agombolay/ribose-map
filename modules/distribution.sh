@@ -23,14 +23,14 @@ if [[ ! $read2 ]]; then
 
 	for file in $(ls $output/temp.tab); do
 		total_reads=$(samtools view -q 20 -F260 -c $repository/results/$sample/alignment/$sample.bam)
-		awk -v "OFS=\t" -v total="$total_reads" '{print $1,$2,$3,$4/total*1000000,$5}' $file > $output/normalized.tab
+		awk -v "OFS=\t" -v total="$total_reads" '{print $1,$2,$3,$4/total*1000,$5}' $file > $output/normalized.tab
 	done
 
 elif [[ $read2 ]]; then
 
 	for file in $(ls $output/temp.tab); do
 		total_reads=$(samtools view -q 20 -f67 -F260 -c $repository/results/$sample/alignment/$sample.bam)
-		awk -v "OFS=\t" -v total="$total_reads" '{print $1,$2,$3,$4/total*1000000,$5}' $file > $output/normalized.tab
+		awk -v "OFS=\t" -v total="$total_reads" '{print $1,$2,$3,$4/total*1000,$5}' $file > $output/normalized.tab
 	done
 
 fi
