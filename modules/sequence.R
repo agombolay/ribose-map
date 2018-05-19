@@ -41,12 +41,12 @@ for(file in input_files){
 			combined <- ggplot(data, aes(x=position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") +
 		
 				           #Specify color and remove legend title
-                		    	   scale_colour_manual(values=colors, name="") + theme(legend.key = element_blank())
+                		    	   scale_colour_manual(values = c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name = "") +
 	
 				    	   #Plot as scatterplot with connecting lines
                 			   geom_line(aes(y=A, colour="A")) + geom_point(aes(y=A, colour="A")) + geom_line(aes(y=C, colour="C")) + 
 					   geom_point(aes(y=C, colour="C")) + geom_line(aes(y=G, colour="G")) + geom_point(aes(y=G, colour="G")) +
-                			   geom_line(aes(y=T, colour="U/T")) + geom_point(aes(y=T, colour="U/T")) +
+                			   geom_line(aes(y=T, colour="U/T")) + geom_point(aes(y=T, colour="U/T")) + theme(legend.key = element_blank())
 			
 					   #Format legend symbols and specify font size
 					   guides(colour=guide_legend(override.aes=list(size=5, linetype=0))) + theme(text=element_text(size=20)) +
