@@ -85,11 +85,11 @@ for(file in input_files){
 
 #############################################################################################################################
 			#Save plot as PNG file
-			ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep="")), plot=combined)
-			ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep="")), plot=nucleotideA)
-			ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep="")), plot=nucleotideC)
-			ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep="")), plot=nucleotideG)
-			ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep="")), plot=nucleotideT)
+			ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".combined", ".png", sep="")), plot=combined)
+			ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".nucleotideA", ".png", sep="")), plot=nucleotideA)
+			ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".nucleotideC", ".png", sep="")), plot=nucleotideC)
+			ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".nucleotideG", ".png", sep="")), plot=nucleotideG)
+			ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".nucleotideT", ".png", sep="")), plot=nucleotideT)
 }
 }
 }
