@@ -38,25 +38,25 @@ for(file in input_files){
 			#Create plot
 			myplot <- ggplot(data, aes(x=position)) +
 			
-			#Add axes titles and plot title
-			xlab("Chromosome Position") + ylab("rNMP Frequency") +
+				  #Add axes titles and plot title
+				  xlab("Chromosome Position") + ylab("Nucleotide Frequency") +
 		
-			#Specify font size and format legend
-			theme(text=element_text(size=20)) + theme(legend.key = element_blank()) +
+				  #Specify font size and format legend
+				  theme(text=element_text(size=20)) + theme(legend.key = element_blank()) +
 		
-			#Specify color values and remove legend title
-                	scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="") +
+				  #Specify color values and remove legend title
+                		  scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="") +
 	
-			#Plot data as scatterplot with connecting lines
-                	geom_line(aes(y=A, colour="A")) + geom_point(aes(y=A, colour="A")) + geom_line(aes(y=C, colour="C")) + 
-			geom_point(aes(y=C, colour="C")) + geom_line(aes(y=G, colour="G")) + geom_point(aes(y=G, colour="G")) +
-                	geom_line(aes(y=T, colour="U/T")) + geom_point(aes(y=T, colour="U/T")) +
+				  #Plot data as scatterplot with connecting lines
+                		  geom_line(aes(y=A, colour="A")) + geom_point(aes(y=A, colour="A")) + geom_line(aes(y=C, colour="C")) + 
+				  geom_point(aes(y=C, colour="C")) + geom_line(aes(y=G, colour="G")) + geom_point(aes(y=G, colour="G")) +
+                		  geom_line(aes(y=T, colour="U/T")) + geom_point(aes(y=T, colour="U/T")) +
 	
-			#Remove and replace default background theme of plot
-			theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black")) +
+				  #Remove and replace default background theme of plot
+				  theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black")) +
 			
-			#Specify size of legend symbols and remove line through them
-			guides(colour=guide_legend(override.aes=list(size=5, linetype=0)))
+				  #Specify size of legend symbols and remove line through them
+				  guides(colour=guide_legend(override.aes=list(size=5, linetype=0)))
 
 #############################################################################################################################
 			#Save plot as PNG file
