@@ -36,7 +36,7 @@ for(file in input_files){
 
 #############################################################################################################################
 			#Create plot
-			myplot <- ggplot(data, aes(x=position)) +
+			combined <- ggplot(data, aes(x=position)) +
 			
 				  #Add axes titles and plot title
 				  xlab("Chromosome Position") + ylab("Nucleotide Frequency") +
@@ -57,10 +57,22 @@ for(file in input_files){
 			
 				  #Specify size of legend symbols and remove line through them
 				  guides(colour=guide_legend(override.aes=list(size=5, linetype=0)))
+			
+#############################################################################################################################
+			nucleotideA <- ggplot(data, aes(x=position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") +
+		
+				  #Specify font size and format legend
+				  theme(text=element_text(size=20)) + theme(legend.key = element_blank()) + scale_colour_manual(values=c("#CC79A7"), name="") +
+	
+				  #Plot data as scatterplot with connecting lines
+                		  geom_line(aes(y=A, colour="A")) + geom_point(aes(y=A, colour="A")) + guides(colour=guide_legend(override.aes=list(size=5, linetype=0))) +
+	
+				  #Remove and replace default background theme of plot
+				  theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black"))
 
 #############################################################################################################################
 			#Save plot as PNG file
-			ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep="")), plot=myplot)
+			ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep="")), plot=combined)
 			
 }
 }
