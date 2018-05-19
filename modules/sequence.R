@@ -27,6 +27,8 @@ for(file in input_files){
 		for(i in c("normal", "zoomed")) {
 
 #############################################################################################################################
+			colors <- c("#CC79A7", "#56B4E9", "#E69F00", "#009E73")
+			
 			#Specify datasets to be used for each round of loop
 			if (i=="normal") {data=read.table(file, sep="\t", header=TRUE)}
 			if (i=="zoomed") {data=read.table(file, sep="\t", header=TRUE)[86:116,]}
@@ -36,52 +38,46 @@ for(file in input_files){
 
 #############################################################################################################################
 			#Create plot
-			combined <- ggplot(data, aes(x=position)) +
-			
-				  #Add axes titles and plot title
-				  xlab("Chromosome Position") + ylab("Nucleotide Frequency") +
+			combined <- ggplot(data, aes(x=position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") +
 		
-				  #Specify font size and format legend
-				  theme(text=element_text(size=20)) + theme(legend.key = element_blank()) +
-		
-				  #Specify color values and remove legend title
-                		  scale_colour_manual(values=c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name="") +
+				           #Specify color and remove legend title
+                		    	   scale_colour_manual(values=colors, name="") + theme(legend.key = element_blank())
 	
-				  #Plot data as scatterplot with connecting lines
-                		  geom_line(aes(y=A, colour="A")) + geom_point(aes(y=A, colour="A")) + geom_line(aes(y=C, colour="C")) + 
-				  geom_point(aes(y=C, colour="C")) + geom_line(aes(y=G, colour="G")) + geom_point(aes(y=G, colour="G")) +
-                		  geom_line(aes(y=T, colour="U/T")) + geom_point(aes(y=T, colour="U/T")) +
-	
-				  #Remove and replace default background theme of plot
-				  theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black")) +
+				    	   #Plot as scatterplot with connecting lines
+                			   geom_line(aes(y=A, colour="A")) + geom_point(aes(y=A, colour="A")) + geom_line(aes(y=C, colour="C")) + 
+					   geom_point(aes(y=C, colour="C")) + geom_line(aes(y=G, colour="G")) + geom_point(aes(y=G, colour="G")) +
+                			   geom_line(aes(y=T, colour="U/T")) + geom_point(aes(y=T, colour="U/T")) +
 			
-				  #Specify size of legend symbols and remove line through them
-				  guides(colour=guide_legend(override.aes=list(size=5, linetype=0)))
+					   #Format legend symbols and specify font size
+					   guides(colour=guide_legend(override.aes=list(size=5, linetype=0))) + theme(text=element_text(size=20)) +
+	
+					   #Simplify default ggplot2 background formatting
+				  	   theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black"))
 			
 #############################################################################################################################
 			nucleotideA <- ggplot(data, aes(x=position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") +
 		
-				       theme(text=element_text(size=20)) + theme(legend.key = element_blank()) + scale_colour_manual(values=c("#CC79A7"), name="") +
-                		       geom_line(aes(y=A, colour="A")) + geom_point(aes(y=A, colour="A")) + guides(colour=guide_legend(override.aes=list(size=5, linetype=0))) +
-				       theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black"))
+					      theme(text=element_text(size=20)) + theme(legend.key = element_blank()) + scale_colour_manual(values=c("#CC79A7"), name="") +
+                			      geom_line(aes(y=A, colour="A")) + geom_point(aes(y=A, colour="A")) + guides(colour=guide_legend(override.aes=list(size=5, linetype=0))) +
+					      theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black"))
 
 			nucleotideC <- ggplot(data, aes(x=position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") +
 		
-				       theme(text=element_text(size=20)) + theme(legend.key = element_blank()) + scale_colour_manual(values=c("#56B4E9"), name="") +
-                		       geom_line(aes(y=C, colour="C")) + geom_point(aes(y=C, colour="C")) + guides(colour=guide_legend(override.aes=list(size=5, linetype=0))) +
-				       theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black"))
+					      theme(text=element_text(size=20)) + theme(legend.key = element_blank()) + scale_colour_manual(values=c("#56B4E9"), name="") +
+                			      geom_line(aes(y=C, colour="C")) + geom_point(aes(y=C, colour="C")) + guides(colour=guide_legend(override.aes=list(size=5, linetype=0))) +
+					      theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black"))
 			
 			nucleotideG <- ggplot(data, aes(x=position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") +
 		
-				       theme(text=element_text(size=20)) + theme(legend.key = element_blank()) + scale_colour_manual(values=c("#E69F00"), name="") +
-                		       geom_line(aes(y=G, colour="G")) + geom_point(aes(y=G, colour="G")) + guides(colour=guide_legend(override.aes=list(size=5, linetype=0))) +
-				       theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black"))
+					      theme(text=element_text(size=20)) + theme(legend.key = element_blank()) + scale_colour_manual(values=c("#E69F00"), name="") +
+                			      geom_line(aes(y=G, colour="G")) + geom_point(aes(y=G, colour="G")) + guides(colour=guide_legend(override.aes=list(size=5, linetype=0))) +
+					      theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black"))
 
 			nucleotideT <- ggplot(data, aes(x=position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") +
 		
-				       theme(text=element_text(size=20)) + theme(legend.key = element_blank()) + scale_colour_manual(values=c("#009E73"), name="") +
-                		       geom_line(aes(y=T, colour="T")) + geom_point(aes(y=T, colour="T")) + guides(colour=guide_legend(override.aes=list(size=5, linetype=0))) +
-				       theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black"))
+					      theme(text=element_text(size=20)) + theme(legend.key = element_blank()) + scale_colour_manual(values=c("#009E73"), name="") +
+                			      geom_line(aes(y=T, colour="T")) + geom_point(aes(y=T, colour="T")) + guides(colour=guide_legend(override.aes=list(size=5, linetype=0))) +
+					      theme(panel.grid=element_blank(), panel.background=element_blank(), axis.line=element_line(colour="black"))
 
 #############################################################################################################################
 			#Save plot as PNG file
