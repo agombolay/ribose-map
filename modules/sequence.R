@@ -19,6 +19,13 @@ output <- file.path(repository, "results", sample, "sequence")
 input_files <- list.files(path = output, pattern = ".tab", full.names = T, recursive = F)
 
 for(file in input_files){
+	if (file.info(file)$size > 0){
+		data = read.table(file, sep = "\t", header = TRUE)
+
+}
+}
+
+for(file in input_files){
 	
 	#Check size of file > 0
 	if (file.info(file)$size > 0){
