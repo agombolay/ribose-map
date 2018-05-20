@@ -23,14 +23,11 @@ input_files <- list.files(path = output, pattern = ".tab", full.names = T, recur
 maximum <- c()
 
 for(file in input_files){
-
 	if (file.info(file)$size > 0){
-		
 		data = read.table(file, sep = "\t", header = F)
 		maximum <- c(maximum, max(data$V4))
 }
 }
-
 ylimit <- max(maximum)
 
 for(file in input_files){
