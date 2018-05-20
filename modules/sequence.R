@@ -16,7 +16,7 @@ library(ggplot2); library(tools)
 #############################################################################################################################
 #Specify output directory and file
 output <- file.path(repository, "results", sample, "sequence")
-input_files <- list.files(path=output, pattern=".tab", full.names=T, recursive=F)
+input_files <- list.files(path = output, pattern = ".tab", full.names = T, recursive = F)
 
 for(file in input_files){
 	
@@ -28,8 +28,8 @@ for(file in input_files){
 
 #############################################################################################################################
 			#Specify datasets to be used for each round of loop
-			if (i=="normal") {data=read.table(file, sep="\t", header=TRUE)}
-			if (i=="zoomed") {data=read.table(file, sep="\t", header=TRUE)[86:116,]}
+			if (i == "normal") {data = read.table(file, sep = "\t", header = TRUE)}
+			if (i == "zoomed") {data = read.table(file, sep = "\t", header = TRUE)[86:116,]}
     
 			#Define variables to store nucleotide positions and frequency values
 			position <- data$X; A <- data$A; C <- data$C; G <- data$G; T <- data$U.T
@@ -79,11 +79,11 @@ for(file in input_files){
 
 #############################################################################################################################
 			#Save plot as PNG file
-			ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".", ".combined", i, ".png", sep = "")), plot = combined)
-			ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".", ".nucleotideA", i, ".png", sep = "")), plot = nucleotideA)
-			ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".", ".nucleotideC", i, ".png", sep = "")), plot = nucleotideC)
-			ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".", ".nucleotideG", i, ".png", sep = "")), plot = nucleotideG)
-			ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".", ".nucleotideT", i, ".png", sep = "")), plot = nucleotideT)
+			ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", ".combined", i, ".png", sep = "")), plot = combined)
+			ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", ".nucleotideA", i, ".png", sep = "")), plot = nucleotideA)
+			ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", ".nucleotideC", i, ".png", sep = "")), plot = nucleotideC)
+			ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", ".nucleotideG", i, ".png", sep = "")), plot = nucleotideG)
+			ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", ".nucleotideT", i, ".png", sep = "")), plot = nucleotideT)
 }
 }
 }
