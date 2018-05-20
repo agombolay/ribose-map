@@ -19,20 +19,19 @@ library(ggplot2); library(tools)
 output <- file.path(repository, "results", sample, "distribution")
 input_files <- list.files(path = output, pattern = ".tab", full.names = T, recursive = F)
 
+#Find maximum y-axis value
 maximum <- c()
 
 for(file in input_files){
-        
-	#Check size of file > 0
+
 	if (file.info(file)$size > 0){
+		
 		data = read.table(file, sep = "\t", header = F)
-		#Find maximum y-coordinate value
-		maximum <- c(maximum,max(data$V4))
+		maximum <- c(maximum, max(data$V4))
 }
 }
+
 ylimit <- max(maximum)
-print(ylimit)
-print(maximum)
 
 for(file in input_files){
         
@@ -42,7 +41,7 @@ for(file in input_files){
         	#Specify dataset
 		data = read.table(file, sep = "\t", header = F)
 		
-		#Re-order levels of strand
+		#Re-order levels of DNA strand
 		data$V5_new = factor(data$V5, levels = c('+','-'))
 		
 		#Specify DNA strand labels for plot
