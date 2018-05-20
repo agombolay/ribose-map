@@ -73,8 +73,8 @@ for(file in input_files){
 
 			nucleotideT <- ggplot(data, aes(x = position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") +
 		
-					      theme(text = element_text(size = 20)) + theme(legend.key = element_blank()) + scale_colour_manual(values = c("#009E73"), name = "") +
-                			      geom_line(aes(y = T, colour = "T")) + geom_point(aes(y = T, colour = "T")) + guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) +
+					      theme(text = element_text(size = 20)) + theme(legend.position = "none") +
+                			      geom_line(aes(y = T, colour = "T")) + geom_point(aes(y = T, colour = "T")) + scale_colour_manual(values = c("#009E73"), name = "") +
 					      theme(panel.background = element_blank(), axis.line = element_line(colour = "black"))
 
 #############################################################################################################################
