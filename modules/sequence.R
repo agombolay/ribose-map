@@ -51,14 +51,14 @@ for(file in input_files){
 	
 					   #Simplify default ggplot2 background formatting
 				  	   theme(legend.key = element_blank()) + theme(panel.background = element_blank(), axis.line=element_line(colour = "black")) +
-					   ylim(0, max(A,C,G,T))
+					   scale_y_continuous(limits=c(0,max(A,C,G,T)), breaks=seq(0,max(A,C,G,T), by = 0.5))
 			
 #############################################################################################################################
 			nucleotideA <- ggplot(data, aes(x = position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") + theme(legend.position = "none") +
 		
 					      theme(text = element_text(size = 20)) + scale_colour_manual(values = c("#CC79A7"), name="") +
                 			      geom_line(aes(y = A, colour = "A")) + geom_point(aes(y = A, colour = "A")) +
-					      theme(panel.background=element_blank(), axis.line = element_line(colour = "black")) + ylim(0, max(A,C,G,T))
+					      theme(panel.background=element_blank(), axis.line = element_line(colour = "black")) + scale_y_continuous(limits=c(0,max(A,C,G,T)), breaks=seq(0,max(A,C,G,T), by = 0.5))
 
 			nucleotideC <- ggplot(data, aes(x = position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") + theme(legend.position = "none") +
 		
