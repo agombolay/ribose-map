@@ -19,8 +19,7 @@ library(ggplot2); library(tools)
 output <- file.path(repository, "results", sample, "distribution")
 input_files <- list.files(path = output, pattern = ".tab", full.names = T, recursive = F)
 
-limit <- max(
-print(limit)
+maximum <- c()
 
 for(file in input_files){
         
@@ -29,11 +28,14 @@ for(file in input_files){
 	
         	#Specify dataset
 		data = read.table(file, sep = "\t", header = F)
-	
+		
 		#Re-order levels of strand
 		data$V5_new = factor(data$V5, levels = c('+','-'))
+		
+		#Find maximum y-coordinate value
+		maximum <- c(maximum,max(data$V4)); ylimit <- max(maximum)
 	
-		#Strand labels for facet wrap
+		#Specify DNA strand labels for plot
 		labels <- c('+' = 'Forward Strand', '-' = 'Reverse Strand')
 
 #############################################################################################################################
