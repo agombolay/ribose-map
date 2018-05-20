@@ -34,7 +34,7 @@ for(file in input_files){
 		
 		#Find maximum y-coordinate value
 		maximum <- c(maximum,max(data$V4)); ylimit <- max(maximum)
-	
+		print(ylimit)
 		#Specify DNA strand labels for plot
 		labels <- c('+' = 'Forward Strand', '-' = 'Reverse Strand')
 
