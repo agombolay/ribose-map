@@ -18,21 +18,24 @@ library(ggplot2); library(tools)
 #Specify output directory and file
 output <- file.path(repository, "results", sample, "distribution")
 input_files <- list.files(path = output, pattern = ".tab", full.names = T, recursive = F)
-	
+
+limit <- max(
+print(limit)
+
 for(file in input_files){
         
 	#Check size of file > 0
 	if (file.info(file)$size > 0){
 	
         	#Specify dataset
-		data = read.table(file, sep = "\t", header = FALSE)
+		data = read.table(file, sep = "\t", header = F)
 	
 		#Re-order levels of strand
 		data$V5_new = factor(data$V5, levels = c('+','-'))
 	
 		#Strand labels for facet wrap
 		labels <- c('+' = 'Forward Strand', '-' = 'Reverse Strand')
-	
+
 #############################################################################################################################
 		#Create plot
 		myplot <- ggplot(data, aes(V3, V4, colour = V5_new)) + geom_bar(stat = "identity") +
