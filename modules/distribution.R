@@ -55,11 +55,11 @@ for(file in input_files){
 				 xlab("Chromosome Coordinate") + ylab("rNMP Coverage (%)") + scale_colour_manual(values = c("blue", "green3")) +
 	
 				 #Specify font size, no legend, and y-axis limits
-				 theme(text = element_text(size = 20)) + theme(legend.position = "none") + scale_y_continuous(limits = c(0,ylimit))
+				 theme(text = element_text(size = 20)) + theme(legend.position = "none") + scale_y_continuous(limits = c(0,ylimit)) +
 
 				 #Remove and replace default background theme of plot
 				 theme(panel.grid = element_blank(), panel.background = element_blank(), axis.line=element_line(colour = "black")) +
-		
+
 				 #Specify limits and break points for axis
 				 scale_y_continuous(limits = c(0,ylimit))
 #############################################################################################################################
