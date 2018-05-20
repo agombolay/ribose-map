@@ -29,6 +29,7 @@ for(file in input_files){
 }
 }
 ylimit <- max(maximum)
+print(ylimit)
 
 for(file in input_files){
 	
