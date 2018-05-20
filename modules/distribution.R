@@ -30,7 +30,7 @@ for(file in input_files){
 		maximum <- c(maximum,max(data$V4)); ylimit <- max(maximum)
 		print(ylimit)
 }
-
+}
 for(file in input_files){
         
 	#Check size of file > 0
