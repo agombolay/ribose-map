@@ -53,16 +53,13 @@ for(file in input_files){
 					   #Specify color and remove legend title
                 			   scale_colour_manual(values = c("A" = "#CC79A7", "C" = "#56B4E9", "G" = "#E69F00", "U/T" = "#009E73"), name = "") +
 					   
-					   
-					   scale_y_continuous(limits = c(0,ylimit)) +
-			
 					   #Plot as scatterplot with connecting lines
                 			   geom_line(aes(y = A, colour = "A")) + geom_point(aes(y = A, colour = "A")) + geom_line(aes(y = C, colour = "C")) + 
 					   geom_point(aes(y = C, colour = "C")) + geom_line(aes(y = G, colour = "G")) + geom_point(aes(y = G, colour = "G")) +
-                			   geom_line(aes(y = T, colour = "U/T")) + geom_point(aes(y = T, colour = "U/T")) +
+                			   geom_line(aes(y = T, colour = "U/T")) + geom_point(aes(y = T, colour = "U/T")) + theme(text = element_text(size = 20)) +
 			
 					   #Format legend symbols and specify font size
-					   guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + theme(text = element_text(size = 20)) +
+					   guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + scale_y_continuous(limits = c(0, ylimit)) +
 
 					   #Simplify default ggplot2 background formatting
 					   theme(legend.key = element_blank()) + theme(panel.background = element_blank(), axis.line=element_line(colour = "black"))
