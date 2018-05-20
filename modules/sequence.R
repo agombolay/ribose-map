@@ -16,7 +16,7 @@ library(ggplot2); library(tools)
 #############################################################################################################################
 #Specify output directory and file
 output <- file.path(repository, "results", sample, "sequence")
-input_files <- list.files(path = output, pattern = ".tab", full.names = T, recursive = F)
+input_files <- list.files(path = output, pattern = ".tab", full.names = TRUE, recursive = FALSE)
 
 #Find maximum y-axis value
 maximum <- c()
