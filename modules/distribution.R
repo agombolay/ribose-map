@@ -52,7 +52,7 @@ for(file in input_files){
 				 facet_wrap(~V5_new, ncol = 1, labeller = labeller(V5_new = labels)) + 
 		
 				 #Specify font size, no legend, and y-axis limits
-				 theme(text = element_text(size = 20)) + theme(legend.position = "none") +
+				 theme(text = element_text(size = 20)) + theme(legend.position = "none") + scale_y_continuous(limits = c(0,ylimit))
 	
 				 #Specify titles for axes and colors for barcharts
 				 xlab("Chromosome Coordinate") + ylab("rNMP Coverage (%)") + scale_colour_manual(values = c("blue", "green3")) +
