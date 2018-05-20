@@ -51,7 +51,7 @@ for(file in input_files){
 			combined <- ggplot(data, aes(x = position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") +
 			
 					   #Specify color and remove legend title
-                			   scale_colour_manual(values = c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name = "") +
+                			   scale_colour_manual(values = c("A" = "#CC79A7", "C" = "#56B4E9", "G" = "#E69F00", "U/T" = "#009E73"), name = "") +
 					   
 					   
 					   scale_y_continuous(limits = c(0,ylimit)) +
