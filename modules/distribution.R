@@ -44,7 +44,7 @@ for(file in input_files){
 				 theme(text = element_text(size = 20)) + theme(legend.position = "none") +
 	
 				 #Specify titles for axes and colors for barcharts
-				 xlab("Chromosome Coordinate") + ylab("rNMP Coverage (RPM)") + scale_colour_manual(values = c("blue", "green3")) +
+				 xlab("Chromosome Coordinate") + ylab("rNMP Coverage (%)") + scale_colour_manual(values = c("blue", "green3")) +
 	
 				 #Remove and replace default background theme of plot
 				 theme(panel.grid = element_blank(), panel.background = element_blank(), axis.line=element_line(colour = "black"))
