@@ -23,7 +23,7 @@ maximum <- c()
 
 for(file in input_files){
 	if (file.info(file)$size > 0){
-		data = read.table(file, sep = "\t", header = T)
+		data = read.table(file, sep = "\t", header = TRUE)
 		A <- data$A; C <- data$C; G <- data$G; T <- data$U.T
 		maximum <- c(maximum, max(A, C, G, T))
 		print(maximum)
@@ -42,8 +42,8 @@ for(file in input_files){
 
 #############################################################################################################################
 			#Specify datasets to be used for each round of loop
-			if (i == "normal") {data = read.table(file, sep = "\t", header = T)}
-			if (i == "zoomed") {data = read.table(file, sep = "\t", header = T)[86:116,]}
+			if (i == "normal") {data = read.table(file, sep = "\t", header = TRUE)}
+			if (i == "zoomed") {data = read.table(file, sep = "\t", header = TRUE)[86:116,]}
     
 			#Define variables to store nucleotide positions and frequency values
 			position <- data$X; A <- data$A; C <- data$C; G <- data$G; T <- data$U.T
