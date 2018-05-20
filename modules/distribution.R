@@ -28,9 +28,9 @@ for(file in input_files){
 		data = read.table(file, sep = "\t", header = F)
 		#Find maximum y-coordinate value
 		maximum <- c(maximum,max(data$V4)); ylimit <- max(maximum)
-		print(ylimit)
 }
 }
+print(ylimit)
 for(file in input_files){
         
 	#Check size of file > 0
