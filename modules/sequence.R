@@ -50,7 +50,8 @@ for(file in input_files){
 					   guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + theme(text = element_text(size = 20)) +
 	
 					   #Simplify default ggplot2 background formatting
-				  	   theme(legend.key = element_blank()) + theme(panel.background = element_blank(), axis.line=element_line(colour = "black"))
+				  	   theme(legend.key = element_blank()) + theme(panel.background = element_blank(), axis.line=element_line(colour = "black")) +
+					   ylim(0, max(A,C,G,T))
 			
 #############################################################################################################################
 			nucleotideA <- ggplot(data, aes(x = position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") + theme(legend.position = "none") +
