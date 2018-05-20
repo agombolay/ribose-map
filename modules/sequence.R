@@ -48,10 +48,11 @@ for(file in input_files){
 			
 					   #Format legend symbols and specify font size
 					   guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + theme(text = element_text(size = 20)) +
-	
+					   scale_y_continuous(limits=c(0,max(A,C,G,T)), breaks=seq(0,max(A,C,G,T), by = 0.3)) +
+					   
 					   #Simplify default ggplot2 background formatting
-				  	   theme(legend.key = element_blank()) + theme(panel.background = element_blank(), axis.line=element_line(colour = "black")) +
-					   scale_y_continuous(limits=c(0,max(A,C,G,T)), breaks=seq(0,max(A,C,G,T), by = 0.5))
+				  	   theme(legend.key = element_blank()) + theme(panel.background = element_blank(), axis.line=element_line(colour = "black"))
+					   
 			
 #############################################################################################################################
 			nucleotideA <- ggplot(data, aes(x = position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") + theme(legend.position = "none") +
