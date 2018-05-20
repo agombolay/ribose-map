@@ -54,7 +54,7 @@ for(file in input_files){
                 			   scale_colour_manual(values = c("#CC79A7", "#56B4E9", "#E69F00", "#009E73"), name = "") +
 					   
 					   #Specify limits and break points for axis
-					   scale_y_continuous(limits = c(0,max(A,C,G,T)), breaks = seq(0, max(A, C, G, T), by = 0.25)) +
+					   scale_y_continuous(limits = c(0,ylimit)) +
 			
 					   #Plot as scatterplot with connecting lines
                 			   geom_line(aes(y = A, colour = "A")) + geom_point(aes(y = A, colour = "A")) + geom_line(aes(y = C, colour = "C")) + 
@@ -71,25 +71,25 @@ for(file in input_files){
 			nucleotideA <- ggplot(data, aes(x = position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") + theme(legend.position = "none") +
 
 					      geom_line(aes(y = A, colour = "A")) + geom_point(aes(y = A, colour = "A")) + scale_colour_manual(values = c("#CC79A7"), name="") +
-					      scale_y_continuous(limits = c(0, max(A, C, G, T)), breaks = seq(0, max(A, C, G, T), by = 0.25)) + theme(text = element_text(size = 20)) +		      
+					      scale_y_continuous(limits = c(0, ylimit)) + theme(text = element_text(size = 20)) +		      
 					      theme(panel.background=element_blank(), axis.line = element_line(colour = "black"))
 
 			nucleotideC <- ggplot(data, aes(x = position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") + theme(legend.position = "none") +
 
 					      geom_line(aes(y = C, colour = "C")) + geom_point(aes(y = C, colour = "C")) + scale_colour_manual(values = c("#56B4E9"), name="") +
-					      scale_y_continuous(limits = c(0, max(A, C, G, T)), breaks = seq(0, max(A, C, G, T), by = 0.25)) + theme(text = element_text(size = 20)) +		      
+					      scale_y_continuous(limits = c(0, ylimit)) + theme(text = element_text(size = 20)) +		      
 					      theme(panel.background=element_blank(), axis.line = element_line(colour = "black"))
 
 			nucleotideG <- ggplot(data, aes(x = position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") + theme(legend.position = "none") +
 
 					      geom_line(aes(y = G, colour = "G")) + geom_point(aes(y = G, colour = "G")) + scale_colour_manual(values = c("#E69F00"), name="") +
-					      scale_y_continuous(limits = c(0, max(A, C, G, T)), breaks = seq(0, max(A, C, G, T), by = 0.25)) + theme(text = element_text(size = 20)) +		      
+					      scale_y_continuous(limits = c(0, ylimit)) + theme(text = element_text(size = 20)) +		      
 					      theme(panel.background=element_blank(), axis.line = element_line(colour = "black"))
 
 			nucleotideT <- ggplot(data, aes(x = position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") + theme(legend.position = "none") +
 
 					      geom_line(aes(y = T, colour = "T")) + geom_point(aes(y = T, colour = "T")) + scale_colour_manual(values = c("#009E73"), name="") +
-					      scale_y_continuous(limits = c(0, max(A, C, G, T)), breaks = seq(0, max(A, C, G, T), by = 0.25)) + theme(text = element_text(size = 20)) +		      
+					      scale_y_continuous(limits = c(0, ylimit)) + theme(text = element_text(size = 20)) +		      
 					      theme(panel.background=element_blank(), axis.line = element_line(colour = "black"))
 
 #############################################################################################################################
