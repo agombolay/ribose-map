@@ -49,14 +49,14 @@ for(file in input_files){
 		myplot <- ggplot(data, aes(V3, V4, colour = V5_new)) + geom_bar(stat = "identity") +
 		
 				 #Plot forward and reverse strands separately
-				 facet_wrap(~V5_new, ncol = 1, labeller = labeller(V5_new = labels)) + 
-		
-				 #Specify font size, no legend, and y-axis limits
-				 theme(text = element_text(size = 20)) + theme(legend.position = "none") + scale_y_continuous(limits = c(0,ylimit))
+				 facet_wrap(~V5_new, ncol = 1, labeller = labeller(V5_new = labels)) +
 	
 				 #Specify titles for axes and colors for barcharts
 				 xlab("Chromosome Coordinate") + ylab("rNMP Coverage (%)") + scale_colour_manual(values = c("blue", "green3")) +
 	
+				 #Specify font size, no legend, and y-axis limits
+				 theme(text = element_text(size = 20)) + theme(legend.position = "none") + scale_y_continuous(limits = c(0,ylimit))
+
 				 #Remove and replace default background theme of plot
 				 theme(panel.grid = element_blank(), panel.background = element_blank(), axis.line=element_line(colour = "black")) +
 		
