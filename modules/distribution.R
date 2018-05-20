@@ -25,6 +25,16 @@ for(file in input_files){
         
 	#Check size of file > 0
 	if (file.info(file)$size > 0){
+		
+		#Find maximum y-coordinate value
+		maximum <- c(maximum,max(data$V4)); ylimit <- max(maximum)
+		print(ylimit)
+}
+
+for(file in input_files){
+        
+	#Check size of file > 0
+	if (file.info(file)$size > 0){
 	
         	#Specify dataset
 		data = read.table(file, sep = "\t", header = F)
@@ -32,9 +42,6 @@ for(file in input_files){
 		#Re-order levels of strand
 		data$V5_new = factor(data$V5, levels = c('+','-'))
 		
-		#Find maximum y-coordinate value
-		maximum <- c(maximum,max(data$V4)); ylimit <- max(maximum)
-		print(ylimit)
 		#Specify DNA strand labels for plot
 		labels <- c('+' = 'Forward Strand', '-' = 'Reverse Strand')
 
