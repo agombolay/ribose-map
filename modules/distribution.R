@@ -17,7 +17,7 @@ library(ggplot2); library(tools)
 #############################################################################################################################
 #Specify output directory and file
 output <- file.path(repository, "results", sample, "distribution")
-input_files <- list.files(path=output, pattern=".tab", full.names=T, recursive=F)
+input_files <- list.files(path = output, pattern = ".tab", full.names = T, recursive = F)
 	
 for(file in input_files){
         
@@ -25,10 +25,10 @@ for(file in input_files){
 	if (file.info(file)$size > 0){
 	
         	#Specify dataset
-		data=read.table(file, sep="\t", header=FALSE)
+		data = read.table(file, sep = "\t", header = FALSE)
 	
 		#Re-order levels of strand
-		data$V5_new = factor(data$V5, levels=c('+','-'))
+		data$V5_new = factor(data$V5, levels = c('+','-'))
 	
 		#Strand labels for facet wrap
 		labels <- c('+' = 'Forward Strand', '-' = 'Reverse Strand')
@@ -51,7 +51,7 @@ for(file in input_files){
 		
 #############################################################################################################################
 		#Save plot as PNG file
-		ggsave(filename=file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep="")), plot=myplot, width=15)
+		ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep = "")), plot = myplot, width = 15)
 
 }
 }
