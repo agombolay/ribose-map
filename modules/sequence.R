@@ -53,21 +53,21 @@ for(file in input_files){
 				  	   theme(legend.key = element_blank()) + theme(panel.background = element_blank(), axis.line=element_line(colour = "black"))
 			
 #############################################################################################################################
-			nucleotideA <- ggplot(data, aes(x = position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") +
+			nucleotideA <- ggplot(data, aes(x = position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") + theme(legend.position = "none") +
 		
-					      theme(text = element_text(size = 20)) + theme(legend.key = element_blank()) + scale_colour_manual(values = c("#CC79A7"), name="") +
+					      theme(text = element_text(size = 20)) + scale_colour_manual(values = c("#CC79A7"), name="") +
                 			      geom_line(aes(y = A, colour = "A")) + geom_point(aes(y = A, colour = "A")) +
 					      theme(panel.background=element_blank(), axis.line = element_line(colour = "black"))
 
-			nucleotideC <- ggplot(data, aes(x = position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") +
+			nucleotideC <- ggplot(data, aes(x = position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") + theme(legend.position = "none") +
 		
-					      theme(text = element_text(size = 20)) + theme(legend.key = element_blank()) + scale_colour_manual(values = c("#56B4E9"), name = "") +
+					      theme(text = element_text(size = 20)) + scale_colour_manual(values = c("#56B4E9"), name = "") +
                 			      geom_line(aes(y = C, colour = "C")) + geom_point(aes(y = C, colour = "C")) +
 					      theme(panel.background = element_blank(), axis.line = element_line(colour = "black"))
 			
-			nucleotideG <- ggplot(data, aes(x = position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") +
+			nucleotideG <- ggplot(data, aes(x = position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") + theme(legend.position = "none") +
 		
-					      theme(text = element_text(size=20)) + theme(legend.key = element_blank()) + scale_colour_manual(values = c("#E69F00"), name = "") +
+					      theme(text = element_text(size=20)) + scale_colour_manual(values = c("#E69F00"), name = "") +
                 			      geom_line(aes(y = G, colour = "G")) + geom_point(aes(y = G, colour = "G")) +
 					      theme(panel.background = element_blank(), axis.line=element_line(colour = "black"))
 
