@@ -52,8 +52,10 @@ for(file in input_files){
 				 xlab("Chromosome Coordinate") + ylab("rNMP Coverage (%)") + scale_colour_manual(values = c("blue", "green3")) +
 	
 				 #Remove and replace default background theme of plot
-				 theme(panel.grid = element_blank(), panel.background = element_blank(), axis.line=element_line(colour = "black"))
+				 theme(panel.grid = element_blank(), panel.background = element_blank(), axis.line=element_line(colour = "black")) +
 		
+				 #Specify limits and break points for axis
+				 scale_y_continuous(limits = c(0,ylimit))
 #############################################################################################################################
 		#Save plot as PNG file
 		ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep = "")), plot = myplot, width = 15)
