@@ -58,7 +58,7 @@ for(file in input_files){
 		
 					      theme(text = element_text(size = 20)) + scale_colour_manual(values = c("#CC79A7"), name="") +
                 			      geom_line(aes(y = A, colour = "A")) + geom_point(aes(y = A, colour = "A")) +
-					      theme(panel.background=element_blank(), axis.line = element_line(colour = "black"))
+					      theme(panel.background=element_blank(), axis.line = element_line(colour = "black")) + ylim(0, max(A,C,G,T))
 
 			nucleotideC <- ggplot(data, aes(x = position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") + theme(legend.position = "none") +
 		
