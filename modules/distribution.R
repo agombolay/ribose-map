@@ -60,7 +60,7 @@ for(file in input_files){
 				 #Remove and replace default background theme of plot
 				 theme(panel.grid = element_blank(), panel.background = element_blank(), axis.line = element_line(colour = "black")) +
 		
-				 annotate("segment", x=-Inf, xend=Inf, y=-Inf, yend=-Inf)+ annotate("segment", x=-Inf, xend=-Inf, y=-Inf, yend=Inf)
+				 annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf)
 
 #############################################################################################################################
 		#Save plot as PNG file
