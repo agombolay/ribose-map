@@ -38,7 +38,7 @@ for(file in input_files){
 	#Check size of file > 0
 	if (file.info(file)$size > 0){
 	
-		#Plot regular and zoomed datasets
+		#Regular and zoomed datasets
 		for(i in c("normal", "zoomed")) {
 
 ####################################################################################################################################################################
