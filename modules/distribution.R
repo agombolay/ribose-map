@@ -14,8 +14,8 @@ source(commandArgs(TRUE)[1])
 #Load libraries
 library(ggplot2); library(tools)
 
-#############################################################################################################################
-#Specify output directory and file
+####################################################################################################################################################################
+#Input/Output
 output <- file.path(repository, "results", sample, "distribution")
 input_files <- list.files(path = output, pattern = ".tab", full.names = TRUE, recursive = FALSE)
 
@@ -44,8 +44,7 @@ for(file in input_files){
 		#Specify DNA strand labels for plot
 		labels <- c('+' = 'Forward Strand', '-' = 'Reverse Strand')
 
-#############################################################################################################################
-		#Create plot
+####################################################################################################################################################################
 		myplot <- ggplot(data, aes(V3, V4, colour = V5_new)) + geom_bar(stat = "identity") +
 		
 				 #Separate strands and specify y-axis limit
@@ -60,8 +59,7 @@ for(file in input_files){
 				 #Replace default background with black lines for the axes
 				 annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf)
 
-#############################################################################################################################
-		#Save plot as PNG file
+####################################################################################################################################################################
 		ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep = "")), plot = myplot, width = 15)
 
 }
