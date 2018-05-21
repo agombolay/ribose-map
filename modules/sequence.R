@@ -58,12 +58,12 @@ for(file in input_files){
 					   #Plot as scatterplot with connecting lines
                 			   geom_line(aes(y = A, colour = "A")) + geom_point(aes(y = A, colour = "A")) + geom_line(aes(y = C, colour = "C")) + 
 					   geom_point(aes(y = C, colour = "C")) + geom_line(aes(y = G, colour = "G")) + geom_point(aes(y = G, colour = "G")) +
-                			   geom_line(aes(y = T, colour = "U/T")) + geom_point(aes(y = T, colour = "U/T")) + theme(text = element_text(size = 20)) +
+                			   geom_line(aes(y = T, colour = "U/T")) + geom_point(aes(y = T, colour = "U/T")) +
 			
 					   #Format legend symbols and specify font size
 					   guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + scale_y_continuous(limits = c(0, ylimit)) +
 					   
-					   theme_minimal()
+					   theme_minimal() + theme(text = element_text(size = 20))
 					   #theme(panel.background = element_blank(), panel.grid.minor = element_line(colour = "grey"), axis.line=element_line(colour = "black"))  +
 					   
 					   #theme(legend.key = element_blank()) + scale_y_continuous(expand = c(0, 0)) + scale_x_continuous(expand = c(0.015, 0))
