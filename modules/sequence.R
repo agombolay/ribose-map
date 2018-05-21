@@ -63,8 +63,8 @@ for(file in input_files){
 
 					   #Simplify default ggplot2 background formatting
 					   theme(legend.key = element_blank()) + theme(panel.background = element_blank(), axis.line=element_line(colour = "black"))
-			
-#############################################################################################################################
+		
+####################################################################################################################################################################
 			#Save plot as PNG file
 			ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", "combined", ".", i, ".png", sep = "")), plot = combined)
 			
