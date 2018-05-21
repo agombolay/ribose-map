@@ -7,13 +7,14 @@
 #1. Plots rNMP nt frequencies for mito and nucleus
 #2. Saves plots as png files to appropriate directory
 
-#############################################################################################################################
+####################################################################################################################################################################
 #Load config
 source(commandArgs(TRUE)[1])
 
 #Load libraries
 library(ggplot2); library(tools)
-#############################################################################################################################
+
+####################################################################################################################################################################
 #Specify output directory and file
 output <- file.path(repository, "results", sample, "sequence")
 input_files <- list.files(path = output, pattern = ".tab", full.names = TRUE, recursive = FALSE)
@@ -38,7 +39,7 @@ for(file in input_files){
 		#Plot regular and zoomed datasets
 		for(i in c("normal", "zoomed")) {
 
-#############################################################################################################################
+####################################################################################################################################################################
 			#Specify datasets to be used for each round of loop
 			if (i == "normal") {data = read.table(file, sep = "\t", header = TRUE)}
 			if (i == "zoomed") {data = read.table(file, sep = "\t", header = TRUE)[86:116,]}
@@ -46,7 +47,7 @@ for(file in input_files){
 			#Define variables to store nucleotide positions and frequency values
 			position <- data$X; A <- data$A; C <- data$C; G <- data$G; T <- data$U.T
 
-#############################################################################################################################
+####################################################################################################################################################################
 			#Create plot
 			combined <- ggplot(data, aes(x = position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") +
 			
