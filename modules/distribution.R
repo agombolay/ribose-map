@@ -55,6 +55,9 @@ for(file in input_files){
 				 #Specify titles for x and y-axes and font size
 				 xlab("Chromosome Coordinate") + ylab("Per nucleotide rNMP Coverage (%)") + theme(text = element_text(size = 20)) +
 
+				 #Decrease space between barcharts and x/y axes
+				 scale_y_continuous(expand = c(0.015, 0)) + scale_x_continuous(expand = c(0.015, 0)) +
+
 				 #Specify colors, no legend, and remove default background
 				 theme(legend.position = "none") + theme(panel.background = element_blank()) + scale_colour_manual(values = c("blue", "green3")) +
 
