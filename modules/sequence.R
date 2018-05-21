@@ -15,7 +15,7 @@ source(commandArgs(TRUE)[1])
 library(ggplot2); library(tools)
 
 ####################################################################################################################################################################
-#Specify output directory and file
+#Input/Output
 output <- file.path(repository, "results", sample, "sequence")
 input_files <- list.files(path = output, pattern = ".tab", full.names = TRUE, recursive = FALSE)
 
@@ -44,11 +44,10 @@ for(file in input_files){
 			if (i == "normal") {data = read.table(file, sep = "\t", header = TRUE)}
 			if (i == "zoomed") {data = read.table(file, sep = "\t", header = TRUE)[86:116,]}
     
-			#Define variables to store nucleotide positions and frequency values
+			#Define variables to store nucleotide positions and frequencies
 			position <- data$X; A <- data$A; C <- data$C; G <- data$G; T <- data$U.T
 
 ####################################################################################################################################################################
-			#Create plot
 			combined <- ggplot(data, aes(x = position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") +
 			
 					   #Specify color and remove legend title
@@ -66,7 +65,6 @@ for(file in input_files){
 					   theme(legend.key = element_blank()) + theme(panel.background = element_blank(), axis.line=element_line(colour = "black"))
 		
 ####################################################################################################################################################################
-			#Save plot as PNG file
 			ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", "combined", ".", i, ".png", sep = "")), plot = combined)
 			
 }
