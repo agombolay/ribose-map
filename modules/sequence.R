@@ -65,37 +65,9 @@ for(file in input_files){
 					   theme(legend.key = element_blank()) + theme(panel.background = element_blank(), axis.line=element_line(colour = "black"))
 			
 #############################################################################################################################
-			nucleotideA <- ggplot(data, aes(x = position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") +
-
-					      geom_line(aes(y = A, colour = "A")) + geom_point(aes(y = A, colour = "A")) + scale_colour_manual(values = c("#CC79A7")) +
-					      scale_y_continuous(limits = c(0, ylimit)) + theme(legend.position = "none") + theme(text = element_text(size = 20)) +		      
-					      theme(panel.background=element_blank(), axis.line = element_line(colour = "black"))
-
-			nucleotideC <- ggplot(data, aes(x = position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") +
-
-					      geom_line(aes(y = C, colour = "C")) + geom_point(aes(y = C, colour = "C")) + scale_colour_manual(values = c("#56B4E9")) +
-					      scale_y_continuous(limits = c(0, ylimit)) + theme(legend.position = "none") + theme(text = element_text(size = 20)) +		      
-					      theme(panel.background=element_blank(), axis.line = element_line(colour = "black"))
-
-			nucleotideG <- ggplot(data, aes(x = position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") +
-
-					      geom_line(aes(y = G, colour = "G")) + geom_point(aes(y = G, colour = "G")) + scale_colour_manual(values = c("#E69F00")) +
-					      scale_y_continuous(limits = c(0, ylimit)) + theme(legend.position = "none") + theme(text = element_text(size = 20)) +		      
-					      theme(panel.background=element_blank(), axis.line = element_line(colour = "black"))
-
-			nucleotideT <- ggplot(data, aes(x = position)) + xlab("Chromosome Position") + ylab("Nucleotide Frequency") +
-
-					      geom_line(aes(y = T, colour = "T")) + geom_point(aes(y = T, colour = "T")) + scale_colour_manual(values = c("#009E73")) +
-					      scale_y_continuous(limits = c(0, ylimit)) + theme(legend.position = "none") + theme(text = element_text(size = 20)) +		      
-					      theme(panel.background=element_blank(), axis.line = element_line(colour = "black"))
-
-#############################################################################################################################
 			#Save plot as PNG file
 			ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", "combined", ".", i, ".png", sep = "")), plot = combined)
-			ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", "nucleotideA", ".", i, ".png", sep = "")), plot = nucleotideA)
-			ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", "nucleotideC", ".", i, ".png", sep = "")), plot = nucleotideC)
-			ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", "nucleotideG", ".", i, ".png", sep = "")), plot = nucleotideG)
-			ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", "nucleotideT", ".", i, ".png", sep = "")), plot = nucleotideT)
+			
 }
 }
 }
