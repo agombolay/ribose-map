@@ -63,7 +63,7 @@ for(file in input_files){
 					   #Format legend symbols and specify font size
 					   guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + scale_y_continuous(limits = c(0, ylimit)) +
 					   
-					   theme(panel.background = element_blank(), panel.grid.major = element_line(colour = "grey"), axis.line=element_line(colour = "black"))  +
+					   theme(panel.background = element_blank(), panel.grid.minor = element_line(colour = "grey"), axis.line=element_line(colour = "black"))  +
 					   
 					   theme(legend.key = element_blank()) + scale_y_continuous(expand = c(0, 0)) + scale_x_continuous(expand = c(0.015, 0))
 					   #Replace default background with black lines for the axes
