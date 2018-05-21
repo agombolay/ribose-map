@@ -52,11 +52,11 @@ for(file in input_files){
 				 #Separate strands and specify y-axis limit
 				 facet_wrap(~V5_new, ncol = 1, labeller = labeller(V5_new = labels)) +
 
-				 #Specify titles for x and y-axes and font size
-				 xlab("Chromosome Coordinate") + ylab("Per nucleotide rNMP Coverage (%)") + theme(text = element_text(size = 20)) +
-
 				 #Decrease space between barcharts and x/y axes
 				 scale_y_continuous(expand = c(0.015, 0), limits = c(0, ylimit)) + scale_x_continuous(expand = c(0.015, 0)) +
+		
+				 #Specify titles for x and y-axes and font size
+				 xlab("Chromosome Coordinate") + ylab("Per nucleotide rNMP Coverage (%)") + theme(text = element_text(size = 20)) +
 
 				 #Specify colors, no legend, and remove default background
 				 theme(legend.position = "none") + theme(panel.background = element_blank()) + scale_colour_manual(values = c("blue", "green3")) +
