@@ -19,6 +19,7 @@ library(ggplot2); library(tools)
 output <- file.path(repository, "results", sample, "distribution")
 input_files <- list.files(path = output, pattern = ".tab", full.names = TRUE, recursive = FALSE)
 
+####################################################################################################################################################################
 #Find maximum y-axis value
 maximum <- c()
 
@@ -30,6 +31,7 @@ for(file in input_files){
 }
 ylimit <- max(maximum)
 
+####################################################################################################################################################################
 for(file in input_files){
         
 	#Check size of file > 0
