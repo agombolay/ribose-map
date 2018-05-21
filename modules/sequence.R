@@ -62,8 +62,10 @@ for(file in input_files){
 			
 					   #Format legend symbols and specify font size
 					   guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + scale_y_continuous(limits = c(0, ylimit)) +
-
-					   theme_minimal()
+					   
+					   #Replace default background with black lines for the axes
+					   annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf)
+					   
 					   #Simplify default ggplot2 background formatting
 					   #theme(legend.key = element_blank()) + theme(panel.background = element_blank(), axis.line=element_line(colour = "black"))
 		
