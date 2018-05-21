@@ -65,7 +65,7 @@ for(file in input_files){
 					   
 					   #theme_minimal() +
 					   theme(text = element_text(size = 20)) + theme(legend.key = element_blank()) +
-					   theme(panel.background = element_blank(), panel.grid.minor = element_line(colour = "grey"), axis.line=element_line(colour = "black"))  +
+					   theme(panel.background = element_blank(), panel.grid.minor = element_line(colour = "grey"), axis.line=element_line(colour = "black")) 
 					   
 					   #theme(legend.key = element_blank()) + scale_y_continuous(expand = c(0, 0)) + scale_x_continuous(expand = c(0.015, 0))
 					   #Replace default background with black lines for the axes
