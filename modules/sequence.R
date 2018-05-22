@@ -12,7 +12,7 @@
 source(commandArgs(TRUE)[1])
 
 #Load libraries
-library(ggplot2); library(tools); library("ggthemes")
+library(ggplot2); library(tools)
 
 ####################################################################################################################################################################
 #Input/Output
