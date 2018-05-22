@@ -66,7 +66,7 @@ for(file in input_files){
 					   #Simplify background theme, increase font size, and specify y-axis limits
 					   theme(text = element_text(size = 20)) + scale_y_continuous(limits = c(0, ylimit)) +
 					   
-					   theme(axis.line = element_line(color="black", size = 2))
+					   theme(axis.line = element_line(color="black", size = 1))
 			
 					   #Replace default background with black lines for the axes
 					   #annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf)
