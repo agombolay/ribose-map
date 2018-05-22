@@ -50,7 +50,7 @@ for(file in input_files){
 			position <- data$X; A <- data$A; C <- data$C; G <- data$G; T <- data$U.T
 
 ####################################################################################################################################################################
-			combined <- ggplot(data, aes(x = position)) + theme_minimal() + xlab("Chromosome Position") + ylab("Nucleotide Frequency") +
+			combined <- ggplot(data, aes(x = position)) + theme_minimal() + xlab("Chromosome Position") + ylab("Normalized Frequency") +
 			
 					   #Specify color and no legend title
                 			   scale_colour_manual(values = c("A" = "#CC79A7", "C" = "#56B4E9", "G" = "#E69F00", "U/T" = "#009E73"), name = "") +
