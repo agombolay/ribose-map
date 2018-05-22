@@ -61,7 +61,7 @@ for(file in input_files){
                 			   geom_line(aes(y = T, colour = "U/T")) + geom_point(aes(y = T, colour = "U/T")) +
 			
 					   #Format legend symbols and specify font size
-					   guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + theme(text = element_text(size = 20)) + theme_minimal() +
+					   theme_minimal() + guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + theme(text = element_text(size = 20)) +
 					   
 					   #Simplify default ggplot2 background formatting
 					   theme(legend.key = element_blank()) + scale_y_continuous(expand = c(0.015, 0), limits = c(0, ylimit)) + scale_x_continuous(expand = c(0.015, 0))
