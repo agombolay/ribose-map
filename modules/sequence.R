@@ -55,18 +55,17 @@ for(file in input_files){
 					   #Specify color and remove legend title
                 			   scale_colour_manual(values = c("A" = "#CC79A7", "C" = "#56B4E9", "G" = "#E69F00", "U/T" = "#009E73"), name = "") +
 
-					   #Plot as scatterplot with connecting lines
+					   #Plot data and simplify background theme
 					   geom_point(aes(y = A, colour = "A")) + geom_point(aes(y = C, colour = "C")) + geom_point(aes(y = G, colour = "G")) +
 					   geom_point(aes(y = T, colour = "U/T")) + geom_line(aes(y = A, colour = "A")) + geom_line(aes(y = C, colour = "C")) +
-					   geom_line(aes(y = G, colour = "G")) + geom_line(aes(y = T, colour = "U/T")) +
+					   geom_line(aes(y = G, colour = "G")) + geom_line(aes(y = T, colour = "U/T")) + theme_minimal() +
 
-					   #Format legend symbols (no line through symbol and increase symbol size)
-					   guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + theme_gdocs() +
+					   #Format legend and specify y-axis limits
+					   guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + scale_y_continuous(limits = c(0, ylimit)) +
 			
-					   #Simplify background theme, increase font size, and specify y-axis limits
-					   scale_y_continuous(limits = c(0, ylimit)) + theme(text = element_text(size = 20))
-					   #axis.line = element_line(size = .5)
-		
+					   #Add lines for axes and increase font size
+					   theme(axis.line = element_line(size = .5), text = element_text(size = 20))
+
 ####################################################################################################################################################################
 			ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", "combined", ".", i, ".png", sep = "")), plot = combined)
 			
