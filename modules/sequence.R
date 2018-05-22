@@ -50,15 +50,15 @@ for(file in input_files){
 			position <- data$X; A <- data$A; C <- data$C; G <- data$G; T <- data$U.T
 
 ####################################################################################################################################################################
-			combined <- ggplot(data, aes(x = position)) + xlab("Chromosome Position") + ylab("Normalized Nucleotide Frequency") +
+			combined <- ggplot(data, aes(x = position)) + theme_minimal() + xlab("Chromosome Position") + ylab("Nucleotide Frequency") +
 			
-					   #Specify color and remove legend title
+					   #Specify color and no legend title
                 			   scale_colour_manual(values = c("A" = "#CC79A7", "C" = "#56B4E9", "G" = "#E69F00", "U/T" = "#009E73"), name = "") +
 
-					   #Plot data and simplify background theme
+					   #Plot data as scatterplot with lines
 					   geom_point(aes(y = A, colour = "A")) + geom_point(aes(y = C, colour = "C")) + geom_point(aes(y = G, colour = "G")) +
 					   geom_point(aes(y = T, colour = "U/T")) + geom_line(aes(y = A, colour = "A")) + geom_line(aes(y = C, colour = "C")) +
-					   geom_line(aes(y = G, colour = "G")) + geom_line(aes(y = T, colour = "U/T")) + theme_minimal() +
+					   geom_line(aes(y = G, colour = "G")) + geom_line(aes(y = T, colour = "U/T")) +
 
 					   #Format legend and specify y-axis limits
 					   guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + scale_y_continuous(limits = c(0, ylimit)) +
