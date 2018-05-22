@@ -61,7 +61,8 @@ for(file in input_files){
 				 scale_y_continuous(expand = c(0.015, 0), limits = c(0, ylimit), labels = function(x) paste0(x, "%")) +
 				 
 				 #Replace default background with black lines for the axes
-				 annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf)
+				 annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf) +
+				 scale_y_continuous(limits=c(0,ylimit), breaks=seq(0,ylimit, by = .02))
 
 ####################################################################################################################################################################
 		ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep = "")), plot = myplot, width = 15)
