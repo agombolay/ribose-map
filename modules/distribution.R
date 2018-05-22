@@ -47,15 +47,16 @@ for(file in input_files){
 		labels <- c('+' = 'Forward Strand', '-' = 'Reverse Strand')
 
 ####################################################################################################################################################################
-		myplot <- ggplot(data, aes(V3, V4, colour = V5_new)) + geom_bar(stat = "identity") + xlab("Chromosome Coordinate") + ylab("Per nucleotide rNMP Coverage") +
+		myplot <- ggplot(data, aes(V3, V4, colour = V5_new)) + geom_bar(stat = "identity") +
 		
 				 #Separate strands and specify y-axis limit
-				 facet_wrap(~V5_new, ncol = 1, labeller = labeller(V5_new = labels)) + scale_y_continuous(expand = c(0.015, 0), limits = c(0, ylimit), labels = function(x) paste0(x, "%")) +
+				 xlab("Chromosome Coordinate") + ylab("Per nucleotide rNMP Coverage") + facet_wrap(~V5_new, ncol = 1, labeller = labeller(V5_new = labels)) +
+		
+				 #Decrease space between barcharts and x-axis, increase font size, and specify no legend and no background
+				 scale_x_continuous(expand = c(0.015, 0)) + theme(text = element_text(size = 20), legend.position = "none", panel.background = element_blank()) +
 
-				 #Decrease space between barcharts and x/y axes
-				 scale_x_continuous(expand = c(0.015, 0)) + theme(text = element_text(size = 20), legend.position = "none", panel.background = element_blank()) + scale_colour_manual(values = c("blue", "green3")) +
-
-				 #Specify colors, no legend, and remove default background
+				 #Decrease space between barcharts and y-axis, specify y-axis limits, add y-axis units, and specify colors
+				 scale_y_continuous(expand = c(0.015, 0), limits = c(0, ylimit), labels = function(x) paste0(x, "%")) + scale_colour_manual(values = c("blue", "green3")) +
 
 				 #Replace default background with black lines for the axes
 				 annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf)
