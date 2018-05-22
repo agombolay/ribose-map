@@ -61,8 +61,8 @@ for(file in input_files){
                 			   geom_line(aes(y = T, colour = "U/T")) + geom_point(aes(y = T, colour = "U/T")) +
 			
 					   #Format legend symbols and specify font size
-					   guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + theme_minimal() + theme(text = element_text(size = 20)) +
-					   scale_y_continuous(limits = c(0, ylimit))
+					   guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + theme_minimal() + theme(text = element_text(size = 20)) 
+					   #scale_y_continuous(limits = c(0, ylimit))
 		
 ####################################################################################################################################################################
 			ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", "combined", ".", i, ".png", sep = "")), plot = combined)
