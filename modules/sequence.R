@@ -60,9 +60,10 @@ for(file in input_files){
 					   geom_point(aes(y = T, colour = "U/T")) + geom_line(aes(y = A, colour = "A")) + geom_line(aes(y = C, colour = "C")) +
 					   geom_line(aes(y = G, colour = "G")) + geom_line(aes(y = T, colour = "U/T")) +
 
-					   #Format legend symbols and specify font size
+					   #Format legend symbols (no line through symbol and increase symbol size)
 					   guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) +
-
+					   
+					   #Simplify background theme, increase font size, and specify y-axis limits
 					   theme_minimal() + theme(text = element_text(size = 20)) + scale_y_continuous(limits = c(0, ylimit))
 		
 ####################################################################################################################################################################
