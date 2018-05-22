@@ -59,7 +59,7 @@ for(file in input_files){
 				 xlab("Chromosome Coordinate") + ylab("Per nucleotide rNMP Coverage (%)") + theme(text = element_text(size = 20)) +
 
 				 #Specify colors, no legend, and remove default background
-				 theme(legend.position = "none") + theme(panel.background = element_blank()) + scale_colour_manual(values = c("blue", "green3")) +
+				 theme(legend.position = "none", panel.background = element_blank()) + scale_colour_manual(values = c("blue", "green3")) +
 
 				 #Replace default background with black lines for the axes
 				 annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf)
