@@ -60,9 +60,8 @@ for(file in input_files){
 				 #Decrease space between barcharts and y-axis, specify y-axis limits, add y-axis units, and specify colors
 				 scale_y_continuous(expand = c(0.015, 0), limits = c(0, ylimit), labels = function(x) paste0(x, "%")) +
 				 
-				theme(axis.line = element_line(size = .5), text = element_text(size = 20))
 				 #Replace default background with black lines for the axes
-				 #annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf)
+				 annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf)
 
 ####################################################################################################################################################################
 		ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep = "")), plot = myplot, width = 15)
