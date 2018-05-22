@@ -64,9 +64,7 @@ for(file in input_files){
 					   guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + theme_minimal() +
 			
 					   #Simplify background theme, increase font size, and specify y-axis limits
-					   theme(text = element_text(size = 20)) + scale_y_continuous(limits = c(0, ylimit)) +
-					   
-					   theme(axis.line = element_line(color="black", size = .5))
+					   scale_y_continuous(limits = c(0, ylimit)) + theme(text = element_text(size = 20), axis.line = element_line(color="black", size = .5))
 			
 					   #Replace default background with black lines for the axes
 					   #annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf)
