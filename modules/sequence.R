@@ -63,9 +63,6 @@ for(file in input_files){
 					   #Format legend symbols and specify font size
 					   guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + theme_minimal() + theme(text = element_text(size = 20)) +
 					   scale_y_continuous(limits = c(0, ylimit))
-					   
-					   #Simplify default ggplot2 background formatting
-					   #theme(legend.key = element_blank()) + scale_y_continuous(expand = c(0.015, 0), limits = c(0, ylimit)) + scale_x_continuous(expand = c(0.015, 0))
 		
 ####################################################################################################################################################################
 			ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", "combined", ".", i, ".png", sep = "")), plot = combined)
