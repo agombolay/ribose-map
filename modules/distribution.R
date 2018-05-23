@@ -49,7 +49,7 @@ for(file in input_files){
 ####################################################################################################################################################################
 		myplot <- ggplot(data, aes(V3, V4, colour = V5_new)) + xlab("Chromosome Coordinate") + ylab("Per Nucleotide rNMP Coverage") +
 		
-				 facet_wrap(~V5_new, ncol = 1, labeller = labeller(V5_new = labels)) + scale_y_continuous(limits = c(0, ylimit)) +
+				 facet_wrap(~V5_new, ncol = 1, labeller = labeller(V5_new = labels)) +
 		 
 				 geom_bar(stat = "identity") + scale_x_continuous(expand = c(0.015, 0)) + scale_colour_manual(values = c("blue", "green3")) +
 				 
