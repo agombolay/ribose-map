@@ -60,7 +60,7 @@ for(file in input_files){
 
 				 #Decrease space between barcharts and axes
 				 scale_x_continuous(expand = c(0.01, 0)) + scale_y_continuous(expand = c(0.01, 0), limits = c(0, ylimit)) +
-				 theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()
+				 theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
 
 ####################################################################################################################################################################
 		ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep = "")), plot = myplot, width = 15)
