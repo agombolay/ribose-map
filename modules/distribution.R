@@ -53,7 +53,7 @@ for(file in input_files){
 		 
 				 geom_bar(stat = "identity") + scale_x_continuous(expand = c(0.015, 0)) + scale_colour_manual(values = c("blue", "green3")) +
 				 
-				 annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf) + + +
+				 annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf) +
 		
 				 theme(text = element_text(size = 20), legend.position = "none", panel.background = element_blank()) + 
 
