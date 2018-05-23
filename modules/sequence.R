@@ -58,13 +58,13 @@ for(file in input_files){
 					   #Plot data as scatterplot with lines
 					   geom_point(aes(y = A, colour = "A")) + geom_point(aes(y = C, colour = "C")) + geom_point(aes(y = G, colour = "G")) +
 					   geom_point(aes(y = T, colour = "U/T")) + geom_line(aes(y = A, colour = "A")) + geom_line(aes(y = C, colour = "C")) +
-					   geom_line(aes(y = G, colour = "G")) + geom_line(aes(y = T, colour = "U/T")) +
-
-					   #Add axis lines and ticks and increase font size
-					   theme(axis.line = element_line(size = .5), text = element_text(size = 20), axis.ticks = element_line(colour="black")) +		   
+					   geom_line(aes(y = G, colour = "G")) + geom_line(aes(y = T, colour = "U/T")) +		   
 
 					   #Format legend symbols and specify y-axis limits
-					   guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + scale_y_continuous(limits = c(0, ylimit))
+					   guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + scale_y_continuous(limits = c(0, ylimit)) +
+
+					   #Add axis lines and ticks and increase font size
+					   theme(axis.line = element_line(size = .5), text = element_text(size = 20), axis.ticks = element_line(colour = "black"))
 
 ####################################################################################################################################################################
 			ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", "combined", ".", i, ".png", sep = "")), plot = combined)
