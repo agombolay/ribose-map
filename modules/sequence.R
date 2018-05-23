@@ -51,7 +51,7 @@ for(file in input_files){
 
 ####################################################################################################################################################################
 			combined <- ggplot(data, aes(x = position)) + theme_minimal() + xlab("Chromosome Position") + ylab("Normalized Frequency") +
-			
+
 					   #Specify color and no legend title
                 			   scale_colour_manual(values = c("A" = "#CC79A7", "C" = "#56B4E9", "G" = "#E69F00", "U/T" = "#009E73"), name = "") +
 
@@ -60,11 +60,11 @@ for(file in input_files){
 					   geom_point(aes(y = T, colour = "U/T")) + geom_line(aes(y = A, colour = "A")) + geom_line(aes(y = C, colour = "C")) +
 					   geom_line(aes(y = G, colour = "G")) + geom_line(aes(y = T, colour = "U/T")) +
 
-					   #Format legend and specify y-axis limits
-					   guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + scale_y_continuous(limits = c(0, ylimit)) +
-			
-					   #Add lines for axes and increase font size
-					   theme(axis.line = element_line(size = .5), text = element_text(size = 20), axis.ticks = element_line(colour="black"))
+					   #Add axis lines and ticks and increase font size
+					   theme(axis.line = element_line(size = .5), text = element_text(size = 20), axis.ticks = element_line(colour="black")) +		   
+
+					   #Format legend symbols and specify y-axis limits
+					   guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + scale_y_continuous(limits = c(0, ylimit))
 
 ####################################################################################################################################################################
 			ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", "combined", ".", i, ".png", sep = "")), plot = combined)
