@@ -49,20 +49,15 @@ for(file in input_files){
 ####################################################################################################################################################################
 		myplot <- ggplot(data, aes(V3, V4, colour = V5_new)) + xlab("Chromosome Coordinate") + ylab("Per Nucleotide rNMP Coverage") +
 		
-				 #Separate strands and specify y-axis limit		 
-				 scale_x_continuous(expand = c(0.015, 0)) + scale_colour_manual(values = c("blue", "green3")) +
-		
-				 geom_bar(stat = "identity") + facet_wrap(~V5_new, ncol = 1, labeller = labeller(V5_new = labels)) +
-		
-				 #Decrease space between barcharts and x-axis, increase font size, and specify no legend and no background
-				 theme(text = element_text(size = 20), legend.position = "none", panel.background = element_blank()) +
-
-				 #Decrease space between barcharts and y-axis, specify y-axis limits, add y-axis units, and specify colors
-				 scale_y_continuous(expand = c(0.015, 0), limits = c(0, ylimit), labels = function(x) paste0(x, "%")) +
+				 facet_wrap(~V5_new, ncol = 1, labeller = labeller(V5_new = labels)) + scale_y_continuous(limits=c(0,ylimit)) +
+		 
+				 geom_bar(stat = "identity") + scale_x_continuous(expand = c(0.015, 0)) + scale_colour_manual(values = c("blue", "green3")) +
 				 
-				 #Replace default background with black lines for the axes
-				 annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf) +
-				 scale_y_continuous(limits=c(0,ylimit), breaks=seq(0,ylimit, by = .02))
+				 annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf) + + +
+		
+				 theme(text = element_text(size = 20), legend.position = "none", panel.background = element_blank()) + 
+
+				 scale_y_continuous(expand = c(0.015, 0), limits = c(0, ylimit), labels = function(x) paste0(x, "%"))
 
 ####################################################################################################################################################################
 		ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep = "")), plot = myplot, width = 15)
