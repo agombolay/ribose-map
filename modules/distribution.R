@@ -58,7 +58,7 @@ for(file in input_files){
 				 #Add lines to represent axes (must be added for plots that use facet wrap)
 				 annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf) +
 
-				 #Decrease space between barcharts and axes
+				 #Decrease space between barcharts and x/y-axes
 				 scale_x_continuous(expand = c(0.01, 0)) + scale_y_continuous(expand = c(0.01, 0), limits = c(0, ylimit))
 
 ####################################################################################################################################################################
