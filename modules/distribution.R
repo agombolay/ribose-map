@@ -47,15 +47,19 @@ for(file in input_files){
 		labels <- c('+' = 'Forward Strand', '-' = 'Reverse Strand')
 
 ####################################################################################################################################################################
-		myplot <- ggplot(data, aes(V3, V4, colour = V5_new)) + xlab("Chromosome Coordinate") + ylab("Per Nucleotide rNMP Coverage") +
-		
+		myplot <- ggplot(data, aes(V3, V4, colour = V5_new)) + theme_minimal() + xlab("Chromosome Coordinate") + ylab("Per Nucleotide rNMP Coverage (%)") +
+
+				 #
 				 facet_wrap(~V5_new, ncol = 1, labeller = labeller(V5_new = labels)) + scale_colour_manual(values = c("blue", "green3")) +
-		
+
+				 #Plot data as barcharts, increase font size, specify no legend, and remove background
 				 geom_bar(stat = "identity") + theme(text = element_text(size = 20), legend.position = "none", panel.background = element_blank()) +		 
-		
+
+				 #Add lines to represent axes
 				 annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf) +
-		
-				 scale_x_continuous(expand = c(0.01, 0)) + scale_y_continuous(expand = c(0.01, 0), limits = c(0, ylimit), labels = function(x) paste0(x, "%"))
+
+				 #Decrease space between barcharts and axes
+				 scale_x_continuous(expand = c(0.01, 0)) + scale_y_continuous(expand = c(0.01, 0), limits = c(0, ylimit))
 
 ####################################################################################################################################################################
 		ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep = "")), plot = myplot, width = 15)
