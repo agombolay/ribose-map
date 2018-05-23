@@ -55,7 +55,7 @@ for(file in input_files){
 		
 				 annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf) +
 		
-				 scale_x_continuous(expand = c(0.015, 0)) + scale_y_continuous(expand = c(0.015, 0), limits = c(0, ylimit), labels = function(x) paste0(x, "%"))
+				 scale_x_continuous(expand = c(0.01, 0)) + scale_y_continuous(expand = c(0.01, 0), limits = c(0, ylimit), labels = function(x) paste0(x, "%"))
 
 ####################################################################################################################################################################
 		ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep = "")), plot = myplot, width = 15)
