@@ -17,7 +17,8 @@ output=$repository/results/$sample/coordinates; rm -rf $output; mkdir -p $output
 #############################################################################################################################
 if [[ ! $read2 ]]; then
 	#Remove unaligned reads
-	samtools view -b -F2308 $repository/results/$sample/alignment/$sample.bam | samtools sort - -o $output/temp.bam
+	#samtools view -b -F2308 $repository/results/$sample/alignment/$sample.bam | samtools sort - -o $output/temp.bam
+	samtools view -b -F2308 $repository/results/$sample/alignment/$sample.bam -o $output/temp.bam
 	samtools index $output/temp.bam
 
 elif [[ $read2 ]]; then
@@ -78,7 +79,7 @@ awk -v "OFS=\t" -v total="$(samtools view -c $output/temp.bam)" '{print $1,$2,$3
 
 #############################################################################################################################
 #Remove temporary files
-rm -f $output/reference.bed $output/temp.{bam,bam.bai} $output/temp{1..3}.bed
+#rm -f $output/reference.bed $output/temp.{bam,bam.bai} $output/temp{1..3}.bed
 
 #Print status
 echo "Status: Coordinates module for $sample is complete"
