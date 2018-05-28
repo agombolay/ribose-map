@@ -50,7 +50,7 @@ elif [[ $technique == "emRiboSeq" ]]; then
 	awk -v "OFS=\t" '$6 == "+" {print $1,($2 - 1),$2,$4,$5,"-"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' >> $output/temp2.bed
 	
 	#Remove coordinates of rNMPs if the end position is greater than length of chromosome
-	join -t $'\t' <(sort $output/reference.bed) <(sort $output/temp2.bed) | awk -v "OFS=\t" '$2 >= $4 { print $1,$3,$4," "," ",$5 }' > $output/temp3.bed
+	join -t $'\t' <(sort $output/reference.bed) <(sort $output/temp2.bed) | awk -v "OFS=\t" '$2 >= $4 { print $1,$3,$4,$5,$6,$7 }' > $output/temp3.bed
 	
 elif [[ $technique == "HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
 	
@@ -64,7 +64,7 @@ elif [[ $technique == "HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
 	awk -v "OFS=\t" '$6 == "-" {print $1,$3,($3 + 1),$4,$5,"-"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' >> $output/temp2.bed
 
 	#Remove coordinates of rNMPs if the end position is greater than length of chromosome
-	join -t $'\t' <(sort $output/reference.bed) <(sort $output/temp2.bed) | awk -v "OFS=\t" '$2 >= $4 { print $1,$3,$4," "," ",$5 }' > $output/temp3.bed
+	join -t $'\t' <(sort $output/reference.bed) <(sort $output/temp2.bed) | awk -v "OFS=\t" '$2 >= $4 { print $1,$3,$4,$5,$6,$7 }' > $output/temp3.bed
 fi
 	
 #Sort file by chromosome and coordinate
