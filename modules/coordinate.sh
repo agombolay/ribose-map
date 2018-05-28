@@ -67,12 +67,12 @@ elif [[ $technique == "HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
 	join -t $'\t' <(sort $output/reference.bed) <(sort $output/temp2.bed) | awk -v "OFS=\t" '$2 >= $4 { print $1,$3,$4," "," ",$5 }' > $output/temp3.bed
 fi
 	
-#Sort chromosome coordinates of rNMPs
+#Sort output BED file
 sort -k1,1 -k2,2n -k6 $output/temp3.bed > $output/$sample.bed
 
 #############################################################################################################################
-#Print status
-echo "Status: Coordinates module for $sample is complete"
-	
 #Remove temporary files
 rm -f $output/reference.bed $output/temp.{bam,bam.bai} $output/temp{1..3}.bed
+
+#Print status
+echo "Status: Coordinates module for $sample is complete"
