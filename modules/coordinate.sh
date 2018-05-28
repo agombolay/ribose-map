@@ -68,7 +68,7 @@ elif [[ $technique == "HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
 fi
 	
 #Sort chromosome coordinates of rNMPs
-sort -k1,1V -k2,2n $output/temp3.bed > $output/$sample.bed
+sort -k1,1 -k2,2n -k6 $output/temp3.bed > $output/$sample.bed
 
 #############################################################################################################################
 #Print status
