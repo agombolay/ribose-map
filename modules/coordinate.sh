@@ -33,10 +33,10 @@ bedtools bamtobed -i $output/temp.bam > $output/temp1.bed
 if [[ $technique == "ribose-seq" ]]; then
 	
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
-	awk -v "OFS=\t" '$6 == "-" {print $1,($3 - 1),$3," "," ","+"}' $output/temp1.bed > $output/temp3.bed 
+	awk -v "OFS=\t" '$6 == "-" {print $1,($3 - 1),$3,$4,$5,"+"}' $output/temp1.bed > $output/temp3.bed 
 	
 	#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-	awk -v "OFS=\t" '$6 == "+" {print $1,$2,($2 + 1)," "," ","-"}' $output/temp1.bed >> $output/temp3.bed
+	awk -v "OFS=\t" '$6 == "+" {print $1,$2,($2 + 1),$4,$5,"-"}' $output/temp1.bed >> $output/temp3.bed
 	
 elif [[ $technique == "emRiboSeq" ]]; then
 	
@@ -44,10 +44,10 @@ elif [[ $technique == "emRiboSeq" ]]; then
 	samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
-	awk -v "OFS=\t" '$6 == "-" {print $1,$3,($3 + 1)," "," ","+"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' > $output/temp2.bed 
+	awk -v "OFS=\t" '$6 == "-" {print $1,$3,($3 + 1),$4,$5,"+"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' > $output/temp2.bed 
 	
 	#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-	awk -v "OFS=\t" '$6 == "+" {print $1,($2 - 1),$2," "," ","-"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' >> $output/temp2.bed
+	awk -v "OFS=\t" '$6 == "+" {print $1,($2 - 1),$2,$4,$5,"-"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' >> $output/temp2.bed
 	
 	#Remove coordinates of rNMPs if the end position is greater than length of chromosome
 	join -t $'\t' <(sort $output/reference.bed) <(sort $output/temp2.bed) | awk -v "OFS=\t" '$2 >= $4 { print $1,$3,$4," "," ",$5 }' > $output/temp3.bed
@@ -58,16 +58,16 @@ elif [[ $technique == "HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
 	samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 	
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
-	awk -v "OFS=\t" '$6 == "+" {print $1,($2 - 1),$2," "," ","+"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' > $output/temp2.bed 
+	awk -v "OFS=\t" '$6 == "+" {print $1,($2 - 1),$2,$4,$5,"+"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' > $output/temp2.bed 
 	
 	#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-	awk -v "OFS=\t" '$6 == "-" {print $1,$3,($3 + 1)," "," ","-"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' >> $output/temp2.bed
+	awk -v "OFS=\t" '$6 == "-" {print $1,$3,($3 + 1),$4,$5,"-"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' >> $output/temp2.bed
 
 	#Remove coordinates of rNMPs if the end position is greater than length of chromosome
 	join -t $'\t' <(sort $output/reference.bed) <(sort $output/temp2.bed) | awk -v "OFS=\t" '$2 >= $4 { print $1,$3,$4," "," ",$5 }' > $output/temp3.bed
 fi
 	
-#Sort output BED file
+#Sort file by chromosome and coordinate
 sort -k1,1 -k2,2n -k6 $output/temp3.bed > $output/$sample.bed
 
 #Calculate per nucleotide rNMP coverage
