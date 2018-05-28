@@ -73,6 +73,9 @@ sort -k1,1 -k2,2n -k6 $output/temp3.bed > $output/$sample.bed
 #Calculate per nucleotide rNMP coverage
 cut -f1,2,3,6 $output/$sample.bed | uniq -c - | awk -v "OFS=\t" '{print $2,$3,$4,$5,$1}' > $output/$sample.counts.bed
 
+#Calculate normalized per-nucleotide coverage
+awk -v "OFS=\t" -v total="$(samtools view -c $output/temp.bam)" '{print $1,$2,$3,$4,$5/total*100}' $file > $output/normalized.tab
+
 #############################################################################################################################
 #Remove temporary files
 rm -f $output/reference.bed $output/temp.{bam,bam.bai} $output/temp{1..3}.bed
