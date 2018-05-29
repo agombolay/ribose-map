@@ -29,13 +29,10 @@ fi
 if [[ $technique == "ribose-seq" ]]; then
 	
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
-	awk -v "OFS=\t" '$6 == "-" {print $1,($3 - 1),$3,$4,$5,"+"}' $output/temp1.bed > $output/temp2.bed 
+	awk -v "OFS=\t" '$6 == "-" {print $1,($3 - 1),$3,$4,$5,"+"}' $output/temp1.bed > $output/$sample.bed
 	
 	#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-	awk -v "OFS=\t" '$6 == "+" {print $1,$2,($2 + 1),$4,$5,"-"}' $output/temp1.bed >> $output/temp2.bed
-	
-	#Sort file by chromosome and coordinate
-	sort -k1,1 -k2,2n -k6 $output/temp2.bed > $output/$sample.bed
+	awk -v "OFS=\t" '$6 == "+" {print $1,$2,($2 + 1),$4,$5,"-"}' $output/temp1.bed >> $output/$sample.bed
 	
 elif [[ $technique == "emRiboSeq" ]]; then
 	
@@ -74,7 +71,7 @@ awk -v "OFS=\t" -v total="$(wc -l < $output/$sample.bed)" '{print $1,$2,$3,$4,$5
 
 #############################################################################################################################
 #Remove temporary files
-#rm -f $output/reference.bed $output/temp.{bam,bam.bai} $output/temp{1..2}.bed
+#rm -f $output/reference.bed $output/temp{1..2}.bed
 
 #Print status
 echo "Status: Coordinates module for $sample is complete"
