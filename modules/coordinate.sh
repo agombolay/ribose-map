@@ -15,37 +15,37 @@
 output=$repository/results/$sample/coordinates; rm -rf $output; mkdir -p $output
 			
 #############################################################################################################################
-if [[ ! $read2 ]]; then
+#if [[ ! $read2 ]]; then
 	#Remove unaligned reads
-	#samtools view -b -F2308 $repository/results/$sample/alignment/$sample.bam | samtools sort - -o $output/temp.bam
-	samtools view -b -F2308 $repository/results/$sample/alignment/$sample.bam -o $output/temp.bam
-	samtools index $output/temp.bam
+#	samtools view -b -F2308 $repository/results/$sample/alignment/$sample.bam -o $output/temp.bam
+#	samtools index $output/temp.bam
 
-elif [[ $read2 ]]; then
+#elif [[ $read2 ]]; then
 	#Keep first read in pair
-	samtools view -b -f67 -F2308 $repository/results/$sample/alignment/$sample.bam | samtools sort - -o $output/temp.bam
-	samtools index $output/temp.bam
-fi
+#	samtools view -b -f67 -F2308 $repository/results/$sample/alignment/$sample.bam -o $output/temp.bam
+#	samtools index $output/temp.bam
+#fi
 
 #Convert alignment file to BED format
-bedtools bamtobed -i $output/temp.bam > $output/temp1.bed
+#bedtools bamtobed -i $output/temp.bam > $output/temp1.bed
+bedtools bamtobed -i $repository/results/$sample/alignment/$sample.bam > $output/temp1.bed
 
 #Determine coordinates for each technique
 if [[ $technique == "ribose-seq" ]]; then
 	
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
-	awk -v "OFS=\t" '$6 == "-" {print $1,($3 - 1),$3,$4,$5,"+"}' $output/temp1.bed > $output/temp3.bed 
+	awk -v "OFS=\t" '$6 == "-" {print $1,($3 - 1),$3,$4,$5,"+"}' $output/temp1.bed > $output/temp2.bed 
 	
 	#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-	awk -v "OFS=\t" '$6 == "+" {print $1,$2,($2 + 1),$4,$5,"-"}' $output/temp1.bed >> $output/temp3.bed
+	awk -v "OFS=\t" '$6 == "+" {print $1,$2,($2 + 1),$4,$5,"-"}' $output/temp1.bed >> $output/temp2.bed
 	
 	#Sort file by chromosome and coordinate
-	sort -k1,1 -k2,2n -k6 $output/temp3.bed > $output/$sample.bed
+	sort -k1,1 -k2,2n -k6 $output/temp2.bed > $output/$sample.bed
 	
 elif [[ $technique == "emRiboSeq" ]]; then
 	
-	#Create FASTA index and BED file for reference
-	samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
+	#Create BED file for reference
+	cut -f 1,2 $fasta.fai > $output/reference.bed
 
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 	awk -v "OFS=\t" '$6 == "-" {print $1,$3,($3 + 1),$4,$5,"+"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' > $output/temp2.bed 
@@ -58,8 +58,8 @@ elif [[ $technique == "emRiboSeq" ]]; then
 	
 elif [[ $technique == "HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
 	
-	#Create FASTA index and BED file for reference
-	samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
+	#Create BED file for reference
+	cut -f 1,2 $fasta.fai > $output/reference.bed
 	
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 	awk -v "OFS=\t" '$6 == "+" {print $1,($2 - 1),$2,$4,$5,"+"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' > $output/temp2.bed 
@@ -75,7 +75,7 @@ fi
 cut -f1,2,3,6 $output/$sample.bed | uniq -c - | awk -v "OFS=\t" '{print $2,$3,$4,$5,$1}' > $output/$sample.counts.bed
 
 #Calculate normalized per-nucleotide coverage
-awk -v "OFS=\t" -v total="$(samtools view -c $output/temp.bam)" '{print $1,$2,$3,$4,$5/total*100}' $output/$sample.counts.bed > $output/$sample.normalized.bed
+awk -v "OFS=\t" -v total="$(wc -l < $output/$sample.bed)" '{print $1,$2,$3,$4,$5/total*100}' $output/$sample.counts.bed > $output/$sample.normalized.bed
 
 #############################################################################################################################
 #Remove temporary files
