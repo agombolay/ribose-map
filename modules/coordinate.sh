@@ -54,7 +54,7 @@ elif [[ $technique == "emRiboSeq" ]]; then
 	awk -v "OFS=\t" '$6 == "+" {print $1,($2 - 1),$2,$4,$5,"-"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' >> $output/temp2.bed
 
 	#Remove coordinates of rNMPs if the end position is greater than length of chromosome
-	join -t $'\t' <(sort -k1,1 $output/reference.bed) <(sort -k1,1 -k2,2n -k6 $output/temp2.bed) | awk -v "OFS=\t" '$2 >= $4 { print $1,$3,$4,$5,$6,$7 }' > $output/$sample.bed
+	#join -t $'\t' <(sort -k1,1 $output/reference.bed) <(sort -k1,1 -k2,2n -k6 $output/temp2.bed) | awk -v "OFS=\t" '$2 >= $4 { print $1,$3,$4,$5,$6,$7 }' > $output/$sample.bed
 	
 elif [[ $technique == "HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
 	
@@ -72,7 +72,8 @@ elif [[ $technique == "HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
 fi
 
 #Calculate per nucleotide rNMP coverage
-cut -f1,2,3,6 $output/$sample.bed | uniq -c - | awk -v "OFS=\t" '{print $2,$3,$4,$5,$1}' > $output/$sample.counts.bed
+#cut -f1,2,3,6 $output/$sample.bed | uniq -c - | awk -v "OFS=\t" '{print $2,$3,$4,$5,$1}' > $output/$sample.counts.bed
+cut -f1,2,3,6 $output/temp2.bed | uniq -c - | awk -v "OFS=\t" '{print $2,$3,$4,$5,$1}' > $output/$sample.counts.bed
 
 #Calculate normalized per-nucleotide coverage
 awk -v "OFS=\t" -v total="$(wc -l < $output/$sample.bed)" '{print $1,$2,$3,$4,$5/total*100}' $output/$sample.counts.bed > $output/$sample.normalized.bed
