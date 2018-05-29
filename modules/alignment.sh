@@ -20,7 +20,7 @@ if [[ ! $read2 ]]; then
 	
 	if [[ ! $pattern ]]; then
 	
-		bowtie2 --threads 5 -x $basename -U $read1 -S $output/aligned.sam 2> $output/alignment.log
+		bowtie2 --threads 2 -x $basename -U $read1 -S $output/aligned.sam 2> $output/alignment.log
 		samtools view -bS $output/aligned.sam | samtools sort - -o $output/$sample.bam
 		samtools index $output/$sample.bam	
 
