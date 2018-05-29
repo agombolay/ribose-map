@@ -28,7 +28,7 @@ output=$repository/results/$sample/coordinates; rm -rf $output; mkdir -p $output
 
 #Convert alignment file to BED format
 #bedtools bamtobed -i $output/temp.bam > $output/temp1.bed
-time bedtools bamtobed -i $repository/results/$sample/alignment/$sample.bam > $output/temp1.bed
+bedtools bamtobed -i $repository/results/$sample/alignment/$sample.bam > $output/temp1.bed
 
 #Determine coordinates for each technique
 if [[ $technique == "ribose-seq" ]]; then
@@ -45,16 +45,16 @@ if [[ $technique == "ribose-seq" ]]; then
 elif [[ $technique == "emRiboSeq" ]]; then
 	
 	#Create BED file for reference
-	time cut -f 1,2 $fasta.fai > $output/reference.bed
+	cut -f 1,2 $fasta.fai > $output/reference.bed
 
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
-	time awk -v "OFS=\t" '$6 == "-" {print $1,$3,($3 + 1),$4,$5,"+"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' > $output/temp2.bed 
+	awk -v "OFS=\t" '$6 == "-" {print $1,$3,($3 + 1),$4,$5,"+"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' > $output/temp2.bed 
 	
 	#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-	time awk -v "OFS=\t" '$6 == "+" {print $1,($2 - 1),$2,$4,$5,"-"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' >> $output/temp2.bed
+	awk -v "OFS=\t" '$6 == "+" {print $1,($2 - 1),$2,$4,$5,"-"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' >> $output/temp2.bed
 
 	#Remove coordinates of rNMPs if the end position is greater than length of chromosome
-	time join -t $'\t' <(sort -k1,1 $output/reference.bed) <(sort -k1,1 -k2,2n -k6 $output/temp2.bed) | awk -v "OFS=\t" '$2 >= $4 { print $1,$3,$4,$5,$6,$7 }' > $output/$sample.bed
+	join -t $'\t' <(sort -k1,1 $output/reference.bed) <(sort -k1,1 -k2,2n -k6 $output/temp2.bed) | awk -v "OFS=\t" '$2 >= $4 { print $1,$3,$4,$5,$6,$7 }' > $output/$sample.bed
 	
 elif [[ $technique == "HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
 	
@@ -72,10 +72,10 @@ elif [[ $technique == "HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
 fi
 
 #Calculate per nucleotide rNMP coverage
-time cut -f1,2,3,6 $output/$sample.bed | uniq -c - | awk -v "OFS=\t" '{print $2,$3,$4,$5,$1}' > $output/$sample.counts.bed
+cut -f1,2,3,6 $output/$sample.bed | uniq -c - | awk -v "OFS=\t" '{print $2,$3,$4,$5,$1}' > $output/$sample.counts.bed
 
 #Calculate normalized per-nucleotide coverage
-time awk -v "OFS=\t" -v total="$(wc -l < $output/$sample.bed)" '{print $1,$2,$3,$4,$5/total*100}' $output/$sample.counts.bed > $output/$sample.normalized.bed
+awk -v "OFS=\t" -v total="$(wc -l < $output/$sample.bed)" '{print $1,$2,$3,$4,$5/total*100}' $output/$sample.counts.bed > $output/$sample.normalized.bed
 
 #############################################################################################################################
 #Remove temporary files
