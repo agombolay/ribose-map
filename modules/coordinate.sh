@@ -70,7 +70,7 @@ fi
 cut -f1,2,3,6 $output/$sample.bed | uniq -c - | awk -v "OFS=\t" '{print $2,$3,$4,$5,$1}' > $output/$sample.raw_coverage.bed
 
 #Calculate normalized per-nucleotide coverage
-awk -v "OFS=\t" -v total="$(wc -l < $output/$sample.bed)" '{print $1,$2,$3,$4,$5/total*100}' $output/$sample.raw_coverage.bed > $output/$sample.normalized.bed
+awk -v "OFS=\t" -v total="$(wc -l < $output/$sample.bed)" '{print $1,$2,$3,$4,$5/total*100}' $output/$sample.raw_coverage.bed > $output/$sample.normalized_coverage.bed
 
 #############################################################################################################################
 #Remove temporary files
