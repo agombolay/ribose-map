@@ -27,8 +27,8 @@ output=$repository/results/$sample/coordinates; rm -rf $output; mkdir -p $output
 #fi
 
 #Convert alignment file to BED format
-samtools view -b -F2308 $repository/results/$sample/alignment/$sample.bam | bedtools bamtobed -i stdin -o $output/temp1.bed
-#samtools view -b -f67 -F2308 $repository/results/$sample/alignment/$sample.bam | bedtools bamtobed -i stdin -o $output/temp1.bed
+samtools view -b -F2308 $repository/results/$sample/alignment/$sample.bam | bedtools bamtobed -i stdin > $output/temp1.bed
+#samtools view -b -f67 -F2308 $repository/results/$sample/alignment/$sample.bam | bedtools bamtobed -i stdin > $output/temp1.bed
 
 #bedtools bamtobed -i $repository/results/$sample/alignment/$sample.bam > $output/temp1.bed
 
