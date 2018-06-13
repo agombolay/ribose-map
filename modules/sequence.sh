@@ -16,21 +16,21 @@ output=$repository/results/$sample/sequence; rm -rf $output; mkdir -p $output
 
 #############################################################################################################################
 for nuc in "A" "C" "G" "T" "Combined"; do
-for subset in "mitochondria" "nucleus"; do
+	for region in "mitochondria" "nucleus"; do
 
-	#STEP 1: Calculate frequencies of reference genome
+		#STEP 1: Calculate frequencies of reference genome
 	
-	#Create FASTA index and BED file for reference genome
-	samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
+		#Create FASTA index and BED file for reference genome
+		samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 
-	#Subset FASTA file based on region
-	if [[ $subset == "nucleus" ]]; then
-		chr=$(awk '{print $1}' $output/reference.bed | grep -wvE '(chrM|MT)')
-		samtools faidx $fasta $chr > $output/temp.fa && samtools faidx $output/temp.fa
-	elif [[ $subset == "mitochondria" ]]; then
-		chr=$(awk '{print $1}' $output/reference.bed | grep -wE '(chrM|MT)')
-		samtools faidx $fasta $chr > $output/temp.fa && samtools faidx $output/temp.fa
-	fi
+		#Subset FASTA file based on region
+		if [[ $region == "nucleus" ]]; then
+			chr=$(awk '{print $1}' $output/reference.bed | grep -wvE '(chrM|MT)')
+			samtools faidx $fasta $chr > $output/temp.fa && samtools faidx $output/temp.fa
+		elif [[ $region == "mitochondria" ]]; then
+			chr=$(awk '{print $1}' $output/reference.bed | grep -wE '(chrM|MT)')
+			samtools faidx $fasta $chr > $output/temp.fa && samtools faidx $output/temp.fa
+		fi
 
 	#Calculate counts of each nucleotide
 	A_Bkg=$(grep -v '>' $output/temp.fa | grep -o 'A' - | wc -l)
@@ -60,16 +60,16 @@ for subset in "mitochondria" "nucleus"; do
 	#STEP 2: Create and save file containing background dNMP frequencies
 		
 	#Add nucleotides to header line and background frequencies
-	echo -e "A\tC\tG\tT" > "${fasta%.*}"-Freqs.$subset.txt
-	paste <(echo -e "$Bkg") >> "${fasta%.*}"-Freqs.$subset.txt
+	echo -e "A\tC\tG\tT" > "${fasta%.*}"-Freqs.$region.txt
+	paste <(echo -e "$Bkg") >> "${fasta%.*}"-Freqs.$region.txt
 			
 #############################################################################################################################
 	#STEP 3: Calculate frequencies of rNMPs in libraries
 		
 	#Subset unique coordinates based on region
-	if [[ $subset == "nucleus" ]]; then
+	if [[ $region == "nucleus" ]]; then
 		uniq $repository/results/$sample/coordinates/$sample.bed | grep -wvE '(chrM|MT)' > $output/Coords.bed
-	elif [[ $subset == "mitochondria" ]]; then
+	elif [[ $region == "mitochondria" ]]; then
 		uniq $repository/results/$sample/coordinates/$sample.bed | grep -wE '(chrM|MT)' > $output/Coords.bed
 	fi
 	
@@ -193,15 +193,15 @@ for subset in "mitochondria" "nucleus"; do
 		#STEP 7: Create and save dataset file containing nucleotide frequencies
 			
 		#Add nucleotides to header line
-		echo -e "\tA\tC\tG\tU/T" > $output/$sample-$subset.tab
+		echo -e "\tA\tC\tG\tU/T" > $output/$sample-$region.tab
 			
 		#Add positions and frequencies of nucleotides in correct order to create dataset
 		paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Up") <(echo "$Ribo") <(echo "$Down")) \
-		>> $output/$sample-$subset.tab
+		>> $output/$sample-$region.tab
 						
 #############################################################################################################################
 		#Print status
-		echo "Status: Frequencies module for $sample ($subset) is complete"
+		echo "Status: Frequencies module for $sample ($region) is complete"
 					
 	fi
 	#Remove temporary files
