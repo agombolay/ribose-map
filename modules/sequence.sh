@@ -65,7 +65,7 @@ for subset in "mitochondria" "nucleus"; do
 #############################################################################################################################
 	#STEP 3: Calculate frequencies of rNMPs in libraries
 		
-	#Subset and sort unique coordinates based on genomic region
+	#Subset unique coordinates based on genomic region
 	if [[ $subset == "nucleus" ]]; then
 		uniq $repository/results/$sample/coordinates/$sample.bed | grep -wvE '(chrM|MT)' > $output/Coords.bed
 	elif [[ $subset == "mitochondria" ]]; then
