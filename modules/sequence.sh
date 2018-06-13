@@ -72,15 +72,9 @@ for subset in "mitochondria" "nucleus"; do
 		uniq $repository/results/$sample/coordinates/$sample.bed | grep -wE '(chrM|MT)' > $output/Coords.bed
 	fi
 	
-	#Create 4 BED files, one for each nucleotide
-	bedtools getfasta -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "A"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' > $output/Coords-riboA.bed
-	bedtools getfasta -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "C"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' > $output/Coords-riboC.bed
-	bedtools getfasta -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "G"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' > $output/Coords-riboG.bed
-	bedtools getfasta -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "T"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' > $output/Coords-riboT.bed
-	
 	if [[ -s $output/Coords.bed ]]; then
-	
-		#Extract rNMP bases
+		
+		#Extract rNMP nucleotides from FASTA
 		bedtools getfasta -s -fi $output/temp.fa -bed $output/Coords.bed | grep -v '>' > $output/Ribos.txt
 	
 		#Calculate counts of rNMPs
@@ -110,6 +104,13 @@ for subset in "mitochondria" "nucleus"; do
 #############################################################################################################################
 		#STEP 4: Obtain coordinates/sequences of dNMPs +/- 100 bp from rNMPs
 
+		#Create 5 BED files, one for each nucleotide and one combined
+		bedtools getfasta -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "A"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' > $output/Coords-riboA.bed
+		bedtools getfasta -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "C"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' > $output/Coords-riboC.bed
+		bedtools getfasta -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "G"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' > $output/Coords-riboG.bed
+		bedtools getfasta -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "T"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' > $output/Coords-riboT.bed
+		bedtools getfasta -s -fi $output/temp.fa -bed $output/Coords.bed > $output/Coords-combined.bed
+		
 		#Obtain coordinates of flanking sequences and remove coordinates where start = end
 		bedtools flank -i $output/Coords.bed -s -g $output/reference.bed -l 100 -r 0 | awk '$2 != $3' > $output/Up.bed
 		bedtools flank -i $output/Coords.bed -s -g $output/reference.bed -l 0 -r 100 | awk '$2 != $3' > $output/Down.bed
