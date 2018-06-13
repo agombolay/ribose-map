@@ -109,15 +109,17 @@ for subset in "mitochondria" "nucleus"; do
 		bedtools getfasta -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "C"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' > $output/Coords-riboC.bed
 		bedtools getfasta -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "G"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' > $output/Coords-riboG.bed
 		bedtools getfasta -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "T"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' > $output/Coords-riboT.bed
-		bedtools getfasta -s -fi $output/temp.fa -bed $output/Coords.bed > $output/Coords-combined.bed
+		bedtools getfasta -s -fi $output/temp.fa -bed $output/Coords.bed > $output/Coords-riboCombined.bed
 		
-		#Obtain coordinates of flanking sequences and remove coordinates where start = end
-		bedtools flank -i $output/Coords.bed -s -g $output/reference.bed -l 100 -r 0 | awk '$2 != $3' > $output/Up.bed
-		bedtools flank -i $output/Coords.bed -s -g $output/reference.bed -l 0 -r 100 | awk '$2 != $3' > $output/Down.bed
+		for file in $(ls $output/Coords-ribo*.bed); do
+		
+			#Obtain coordinates of flanking sequences and remove coordinates where start = end
+			bedtools flank -i $file -s -g $output/reference.bed -l 100 -r 0 | awk '$2 != $3' > $output/Up.bed
+			bedtools flank -i $file -s -g $output/reference.bed -l 0 -r 100 | awk '$2 != $3' > $output/Down.bed
 	
-		#Obtain nucleotides flanking rNMPs (reverse order of up) and insert tabs bases for easier parsing
-		bedtools getfasta -s -fi $output/temp.fa -bed $output/Down.bed | grep -v '>' | sed 's/.../& /2g;s/./& /g' > $output/Down.tab
-		bedtools getfasta -s -fi $output/temp.fa -bed $output/Up.bed | grep -v '>' | rev | sed 's/.../& /2g;s/./& /g' > $output/Up.tab
+			#Obtain nucleotides flanking rNMPs (reverse order of up) and insert tabs bases for easier parsing
+			bedtools getfasta -s -fi $output/temp.fa -bed $output/Down.bed | grep -v '>' | sed 's/.../& /2g;s/./& /g' > $output/Down.tab
+			bedtools getfasta -s -fi $output/temp.fa -bed $output/Up.bed | grep -v '>' | rev | sed 's/.../& /2g;s/./& /g' > $output/Up.tab
 				
 #############################################################################################################################
 		#STEP 6: Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
