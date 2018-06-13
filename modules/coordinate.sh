@@ -70,7 +70,7 @@ awk -v "OFS=\t" -v total="$total" '{print $1,$2,$3,$4,$5/total*100}' $output/$sa
 
 #############################################################################################################################
 #Remove temporary files
-#rm -f $output/reference.bed $output/temp{1..2}.bed
+rm -f $output/reference.bed $output/temp{1..2}.bed
 
 #Print status
 echo "Status: Coordinates module for $sample is complete"
