@@ -18,11 +18,11 @@ output=$repository/results/$sample/coordinates; rm -rf $output; mkdir -p $output
 #Convert alignment file to BED format
 if [[ ! $read2 ]]; then
 	#Remove unaligned reads
-	samtools view -b $quality -@ 2 $repository/results/$sample/alignment/$sample.bam | bedtools bamtobed -i stdin > $output/temp1.bed
+	samtools view -b $quality -@ $threads $repository/results/$sample/alignment/$sample.bam | bedtools bamtobed -i stdin > $output/temp1.bed
 
 elif [[ $read2 ]]; then
 	#Keep first read in pair
-	samtools view -b -f67 $quality -@ 2 $repository/results/$sample/alignment/$sample.bam | bedtools bamtobed -i stdin > $output/temp1.bed
+	samtools view -b -f67 $quality -@ $threads $repository/results/$sample/alignment/$sample.bam | bedtools bamtobed -i stdin > $output/temp1.bed
 fi
 
 #Determine coordinates for each technique
