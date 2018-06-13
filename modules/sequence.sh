@@ -72,6 +72,16 @@ for subset in "mitochondria" "nucleus"; do
 		uniq $repository/results/$sample/coordinates/$sample.bed | grep -wE '(chrM|MT)' > $output/Coords.bed
 	fi
 	
+	#Create tab-delimited file with coords + nucleotide
+	bedtools getfasta -s -fi $output/temp.fa -bed $output/Coords.bed
+	
+	#if lin "A"' file > output
+	#awk '$7 == "C"' file > output
+	#awk '$7 == "G"' file > output
+	#awk '$7 == "T"' file > output
+	
+	#for all the files; do
+	
 	if [[ -s $output/Coords.bed ]]; then
 	
 		#Extract rNMP bases
