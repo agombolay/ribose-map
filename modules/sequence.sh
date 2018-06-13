@@ -65,15 +65,18 @@ for subset in "mitochondria" "nucleus"; do
 #############################################################################################################################
 	#STEP 3: Calculate frequencies of rNMPs in libraries
 		
-	#Subset unique coordinates based on genomic region
+	#Subset unique coordinates based on region
 	if [[ $subset == "nucleus" ]]; then
 		uniq $repository/results/$sample/coordinates/$sample.bed | grep -wvE '(chrM|MT)' > $output/Coords.bed
 	elif [[ $subset == "mitochondria" ]]; then
 		uniq $repository/results/$sample/coordinates/$sample.bed | grep -wE '(chrM|MT)' > $output/Coords.bed
 	fi
 	
-	#Create tab-delimited file with coords + nucleotide
-	bedtools getfasta -fi $output/temp.fa -bed $output/Coords.bed | grep '>'| sed 's/^.//' | sed 's/\:/\t/' | sed 's/\-/\t/'
+	#Create 4 BED files, one for each nucleotide
+	bedtools getfasta -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "A"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' > $output/Coords-riboA.bed
+	bedtools getfasta -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "C"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' > $output/Coords-riboC.bed
+	bedtools getfasta -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "G"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' > $output/Coords-riboG.bed
+	bedtools getfasta -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "T"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' > $output/Coords-riboT.bed
 	
 	if [[ -s $output/Coords.bed ]]; then
 	
