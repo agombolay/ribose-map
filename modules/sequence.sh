@@ -73,14 +73,7 @@ for subset in "mitochondria" "nucleus"; do
 	fi
 	
 	#Create tab-delimited file with coords + nucleotide
-	bedtools getfasta -s -fi $output/temp.fa -bed $output/Coords.bed
-	
-	#if lin "A"' file > output
-	#awk '$7 == "C"' file > output
-	#awk '$7 == "G"' file > output
-	#awk '$7 == "T"' file > output
-	
-	#for all the files; do
+	bedtools getfasta -fi $output/temp.fa -bed $output/Coords.bed | grep '>'| sed 's/^.//' | sed 's/\:/\t/' | sed 's/\-/\t/'
 	
 	if [[ -s $output/Coords.bed ]]; then
 	
