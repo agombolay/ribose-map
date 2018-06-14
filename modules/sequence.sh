@@ -16,7 +16,7 @@ output=$repository/results/$sample/sequence; rm -rf $output; mkdir -p $output
 
 #############################################################################################################################
 for nuc in "A" "C" "G" "T" "Combined"; do
-	for region in "mitochondria" "nucleus"; do
+	for region in "nucleus" "mitochondria"; do
 
 		#STEP 1: Calculate frequencies of reference genome
 	
