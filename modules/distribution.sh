@@ -36,8 +36,8 @@ awk -v "OFS=\t" '$4 == "+" {print $1,$2,$3,$4}' $repository/results/$sample/coor
 awk -v "OFS=\t" '$4 == "-" {print $1,$2,$3,$4}' $repository/results/$sample/coordinates/$sample.counts.tab >> $output/$sample-Reverse.bg
 
 #############################################################################################################################
-#Print status
-echo "Status: Distribution module for $sample is complete"
-	
 #Remove temporary files
 rm $output/reference.bed
+
+#Print status
+echo "Status: Distribution module for $sample is complete"
