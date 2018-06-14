@@ -71,7 +71,7 @@ fi
 #Sort coordinates by chromosome, position, and strand
 sort -k1,1 -k2,2n -k 6 $output/temp3.bed > $output/$sample.bed
 
-#Calculate per nucleotide coverage
+#Calculate raw and normalized (per 100) counts of rNMPs
 total=$(wc -l < $output/$sample.bed)
 cut -f1,2,3,6 $output/$sample.bed | uniq -c - | awk -v "OFS=\t" '{print $2,$3,$4,$5,$1}' > $output/$sample.counts.tab
 awk -v "OFS=\t" -v total="$total" '{print $1,$2,$3,$4,$5/total*100}' $output/$sample.counts.tab > $output/$sample.normalized.tab
