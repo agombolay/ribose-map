@@ -15,35 +15,14 @@
 output=$repository/results/$sample/distribution; rm -rf $output; mkdir -p $output
 
 #############################################################################################################################
-#Create file of rNMP coverage at chromosome coordinates
-uniq -c $repository/results/$sample/coordinates/$sample.bed | awk -v "OFS=\t" '{print $2,$3,$4,$1,$5}' > $output/temp.tab
-
-#Calculate normalized per-nucleotide coverage (reads per million)
-if [[ ! $read2 ]]; then
-
-	for file in $(ls $output/temp.tab); do
-		total_reads=$(samtools view -F2308 -c $repository/results/$sample/alignment/$sample.bam)
-		awk -v "OFS=\t" -v total="$total_reads" '{print $1,$2,$3,$4/total*100,$5}' $file > $output/normalized.tab
-	done
-
-elif [[ $read2 ]]; then
-
-	for file in $(ls $output/temp.tab); do
-		total_reads=$(samtools view -f67 -F2308 -c $repository/results/$sample/alignment/$sample.bam)
-		awk -v "OFS=\t" -v total="$total_reads" '{print $1,$2,$3,$4/total*100,$5}' $file > $output/normalized.tab
-	done
-
-fi
-
 #Create FASTA index and BED file for reference genome
 samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 
 #Save coverage of rNMPs per chromosome to separate files
 for chromosome in $( awk '{print $1}' $output/reference.bed ); do
-	grep -w "$chromosome" $output/normalized.tab > $output/$sample-$chromosome.tab
+	grep -w "$chromosome" $repository/results/$sample/coordinates/$sample.normalized.bed > $output/$sample-$chromosome.tab
 done
 
-#############################################################################################################################
 #Add trackline for forward strand to input into UCSC genome browser
 echo "track type=bedGraph name="$sample-ForwardStrand" description="$sample-ForwardStrand" color=0,128,0 visibility=full" > $output/$sample-Forward.bg
 		
