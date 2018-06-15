@@ -50,7 +50,7 @@ for(file in input_files){
 			position <- data$X; A <- data$A; C <- data$C; G <- data$G; T <- data$U.T
 
 ####################################################################################################################################################################
-			combined <- ggplot(data, aes(x = position)) + theme_minimal() + xlab("Chromosome Position") + ylab("Normalized Frequency") +
+			myplot <- ggplot(data, aes(x = position)) + theme_minimal() + xlab("Chromosome Position") + ylab("Normalized Frequency") +
 
 					   #Specify color and no legend title
                 			   scale_colour_manual(values = c("A" = "#CC79A7", "C" = "#56B4E9", "G" = "#E69F00", "U/T" = "#009E73"), name = "") +
@@ -67,7 +67,7 @@ for(file in input_files){
 					   theme(axis.line = element_line(size = .5), text = element_text(size = 20), axis.ticks = element_line(colour = "black"))
 
 ####################################################################################################################################################################
-			ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", "combined", ".", i, ".png", sep = "")), plot = combined)
+			ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep = "")), plot = myplot)
 			
 }
 }
