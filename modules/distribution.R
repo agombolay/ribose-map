@@ -41,16 +41,16 @@ for(file in input_files){
 		data = read.table(file, sep = "\t", header = FALSE)
 		
 		#Re-order levels of DNA strand
-		data$V5_new = factor(data$V5, levels = c('+', '-'))
+		data$V4_new = factor(data$V4, levels = c('+', '-'))
 		
 		#Specify DNA strand labels for plot
 		labels <- c('+' = 'Forward Strand', '-' = 'Reverse Strand')
 
 ####################################################################################################################################################################
-		myplot <- ggplot(data, aes(V3, V4, colour = V5_new)) + xlab("Chromosome Coordinate") + ylab("Per Nucleotide rNMP Coverage (%)") +
+		myplot <- ggplot(data, aes(V3, V5, colour = V4_new)) + xlab("Chromosome Coordinate") + ylab("Per Nucleotide rNMP Coverage (%)") +
 
 				 #Plot forward and reverse strands on same plot
-				 facet_wrap(~V5_new, ncol = 1, labeller = labeller(V5_new = labels)) + scale_colour_manual(values = c("blue", "green3")) +
+				 facet_wrap(~V4_new, ncol = 1, labeller = labeller(V5_new = labels)) + scale_colour_manual(values = c("blue", "green3")) +
 
 				 #Plot barcharts, specify font size and no legend, and remove background
 				 geom_bar(stat = "identity") + theme(text = element_text(size = 20), legend.position = "none", panel.background = element_blank()) +		 
