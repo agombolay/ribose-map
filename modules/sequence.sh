@@ -15,7 +15,8 @@
 output=$repository/results/$sample/sequence; rm -rf $output; mkdir -p $output
 
 #############################################################################################################################
-for nuc in "A" "C" "G" "T" "Combined"; do
+#for nuc in "A" "C" "G" "T" "Combined"; do
+for nuc in "A"; do
 	for region in "nucleus" "mitochondria"; do
 
 		#STEP 1: Calculate frequencies of reference genome
@@ -203,7 +204,7 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 		fi
 		
 		#Remove temporary files
-		rm -f $output/*.{txt,bed,fa,fa.fai} $output/{Up,Down}.tab
+		#rm -f $output/*.{txt,bed,fa,fa.fai} $output/{Up,Down}.tab
 	
 	done
 done
