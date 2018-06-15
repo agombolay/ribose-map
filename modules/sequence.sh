@@ -19,16 +19,13 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 	for region in "nucleus" "mitochondria"; do
 
 		#STEP 1: Calculate frequencies of reference genome
-	
-		#Create FASTA index and BED file for reference genome
-		samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 
 		#Subset FASTA file based on region
 		if [[ $region == "nucleus" ]]; then
-			chr=$(awk '{print $1}' $output/reference.bed | grep -wvE '(chrM|MT)')
+			chr=$(awk '{print $1}' $repository/results/$sample/coordinates/reference.bed | grep -wvE '(chrM|MT)')
 			samtools faidx $fasta $chr > $output/temp.fa && samtools faidx $output/temp.fa
 		elif [[ $region == "mitochondria" ]]; then
-			chr=$(awk '{print $1}' $output/reference.bed | grep -wE '(chrM|MT)')
+			chr=$(awk '{print $1}' $repository/results/$sample/coordinates/reference.bed | grep -wE '(chrM|MT)')
 			samtools faidx $fasta $chr > $output/temp.fa && samtools faidx $output/temp.fa
 		fi
 
