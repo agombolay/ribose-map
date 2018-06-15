@@ -105,14 +105,13 @@ for nuc in "A"; do
 			#STEP 4: Obtain coordinates/sequences of dNMPs +/- 100 bp from rNMPs
 
 			#Create 5 BED files, one for each nucleotide and one combined
-			if [[ $nuc = "A" ]]; then
+			if [[ $nuc == "A" ]]; then
 				bedtools getfasta -s -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "A"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords.bed
-				wc -l $output/Coords.bed
-			elif [[ $nuc = "C" ]]; then
+			elif [[ $nuc == "C" ]]; then
 				bedtools getfasta -s -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "C"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords.bed
-			elif [[ $nuc = "G" ]]; then
+			elif [[ $nuc == "G" ]]; then
 				bedtools getfasta -s -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "G"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords.bed
-			elif [[ $nuc = "T" ]]; then
+			elif [[ $nuc == "T" ]]; then
 				bedtools getfasta -s -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "T"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords.bed
 			fi
 		
