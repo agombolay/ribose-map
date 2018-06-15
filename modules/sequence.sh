@@ -72,7 +72,9 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 		fi
 	
 		if [[ -s $output/Coords.bed ]]; then
-		
+			wc -l $output/Coords.bed
+			wc -l $output/temp.fa
+			
 			#Extract rNMP nucleotides from FASTA
 			bedtools getfasta -s -fi $output/temp.fa -bed $output/Coords.bed | grep -v '>' > $output/Ribos.txt
 	
