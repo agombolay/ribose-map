@@ -15,11 +15,9 @@
 output=$repository/results/$sample/sequence; rm -rf $output; mkdir -p $output
 
 #############################################################################################################################
-#for nuc in "A" "C" "G" "T" "Combined"; do
-for nuc in "A"; do
-	#for region in "nucleus" "mitochondria"; do
-	for region in "nucleus"; do
-
+for nuc in "A" "C" "G" "T" "Combined"; do
+	for region in "nucleus" "mitochondria"; do
+	
 		#STEP 1: Calculate frequencies of reference genome
 
 		#Subset FASTA file based on region
@@ -106,20 +104,18 @@ for nuc in "A"; do
 
 			#Create 5 BED files, one for each nucleotide and one combined
 			if [[ $nuc == "A" ]]; then
-				echo $nuc
 				bedtools getfasta -s -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "A"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords-$nuc.bed
-				wc -l $output/Coords-$nuc.bed
 			elif [[ $nuc == "C" ]]; then
-				bedtools getfasta -s -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "C"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords.bed
+				bedtools getfasta -s -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "C"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords-$nuc.bed
 			elif [[ $nuc == "G" ]]; then
-				bedtools getfasta -s -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "G"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords.bed
+				bedtools getfasta -s -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "G"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords-$nuc.bed
 			elif [[ $nuc == "T" ]]; then
-				bedtools getfasta -s -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "T"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords.bed
+				bedtools getfasta -s -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "T"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords-$nuc.bed
 			fi
 		
 			#Obtain coordinates of flanking sequences and remove coordinates where start = end
-			bedtools flank -i $output/Coords.bed -s -g $repository/results/$sample/coordinates/reference.bed -l 100 -r 0 | awk '$2 != $3' > $output/Up.bed
-			bedtools flank -i $output/Coords.bed -s -g $repository/results/$sample/coordinates/reference.bed -l 0 -r 100 | awk '$2 != $3' > $output/Down.bed
+			bedtools flank -i $output/Coords-$nuc.bed -s -g $repository/results/$sample/coordinates/reference.bed -l 100 -r 0 | awk '$2 != $3' > $output/Up.bed
+			bedtools flank -i $output/Coords-$nuc.bed -s -g $repository/results/$sample/coordinates/reference.bed -l 0 -r 100 | awk '$2 != $3' > $output/Down.bed
 	
 			#Obtain nucleotides flanking rNMPs (reverse order of up) and insert tabs bases for easier parsing
 			bedtools getfasta -s -fi $output/temp.fa -bed $output/Down.bed | grep -v '>' | sed 's/.../& /2g;s/./& /g' > $output/Down.tab
@@ -207,7 +203,7 @@ for nuc in "A"; do
 		fi
 		
 		#Remove temporary files
-		#rm -f $output/*.{txt,bed,fa,fa.fai} $output/{Up,Down}.tab
+		rm -f $output/*.{txt,bed,fa,fa.fai} $output/{Up,Down}.tab
 	
 	done
 done
