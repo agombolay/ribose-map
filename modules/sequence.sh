@@ -205,7 +205,7 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 		fi
 		
 		#Remove temporary files
-		rm -f $output/*.{txt,bed,fa,fa.fai} $output/{Up,Down}.tab
+		rm -f $output/*.{txt,fa,fa.fai} $output/{Up,Down}.bed $output/{Up,Down}.tab
 	
 	done
 done
