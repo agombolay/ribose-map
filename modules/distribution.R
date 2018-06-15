@@ -50,7 +50,7 @@ for(file in input_files){
 		myplot <- ggplot(data, aes(V3, V5, colour = V4_new)) + xlab("Chromosome Coordinate") + ylab("Per Nucleotide rNMP Coverage (%)") +
 
 				 #Plot forward and reverse strands on same plot
-				 facet_wrap(~V4_new, ncol = 1, labeller = labeller(V5_new = labels)) + scale_colour_manual(values = c("blue", "green3")) +
+				 facet_wrap(~V4_new, ncol = 1, labeller = labeller(V4_new = labels)) + scale_colour_manual(values = c("blue", "green3")) +
 
 				 #Plot barcharts, specify font size and no legend, and remove background
 				 geom_bar(stat = "identity") + theme(text = element_text(size = 20), legend.position = "none", panel.background = element_blank()) +		 
