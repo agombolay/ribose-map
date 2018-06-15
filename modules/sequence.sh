@@ -62,7 +62,7 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 			
 #############################################################################################################################
 		#STEP 3: Calculate frequencies of rNMPs in libraries
-		echo $region
+		
 		#Subset unique coordinates based on region
 		if [[ $region == "nucleus" ]]; then
 			uniq $repository/results/$sample/coordinates/$sample.bed | grep -wvE '(chrM|MT)' > $output/Coords.bed
@@ -72,12 +72,17 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 		fi
 	
 		if [[ -s $output/Coords.bed ]]; then
+			
+			echo $nuc
+			echo $region
 			wc -l $output/Coords.bed
 			wc -l $output/temp.fa
 			
 			#Extract rNMP nucleotides from FASTA
 			bedtools getfasta -s -fi $output/temp.fa -bed $output/Coords.bed | grep -v '>' > $output/Ribos.txt
-	
+			
+			wc -l $output/Ribos.txt
+			
 			#Calculate counts of rNMPs
 			A_Ribo=$(awk '$1 == "A"' $output/Ribos.txt | wc -l)
 			C_Ribo=$(awk '$1 == "C"' $output/Ribos.txt | wc -l)
