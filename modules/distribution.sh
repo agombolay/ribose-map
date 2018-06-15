@@ -17,7 +17,7 @@ output=$repository/results/$sample/distribution; rm -rf $output; mkdir -p $outpu
 #############################################################################################################################
 #Save coverage of rNMPs per chromosome to separate files
 for chromosome in $( awk '{print $1}' $repository/results/$sample/coordinates/reference.bed ); do
-	grep -w "$chromosome" $repository/results/$sample/coordinates/$sample.normalized.bed > $output/$sample-$chromosome.tab
+	grep -w "$chromosome" $repository/results/$sample/coordinates/$sample.normalized.tab > $output/$sample-$chromosome.tab
 done
 
 #Add trackline for forward strand to input into UCSC genome browser
