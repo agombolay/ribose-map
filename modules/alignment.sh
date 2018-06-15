@@ -87,4 +87,4 @@ fi
 
 #############################################################################################################################
 #Print status
-echo "Status: Alignment module for $sample is complete"
+echo "Status: Alignment Module for $sample is complete"
