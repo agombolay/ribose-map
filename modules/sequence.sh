@@ -106,6 +106,7 @@ for nuc in "A"; do
 
 			#Create 5 BED files, one for each nucleotide and one combined
 			if [[ $nuc == "A" ]]; then
+				echo $nuc
 				bedtools getfasta -s -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "A"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords.bed
 			elif [[ $nuc == "C" ]]; then
 				bedtools getfasta -s -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "C"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords.bed
