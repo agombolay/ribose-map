@@ -26,7 +26,7 @@ maximum <- c()
 for(file in input_files){
 	if (file.info(file)$size > 0){
 		data = read.table(file, sep = "\t", header = FALSE)
-		maximum <- c(maximum, max(data$V4))
+		maximum <- c(maximum, max(data$V5))
 }
 }
 ylimit <- max(maximum)
