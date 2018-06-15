@@ -15,11 +15,8 @@
 output=$repository/results/$sample/distribution; rm -rf $output; mkdir -p $output
 
 #############################################################################################################################
-#Create FASTA index and BED file for reference genome
-samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
-
 #Save coverage of rNMPs per chromosome to separate files
-for chromosome in $( awk '{print $1}' $output/reference.bed ); do
+for chromosome in $( awk '{print $1}' $repository/results/$sample/coordinates/reference.bed ); do
 	grep -w "$chromosome" $repository/results/$sample/coordinates/$sample.normalized.bed > $output/$sample-$chromosome.tab
 done
 
@@ -36,8 +33,5 @@ awk -v "OFS=\t" '$4 == "+" {print $1,$2,$3,$4}' $repository/results/$sample/coor
 awk -v "OFS=\t" '$4 == "-" {print $1,$2,$3,$4}' $repository/results/$sample/coordinates/$sample.counts.tab >> $output/$sample-Reverse.bg
 
 #############################################################################################################################
-#Remove temporary files
-rm $output/reference.bed
-
 #Print status
 echo "Status: Distribution module for $sample is complete"
