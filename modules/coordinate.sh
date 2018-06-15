@@ -52,8 +52,8 @@ elif [[ $technique == "emRiboSeq" ]]; then
 	awk -v "OFS=\t" '$6 == "+" {print $1,($2 - 1),$2,$4,$5,"-"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' >> $output/temp2.bed
 
 	#Remove coordinates of rNMPs if the end position is greater than length of chromosome
-	#Must sort based on chromosome before joining files; otherwise, some data will be removed)
-	#Previous steps disorder temp2.bed since coordinates on +/- strands are treated differently
+	#Sort by chromosome, position, and strand before joining files; otherwise, some data will be removed
+	#Previous steps disorder temp2.bed since coordinates on forward/reverse strands are treated differently
 	join -t $'\t' <(sort -k1,1 -k2,2n -k 6 $output/reference.bed) <(sort -k1,1 -k2,2n -k 6 $output/temp2.bed) | awk -v "OFS=\t" '$2 >= $4 { print $1,$3,$4,$5,$6,$7 }' > $output/$sample.bed
 	
 elif [[ $technique == "HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
@@ -68,8 +68,8 @@ elif [[ $technique == "HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
 	awk -v "OFS=\t" '$6 == "-" {print $1,$3,($3 + 1),$4,$5,"-"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' >> $output/temp2.bed
 
 	#Remove coordinates of rNMPs if the end position is greater than length of chromosome
-	#Must sort based on chromosome before joining files; otherwise, some data will be removed)
-	#Previous steps disorder temp2.bed since coordinates on +/- strands are treated differently
+	#Sort by chromosome, position, and strand before joining files; otherwise, some data will be removed
+	#Previous steps disorder temp2.bed since coordinates on forward/reverse strands are treated differently
 	join -t $'\t' <(sort -k1,1 -k2,2n -k 6 $output/reference.bed) <(sort -k1,1 -k2,2n -k 6 $output/temp2.bed) | awk -v "OFS=\t" '$2 >= $4 { print $1,$3,$4,$5,$6,$7 }' > $output/$sample.bed
 fi
 
