@@ -34,4 +34,4 @@ awk -v "OFS=\t" '$4 == "-" {print $1,$2,$3,$4}' $repository/results/$sample/coor
 
 #############################################################################################################################
 #Print status
-echo "Status: Distribution module for $sample is complete"
+echo "Status: Distribution Module for $sample is complete"
