@@ -70,7 +70,7 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 			uniq $repository/results/$sample/coordinates/$sample.bed | grep -wE '(chrM|MT)' > $output/Coords.$region.bed
 		fi
 	
-		if [[ -s $output/Coords.bed ]]; then
+		if [[ -s $output/Coords.$region.bed ]]; then
 			
 			#Extract rNMP nucleotides from FASTA
 			bedtools getfasta -s -fi $output/temp.fa -bed $output/Coords.$region.bed | grep -v '>' > $output/Ribos.txt
@@ -112,7 +112,7 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 			elif [[ $nuc == "T" ]]; then
 				bedtools getfasta -s -fi $output/temp.fa -tab -bed $output/Coords-$region.bed | awk '$2 == "T"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords.$nuc.$region.bed
 			elif [[ $nuc == "Combined" ]]; then
-				cp $output/Coords.bed $output/Coords.$nuc.$region.bed 
+				cp $output/Coords.$region.bed $output/Coords.$nuc.$region.bed 
 			fi
 		
 			#Obtain coordinates of flanking sequences and remove coordinates where start = end
