@@ -80,4 +80,4 @@ awk -v "OFS=\t" -v total="$total" '{print $1, $2, $3, $4, $5/total*100}' $output
 rm -f $output/temp{1..2}.bed $output/temp.bam
 
 #Print status
-echo "Status: Coordinates module for $sample is complete"
+echo "Status: Coordinates Module for $sample is complete"
