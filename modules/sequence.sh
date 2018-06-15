@@ -111,6 +111,8 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 				bedtools getfasta -s -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "G"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords-$nuc.bed
 			elif [[ $nuc == "T" ]]; then
 				bedtools getfasta -s -fi $output/temp.fa -tab -bed $output/Coords.bed | awk '$2 == "T"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords-$nuc.bed
+			elif [[ $nuc == "Combined" ]]; then
+				cp $output/Coords.bed $output/Coords-$nuc.bed 
 			fi
 		
 			#Obtain coordinates of flanking sequences and remove coordinates where start = end
