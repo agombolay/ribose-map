@@ -198,7 +198,7 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 						
 #############################################################################################################################
 			#Print status
-			echo "Status: Frequencies module for $sample ($region) is complete"
+			echo "Status: Frequencies module for $sample ($nuc,$region) is complete"
 					
 		fi
 		
