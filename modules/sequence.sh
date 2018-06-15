@@ -66,6 +66,7 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 		#Subset unique coordinates based on region
 		if [[ $region == "nucleus" ]]; then
 			uniq $repository/results/$sample/coordinates/$sample.bed | grep -wvE '(chrM|MT)' > $output/Coords.bed
+			wc -l $output/Coords.bed
 		elif [[ $region == "mitochondria" ]]; then
 			uniq $repository/results/$sample/coordinates/$sample.bed | grep -wE '(chrM|MT)' > $output/Coords.bed
 		fi
