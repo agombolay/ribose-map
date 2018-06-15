@@ -28,6 +28,9 @@ fi
 #Convert BAM file to BED file
 bedtools bamtobed -i $output/temp.bam > $output/temp1.bed
 
+#Create FASTA index file and BED file for reference
+samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
+	
 #Determine coordinates for each technique
 if [[ $technique == "ribose-seq" ]]; then
 	
@@ -41,9 +44,6 @@ if [[ $technique == "ribose-seq" ]]; then
 	sort -k1,1 -k2,2n -k 6 $output/temp2.bed > $output/$sample.bed
 	
 elif [[ $technique == "emRiboSeq" ]]; then
-	
-	#Create FASTA index file and BED file for reference
-	samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 	awk -v "OFS=\t" '$6 == "-" {print $1, $3, ($3 + 1), $4, $5, "+"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' > $output/temp2.bed 
@@ -57,9 +57,6 @@ elif [[ $technique == "emRiboSeq" ]]; then
 	join -t $'\t' $output/reference.bed <(sort -k1,1 -k2,2n -k 6 $output/temp2.bed) | awk -v "OFS=\t" '$2 >= $4 { print $1, $3, $4, $5, $6, $7 }' > $output/$sample.bed
 	
 elif [[ $technique == "HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
-	
-	#Create FASTA index file and BED file for reference
-	samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 	
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
 	awk -v "OFS=\t" '$6 == "+" {print $1, ($2 - 1), $2, $4, $5, "+"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' > $output/temp2.bed 
@@ -80,7 +77,7 @@ awk -v "OFS=\t" -v total="$total" '{print $1, $2, $3, $4, $5/total*100}' $output
 
 #############################################################################################################################
 #Remove temporary files
-rm -f $output/reference.bed $output/temp{1..2}.bed
+rm -f $output/temp1.bed $output/temp2.bed
 
 #Print status
 echo "Status: Coordinates module for $sample is complete"
