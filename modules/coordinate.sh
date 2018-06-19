@@ -35,10 +35,10 @@ time samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 if [[ $technique == "ribose-seq" ]]; then
 	
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
-	awk -v "OFS=\t" '$6 == "-" {print $1, ($3 - 1), $3, ".", ".", "+"}' $output/temp1.bed > $output/temp2.bed
+	awk -v "OFS=\t" '$6 == "-" {print $1, ($3 - 1), $3, $4, $5, "+"}' $output/temp1.bed > $output/temp2.bed
 	
 	#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-	awk -v "OFS=\t" '$6 == "+" {print $1, $2, ($2 + 1), ".", ".", "-"}' $output/temp1.bed >> $output/temp2.bed
+	awk -v "OFS=\t" '$6 == "+" {print $1, $2, ($2 + 1), $4, $5, "-"}' $output/temp1.bed >> $output/temp2.bed
 	
 	#Sort coordinates by chromosome, position, and strand
 	sort -k1,1 -k2,2n -k 6 $output/temp2.bed > $output/$sample.bed
@@ -46,10 +46,10 @@ if [[ $technique == "ribose-seq" ]]; then
 elif [[ $technique == "emRiboSeq" ]]; then
 
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
-	time awk -v "OFS=\t" '$6 == "-" {print $1, $3, ($3 + 1), ".", ".", "+"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' > $output/temp2.bed 
+	time awk -v "OFS=\t" '$6 == "-" {print $1, $3, ($3 + 1), $4, $5, "+"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' > $output/temp2.bed 
 	
 	#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-	time awk -v "OFS=\t" '$6 == "+" {print $1, ($2 - 1), $2, ".", ".", "-"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' >> $output/temp2.bed
+	time awk -v "OFS=\t" '$6 == "+" {print $1, ($2 - 1), $2, $4, $5, "-"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' >> $output/temp2.bed
 
 	#Remove coordinates of rNMPs if the end position is greater than length of chromosome
 	#Sort by chromosome, position, and strand before joining files; otherwise, some data will be removed
@@ -59,10 +59,10 @@ elif [[ $technique == "emRiboSeq" ]]; then
 elif [[ $technique == "HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
 	
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
-	awk -v "OFS=\t" '$6 == "+" {print $1, ($2 - 1), $2, ".", ".", "+"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' > $output/temp2.bed 
+	awk -v "OFS=\t" '$6 == "+" {print $1, ($2 - 1), $2, $4, $5, "+"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' > $output/temp2.bed 
 	
 	#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-	awk -v "OFS=\t" '$6 == "-" {print $1, $3, ($3 + 1), ".", ".", "-"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' >> $output/temp2.bed
+	awk -v "OFS=\t" '$6 == "-" {print $1, $3, ($3 + 1), $4, $5, "-"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' >> $output/temp2.bed
 
 	#Remove coordinates of rNMPs if the end position is greater than length of chromosome
 	#Sort by chromosome, position, and strand before joining files; otherwise, some data will be removed
