@@ -18,11 +18,11 @@ library(ggplot2); library(tools)
 #Input/Output
 output <- file.path(repository, "results", sample, "sequence")
 
-if option1; then
-	input_files <- list.files(path = output, pattern = ".tab", full.names = TRUE, recursive = FALSE)
-
-if option2; then
+if (plots == 'all'){
+	input_files <- list.files(path = output, pattern = "*.tab", full.names = TRUE, recursive = FALSE)
+} else if (plots == 'combined'){
 	input_files <- list.files(path = output, pattern = "*Combined.*.tab", full.names = TRUE, recursive = FALSE)
+}
 
 ####################################################################################################################################################################
 #Find maximum y-axis value
