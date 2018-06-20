@@ -17,17 +17,16 @@ library(ggplot2); library(tools)
 ####################################################################################################################################################################
 #Input/Output
 output <- file.path(repository, "results", sample, "sequence")
-input_files <- list.files(path = output, pattern = ".tab", full.names = TRUE, recursive = FALSE)
-
-####################################################################################################################################################################
-#Find maximum y-axis value
-maximum <- c()
 
 if option1; then
 	input_files <- list.files(path = output, pattern = ".tab", full.names = TRUE, recursive = FALSE)
 
 if option2; then
-	input_files <- list.files(path = output, pattern = "Combined.*.tab", full.names = TRUE, recursive = FALSE)
+	input_files <- list.files(path = output, pattern = "*Combined.*.tab", full.names = TRUE, recursive = FALSE)
+
+####################################################################################################################################################################
+#Find maximum y-axis value
+maximum <- c()
 
 for(file in input_files){
 	if (file.info(file)$size > 0){
