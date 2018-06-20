@@ -23,6 +23,12 @@ input_files <- list.files(path = output, pattern = ".tab", full.names = TRUE, re
 #Find maximum y-axis value
 maximum <- c()
 
+if option1; then
+	input_files <- list.files(path = output, pattern = ".tab", full.names = TRUE, recursive = FALSE)
+
+if option2; then
+	input_files <- list.files(path = output, pattern = "Combined.*.tab", full.names = TRUE, recursive = FALSE)
+
 for(file in input_files){
 	if (file.info(file)$size > 0){
 		data = read.table(file, sep = "\t", header = TRUE)
