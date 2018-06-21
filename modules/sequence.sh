@@ -63,14 +63,11 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 #############################################################################################################################
 		#STEP 3: Calculate frequencies of rNMPs in libraries
 		
-		#Extract only unique coordinates from file
-		cut -f1,2,3,4 $repository/results/$sample/coordinate/$sample.counts.tab > $output/Coords.bed
-		
-		#Subset coordinates based on genomic region
+		#Extract only unique coordinates from file and then subset them based on genomic region
 		if [[ $region == "nucleus" ]]; then
-			grep -wvE '(chrM|MT)' $output/Coords.bed > $output/Coords.$region.bed
+			cut -f1,2,3,4 $repository/results/$sample/coordinate/$sample.counts.tab | grep -wvE '(chrM|MT)' > $output/Coords.$region.bed
 		elif [[ $region == "mitochondria" ]]; then
-			grep -wE '(chrM|MT)' $output/Coords.bed > $output/Coords.$region.bed
+			cut -f1,2,3,4 $repository/results/$sample/coordinate/$sample.counts.tab | grep -wE '(chrM|MT)' > $output/Coords.$region.bed
 		fi
 	
 		if [[ -s $output/Coords.$region.bed ]]; then
