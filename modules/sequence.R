@@ -12,7 +12,7 @@
 source(commandArgs(TRUE)[1])
 
 #Load libraries
-library(ggplot2); library(tools)
+library(ggplot); library(tools)
 
 ####################################################################################################################################################################
 #Input/Output
