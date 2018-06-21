@@ -22,10 +22,10 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 
 		#Subset FASTA file based on region
 		if [[ $region == "nucleus" ]]; then
-			chr=$(awk '{print $1}' $repository/results/$sample/coordinates/reference.bed | grep -wvE '(chrM|MT)')
+			chr=$(awk '{print $1}' $repository/results/$sample/coordinate/reference.bed | grep -wvE '(chrM|MT)')
 			samtools faidx $fasta $chr > $output/temp.fa && samtools faidx $output/temp.fa
 		elif [[ $region == "mitochondria" ]]; then
-			chr=$(awk '{print $1}' $repository/results/$sample/coordinates/reference.bed | grep -wE '(chrM|MT)')
+			chr=$(awk '{print $1}' $repository/results/$sample/coordinate/reference.bed | grep -wE '(chrM|MT)')
 			samtools faidx $fasta $chr > $output/temp.fa && samtools faidx $output/temp.fa
 		fi
 
