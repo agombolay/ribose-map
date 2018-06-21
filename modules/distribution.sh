@@ -27,10 +27,10 @@ echo "track type=bedGraph name="$sample-ForwardStrand" description="$sample-Forw
 echo "track type=bedGraph name="$sample-ReverseStrand" description="$sample-ReverseStrand" color=0,0,255 visibility=full" > $output/$sample-Reverse.bg
 		
 #Rearrange forward strand file so format is the same as bedgraph format
-awk -v "OFS=\t" '$4 == "+" {print $1, $2, $3, $5}' $repository/results/$sample/coordinates/$sample.counts.tab >> $output/$sample-Forward.bg
+awk -v "OFS=\t" '$4 == "+" {print $1, $2, $3, $5}' $repository/results/$sample/coordinate/$sample.counts.tab >> $output/$sample-Forward.bg
 
 #Rearrange reverse strand file so format is the same as bedgraph format
-awk -v "OFS=\t" '$4 == "-" {print $1, $2, $3, $5}' $repository/results/$sample/coordinates/$sample.counts.tab >> $output/$sample-Reverse.bg
+awk -v "OFS=\t" '$4 == "-" {print $1, $2, $3, $5}' $repository/results/$sample/coordinate/$sample.counts.tab >> $output/$sample-Reverse.bg
 
 #############################################################################################################################
 #Print status
