@@ -65,9 +65,9 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 		
 		#Subset unique coordinates based on region
 		if [[ $region == "nucleus" ]]; then
-			uniq $repository/results/$sample/coordinates/$sample.bed | grep -wvE '(chrM|MT)' > $output/Coords.$region.bed
+			uniq $repository/results/$sample/coordinate/$sample.bed | grep -wvE '(chrM|MT)' > $output/Coords.$region.bed
 		elif [[ $region == "mitochondria" ]]; then
-			uniq $repository/results/$sample/coordinates/$sample.bed | grep -wE '(chrM|MT)' > $output/Coords.$region.bed
+			uniq $repository/results/$sample/coordinate/$sample.bed | grep -wE '(chrM|MT)' > $output/Coords.$region.bed
 		fi
 	
 		if [[ -s $output/Coords.$region.bed ]]; then
@@ -116,8 +116,8 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 			fi
 		
 			#Obtain coordinates of flanking sequences and remove coordinates where start = end
-			bedtools flank -i $output/Coords.$nuc.$region.bed -s -g $repository/results/$sample/coordinates/reference.bed -l 100 -r 0 | awk '$2 != $3' > $output/Up.bed
-			bedtools flank -i $output/Coords.$nuc.$region.bed -s -g $repository/results/$sample/coordinates/reference.bed -l 0 -r 100 | awk '$2 != $3' > $output/Down.bed
+			bedtools flank -i $output/Coords.$nuc.$region.bed -s -g $repository/results/$sample/coordinate/reference.bed -l 100 -r 0 | awk '$2 != $3' > $output/Up.bed
+			bedtools flank -i $output/Coords.$nuc.$region.bed -s -g $repository/results/$sample/coordinate/reference.bed -l 0 -r 100 | awk '$2 != $3' > $output/Down.bed
 	
 			#Obtain nucleotides flanking rNMPs (reverse order of up) and insert tabs bases for easier parsing
 			bedtools getfasta -s -fi $output/temp.fa -bed $output/Down.bed | grep -v '>' | sed 's/.../& /2g;s/./& /g' > $output/Down.tab
