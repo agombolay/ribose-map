@@ -12,7 +12,7 @@
 . "$1"
 
 #Create output directory and remove any old files
-output=$repository/results/$sample/coordinate; rm -rf $output; mkdir -p $output
+output=$repository/results/$sample.$quality/coordinate; rm -rf $output; mkdir -p $output
 			
 #############################################################################################################################
 #Convert alignment file to BED format
