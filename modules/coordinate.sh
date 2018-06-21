@@ -18,11 +18,11 @@ output=$repository/results/$sample/coordinate; rm -rf $output; mkdir -p $output
 #Convert alignment file to BED format
 if [[ ! $read2 ]]; then
 	#Remove unaligned reads
-	samtools view -b $quality -@ $threads $repository/results/$sample/alignment/$sample.bam > $output/temp.bam
+	samtools view -b -q $quality -@ $threads $repository/results/$sample/alignment/$sample.bam > $output/temp.bam
 
 elif [[ $read2 ]]; then
 	#Keep first read in pair
-	samtools view -b -f67 $quality -@ $threads $repository/results/$sample/alignment/$sample.bam > $output/temp.bam
+	samtools view -b -f67 -q $quality -@ $threads $repository/results/$sample/alignment/$sample.bam > $output/temp.bam
 fi
 
 #Convert BAM file to BED file
