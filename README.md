@@ -63,22 +63,21 @@ source activate ribosemap_env
 ```
 
 2. **Run .sh and .R scripts along with configuration_file**:
-   * Run commands in ribose-map/modules directory
 
      1. **Process the data**
      ```
-     ./alignment.sh configuration_file
-     ./coordinate.sh configuration_file
+     /ribose-map/modules/alignment.sh configuration_file
+     /ribose-map/modules/coordinate.sh configuration_file
      ```
      2. **Analyze the data**
      ```
-     ./sequence.sh configuration_file
-     ./distribution.sh configuration_file
+     /ribose-map/modules/sequence.sh configuration_file
+     /ribose-map/modules/distribution.sh configuration_file
      ```
      3. **Visualize the results**
      ```
-     ./sequence.R configuration_file
-     ./distribution.R configuration_file
+     /ribose-map/modules/sequence.R configuration_file
+     /ribose-map/modules/distribution.R configuration_file
      ```
 
 3. **Once the analysis is complete, exit environment**:  
