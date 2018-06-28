@@ -54,7 +54,7 @@ To ensure easy installation and versioning of these software, we recommend using
 
 &nbsp;
 ## How to run Ribose-Map
-Before proceeding, close current terminal window and open a new window to refresh the settings
+Before proceeding, close current terminal window and open a new window to refresh the settings  
 May need to install the following dependency for samtools: conda install -c conda-forge ncurses
 
 1. **Activate environment to access software**:
