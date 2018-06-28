@@ -12,7 +12,7 @@
 . "$1"
 
 #Create output directory
-output=$repository/results/$sample/distribution; rm -rf $output; mkdir -p $output
+output=$repository/results-$quality/$sample/distribution; rm -rf $output; mkdir -p $output
 
 #############################################################################################################################
 #Save coverage of rNMPs per chromosome to separate files
