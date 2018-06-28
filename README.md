@@ -52,7 +52,7 @@ To ensure easy installation and versioning of these software, we recommend using
    conda env create --name ribosemap_env --file ribosemap.yaml
    ```
 
-5. **Close terminal window and re-open new window before proceeding**
+5. **Close current terminal window and open a new window**
 
 &nbsp;
 ## How to run Ribose-Map
