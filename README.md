@@ -62,7 +62,7 @@ Before proceeding, close current terminal window and open a new window to refres
 source activate ribosemap_env
 ```
 
-2. **Run .sh and .R scripts along with configuration_file**:
+2. **Run scripts with configuration_file as input**:
 
      1. **Process the data**
      ```
