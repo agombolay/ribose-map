@@ -1,8 +1,8 @@
 channels:
+  - bioconda
   - conda-forge
   - r
   - defaults
-  - bioconda
 
 dependencies:
   - seqtk
@@ -11,7 +11,7 @@ dependencies:
   - bedtools
   - cutadapt
   - umi_tools
-  - r-ggplot2
+  - r
   - sra-tools
   - trim-galore
   - python=3.5.2
