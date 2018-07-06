@@ -11,7 +11,7 @@ dependencies:
   - bedtools
   - cutadapt
   - umi_tools
-  - r
+  - r-ggplot2
   - sra-tools
   - trim-galore
   - python=3.5.2
