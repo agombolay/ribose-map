@@ -9,7 +9,7 @@ dependencies:
   - bowtie2
   - samtools
   - bedtools
-  - cutadapt
+  - cutadapt=1.9.1
   - umi_tools
   - r-ggplot2
   - sra-tools
