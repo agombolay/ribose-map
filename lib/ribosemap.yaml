@@ -9,11 +9,11 @@ dependencies:
   - bowtie2
   - samtools
   - bedtools
+  - fastqc=0.11.7
   - cutadapt=1.9.1
   - umi_tools
   - r-ggplot2
   - sra-tools
-  - trim-galore
   - python=3.5.2
   - coreutils
   - sed
