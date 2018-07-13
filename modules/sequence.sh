@@ -22,10 +22,10 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 
 		#Subset FASTA file based on region
 		if [[ $region == "nucleus" ]]; then
-			chr=$(awk '{print $1}' $repository/results/$sample/coordinate/reference.bed | grep -wvE '(chrM|MT)')
+			chr=$(awk '{print $1}' $repository/results/$sample/coordinate-$quality/reference.bed | grep -wvE '(chrM|MT)')
 			samtools faidx $fasta $chr > $output/temp.fa && samtools faidx $output/temp.fa
 		elif [[ $region == "mitochondria" ]]; then
-			chr=$(awk '{print $1}' $repository/results/$sample/coordinate/reference.bed | grep -wE '(chrM|MT)')
+			chr=$(awk '{print $1}' $repository/results/$sample/coordinate-$quality/reference.bed | grep -wE '(chrM|MT)')
 			samtools faidx $fasta $chr > $output/temp.fa && samtools faidx $output/temp.fa
 		fi
 
@@ -65,9 +65,9 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 		
 		#Extract only unique coordinates from file and then subset them based on genomic region
 		if [[ $region == "nucleus" ]]; then
-			awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate/$sample.counts.tab | grep -wvE '(chrM|MT)' > $output/Coords.$region.bed
+			awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate-$quality/$sample.counts.tab | grep -wvE '(chrM|MT)' > $output/Coords.$region.bed
 		elif [[ $region == "mitochondria" ]]; then
-			awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate/$sample.counts.tab | grep -wE '(chrM|MT)' > $output/Coords.$region.bed
+			awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate-$quality/$sample.counts.tab | grep -wE '(chrM|MT)' > $output/Coords.$region.bed
 		fi
 	
 		if [[ -s $output/Coords.$region.bed ]]; then
@@ -116,8 +116,8 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 			fi
 		
 			#Obtain coordinates of flanking sequences and remove coordinates where start = end
-			bedtools flank -i $output/Coords.$nuc.$region.bed -s -g $repository/results/$sample/coordinate/reference.bed -l 100 -r 0 | awk '$2 != $3' > $output/Up.bed
-			bedtools flank -i $output/Coords.$nuc.$region.bed -s -g $repository/results/$sample/coordinate/reference.bed -l 0 -r 100 | awk '$2 != $3' > $output/Down.bed
+			bedtools flank -i $output/Coords.$nuc.$region.bed -s -g $repository/results/$sample/coordinate-$quality/reference.bed -l 100 -r 0 | awk '$2 != $3' > $output/Up.bed
+			bedtools flank -i $output/Coords.$nuc.$region.bed -s -g $repository/results/$sample/coordinate-$quality/reference.bed -l 0 -r 100 | awk '$2 != $3' > $output/Down.bed
 	
 			#Obtain nucleotides flanking rNMPs (reverse order of up) and insert tabs bases for easier parsing
 			bedtools getfasta -s -fi $output/temp.fa -bed $output/Down.bed | grep -v '>' | sed 's/.../& /2g;s/./& /g' > $output/Down.tab
