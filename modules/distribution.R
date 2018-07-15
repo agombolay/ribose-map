@@ -45,7 +45,7 @@ for(file in input_files){
 		
 		#Specify DNA strand labels for plot
 		labels <- c('+' = 'Forward Strand', '-' = 'Reverse Strand')
-
+		print(scaled)
 ####################################################################################################################################################################
 		if (scaled == 1){
 			
