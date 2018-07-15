@@ -78,4 +78,3 @@ for(file in input_files){
 }
 
 message("Status: Sequence Module plotting for ", sample, " is complete")
-warnings()
