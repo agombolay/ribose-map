@@ -67,7 +67,7 @@ for(file in input_files){
 		
 ####################################################################################################################################################################
 		} else {
-			
+			if(scaled == 'no'){
 			unscaled <- ggplot(data, aes(V3, V5, colour = V4_new)) + xlab("Chromosome Coordinate") + ylab("Per Nucleotide rNMP Coverage (%)") +
 
 				 #Plot forward and reverse strands on same plot
@@ -87,6 +87,6 @@ for(file in input_files){
 }
 }
 }
-
+}
 message("Status: Distribution Module plotting for ", sample, " is complete")
 warnings()
