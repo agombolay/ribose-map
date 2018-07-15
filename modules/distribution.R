@@ -48,7 +48,7 @@ for(file in input_files){
 
 ####################################################################################################################################################################
 		if (scaled == 'yes'){
-			
+			print(scaled)
 			scaled <- ggplot(data, aes(V3, V5, colour = V4_new)) + xlab("Chromosome Coordinate") + ylab("Per Nucleotide rNMP Coverage (%)") +
 
 				 #Plot forward and reverse strands on same plot
