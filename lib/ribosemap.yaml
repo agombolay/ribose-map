@@ -12,7 +12,7 @@ dependencies:
   - fastqc=0.11.7
   - cutadapt=1.9.1
   - umi_tools
-  - r-ggplot2
+  - r-ggplot2=2.2.1
   - sra-tools
   - python=3.5.2
   - coreutils
