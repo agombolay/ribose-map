@@ -13,7 +13,7 @@ source(commandArgs(TRUE)[1])
 
 #Load libraries
 library(ggplot2); library(tools)
-
+options(warnings=2)
 ####################################################################################################################################################################
 #Input/Output
 output <- file.path(repository, "results", sample, paste("sequence-", quality, sep=""))
