@@ -17,13 +17,13 @@ library(ggplot2); library(tools)
 ####################################################################################################################################################################
 #Input/Output
 output <- file.path(repository, "results", sample, "sequence", "-", quality)
-
+print(output)
 if (plots == 'all'){
 	input_files <- list.files(path = output, pattern = "*.tab", full.names = TRUE, recursive = FALSE)
 } else if (plots == 'combined'){
 	input_files <- list.files(path = output, pattern = "*Combined.*.tab", full.names = TRUE, recursive = FALSE)
 }
-print(input_files)
+
 ####################################################################################################################################################################
 #Find maximum y-axis value
 maximum <- c()
