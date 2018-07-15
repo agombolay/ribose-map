@@ -16,10 +16,7 @@ library(ggplot2); library(tools)
 
 ####################################################################################################################################################################
 #Input/Output
-#output <- file.path(repository, "results", sample, "sequence-",quality)
-
 output <- file.path(repository, "results", sample, paste("sequence-",quality,sep=""))
-print(output)
 
 if (plots == 'all'){
 	input_files <- list.files(path = output, pattern = "*.tab", full.names = TRUE, recursive = FALSE)
@@ -32,12 +29,10 @@ if (plots == 'all'){
 maximum <- c()
 
 for(file in input_files){
-	print(file)
 	if (file.info(file)$size > 0){
 		data = read.table(file, sep = "\t", header = TRUE)
 		A <- data$A; C <- data$C; G <- data$G; T <- data$U.T
 		maximum <- c(maximum, max(A, C, G, T))
-		
 }
 }
 ylimit <- max(maximum)
