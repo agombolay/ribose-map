@@ -13,7 +13,7 @@ source(commandArgs(TRUE)[1])
 
 #Load libraries
 library(ggplot2); library(tools)
-options(warnings=2)
+
 ####################################################################################################################################################################
 #Input/Output
 output <- file.path(repository, "results", sample, paste("sequence-", quality, sep=""))
@@ -77,4 +77,5 @@ for(file in input_files){
 }
 }
 
-#message("Status: Sequence Module plotting for ", sample, " is complete")
+message("Status: Sequence Module plotting for ", sample, " is complete")
+warnings()
