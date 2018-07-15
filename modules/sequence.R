@@ -24,7 +24,6 @@ if (plots == 'all'){
 	input_files <- list.files(path = output, pattern = "*Combined.*.tab", full.names = TRUE, recursive = FALSE)
 }
 
-print(plots)
 ####################################################################################################################################################################
 #Find maximum y-axis value
 maximum <- c()
@@ -34,7 +33,7 @@ for(file in input_files){
 		data = read.table(file, sep = "\t", header = TRUE)
 		A <- data$A; C <- data$C; G <- data$G; T <- data$U.T
 		maximum <- c(maximum, max(A, C, G, T))
-		print(maximum)
+		print(file)
 }
 }
 ylimit <- max(maximum)
