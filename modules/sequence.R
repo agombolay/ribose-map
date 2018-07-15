@@ -23,7 +23,7 @@ if (plots == 'all'){
 } else if (plots == 'combined'){
 	input_files <- list.files(path = output, pattern = "*Combined.*.tab", full.names = TRUE, recursive = FALSE)
 }
-
+print(input_files)
 ####################################################################################################################################################################
 #Find maximum y-axis value
 maximum <- c()
