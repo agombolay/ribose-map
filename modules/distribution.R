@@ -48,7 +48,7 @@ for(file in input_files){
 
 ####################################################################################################################################################################
 		if (scaled == 'yes'){
-			print(scaled)
+			
 			scaled <- ggplot(data, aes(V3, V5, colour = V4_new)) + xlab("Chromosome Coordinate") + ylab("Per Nucleotide rNMP Coverage (%)") +
 
 				 #Plot forward and reverse strands on same plot
@@ -66,7 +66,7 @@ for(file in input_files){
 			ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep = "")), plot = scaled, width = 15)
 		
 ####################################################################################################################################################################
-		} else if (scaled == 'no'){
+		} else {
 			
 			unscaled <- ggplot(data, aes(V3, V5, colour = V4_new)) + xlab("Chromosome Coordinate") + ylab("Per Nucleotide rNMP Coverage (%)") +
 
