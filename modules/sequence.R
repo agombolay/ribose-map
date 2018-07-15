@@ -24,6 +24,7 @@ if (plots == 'all'){
 	input_files <- list.files(path = output, pattern = "*Combined.*.tab", full.names = TRUE, recursive = FALSE)
 }
 
+print(plots)
 ####################################################################################################################################################################
 #Find maximum y-axis value
 maximum <- c()
