@@ -77,3 +77,5 @@ for(file in input_files){
 }
 }
 }
+
+print("Status: Sequence Module plotting for $sample is complete")
