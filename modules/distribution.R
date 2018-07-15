@@ -45,9 +45,9 @@ for(file in input_files){
 		
 		#Specify DNA strand labels for plot
 		labels <- c('+' = 'Forward Strand', '-' = 'Reverse Strand')
-		print(scaled)
+		
 ####################################################################################################################################################################
-		if (scaled == 1){
+		if (scaled == 'yes'){
 			
 			scaled <- ggplot(data, aes(V3, V5, colour = V4_new)) + xlab("Chromosome Coordinate") + ylab("Per Nucleotide rNMP Coverage (%)") +
 
@@ -66,7 +66,7 @@ for(file in input_files){
 			ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep = "")), plot = scaled, width = 15)
 		
 ####################################################################################################################################################################
-		} else if (scaled == 0){
+		} else if (scaled == 'no'){
 	
 			unscaled <- ggplot(data, aes(V3, V5, colour = V4_new)) + xlab("Chromosome Coordinate") + ylab("Per Nucleotide rNMP Coverage (%)") +
 
