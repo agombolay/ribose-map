@@ -47,7 +47,7 @@ for(file in input_files){
 		labels <- c('+' = 'Forward Strand', '-' = 'Reverse Strand')
 
 ####################################################################################################################################################################
-		if (scaled == 'yes'){
+		if (scaled == 1){
 			
 			scaled <- ggplot(data, aes(V3, V5, colour = V4_new)) + xlab("Chromosome Coordinate") + ylab("Per Nucleotide rNMP Coverage (%)") +
 
@@ -66,8 +66,8 @@ for(file in input_files){
 			ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep = "")), plot = scaled, width = 15)
 		
 ####################################################################################################################################################################
-		} else {
-			if(scaled == 'no'){
+		} else if (scaled == 0){
+	
 			unscaled <- ggplot(data, aes(V3, V5, colour = V4_new)) + xlab("Chromosome Coordinate") + ylab("Per Nucleotide rNMP Coverage (%)") +
 
 				 #Plot forward and reverse strands on same plot
@@ -87,6 +87,6 @@ for(file in input_files){
 }
 }
 }
-}
+
 message("Status: Distribution Module plotting for ", sample, " is complete")
 warnings()
