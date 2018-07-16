@@ -119,6 +119,8 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 				cp $output/Coords.$region.bed $output/Coords.$nuc.$region.bed 
 			fi
 		
+			if [[ -s $output/Coords.$nuc.$region.bed ]]; then
+			
 			#Obtain coordinates of flanking sequences and remove coordinates where start = end
 			bedtools flank -i $output/Coords.$nuc.$region.bed -s -g $repository/results/$sample/coordinate-$quality/reference.bed -l 100 -r 0 | awk '$2 != $3' > $output/Up.bed
 			bedtools flank -i $output/Coords.$nuc.$region.bed -s -g $repository/results/$sample/coordinate-$quality/reference.bed -l 0 -r 100 | awk '$2 != $3' > $output/Down.bed
