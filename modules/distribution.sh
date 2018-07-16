@@ -17,12 +17,14 @@ output=$repository/results/$sample/distribution-$quality; rm -rf $output; mkdir 
 #############################################################################################################################
 #Save coverage of rNMPs per chromosome to separate files
 for chromosome in $( awk '{print $1}' $repository/results/$sample/coordinate-$quality/reference.bed ); do
-	grep -w "$chromosome" $repository/results/$sample/coordinate-$quality/$sample.normalized.tab > $output/$sample-$chromosome.tab
+	
+	if $(grep -w "$chromosome" $repository/results/$sample/coordinate-$quality/$sample.normalized.tab | wc -l) == 0 ]]; then
+		grep -w "$chromosome" $repository/results/$sample/coordinate-$quality/$sample.normalized.tab > $output/$sample-$chromosome.tab
+	fi
+	
 done
 
-if [[ $(wc -l < $output/$sample-$chromosome.tab) == 0 ]]; then
-	rm $output/$sample-$chromosome.tab
-fi
+if [[ $(wc -l < $repository/results/$sample/coordinate-$quality/$sample.counts.tab) > 0 ]]; then
 
 	#Add trackline for forward strand to input into UCSC genome browser
 	echo "track type=bedGraph name="$sample-ForwardStrand" description="$sample-ForwardStrand" color=0,128,0 visibility=full" > $output/$sample-Forward.bg
