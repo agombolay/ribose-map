@@ -29,6 +29,7 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 			samtools faidx $fasta $chr > $output/temp.fa
 		fi
 		
+		#Continue only for FASTA files > 0
 		if [[ -s $output/temp.fa ]]; then
 		
 		samtools faidx $output/temp.fa
@@ -119,6 +120,7 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 				cp $output/Coords.$region.bed $output/Coords.$nuc.$region.bed 
 			fi
 		
+			#Continue only for BED files > 0
 			if [[ -s $output/Coords.$nuc.$region.bed ]]; then
 			
 			#Obtain coordinates of flanking sequences and remove coordinates where start = end
