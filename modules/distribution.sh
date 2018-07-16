@@ -20,7 +20,9 @@ for chromosome in $( awk '{print $1}' $repository/results/$sample/coordinate-$qu
 	grep -w "$chromosome" $repository/results/$sample/coordinate-$quality/$sample.normalized.tab > $output/$sample-$chromosome.tab
 done
 
-if [[ -s $repository/results/$sample/coordinate-$quality/$sample.counts.tab ]]; then
+if [[ $(wc -l < $output/$sample-$chromosome.tab) == 0 ]]; then
+	rm $output/$sample-$chromosome.tab
+fi
 
 	#Add trackline for forward strand to input into UCSC genome browser
 	echo "track type=bedGraph name="$sample-ForwardStrand" description="$sample-ForwardStrand" color=0,128,0 visibility=full" > $output/$sample-Forward.bg
