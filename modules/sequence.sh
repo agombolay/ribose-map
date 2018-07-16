@@ -28,10 +28,6 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 			chr=$(awk '{print $1}' $repository/results/$sample/coordinate-$quality/reference.bed | grep -wE '(chrM|MT)')
 			samtools faidx $fasta $chr > $output/temp.fa
 		fi
-		
-		if [[ -s $output/temp.fa ]]; then
-			
-		samtools faidx $output/temp.fa
 			
 		#Calculate counts of each nucleotide
 		A_Bkg=$(grep -v '>' $output/temp.fa | grep -o 'A' - | wc -l)
