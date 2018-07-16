@@ -74,7 +74,8 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 		elif [[ $region == "mitochondria" ]]; then
 			awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate-$quality/$sample.counts.tab | grep -wE '(chrM|MT)' > $output/Coords.$region.bed
 		fi
-	
+		
+		#Continue only for BED files > 0
 		if [[ -s $output/Coords.$region.bed ]]; then
 			
 			#Extract rNMP nucleotides from FASTA
@@ -210,6 +211,7 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 			#Print status
 			echo "Status: Sequence Module for $sample ($nuc,$region) is complete"
 					
+		fi
 		fi
 		fi
 		
