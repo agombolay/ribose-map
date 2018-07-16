@@ -18,7 +18,7 @@ output=$repository/results/$sample/distribution-$quality; rm -rf $output; mkdir 
 #Save coverage of rNMPs per chromosome to separate files
 for chromosome in $( awk '{print $1}' $repository/results/$sample/coordinate-$quality/reference.bed ); do
 	
-	if $(grep -w "$chromosome" $repository/results/$sample/coordinate-$quality/$sample.normalized.tab | wc -l) == 0 ]]; then
+	if [[ $(grep -w "$chromosome" $repository/results/$sample/coordinate-$quality/$sample.normalized.tab | wc -l) > 0 ]]; then
 		grep -w "$chromosome" $repository/results/$sample/coordinate-$quality/$sample.normalized.tab > $output/$sample-$chromosome.tab
 	fi
 	
