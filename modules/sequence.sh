@@ -95,12 +95,38 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 			C_RiboFreq=$(echo "($C_Ribo/$RiboTotal)/$C_BkgFreq" | bc -l)
 			G_RiboFreq=$(echo "($G_Ribo/$RiboTotal)/$G_BkgFreq" | bc -l)
 			U_RiboFreq=$(echo "($U_Ribo/$RiboTotal)/$T_BkgFreq" | bc -l)
-
+			
 			#Save normalized frequencies of rNMPs to TXT files
-			echo $A_RiboFreq | xargs printf "%.*f\n" 5 > $output/A_Ribo.txt
-			echo $C_RiboFreq | xargs printf "%.*f\n" 5 > $output/C_Ribo.txt
-			echo $G_RiboFreq | xargs printf "%.*f\n" 5 > $output/G_Ribo.txt
-			echo $U_RiboFreq | xargs printf "%.*f\n" 5 > $output/U_Ribo.txt
+			if [[ $nuc == "A" ]]; then
+				echo $A_RiboFreq | xargs printf "%.*f\n" 5 > $output/A_Ribo.txt
+				echo 'NA' > $output/C_Ribo.txt
+				echo 'NA' > $output/G_Ribo.txt
+				echo 'NA' > $output/U_Ribo.txt
+				
+			elif [[ $nuc == "C" ]]; then
+				echo $C_RiboFreq | xargs printf "%.*f\n" 5 > $output/C_Ribo.txt
+				echo 'NA' > $output/A_Ribo.txt
+				echo 'NA' > $output/G_Ribo.txt
+				echo 'NA' > $output/U_Ribo.txt
+				
+			elif [[ $nuc == "G" ]]; then
+				echo $G_RiboFreq | xargs printf "%.*f\n" 5 > $output/G_Ribo.txt
+				echo 'NA' > $output/A_Ribo.txt
+				echo 'NA' > $output/C_Ribo.txt
+				echo 'NA' > $output/U_Ribo.txt
+				
+			elif [[ $nuc == "T" ]]; then
+				echo $U_RiboFreq | xargs printf "%.*f\n" 5 > $output/U_Ribo.txt
+				echo 'NA' > $output/A_Ribo.txt
+				echo 'NA' > $output/C_Ribo.txt
+				echo 'NA' > $output/G_Ribo.txt
+				
+			elif [[ $nuc == "Combined" ]]; then
+				echo $A_RiboFreq | xargs printf "%.*f\n" 5 > $output/A_Ribo.txt
+				echo $C_RiboFreq | xargs printf "%.*f\n" 5 > $output/C_Ribo.txt
+				echo $G_RiboFreq | xargs printf "%.*f\n" 5 > $output/G_Ribo.txt
+				echo $U_RiboFreq | xargs printf "%.*f\n" 5 > $output/U_Ribo.txt
+			fi
 
 			#Combine rNMP frequencies into one file
 			Ribo=$(paste $output/{A,C,G,U}_Ribo.txt)
