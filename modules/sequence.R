@@ -64,7 +64,7 @@ for(file in input_files){
 				 guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + scale_y_continuous(limits = c(0, ylimit)) +
 
 				 #Add axis lines and ticks and increase font size
-				 theme(axis.line = element_line(size = .5), text = element_text(size = 30), axis.ticks = element_line(colour = "black"))
+				 theme(axis.line = element_line(size = .5), text = element_text(size = 20), axis.ticks = element_line(colour = "black"))
 
 ####################################################################################################################################################################
 		ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep = "")), plot = myplot)
