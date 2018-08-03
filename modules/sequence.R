@@ -31,7 +31,7 @@ maximum <- c()
 for(file in input_files){
 	data = read.table(file, sep = "\t", header = TRUE)
 	A <- data$A; C <- data$C; G <- data$G; T <- data$U.T
-	maximum <- c(maximum, max(A, C, G, T))
+	maximum <- c(maximum, max(A, C, G, T, na.rm = TRUE))
 }
 ylimit <- max(maximum)
 
