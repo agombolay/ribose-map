@@ -17,14 +17,14 @@ output=$repository/results/$sample/coordinate-$quality; rm -rf $output; mkdir -p
 #############################################################################################################################
 if [[ ! $read2 ]]; then
 	#Convert BAM file to BED file
-	bedtools bamtobed -i $repository/results/$sample/alignment/$sample.bam | mawk -v "OFS=\t" -v q="$quality" '$5 >= q { print }' - > $output/test.bed
+	bedtools bamtobed -i $repository/results/$sample/alignment/$sample.bam | mawk -v "OFS=\t" -v q="$quality" '$5 >= q { print }' - > $output/reads.bed
 
 elif [[ $read2 ]]; then
 	#Keep first read in read pair
 	samtools view -b -f67 -q $quality $repository/results/$sample/alignment/$sample.bam > $output/temporary.bam
 	
 	#Convert BAM file to BED file
-	bedtools bamtobed -i $output/temporary.bam | mawk -v "OFS=\t" -v q="$quality" '$5 >= q { print }' - > $output/test.bed
+	bedtools bamtobed -i $output/temporary.bam | mawk -v "OFS=\t" -v q="$quality" '$5 >= q { print }' - > $output/reads.bed
 
 fi
 
@@ -32,20 +32,20 @@ fi
 if [[ $technique == "ribose-seq" ]]; then
 
 	#Obtain coordinates of rNMPs depending on the strand of DNA and sort data
-	mawk -v "OFS=\t" '{if ($6 == "-") print $1, ($3 - 1), $3, $4, $5, "+"; else if ($6 == "+") print $1, $2, ($2 + 1), $4, $5, "-";}' $output/temp1.bed | sort -k1,1 -k2,2n -k 6 > $output/$sample.bed
+	mawk -v "OFS=\t" '{if ($6 == "-") print $1, ($3 - 1), $3, $4, $5, "+"; else if ($6 == "+") print $1, $2, ($2 + 1), $4, $5, "-";}' $output/reads.bed | sort -k1,1 -k2,2n -k 6 > $output/$sample.bed
 	
 elif [[ $technique == "emRiboSeq" ]]; then
 
 	if [[ ! $check ]]; then
 		#Obtain coordinates of rNMPs depending on the strand of DNA and sort data
-		mawk -v "OFS=\t" '{if ($6 == "-") print $1, $3, ($3 + 1), $4, $5, "+"; else if ($6 == "+") print $1, ($2 - 1), $2, $4, $5, "-";}' $output/temp1.bed | sort -k1,1 -k2,2n -k 6 > $output/$sample.bed
+		mawk -v "OFS=\t" '{if ($6 == "-") print $1, $3, ($3 + 1), $4, $5, "+"; else if ($6 == "+") print $1, ($2 - 1), $2, $4, $5, "-";}' $output/reads.bed | sort -k1,1 -k2,2n -k 6 > $output/$sample.bed
 	
 	elif [[ $check ]]; then
 		#Create FASTA index file and BED file for reference
 		samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 
 		#Obtain coordinates of rNMPs depending on the strand of DNA and sort data
-		mawk -v "OFS=\t" '{if ($6 == "-") print $1, $3, ($3 + 1), $4, $5, "+"; else if ($6 == "+") print $1, ($2 - 1), $2, $4, $5, "-";}' $output/temp1.bed | sort -k1,1 -k2,2n -k 6 > $output/temporary.bed
+		mawk -v "OFS=\t" '{if ($6 == "-") print $1, $3, ($3 + 1), $4, $5, "+"; else if ($6 == "+") print $1, ($2 - 1), $2, $4, $5, "-";}' $output/reads.bed | sort -k1,1 -k2,2n -k 6 > $output/temporary.bed
 
 		#Remove coordinates of rNMPs if the end position is greater than length of chromosome
 		join -t $'\t' $output/reference.bed $output/temporary.bed | mawk -v "OFS=\t" '$3 >= 0 && $2 >= $4 { print $1, $3, $4, $5, $6, $7 }' > $output/$sample.bed
@@ -55,7 +55,7 @@ elif [[ $technique == "HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
 	if [[ ! $check ]]; then
 	
 		#Obtain coordinates of rNMPs depending on the strand of DNA and sort data
-		mawk -v "OFS=\t" '{if ($6 == "+") print $1, ($2 - 1), $2, $4, $5, "+"; else if ($6 == "-") print $1, $3, ($3 + 1), $4, $5, "-";}' $output/temp1.bed | sort -k1,1 -k2,2n -k 6 > $output/$sample.bed
+		mawk -v "OFS=\t" '{if ($6 == "+") print $1, ($2 - 1), $2, $4, $5, "+"; else if ($6 == "-") print $1, $3, ($3 + 1), $4, $5, "-";}' $output/reads.bed | sort -k1,1 -k2,2n -k 6 > $output/$sample.bed
 	
 	elif [[ $check ]]; then
 		
@@ -63,7 +63,7 @@ elif [[ $technique == "HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
 		samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 
 		#Obtain coordinates of rNMPs depending on the strand of DNA and sort data
-		mawk -v "OFS=\t" '{if ($6 == "+") print $1, ($2 - 1), $2, $4, $5, "+"; else if ($6 == "-") print $1, $3, ($3 + 1), $4, $5, "-";}' $output/temp1.bed | sort -k1,1 -k2,2n -k 6 > $output/temporary.bed
+		mawk -v "OFS=\t" '{if ($6 == "+") print $1, ($2 - 1), $2, $4, $5, "+"; else if ($6 == "-") print $1, $3, ($3 + 1), $4, $5, "-";}' $output/reads.bed | sort -k1,1 -k2,2n -k 6 > $output/temporary.bed
 	
 		#Remove coordinates of rNMPs if the end position is greater than length of chromosome
 		join -t $'\t' $output/reference.bed $output/temporary.bed | awk -v "OFS=\t" '$3 >= 0 && $2 >= $4 { print $1, $3, $4, $5, $6, $7 }' > $output/$sample.bed
@@ -76,7 +76,7 @@ mawk -v "OFS=\t" -v total="$total" '{print $1, $2, $3, $4, $5/total*100}' $outpu
 
 #############################################################################################################################
 #Remove temporary files
-rm -f $output/temp{1..2}.bed $output/temp.bam
+rm -f $output/reads.bed $output/temporary.bed
 
 #Print status
 echo "Status: Coordinate Module for $sample is complete"
