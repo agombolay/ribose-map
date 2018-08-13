@@ -15,19 +15,19 @@
 output=$repository/results/$sample/coordinate-$quality; rm -rf $output; mkdir -p $output
 			
 #############################################################################################################################
-#Convert alignment file to BED format
 if [[ ! $read2 ]]; then
-	#Remove unaligned reads
-	samtools view -b -q $quality -@ $threads $repository/results/$sample/alignment/$sample.bam > $output/temp.bam
+	#Convert BAM file to BED file
+	bedtools bamtobed -i $repository/results/$sample/alignment/$sample.bam | mawk -v "OFS=\t" -v q="$quality" '$5 >= q { print }' - > $output/test.bed
 
 elif [[ $read2 ]]; then
-	#Keep first read in pair
-	samtools view -b -f67 -q $quality -@ $threads $repository/results/$sample/alignment/$sample.bam > $output/temp.bam
+	#Keep first read in read pair
+	samtools view -b -f67 -q $quality $repository/results/$sample/alignment/$sample.bam > $output/temporary.bam
+	
+	#Convert BAM file to BED file
+	bedtools bamtobed -i $output/temporary.bam | mawk -v "OFS=\t" -v q="$quality" '$5 >= q { print }' - > $output/test.bed
+
 fi
 
-#Convert BAM file to BED file
-bedtools bamtobed -i $output/temp.bam > $output/temp1.bed
-	
 #Determine coordinates for each technique
 if [[ $technique == "ribose-seq" ]]; then
 
