@@ -19,14 +19,14 @@ output=$repository/results/$sample/alignment; rm -rf $output; mkdir -p $output
 if [[ ! $read2 ]]; then
 	
 	if [[ ! $pattern ]]; then
-		
+
 		if [[ ! $sort ]]; then
 			bowtie2 --threads $threads -x $basename -U $read1 -S $output/aligned.sam 2> $output/alignment.log
-			samtools view -b -S -@ $threads $output/aligned.sam -o $output/$sample.bam
-		
+			samtools view -b -S $output/aligned.sam -o $output/$sample.bam
+
 		elif [[ $sort ]]; then
 			bowtie2 --threads $threads -x $basename -U $read1 -S $output/aligned.sam 2> $output/alignment.log
-			samtools view -b -S -@ $threads $output/aligned.sam | samtools sort - -@ $threads -o $output/$sample.bam
+			samtools view -b -S $output/aligned.sam | samtools sort - -o $output/$sample.bam
 			samtools index $output/$sample.bam	
 		
 	elif [[ $pattern ]]; then
@@ -58,11 +58,16 @@ if [[ ! $read2 ]]; then
 elif [[ $read2 ]]; then
 	
 	if [[ ! $pattern ]]; then
-	
-		bowtie2 --threads $threads -x $basename -1 $read1 -2 $read2 -S $output/aligned.sam 2> $output/alignment.log
-		samtools view -b -S -@ $threads $output/aligned.sam | samtools sort - -@ $threads -o $output/$sample.bam
-		samtools index $output/$sample.bam
-	
+
+		if [[ ! $sort ]]; then
+			bowtie2 --threads $threads -x $basename -1 $read1 -2 $read2 -S $output/aligned.sam 2> $output/alignment.log
+			samtools view -b -S $output/aligned.sam -o $output/$sample.bam
+
+		elif [[ $sort ]]; then
+			bowtie2 --threads $threads -x $basename -1 $read1 -2 $read2 -S $output/aligned.sam 2> $output/alignment.log
+			samtools view -b -S $output/aligned.sam | samtools sort - -o $output/$sample.bam
+			samtools index $output/$sample.bam
+
 	elif [[ $pattern ]]; then
 		
 		umi_tools extract -v 0 -I $read1 -p $pattern -S $output/extracted1.fq --read2-in=$read2 --read2-out=$output/extracted2.fq
