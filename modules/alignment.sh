@@ -21,8 +21,9 @@ if [[ ! $read2 ]]; then
 	if [[ ! $pattern ]]; then
 	
 		bowtie2 --threads $threads -x $basename -U $read1 -S $output/aligned.sam 2> $output/alignment.log
-		samtools view -b -S -@ $threads $output/aligned.sam | samtools sort - -@ $threads -o $output/$sample.bam
-		samtools index $output/$sample.bam	
+		samtools view -b -S -@ $threads $output/aligned.sam -o $output/$sample.bam
+		#samtools view -b -S -@ $threads $output/aligned.sam | samtools sort - -@ $threads -o $output/$sample.bam
+		#samtools index $output/$sample.bam	
 		
 	elif [[ $pattern ]]; then
 		
