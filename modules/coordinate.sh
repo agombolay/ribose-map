@@ -35,34 +35,36 @@ samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 if [[ $technique == "ribose-seq" ]]; then
 	
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
-	awk -v "OFS=\t" '$6 == "-" {print $1, ($3 - 1), $3, $4, $5, "+"}' $output/temp1.bed > $output/temp2.bed
+	mawk -v "OFS=\t" '$6 == "-" {print $1, ($3 - 1), $3, $4, $5, "+"}' $output/temp1.bed > $output/temp2.bed
 	
 	#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-	awk -v "OFS=\t" '$6 == "+" {print $1, $2, ($2 + 1), $4, $5, "-"}' $output/temp1.bed >> $output/temp2.bed
+	mawk -v "OFS=\t" '$6 == "+" {print $1, $2, ($2 + 1), $4, $5, "-"}' $output/temp1.bed >> $output/temp2.bed
 	
 	#Sort coordinates by chromosome, position, and strand
 	sort -k1,1 -k2,2n -k 6 $output/temp2.bed > $output/$sample.bed
 	
 elif [[ $technique == "emRiboSeq" ]]; then
 
-	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
-	awk -v "OFS=\t" '$6 == "-" {print $1, $3, ($3 + 1), $4, $5, "+"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' > $output/temp2.bed 
+	if [[ $check == "no" ]]; then
+		#Obtain coordinates of rNMPs depending on the strand of DNA
+		mawk -v "OFS=\t" '{if ($6 == "-") print $1, $3, ($3 + 1), $4, $5, "+"; else if ($6 == "+") print $1, ($2 - 1), $2, $4, $5, "-";}' $output/test.bed | sort -k1,1 -k2,2n -k 6 > $output/$sample.bed
 	
-	#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-	awk -v "OFS=\t" '$6 == "+" {print $1, ($2 - 1), $2, $4, $5, "-"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' >> $output/temp2.bed
+	elif [[ $check == "yes" ]]; then
+		#Obtain coordinates of rNMPs depending on the strand of DNA
+		mawk -v "OFS=\t" '{if ($6 == "-") print $1, $3, ($3 + 1), $4, $5, "+"; else if ($6 == "+") print $1, ($2 - 1), $2, $4, $5, "-";}' $output/test.bed | sort -k1,1 -k2,2n -k 6 > $output/temporary.bed
 
-	#Remove coordinates of rNMPs if the end position is greater than length of chromosome
-	#Sort by chromosome, position, and strand before joining files; otherwise, some data will be removed
-	#Previous steps disorder temp2.bed since coordinates on forward/reverse strands are treated differently
-	join -t $'\t' $output/reference.bed <(sort -k1,1 -k2,2n -k 6 $output/temp2.bed) | awk -v "OFS=\t" '$2 >= $4 { print $1, $3, $4, $5, $6, $7 }' > $output/$sample.bed
+		#Remove coordinates of rNMPs if the end position is greater than length of chromosome
+		#Sort by chromosome, position, and strand before joining files; otherwise, some data will be removed
+		#Previous steps disorder temp2.bed since coordinates on forward/reverse strands are treated differently
+		join -t $'\t' $output/reference.bed $output/temporary.bed | mawk -v "OFS=\t" '$2 >= $4 { print $1, $3, $4, $5, $6, $7 }' > $output/$sample.bed
 	
 elif [[ $technique == "HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
 	
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
-	awk -v "OFS=\t" '$6 == "+" {print $1, ($2 - 1), $2, $4, $5, "+"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' > $output/temp2.bed 
+	mawk -v "OFS=\t" '$6 == "+" {print $1, ($2 - 1), $2, $4, $5, "+"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' > $output/temp2.bed 
 	
 	#Obtain coordinates of rNMPs located on NEGATIVE strand of DNA
-	awk -v "OFS=\t" '$6 == "-" {print $1, $3, ($3 + 1), $4, $5, "-"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' >> $output/temp2.bed
+	mawk -v "OFS=\t" '$6 == "-" {print $1, $3, ($3 + 1), $4, $5, "-"}' $output/temp1.bed | awk -v "OFS=\t" '$2 >= 0 { print }' >> $output/temp2.bed
 
 	#Remove coordinates of rNMPs if the end position is greater than length of chromosome
 	#Sort by chromosome, position, and strand before joining files; otherwise, some data will be removed
@@ -73,7 +75,7 @@ fi
 #Calculate raw and normalized (per 100) counts of rNMPs
 total=$(wc -l < $output/$sample.bed)
 cut -f1,2,3,6 $output/$sample.bed | uniq -c - | awk -v "OFS=\t" '{print $2, $3, $4, $5, $1}' > $output/$sample.counts.tab
-awk -v "OFS=\t" -v total="$total" '{print $1, $2, $3, $4, $5/total*100}' $output/$sample.counts.tab > $output/$sample.normalized.tab
+mawk -v "OFS=\t" -v total="$total" '{print $1, $2, $3, $4, $5/total*100}' $output/$sample.counts.tab > $output/$sample.normalized.tab
 
 #############################################################################################################################
 #Remove temporary files
