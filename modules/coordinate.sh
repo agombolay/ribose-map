@@ -50,14 +50,12 @@ elif [[ $technique == "emRiboSeq" ]]; then
 		#Create FASTA index file and BED file for reference
 		samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 
-		#Obtain coordinates of rNMPs depending on the strand of DNA
+		#Obtain coordinates of rNMPs depending on the strand of DNA and sort data before join
 		mawk -v "OFS=\t" '{if ($6 == "-") print $1, $3, ($3 + 1), $4, $5, "+"; else if ($6 == "+") print $1, ($2 - 1), $2, $4, $5, "-";}' $output/test.bed | sort -k1,1 -k2,2n -k 6 > $output/temporary.bed
 
 		#Remove coordinates of rNMPs if the end position is greater than length of chromosome
-		#Sort by chromosome, position, and strand before joining files; otherwise, some data will be removed
-		#Previous steps disorder temp2.bed since coordinates on forward/reverse strands are treated differently
 		join -t $'\t' $output/reference.bed $output/temporary.bed | mawk -v "OFS=\t" '$2 >= $4 { print $1, $3, $4, $5, $6, $7 }' > $output/$sample.bed
-	
+
 elif [[ $technique == "HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
 	
 	#Obtain coordinates of rNMPs located on POSITIVE strand of DNA
