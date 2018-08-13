@@ -49,7 +49,8 @@ elif [[ $technique == "emRiboSeq" ]]; then
 
 		#Remove coordinates of rNMPs if the end position is greater than length of chromosome
 		join -t $'\t' $output/reference.bed $output/temporary.bed | mawk -v "OFS=\t" '$3 >= 0 && $2 >= $4 { print $1, $3, $4, $5, $6, $7 }' > $output/$sample.bed
-
+	fi
+	
 elif [[ $technique == "HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
 	
 	if [[ ! $check ]]; then
@@ -67,6 +68,7 @@ elif [[ $technique == "HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
 	
 		#Remove coordinates of rNMPs if the end position is greater than length of chromosome
 		join -t $'\t' $output/reference.bed $output/temporary.bed | awk -v "OFS=\t" '$3 >= 0 && $2 >= $4 { print $1, $3, $4, $5, $6, $7 }' > $output/$sample.bed
+	fi
 fi
 
 #Calculate raw and normalized (per 100) counts of rNMPs
