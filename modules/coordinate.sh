@@ -58,7 +58,10 @@ elif [[ $technique == "HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
 		mawk -v "OFS=\t" '{if ($6 == "+") print $1, ($2 - 1), $2, $4, $5, "+"; else if ($6 == "-") print $1, $3, ($3 + 1), $4, $5, "-";}' $output/temp1.bed | sort -k1,1 -k2,2n -k 6 > $output/$sample.bed
 	
 	elif [[ $check ]]; then
-	
+		
+		#Create FASTA index file and BED file for reference
+		samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
+
 		#Obtain coordinates of rNMPs depending on the strand of DNA and sort data
 		mawk -v "OFS=\t" '{if ($6 == "+") print $1, ($2 - 1), $2, $4, $5, "+"; else if ($6 == "-") print $1, $3, ($3 + 1), $4, $5, "-";}' $output/temp1.bed | sort -k1,1 -k2,2n -k 6 > $output/temporary.bed
 	
