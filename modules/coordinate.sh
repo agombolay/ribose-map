@@ -73,7 +73,7 @@ fi
 
 #Calculate raw and normalized (per 100) counts of rNMPs
 total=$(wc -l < $output/$sample.bed)
-cut -f1,2,3,6 $output/$sample.bed | uniq -c - | awk -v "OFS=\t" '{print $2, $3, $4, $5, $1}' > $output/$sample.counts.tab
+cut -f1,2,3,6 $output/$sample.bed | uniq -c - | mawk -v "OFS=\t" '{print $2, $3, $4, $5, $1}' > $output/$sample.counts.tab
 mawk -v "OFS=\t" -v total="$total" '{print $1, $2, $3, $4, $5/total*100}' $output/$sample.counts.tab > $output/$sample.normalized.tab
 
 #############################################################################################################################
