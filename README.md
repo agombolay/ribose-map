@@ -66,13 +66,13 @@ source activate ribosemap_env
 
      1. **Process the data**
      ```
-     ribosemap alignment configuration_file
-     ribosemap coordinate configuration_file
+     ribosemap alignment config
+     ribosemap coordinate config
      ```
      2. **Analyze the data**
      ```
-     ribosemap sequence configuration_file
-     ribosemap distribution configuration_file
+     ribosemap sequence config
+     ribosemap distribution config
      ```
 
 3. **Once the analysis is complete, exit environment**:  
