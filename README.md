@@ -66,18 +66,13 @@ source activate ribosemap_env
 
      1. **Process the data**
      ```
-     /ribose-map/modules/alignment.sh configuration_file
-     /ribose-map/modules/coordinate.sh configuration_file
+     ribosemap alignment configuration_file
+     ribosemap coordinate configuration_file
      ```
      2. **Analyze the data**
      ```
-     /ribose-map/modules/sequence.sh configuration_file
-     /ribose-map/modules/distribution.sh configuration_file
-     ```
-     3. **Visualize the results**
-     ```
-     /ribose-map/modules/sequence.R configuration_file
-     /ribose-map/modules/distribution.R configuration_file
+     ribosemap sequence configuration_file
+     ribosemap distribution configuration_file
      ```
 
 3. **Once the analysis is complete, exit environment**:  
