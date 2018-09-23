@@ -7,21 +7,23 @@ while getopts ":h" opt;
     esac
 done
 
-. "$2"
-
 modules=$(dirname $0)
 
 if [[ $1 == "alignment" ]]; then
-   $modules/alignment.sh $2
+    . "$2"
+    $modules/alignment.sh $2
 
 elif [[ $1 == "coordinate" ]]; then
-   $modules/coordinate.sh $2
+    . "$2"
+    $modules/coordinate.sh $2
 
 elif [[ $1 == "sequence" ]]; then
+    . "$2"
     $modules/sequence.sh $2
     $modules/sequence.R $2
     
 elif [[ $1 == "distribution" ]]; then
+    . "$2"
     $modules/distribution.sh $2
     $modules/distribution.R $2
 fi
