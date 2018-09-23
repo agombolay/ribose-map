@@ -12,7 +12,8 @@
 . "$1"
 
 #Create output directory and remove any old files
-output=$repository/results/$sample/sequence-$quality
+#output=$repository/results/$sample/sequence-$quality
+output=$results/$sample/sequence-$quality
 rm -rf $output; mkdir -p $output
 
 #############################################################################################################################
