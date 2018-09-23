@@ -16,6 +16,9 @@ output=$repository/results/$sample/sequence-$quality
 rm -rf $output; mkdir -p $output
 
 #############################################################################################################################
+#Create FASTA index file and BED file for reference
+samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
+
 for nuc in "A" "C" "G" "T" "Combined"; do
 	for region in "nucleus" "mitochondria"; do
 	
