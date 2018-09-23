@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+while getopts ":h" opt; do case ${opt} in
+    h ) echo "Usage: ribosemap [module] [config]" ;;
+    \? ) echo "For usage statement: ribosemap -h" ;;
+  esac
+done
+
+. "$2"
+
+modules=$(dirname $0)
+
+if [[ $1 == "alignment" ]]; then
+   $modules/alignment.sh $2
+
+elif [[ $1 == "coordinate" ]]; then
+   $modules/coordinate.sh $2
+
+elif [[ $1 == "sequence" ]]; then
+    $modules/sequence.sh $2
+    $modules/sequence.R $2
+    
+elif [[ $1 == "distribution" ]]; then
+    $modules/distribution.sh $2
+    $modules/distribution.R $2
+fi
