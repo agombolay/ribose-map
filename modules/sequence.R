@@ -18,10 +18,10 @@ library(ggplot2); library(tools)
 #Input/Output
 output <- file.path(repository, "results", sample, paste("sequence-", quality, sep=""))
 
-if (plots == 'all'){
-	input_files <- list.files(path = output, pattern = "*.tab", full.names = TRUE, recursive = FALSE)
-} else if (plots == 'combined'){
-	input_files <- list.files(path = output, pattern = "*Combined.*.tab", full.names = TRUE, recursive = FALSE)
+if (plots == 'combined'){
+	input_files <- list.files(path = output, pattern = "*(Combined)\\.(nucleus|mitochondria)\\.tab$", full.names = TRUE, recursive = FALSE)	
+} else if (plots == 'all'){
+	input_files <- list.files(path = output, pattern = "*(A|G|C|T|Combined)\\.(nucleus|mitochondria)\\.tab$", full.names = TRUE, recursive = FALSE)
 }
 
 ####################################################################################################################################################################
