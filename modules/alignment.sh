@@ -13,7 +13,8 @@
 . "$1"
 
 #Create output directory
-output=$repository/results/$sample/alignment; rm -rf $output; mkdir -p $output
+output=$repository/results/$sample/alignment
+rm -rf $output; mkdir -p $output
 
 #############################################################################################################################
 if [[ ! $read2 ]]; then
