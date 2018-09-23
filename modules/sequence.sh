@@ -12,7 +12,8 @@
 . "$1"
 
 #Create output directory and remove any old files
-output=$repository/results/$sample/sequence-$quality; rm -rf $output; mkdir -p $output
+output=$repository/results/$sample/sequence-$quality
+rm -rf $output; mkdir -p $output
 
 #############################################################################################################################
 for nuc in "A" "C" "G" "T" "Combined"; do
