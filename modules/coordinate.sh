@@ -12,7 +12,8 @@
 . "$1"
 
 #Create output directory and remove any old files
-output=$repository/results/$sample/coordinate-$quality; rm -rf $output; mkdir -p $output
+output=$repository/results/$sample/coordinate-$quality
+rm -rf $output; mkdir -p $output
 			
 #############################################################################################################################
 if [[ ! $read2 ]]; then
