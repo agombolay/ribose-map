@@ -241,8 +241,8 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 					#Print status
 					echo "Status: Sequence Module for $sample ($nuc,$region) is complete"
 					
+				fi
 			fi
-		fi
 		fi
 		
 			#Remove temporary files
