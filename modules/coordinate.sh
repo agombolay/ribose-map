@@ -17,16 +17,12 @@ rm -rf $output; mkdir -p $output
 			
 #############################################################################################################################
 if [[ ! $read2 ]]; then
-	#Convert BAM file to BED file
+	#Convert BAM file to BED and filter by quality score
 	bedtools bamtobed -i $repository/results/$sample/alignment/$sample.bam | mawk -v "OFS=\t" -v q="$quality" '$5 >= q { print }' - > $output/reads.bed
 
 elif [[ $read2 ]]; then
-	#Keep first read in read pair
-	samtools view -b -f67 -q $quality $repository/results/$sample/alignment/$sample.bam > $output/temporary.bam
-	
-	#Convert BAM file to BED file
-	bedtools bamtobed -i $output/temporary.bam | mawk -v "OFS=\t" -v q="$quality" '$5 >= q { print }' - > $output/reads.bed
-
+	#Same process but keep only first read in read pairs
+	samtools view -b -f67 $repository/results/$sample/alignment/$sample.bam | bedtools bamtobed -i stdin | mawk -v "OFS=\t" -v q="$quality" '$5 >= q { print }' - > $output/reads.bed
 fi
 
 #Determine coordinates for each technique
