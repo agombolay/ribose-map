@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
-while getopts ":h" opt; do case ${opt} in
-    h ) echo "Usage: ribosemap [module] [config]" ;;
-    \? ) echo "For usage statement: ribosemap -h" ;;
-  esac
+while getopts ":h" opt;
+    do case ${opt} in
+        h ) echo "Usage: ribosemap [module] [config]" ;;
+        \? ) echo "For usage statement: ribosemap -h" ;;
+    esac
 done
 
 . "$2"
