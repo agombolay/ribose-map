@@ -11,7 +11,7 @@
 #Load config file
 . "$1"
 
-#Create output directory
+#Create output directory and remove any old files
 output=$repository/results/$sample/distribution-$quality
 rm -rf $output; mkdir -p $output
 
