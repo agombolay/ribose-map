@@ -16,6 +16,9 @@ output=$repository/results/$sample/distribution-$quality
 rm -rf $output; mkdir -p $output
 
 #############################################################################################################################
+#Create FASTA index file and BED file for reference
+samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
+
 #Save coverage of rNMPs per chromosome to separate files
 for chromosome in $( awk '{print $1}' $repository/results/$sample/coordinate-$quality/reference.bed ); do
 	
