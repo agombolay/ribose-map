@@ -49,7 +49,7 @@ if [[ ! $read2 ]]; then
 			grep -B 1 -A 2 ^$barcode $output/extracted1.fq | sed '/^--$/d' | seqtk trimfq -b ${#barcode} - > $output/demultiplexed1.fq
   
 			bowtie2 --threads $threads -x $basename -U $output/demultiplexed1.fq -S $output/aligned.sam 2> $output/alignment.log
-			samtools view -bS -@ $threads $output/aligned.sam | samtools sort - -o $output/sorted.bam
+			samtools view -bS -@ $threads $output/aligned.sam | samtools sort - -@ $threads -o $output/sorted.bam
 			samtools index $output/sorted.bam
 	
 			umi_tools dedup -v 0 -I $output/sorted.bam | samtools sort - -@ $threads -o $output/$sample.bam
