@@ -140,13 +140,13 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 
 				#Create 5 BED files, one for each nucleotide and one combined
 				if [[ $nuc == "A" ]]; then
-					bedtools getfasta -s -fi $output/temp.fa -tab -bed $output/Coords.$region.bed | awk '$2 == "A"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords.$nuc.$region.bed
+					bedtools getfasta -s -fi $output/temp.fa -tab -bed $output/Coords.$region.bed | awk '$2 == "A" || "a"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords.$nuc.$region.bed
 				elif [[ $nuc == "C" ]]; then
-					bedtools getfasta -s -fi $output/temp.fa -tab -bed $output/Coords.$region.bed | awk '$2 == "C"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords.$nuc.$region.bed
+					bedtools getfasta -s -fi $output/temp.fa -tab -bed $output/Coords.$region.bed | awk '$2 == "C" || "c"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords.$nuc.$region.bed
 				elif [[ $nuc == "G" ]]; then
-					bedtools getfasta -s -fi $output/temp.fa -tab -bed $output/Coords.$region.bed | awk '$2 == "G"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords.$nuc.$region.bed
+					bedtools getfasta -s -fi $output/temp.fa -tab -bed $output/Coords.$region.bed | awk '$2 == "G" || "g"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords.$nuc.$region.bed
 				elif [[ $nuc == "T" ]]; then
-					bedtools getfasta -s -fi $output/temp.fa -tab -bed $output/Coords.$region.bed | awk '$2 == "T"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords.$nuc.$region.bed
+					bedtools getfasta -s -fi $output/temp.fa -tab -bed $output/Coords.$region.bed | awk '$2 == "T" || "t"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords.$nuc.$region.bed
 				elif [[ $nuc == "Combined" ]]; then
 					cp $output/Coords.$region.bed $output/Coords.$nuc.$region.bed 
 				fi
