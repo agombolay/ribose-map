@@ -86,10 +86,10 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 				bedtools getfasta -s -fi $output/temp.fa -bed $output/Coords.$region.bed | grep -v '>' > $output/Ribos.txt
 			
 				#Calculate counts of rNMPs
-				A_Ribo=$(awk '$1 == "A"' $output/Ribos.txt | wc -l)
-				C_Ribo=$(awk '$1 == "C"' $output/Ribos.txt | wc -l)
-				G_Ribo=$(awk '$1 == "G"' $output/Ribos.txt | wc -l)
-				U_Ribo=$(awk '$1 == "T"' $output/Ribos.txt | wc -l)
+				A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/Ribos.txt | wc -l)
+				C_Ribo=$(awk '$1 == "C" || $1 == "c"' $output/Ribos.txt | wc -l)
+				G_Ribo=$(awk '$1 == "G" || $1 == "g"' $output/Ribos.txt | wc -l)
+				U_Ribo=$(awk '$1 == "T" || $1 == "t"' $output/Ribos.txt | wc -l)
 	
 				#Calculate total number of rNMPs
 				RiboTotal=$(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
