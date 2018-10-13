@@ -19,12 +19,6 @@ rm -rf $output; mkdir -p $output
 #Create FASTA index file and BED file for reference
 samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 
-if [[ ! $technique ]]; then
-	#Create file of raw rNMP counts if user did not use Coordinate Module
-	mkdir $repository/results/$sample/coordinate-$quality
-	cut -f1,2,3,6 "$2" | uniq -c - | mawk -v "OFS=\t" '{print $2, $3, $4, $5, $1}' > $repository/results/$sample/coordinate-$quality/$sample.counts.tab
-fi
-
 for nuc in "A" "C" "G" "T" "Combined"; do
 	for region in "nucleus" "mitochondria"; do
 	
