@@ -20,7 +20,7 @@ rm -rf $output; mkdir -p $output
 samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 
 if [[ ! $technique ]]; then
-	#Create file of rNMP counts if user did not use Coordinate Module
+	#Create file of raw rNMP counts if user did not use Coordinate Module
 	cut -f1,2,3,6 $repository/results/$sample/coordinate-$quality/$sample.bed | uniq -c - | mawk -v "OFS=\t" '{print $2, $3, $4, $5, $1}' > $output/$sample.counts.tab
 fi
 
