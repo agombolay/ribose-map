@@ -20,7 +20,7 @@
 3. FASTA file of nucleotide sequence of reference genome
 4. Configuration file (example is provided in ribose-map/lib)
 
-Note: If you have a list of single nucleotide coordinates and want to use only the Sequence and/or Distribution Module without first running the Coordinate Module, please first create a folder with the following path: $repository/results/$sample/coordinate
+Note: If you have a list of single nucleotide coordinates and want to use only the Sequence or Distribution Modules without first running the Coordinate Module, please first create a folder with the following path: $repository/results/$sample/coordinate
 
 &nbsp;
 ## Software Installation
