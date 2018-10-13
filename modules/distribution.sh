@@ -16,6 +16,8 @@ output=$repository/results/$sample/distribution-$quality
 rm -rf $output; mkdir -p $output
 
 #############################################################################################################################
+mawk -v "OFS=\t" -v total="$(wc -l < $output/$sample.bed)" '{print $1, $2, $3, $4, $5/total*100}' $output/$sample.counts.tab > $output/$sample.normalized.tab
+
 #Create FASTA index file and BED file for reference
 samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 
