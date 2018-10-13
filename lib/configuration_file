@@ -3,7 +3,7 @@ pattern: UMI/barcode pattern; N=random base, X=fixed base (pattern='NNNNNNXXXNN'
 barcode: Nucleotide sequence of molecular barcode present in reads (barcode='TCA')
 
 #Required Parameters
-sample: Name of sample (sample='sample1')
+sample: Name of sample to use for labeling output files (sample='sample1')
 technique: Name of rNMP sequencing technique used (technique='ribose-seq')
 
 repository: Path to Ribose-Map repository (repository='/filepath/ribose-map')
