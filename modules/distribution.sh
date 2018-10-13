@@ -20,7 +20,7 @@ rm -rf $output; mkdir -p $output
 samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 
 #Save coverage of rNMPs per chromosome to separate files
-for chromosome in $( awk '{print $1}' $repository/results/$sample/coordinate-$quality/reference.bed ); do
+for chromosome in $( awk '{print $1}' $output/reference.bed ); do
 	
 	if [[ $(grep -w "$chromosome" $repository/results/$sample/coordinate-$quality/$sample.normalized.tab | wc -l) > 0 ]]; then
 		grep -w "$chromosome" $repository/results/$sample/coordinate-$quality/$sample.normalized.tab > $output/$sample-$chromosome.tab
