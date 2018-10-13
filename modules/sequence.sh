@@ -19,6 +19,8 @@ rm -rf $output; mkdir -p $output
 #Create FASTA index file and BED file for reference
 samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 
+cut -f1,2,3,6 $output/$sample.bed | uniq -c - | mawk -v "OFS=\t" '{print $2, $3, $4, $5, $1}' > $output/$sample.counts.tab
+
 for nuc in "A" "C" "G" "T" "Combined"; do
 	for region in "nucleus" "mitochondria"; do
 	
