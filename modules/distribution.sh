@@ -19,7 +19,7 @@ rm -rf $output; mkdir -p $output
 #Create FASTA index file and BED file for reference
 samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 
-if ; then
+if [[ ! $technique ]]; then
 	cut -f1,2,3,6 $output/$sample.bed | uniq -c - | mawk -v "OFS=\t" '{print $2, $3, $4, $5, $1}' > $output/$sample.counts.tab
 	mawk -v "OFS=\t" -v total="$(wc -l < $output/$sample.bed)" '{print $1, $2, $3, $4, $5/total*100}' $output/$sample.counts.tab > $output/$sample.normalized.tab
 fi
