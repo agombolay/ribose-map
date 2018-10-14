@@ -16,7 +16,7 @@ library(ggplot2); library(tools)
 
 ####################################################################################################################################################################
 #Input/Output
-output <- file.path(repository, "results", sample, paste("sequence-", quality, sep = ""))
+output <- file.path(repository, "results", sample, paste("sequence", quality, sep = ""))
 
 if (plots == 'combined'){
 	input_files <- list.files(path = output, pattern = "*(Combined)\\.(nucleus|mitochondria)\\.tab$", full.names = TRUE, recursive = FALSE)	
