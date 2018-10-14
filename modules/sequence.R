@@ -75,8 +75,9 @@ if (ymin > 0) {
 			
 }
 }
-else {
+} else {
 	message("Since minimum value = 0, log2 plots can't be created")		
 }
 
 message("Status: Sequence Module plotting for ", sample, " is complete")
+warnings()
