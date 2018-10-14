@@ -60,7 +60,7 @@ if (ymin > 0) {
 				  geom_line(aes(y = G, colour = "G")) + geom_line(aes(y = T, colour = "U/T")) +		   
 
 				  #Format legend symbols and specify y-axis limits
-				  guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + scale_y_continuous(trans = 'log2', breaks = c(ymin, 1, ymax), limits = c(ymin, ymax)) +
+				  guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + scale_y_continuous(trans = 'log2', limits = c(ymin, ymax)) +
 
 				  #Add axis lines and ticks and increase font size
 				  theme(
