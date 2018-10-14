@@ -16,7 +16,7 @@ library(ggplot2); library(tools)
 
 ####################################################################################################################################################################
 #Input/Output
-output <- file.path(repository, "results", sample, paste("distribution-", quality, sep = ""))
+output <- file.path(repository, "results", sample, paste("distribution", quality, sep = ""))
 input_files <- list.files(path = output, pattern = ".tab", full.names = TRUE, recursive = FALSE)
 
 ####################################################################################################################################################################
