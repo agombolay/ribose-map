@@ -78,7 +78,7 @@ if (ymin > 0) {
 message("Status: Sequence Module plotting for ", sample, " is complete")
 	
 } else {
-	message("Since minimum value = 0, log2 plots cannot be created")		
+	message("Since minimum y value = 0, log2 plots cannot be created")		
 }
 
 warnings()
