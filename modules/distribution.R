@@ -49,10 +49,10 @@ for(file in input_files){
 				 #Plot forward and reverse strands on same plot
 				 facet_wrap(~V4_new, ncol = 1, labeller = labeller(V4_new = labels)) + scale_colour_manual(values = c("#0072B2", "#009E73")) +	 
 
-				 #Add lines to represent axes (must be added for plots that use facet wrap)
+				 #Add lines to represent axes (must add for facet wrap)
 				 annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf) +
 
-				 #Decrease space between barcharts and x/y-axes
+				 #Decrease space between barcharts and x-axis and y-axis
 				 geom_bar(stat = "identity") + scale_x_continuous(expand = c(0.01, 0)) + scale_y_continuous(expand = c(0.01, 0), limits = c(0, ylimit)) +
 		
 				 theme(
@@ -72,10 +72,10 @@ for(file in input_files){
 				   #Plot forward and reverse strands on same plot
 				   facet_wrap(~V4_new, ncol = 1, labeller = labeller(V4_new = labels)) + scale_colour_manual(values = c("#0072B2", "#009E73")) +
 
-				   #Add lines to represent axes (must be added for plots that use facet wrap)
+				   #Add lines to represent axes (must add for facet wrap)
 				   annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf) +
 
-				   #Decrease space between barcharts and x/y-axes
+				   #Decrease space between barcharts and x-axis and y-axis
 				   geom_bar(stat = "identity") + scale_x_continuous(expand = c(0.01, 0)) + scale_y_continuous(expand = c(0.01, 0)) +
 		
 				   theme(
