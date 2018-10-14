@@ -12,7 +12,7 @@
 . "$1"
 
 #Create output directory and remove any old files
-output=$repository/results/$sample/coordinate-$quality
+output=$repository/results/$sample/coordinate$quality
 rm -rf $output; mkdir -p $output
 			
 #############################################################################################################################
