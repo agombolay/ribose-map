@@ -17,12 +17,7 @@ library(ggplot2); library(tools)
 ####################################################################################################################################################################
 #Input/Output
 output <- file.path(repository, "results", sample, paste("sequence", quality, sep = ""))
-
-if (plots == 'combined'){
-	input_files <- list.files(path = output, pattern = "*(Combined)\\.(nucleus|mitochondria)\\.tab$", full.names = TRUE, recursive = FALSE)	
-} else if (plots == 'all'){
-	input_files <- list.files(path = output, pattern = "*(A|G|C|T|Combined)\\.(nucleus|mitochondria)\\.tab$", full.names = TRUE, recursive = FALSE)
-}
+input_files <- list.files(path = output, pattern = "*.tab", full.names = TRUE, recursive = FALSE)	
 
 ####################################################################################################################################################################
 #Find maximum y-axis value
@@ -80,5 +75,8 @@ if (ymin > 0) {
 			
 }
 }
+else {
+	message("Since minimum value <= 0, log2 plots can't be created")		
 }
+
 message("Status: Sequence Module plotting for ", sample, " is complete")
