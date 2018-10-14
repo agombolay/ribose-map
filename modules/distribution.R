@@ -69,13 +69,20 @@ for(file in input_files){
 				   facet_wrap(~V4_new, ncol = 1, labeller = labeller(V4_new = labels)) + scale_colour_manual(values = c("#0072B2", "#009E73")) +
 
 				   #Plot barcharts, specify font size and no legend, and remove background
-				   geom_bar(stat = "identity") + theme(text = element_text(size = 20), legend.position = "none", panel.background = element_blank()) +		 
+				   geom_bar(stat = "identity") +		 
 
 				   #Add lines to represent axes (must be added for plots that use facet wrap)
 				   annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf) +
 
 				   #Decrease space between barcharts and x/y-axes
-				   scale_x_continuous(expand = c(0.01, 0)) + scale_y_continuous(expand = c(0.01, 0))
+				   scale_x_continuous(expand = c(0.01, 0)) + scale_y_continuous(expand = c(0.01, 0)) +
+		
+				   theme(
+				   	 axis.title = element_text(color = "black", size = 25), axis.line = element_line(size = 1), axis.text = element_text(color = "black", size = 25),
+				   	 legend.position = "none", panel.background = element_blank(), axis.ticks = element_line(colour = "black", size = 1), axis.ticks.length = unit(.4, "cm"),
+				   	 axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)), axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)),
+				   	 strip.text = element_text(size=25)
+				   )
 
 		ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep = "")), plot = unscaled, width = 15)
 
