@@ -91,3 +91,4 @@ for(file in input_files){
 }
 
 message("Status: Distribution Module plotting for ", sample, " is complete")
+warnings()
