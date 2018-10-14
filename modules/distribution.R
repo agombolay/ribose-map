@@ -50,10 +50,10 @@ for(file in input_files){
 				 facet_wrap(~V4_new, ncol = 1, labeller = labeller(V4_new = labels)) + scale_colour_manual(values = c("#0072B2", "#009E73")) +	 
 
 				 #Add lines to represent axes (must be added for plots that use facet wrap)
-				 geom_bar(stat = "identity") +	annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf) +
+				 annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf) +
 
 				 #Decrease space between barcharts and x/y-axes
-				 scale_x_continuous(expand = c(0.01, 0)) + scale_y_continuous(expand = c(0.01, 0), limits = c(0, ylimit)) +
+				 geom_bar(stat = "identity") + scale_x_continuous(expand = c(0.01, 0)) + scale_y_continuous(expand = c(0.01, 0), limits = c(0, ylimit)) +
 		
 				 theme(
 				   	 axis.line = element_line(size = 1), legend.position = "none", panel.background = element_blank(),
@@ -73,10 +73,10 @@ for(file in input_files){
 				   facet_wrap(~V4_new, ncol = 1, labeller = labeller(V4_new = labels)) + scale_colour_manual(values = c("#0072B2", "#009E73")) +
 
 				   #Add lines to represent axes (must be added for plots that use facet wrap)
-				   geom_bar(stat = "identity") + annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf) +
+				   annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf) +
 
 				   #Decrease space between barcharts and x/y-axes
-				   scale_x_continuous(expand = c(0.01, 0)) + scale_y_continuous(expand = c(0.01, 0)) +
+				   geom_bar(stat = "identity") + scale_x_continuous(expand = c(0.01, 0)) + scale_y_continuous(expand = c(0.01, 0)) +
 		
 				   theme(
 				   	 axis.line = element_line(size = 1), legend.position = "none", panel.background = element_blank(),
