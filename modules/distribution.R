@@ -47,13 +47,10 @@ for(file in input_files){
 		scaled <- ggplot(data, aes(V3, V5, colour = V4_new)) + xlab("Chromosome Coordinate") + ylab("Per Nucleotide rNMP Coverage (%)") +
 
 				 #Plot forward and reverse strands on same plot
-				 facet_wrap(~V4_new, ncol = 1, labeller = labeller(V4_new = labels)) + scale_colour_manual(values = c("#0072B2", "#009E73")) +
-
-				 #Plot barcharts, specify font size and no legend, and remove background
-				 geom_bar(stat = "identity") +		 
+				 facet_wrap(~V4_new, ncol = 1, labeller = labeller(V4_new = labels)) + scale_colour_manual(values = c("#0072B2", "#009E73")) +	 
 
 				 #Add lines to represent axes (must be added for plots that use facet wrap)
-				 annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf) +
+				 geom_bar(stat = "identity") +	annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf) +
 
 				 #Decrease space between barcharts and x/y-axes
 				 scale_x_continuous(expand = c(0.01, 0)) + scale_y_continuous(expand = c(0.01, 0), limits = c(0, ylimit)) +
@@ -75,11 +72,8 @@ for(file in input_files){
 				   #Plot forward and reverse strands on same plot
 				   facet_wrap(~V4_new, ncol = 1, labeller = labeller(V4_new = labels)) + scale_colour_manual(values = c("#0072B2", "#009E73")) +
 
-				   #Plot barcharts, specify font size and no legend, and remove background
-				   geom_bar(stat = "identity") +		 
-
 				   #Add lines to represent axes (must be added for plots that use facet wrap)
-				   annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf) +
+				   geom_bar(stat = "identity") + annotate("segment", x = -Inf, xend = Inf, y = -Inf, yend = -Inf) + annotate("segment", x = -Inf, xend = -Inf, y = -Inf, yend = Inf) +
 
 				   #Decrease space between barcharts and x/y-axes
 				   scale_x_continuous(expand = c(0.01, 0)) + scale_y_continuous(expand = c(0.01, 0)) +
