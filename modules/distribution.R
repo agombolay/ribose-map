@@ -79,10 +79,10 @@ for(file in input_files){
 				   geom_bar(stat = "identity") + scale_x_continuous(expand = c(0.01, 0)) + scale_y_continuous(expand = c(0.01, 0)) +
 		
 				   theme(
-				   	 axis.line = element_line(size = 1), legend.position = "none", panel.background = element_blank(),
+				   	 axis.title = element_text(color = "black", size = 25), axis.text = element_text(color = "black", size = 25), axis.line = element_line(size = 1),
 					 axis.ticks = element_line(colour = "black", size = 1), axis.ticks.length = unit(.4, "cm"), strip.text = element_text(color = "black", size = 25),
-					 axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)), axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)),
-				   	 
+					 axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)), axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)),,
+				   	 legend.position = "none", panel.background = element_blank()
 				   )
 
 		ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep = "")), plot = unscaled, width = 15)
