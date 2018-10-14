@@ -78,10 +78,10 @@ for(file in input_files){
 				   scale_x_continuous(expand = c(0.01, 0)) + scale_y_continuous(expand = c(0.01, 0)) +
 		
 				   theme(
-				   	 axis.title = element_text(color = "black", size = 25), axis.line = element_line(size = 1), axis.text = element_text(color = "black", size = 25),
-				   	 legend.position = "none", panel.background = element_blank(), axis.ticks = element_line(colour = "black", size = 1), axis.ticks.length = unit(.4, "cm"),
-				   	 axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)), axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)),
-				   	 strip.text = element_text(size=25)
+				   	 axis.line = element_line(size = 1), legend.position = "none", panel.background = element_blank(),
+					 axis.ticks = element_line(colour = "black", size = 1), axis.ticks.length = unit(.4, "cm"), strip.text = element_text(color = "black", size = 25)
+					 axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)), axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)),
+				   	 
 				   )
 
 		ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep = "")), plot = unscaled, width = 15)
