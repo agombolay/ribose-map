@@ -33,7 +33,7 @@ for(file in input_files){
 ymax <- max(maximum)
 ymin <- min(minimum)
 
-if (ymin > 0) {
+
 ####################################################################################################################################################################
 	for(file in input_files){
 	
@@ -49,36 +49,58 @@ if (ymin > 0) {
 			position <- data$X; A <- data$A; C <- data$C; G <- data$G; T <- data$U.T
 
 ####################################################################################################################################################################
-			myplot <- ggplot(data, aes(x = position)) + theme_minimal() + xlab("Position relative to rNMP") + ylab("Normalized Frequency (log2)") +
+			if (ymin > 0) {
 
-				  #Specify color and no legend title
-				  scale_colour_manual(values = c("A" = "#CC79A7", "C" = "#56B4E9", "G" = "#E69F00", "U/T" = "#009E73"), name = "") +
+				log <- ggplot(data, aes(x = position)) + theme_minimal() + xlab("Position relative to rNMP") + ylab("Normalized Frequency (log2)") +
 
-				  #Plot data as scatterplot with lines
-				  geom_point(aes(y = A, colour = "A")) + geom_point(aes(y = C, colour = "C")) + geom_point(aes(y = G, colour = "G")) +
-				  geom_point(aes(y = T, colour = "U/T")) + geom_line(aes(y = A, colour = "A")) + geom_line(aes(y = C, colour = "C")) +
-				  geom_line(aes(y = G, colour = "G")) + geom_line(aes(y = T, colour = "U/T")) +		   
+				       #Specify color and no legend title
+				       scale_colour_manual(values = c("A" = "#CC79A7", "C" = "#56B4E9", "G" = "#E69F00", "U/T" = "#009E73"), name = "") +
 
-				  #Format legend symbols and specify y-axis limits
-				  guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + scale_y_continuous(trans = 'log2', limits = c(ymin, ymax)) +
+				       #Plot data as scatterplot with lines
+				       geom_point(aes(y = A, colour = "A")) + geom_point(aes(y = C, colour = "C")) + geom_point(aes(y = G, colour = "G")) +
+				       geom_point(aes(y = T, colour = "U/T")) + geom_line(aes(y = A, colour = "A")) + geom_line(aes(y = C, colour = "C")) +
+				       geom_line(aes(y = G, colour = "G")) + geom_line(aes(y = T, colour = "U/T")) +		   
 
-				  #Add axis lines and ticks and increase font size
-				  theme(
-					axis.title = element_text(color = "black", size = 25), axis.line = element_line(size = 1), axis.text = element_text(color = "black", size = 25),
-				  	axis.ticks = element_line(colour = "black", size = 1), axis.ticks.length = unit(.4, "cm"),legend.text = element_text(color = "black", size = 20),
-				  	axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)), axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)),
-				  	plot.margin = unit(c(.5, .5, .5, .5), "cm")
-				  )
+				       #Format legend symbols and specify y-axis limits
+				       guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + scale_y_continuous(trans = 'log2', limits = c(ymin, ymax)) +
 
-####################################################################################################################################################################
-			ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep = "")), plot = myplot)
+				       #Add axis lines and ticks and increase font size
+				       theme(
+					     axis.title = element_text(color = "black", size = 25), axis.line = element_line(size = 1), axis.text = element_text(color = "black", size = 25),
+				  	     axis.ticks = element_line(colour = "black", size = 1), axis.ticks.length = unit(.4, "cm"),legend.text = element_text(color = "black", size = 20),
+				  	     axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)), axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)),
+				  	     plot.margin = unit(c(.5, .5, .5, .5), "cm")
+				       )
+
+
+			        ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep = "")), plot = log)
 			
+####################################################################################################################################################################
+			} else {
+				linear <- ggplot(data, aes(x = position)) + theme_minimal() + xlab("Position relative to rNMP") + ylab("Normalized Frequency (log2)") +
+
+				       #Specify color and no legend title
+				       scale_colour_manual(values = c("A" = "#CC79A7", "C" = "#56B4E9", "G" = "#E69F00", "U/T" = "#009E73"), name = "") +
+
+				       #Plot data as scatterplot with lines
+				       geom_point(aes(y = A, colour = "A")) + geom_point(aes(y = C, colour = "C")) + geom_point(aes(y = G, colour = "G")) +
+				       geom_point(aes(y = T, colour = "U/T")) + geom_line(aes(y = A, colour = "A")) + geom_line(aes(y = C, colour = "C")) +
+				       geom_line(aes(y = G, colour = "G")) + geom_line(aes(y = T, colour = "U/T")) +		   
+
+				       #Format legend symbols and specify y-axis limits
+				       guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + scale_y_continuous(limits = c(0, ymax)) +
+
+				       #Add axis lines and ticks and increase font size
+				       theme(
+					     axis.title = element_text(color = "black", size = 25), axis.line = element_line(size = 1), axis.text = element_text(color = "black", size = 25),
+				  	     axis.ticks = element_line(colour = "black", size = 1), axis.ticks.length = unit(.4, "cm"),legend.text = element_text(color = "black", size = 20),
+				  	     axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)), axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)),
+				  	     plot.margin = unit(c(.5, .5, .5, .5), "cm")
+				       )
+
+			        ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep = "")), plot = linear)
+}
 }
 }
 message("Status: Sequence Module plotting for ", sample, " is complete")
-	
-} else {
-	message("Since minimum y value = 0, log2 plots cannot be created")		
-}
-
 warnings()
