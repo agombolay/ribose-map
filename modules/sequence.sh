@@ -249,12 +249,12 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 					echo -e "\tA\tC\tG\tU/T" > $output/$sample.$nuc.$region.tab
 			
 					#Add positions and frequencies of nucleotides in correct order to create dataset (normalized)
-					paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Up") <(echo "$Ribo") <(echo "$Down")) >> $output/$sample.$nuc.$region.tab
+					paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Up") <(echo "$Ribo") <(echo "$Down")) >> $output/$sample.$nuc.$region.unnormalized.tab
 					
-					for i in $Ribo; do echo $i/2 | bc -l; done
 					#Add positions and frequencies of nucleotides in correct order to create dataset (unnormalized)
-					#paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Up") <(echo "$Ribo") <(echo "$Down")) >> $output/$sample.$nuc.$region.tab
+					paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Up") <(echo "$Ribo") <(echo "$Down")) >> $output/$sample.$nuc.$region.unnormalized.tab
 
+					for j in $Ribo; do echo $j/2 | bc -l; done
 #############################################################################################################################
 					#Print status
 					echo "Status: Sequence Module for $sample ($nuc,$region) is complete"
