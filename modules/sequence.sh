@@ -98,10 +98,16 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 				RiboTotal=$(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
 	
 				#Calculate normalized frequency of each rNMP
-				A_RiboFreq=$(echo "($A_Ribo/$RiboTotal)/$A_BkgFreq" | bc -l)
-				C_RiboFreq=$(echo "($C_Ribo/$RiboTotal)/$C_BkgFreq" | bc -l)
-				G_RiboFreq=$(echo "($G_Ribo/$RiboTotal)/$G_BkgFreq" | bc -l)
-				U_RiboFreq=$(echo "($U_Ribo/$RiboTotal)/$T_BkgFreq" | bc -l)
+				#A_RiboFreq=$(echo "($A_Ribo/$RiboTotal)/$A_BkgFreq" | bc -l)
+				#C_RiboFreq=$(echo "($C_Ribo/$RiboTotal)/$C_BkgFreq" | bc -l)
+				#G_RiboFreq=$(echo "($G_Ribo/$RiboTotal)/$G_BkgFreq" | bc -l)
+				#U_RiboFreq=$(echo "($U_Ribo/$RiboTotal)/$T_BkgFreq" | bc -l)
+				
+				#Calculate normalized frequency of each rNMP
+				A_RiboFreq=$(echo "($A_Ribo/$RiboTotal)" | bc -l)
+				C_RiboFreq=$(echo "($C_Ribo/$RiboTotal)" | bc -l)
+				G_RiboFreq=$(echo "($G_Ribo/$RiboTotal)" | bc -l)
+				U_RiboFreq=$(echo "($U_Ribo/$RiboTotal)" | bc -l)
 			
 				#Save normalized frequencies of rNMPs to TXT files
 				if [[ $nuc == "A" ]]; then
@@ -183,10 +189,15 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 
 							#Calculate normalized frequencies of dNMPs
 							if [[ $FlankTotal != 0 ]]; then
-								A_FlankFreq=$(echo "($A_Flank/$FlankTotal)/$A_BkgFreq" | bc -l)
-								C_FlankFreq=$(echo "($C_Flank/$FlankTotal)/$C_BkgFreq" | bc -l)
-								G_FlankFreq=$(echo "($G_Flank/$FlankTotal)/$G_BkgFreq" | bc -l)
-								T_FlankFreq=$(echo "($T_Flank/$FlankTotal)/$T_BkgFreq" | bc -l)
+								#A_FlankFreq=$(echo "($A_Flank/$FlankTotal)/$A_BkgFreq" | bc -l)
+								#C_FlankFreq=$(echo "($C_Flank/$FlankTotal)/$C_BkgFreq" | bc -l)
+								#G_FlankFreq=$(echo "($G_Flank/$FlankTotal)/$G_BkgFreq" | bc -l)
+								#T_FlankFreq=$(echo "($T_Flank/$FlankTotal)/$T_BkgFreq" | bc -l)
+								
+								A_FlankFreq=$(echo "($A_Flank/$FlankTotal)" | bc -l)
+								C_FlankFreq=$(echo "($C_Flank/$FlankTotal)" | bc -l)
+								G_FlankFreq=$(echo "($G_Flank/$FlankTotal)" | bc -l)
+								T_FlankFreq=$(echo "($T_Flank/$FlankTotal)" | bc -l)
 				
 							elif [[ $FlankTotal == 0 ]]; then
 								A_FlankFreq='NA'
