@@ -251,7 +251,7 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 					A=$(paste $output/A_Up.txt $output/A_Ribo.txt $output/A_Down.txt)
 					C=$(paste $output/C_Up.txt $output/C_Ribo.txt $output/C_Down.txt)
 					G=$(paste $output/G_Up.txt $output/G_Ribo.txt $output/G_Down.txt)
-					T=$(paste $output/T_Up.txt $output/T_Ribo.txt $output/T_Down.txt)
+					T=$(paste $output/T_Up.txt $output/U_Ribo.txt $output/T_Down.txt)
 
 					#Add positions and frequencies of nucleotides in correct order to create dataset (not normalized to anything)
 					paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Up") <(echo "$Ribo") <(echo "$Down")) >> $output/$sample.$nuc.$region.raw.tab
