@@ -246,7 +246,8 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 					#STEP 7: Create and save dataset file containing nucleotide frequencies
 			
 					#Add nucleotides to header line
-					echo -e "\tA\tC\tG\tU/T" > $output/$sample.$nuc.$region.tab
+					echo -e "\tA\tC\tG\tU/T" > $output/$sample.$nuc.$region.raw.tab
+					echo -e "\tA\tC\tG\tU/T" > $output/$sample.$nuc.$region.normalized.tab
 			
 					A=$(paste $output/A_Up.txt $output/A_Ribo.txt $output/A_Down.txt)
 					C=$(paste $output/C_Up.txt $output/C_Ribo.txt $output/C_Down.txt)
