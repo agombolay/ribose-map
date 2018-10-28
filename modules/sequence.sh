@@ -258,7 +258,7 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 					
 					#Add positions and frequencies of nucleotides in correct order to create dataset (normalized to reference genome)
 					paste <(echo "$(seq -100 1 100)") <(for i in $A; do echo $i/$A_BkgFreq | bc -l; done) <(for j in $C; do echo $j/$C_BkgFreq | bc -l; done) \
-					<(for k in $G; do echo $k/$G_BkgFreq | bc -l; done) <(for l in $T; do echo $l/$T_BkgFreq | bc -l; done)) >> $output/$sample.$nuc.$region.normalized.tab
+					<(for k in $G; do echo $k/$G_BkgFreq | bc -l; done) <(for l in $T; do echo $l/$T_BkgFreq | bc -l; done) >> $output/$sample.$nuc.$region.normalized.tab
 					
 #############################################################################################################################
 					#Print status
