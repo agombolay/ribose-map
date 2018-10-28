@@ -248,13 +248,22 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 					#Add nucleotides to header line
 					echo -e "\tA\tC\tG\tU/T" > $output/$sample.$nuc.$region.tab
 			
+					A=$(paste $output/A_Up.txt $output/A_Ribo.txt $output/A_Down.txt)
+					C=$(paste $output/C_Up.txt $output/C_Ribo.txt $output/C_Down.txt)
+					G=$(paste $output/G_Up.txt $output/G_Ribo.txt $output/G_Down.txt)
+					T=$(paste $output/T_Up.txt $output/T_Ribo.txt $output/T_Down.txt)
+					
+					for i in $A; do echo $i/$A_BkgFreq | bc -l; done
+					for i in $C; do echo $i/$C_BkgFreq | bc -l; done
+					for i in $G; do echo $i/$G_BkgFreq | bc -l; done
+					for i in $T; do echo $i/$T_BkgFreq | bc -l; done
+					
 					#Add positions and frequencies of nucleotides in correct order to create dataset (normalized)
 					paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Up") <(echo "$Ribo") <(echo "$Down")) >> $output/$sample.$nuc.$region.unnormalized.tab
 					
 					#Add positions and frequencies of nucleotides in correct order to create dataset (unnormalized)
 					paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Up") <(echo "$Ribo") <(echo "$Down")) >> $output/$sample.$nuc.$region.unnormalized.tab
-
-					for j in $Ribo; do echo $j/2 | bc -l; done
+					
 #############################################################################################################################
 					#Print status
 					echo "Status: Sequence Module for $sample ($nuc,$region) is complete"
