@@ -259,10 +259,10 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 					
 					#Add positions and frequencies of nucleotides in correct order to create dataset (normalized to reference genome)
 					paste <(echo "$(seq -100 1 100)") <(for i in $A; do if [[ $i != "NA" ]]; then echo $i/$A_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $i; fi; done) \
-													  <(for j in $C; do if [[ $j != "NA" ]]; then echo $j/$C_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $j; fi; done) \
-													  <(for k in $C; do if [[ $k != "NA" ]]; then echo $k/$C_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $k; fi; done) \
-													  <(for l in $C; do if [[ $l != "NA" ]]; then echo $l/$C_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $l; fi; done) \
-													  >> $output/$sample.$nuc.$region.normalized.tab
+									  <(for j in $C; do if [[ $j != "NA" ]]; then echo $j/$C_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $j; fi; done) \
+									  <(for k in $G; do if [[ $k != "NA" ]]; then echo $k/$G_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $k; fi; done) \
+									  <(for l in $T; do if [[ $l != "NA" ]]; then echo $l/$T_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $l; fi; done) \
+									  >> $output/$sample.$nuc.$region.normalized.tab
 
 #############################################################################################################################
 					#Print status
