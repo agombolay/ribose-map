@@ -76,10 +76,16 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 			#STEP 3: Calculate frequencies of rNMPs in libraries
 		
 			#Extract only unique coordinates from file and then subset them based on genomic region
+			#if [[ $region == "nucleus" ]]; then
+			#	awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -wvE '(chrM|MT)' > $output/Coords.$region.bed
+			#elif [[ $region == "mitochondria" ]]; then
+			#	awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -wE '(chrM|MT)' > $output/Coords.$region.bed
+			#fi
+			
 			if [[ $region == "nucleus" ]]; then
-				awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -wvE '(chrM|MT)' > $output/Coords.$region.bed
+				grep -wvE '(chrM|MT)' $repository/results/$sample/coordinate$quality/$sample.bed > $output/Coords.$region.bed
 			elif [[ $region == "mitochondria" ]]; then
-				awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -wE '(chrM|MT)' > $output/Coords.$region.bed
+				grep -wE '(chrM|MT)' $repository/results/$sample/coordinate$quality/$sample.bed > $output/Coords.$region.bed
 			fi
 		
 			#Continue only for BED files > 0
