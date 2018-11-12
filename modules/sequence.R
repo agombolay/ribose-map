@@ -74,6 +74,7 @@ ymin <- min(minimum)
 
 
 			        ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep = "")), plot = log)
+				ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".pdf", sep = "")), plot = log)
 			
 ####################################################################################################################################################################
 			} else {
@@ -99,6 +100,7 @@ ymin <- min(minimum)
 				       )
 
 			        ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep = "")), plot = linear)
+				ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".pdf", sep = "")), plot = linear)
 }
 }
 }
