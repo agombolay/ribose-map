@@ -55,7 +55,7 @@ join -t $'\t' $output/$sample.nucleus.counts.tab $output/$sample.mitochondria.co
 ######################################################################################################################################################
 
 #Remove temporary files
-#rm -f $output/*.temp{1,2}.tab $output/*.bed
+rm -f $output/$sample.$region.nucs.tab $output/$sample.$region.counts.tab
 
 #Print status
 echo "Status: Count Module for $sample (quality = $quality) is complete"
