@@ -19,11 +19,11 @@ for file in $repository/results/$sample/coordinate$quality/$sample.bed; do
 		#Separate BED file by oraganelle
 		if [[ $region == "nucleus" ]]; then
 			#Get nucleotide for each chromosomal coordinate			
-			grep -wvE 'chrM' $file | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/$sample.$region.nucs.tab
+			grep -wv 'chrM' $file | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/$sample.$region.nucs.tab
 
 		elif [[ $region == "mitochondria" ]]; then
 			#Get nucleotide for each chromosomal coordinate
-			grep -wE 'chrM' $file | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/$sample.$region.nucs.tab
+			grep -w 'chrM' $file | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/$sample.$region.nucs.tab
 		fi
 
 		A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/$sample.$region.nucs.tab | wc -l)
