@@ -16,7 +16,7 @@ if [[ $1 == "alignment" ]]; then
 elif [[ $1 == "coordinate" ]]; then
     . "$2"
     $modules/coordinate.sh $2
-
+    
 elif [[ $1 == "sequence" ]]; then
     . "$2"
     $modules/sequence.sh $2
@@ -26,4 +26,9 @@ elif [[ $1 == "distribution" ]]; then
     . "$2"
     $modules/distribution.sh $2
     $modules/distribution.R $2
+    
+elif [[ $1 == "count" ]]; then
+    . "$2"
+    $modules/count.sh $2
+    
 fi
