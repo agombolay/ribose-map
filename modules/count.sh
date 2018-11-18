@@ -58,4 +58,4 @@ join -t $'\t' $output/$sample.nucleus.counts.tab $output/$sample.mitochondria.co
 #rm -f $output/*.temp{1,2}.tab $output/*.bed
 
 #Print status
-echo "Status: Count Module for $sample ($quality) is complete"
+echo "Status: Count Module for $sample (quality = $quality) is complete"
