@@ -19,11 +19,11 @@ for file in $repository/results/$sample/coordinate$quality/$sample.bed; do
 		#Separate BED file by oraganelle
 		if [[ $region == "nucleus" ]]; then
 			#Get nucleotide for each chromosomal coordinate			
-			grep -wvE 'chrM' $file > $output/$sample.$region.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/$sample.$region.nucs.tab
+			grep -wvE 'chrM' $file | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/$sample.$region.nucs.tab
 
 		elif [[ $region == "mitochondria" ]]; then
 			#Get nucleotide for each chromosomal coordinate
-			grep -wE 'chrM' $file > $output/$sample.$region.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/$sample.$region.nucs.tab
+			grep -wE 'chrM' $file | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/$sample.$region.nucs.tab
 		fi
 
 		A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/$sample.$region.nucs.tab | wc -l)
@@ -55,7 +55,7 @@ join -t $'\t' $output/$sample.nucleus.counts.tab $output/$sample.mitochondria.co
 ######################################################################################################################################################
 
 #Remove temporary files
-rm -f $output/*.temp{1,2}.tab $output/*.bed
+#rm -f $output/*.temp{1,2}.tab $output/*.bed
 
 #Print status
 echo "Status: Count Module for $sample is complete"
