@@ -17,11 +17,11 @@ for file in $output/$sample.bed; do
 	for region in "nucleus" "mitochondria"; do
 
 		#Separate BED file by oraganelle
-		if [ $region == "nucleus"]; then
+		if [[ $region == "nucleus" ]]; then
 			#Get nucleotide for each chromosomal coordinate			
 			grep -wvE 'chrM' $file > $output/$sample.$region.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/$sample.$region.nucs.tab
 
-		elif [ $region == "mitochondria"]; then
+		elif [[ $region == "mitochondria" ]]; then
 			#Get nucleotide for each chromosomal coordinate
 			grep -wE 'chrM' $file > $output/$sample.$region.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/$sample.$region.nucs.tab
 		fi
