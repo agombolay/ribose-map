@@ -4,6 +4,8 @@
 #Calculate counts of rAMP, rCMP, rGMP, and rUMP
 
 ######################################################################################################################################################
+#Load config file
+. "$1"
 
 output=$repository/results/$sample/count$quality
 rm -rf $output; mkdir -p $output
