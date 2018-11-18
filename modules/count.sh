@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #Alli Gombolay, 11/2018
-#Calculate numbers of rAMP, rCMP, rGMP, and rUMP
+#Calculate counts of rAMP, rCMP, rGMP, and rUMP
 
 ######################################################################################################################################################
 
