@@ -12,7 +12,7 @@ rm -rf $output; mkdir -p $output
 
 ######################################################################################################################################################
 
-for file in $output/$sample.bed; do
+for file in $repository/results/$sample/coordinate$quality/$sample.bed; do
 
 	for region in "nucleus" "mitochondria"; do
 
