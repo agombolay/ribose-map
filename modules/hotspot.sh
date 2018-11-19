@@ -111,4 +111,4 @@ done
 rm -f $output/combined.*.tsv $output/*.temp1.*.tsv
 
 #Print status
-echo "Status: Hotspot Module is complete"
+echo "Status: Hotspot Module for $directory is complete"
