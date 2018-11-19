@@ -3,6 +3,8 @@
 #Alli Gombolay, 11/2018
 #Calculate top 1% of sites: https://www.dummies.com/education/math/statistics/how-to-calculate-percentiles-in-statistics/
 
+######################################################################################################################################################
+
 directory=$1
 output=$directory/percentiles; rm -rf $output; mkdir $output
 
