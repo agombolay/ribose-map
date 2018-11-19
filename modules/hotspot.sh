@@ -12,6 +12,8 @@ while getopts ":h" opt;
     esac
 done
 
+######################################################################################################################################################
+
 directory=$1
 reference=$2
 output=$directory/hotspots; rm -rf $output; mkdir $output
