@@ -31,8 +31,4 @@ elif [[ $1 == "nucleotide" ]]; then
     . "$2"
     $modules/nucleotide.sh $2
     
-elif [[ $1 == "hotspot" ]]; then
-    . "$2"
-    $modules/hotspot.sh $2
-    
 fi
