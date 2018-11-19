@@ -27,8 +27,12 @@ elif [[ $1 == "distribution" ]]; then
     $modules/distribution.sh $2
     $modules/distribution.R $2
     
-elif [[ $1 == "count" ]]; then
+elif [[ $1 == "nucleotide" ]]; then
     . "$2"
-    $modules/count.sh $2
+    $modules/nucleotide.sh $2
+    
+elif [[ $1 == "hotspot" ]]; then
+    . "$2"
+    $modules/hotspot.sh $2
     
 fi
