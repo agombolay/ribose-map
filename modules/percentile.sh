@@ -50,7 +50,8 @@ for file in $(ls $directory/counts/*.tab); do
 ######################################################################################################################################################
 
 	#Save top 1% of data to new file
-	mawk -v "OFS=\t" -v "x=$percentile" '{if ($5 >= x) print $0}' $output/$sample.sorted.tsv | sort > $output/$sample.top1%.tsv
+	mawk -v "OFS=\t" -v "x=$percentile" '{if ($5 >= x) print $0}' $output/$sample.sorted.tsv | \
+	sort > $output/$sample.top1%.tsv
 
 done
 
