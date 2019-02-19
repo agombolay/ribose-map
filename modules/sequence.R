@@ -59,8 +59,8 @@ ymin <- min(minimum)
 				       #Plot data as scatterplot with lines
 				       geom_point(aes(y = A, colour = "A"), size = 4, shape = 15) + geom_point(aes(y = C, colour = "C"), size = 4, shape = 16) +
 				       geom_point(aes(y = G, colour = "G"), size = 4, shape = 17) + geom_point(aes(y = T, colour = "U/T"), size = 4, shape = 18) +
-				       geom_line(aes(y = A, colour = "A")) + geom_line(aes(y = C, colour = "C")) + geom_line(aes(y = G, colour = "G")) +
-				       geom_line(aes(y = T, colour = "U/T")) +		   
+				       geom_line(aes(y = A, colour = "A"), size = .75) + geom_line(aes(y = C, colour = "C"), size = .75) +
+				       geom_line(aes(y = G, colour = "G"), size = .75) + geom_line(aes(y = T, colour = "U/T"), size = .75) +		   
 
 				       #Format legend symbols and specify y-axis limits
 				       guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + scale_y_continuous(trans = 'log2', limits = c(ymin, ymax)) +
@@ -85,8 +85,9 @@ ymin <- min(minimum)
 				       scale_colour_manual(values = c("A" = "#CC79A7", "C" = "#56B4E9", "G" = "#E69F00", "U/T" = "#009E73"), name = "") +
 
 				       #Plot data as scatterplot with lines
-				       geom_point(aes(y = A, colour = "A")) + geom_point(aes(y = C, colour = "C")) + geom_point(aes(y = G, colour = "G")) +
-				       geom_point(aes(y = T, colour = "U/T")) + geom_line(aes(y = A, colour = "A"), size = .75) + geom_line(aes(y = C, colour = "C"), size = .75) +
+				       geom_point(aes(y = A, colour = "A"), size = 4, shape = 15) + geom_point(aes(y = C, colour = "C"), size = 4, shape = 16) +
+				       geom_point(aes(y = G, colour = "G"), size = 4, shape = 17) + geom_point(aes(y = T, colour = "U/T"), size = 4, shape = 18) +
+				       geom_line(aes(y = A, colour = "A"), size = .75) + geom_line(aes(y = C, colour = "C"), size = .75) +
 				       geom_line(aes(y = G, colour = "G"), size = .75) + geom_line(aes(y = T, colour = "U/T"), size = .75) +		   
 
 				       #Format legend symbols and specify y-axis limits
