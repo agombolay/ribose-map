@@ -86,8 +86,8 @@ ymin <- min(minimum)
 
 				       #Plot data as scatterplot with lines
 				       geom_point(aes(y = A, colour = "A")) + geom_point(aes(y = C, colour = "C")) + geom_point(aes(y = G, colour = "G")) +
-				       geom_point(aes(y = T, colour = "U/T")) + geom_line(aes(y = A, colour = "A")) + geom_line(aes(y = C, colour = "C")) +
-				       geom_line(aes(y = G, colour = "G")) + geom_line(aes(y = T, colour = "U/T")) +		   
+				       geom_point(aes(y = T, colour = "U/T")) + geom_line(aes(y = A, colour = "A"), size = .75) + geom_line(aes(y = C, colour = "C"), size = .75) +
+				       geom_line(aes(y = G, colour = "G"), size = .75) + geom_line(aes(y = T, colour = "U/T"), size = .75) +		   
 
 				       #Format legend symbols and specify y-axis limits
 				       guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0))) + scale_y_continuous(limits = c(0, ymax)) +
