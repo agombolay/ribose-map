@@ -13,7 +13,7 @@
 
 #Create output directory and remove any old files
 output=$repository/results/$sample/sequence$quality
-rm -rf $output; mkdir -p $output
+rm -r $output; mkdir -p $output
 
 #############################################################################################################################
 #Calculate raw counts of rNMPs
