@@ -42,10 +42,10 @@ elif [[ $technique == "emRiboSeq" ]]; then
 		samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 
 		#Obtain coordinates of rNMPs depending on the strand of DNA and sort data
-		mawk -v "OFS=\t" '{if ($6 == "-") print $1, $3, ($3 + 1), $4, $5, "+"; else if ($6 == "+") print $1, ($2 - 1), $2, $4, $5, "-";}' $output/reads.bed | sort -k1,1 -k2,2n -k 6 > $output/temporary.bed
+		mawk -v "OFS=\t" '{if ($6 == "-") print $1, $3, ($3 + 1), $4, $5, "+"; else if ($6 == "+") print $1, ($2 - 1), $2, $4, $5, "-";}' $output/reads.bed > $output/temporary.bed
 
 		#Remove coordinates of rNMPs if the end position is greater than length of chromosome
-		join -t $'\t' $output/reference.bed $output/temporary.bed | mawk -v "OFS=\t" '$3 >= 0 && $2 >= $4 { print $1, $3, $4, $5, $6, $7 }' > $output/$sample.bed
+		join -t $'\t' <( sort $output/reference.bed) <(sort $output/temporary.bed) | mawk -v "OFS=\t" '$3 >= 0 && $2 >= $4 { print $1, $3, $4, $5, $6, $7 }' | sort -k1,1 -k2,2n -k 6 > $output/$sample.bed
 	fi
 	
 elif [[ $technique == "HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
