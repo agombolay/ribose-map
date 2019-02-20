@@ -74,7 +74,7 @@ fi
 
 #############################################################################################################################
 #Remove temporary files
-rm -f $output/reads.bed $output/temporary.bed
+rm -f $output/reads.bed $output/temporary.bed $output/reference.bed
 
 #Print status
 echo "Status: Coordinate Module for $sample is complete"
