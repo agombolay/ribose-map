@@ -3,7 +3,7 @@
 **© 2017 Alli Gombolay, Fredrik Vannberg, and Francesca Storici**  
 **School of Biological Sciences, Georgia Institute of Technology**
 
-If you use Ribose-Map, please use the following citation:
+If you use Ribose-Map, please use the following citation:  
 Gombolay et al. Ribose-Map: a bioinformatics toolkit to map ribonucleotides embedded in genomic DNA. Nucleic Acids Research 2018.
 
 ## Modules
