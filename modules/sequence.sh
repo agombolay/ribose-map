@@ -22,8 +22,7 @@ cut -f1,2,3,6 $repository/results/$sample/coordinate$quality/$sample.bed | uniq 
 #Create FASTA index file and BED file for reference
 samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
 
-#for nuc in "A" "C" "G" "T" "Combined"; do
-for nuc in "Combined"; do
+for nuc in "A" "C" "G" "T" "Combined"; do
 	for region in "nucleus" "mitochondria"; do
 	
 		#STEP 1: Calculate frequencies of reference genome
