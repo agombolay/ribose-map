@@ -79,10 +79,10 @@ ymin <- min(minimum)
 			
 ####################################################################################################################################################################
 			} else {
-				linear <- ggplot(data, aes(x = position)) + theme_minimal() + xlab("Position relative to rNMP") + ylab("Normalized Frequency (log2)") +
+				linear <- ggplot(data, aes(x = position)) + theme_minimal() + xlab("Position relative to rNMP") + ylab("Normalized Frequency") +
 
 				       #Specify color and no legend title
-				       scale_colour_manual(values = c("A" = "#CC79A7", "C" = "#56B4E9", "G" = "#E69F00", "U/T" = "#009E73"), name = "") +
+				       scale_colour_manual(values = c("A" = "red2", "C" = "blue4", "G" = "darkorange2", "U/T" = "green4"), name = "") +
 
 				       #Plot data as scatterplot with lines
 				       geom_point(aes(y = A, colour = "A"), size = 4, shape = 15) + geom_point(aes(y = C, colour = "C"), size = 4, shape = 16) +
