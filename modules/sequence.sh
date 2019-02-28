@@ -25,6 +25,7 @@ samtools faidx $fasta
 #Create .bed file for reference
 cut -f 1,2 $fasta.fai > $repository/references/$(basename $fasta .fa).bed
 
+for region in "nucleus" "mitochondria"; do
 #Subset FASTA file based on region
 if [[ $region == "nucleus" ]]; then
 			
@@ -42,6 +43,7 @@ elif [[ $region == "mitochondria" ]]; then
 		samtools faidx $repository/references/$(basename $fasta .fa)_mitochondria.fa
 	fi
 fi
+done
 
 #STEP 1: Calculate frequencies of reference genome
 for nuc in "A" "C" "G" "T" "Combined"; do
