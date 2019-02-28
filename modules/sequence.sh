@@ -28,7 +28,7 @@ cut -f 1,2 $fasta.fai > $repository/references/$(basename $fasta .fa).bed
 #Subset FASTA file based on region
 if [[ $region == "nucleus" ]]; then
 			
-	if [[ ! -s $repository/references/temp.fa ]]; then
+	if [[ ! -s $repository/references/$(basename $fasta .fa)_$region.fa ]]; then
 		chr=$(awk '{print $1}' $repository/references/$(basename $fasta .fa).bed | grep -wvE '(chrM|MT)')
 		samtools faidx $fasta $chr > $repository/references/$(basename $fasta .fa)_nucleus.fa
 		samtools faidx $repository/references/$(basename $fasta .fa)_nucleus.fa
@@ -36,7 +36,7 @@ if [[ $region == "nucleus" ]]; then
 		
 elif [[ $region == "mitochondria" ]]; then
 		
-	if [[ ! -s $repository/references/temp.fa ]]; then
+	if [[ ! -s $repository/references/$(basename $fasta .fa)_$region.fa ]]; then
 		chr=$(awk '{print $1}' $repository/references/$(basename $fasta .fa).bed | grep -wE '(chrM|MT)')
 		samtools faidx $fasta $chr > $repository/references/$(basename $fasta .fa)_mitochondria.fa
 		samtools faidx $repository/references/$(basename $fasta .fa)_mitochondria.fa
