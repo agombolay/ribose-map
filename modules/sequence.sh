@@ -25,33 +25,27 @@ samtools faidx $fasta
 #Create .bed file for reference
 cut -f 1,2 $fasta.fai > $repository/references/$(basename $fasta .fa).bed
 
+#Subset FASTA file based on region
+if [[ $region == "nucleus" ]]; then
+			
+	if [[ ! -s $repository/references/temp.fa ]]; then
+		chr=$(awk '{print $1}' $repository/references/$(basename $fasta .fa).bed | grep -wvE '(chrM|MT)')
+		samtools faidx $fasta $chr > $repository/references/$(basename $fasta .fa)_nucleus.fa
+		samtools faidx $repository/references/$(basename $fasta .fa)_nucleus.fa
+	fi
+		
+elif [[ $region == "mitochondria" ]]; then
+		
+	if [[ ! -s $repository/references/temp.fa ]]; then
+		chr=$(awk '{print $1}' $repository/references/$(basename $fasta .fa).bed | grep -wE '(chrM|MT)')
+		samtools faidx $fasta $chr > $repository/references/$(basename $fasta .fa)_mitochondria.fa
+		samtools faidx $repository/references/$(basename $fasta .fa)_mitochondria.fa
+	fi
+fi
+
+#STEP 1: Calculate frequencies of reference genome
 for nuc in "A" "C" "G" "T" "Combined"; do
 	for region in "nucleus" "mitochondria"; do
-	
-		#STEP 1: Calculate frequencies of reference genome
-
-		#Subset FASTA file based on region
-		if [[ $region == "nucleus" ]]; then
-			
-			if [[ ! -s $repository/references/temp.fa ]]; then
-				chr=$(awk '{print $1}' $repository/references/$(basename $fasta .fa).bed | grep -wvE '(chrM|MT)')
-				samtools faidx $fasta $chr > $repository/references/$(basename $fasta .fa)_nucleus.fa
-			fi
-		
-		elif [[ $region == "mitochondria" ]]; then
-		
-			if [[ ! -s $repository/references/temp.fa ]]; then
-				chr=$(awk '{print $1}' $repository/references/$(basename $fasta .fa).bed | grep -wE '(chrM|MT)')
-				samtools faidx $fasta $chr > $repository/references/$(basename $fasta .fa)_mitochondria.fa
-			fi
-		fi
-		
-		#Continue only for FASTA files > 0
-		if [[ -s $repository/references/temp.fa ]]; then
-		
-			if [[ ! -s $repository/references/temp.fa.fai ]]; then
-				samtools faidx $repository/references/temp.fa
-			fi
 			
 			#Calculate counts of each nucleotide
 			A_Bkg=$(grep -v '>' $repository/references/temp.fa | grep -Eo 'A|a' - | wc -l)
@@ -282,7 +276,6 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 					
 				fi
 			fi
-		fi
 		
 			#Remove temporary files
 			rm -f $output/*.{txt,fa,fa.fai} $output/{Up,Down}.bed $output/{Up,Down}.tab
