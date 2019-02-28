@@ -20,10 +20,14 @@ rm -r $output; mkdir -p $output
 cut -f1,2,3,6 $repository/results/$sample/coordinate$quality/$sample.bed | uniq -c - | mawk -v "OFS=\t" '{print $2, $3, $4, $5, $1}' > $repository/results/$sample/coordinate$quality/$sample.counts.tab
 
 #Create .fai file for reference
-samtools faidx $fasta
+if [[ ! -s $repository/references/$(basename $fasta .fa).fai ]]; then
+	samtools faidx $fasta
+fi
 
 #Create .bed file for reference
-cut -f 1,2 $fasta.fai > $repository/references/$(basename $fasta .fa).bed
+if [[ ! -s $repository/references/$(basename $fasta .fa).bed ]]; then
+	cut -f 1,2 $fasta.fai > $repository/references/$(basename $fasta .fa).bed
+fi
 
 for region in "nucleus" "mitochondria"; do
 #Subset FASTA file based on region
