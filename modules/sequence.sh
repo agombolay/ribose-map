@@ -98,16 +98,16 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 				RiboTotal=$(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
 	
 				#Calculate normalized frequency of each rNMP
-				A_RiboFreq=$(echo "($A_Ribo/$RiboTotal)/$A_BkgFreq" | bc -l)
-				C_RiboFreq=$(echo "($C_Ribo/$RiboTotal)/$C_BkgFreq" | bc -l)
-				G_RiboFreq=$(echo "($G_Ribo/$RiboTotal)/$G_BkgFreq" | bc -l)
-				U_RiboFreq=$(echo "($U_Ribo/$RiboTotal)/$T_BkgFreq" | bc -l)
+				#A_RiboFreq=$(echo "($A_Ribo/$RiboTotal)/$A_BkgFreq" | bc -l)
+				#C_RiboFreq=$(echo "($C_Ribo/$RiboTotal)/$C_BkgFreq" | bc -l)
+				#G_RiboFreq=$(echo "($G_Ribo/$RiboTotal)/$G_BkgFreq" | bc -l)
+				#U_RiboFreq=$(echo "($U_Ribo/$RiboTotal)/$T_BkgFreq" | bc -l)
 				
 				#Calculate NOT normalized frequency of each rNMP
-				#A_RiboFreq=$(echo "($A_Ribo/$RiboTotal)" | bc -l)
-				#C_RiboFreq=$(echo "($C_Ribo/$RiboTotal)" | bc -l)
-				#G_RiboFreq=$(echo "($G_Ribo/$RiboTotal)" | bc -l)
-				#U_RiboFreq=$(echo "($U_Ribo/$RiboTotal)" | bc -l)
+				A_RiboFreq=$(echo "($A_Ribo/$RiboTotal)" | bc -l)
+				C_RiboFreq=$(echo "($C_Ribo/$RiboTotal)" | bc -l)
+				G_RiboFreq=$(echo "($G_Ribo/$RiboTotal)" | bc -l)
+				U_RiboFreq=$(echo "($U_Ribo/$RiboTotal)" | bc -l)
 			
 				#Save normalized frequencies of rNMPs to TXT files
 				if [[ $nuc == "A" ]]; then
@@ -189,15 +189,15 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 
 							#Calculate normalized frequencies of dNMPs
 							if [[ $FlankTotal != 0 ]]; then
-								A_FlankFreq=$(echo "($A_Flank/$FlankTotal)/$A_BkgFreq" | bc -l)
-								C_FlankFreq=$(echo "($C_Flank/$FlankTotal)/$C_BkgFreq" | bc -l)
-								G_FlankFreq=$(echo "($G_Flank/$FlankTotal)/$G_BkgFreq" | bc -l)
-								T_FlankFreq=$(echo "($T_Flank/$FlankTotal)/$T_BkgFreq" | bc -l)
+								#A_FlankFreq=$(echo "($A_Flank/$FlankTotal)/$A_BkgFreq" | bc -l)
+								#C_FlankFreq=$(echo "($C_Flank/$FlankTotal)/$C_BkgFreq" | bc -l)
+								#G_FlankFreq=$(echo "($G_Flank/$FlankTotal)/$G_BkgFreq" | bc -l)
+								#T_FlankFreq=$(echo "($T_Flank/$FlankTotal)/$T_BkgFreq" | bc -l)
 								
-								#A_FlankFreq=$(echo "($A_Flank/$FlankTotal)" | bc -l)
-								#C_FlankFreq=$(echo "($C_Flank/$FlankTotal)" | bc -l)
-								#G_FlankFreq=$(echo "($G_Flank/$FlankTotal)" | bc -l)
-								#T_FlankFreq=$(echo "($T_Flank/$FlankTotal)" | bc -l)
+								A_FlankFreq=$(echo "($A_Flank/$FlankTotal)" | bc -l)
+								C_FlankFreq=$(echo "($C_Flank/$FlankTotal)" | bc -l)
+								G_FlankFreq=$(echo "($G_Flank/$FlankTotal)" | bc -l)
+								T_FlankFreq=$(echo "($T_Flank/$FlankTotal)" | bc -l)
 				
 							elif [[ $FlankTotal == 0 ]]; then
 								A_FlankFreq='NA'
@@ -246,7 +246,7 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 					#STEP 7: Create and save dataset file containing nucleotide frequencies
 			
 					#Add nucleotides to header line
-					echo -e "\tA\tC\tG\tU/T" > $output/$sample.$nuc.$region.raw.tab
+					#echo -e "\tA\tC\tG\tU/T" > $output/$sample.$nuc.$region.raw.tab
 					echo -e "\tA\tC\tG\tU/T" > $output/$sample.$nuc.$region.normalized.tab
 			
 					A=$(paste <(cat <(cat $output/A_Up.txt | tac) <(cat $output/A_Ribo.txt) <(cat $output/A_Down.txt)))
@@ -255,7 +255,7 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 					T=$(paste <(cat <(cat $output/T_Up.txt | tac) <(cat $output/U_Ribo.txt) <(cat $output/T_Down.txt)))
 
 					#Add positions and frequencies of nucleotides in correct order to create dataset (not normalized to anything)
-					paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Up") <(echo "$Ribo") <(echo "$Down")) >> $output/$sample.$nuc.$region.raw.tab
+					#paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Up") <(echo "$Ribo") <(echo "$Down")) >> $output/$sample.$nuc.$region.raw.tab
 					
 					#Add positions and frequencies of nucleotides in correct order to create dataset (normalized to reference genome)
 					paste <(echo "$(seq -100 1 100)") <(for i in $A; do if [[ $i != "NA" ]]; then echo $i/$A_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $i; fi; done) \
