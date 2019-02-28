@@ -48,10 +48,10 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 	for region in "nucleus" "mitochondria"; do
 			
 			#Calculate counts of each nucleotide
-			A_Bkg=$(grep -v '>' $repository/references/temp.fa | grep -Eo 'A|a' - | wc -l)
-			C_Bkg=$(grep -v '>' $repository/references/temp.fa | grep -Eo 'C|c' - | wc -l)
-			G_Bkg=$(grep -v '>' $repository/references/temp.fa | grep -Eo 'G|g' - | wc -l)
-			T_Bkg=$(grep -v '>' $repository/references/temp.fa | grep -Eo 'T|t' - | wc -l)
+			A_Bkg=$(grep -v '>' $repository/references/$(basename $fasta .fa)_$region.fa | grep -Eo 'A|a' - | wc -l)
+			C_Bkg=$(grep -v '>' $repository/references/$(basename $fasta .fa)_$region.fa | grep -Eo 'C|c' - | wc -l)
+			G_Bkg=$(grep -v '>' $repository/references/$(basename $fasta .fa)_$region.fa | grep -Eo 'G|g' - | wc -l)
+			T_Bkg=$(grep -v '>' $repository/references/$(basename $fasta .fa)_$region.fa | grep -Eo 'T|t' - | wc -l)
 	
 			#Calculate total number of nucleotides
 			BkgTotal=$(($A_Bkg + $C_Bkg + $G_Bkg + $T_Bkg))
@@ -92,7 +92,7 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 			if [[ -s $output/Coords.$region.bed ]]; then
 			
 				#Extract rNMP nucleotides from FASTA
-				bedtools getfasta -s -fi $repository/references/temp.fa -bed $output/Coords.$region.bed | grep -v '>' > $output/Ribos.txt
+				bedtools getfasta -s -fi $repository/references/$(basename $fasta .fa)_$region.fa -bed $output/Coords.$region.bed | grep -v '>' > $output/Ribos.txt
 			
 				#Calculate counts of rNMPs
 				A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/Ribos.txt | wc -l)
@@ -155,13 +155,13 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 
 				#Create 5 BED files, one for each nucleotide and one combined
 				if [[ $nuc == "A" ]]; then
-					bedtools getfasta -s -fi $repository/references/temp.fa -tab -bed $output/Coords.$region.bed | awk '$2 == "A" || $2 == "a"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords.$nuc.$region.bed
+					bedtools getfasta -s -fi $repository/references/$(basename $fasta .fa)_$region.fa -tab -bed $output/Coords.$region.bed | awk '$2 == "A" || $2 == "a"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords.$nuc.$region.bed
 				elif [[ $nuc == "C" ]]; then
-					bedtools getfasta -s -fi $repository/references/temp.fa -tab -bed $output/Coords.$region.bed | awk '$2 == "C" || $2 == "c"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords.$nuc.$region.bed
+					bedtools getfasta -s -fi $repository/references/$(basename $fasta .fa)_$region.fa -tab -bed $output/Coords.$region.bed | awk '$2 == "C" || $2 == "c"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords.$nuc.$region.bed
 				elif [[ $nuc == "G" ]]; then
-					bedtools getfasta -s -fi $repository/references/temp.fa -tab -bed $output/Coords.$region.bed | awk '$2 == "G" || $2 == "g"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords.$nuc.$region.bed
+					bedtools getfasta -s -fi $repository/references/$(basename $fasta .fa)_$region.fa -tab -bed $output/Coords.$region.bed | awk '$2 == "G" || $2 == "g"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords.$nuc.$region.bed
 				elif [[ $nuc == "T" ]]; then
-					bedtools getfasta -s -fi $repository/references/temp.fa -tab -bed $output/Coords.$region.bed | awk '$2 == "T" || $2 == "t"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords.$nuc.$region.bed
+					bedtools getfasta -s -fi $repository/references/$(basename $fasta .fa)_$region.fa -tab -bed $output/Coords.$region.bed | awk '$2 == "T" || $2 == "t"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/Coords.$nuc.$region.bed
 				elif [[ $nuc == "Combined" ]]; then
 					cp $output/Coords.$region.bed $output/Coords.$nuc.$region.bed 
 				fi
@@ -174,8 +174,8 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 					bedtools flank -i $output/Coords.$nuc.$region.bed -s -g $repository/references/$(basename $fasta .fa).bed -l 0 -r 100 | awk '$2 != $3' > $output/Down.bed
 	
 					#Obtain nucleotides flanking rNMPs (reverse order of up) and insert tabs bases for easier parsing
-					bedtools getfasta -s -fi $repository/references/temp.fa -bed $output/Down.bed | grep -v '>' | sed 's/.../& /2g;s/./& /g' > $output/Down.tab
-					bedtools getfasta -s -fi $repository/references/temp.fa -bed $output/Up.bed | grep -v '>' | rev | sed 's/.../& /2g;s/./& /g' > $output/Up.tab
+					bedtools getfasta -s -fi $repository/references/$(basename $fasta .fa)_$region.fa -bed $output/Down.bed | grep -v '>' | sed 's/.../& /2g;s/./& /g' > $output/Down.tab
+					bedtools getfasta -s -fi $repository/references/$(basename $fasta .fa)_$region.fa -bed $output/Up.bed | grep -v '>' | rev | sed 's/.../& /2g;s/./& /g' > $output/Up.tab
 				
 #############################################################################################################################
 					#STEP 6: Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
