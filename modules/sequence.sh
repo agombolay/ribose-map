@@ -30,22 +30,22 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 		#Subset FASTA file based on region
 		if [[ $region == "nucleus" ]]; then
 			chr=$(awk '{print $1}' $output/reference.bed | grep -wvE '(chrM|MT)')
-			samtools faidx $fasta $chr > $output/temp.fa
+			samtools faidx $fasta $chr > $repository/references/temp.fa
 		elif [[ $region == "mitochondria" ]]; then
 			chr=$(awk '{print $1}' $output/reference.bed | grep -wE '(chrM|MT)')
-			samtools faidx $fasta $chr > $output/temp.fa
+			samtools faidx $fasta $chr > $repository/references/temp.fa
 		fi
 		
 		#Continue only for FASTA files > 0
-		if [[ -s $output/temp.fa ]]; then
+		if [[ -s $repository/references/temp.fa ]]; then
 		
-			samtools faidx $output/temp.fa
+			samtools faidx $repository/references/temp.fa
 		
 			#Calculate counts of each nucleotide
-			A_Bkg=$(grep -v '>' $output/temp.fa | grep -Eo 'A|a' - | wc -l)
-			C_Bkg=$(grep -v '>' $output/temp.fa | grep -Eo 'C|c' - | wc -l)
-			G_Bkg=$(grep -v '>' $output/temp.fa | grep -Eo 'G|g' - | wc -l)
-			T_Bkg=$(grep -v '>' $output/temp.fa | grep -Eo 'T|t' - | wc -l)
+			A_Bkg=$(grep -v '>' $repository/references/temp.fa | grep -Eo 'A|a' - | wc -l)
+			C_Bkg=$(grep -v '>' $repository/references/temp.fa | grep -Eo 'C|c' - | wc -l)
+			G_Bkg=$(grep -v '>' $repository/references/temp.fa | grep -Eo 'G|g' - | wc -l)
+			T_Bkg=$(grep -v '>' $repository/references/temp.fa | grep -Eo 'T|t' - | wc -l)
 	
 			#Calculate total number of nucleotides
 			BkgTotal=$(($A_Bkg + $C_Bkg + $G_Bkg + $T_Bkg))
