@@ -31,13 +31,14 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 		if [[ $region == "nucleus" ]]; then
 			
 			if [[ ! -s $repository/references/temp.fa ]]; then
-				chr=$(awk '{print $1}' $output/reference.bed | grep -wvE '(chrM|MT)')
+				chr=$(awk '{print $1}' $repository/references/$(basename $fasta .fa).bed | grep -wvE '(chrM|MT)')
 				samtools faidx $fasta $chr > $repository/references/temp.fa
 			fi
+		
 		elif [[ $region == "mitochondria" ]]; then
 		
 			if [[ ! -s $repository/references/temp.fa ]]; then
-				chr=$(awk '{print $1}' $output/reference.bed | grep -wE '(chrM|MT)')
+				chr=$(awk '{print $1}' $repository/references/$(basename $fasta .fa).bed | grep -wE '(chrM|MT)')
 				samtools faidx $fasta $chr > $repository/references/temp.fa
 			fi
 		fi
