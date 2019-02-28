@@ -19,8 +19,11 @@ rm -r $output; mkdir -p $output
 #Calculate raw counts of rNMPs
 cut -f1,2,3,6 $repository/results/$sample/coordinate$quality/$sample.bed | uniq -c - | mawk -v "OFS=\t" '{print $2, $3, $4, $5, $1}' > $repository/results/$sample/coordinate$quality/$sample.counts.tab
 
-#Create FASTA index file and BED file for reference
-samtools faidx $fasta && cut -f 1,2 $fasta.fai > $repository/references/$(basename $fasta .fa).bed
+#Create .fai file for reference
+samtools faidx $fasta
+
+#Create .bed file for reference
+cut -f 1,2 $fasta.fai > $repository/references/$(basename $fasta .fa).bed
 
 for nuc in "A" "C" "G" "T" "Combined"; do
 	for region in "nucleus" "mitochondria"; do
