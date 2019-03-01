@@ -26,6 +26,7 @@ fi
 
 #Create .bed file for reference
 if [[ ! -s $repository/references/$(basename $fasta .fa).bed ]]; then
+	echo "does not exist"
 	cut -f 1,2 $fasta.fai > $repository/references/$(basename $fasta .fa).bed
 fi
 
