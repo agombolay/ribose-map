@@ -63,7 +63,7 @@ ymin <- min(minimum)
 				       geom_line(aes(y = G, colour = "G"), size = .75) + geom_line(aes(y = T, colour = "U/T"), size = .75) +		   
 
 				       #Format legend symbols and specify y-axis limits
-				       guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0, shape = c(15,16,17,18))) + scale_y_continuous(trans = 'log2', limits = c(ymin, ymax)) +
+				       guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0, shape = c(15,16,17,18)))) + scale_y_continuous(trans = 'log2', limits = c(ymin, ymax)) +
 
 				       #Add axis lines and ticks and increase font size
 				       theme(
