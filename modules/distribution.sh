@@ -13,7 +13,7 @@
 
 #Create output directory and remove any old files
 output=$repository/results/$sample/distribution$quality
-rm -rf $output; mkdir -p $output
+rm -r $output; mkdir -p $output
 
 #############################################################################################################################
 #Calculate normalized counts of rNMPs
