@@ -29,23 +29,25 @@ for region in "nucleus" "$mito" "$other"; do
 
 	fi
 
-	A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/${sample}-$region.nucs.tab | wc -l)
-	C_Ribo=$(awk '$1 == "C" || $1 == "c"' $output/${sample}-$region.nucs.tab | wc -l)
-	G_Ribo=$(awk '$1 == "G" || $1 == "g"' $output/${sample}-$region.nucs.tab | wc -l)
-	U_Ribo=$(awk '$1 == "T" || $1 == "t"' $output/${sample}-$region.nucs.tab | wc -l)
+	if [[ -s $output/${sample}-$region.nucs.tab ]]; then
 	
-	RiboTotal=$(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
-
-	A_RiboFreq=$(echo "($A_Ribo)" | bc -l)
-	C_RiboFreq=$(echo "($C_Ribo)" | bc -l)
-	G_RiboFreq=$(echo "($G_Ribo)" | bc -l)
-	U_RiboFreq=$(echo "($U_Ribo)" | bc -l)
+		A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/${sample}-$region.nucs.tab | wc -l)
+		C_Ribo=$(awk '$1 == "C" || $1 == "c"' $output/${sample}-$region.nucs.tab | wc -l)
+		G_Ribo=$(awk '$1 == "G" || $1 == "g"' $output/${sample}-$region.nucs.tab | wc -l)
+		U_Ribo=$(awk '$1 == "T" || $1 == "t"' $output/${sample}-$region.nucs.tab | wc -l)
 	
-	paste <(echo -e "rA") <(echo "$A_RiboFreq") >> $output/${sample}-$region.counts.tab
-	paste <(echo -e "rC") <(echo "$C_RiboFreq") >> $output/${sample}-$region.counts.tab
-	paste <(echo -e "rG") <(echo "$G_RiboFreq") >> $output/${sample}-$region.counts.tab
-	paste <(echo -e "rU") <(echo "$U_RiboFreq") >> $output/${sample}-$region.counts.tab
+		RiboTotal=$(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
 
+		A_RiboFreq=$(echo "($A_Ribo)" | bc -l)
+		C_RiboFreq=$(echo "($C_Ribo)" | bc -l)
+		G_RiboFreq=$(echo "($G_Ribo)" | bc -l)
+		U_RiboFreq=$(echo "($U_Ribo)" | bc -l)
+	
+		paste <(echo -e "rA") <(echo "$A_RiboFreq") >> $output/${sample}-$region.counts.tab
+		paste <(echo -e "rC") <(echo "$C_RiboFreq") >> $output/${sample}-$region.counts.tab
+		paste <(echo -e "rG") <(echo "$G_RiboFreq") >> $output/${sample}-$region.counts.tab
+		paste <(echo -e "rU") <(echo "$U_RiboFreq") >> $output/${sample}-$region.counts.tab
+	fi
 done
 
 ######################################################################################################################################################
