@@ -26,6 +26,6 @@ for(file in input_files){
     	             axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)), axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)),
     	             plot.margin = unit(c(.5, .5, .5, .5), "cm"), panel.background = element_blank()
 		       )
-    ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep = "")), plot = barplot)
+    ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep = "")), plot = barplot)
 
 }
