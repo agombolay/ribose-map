@@ -14,7 +14,7 @@ for(file in input_files){
 
 	data = read.table(file, sep = "\t", header = FALSE)
 
-	barplot <- ggplot(data, aes(x = data$V1, y = data$V2, fill = data$V1)) + geom_bar(stat = "identity", width = 0.75) + xlab("") + ylab("%") +
+	barplot <- ggplot(data, aes(x = data$V1, y = data$V2, fill = data$V1)) + geom_bar(stat = "identity", width = 0.75) + xlab("") + ylab("Number of rNMPs") +
 
 	           scale_fill_manual(values = c("red2", "blue4", "darkorange2", "green4"), name = "") +
 
