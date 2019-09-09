@@ -27,8 +27,9 @@ elif [[ $1 == "distribution" ]]; then
     $modules/distribution.sh $2
     $modules/distribution.R $2
     
-elif [[ $1 == "nucleotide" ]]; then
+elif [[ $1 == "composition" ]]; then
     . "$2"
-    $modules/nucleotide.sh $2
+    $modules/composition.sh $2
+    $modules/composition.R $2
     
 fi
