@@ -1,3 +1,5 @@
+#!/usr/bin/env Rscript
+
 #Load config
 source(commandArgs(TRUE)[1])
 
