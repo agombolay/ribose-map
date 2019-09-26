@@ -12,45 +12,6 @@ rm -r $output; mkdir -p $output
 
 ######################################################################################################################################################
 
-for region in "nucleus" "$mito" "$other"; do
-
-	#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
-	if [[ $region == "nucleus" ]]; then			
-		grep -wv $mito $repository/results/$sample/coordinate$quality/$sample.bed | grep -wv $other - | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
-
-	elif [[ $region == "$mito" ]]; then
-		grep -w $mito $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
-
-	elif [[ $region == "$other" ]]; then
-		grep -w $other $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
-
-	fi
-
-######################################################################################################################################################
-
-	if [[ -s $output/${sample}-$region.nucs.tab ]]; then
-	
-		A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/${sample}-$region.nucs.tab | wc -l)
-		C_Ribo=$(awk '$1 == "C" || $1 == "c"' $output/${sample}-$region.nucs.tab | wc -l)
-		G_Ribo=$(awk '$1 == "G" || $1 == "g"' $output/${sample}-$region.nucs.tab | wc -l)
-		U_Ribo=$(awk '$1 == "T" || $1 == "t"' $output/${sample}-$region.nucs.tab | wc -l)
-	
-		RiboTotal=$(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
-
-		A_RiboFreq=$(echo "($A_Ribo)" | bc -l)
-		C_RiboFreq=$(echo "($C_Ribo)" | bc -l)
-		G_RiboFreq=$(echo "($G_Ribo)" | bc -l)
-		U_RiboFreq=$(echo "($U_Ribo)" | bc -l)
-	
-		paste <(echo -e "rA") <(echo "$A_RiboFreq") >> $output/${sample}-$region.counts.tab
-		paste <(echo -e "rC") <(echo "$C_RiboFreq") >> $output/${sample}-$region.counts.tab
-		paste <(echo -e "rG") <(echo "$G_RiboFreq") >> $output/${sample}-$region.counts.tab
-		paste <(echo -e "rU") <(echo "$U_RiboFreq") >> $output/${sample}-$region.counts.tab
-	fi
-done
-
-######################################################################################################################################################
-
 #Create .fai file for reference
 samtools faidx $fasta
 
@@ -113,6 +74,41 @@ for region in "nucleus" "$mito" "$other; do
 	#Combine dNMP frequencies into one file
 	Bkg=$(paste $output/{A,C,G,T}_Bkg.txt)
 
+######################################################################################################################################################
+
+	#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
+	if [[ $region == "nucleus" ]]; then			
+		grep -wv $mito $repository/results/$sample/coordinate$quality/$sample.bed | grep -wv $other - | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
+
+	elif [[ $region == "$mito" ]]; then
+		grep -w $mito $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
+
+	elif [[ $region == "$other" ]]; then
+		grep -w $other $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
+
+	fi
+
+######################################################################################################################################################
+
+	if [[ -s $output/${sample}-$region.nucs.tab ]]; then
+	
+		A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/${sample}-$region.nucs.tab | wc -l)
+		C_Ribo=$(awk '$1 == "C" || $1 == "c"' $output/${sample}-$region.nucs.tab | wc -l)
+		G_Ribo=$(awk '$1 == "G" || $1 == "g"' $output/${sample}-$region.nucs.tab | wc -l)
+		U_Ribo=$(awk '$1 == "T" || $1 == "t"' $output/${sample}-$region.nucs.tab | wc -l)
+	
+		RiboTotal=$(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
+
+		A_RiboFreq=$(echo "($A_Ribo)" | bc -l)
+		C_RiboFreq=$(echo "($C_Ribo)" | bc -l)
+		G_RiboFreq=$(echo "($G_Ribo)" | bc -l)
+		U_RiboFreq=$(echo "($U_Ribo)" | bc -l)
+	
+		paste <(echo -e "rA") <(echo "$A_RiboFreq") >> $output/${sample}-$region.counts.tab
+		paste <(echo -e "rC") <(echo "$C_RiboFreq") >> $output/${sample}-$region.counts.tab
+		paste <(echo -e "rG") <(echo "$G_RiboFreq") >> $output/${sample}-$region.counts.tab
+		paste <(echo -e "rU") <(echo "$U_RiboFreq") >> $output/${sample}-$region.counts.tab
+	fi
 done
 
 ######################################################################################################################################################
