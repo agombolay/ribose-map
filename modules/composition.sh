@@ -56,16 +56,16 @@ for region in "nucleus" "$mito" "$other; do
 	G_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | grep -Eo 'G|g' - | wc -l)
 	T_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | grep -Eo 'T|t' - | wc -l)
 	
-	#Calculate total number of nucleotides
+	#Calculate total number of nucleotides in FASTA file
 	BkgTotal=$(($A_Bkg + $C_Bkg + $G_Bkg + $T_Bkg))
 		
-	#Calculate frequency of each nucleotide
+	#Calculate normalized frequencies of each nucleotide
 	A_BkgFreq=$(echo "($A_Bkg + $T_Bkg)/($BkgTotal*2)" | bc -l)
 	C_BkgFreq=$(echo "($C_Bkg + $G_Bkg)/($BkgTotal*2)" | bc -l)
 	G_BkgFreq=$(echo "($G_Bkg + $C_Bkg)/($BkgTotal*2)" | bc -l)
 	T_BkgFreq=$(echo "($T_Bkg + $A_Bkg)/($BkgTotal*2)" | bc -l)
 		
-	#Save background frequencies of dNMPs to TXT files
+	#Save frequencies of each nucleotide to .txt file
 	echo $A_BkgFreq | xargs printf "%.*f\n" 5 > $output/A_Bkg.txt
 	echo $C_BkgFreq | xargs printf "%.*f\n" 5 > $output/C_Bkg.txt
 	echo $G_BkgFreq | xargs printf "%.*f\n" 5 > $output/G_Bkg.txt
