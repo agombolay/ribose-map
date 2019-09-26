@@ -95,12 +95,13 @@ for region in "nucleus" "$mito" "$other; do
 		U_Ribo=$(awk '$1 == "T" || $1 == "t"' $output/${sample}-$region.nucs.tab | wc -l)
 	
 		RiboTotal=$(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
-
-		A_RiboFreq=$(echo "($A_Ribo)" | bc -l)
-		C_RiboFreq=$(echo "($C_Ribo)" | bc -l)
-		G_RiboFreq=$(echo "($G_Ribo)" | bc -l)
-		U_RiboFreq=$(echo "($U_Ribo)" | bc -l)
 	
+		#Calculate normalized frequency of each rNMP
+		A_RiboFreq=$(echo "($A_Ribo/$RiboTotal)/$A_BkgFreq" | bc -l)
+		C_RiboFreq=$(echo "($C_Ribo/$RiboTotal)/$C_BkgFreq" | bc -l)
+		G_RiboFreq=$(echo "($G_Ribo/$RiboTotal)/$G_BkgFreq" | bc -l)
+		U_RiboFreq=$(echo "($U_Ribo/$RiboTotal)/$T_BkgFreq" | bc -l)
+				
 		paste <(echo -e "rA") <(echo "$A_RiboFreq") >> $output/${sample}-$region.counts.tab
 		paste <(echo -e "rC") <(echo "$C_RiboFreq") >> $output/${sample}-$region.counts.tab
 		paste <(echo -e "rG") <(echo "$G_RiboFreq") >> $output/${sample}-$region.counts.tab
