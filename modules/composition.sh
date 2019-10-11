@@ -31,7 +31,7 @@ for region in "nucleus" "$mito" "$other"; do
 			samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
 		fi
 		
-	elif [[ $region == "mitochondria" ]]; then
+	elif [[ $region == "$mito" ]]; then
 		if [[ ! -s $(dirname $fasta)/$(basename $fasta .fa)_$region.fa ]]; then
 		
 			chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -w $mito -)
