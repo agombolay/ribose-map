@@ -21,7 +21,7 @@ cut -f 1,2 $fasta.fai > $(dirname $fasta)/$(basename $fasta .fa).bed
 ######################################################################################################################################################
 
 #Subset FASTA file based on region
-for region in "nucleus" "$mito" "$other"; do
+for region in "nucleus" $mito "$other"; do
 
 	if [[ $region == "nucleus" ]]; then
 		if [[ ! -s $(dirname $fasta)/$(basename $fasta .fa)_$region.fa ]]; then
@@ -31,7 +31,7 @@ for region in "nucleus" "$mito" "$other"; do
 			samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
 		fi
 		
-	elif [[ $region == "$mito" ]]; then
+	elif [[ $region == $mito ]]; then
 		if [[ ! -s $(dirname $fasta)/$(basename $fasta .fa)_$region.fa ]]; then
 		
 			chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -w $mito -)
@@ -39,7 +39,7 @@ for region in "nucleus" "$mito" "$other"; do
 			samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_mitochondria.fa
 		fi
 		
-	elif [[ $region == "$other" ]]; then
+	elif [[ $region == $other ]]; then
 		for i in $other; do
 		
 			if [[ ! -s $(dirname $fasta)/$(basename $fasta .fa)_$region.fa ]]; then
