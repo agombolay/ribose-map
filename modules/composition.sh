@@ -40,7 +40,7 @@ for region in "nucleus" "$mito" "$other"; do
 		fi
 		
 	elif [[ $region == "$other" ]]; then
-		#for i in "$other"; do
+		for i in $other; do
 		
 			if [[ ! -s $(dirname $fasta)/$(basename $fasta .fa)_$region.fa ]]; then
 		
@@ -49,7 +49,7 @@ for region in "nucleus" "$mito" "$other"; do
 				samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_mitochondria.fa
 		
 			fi
-		#done
+		done
 	fi
 	
 ######################################################################################################################################################
