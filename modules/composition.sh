@@ -40,12 +40,16 @@ for region in "nucleus" "$mito" "$other; do
 		fi
 		
 	elif [[ $region == "other" ]]; then
-		if [[ ! -s $(dirname $fasta)/$(basename $fasta .fa)_$region.fa ]]; then
+		#for i in "$other"; do
 		
-			chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -w $other -)
-			samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_mitochondria.fa
-			samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_mitochondria.fa
-		fi
+			if [[ ! -s $(dirname $fasta)/$(basename $fasta .fa)_$region.fa ]]; then
+		
+				chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -w $other -)
+				samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_mitochondria.fa
+				samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_mitochondria.fa
+		
+			fi
+		#done
 	fi
 	
 ######################################################################################################################################################
