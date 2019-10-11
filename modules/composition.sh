@@ -21,7 +21,7 @@ cut -f 1,2 $fasta.fai > $(dirname $fasta)/$(basename $fasta .fa).bed
 ######################################################################################################################################################
 
 #Subset FASTA file based on region
-for region in "nucleus" "$mito" "$other; do
+for region in "nucleus" "$mito" "$other"; do
 
 	if [[ $region == "nucleus" ]]; then
 		if [[ ! -s $(dirname $fasta)/$(basename $fasta .fa)_$region.fa ]]; then
