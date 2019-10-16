@@ -47,7 +47,7 @@ for region in "nucleus" $mito "$other"; do
 		#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
 		grep -w $mito $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
 		
-	elif [[ $region == $other ]]; then
+	elif [[ $region == "$other" ]]; then
 	
 		for i in $region; do
 		
