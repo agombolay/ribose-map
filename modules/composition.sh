@@ -23,11 +23,11 @@ cut -f 1,2 $fasta.fai > $(dirname $fasta)/$(basename $fasta .fa).bed
 #Subset FASTA file based on region
 for region in "nucleus" $mito "$other"; do
 	
+	other_new=$(echo $other | sed 's/ /|/g')
+
 	if [[ $region == "nucleus" ]]; then
 		if [[ ! -s $(dirname $fasta)/$(basename $fasta .fa)_$region.fa ]]; then
-		
-			other_new=$(echo $other | sed 's/ /|/g')
-			
+					
 			chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -wv $mito - | grep -Ewv ${other_new} -)
 			samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
 			samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
@@ -85,15 +85,15 @@ for region in "nucleus" $mito "$other"; do
 ######################################################################################################################################################
 
 	#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
-	if [[ $region == "nucleus" ]]; then			
-		grep -wv $mito $repository/results/$sample/coordinate$quality/$sample.bed | grep -wv $other - | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
+	if [[ $region == "nucleus" ]]; then
+		grep -wv $mito $repository/results/$sample/coordinate$quality/$sample.bed | grep -Ewv ${other_new} - | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
 
 	elif [[ $region == $mito ]]; then
 		grep -w $mito $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
 
 	elif [[ $region == $other ]]; then
-		for i in $other; do
-			grep -w $other $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-${i}.nucs.tab
+		for i in $region; do
+			grep -w $i $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-${i}.nucs.tab
 		done
 	fi
 
