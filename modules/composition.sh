@@ -91,7 +91,6 @@ for region in "nucleus" $mito "$other"; do
 
 	elif [[ $region == $other ]]; then
 		for i in $other; do
-		
 			grep -w $other $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-${i}.nucs.tab
 		done
 	fi
