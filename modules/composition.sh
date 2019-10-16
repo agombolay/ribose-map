@@ -65,7 +65,7 @@ for region in "nucleus" $mito "$other"; do
 	
 ######################################################################################################################################################
 	
-for region in "nucleus" "mito" ${other[@]}; do
+for region in "nucleus" $mito ${other[@]}; do
 	
 	#Calculate counts of each nucleotide
 	A_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | grep -Eo 'A|a' - | wc -l)
