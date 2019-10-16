@@ -65,6 +65,9 @@ for region in "nucleus" $mito "$other"; do
 	
 ######################################################################################################################################################
 
+	IFS=' ' read -r -a array <<< "$other"
+	"${array[0]}"
+	
 	#Calculate counts of each nucleotide
 	A_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | grep -Eo 'A|a' - | wc -l)
 	C_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | grep -Eo 'C|c' - | wc -l)
