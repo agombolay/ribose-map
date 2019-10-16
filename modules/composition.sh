@@ -86,12 +86,14 @@ for region in "nucleus" $mito "$other"; do
 	if [[ $region == "nucleus" ]]; then			
 		grep -wv $mito $repository/results/$sample/coordinate$quality/$sample.bed | grep -wv $other - | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
 
-	elif [[ $region == "$mito" ]]; then
+	elif [[ $region == $mito ]]; then
 		grep -w $mito $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
 
-	elif [[ $region == "$other" ]]; then
-		grep -w $other $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
-
+	elif [[ $region == $other ]]; then
+		for i in $other; do
+		
+			grep -w $other $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
+		done
 	fi
 
 ######################################################################################################################################################
