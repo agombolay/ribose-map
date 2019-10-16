@@ -45,8 +45,8 @@ for region in "nucleus" $mito "$other"; do
 			if [[ ! -s $(dirname $fasta)/$(basename $fasta .fa)_$region.fa ]]; then
 		
 				chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -w $other -)
-				samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_mitochondria.fa
-				samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_mitochondria.fa
+				samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_${i}.fa
+				samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_${i}.fa
 		
 			fi
 		done
@@ -92,7 +92,7 @@ for region in "nucleus" $mito "$other"; do
 	elif [[ $region == $other ]]; then
 		for i in $other; do
 		
-			grep -w $other $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
+			grep -w $other $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-${i}.nucs.tab
 		done
 	fi
 
