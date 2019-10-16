@@ -94,7 +94,7 @@ for region in "nucleus" "mito" ${other[@]}; do
 	paste <(echo -e "$Bkg") >> "${fasta%.*}"-Freqs.$region.txt
 			
 ######################################################################################################################################################
-	
+			
 	A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/${sample}-$region.nucs.tab | wc -l)
 	C_Ribo=$(awk '$1 == "C" || $1 == "c"' $output/${sample}-$region.nucs.tab | wc -l)
 	G_Ribo=$(awk '$1 == "G" || $1 == "g"' $output/${sample}-$region.nucs.tab | wc -l)
