@@ -44,7 +44,7 @@ for region in "nucleus" $mito "$other"; do
 		
 			if [[ ! -s $(dirname $fasta)/$(basename $fasta .fa)_${i}.fa ]]; then
 		
-				chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -w $other -)
+				chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -w $i -)
 				samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_${i}.fa
 				samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_${i}.fa
 		
