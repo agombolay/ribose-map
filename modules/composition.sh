@@ -45,8 +45,7 @@ for region in "nucleus" $mito "$other"; do
 		
 	elif [[ $region == "$other" ]]; then
 	
-		for i in $region; do
-				
+		for i in $region; do	
 			chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -w $i -)
 			samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_${i}.fa
 			samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_${i}.fa
