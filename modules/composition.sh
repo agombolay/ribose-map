@@ -23,7 +23,7 @@ cut -f 1,2 $fasta.fai > $(dirname $fasta)/$(basename $fasta .fa).bed
 #Subset FASTA file based on region
 for region in "nucleus" $mito "$other"; do
 
-	other_new=$(echo $other | sed  's/ /|/g')
+	other_new=$(echo $other | sed 's/ /|/g')
 	
 	if [[ $region == "nucleus" ]]; then
 		if [[ ! -s $(dirname $fasta)/$(basename $fasta .fa)_$region.fa ]]; then
