@@ -29,14 +29,19 @@ if [[ $mito]]; then
 	
 		other_new=$(echo "${other[*]}" | sed 's/ /|/g')
 		
+		#Nucleus
 		chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -wv $mito - | grep -Ewv ${other_new} -)
 		samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
 		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
 		
+		#Mito
 		#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
 		grep -wv $mito $repository/results/$sample/coordinate$quality/$sample.bed | grep -Ewv ${other_new} - | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
 
+		#Other
+		
 	else
+		#Nucleus
 		chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -wv $mito - )
 		samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
 		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
@@ -44,8 +49,13 @@ if [[ $mito]]; then
 		#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
 		grep -wv $mito $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
 
-elif [[ $region == $mito ]]; then
+		#Mito
+				
+elif [[ ! $mito ]]; then
 		
+	if [[ $other ]]; then
+		
+		#Nucleus
 		chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -w $mito -)
 		samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_mitochondria.fa
 		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_mitochondria.fa
@@ -53,7 +63,10 @@ elif [[ $region == $mito ]]; then
 		#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
 		grep -w $mito $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
 		
-	elif [[ $region == "$other" ]]; then
+		#Other
+	else
+	
+		#Nucleus
 	
 		for i in $region; do	
 			chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -w $i -)
