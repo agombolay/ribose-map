@@ -54,7 +54,8 @@ for region in "nucleus" $mito "${other[*]}"; do
 			grep -w $i $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-${i}.nucs.tab
 		done
 	fi
-	
+
+done
 ######################################################################################################################################################
 	
 for region in "nucleus" $mito "${other[@]}"; do
