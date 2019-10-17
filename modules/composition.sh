@@ -23,12 +23,12 @@ cut -f 1,2 $fasta.fai > $(dirname $fasta)/$(basename $fasta .fa).bed
 #Subset FASTA file based on region
 #for region in "nucleus" $mito "${other[*]}"; do
 	
-other_new=$(echo "${other[*]}" | sed 's/ /|/g')
-
 if [[ $mito]]; then
 	
 	if [[ $other ]]; then
 	
+		other_new=$(echo "${other[*]}" | sed 's/ /|/g')
+		
 		chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -wv $mito - | grep -Ewv ${other_new} -)
 		samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
 		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
