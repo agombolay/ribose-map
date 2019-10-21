@@ -162,10 +162,10 @@ for file in	$output/${sample}-*.nucs.tab; do
 	G_RiboFreq=$(echo "($G_Ribo/$RiboTotal)/$G_BkgFreq" | bc -l)
 	U_RiboFreq=$(echo "($U_Ribo/$RiboTotal)/$T_BkgFreq" | bc -l)
 				
-	paste <(echo -e "rA") <(echo "$A_RiboFreq") >> $output/${sample}-$region.counts.tab
-	paste <(echo -e "rC") <(echo "$C_RiboFreq") >> $output/${sample}-$region.counts.tab
-	paste <(echo -e "rG") <(echo "$G_RiboFreq") >> $output/${sample}-$region.counts.tab
-	paste <(echo -e "rU") <(echo "$U_RiboFreq") >> $output/${sample}-$region.counts.tab
+	paste <(echo -e "rA") <(echo "$A_RiboFreq") >> $output/${sample}-$region.counts.txt
+	paste <(echo -e "rC") <(echo "$C_RiboFreq") >> $output/${sample}-$region.counts.txt
+	paste <(echo -e "rG") <(echo "$G_RiboFreq") >> $output/${sample}-$region.counts.txt
+	paste <(echo -e "rU") <(echo "$U_RiboFreq") >> $output/${sample}-$region.counts.txt
 
 done
 
