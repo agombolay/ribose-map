@@ -82,7 +82,6 @@ elif [[ ! $mito ]]; then
 	if [[ $other ]]; then
 		
 		other_new=$(echo "${other[*]}" | sed 's/ /|/g')
-		echo $other_new
 		
 		#Nucleus
 		#Subset FASTA file based on region
@@ -91,7 +90,7 @@ elif [[ ! $mito ]]; then
 		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
 
 		#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
-		grep -Ewv ${other_new} $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
+		grep -Ewv ${other_new} $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-nucleus.nucs.tab
 
 		#Other
 		for region in "${other[@]}"; do
