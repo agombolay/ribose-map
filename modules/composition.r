@@ -18,7 +18,7 @@ for(file in input_files){
 
 	           scale_fill_manual(values = c("red2", "blue4", "darkorange2", "green4"), name = "") +
 
-	           scale_x_discrete(expand = c(0.2, 0)) + scale_y_continuous(expand = c(0.01, 0)) +
+	           scale_x_discrete(expand = c(0.2, 0)) + scale_y_continuous(expand = c(0.01, 0), limits = c(0, 100)) +
 
 	           theme(
     	             axis.title = element_text(color = "black", size = 25), axis.line = element_line(size = 1), axis.text = element_text(color = "black", size = 25),
