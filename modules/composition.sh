@@ -138,16 +138,6 @@ for file in $output/${sample}-*.nucs.tab; do
 	T_BkgFreq=$(echo "($T_Bkg + $A_Bkg)/($BkgTotal*2)" | bc -l)
 		
 	#Save nucleotide frequencies to .txt file
-	#echo $A_BkgFreq | xargs printf "%.*f\n" 5 > $output/A_Bkg.txt
-	#echo $C_BkgFreq | xargs printf "%.*f\n" 5 > $output/C_Bkg.txt
-	#echo $G_BkgFreq | xargs printf "%.*f\n" 5 > $output/G_Bkg.txt
-	#echo $T_BkgFreq | xargs printf "%.*f\n" 5 > $output/T_Bkg.txt
-
-	#Bkg=$(paste $output/{A,C,G,T}_Bkg.txt)
-
-	#echo -e "A\tC\tG\tT" > "${fasta%.*}"-Freqs.$region.txt
-	#paste <(echo -e "$Bkg") >> "${fasta%.*}"-Freqs.$region.txt
-	
 	paste <(echo -e "A") <(echo "$A_BkgFreq" | xargs printf "%.*f\n" 5) > "${fasta%.*}"-Freqs.$region.txt
 	paste <(echo -e "C") <(echo "$C_BkgFreq" | xargs printf "%.*f\n" 5) >> "${fasta%.*}"-Freqs.$region.txt
 	paste <(echo -e "G") <(echo "$G_BkgFreq" | xargs printf "%.*f\n" 5) >> "${fasta%.*}"-Freqs.$region.txt
