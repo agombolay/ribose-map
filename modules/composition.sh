@@ -151,34 +151,35 @@ for file in $output/${sample}-*.nucs.tab; do
 ######################################################################################################################################################
 	
 	#Nucleotide Frequencies of rNMPs
+	if [ -s $output/${sample}-$region.nucs.tab ]; then
 	
-	#Calculate counts of each nucleotide
-	A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/${sample}-$region.nucs.tab | wc -l)
-	C_Ribo=$(awk '$1 == "C" || $1 == "c"' $output/${sample}-$region.nucs.tab | wc -l)
-	G_Ribo=$(awk '$1 == "G" || $1 == "g"' $output/${sample}-$region.nucs.tab | wc -l)
-	U_Ribo=$(awk '$1 == "T" || $1 == "t"' $output/${sample}-$region.nucs.tab | wc -l)
+		#Calculate counts of each nucleotide
+		A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/${sample}-$region.nucs.tab | wc -l)
+		C_Ribo=$(awk '$1 == "C" || $1 == "c"' $output/${sample}-$region.nucs.tab | wc -l)
+		G_Ribo=$(awk '$1 == "G" || $1 == "g"' $output/${sample}-$region.nucs.tab | wc -l)
+		U_Ribo=$(awk '$1 == "T" || $1 == "t"' $output/${sample}-$region.nucs.tab | wc -l)
 	
-	#Calculate total number of nucleotides
-	RiboTotal=$(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
+		#Calculate total number of nucleotides
+		RiboTotal=$(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
 	
-	#Calculate normalized frequency of each nucleotide, step 1
-	A_RiboFreq1=$(echo "($A_Ribo/$RiboTotal)/$A_BkgFreq" | bc -l)
-	C_RiboFreq1=$(echo "($C_Ribo/$RiboTotal)/$C_BkgFreq" | bc -l)
-	G_RiboFreq1=$(echo "($G_Ribo/$RiboTotal)/$G_BkgFreq" | bc -l)
-	U_RiboFreq1=$(echo "($U_Ribo/$RiboTotal)/$T_BkgFreq" | bc -l)
+		#Calculate normalized frequency of each nucleotide, step 1
+		A_RiboFreq1=$(echo "($A_Ribo/$RiboTotal)/$A_BkgFreq" | bc -l)
+		C_RiboFreq1=$(echo "($C_Ribo/$RiboTotal)/$C_BkgFreq" | bc -l)
+		G_RiboFreq1=$(echo "($G_Ribo/$RiboTotal)/$G_BkgFreq" | bc -l)
+		U_RiboFreq1=$(echo "($U_Ribo/$RiboTotal)/$T_BkgFreq" | bc -l)
 	
-	#Calculate normalized frequency of each nucleotide, step 2
-	A_RiboFreq2=$(echo "$A_RiboFreq1/($A_RiboFreq1 + $C_RiboFreq1 + $G_RiboFreq1 + $U_RiboFreq1)" | bc -l)
-	C_RiboFreq2=$(echo "$C_RiboFreq1/($A_RiboFreq1 + $C_RiboFreq1 + $G_RiboFreq1 + $U_RiboFreq1)" | bc -l)
-	G_RiboFreq2=$(echo "$G_RiboFreq1/($A_RiboFreq1 + $C_RiboFreq1 + $G_RiboFreq1 + $U_RiboFreq1)" | bc -l)
-	U_RiboFreq2=$(echo "$U_RiboFreq1/($A_RiboFreq1 + $C_RiboFreq1 + $G_RiboFreq1 + $U_RiboFreq1)" | bc -l)
+		#Calculate normalized frequency of each nucleotide, step 2
+		A_RiboFreq2=$(echo "$A_RiboFreq1/($A_RiboFreq1 + $C_RiboFreq1 + $G_RiboFreq1 + $U_RiboFreq1)*100" | bc -l)
+		C_RiboFreq2=$(echo "$C_RiboFreq1/($A_RiboFreq1 + $C_RiboFreq1 + $G_RiboFreq1 + $U_RiboFreq1)*100" | bc -l)
+		G_RiboFreq2=$(echo "$G_RiboFreq1/($A_RiboFreq1 + $C_RiboFreq1 + $G_RiboFreq1 + $U_RiboFreq1)*100" | bc -l)
+		U_RiboFreq2=$(echo "$U_RiboFreq1/($A_RiboFreq1 + $C_RiboFreq1 + $G_RiboFreq1 + $U_RiboFreq1)*100" | bc -l)
 	
-	#Save nucleotide frequencies to .txt file
-	paste <(echo -e "rA") <(echo "$A_RiboFreq2") >> $output/${sample}-$region.counts.txt
-	paste <(echo -e "rC") <(echo "$C_RiboFreq2") >> $output/${sample}-$region.counts.txt
-	paste <(echo -e "rG") <(echo "$G_RiboFreq2") >> $output/${sample}-$region.counts.txt
-	paste <(echo -e "rU") <(echo "$U_RiboFreq2") >> $output/${sample}-$region.counts.txt
-
+		#Save nucleotide frequencies to .txt file
+		paste <(echo -e "rA") <(echo "$A_RiboFreq2") >> $output/${sample}-$region.counts.txt
+		paste <(echo -e "rC") <(echo "$C_RiboFreq2") >> $output/${sample}-$region.counts.txt
+		paste <(echo -e "rG") <(echo "$G_RiboFreq2") >> $output/${sample}-$region.counts.txt
+		paste <(echo -e "rU") <(echo "$U_RiboFreq2") >> $output/${sample}-$region.counts.txt
+	fi
 done
 
 ######################################################################################################################################################
