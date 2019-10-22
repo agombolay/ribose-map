@@ -148,7 +148,7 @@ for file in $output/${sample}-*.nucs.tab; do
 	#echo -e "A\tC\tG\tT" > "${fasta%.*}"-Freqs.$region.txt
 	#paste <(echo -e "$Bkg") >> "${fasta%.*}"-Freqs.$region.txt
 	
-	paste <(echo -e "A") <(echo "$A_BkgFreq" | xargs printf "%.*f\n" 5) >> "${fasta%.*}"-Freqs.$region.txt
+	paste <(echo -e "A") <(echo "$A_BkgFreq" | xargs printf "%.*f\n" 5) > "${fasta%.*}"-Freqs.$region.txt
 	paste <(echo -e "C") <(echo "$C_BkgFreq" | xargs printf "%.*f\n" 5) >> "${fasta%.*}"-Freqs.$region.txt
 	paste <(echo -e "G") <(echo "$G_BkgFreq" | xargs printf "%.*f\n" 5) >> "${fasta%.*}"-Freqs.$region.txt
 	paste <(echo -e "U") <(echo "$T_BkgFreq" | xargs printf "%.*f\n" 5) >> "${fasta%.*}"-Freqs.$region.txt
@@ -180,7 +180,7 @@ for file in $output/${sample}-*.nucs.tab; do
 		U_RiboFreq2=$(echo "$U_RiboFreq1/($A_RiboFreq1 + $C_RiboFreq1 + $G_RiboFreq1 + $U_RiboFreq1)*100" | bc -l)
 	
 		#Save nucleotide frequencies to .txt file
-		paste <(echo -e "rA") <(echo "$A_RiboFreq2" | xargs printf "%.*f\n" 5) >> $output/${sample}-$region.counts.txt
+		paste <(echo -e "rA") <(echo "$A_RiboFreq2" | xargs printf "%.*f\n" 5) > $output/${sample}-$region.counts.txt
 		paste <(echo -e "rC") <(echo "$C_RiboFreq2" | xargs printf "%.*f\n" 5) >> $output/${sample}-$region.counts.txt
 		paste <(echo -e "rG") <(echo "$G_RiboFreq2" | xargs printf "%.*f\n" 5) >> $output/${sample}-$region.counts.txt
 		paste <(echo -e "rU") <(echo "$U_RiboFreq2" | xargs printf "%.*f\n" 5) >> $output/${sample}-$region.counts.txt
