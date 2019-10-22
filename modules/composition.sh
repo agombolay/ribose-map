@@ -115,35 +115,35 @@ fi
 
 ######################################################################################################################################################
 	
-#for file in $output/${sample}-*.nucs.tab; do
+for file in $output/${sample}-*.nucs.tab; do
 
-#	region=$(echo $file | awk -F'[_.]' '{print $2}')
+	region=$(echo $file | awk -F'[_.]' '{print $2}')
 
 	#Calculate counts of each nucleotide
-#	A_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | grep -Eo 'A|a' - | wc -l)
-#	C_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | grep -Eo 'C|c' - | wc -l)
-#	G_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | grep -Eo 'G|g' - | wc -l)
-#	T_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | grep -Eo 'T|t' - | wc -l)
+	A_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | grep -Eo 'A|a' - | wc -l)
+	C_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | grep -Eo 'C|c' - | wc -l)
+	G_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | grep -Eo 'G|g' - | wc -l)
+	T_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | grep -Eo 'T|t' - | wc -l)
 	
 	#Calculate total number of nucleotides in FASTA file
-#	BkgTotal=$(($A_Bkg + $C_Bkg + $G_Bkg + $T_Bkg))
+	BkgTotal=$(($A_Bkg + $C_Bkg + $G_Bkg + $T_Bkg))
 		
 	#Calculate normalized frequencies of each nucleotide
-#	A_BkgFreq=$(echo "($A_Bkg + $T_Bkg)/($BkgTotal*2)" | bc -l)
-#	C_BkgFreq=$(echo "($C_Bkg + $G_Bkg)/($BkgTotal*2)" | bc -l)
-#	G_BkgFreq=$(echo "($G_Bkg + $C_Bkg)/($BkgTotal*2)" | bc -l)
-#	T_BkgFreq=$(echo "($T_Bkg + $A_Bkg)/($BkgTotal*2)" | bc -l)
+	A_BkgFreq=$(echo "($A_Bkg + $T_Bkg)/($BkgTotal*2)" | bc -l)
+	C_BkgFreq=$(echo "($C_Bkg + $G_Bkg)/($BkgTotal*2)" | bc -l)
+	G_BkgFreq=$(echo "($G_Bkg + $C_Bkg)/($BkgTotal*2)" | bc -l)
+	T_BkgFreq=$(echo "($T_Bkg + $A_Bkg)/($BkgTotal*2)" | bc -l)
 		
 	#Save frequencies of each nucleotide to .txt file
-#	echo $A_BkgFreq | xargs printf "%.*f\n" 5 > $output/A_Bkg.txt
-#	echo $C_BkgFreq | xargs printf "%.*f\n" 5 > $output/C_Bkg.txt
-#	echo $G_BkgFreq | xargs printf "%.*f\n" 5 > $output/G_Bkg.txt
-#	echo $T_BkgFreq | xargs printf "%.*f\n" 5 > $output/T_Bkg.txt
+	echo $A_BkgFreq | xargs printf "%.*f\n" 5 > $output/A_Bkg.txt
+	echo $C_BkgFreq | xargs printf "%.*f\n" 5 > $output/C_Bkg.txt
+	echo $G_BkgFreq | xargs printf "%.*f\n" 5 > $output/G_Bkg.txt
+	echo $T_BkgFreq | xargs printf "%.*f\n" 5 > $output/T_Bkg.txt
 
-#	Bkg=$(paste $output/{A,C,G,T}_Bkg.txt)
+	Bkg=$(paste $output/{A,C,G,T}_Bkg.txt)
 
-#	echo -e "A\tC\tG\tT" > "${fasta%.*}"-Freqs.$region.txt
-#	paste <(echo -e "$Bkg") >> "${fasta%.*}"-Freqs.$region.txt
+	echo -e "A\tC\tG\tT" > "${fasta%.*}"-Freqs.$region.txt
+	paste <(echo -e "$Bkg") >> "${fasta%.*}"-Freqs.$region.txt
 			
 ######################################################################################################################################################
 			
@@ -165,7 +165,7 @@ fi
 #	paste <(echo -e "rG") <(echo "$G_RiboFreq") >> $output/${sample}-$region.counts.txt
 #	paste <(echo -e "rU") <(echo "$U_RiboFreq") >> $output/${sample}-$region.counts.txt
 
-#done
+done
 
 ######################################################################################################################################################
 
