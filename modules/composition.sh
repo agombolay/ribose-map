@@ -75,7 +75,8 @@ if [[ $mito ]]; then
 
 		#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
 		grep -w $mito $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
-				
+	fi
+	
 elif [[ ! $mito ]]; then
 		
 	if [[ $other ]]; then
@@ -110,7 +111,7 @@ elif [[ ! $mito ]]; then
 		bedtools getfasta -s -fi $fasta -bed $repository/results/$sample/coordinate$quality/$sample.bed | grep -v '>' > $output/${sample}-$region.nucs.tab
 	fi
 
-done
+fi
 
 ######################################################################################################################################################
 	
