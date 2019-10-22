@@ -120,13 +120,15 @@ for file in $output/${sample}-*.nucs.tab; do
 	temp=$(echo $file | awk -F '[-]' '{print $2 $3 $4}')
 	region=$(basename $temp .nucs.tab)
 	
+	#Nucleotide Frequencies of Reference Genome
+	
 	#Calculate counts of each nucleotide
 	A_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | grep -Eo 'A|a' - | wc -l)
 	C_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | grep -Eo 'C|c' - | wc -l)
 	G_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | grep -Eo 'G|g' - | wc -l)
 	T_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | grep -Eo 'T|t' - | wc -l)
 	
-	#Calculate total number of nucleotides in FASTA file
+	#Calculate total number of nucleotides
 	BkgTotal=$(($A_Bkg + $C_Bkg + $G_Bkg + $T_Bkg))
 		
 	#Calculate normalized frequencies of each nucleotide
@@ -147,20 +149,25 @@ for file in $output/${sample}-*.nucs.tab; do
 	paste <(echo -e "$Bkg") >> "${fasta%.*}"-Freqs.$region.txt
 			
 ######################################################################################################################################################
-			
+	
+	#Nucleotide Frequencies of rNMPs
+	
+	#Calculate counts of each nucleotide
 	A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/${sample}-$region.nucs.tab | wc -l)
 	C_Ribo=$(awk '$1 == "C" || $1 == "c"' $output/${sample}-$region.nucs.tab | wc -l)
 	G_Ribo=$(awk '$1 == "G" || $1 == "g"' $output/${sample}-$region.nucs.tab | wc -l)
 	U_Ribo=$(awk '$1 == "T" || $1 == "t"' $output/${sample}-$region.nucs.tab | wc -l)
 	
+	#Calculate total number of nucleotides
 	RiboTotal=$(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
 	
-	#Calculate normalized frequency of each rNMP
+	#Calculate normalized frequency of each nucleotide
 	A_RiboFreq=$(echo "($A_Ribo/$RiboTotal)/$A_BkgFreq" | bc -l)
 	C_RiboFreq=$(echo "($C_Ribo/$RiboTotal)/$C_BkgFreq" | bc -l)
 	G_RiboFreq=$(echo "($G_Ribo/$RiboTotal)/$G_BkgFreq" | bc -l)
 	U_RiboFreq=$(echo "($U_Ribo/$RiboTotal)/$T_BkgFreq" | bc -l)
 				
+	#Save frequencies of each nucleotide to .txt file
 	paste <(echo -e "rA") <(echo "$A_RiboFreq") >> $output/${sample}-$region.counts.txt
 	paste <(echo -e "rC") <(echo "$C_RiboFreq") >> $output/${sample}-$region.counts.txt
 	paste <(echo -e "rG") <(echo "$G_RiboFreq") >> $output/${sample}-$region.counts.txt
