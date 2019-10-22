@@ -180,7 +180,7 @@ done
 ######################################################################################################################################################
 
 #Remove temporary files
-#rm $output/*.nucs.tab
+rm $output/*.nucs.tab
 
 #Print status
-#echo "Status: Composition Module for $sample is complete"
+echo "Status: Composition Module for $sample is complete"
