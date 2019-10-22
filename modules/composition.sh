@@ -117,8 +117,9 @@ fi
 	
 for file in $output/${sample}-*.nucs.tab; do
 
-	region=$(echo $file | awk -F'[_.]' '{print $2}')
-
+	temp=$(echo $file | awk -F '[-]' '{print $2 $3 $4}')
+	region=$(basename $temp .nucs.tab)
+	
 	#Calculate counts of each nucleotide
 	A_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | grep -Eo 'A|a' - | wc -l)
 	C_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | grep -Eo 'C|c' - | wc -l)
