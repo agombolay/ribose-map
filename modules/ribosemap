@@ -30,6 +30,6 @@ elif [[ $1 == "distribution" ]]; then
 elif [[ $1 == "composition" ]]; then
     . "$2"
     $modules/composition.sh $2
-    $modules/composition.r $2
+    $modules/composition.R $2
     
 fi
