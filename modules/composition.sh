@@ -82,6 +82,7 @@ elif [[ ! $mito ]]; then
 	if [[ $other ]]; then
 		
 		other_new=$(echo "${other[*]}" | sed 's/ /|/g')
+		echo $other_new
 		
 		#Nucleus
 		#Subset FASTA file based on region
