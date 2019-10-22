@@ -58,7 +58,6 @@ if [[ $mito]]; then
 		done
 
 	else
-
 		#Nucleus
 		#Subset FASTA file based on region
 		chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -wv $mito - )
@@ -106,7 +105,6 @@ elif [[ ! $mito ]]; then
 		done
 
 	else
-	
 		#Nucleus
 		#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
 		bedtools getfasta -s -fi $fasta -bed $repository/results/$sample/coordinate$quality/$sample.bed | grep -v '>' > $output/${sample}-$region.nucs.tab
@@ -117,7 +115,7 @@ done
 
 ######################################################################################################################################################
 	
-for file in	$output/${sample}-*.nucs.tab; do
+for file in $output/${sample}-*.nucs.tab; do
 
 	region=$(echo $file | awk -F'[_.]' '{print $2}')
 
