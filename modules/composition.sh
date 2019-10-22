@@ -33,7 +33,7 @@ if [[ $mito ]]; then
 		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
 
 		#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
-		grep -wv $mito $repository/results/$sample/coordinate$quality/$sample.bed | grep -Ewv ${other_new} - | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
+		grep -wv $mito $repository/results/$sample/coordinate$quality/$sample.bed | grep -Ewv ${other_new} - | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-nucleus.nucs.tab
 
 		#Mito
 		#Subset FASTA file based on region
@@ -42,7 +42,7 @@ if [[ $mito ]]; then
 		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_mito.fa
 
 		#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
-		grep -w $mito $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
+		grep -w $mito $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-mito.nucs.tab
 
 		#Other
 		for region in "${other[@]}"; do
@@ -65,7 +65,7 @@ if [[ $mito ]]; then
 		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
 
 		#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
-		grep -wv $mito $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
+		grep -wv $mito $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-nucleus.nucs.tab
 
 		#Mito
 		#Subset FASTA file based on region
@@ -74,7 +74,7 @@ if [[ $mito ]]; then
 		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_mito.fa
 
 		#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
-		grep -w $mito $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
+		grep -w $mito $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-mito.nucs.tab
 	fi
 	
 elif [[ ! $mito ]]; then
