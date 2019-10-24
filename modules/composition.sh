@@ -107,6 +107,10 @@ elif [[ ! $mito ]]; then
 
 	else
 		#Nucleus
+		#Subset FASTA file based on region
+		cat $fasta > $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
+		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_$region.fa
+		
 		#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
 		bedtools getfasta -s -fi $fasta -bed $repository/results/$sample/coordinate$quality/$sample.bed | grep -v '>' > $output/${sample}-nucleus.nucs.tab
 	fi
