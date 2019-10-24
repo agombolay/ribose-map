@@ -86,8 +86,8 @@ elif [[ ! $mito ]]; then
 		#Nucleus
 		#Subset FASTA file based on region
 		chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -Ewv $other_new -)
-		samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
-		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
+		samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)-nucleus.fa
+		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-nucleus.fa
 
 		#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
 		grep -Ewv $other_new $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-nucleus.nucs.tab
@@ -97,8 +97,8 @@ elif [[ ! $mito ]]; then
 			
 			#Subset FASTA file based on region
 			chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -w $region -)
-			samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_$region.fa
-			samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_$region.fa
+			samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
+			samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
 
 			#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
 			grep -w $region $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
@@ -108,8 +108,8 @@ elif [[ ! $mito ]]; then
 	else
 		#Nucleus
 		#Subset FASTA file based on region
-		cat $fasta > $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
-		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_$region.fa
+		cat $fasta > $(dirname $fasta)/$(basename $fasta .fa)-nucleus.fa
+		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
 		
 		#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
 		bedtools getfasta -s -fi $fasta -bed $repository/results/$sample/coordinate$quality/$sample.bed | grep -v '>' > $output/${sample}-nucleus.nucs.tab
@@ -119,7 +119,7 @@ fi
 
 ######################################################################################################################################################
 	
-for file in $(dirname $fasta)/$(basename $fasta .fa)_*.fa; do
+for file in $(dirname $fasta)/$(basename $fasta .fa)-*.fa; do
 
 	temp=$(echo $file | awk -F '[-]' '{print $2 $3 $4}')
 	region=$(basename $temp .nucs.tab)
@@ -142,10 +142,10 @@ for file in $(dirname $fasta)/$(basename $fasta .fa)_*.fa; do
 	T_BkgFreq=$(echo "($T_Bkg + $A_Bkg)/($BkgTotal*2)" | bc -l)
 		
 	#Save nucleotide frequencies to .txt file
-	paste <(echo -e "A") <(echo "$A_BkgFreq" | xargs printf "%.*f\n" 5) > $(dirname $fasta)/$(basename $fasta .fa)_$region.fa
-	paste <(echo -e "C") <(echo "$C_BkgFreq" | xargs printf "%.*f\n" 5) >> $(dirname $fasta)/$(basename $fasta .fa)_$region.fa
-	paste <(echo -e "G") <(echo "$G_BkgFreq" | xargs printf "%.*f\n" 5) >> $(dirname $fasta)/$(basename $fasta .fa)_$region.fa
-	paste <(echo -e "U") <(echo "$T_BkgFreq" | xargs printf "%.*f\n" 5) >> $(dirname $fasta)/$(basename $fasta .fa)_$region.fa
+	paste <(echo -e "A") <(echo "$A_BkgFreq" | xargs printf "%.*f\n" 5) > $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
+	paste <(echo -e "C") <(echo "$C_BkgFreq" | xargs printf "%.*f\n" 5) >> $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
+	paste <(echo -e "G") <(echo "$G_BkgFreq" | xargs printf "%.*f\n" 5) >> $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
+	paste <(echo -e "U") <(echo "$T_BkgFreq" | xargs printf "%.*f\n" 5) >> $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
 
 done
 
@@ -168,10 +168,10 @@ for file in $output/${sample}-*.nucs.tab; do
 		#Calculate total number of nucleotides
 		RiboTotal=$(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
 	
-		A_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | head -1)
-		C_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | head -2 | tail -1)
-		G_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | head -3 | tail -1)
-		T_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | head -4 | tail -1)
+		A_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.fa | head -1)
+		C_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.fa | head -2 | tail -1)
+		G_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.fa | head -3 | tail -1)
+		T_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.fa | head -4 | tail -1)
 	
 		#Calculate normalized frequency of each nucleotide, step 1
 		A_RiboFreq1=$(echo "($A_Ribo/$RiboTotal)/$A_BkgFreq" | bc -l)
