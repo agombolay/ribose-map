@@ -127,10 +127,10 @@ for file in $(dirname $fasta)/$(basename $fasta .fa)_*.fa; do
 	#Nucleotide Frequencies of Reference Genome
 	
 	#Calculate counts of each nucleotide
-	A_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | grep -Eo 'A|a' - | wc -l)
-	C_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | grep -Eo 'C|c' - | wc -l)
-	G_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | grep -Eo 'G|g' - | wc -l)
-	T_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | grep -Eo 'T|t' - | wc -l)
+	A_Bkg=$(grep -v '>' $file | grep -Eo 'A|a' - | wc -l)
+	C_Bkg=$(grep -v '>' $file | grep -Eo 'C|c' - | wc -l)
+	G_Bkg=$(grep -v '>' $file | grep -Eo 'G|g' - | wc -l)
+	T_Bkg=$(grep -v '>' $file | grep -Eo 'T|t' - | wc -l)
 	
 	#Calculate total number of nucleotides
 	BkgTotal=$(($A_Bkg + $C_Bkg + $G_Bkg + $T_Bkg))
@@ -157,10 +157,10 @@ for file in $output/${sample}-*.nucs.tab; do
 	if [ -s $output/${sample}-$region.nucs.tab ]; then
 	
 		#Calculate counts of each nucleotide
-		A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/${sample}-$region.nucs.tab | wc -l)
-		C_Ribo=$(awk '$1 == "C" || $1 == "c"' $output/${sample}-$region.nucs.tab | wc -l)
-		G_Ribo=$(awk '$1 == "G" || $1 == "g"' $output/${sample}-$region.nucs.tab | wc -l)
-		U_Ribo=$(awk '$1 == "T" || $1 == "t"' $output/${sample}-$region.nucs.tab | wc -l)
+		A_Ribo=$(awk '$1 == "A" || $1 == "a"' $file | wc -l)
+		C_Ribo=$(awk '$1 == "C" || $1 == "c"' $file | wc -l)
+		G_Ribo=$(awk '$1 == "G" || $1 == "g"' $file | wc -l)
+		U_Ribo=$(awk '$1 == "T" || $1 == "t"' $file | wc -l)
 	
 		#Calculate total number of nucleotides
 		RiboTotal=$(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
