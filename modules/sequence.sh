@@ -38,22 +38,22 @@ if [[ $mito ]]; then
 		#Nucleus
 		#Subset FASTA file based on region
 		chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -wv $mito - | grep -Ewv $other_new -)
-		samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
-		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
+		samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)-nucleus.fa
+		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-nucleus.fa
 
 		#Mito
 		#Subset FASTA file based on region
 		chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -w $mito -)
-		samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_mito.fa
-		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_mito.fa
+		samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)-mito.fa
+		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-mito.fa
 
 		#Other
 		for region in $other; do
 			
 			#Subset FASTA file based on region
 			chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -w $region -)
-			samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_$region.fa
-			samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_$region.fa
+			samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
+			samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
 
 		done
 
@@ -61,14 +61,14 @@ if [[ $mito ]]; then
 		#Nucleus
 		#Subset FASTA file based on region
 		chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -wv $mito - )
-		samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
-		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
+		samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)-nucleus.fa
+		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-nucleus.fa
 
 		#Mito
 		#Subset FASTA file based on region
 		chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -w $mito -)
-		samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_mito.fa
-		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_mito.fa
+		samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)-mito.fa
+		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-mito.fa
 
 	fi
 	
@@ -81,24 +81,24 @@ elif [[ ! $mito ]]; then
 		#Nucleus
 		#Subset FASTA file based on region
 		chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -Ewv $other_new -)
-		samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
-		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
+		samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)-nucleus.fa
+		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-nucleus.fa
 
 		#Other
 		for region in $other; do
 			
 			#Subset FASTA file based on region
 			chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -w $region -)
-			samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_$region.fa
-			samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_$region.fa
+			samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
+			samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
 
 		done
 
 	else
 		#Nucleus
 		#Subset FASTA file based on region
-		cat $fasta > $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
-		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_$region.fa
+		cat $fasta > $(dirname $fasta)/$(basename $fasta .fa)-nucleus.fa
+		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
 	fi
 
 fi
@@ -106,7 +106,7 @@ fi
 #############################################################################################################################
 
 #STEP 1: Calculate frequencies of reference genome
-for file in $(dirname $fasta)/$(basename $fasta .fa)_*.fa; do
+for file in $(dirname $fasta)/$(basename $fasta .fa)-*.fa; do
 			
 	temp=$(echo $file | awk -F '[-]' '{print $2 $3 $4}')
 	region=$(basename $temp .nucs.tab)
@@ -114,10 +114,10 @@ for file in $(dirname $fasta)/$(basename $fasta .fa)_*.fa; do
 	#Nucleotide Frequencies of Reference Genome
 			
 	#Calculate counts of each nucleotide
-	A_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | grep -Eo 'A|a' - | wc -l)
-	C_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | grep -Eo 'C|c' - | wc -l)
-	G_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | grep -Eo 'G|g' - | wc -l)
-	T_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)_$region.fa | grep -Eo 'T|t' - | wc -l)
+	A_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)-$region.fa | grep -Eo 'A|a' - | wc -l)
+	C_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)-$region.fa | grep -Eo 'C|c' - | wc -l)
+	G_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)-$region.fa | grep -Eo 'G|g' - | wc -l)
+	T_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)-$region.fa | grep -Eo 'T|t' - | wc -l)
 	
 	#Calculate total number of nucleotides
 	BkgTotal=$(($A_Bkg + $C_Bkg + $G_Bkg + $T_Bkg))
@@ -129,10 +129,10 @@ for file in $(dirname $fasta)/$(basename $fasta .fa)_*.fa; do
 	T_BkgFreq=$(echo "($T_Bkg + $A_Bkg)/($BkgTotal*2)" | bc -l)
 			
 	#Save nucleotide frequencies to .txt file
-	paste <(echo -e "A") <(echo "$A_BkgFreq" | xargs printf "%.*f\n" 5) > "${fasta%.*}"-Freqs.$region.txt
-	paste <(echo -e "C") <(echo "$C_BkgFreq" | xargs printf "%.*f\n" 5) >> "${fasta%.*}"-Freqs.$region.txt
-	paste <(echo -e "G") <(echo "$G_BkgFreq" | xargs printf "%.*f\n" 5) >> "${fasta%.*}"-Freqs.$region.txt
-	paste <(echo -e "U") <(echo "$T_BkgFreq" | xargs printf "%.*f\n" 5) >> "${fasta%.*}"-Freqs.$region.txt
+	paste <(echo -e "A") <(echo "$A_BkgFreq" | xargs printf "%.*f\n" 5) > $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
+	paste <(echo -e "C") <(echo "$C_BkgFreq" | xargs printf "%.*f\n" 5) >> $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
+	paste <(echo -e "G") <(echo "$G_BkgFreq" | xargs printf "%.*f\n" 5) >> $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
+	paste <(echo -e "U") <(echo "$T_BkgFreq" | xargs printf "%.*f\n" 5) >> $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
 
 done
 
