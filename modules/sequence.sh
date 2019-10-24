@@ -4,8 +4,7 @@
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
 
-#1. Calculate frequencies of rNMP nucleotides
-#2. Calculate frequencies of flanking nucleotides
+#Calculate frequencies of rNMP nucleotides and those of flanking nucleotides
 
 #############################################################################################################################
 #Load config file
@@ -16,38 +15,114 @@ output=$repository/results/$sample/sequence$quality
 rm -r $output; mkdir -p $output
 
 #############################################################################################################################
+
+#Create .fai file for reference
+samtools faidx $fasta
+
+#Create .bed file for reference
+cut -f 1,2 $fasta.fai > $(dirname $fasta)/$(basename $fasta .fa).bed
+
+#############################################################################################################################
+
 #Calculate raw counts of rNMPs
 cut -f1,2,3,6 $repository/results/$sample/coordinate$quality/$sample.bed | uniq -c - | mawk -v "OFS=\t" '{print $2, $3, $4, $5, $1}' > $repository/results/$sample/coordinate$quality/$sample.counts.tab
 
-#Create .fai file for reference
-if [[ ! -s $(dirname $fasta)/$(basename $fasta .fa).fai ]]; then
-	samtools faidx $fasta
-fi
+#############################################################################################################################
 
-#Create .bed file for reference
-if [[ ! -s $(dirname $fasta)/$(basename $fasta .fa).bed ]]; then
-	cut -f 1,2 $fasta.fai > $(dirname $fasta)/$(basename $fasta .fa).bed
-fi
-
-for region in "nucleus" "mitochondria"; do
-#Subset FASTA file based on region
-if [[ $region == "nucleus" ]]; then
-			
-	if [[ ! -s $(dirname $fasta)/$(basename $fasta .fa)_$region.fa ]]; then
-		chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -wvE '(chrM|MT)')
+if [[ $mito ]]; then
+	
+	if [[ $other ]]; then
+	
+		other_new=$(echo $other | sed 's/ /|/g')
+		
+		#Nucleus
+		#Subset FASTA file based on region
+		chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -wv $mito - | grep -Ewv $other_new -)
 		samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
 		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
-	fi
+
+		#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
+		grep -wv $mito $repository/results/$sample/coordinate$quality/$sample.bed | grep -Ewv $other_new - | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-nucleus.nucs.tab
+
+		#Mito
+		#Subset FASTA file based on region
+		chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -w $mito -)
+		samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_mito.fa
+		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_mito.fa
+
+		#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
+		grep -w $mito $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-mito.nucs.tab
+
+		#Other
+		for region in $other; do
+			
+			#Subset FASTA file based on region
+			chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -w $region -)
+			samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_$region.fa
+			samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_$region.fa
+
+			#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
+			grep -w $region $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
 		
-elif [[ $region == "mitochondria" ]]; then
-		
-	if [[ ! -s $(dirname $fasta)/$(basename $fasta .fa)_$region.fa ]]; then
-		chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -wE '(chrM|MT)')
-		samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_mitochondria.fa
-		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_mitochondria.fa
+		done
+
+	else
+		#Nucleus
+		#Subset FASTA file based on region
+		chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -wv $mito - )
+		samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
+		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
+
+		#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
+		grep -wv $mito $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-nucleus.nucs.tab
+
+		#Mito
+		#Subset FASTA file based on region
+		chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -w $mito -)
+		samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_mito.fa
+		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_mito.fa
+
+		#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
+		grep -w $mito $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-mito.nucs.tab
 	fi
+	
+elif [[ ! $mito ]]; then
+		
+	if [[ $other ]]; then
+		
+		other_new=$(echo $other | sed 's/ /|/g')
+		
+		#Nucleus
+		#Subset FASTA file based on region
+		chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -Ewv $other_new -)
+		samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
+		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_nucleus.fa
+
+		#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
+		grep -Ewv $other_new $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-nucleus.nucs.tab
+
+		#Other
+		for region in $other; do
+			
+			#Subset FASTA file based on region
+			chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -w $region -)
+			samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)_$region.fa
+			samtools faidx $(dirname $fasta)/$(basename $fasta .fa)_$region.fa
+
+			#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
+			grep -w $region $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
+		
+		done
+
+	else
+		#Nucleus
+		#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
+		bedtools getfasta -s -fi $fasta -bed $repository/results/$sample/coordinate$quality/$sample.bed | grep -v '>' > $output/${sample}-nucleus.nucs.tab
+	fi
+
 fi
-done
+
+#############################################################################################################################
 
 #STEP 1: Calculate frequencies of reference genome
 for nuc in "A" "C" "G" "T" "Combined"; do
