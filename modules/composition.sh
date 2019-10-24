@@ -156,6 +156,9 @@ for file in $output/${sample}-*.nucs.tab; do
 	#Nucleotide Frequencies of rNMPs
 	if [ -s $output/${sample}-$region.nucs.tab ]; then
 	
+		temp=$(echo $file | awk -F '[-]' '{print $2 $3 $4}')
+		region=$(basename $temp .nucs.tab)
+	
 		#Calculate counts of each nucleotide
 		A_Ribo=$(awk '$1 == "A" || $1 == "a"' $file | wc -l)
 		C_Ribo=$(awk '$1 == "C" || $1 == "c"' $file | wc -l)
