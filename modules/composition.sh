@@ -168,6 +168,11 @@ for file in $output/${sample}-*.nucs.tab; do
 		#Calculate total number of nucleotides
 		RiboTotal=$(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
 	
+		A_BkgFreq=
+		C_BkgFreq=
+		G_BkgFreq=
+		T_BkgFreq=
+		
 		#Calculate normalized frequency of each nucleotide, step 1
 		A_RiboFreq1=$(echo "($A_Ribo/$RiboTotal)/$A_BkgFreq" | bc -l)
 		C_RiboFreq1=$(echo "($C_Ribo/$RiboTotal)/$C_BkgFreq" | bc -l)
