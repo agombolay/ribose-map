@@ -119,7 +119,7 @@ fi
 
 ######################################################################################################################################################
 	
-for file in $output/${sample}-*.nucs.tab; do
+for file in $(dirname $fasta)/$(basename $fasta .fa)_*.fa; do
 
 	temp=$(echo $file | awk -F '[-]' '{print $2 $3 $4}')
 	region=$(basename $temp .nucs.tab)
@@ -147,8 +147,12 @@ for file in $output/${sample}-*.nucs.tab; do
 	paste <(echo -e "G") <(echo "$G_BkgFreq" | xargs printf "%.*f\n" 5) >> "${fasta%.*}"-Freqs.$region.txt
 	paste <(echo -e "U") <(echo "$T_BkgFreq" | xargs printf "%.*f\n" 5) >> "${fasta%.*}"-Freqs.$region.txt
 
+done
+
 ######################################################################################################################################################
-	
+
+for file in $output/${sample}-*.nucs.tab; do
+
 	#Nucleotide Frequencies of rNMPs
 	if [ -s $output/${sample}-$region.nucs.tab ]; then
 	
