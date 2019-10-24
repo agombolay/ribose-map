@@ -136,13 +136,6 @@ for nuc in "A" "C" "G" "T" "Combined"; do
 				paste <(echo -e "C") <(echo "$C_BkgFreq" | xargs printf "%.*f\n" 5) >> "${fasta%.*}"-Freqs.$region.txt
 				paste <(echo -e "G") <(echo "$G_BkgFreq" | xargs printf "%.*f\n" 5) >> "${fasta%.*}"-Freqs.$region.txt
 				paste <(echo -e "U") <(echo "$T_BkgFreq" | xargs printf "%.*f\n" 5) >> "${fasta%.*}"-Freqs.$region.txt
-
-#############################################################################################################################
-			#STEP 2: Create and save file containing background dNMP frequencies
-		
-			#Add nucleotides to header line and background frequencies
-			echo -e "A\tC\tG\tT" > "${fasta%.*}"-Freqs.$region.txt
-			paste <(echo -e "$Bkg") >> "${fasta%.*}"-Freqs.$region.txt
 			
 #############################################################################################################################
 			#STEP 3: Calculate frequencies of rNMPs in libraries
