@@ -165,7 +165,7 @@ done
 
 #############################################################################################################################
 
-#STEP 3: Calculate frequencies of rNMPs
+#STEP 2: Calculate frequencies of rNMPs
 for file in $output/${sample}-*.coords.tab; do
 
 	if [ -s $output/${sample}-*.coords.tab ]; then
