@@ -74,7 +74,7 @@ if [[ $mito ]]; then
 		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-nucleus.fa
 		
 		#Extract only unique coordinates and then subset based on region
-		awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -wv $mito - > $output/${sample}-$region.coords.tab
+		awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -wv $mito - > $output/${sample}-nucleus.coords.tab
 
 		#Mito
 		#Subset FASTA file based on region
@@ -83,7 +83,7 @@ if [[ $mito ]]; then
 		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-mito.fa
 		
 		#Extract only unique coordinates and then subset based on region
-		awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -w $mito - > $output/${sample}-$region.coords.tab
+		awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -w $mito - > $output/${sample}-mito.coords.tab
 
 	fi
 	
@@ -100,7 +100,7 @@ elif [[ ! $mito ]]; then
 		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-nucleus.fa
 		
 		#Extract only unique coordinates and then subset based on region
-		awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -Ewv $other_new - > $output/${sample}-$region.coords.tab
+		awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -Ewv $other_new - > $output/${sample}-nucleus.coords.tab
 
 		#Other
 		for region in $other; do
@@ -119,7 +119,7 @@ elif [[ ! $mito ]]; then
 		#Nucleus
 		#Subset FASTA file based on region
 		cat $fasta > $(dirname $fasta)/$(basename $fasta .fa)-nucleus.fa
-		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
+		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-nucleus.fa
 		
 		#Extract only unique coordinates and then subset based on region
 		awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab > $output/${sample}-nucleus.coords.tab
