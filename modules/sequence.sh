@@ -117,6 +117,7 @@ elif [[ ! $mito ]]; then
 		done
 
 	else
+	
 		#Nucleus
 		#Subset FASTA file based on region
 		cat $fasta > $(dirname $fasta)/$(basename $fasta .fa)-nucleus.fa
