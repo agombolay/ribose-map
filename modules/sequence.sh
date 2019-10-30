@@ -144,10 +144,10 @@ done
 #STEP 3: Calculate frequencies of rNMPs
 for file in $output/${sample}-*.coords.tab; do
 
-	if [ -s $output/${sample}-*coords.tab ]; then
+	if [ -s $output/${sample}-*.coords.tab ]; then
 	
 		temp=$(echo $file | awk -F '[-]' '{print $2 $3 $4}')
-		region=$(basename $temp .nucs.tab)
+		region=$(basename $temp .coords.tab)
 		
 		for nuc in "A" "C" "G" "T" "Combined"; do
 			
