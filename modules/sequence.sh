@@ -67,6 +67,7 @@ if [[ $mito ]]; then
 		done
 
 	else
+	
 		#Nucleus
 		#Subset FASTA file based on region
 		chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -wv $mito -)
@@ -125,6 +126,7 @@ elif [[ ! $mito ]]; then
 		awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab > $output/${sample}-nucleus.coords.tab
 
 	fi
+
 fi
 
 #############################################################################################################################
