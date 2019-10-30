@@ -136,7 +136,7 @@ fi
 for file in $(dirname $fasta)/$(basename $fasta .fa)-*.fa; do
 			
 	temp=$(echo $file | awk -F '[-]' '{print $2 $3 $4}')
-	region=$(basename $temp .nucs.tab)
+	region=$(basename $temp .fa)
 			
 	#Nucleotide Frequencies of Reference Genome
 			
