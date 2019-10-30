@@ -42,7 +42,7 @@ if [[ $mito ]]; then
 		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-nucleus.fa
 
 		#Extract only unique coordinates and then subset based on region
-		awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -wvE '(chrM|MT)' > $output/Coords.$region.bed
+		awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -wv $mito - | grep -Ewv $other_new - > $output/${sample}-nucleus.coords.tab
 		
 		#Mito
 		#Subset FASTA file based on region
@@ -50,6 +50,9 @@ if [[ $mito ]]; then
 		samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)-mito.fa
 		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-mito.fa
 
+		#Extract only unique coordinates and then subset based on region
+		awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -w $mito - > $output/${sample}-mito.coords.tab
+		
 		#Other
 		for region in $other; do
 			
@@ -57,7 +60,10 @@ if [[ $mito ]]; then
 			chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).bed | grep -w $region -)
 			samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
 			samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
-
+			
+			#Extract only unique coordinates and then subset based on region
+			awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -w $region - > $output/${sample}-$region.coords.tab
+		
 		done
 
 	else
