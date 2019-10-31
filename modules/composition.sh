@@ -185,11 +185,17 @@ for file in $output/${sample}-*.nucs.tab; do
 		G_RiboFreq2=$(echo "$G_RiboFreq1/($A_RiboFreq1 + $C_RiboFreq1 + $G_RiboFreq1 + $U_RiboFreq1)*100" | bc -l)
 		U_RiboFreq2=$(echo "$U_RiboFreq1/($A_RiboFreq1 + $C_RiboFreq1 + $G_RiboFreq1 + $U_RiboFreq1)*100" | bc -l)
 	
+		#Save nucleotide counts to .txt file
+		paste <(echo -e "rA") <(echo "$A_Ribo" | xargs printf "%.*f\n" 5) > $output/${sample}-$region.counts.txt
+		paste <(echo -e "rC") <(echo "$C_Ribo" | xargs printf "%.*f\n" 5) >> $output/${sample}-$region.counts.txt
+		paste <(echo -e "rG") <(echo "$G_Ribo" | xargs printf "%.*f\n" 5) >> $output/${sample}-$region.counts.txt
+		paste <(echo -e "rU") <(echo "$U_Ribo" | xargs printf "%.*f\n" 5) >> $output/${sample}-$region.counts.txt
+		
 		#Save nucleotide frequencies to .txt file
-		paste <(echo -e "rA") <(echo "$A_RiboFreq2" | xargs printf "%.*f\n" 5) > $output/${sample}-$region.counts.txt
-		paste <(echo -e "rC") <(echo "$C_RiboFreq2" | xargs printf "%.*f\n" 5) >> $output/${sample}-$region.counts.txt
-		paste <(echo -e "rG") <(echo "$G_RiboFreq2" | xargs printf "%.*f\n" 5) >> $output/${sample}-$region.counts.txt
-		paste <(echo -e "rU") <(echo "$U_RiboFreq2" | xargs printf "%.*f\n" 5) >> $output/${sample}-$region.counts.txt
+		paste <(echo -e "rA") <(echo "$A_RiboFreq2" | xargs printf "%.*f\n" 5) > $output/${sample}-$region.frequencies.txt
+		paste <(echo -e "rC") <(echo "$C_RiboFreq2" | xargs printf "%.*f\n" 5) >> $output/${sample}-$region.frequencies.txt
+		paste <(echo -e "rG") <(echo "$G_RiboFreq2" | xargs printf "%.*f\n" 5) >> $output/${sample}-$region.frequencies.txt
+		paste <(echo -e "rU") <(echo "$U_RiboFreq2" | xargs printf "%.*f\n" 5) >> $output/${sample}-$region.frequencies.txt
 	fi
 done
 
