@@ -328,17 +328,17 @@ for file in $output/${sample}-*.bed; do
 				T_allFreqs=$(paste <(cat <(cat $output/${sample}-Upstream.T.txt | tac) <(cat $output/${sample}-$region.U_Ribo.txt) <(cat $output/${sample}-Downstream.T.txt)))
 
 				#Add positions and frequencies of nucleotides in correct order to create dataset (un-normalized to reference genome)
-				paste <(echo "$(seq -100 1 100)") <(for a in $A_allFreqs; do if [[ $i != "NA" ]]; then echo $i | bc -l | xargs printf "%.*f\n" 5; else echo $i; fi; done) \
-								  <(for c in $C_allFreqs; do if [[ $j != "NA" ]]; then echo $j | bc -l | xargs printf "%.*f\n" 5; else echo $j; fi; done) \
-								  <(for g in $G_allFreqs; do if [[ $k != "NA" ]]; then echo $k | bc -l | xargs printf "%.*f\n" 5; else echo $k; fi; done) \
-								  <(for t in $T_allFreqs; do if [[ $l != "NA" ]]; then echo $l | bc -l | xargs printf "%.*f\n" 5; else echo $l; fi; done) \
+				paste <(echo "$(seq -100 1 100)") <(for a in $A_allFreqs; do if [[ $i != "NA" ]]; then echo $a | bc -l | xargs printf "%.*f\n" 5; else echo $a; fi; done) \
+								  <(for c in $C_allFreqs; do if [[ $j != "NA" ]]; then echo $c | bc -l | xargs printf "%.*f\n" 5; else echo $c; fi; done) \
+								  <(for g in $G_allFreqs; do if [[ $k != "NA" ]]; then echo $g | bc -l | xargs printf "%.*f\n" 5; else echo $g; fi; done) \
+								  <(for t in $T_allFreqs; do if [[ $l != "NA" ]]; then echo $t | bc -l | xargs printf "%.*f\n" 5; else echo $t; fi; done) \
 								  >> $output/${sample}-$region.$nuc.raw.tab
 								  
 				#Add positions and frequencies of nucleotides in correct order to create dataset (normalized to reference genome)
-				paste <(echo "$(seq -100 1 100)") <(for a in $A_allFreqs; do if [[ $i != "NA" ]]; then echo $i/$A_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $i; fi; done) \
-								  <(for c in $C_allFreqs; do if [[ $j != "NA" ]]; then echo $j/$C_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $j; fi; done) \
-								  <(for g in $G_allFreqs; do if [[ $k != "NA" ]]; then echo $k/$G_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $k; fi; done) \
-								  <(for t in $T_allFreqs; do if [[ $l != "NA" ]]; then echo $l/$T_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $l; fi; done) \
+				paste <(echo "$(seq -100 1 100)") <(for a in $A_allFreqs; do if [[ $i != "NA" ]]; then echo $a/$A_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $a; fi; done) \
+								  <(for c in $C_allFreqs; do if [[ $j != "NA" ]]; then echo $c/$C_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $c; fi; done) \
+								  <(for g in $G_allFreqs; do if [[ $k != "NA" ]]; then echo $g/$G_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $g; fi; done) \
+								  <(for t in $T_allFreqs; do if [[ $l != "NA" ]]; then echo $t/$T_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $t; fi; done) \
 								  >> $output/${sample}-$region.$nuc.normalized.tab
 
 #############################################################################################################################
