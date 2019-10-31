@@ -343,8 +343,8 @@ for file in $output/${sample}-*.bed; do
 					#Create and save dataset file containing nucleotide frequencies
 			
 					#Add nucleotides to header line
-					#echo -e "\tA\tC\tG\tU/T" > $output/$sample.$nuc.$region.raw.tab
-					echo -e "\tA\tC\tG\tU/T" > $output/$sample.$nuc.$region.normalized.tab
+					#echo -e "\tA\tC\tG\tU/T" > $output/${sample}-$region.$nuc.raw.tab
+					echo -e "\tA\tC\tG\tU/T" > $output/${sample}-$region.$nuc.normalized.tab
 			
 					A=$(paste <(cat <(cat $output/A_Up.txt | tac) <(cat $output/A_Ribo.txt) <(cat $output/A_Down.txt)))
 					C=$(paste <(cat <(cat $output/C_Up.txt | tac) <(cat $output/C_Ribo.txt) <(cat $output/C_Down.txt)))
@@ -352,14 +352,14 @@ for file in $output/${sample}-*.bed; do
 					T=$(paste <(cat <(cat $output/T_Up.txt | tac) <(cat $output/U_Ribo.txt) <(cat $output/T_Down.txt)))
 
 					#Add positions and frequencies of nucleotides in correct order to create dataset (not normalized to anything)
-					#paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Up") <(echo "$Ribo") <(echo "$Down")) >> $output/$sample.$nuc.$region.raw.tab
+					#paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Up") <(echo "$Ribo") <(echo "$Down")) >> $output/${sample}-$region.$nuc.raw.tab
 					
 					#Add positions and frequencies of nucleotides in correct order to create dataset (normalized to reference genome)
 					paste <(echo "$(seq -100 1 100)") <(for i in $A; do if [[ $i != "NA" ]]; then echo $i/$A_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $i; fi; done) \
 									  <(for j in $C; do if [[ $j != "NA" ]]; then echo $j/$C_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $j; fi; done) \
 									  <(for k in $G; do if [[ $k != "NA" ]]; then echo $k/$G_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $k; fi; done) \
 									  <(for l in $T; do if [[ $l != "NA" ]]; then echo $l/$T_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $l; fi; done) \
-									  >> $output/$sample.$nuc.$region.normalized.tab
+									  >> $output/${sample}-$region.$nuc.normalized.tab
 
 #############################################################################################################################
 					#Print status
