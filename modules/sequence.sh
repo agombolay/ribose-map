@@ -188,18 +188,18 @@ for file in $output/${sample}-*.coords.tab; do
 			RiboTotal=$(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
 	
 			#Calculate normalized frequency of each rNMP
-			#A_RiboFreq=$(echo "($A_Ribo/$RiboTotal)/$A_BkgFreq" | bc -l)
-			#C_RiboFreq=$(echo "($C_Ribo/$RiboTotal)/$C_BkgFreq" | bc -l)
-			#G_RiboFreq=$(echo "($G_Ribo/$RiboTotal)/$G_BkgFreq" | bc -l)
-			#U_RiboFreq=$(echo "($U_Ribo/$RiboTotal)/$T_BkgFreq" | bc -l)
+			A_RiboFreq=$(echo "($A_Ribo/$RiboTotal)/$A_BkgFreq" | bc -l)
+			C_RiboFreq=$(echo "($C_Ribo/$RiboTotal)/$C_BkgFreq" | bc -l)
+			G_RiboFreq=$(echo "($G_Ribo/$RiboTotal)/$G_BkgFreq" | bc -l)
+			U_RiboFreq=$(echo "($U_Ribo/$RiboTotal)/$T_BkgFreq" | bc -l)
 				
-			#Calculate NOT normalized frequency of each rNMP
-			A_RiboFreq=$(echo "($A_Ribo/$RiboTotal)" | bc -l)
-			C_RiboFreq=$(echo "($C_Ribo/$RiboTotal)" | bc -l)
-			G_RiboFreq=$(echo "($G_Ribo/$RiboTotal)" | bc -l)
-			U_RiboFreq=$(echo "($U_Ribo/$RiboTotal)" | bc -l)
+			#Calculate un-normalized frequency of each rNMP
+			#A_RiboFreq=$(echo "($A_Ribo/$RiboTotal)" | bc -l)
+			#C_RiboFreq=$(echo "($C_Ribo/$RiboTotal)" | bc -l)
+			#G_RiboFreq=$(echo "($G_Ribo/$RiboTotal)" | bc -l)
+			#U_RiboFreq=$(echo "($U_Ribo/$RiboTotal)" | bc -l)
 			
-			#Save normalized frequencies of rNMPs to TXT files
+			#Save frequencies of rNMPs to TXT files
 			if [[ $nuc == "A" ]]; then
 				echo $A_RiboFreq | xargs printf "%.*f\n" 5 > $output/A_Ribo.txt
 				echo 'NA' > $output/C_Ribo.txt
