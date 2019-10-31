@@ -196,6 +196,7 @@ for file in $output/${sample}-*.nucs.tab; do
 		paste <(echo -e "rC") <(echo "$C_RiboFreq2" | xargs printf "%.*f\n" 5) >> $output/${sample}-$region.frequencies.txt
 		paste <(echo -e "rG") <(echo "$G_RiboFreq2" | xargs printf "%.*f\n" 5) >> $output/${sample}-$region.frequencies.txt
 		paste <(echo -e "rU") <(echo "$U_RiboFreq2" | xargs printf "%.*f\n" 5) >> $output/${sample}-$region.frequencies.txt
+	
 	fi
 done
 
