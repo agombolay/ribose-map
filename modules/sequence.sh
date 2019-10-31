@@ -337,8 +337,8 @@ for file in $output/${sample}-*.bed; do
 					#	Down=$(paste $output/{A,C,G,T}_Down.txt)
 					#fi
 
-					done
 				done
+			done
 
 #############################################################################################################################
 				#Create and save dataset file containing nucleotide frequencies
