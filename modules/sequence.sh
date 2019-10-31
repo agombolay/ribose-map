@@ -363,7 +363,9 @@ for file in $output/${sample}-*.bed; do
 #############################################################################################################################
 				#Print status
 				echo "Status: Sequence Module for $sample ($nuc,$region) is complete"
-	
+				
+			fi
+		done
 	fi
 	
 	#Remove temporary files
