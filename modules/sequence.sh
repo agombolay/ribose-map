@@ -248,93 +248,94 @@ for file in $output/${sample}-*.bed; do
 		
 #############################################################################################################################
 			
-			#Obtain coordinates/sequences of dNMPs +/- 100 bp from rNMPs
+		#Obtain coordinates/sequences of dNMPs +/- 100 bp from rNMPs
 		
-			#Continue only for BED files > 0
-			if [[ -s $output/${sample}-$region.$nuc.bed ]]; then
+		#Continue only for BED files > 0
+		if [[ -s $output/${sample}-$region.$nuc.bed ]]; then
 			
-				#Obtain coordinates of flanking sequences and remove coordinates where start = end
-				bedtools flank -i $output/${sample}-$region.$nuc.bed -s -g $(dirname $fasta)/$(basename $fasta .fa).bed -l 100 -r 0 | awk '$2 != $3' > $output/Up.bed
-				bedtools flank -i $output/${sample}-$region.$nuc.bed -s -g $(dirname $fasta)/$(basename $fasta .fa).bed -l 0 -r 100 | awk '$2 != $3' > $output/Down.bed
+			#Obtain coordinates of flanking sequences and remove coordinates where start = end
+			bedtools flank -i $output/${sample}-$region.$nuc.bed -s -g $(dirname $fasta)/$(basename $fasta .fa).bed -l 100 -r 0 | awk '$2 != $3' > $output/Up.bed
+			bedtools flank -i $output/${sample}-$region.$nuc.bed -s -g $(dirname $fasta)/$(basename $fasta .fa).bed -l 0 -r 100 | awk '$2 != $3' > $output/Down.bed
 	
-				#Obtain nucleotides flanking rNMPs (reverse order of up) and insert tabs bases for easier parsing
-				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)_$region.fa -bed $output/Down.bed | grep -v '>' | sed 's/.../& /2g;s/./& /g' > $output/Down.tab
-				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)_$region.fa -bed $output/Up.bed | grep -v '>' | rev | sed 's/.../& /2g;s/./& /g' > $output/Up.tab
+			#Obtain nucleotides flanking rNMPs (reverse order of up) and insert tabs bases for easier parsing
+			bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)_$region.fa -bed $output/Down.bed | grep -v '>' | sed 's/.../& /2g;s/./& /g' > $output/Down.tab
+			bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)_$region.fa -bed $output/Up.bed | grep -v '>' | rev | sed 's/.../& /2g;s/./& /g' > $output/Up.tab
 				
 #############################################################################################################################
-				#Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
+			
+			#Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
 
-				for dir in "Up" "Down"; do
+			for dir in "Up" "Down"; do
 		
-					for i in {1..100}; do
+				for i in {1..100}; do
 		
-						#Calculate count of each dNMP
-						A_Flank=$(awk -v field=$i '{ print $field }' $output/$dir.tab | grep -Eo 'A|a' | wc -l)
-						C_Flank=$(awk -v field=$i '{ print $field }' $output/$dir.tab | grep -Eo 'C|c' | wc -l)
-						G_Flank=$(awk -v field=$i '{ print $field }' $output/$dir.tab | grep -Eo 'G|g' | wc -l)
-						T_Flank=$(awk -v field=$i '{ print $field }' $output/$dir.tab | grep -Eo 'T|t' | wc -l)
+					#Calculate count of each dNMP
+					A_Flank=$(awk -v field=$i '{ print $field }' $output/$dir.tab | grep -Eo 'A|a' | wc -l)
+					C_Flank=$(awk -v field=$i '{ print $field }' $output/$dir.tab | grep -Eo 'C|c' | wc -l)
+					G_Flank=$(awk -v field=$i '{ print $field }' $output/$dir.tab | grep -Eo 'G|g' | wc -l)
+					T_Flank=$(awk -v field=$i '{ print $field }' $output/$dir.tab | grep -Eo 'T|t' | wc -l)
 
-						#Calculate total number of dNMPs
-						FlankTotal=$(($A_Flank + $C_Flank + $G_Flank + $T_Flank))
+					#Calculate total number of dNMPs
+					FlankTotal=$(($A_Flank + $C_Flank + $G_Flank + $T_Flank))
 
-						#Calculate normalized frequencies of dNMPs
-						if [[ $FlankTotal != 0 ]]; then
+					#Calculate normalized frequencies of dNMPs
+					if [[ $FlankTotal != 0 ]]; then
 						
-							A_FlankFreq=$(echo "($A_Flank/$FlankTotal)/$A_BkgFreq" | bc -l)
-							C_FlankFreq=$(echo "($C_Flank/$FlankTotal)/$C_BkgFreq" | bc -l)
-							G_FlankFreq=$(echo "($G_Flank/$FlankTotal)/$G_BkgFreq" | bc -l)
-							T_FlankFreq=$(echo "($T_Flank/$FlankTotal)/$T_BkgFreq" | bc -l)
+						A_FlankFreq=$(echo "($A_Flank/$FlankTotal)/$A_BkgFreq" | bc -l)
+						C_FlankFreq=$(echo "($C_Flank/$FlankTotal)/$C_BkgFreq" | bc -l)
+						G_FlankFreq=$(echo "($G_Flank/$FlankTotal)/$G_BkgFreq" | bc -l)
+						T_FlankFreq=$(echo "($T_Flank/$FlankTotal)/$T_BkgFreq" | bc -l)
 								
-							#A_FlankFreq=$(echo "($A_Flank/$FlankTotal)" | bc -l)
-							#C_FlankFreq=$(echo "($C_Flank/$FlankTotal)" | bc -l)
-							#G_FlankFreq=$(echo "($G_Flank/$FlankTotal)" | bc -l)
-							#T_FlankFreq=$(echo "($T_Flank/$FlankTotal)" | bc -l)
+						#A_FlankFreq=$(echo "($A_Flank/$FlankTotal)" | bc -l)
+						#C_FlankFreq=$(echo "($C_Flank/$FlankTotal)" | bc -l)
+						#G_FlankFreq=$(echo "($G_Flank/$FlankTotal)" | bc -l)
+						#T_FlankFreq=$(echo "($T_Flank/$FlankTotal)" | bc -l)
 				
-						elif [[ $FlankTotal == 0 ]]; then
+					elif [[ $FlankTotal == 0 ]]; then
 							
-							A_FlankFreq='NA'
-							C_FlankFreq='NA'
-							G_FlankFreq='NA'
-							T_FlankFreq='NA'
-						fi
+						A_FlankFreq='NA'
+						C_FlankFreq='NA'
+						G_FlankFreq='NA'
+						T_FlankFreq='NA'
+					fi
 				
-						#Save normalized dNMPs frequencies to TXT files
-						if [[ $A_FlankFreq != 'NA' ]]; then
-							echo $A_FlankFreq | xargs printf "%.*f\n" 5 >> $output/A_$dir.txt
+					#Save normalized dNMPs frequencies to TXT files
+					if [[ $A_FlankFreq != 'NA' ]]; then
+						echo $A_FlankFreq | xargs printf "%.*f\n" 5 >> $output/A_$dir.txt
 						
-						elif [[ $A_FlankFreq == 'NA' ]]; then
-							echo $A_FlankFreq >> $output/A_$dir.txt
-						fi
+					elif [[ $A_FlankFreq == 'NA' ]]; then
+						echo $A_FlankFreq >> $output/A_$dir.txt
+					fi
 				
-						if [[ $C_FlankFreq != 'NA' ]]; then
-							echo $C_FlankFreq | xargs printf "%.*f\n" 5 >> $output/C_$dir.txt
+					if [[ $C_FlankFreq != 'NA' ]]; then
+						echo $C_FlankFreq | xargs printf "%.*f\n" 5 >> $output/C_$dir.txt
 						
-						elif [[ $C_FlankFreq == 'NA' ]]; then
-							echo $C_FlankFreq >> $output/C_$dir.txt
-						fi
+					elif [[ $C_FlankFreq == 'NA' ]]; then
+						echo $C_FlankFreq >> $output/C_$dir.txt
+					fi
 				
-						if [[ $G_FlankFreq != 'NA' ]]; then
-							echo $G_FlankFreq | xargs printf "%.*f\n" 5 >> $output/G_$dir.txt
+					if [[ $G_FlankFreq != 'NA' ]]; then
+						echo $G_FlankFreq | xargs printf "%.*f\n" 5 >> $output/G_$dir.txt
 						
-						elif [[ $G_FlankFreq == 'NA' ]]; then
-							echo $G_FlankFreq >> $output/G_$dir.txt
-						fi
+					elif [[ $G_FlankFreq == 'NA' ]]; then
+						echo $G_FlankFreq >> $output/G_$dir.txt
+					fi
 				
-						if [[ $T_FlankFreq != 'NA' ]]; then
-							echo $T_FlankFreq | xargs printf "%.*f\n" 5 >> $output/T_$dir.txt
+					if [[ $T_FlankFreq != 'NA' ]]; then
+						echo $T_FlankFreq | xargs printf "%.*f\n" 5 >> $output/T_$dir.txt
 						
-						elif [[ $T_FlankFreq == 'NA' ]]; then
-							echo $T_FlankFreq >> $output/T_$dir.txt
-						fi
+					elif [[ $T_FlankFreq == 'NA' ]]; then
+						echo $T_FlankFreq >> $output/T_$dir.txt
+					fi
 		
-						#Combine dNMP frequencies into one file per location
-						#if [[ $dir == "Up" ]]; then
-							#Print upstream frequencies in reverse order
-						#	Up=$(paste $output/{A,C,G,T}_Up.txt | tac -)
+					#Combine dNMP frequencies into one file per location
+					#if [[ $dir == "Up" ]]; then
+						#Print upstream frequencies in reverse order
+					#	Up=$(paste $output/{A,C,G,T}_Up.txt | tac -)
 						
-						#elif [[ $dir == "Down" ]]; then
-						#	Down=$(paste $output/{A,C,G,T}_Down.txt)
-						#fi
+					#elif [[ $dir == "Down" ]]; then
+					#	Down=$(paste $output/{A,C,G,T}_Down.txt)
+					#fi
 
 					done
 				done
