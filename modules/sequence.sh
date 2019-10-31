@@ -24,11 +24,6 @@ cut -f 1,2 $fasta.fai > $(dirname $fasta)/$(basename $fasta .fa).bed
 
 #############################################################################################################################
 
-#Calculate raw counts of rNMPs
-cut -f1,2,3,6 $repository/results/$sample/coordinate$quality/$sample.bed | uniq -c - | mawk -v "OFS=\t" '{print $2, $3, $4, $5, $1}' > $repository/results/$sample/coordinate$quality/$sample.counts.tab
-
-#############################################################################################################################
-
 if [[ $mito ]]; then
 	
 	if [[ $other ]]; then
