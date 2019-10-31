@@ -179,11 +179,6 @@ for file in $output/${sample}-*.bed; do
 	
 		#Calculate total number of rNMPs
 		RiboTotal=$(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
-		
-		A_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.txt | head -1)
-		C_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.txt | head -2 | tail -1)
-		G_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.txt | head -3 | tail -1)
-		T_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.txt | head -4 | tail -1)
 				
 		#Calculate raw frequency of each rNMP
 		A_RiboFreq=$(echo "($A_Ribo/$RiboTotal)" | bc -l)
@@ -332,7 +327,14 @@ for file in $output/${sample}-*.bed; do
 				#Add nucleotides to header line
 				echo -e "\tA\tC\tG\tU/T" > $output/${sample}-$region.$nuc.raw.tab
 				echo -e "\tA\tC\tG\tU/T" > $output/${sample}-$region.$nuc.normalized.tab
+				
+				#Background frequencies of dNMPs
+				A_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.txt | head -1)
+				C_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.txt | head -2 | tail -1)
+				G_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.txt | head -3 | tail -1)
+				T_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.txt | head -4 | tail -1)
 			
+				#Save rNMP and flanking frequencies to separate variables
 				A=$(paste <(cat <(cat $output/${sample}-Upstream.A.txt | tac) <(cat $output/${sample}-$region.A_Ribo.txt) <(cat $output/${sample}-Downstream.A.txt)))
 				C=$(paste <(cat <(cat $output/${sample}-Upstream.C.txt | tac) <(cat $output/${sample}-$region.C_Ribo.txt) <(cat $output/${sample}-Downstream.C.txt)))
 				G=$(paste <(cat <(cat $output/${sample}-Upstream.G.txt | tac) <(cat $output/${sample}-$region.G_Ribo.txt) <(cat $output/${sample}-Downstream.G.txt)))
