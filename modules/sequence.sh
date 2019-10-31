@@ -184,18 +184,12 @@ for file in $output/${sample}-*.bed; do
 		C_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.txt | head -2 | tail -1)
 		G_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.txt | head -3 | tail -1)
 		T_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.txt | head -4 | tail -1)
-		
-		#Calculate normalized frequency of each rNMP
-		A_RiboFreq=$(echo "($A_Ribo/$RiboTotal)/$A_BkgFreq" | bc -l)
-		C_RiboFreq=$(echo "($C_Ribo/$RiboTotal)/$C_BkgFreq" | bc -l)
-		G_RiboFreq=$(echo "($G_Ribo/$RiboTotal)/$G_BkgFreq" | bc -l)
-		U_RiboFreq=$(echo "($U_Ribo/$RiboTotal)/$T_BkgFreq" | bc -l)
 				
-		#Calculate un-normalized frequency of each rNMP
-		#A_RiboFreq=$(echo "($A_Ribo/$RiboTotal)" | bc -l)
-		#C_RiboFreq=$(echo "($C_Ribo/$RiboTotal)" | bc -l)
-		#G_RiboFreq=$(echo "($G_Ribo/$RiboTotal)" | bc -l)
-		#U_RiboFreq=$(echo "($U_Ribo/$RiboTotal)" | bc -l)
+		#Calculate raw frequency of each rNMP
+		A_RiboFreq=$(echo "($A_Ribo/$RiboTotal)" | bc -l)
+		C_RiboFreq=$(echo "($C_Ribo/$RiboTotal)" | bc -l)
+		G_RiboFreq=$(echo "($G_Ribo/$RiboTotal)" | bc -l)
+		U_RiboFreq=$(echo "($U_Ribo/$RiboTotal)" | bc -l)
 			
 		for nuc in "A" "C" "G" "U" "Combined"; do
 
@@ -275,18 +269,13 @@ for file in $output/${sample}-*.bed; do
 						#Calculate total number of dNMPs
 						FlankTotal=$(($A_Flank + $C_Flank + $G_Flank + $T_Flank))
 
-						#Calculate normalized frequencies of dNMPs
+						#Calculate raw frequency of each dNMP
 						if [[ $FlankTotal != 0 ]]; then
 						
-							A_FlankFreq=$(echo "($A_Flank/$FlankTotal)/$A_BkgFreq" | bc -l)
-							C_FlankFreq=$(echo "($C_Flank/$FlankTotal)/$C_BkgFreq" | bc -l)
-							G_FlankFreq=$(echo "($G_Flank/$FlankTotal)/$G_BkgFreq" | bc -l)
-							T_FlankFreq=$(echo "($T_Flank/$FlankTotal)/$T_BkgFreq" | bc -l)
-								
-							#A_FlankFreq=$(echo "($A_Flank/$FlankTotal)" | bc -l)
-							#C_FlankFreq=$(echo "($C_Flank/$FlankTotal)" | bc -l)
-							#G_FlankFreq=$(echo "($G_Flank/$FlankTotal)" | bc -l)
-							#T_FlankFreq=$(echo "($T_Flank/$FlankTotal)" | bc -l)
+							A_FlankFreq=$(echo "($A_Flank/$FlankTotal)" | bc -l)
+							C_FlankFreq=$(echo "($C_Flank/$FlankTotal)" | bc -l)
+							G_FlankFreq=$(echo "($G_Flank/$FlankTotal)" | bc -l)
+							T_FlankFreq=$(echo "($T_Flank/$FlankTotal)" | bc -l)
 				
 						elif [[ $FlankTotal == 0 ]]; then
 							
