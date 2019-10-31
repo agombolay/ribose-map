@@ -265,7 +265,6 @@ for file in $output/${sample}-*.bed; do
 				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)_$region.fa -bed $output/Downstream.bed | grep -v '>' | sed 's/.../& /2g;s/./& /g' > $output/${sample}-Downstream.$nuc.tab
 							
 				#Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
-
 				for direction in "Upstream" "Downstream"; do
 		
 					for i in {1..100}; do
