@@ -201,11 +201,17 @@ for file in $output/${sample}-*.bed; do
 				echo 'NA' > $output/${sample}-$region.G_Ribo.txt
 				echo 'NA' > $output/${sample}-$region.U_Ribo.txt
 				
+				#Create BED file for only A ribonucleotide
+				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -tab -bed $file | awk '$2 == "A" || $2 == "a"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-$region.$nuc.bed
+
 			elif [[ $nuc == "C" ]]; then
 				echo $C_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-$region.C_Ribo.txt
 				echo 'NA' > $output/${sample}-$region.A_Ribo.txt
 				echo 'NA' > $output/${sample}-$region.G_Ribo.txt
 				echo 'NA' > $output/${sample}-$region.U_Ribo.txt
+				
+				#Create BED file for only C ribonucleotide
+				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -tab -bed $file | awk '$2 == "C" || $2 == "c"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-$region.$nuc.bed
 				
 			elif [[ $nuc == "G" ]]; then
 				echo $G_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-$region.G_Ribo.txt
@@ -213,17 +219,26 @@ for file in $output/${sample}-*.bed; do
 				echo 'NA' > $output/${sample}-$region.C_Ribo.txt
 				echo 'NA' > $output/${sample}-$region.U_Ribo.txt
 				
+				#Create BED file for only G ribonucleotide
+				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -tab -bed $file | awk '$2 == "G" || $2 == "g"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-$region.$nuc.bed
+
 			elif [[ $nuc == "T" ]]; then
 				echo $U_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-$region.U_Ribo.txt
 				echo 'NA' > $output/${sample}-$region.A_Ribo.txt
 				echo 'NA' > $output/${sample}-$region.C_Ribo.txt
 				echo 'NA' > $output/${sample}-$region.G_Ribo.txt
 				
+				#Create BED file for only U ribonucleotide
+				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -tab -bed $file | awk '$2 == "T" || $2 == "t"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-$region.$nuc.bed
+
 			elif [[ $nuc == "Combined" ]]; then
 				echo $A_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-$region.A_Ribo.txt
 				echo $C_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-$region.C_Ribo.txt
 				echo $G_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-$region.G_Ribo.txt
 				echo $U_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-$region.U_Ribo.txt
+				
+				#Create BED file for all ribonucleotides
+				cp $file $output/${sample}-$region.$nuc.bed
 			fi
 
 			#Combine rNMP frequencies into one file
@@ -234,23 +249,6 @@ for file in $output/${sample}-*.bed; do
 #############################################################################################################################
 			
 			#Obtain coordinates/sequences of dNMPs +/- 100 bp from rNMPs
-
-			#Create 5 BED files, one for each nucleotide and one combined
-			if [[ $nuc == "A" ]]; then
-				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -tab -bed $file | awk '$2 == "A" || $2 == "a"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-$region.$nuc.bed
-			
-			elif [[ $nuc == "C" ]]; then
-				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -tab -bed $file | awk '$2 == "C" || $2 == "c"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-$region.$nuc.bed
-			
-			elif [[ $nuc == "G" ]]; then
-				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -tab -bed $file | awk '$2 == "G" || $2 == "g"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-$region.$nuc.bed
-			
-			elif [[ $nuc == "T" ]]; then
-				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -tab -bed $file | awk '$2 == "T" || $2 == "t"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-$region.$nuc.bed
-			
-			elif [[ $nuc == "Combined" ]]; then
-				cp $file $output/${sample}-$region.$nuc.bed 
-			fi
 		
 			#Continue only for BED files > 0
 			if [[ -s $output/${sample}-$region.$nuc.bed ]]; then
