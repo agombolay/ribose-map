@@ -252,26 +252,26 @@ for file in $output/${sample}-*.bed; do
 			if [[ -s $output/${sample}-$region.$nuc.bed ]]; then
 			
 				#Obtain coordinates of flanking sequences and remove coordinates where start = end
-				bedtools flank -i $output/${sample}-$region.$nuc.bed -s -g $(dirname $fasta)/$(basename $fasta .fa).bed -l 100 -r 0 | awk '$2 != $3' > $output/Up.bed
-				bedtools flank -i $output/${sample}-$region.$nuc.bed -s -g $(dirname $fasta)/$(basename $fasta .fa).bed -l 0 -r 100 | awk '$2 != $3' > $output/Down.bed
+				bedtools flank -i $output/${sample}-$region.$nuc.bed -s -g $(dirname $fasta)/$(basename $fasta .fa).bed -l 100 -r 0 | awk '$2 != $3' > $output/${sample}-Upstream.$nuc.bed
+				bedtools flank -i $output/${sample}-$region.$nuc.bed -s -g $(dirname $fasta)/$(basename $fasta .fa).bed -l 0 -r 100 | awk '$2 != $3' > $output/${sample}-Downstream.$nuc.bed
 	
 				#Obtain nucleotides flanking rNMPs (reverse order of up) and insert tabs bases for easier parsing
-				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)_$region.fa -bed $output/Down.bed | grep -v '>' | sed 's/.../& /2g;s/./& /g' > $output/Down.tab
-				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)_$region.fa -bed $output/Up.bed | grep -v '>' | rev | sed 's/.../& /2g;s/./& /g' > $output/Up.tab
+				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)_$region.fa -bed $output/Upstream.bed | grep -v '>' | rev | sed 's/.../& /2g;s/./& /g' > $output/${sample}-Upstream.$nuc.tab
+				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)_$region.fa -bed $output/Downstream.bed | grep -v '>' | sed 's/.../& /2g;s/./& /g' > $output/${sample}-Downstream.$nuc.tab
 				
 #############################################################################################################################
 			
 				#Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
 
-				for dir in "Up" "Down"; do
+				for dir in "Upstream" "Downstream"; do
 		
 					for i in {1..100}; do
 		
 						#Calculate count of each dNMP
-						A_Flank=$(awk -v field=$i '{ print $field }' $output/$dir.tab | grep -Eo 'A|a' | wc -l)
-						C_Flank=$(awk -v field=$i '{ print $field }' $output/$dir.tab | grep -Eo 'C|c' | wc -l)
-						G_Flank=$(awk -v field=$i '{ print $field }' $output/$dir.tab | grep -Eo 'G|g' | wc -l)
-						T_Flank=$(awk -v field=$i '{ print $field }' $output/$dir.tab | grep -Eo 'T|t' | wc -l)
+						A_Flank=$(awk -v field=$i '{ print $field }' $output/${sample}-$dir.$nuc.tab | grep -Eo 'A|a' | wc -l)
+						C_Flank=$(awk -v field=$i '{ print $field }' $output/${sample}-$dir.$nuc.tab | grep -Eo 'C|c' | wc -l)
+						G_Flank=$(awk -v field=$i '{ print $field }' $output/${sample}-$dir.$nuc.tab | grep -Eo 'G|g' | wc -l)
+						T_Flank=$(awk -v field=$i '{ print $field }' $output/${sample}-$dir.$nuc.tab | grep -Eo 'T|t' | wc -l)
 
 						#Calculate total number of dNMPs
 						FlankTotal=$(($A_Flank + $C_Flank + $G_Flank + $T_Flank))
@@ -299,40 +299,40 @@ for file in $output/${sample}-*.bed; do
 				
 						#Save normalized dNMPs frequencies to TXT files
 						if [[ $A_FlankFreq != 'NA' ]]; then
-							echo $A_FlankFreq | xargs printf "%.*f\n" 5 >> $output/A_$dir.txt
+							echo $A_FlankFreq | xargs printf "%.*f\n" 5 >> $output/${sample}-$dir.A.txt
 						
 						elif [[ $A_FlankFreq == 'NA' ]]; then
-							echo $A_FlankFreq >> $output/A_$dir.txt
+							echo $A_FlankFreq >> $output/${sample}-$dir.A.txt
 						fi
 				
 						if [[ $C_FlankFreq != 'NA' ]]; then
-							echo $C_FlankFreq | xargs printf "%.*f\n" 5 >> $output/C_$dir.txt
+							echo $C_FlankFreq | xargs printf "%.*f\n" 5 >> $output/${sample}-$dir.C.txt
 						
 						elif [[ $C_FlankFreq == 'NA' ]]; then
-							echo $C_FlankFreq >> $output/C_$dir.txt
+							echo $C_FlankFreq >> $output/${sample}-$dir.C.txt
 						fi
 				
 						if [[ $G_FlankFreq != 'NA' ]]; then
-							echo $G_FlankFreq | xargs printf "%.*f\n" 5 >> $output/G_$dir.txt
+							echo $G_FlankFreq | xargs printf "%.*f\n" 5 >> $output/${sample}-$dir.G.txt
 						
 						elif [[ $G_FlankFreq == 'NA' ]]; then
-							echo $G_FlankFreq >> $output/G_$dir.txt
+							echo $G_FlankFreq >> $output/${sample}-$dir.G.txt
 						fi
 				
 						if [[ $T_FlankFreq != 'NA' ]]; then
-							echo $T_FlankFreq | xargs printf "%.*f\n" 5 >> $output/T_$dir.txt
+							echo $T_FlankFreq | xargs printf "%.*f\n" 5 >> $output/${sample}-$dir.T.txt
 						
 						elif [[ $T_FlankFreq == 'NA' ]]; then
-							echo $T_FlankFreq >> $output/T_$dir.txt
+							echo $T_FlankFreq >> $output/${sample}-$dir.T.txt
 						fi
 		
 						#Combine dNMP frequencies into one file per location
 						#if [[ $dir == "Up" ]]; then
 							#Print upstream frequencies in reverse order
-						#	Up=$(paste $output/{A,C,G,T}_Up.txt | tac -)
+						#	Up=$(paste $output/${sample}-Upstream.{A,C,G,T}.txt | tac -)
 						
 						#elif [[ $dir == "Down" ]]; then
-						#	Down=$(paste $output/{A,C,G,T}_Down.txt)
+						#	Down=$(paste $output/${sample}-Downstream.{A,C,G,T}.txt)
 						#fi
 
 					done
@@ -345,10 +345,10 @@ for file in $output/${sample}-*.bed; do
 				#echo -e "\tA\tC\tG\tU/T" > $output/${sample}-$region.$nuc.raw.tab
 				echo -e "\tA\tC\tG\tU/T" > $output/${sample}-$region.$nuc.normalized.tab
 			
-				A=$(paste <(cat <(cat $output/A_Up.txt | tac) <(cat $output/A_Ribo.txt) <(cat $output/A_Down.txt)))
-				C=$(paste <(cat <(cat $output/C_Up.txt | tac) <(cat $output/C_Ribo.txt) <(cat $output/C_Down.txt)))
-				G=$(paste <(cat <(cat $output/G_Up.txt | tac) <(cat $output/G_Ribo.txt) <(cat $output/G_Down.txt)))
-				T=$(paste <(cat <(cat $output/T_Up.txt | tac) <(cat $output/U_Ribo.txt) <(cat $output/T_Down.txt)))
+				A=$(paste <(cat <(cat $output/${sample}-Upstream.A.txt | tac) <(cat $output/${sample}-$region.A_Ribo.txt) <(cat $output/${sample}-Downstream.A.txt)))
+				C=$(paste <(cat <(cat $output/${sample}-Upstream.C.txt | tac) <(cat $output/${sample}-$region.C_Ribo.txt) <(cat $output/${sample}-Downstream.C.txt)))
+				G=$(paste <(cat <(cat $output/${sample}-Upstream.G.txt | tac) <(cat $output/${sample}-$region.G_Ribo.txt) <(cat $output/${sample}-Downstream.G.txt)))
+				T=$(paste <(cat <(cat $output/${sample}-Upstream.T.txt | tac) <(cat $output/${sample}-$region.U_Ribo.txt) <(cat $output/${sample}-Downstream.T.txt)))
 
 				#Add positions and frequencies of nucleotides in correct order to create dataset (not normalized to anything)
 				#paste <(echo "$(seq -100 1 100)") <(cat <(echo "$Up") <(echo "$Ribo") <(echo "$Down")) >> $output/${sample}-$region.$nuc.raw.tab
