@@ -132,7 +132,7 @@ fi
 
 #############################################################################################################################
 
-#STEP 1: Calculate frequencies of reference genome
+#Calculate frequencies of reference genome
 for file in $(dirname $fasta)/$(basename $fasta .fa)-*.fa; do
 			
 	temp=$(echo $file | awk -F '[-]' '{print $2 $3 $4}')
@@ -165,7 +165,7 @@ done
 
 #############################################################################################################################
 
-#STEP 2: Calculate frequencies of rNMPs
+#Calculate frequencies of rNMPs
 for file in $output/${sample}-*.coords.tab; do
 
 	if [ -s $output/${sample}-*.coords.tab ]; then
@@ -236,7 +236,7 @@ for file in $output/${sample}-*.coords.tab; do
 
 #############################################################################################################################
 			
-			#STEP 4: Obtain coordinates/sequences of dNMPs +/- 100 bp from rNMPs
+			#Obtain coordinates/sequences of dNMPs +/- 100 bp from rNMPs
 
 			#Create 5 BED files, one for each nucleotide and one combined
 			if [[ $nuc == "A" ]]; then
@@ -267,7 +267,7 @@ for file in $output/${sample}-*.coords.tab; do
 				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)_$region.fa -bed $output/Up.bed | grep -v '>' | rev | sed 's/.../& /2g;s/./& /g' > $output/Up.tab
 				
 #############################################################################################################################
-				#STEP 6: Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
+				#Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
 
 				for dir in "Up" "Down"; do
 		
@@ -285,15 +285,15 @@ for file in $output/${sample}-*.coords.tab; do
 						#Calculate normalized frequencies of dNMPs
 						if [[ $FlankTotal != 0 ]]; then
 						
-							#A_FlankFreq=$(echo "($A_Flank/$FlankTotal)/$A_BkgFreq" | bc -l)
-							#C_FlankFreq=$(echo "($C_Flank/$FlankTotal)/$C_BkgFreq" | bc -l)
-							#G_FlankFreq=$(echo "($G_Flank/$FlankTotal)/$G_BkgFreq" | bc -l)
-							#T_FlankFreq=$(echo "($T_Flank/$FlankTotal)/$T_BkgFreq" | bc -l)
+							A_FlankFreq=$(echo "($A_Flank/$FlankTotal)/$A_BkgFreq" | bc -l)
+							C_FlankFreq=$(echo "($C_Flank/$FlankTotal)/$C_BkgFreq" | bc -l)
+							G_FlankFreq=$(echo "($G_Flank/$FlankTotal)/$G_BkgFreq" | bc -l)
+							T_FlankFreq=$(echo "($T_Flank/$FlankTotal)/$T_BkgFreq" | bc -l)
 								
-							A_FlankFreq=$(echo "($A_Flank/$FlankTotal)" | bc -l)
-							C_FlankFreq=$(echo "($C_Flank/$FlankTotal)" | bc -l)
-							G_FlankFreq=$(echo "($G_Flank/$FlankTotal)" | bc -l)
-							T_FlankFreq=$(echo "($T_Flank/$FlankTotal)" | bc -l)
+							#A_FlankFreq=$(echo "($A_Flank/$FlankTotal)" | bc -l)
+							#C_FlankFreq=$(echo "($C_Flank/$FlankTotal)" | bc -l)
+							#G_FlankFreq=$(echo "($G_Flank/$FlankTotal)" | bc -l)
+							#T_FlankFreq=$(echo "($T_Flank/$FlankTotal)" | bc -l)
 				
 						elif [[ $FlankTotal == 0 ]]; then
 							
@@ -345,7 +345,7 @@ for file in $output/${sample}-*.coords.tab; do
 				done
 
 #############################################################################################################################
-					#STEP 7: Create and save dataset file containing nucleotide frequencies
+					#Create and save dataset file containing nucleotide frequencies
 			
 					#Add nucleotides to header line
 					#echo -e "\tA\tC\tG\tU/T" > $output/$sample.$nuc.$region.raw.tab
