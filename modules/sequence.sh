@@ -37,7 +37,7 @@ if [[ $mito ]]; then
 		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-nucleus.fa
 
 		#Extract only unique coordinates and then subset based on region
-		awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -wv $mito - | grep -Ewv $other_new - > $output/${sample}-nucleus.coords.tab
+		awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -wv $mito - | grep -Ewv $other_new - > $output/${sample}-nucleus.bed
 		
 		#Mito
 		#Subset FASTA file based on region
@@ -46,7 +46,7 @@ if [[ $mito ]]; then
 		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-mito.fa
 
 		#Extract only unique coordinates and then subset based on region
-		awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -w $mito - > $output/${sample}-mito.coords.tab
+		awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -w $mito - > $output/${sample}-mito.bed
 		
 		#Other
 		for region in $other; do
@@ -57,7 +57,7 @@ if [[ $mito ]]; then
 			samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
 			
 			#Extract only unique coordinates and then subset based on region
-			awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -w $region - > $output/${sample}-$region.coords.tab
+			awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -w $region - > $output/${sample}-$region.bed
 		
 		done
 
@@ -70,7 +70,7 @@ if [[ $mito ]]; then
 		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-nucleus.fa
 		
 		#Extract only unique coordinates and then subset based on region
-		awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -wv $mito - > $output/${sample}-nucleus.coords.tab
+		awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -wv $mito - > $output/${sample}-nucleus.bed
 
 		#Mito
 		#Subset FASTA file based on region
@@ -79,7 +79,7 @@ if [[ $mito ]]; then
 		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-mito.fa
 		
 		#Extract only unique coordinates and then subset based on region
-		awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -w $mito - > $output/${sample}-mito.coords.tab
+		awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -w $mito - > $output/${sample}-mito.bed
 
 	fi
 	
@@ -96,7 +96,7 @@ elif [[ ! $mito ]]; then
 		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-nucleus.fa
 		
 		#Extract only unique coordinates and then subset based on region
-		awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -Ewv $other_new - > $output/${sample}-nucleus.coords.tab
+		awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -Ewv $other_new - > $output/${sample}-nucleus.bed
 
 		#Other
 		for region in $other; do
@@ -107,7 +107,7 @@ elif [[ ! $mito ]]; then
 			samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
 			
 			#Extract only unique coordinates and then subset based on region
-			awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -w $region - > $output/${sample}-$region.coords.tab
+			awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab | grep -w $region - > $output/${sample}-$region.bed
 
 		done
 
@@ -119,7 +119,7 @@ elif [[ ! $mito ]]; then
 		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-nucleus.fa
 		
 		#Extract only unique coordinates and then subset based on region
-		awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab > $output/${sample}-nucleus.coords.tab
+		awk -v "OFS=\t" '{print $1, $2, $3, ".", ".", $4}' $repository/results/$sample/coordinate$quality/$sample.counts.tab > $output/${sample}-nucleus.bed
 
 	fi
 
@@ -161,23 +161,23 @@ done
 #############################################################################################################################
 
 #Calculate frequencies of rNMPs
-for file in $output/${sample}-*.coords.tab; do
+for file in $output/${sample}-*.bed; do
 
-	if [ -s $output/${sample}-*.coords.tab ]; then
+	if [ -s $output/${sample}-*.bed ]; then
 	
 		temp=$(echo $file | awk -F '[-]' '{print $2 $3 $4}')
-		region=$(basename $temp .coords.tab)
+		region=$(basename $temp .bed)
 		
 		for nuc in "A" "C" "G" "T" "Combined"; do
 			
 			#Extract rNMP nucleotides from FASTA
-			bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -bed $file | grep -v '>' > $output/Ribos.txt
+			bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -bed $file | grep -v '>' > $output/{$sample}-$region.ribos.txt
 			
 			#Calculate counts of rNMPs
-			A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/Ribos.txt | wc -l)
-			C_Ribo=$(awk '$1 == "C" || $1 == "c"' $output/Ribos.txt | wc -l)
-			G_Ribo=$(awk '$1 == "G" || $1 == "g"' $output/Ribos.txt | wc -l)
-			U_Ribo=$(awk '$1 == "T" || $1 == "t"' $output/Ribos.txt | wc -l)
+			A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/{$sample}-$region.ribos.txt | wc -l)
+			C_Ribo=$(awk '$1 == "C" || $1 == "c"' $output/{$sample}-$region.ribos.txt | wc -l)
+			G_Ribo=$(awk '$1 == "G" || $1 == "g"' $output/{$sample}-$region.ribos.txt | wc -l)
+			U_Ribo=$(awk '$1 == "T" || $1 == "t"' $output/{$sample}-$region.ribos.txt | wc -l)
 	
 			#Calculate total number of rNMPs
 			RiboTotal=$(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
@@ -196,38 +196,38 @@ for file in $output/${sample}-*.coords.tab; do
 			
 			#Save frequencies of rNMPs to TXT files
 			if [[ $nuc == "A" ]]; then
-				echo $A_RiboFreq | xargs printf "%.*f\n" 5 > $output/A_Ribo.txt
-				echo 'NA' > $output/C_Ribo.txt
-				echo 'NA' > $output/G_Ribo.txt
-				echo 'NA' > $output/U_Ribo.txt
+				echo $A_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-$region.A_Ribo.txt
+				echo 'NA' > $output/${sample}-$region.C_Ribo.txt
+				echo 'NA' > $output/${sample}-$region.G_Ribo.txt
+				echo 'NA' > $output/${sample}-$region.U_Ribo.txt
 				
 			elif [[ $nuc == "C" ]]; then
-				echo $C_RiboFreq | xargs printf "%.*f\n" 5 > $output/C_Ribo.txt
-				echo 'NA' > $output/A_Ribo.txt
-				echo 'NA' > $output/G_Ribo.txt
-				echo 'NA' > $output/U_Ribo.txt
+				echo $C_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-$region.C_Ribo.txt
+				echo 'NA' > $output/${sample}-$region.A_Ribo.txt
+				echo 'NA' > $output/${sample}-$region.G_Ribo.txt
+				echo 'NA' > $output/${sample}-$region.U_Ribo.txt
 				
 			elif [[ $nuc == "G" ]]; then
-				echo $G_RiboFreq | xargs printf "%.*f\n" 5 > $output/G_Ribo.txt
-				echo 'NA' > $output/A_Ribo.txt
-				echo 'NA' > $output/C_Ribo.txt
-				echo 'NA' > $output/U_Ribo.txt
+				echo $G_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-$region.G_Ribo.txt
+				echo 'NA' > $output/${sample}-$region.A_Ribo.txt
+				echo 'NA' > $output/${sample}-$region.C_Ribo.txt
+				echo 'NA' > $output/${sample}-$region.U_Ribo.txt
 				
 			elif [[ $nuc == "T" ]]; then
-				echo $U_RiboFreq | xargs printf "%.*f\n" 5 > $output/U_Ribo.txt
-				echo 'NA' > $output/A_Ribo.txt
-				echo 'NA' > $output/C_Ribo.txt
-				echo 'NA' > $output/G_Ribo.txt
+				echo $U_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-$region.U_Ribo.txt
+				echo 'NA' > $output/${sample}-$region.A_Ribo.txt
+				echo 'NA' > $output/${sample}-$region.C_Ribo.txt
+				echo 'NA' > $output/${sample}-$region.G_Ribo.txt
 				
 			elif [[ $nuc == "Combined" ]]; then
-				echo $A_RiboFreq | xargs printf "%.*f\n" 5 > $output/A_Ribo.txt
-				echo $C_RiboFreq | xargs printf "%.*f\n" 5 > $output/C_Ribo.txt
-				echo $G_RiboFreq | xargs printf "%.*f\n" 5 > $output/G_Ribo.txt
-				echo $U_RiboFreq | xargs printf "%.*f\n" 5 > $output/U_Ribo.txt
+				echo $A_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-$region.A_Ribo.txt
+				echo $C_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-$region.C_Ribo.txt
+				echo $G_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-$region.G_Ribo.txt
+				echo $U_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-$region.U_Ribo.txt
 			fi
 
 			#Combine rNMP frequencies into one file
-			Ribo=$(paste $output/{A,C,G,U}_Ribo.txt)
+			Ribo=$(paste $output/${sample}-$region.{A,C,G,U}_Ribo.txt)
 
 #############################################################################################################################
 			
