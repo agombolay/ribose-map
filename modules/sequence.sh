@@ -363,12 +363,10 @@ for file in $output/${sample}-*.bed; do
 #############################################################################################################################
 				#Print status
 				echo "Status: Sequence Module for $sample ($nuc,$region) is complete"
-					
-				fi
-			fi
-		
-			#Remove temporary files
-			rm -f $output/*.{txt,fa,fa.fai} $output/{Up,Down}.bed $output/{Up,Down}.tab
 	
-	done
+	fi
+	
+	#Remove temporary files
+	rm $output/*.{txt,fa,fa.fai} $output/{Up,Down}.bed $output/{Up,Down}.tab
+
 done
