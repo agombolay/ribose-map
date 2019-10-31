@@ -263,9 +263,7 @@ for file in $output/${sample}-*.bed; do
 				#Obtain nucleotides flanking rNMPs (reverse order of up) and insert tabs bases for easier parsing
 				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)_$region.fa -bed $output/Upstream.bed | grep -v '>' | rev | sed 's/.../& /2g;s/./& /g' > $output/${sample}-Upstream.$nuc.tab
 				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)_$region.fa -bed $output/Downstream.bed | grep -v '>' | sed 's/.../& /2g;s/./& /g' > $output/${sample}-Downstream.$nuc.tab
-				
-#############################################################################################################################
-			
+							
 				#Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
 
 				for direction in "Upstream" "Downstream"; do
