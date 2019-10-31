@@ -328,13 +328,13 @@ for file in $output/${sample}-*.bed; do
 						fi
 		
 						#Combine dNMP frequencies into one file per location
-						if [[ $dir == "Up" ]]; then
+						#if [[ $dir == "Up" ]]; then
 							#Print upstream frequencies in reverse order
-							Up=$(paste $output/{A,C,G,T}_Up.txt | tac -)
+						#	Up=$(paste $output/{A,C,G,T}_Up.txt | tac -)
 						
-						elif [[ $dir == "Down" ]]; then
-							Down=$(paste $output/{A,C,G,T}_Down.txt)
-						fi
+						#elif [[ $dir == "Down" ]]; then
+						#	Down=$(paste $output/{A,C,G,T}_Down.txt)
+						#fi
 
 					done
 				done
