@@ -265,19 +265,19 @@ for file in $output/${sample}-*.bed; do
 						FlankTotal=$(($A_Flank + $C_Flank + $G_Flank + $T_Flank))
 
 						#Calculate raw frequency of each dNMP
-						if [[ $FlankTotal != 0 ]]; then
+						if [[ $FlankTotal == 0 ]]; then
+						
+							A_FlankFreq='NA'
+							C_FlankFreq='NA'
+							G_FlankFreq='NA'
+							T_FlankFreq='NA'
+				
+						else
 						
 							A_FlankFreq=$(echo "($A_Flank/$FlankTotal)" | bc -l)
 							C_FlankFreq=$(echo "($C_Flank/$FlankTotal)" | bc -l)
 							G_FlankFreq=$(echo "($G_Flank/$FlankTotal)" | bc -l)
 							T_FlankFreq=$(echo "($T_Flank/$FlankTotal)" | bc -l)
-				
-						elif [[ $FlankTotal == 0 ]]; then
-							
-							A_FlankFreq='NA'
-							C_FlankFreq='NA'
-							G_FlankFreq='NA'
-							T_FlankFreq='NA'
 						fi
 				
 						#Save dNMPs frequencies to .txt files
