@@ -337,7 +337,6 @@ for file in $output/${sample}-*.bed; do
 
 					done
 				done
-			done
 
 #############################################################################################################################
 				#Create and save dataset file containing nucleotide frequencies
