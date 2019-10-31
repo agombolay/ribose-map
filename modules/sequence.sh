@@ -246,7 +246,7 @@ for file in $output/${sample}-*.bed; do
 				bedtools flank -i $output/${sample}-$region.$nuc.bed -s -g $(dirname $fasta)/$(basename $fasta .fa).bed -l 100 -r 0 | awk '$2 != $3' > $output/${sample}-Upstream.$nuc.bed
 				bedtools flank -i $output/${sample}-$region.$nuc.bed -s -g $(dirname $fasta)/$(basename $fasta .fa).bed -l 0 -r 100 | awk '$2 != $3' > $output/${sample}-Downstream.$nuc.bed
 	
-				#Obtain nucleotides flanking rNMPs (reverse order of up) and insert tabs bases for easier parsing
+				#Obtain nucleotides flanking rNMPs (reverse order of upstream) and insert tabs bases for easier parsing
 				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)_$region.fa -bed $output/Upstream.bed | grep -v '>' | rev | sed 's/.../& /2g;s/./& /g' > $output/${sample}-Upstream.$nuc.tab
 				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)_$region.fa -bed $output/Downstream.bed | grep -v '>' | sed 's/.../& /2g;s/./& /g' > $output/${sample}-Downstream.$nuc.tab
 							
