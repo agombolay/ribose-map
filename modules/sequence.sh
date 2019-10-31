@@ -280,33 +280,29 @@ for file in $output/${sample}-*.bed; do
 							T_FlankFreq='NA'
 						fi
 				
-						#Save normalized dNMPs frequencies to TXT files
-						if [[ $A_FlankFreq != 'NA' ]]; then
-							echo $A_FlankFreq | xargs printf "%.*f\n" 5 >> $output/${sample}-$direction.A.txt
-						
-						elif [[ $A_FlankFreq == 'NA' ]]; then
+						#Save dNMPs frequencies to .txt files
+						if [[ $A_FlankFreq == 'NA' ]]; then
 							echo $A_FlankFreq >> $output/${sample}-$direction.A.txt
+						else
+							echo $A_FlankFreq | xargs printf "%.*f\n" 5 >> $output/${sample}-$direction.A.txt
 						fi
 				
 						if [[ $C_FlankFreq != 'NA' ]]; then
-							echo $C_FlankFreq | xargs printf "%.*f\n" 5 >> $output/${sample}-$direction.C.txt
-						
-						elif [[ $C_FlankFreq == 'NA' ]]; then
 							echo $C_FlankFreq >> $output/${sample}-$direction.C.txt
+						else
+							echo $C_FlankFreq | xargs printf "%.*f\n" 5 >> $output/${sample}-$direction.C.txt
 						fi
 				
 						if [[ $G_FlankFreq != 'NA' ]]; then
-							echo $G_FlankFreq | xargs printf "%.*f\n" 5 >> $output/${sample}-$direction.G.txt
-						
-						elif [[ $G_FlankFreq == 'NA' ]]; then
 							echo $G_FlankFreq >> $output/${sample}-$direction.G.txt
+						else
+							echo $G_FlankFreq | xargs printf "%.*f\n" 5 >> $output/${sample}-$direction.G.txt	
 						fi
 				
 						if [[ $T_FlankFreq != 'NA' ]]; then
-							echo $T_FlankFreq | xargs printf "%.*f\n" 5 >> $output/${sample}-$direction.T.txt
-						
-						elif [[ $T_FlankFreq == 'NA' ]]; then
 							echo $T_FlankFreq >> $output/${sample}-$direction.T.txt
+						else
+							echo $T_FlankFreq | xargs printf "%.*f\n" 5 >> $output/${sample}-$direction.T.txt
 						fi
 
 					done
