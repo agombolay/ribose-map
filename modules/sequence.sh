@@ -171,29 +171,29 @@ for file in $output/${sample}-*.bed; do
 		#Extract rNMP nucleotides from FASTA
 		bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -bed $file | grep -v '>' > $output/{$sample}-$region.ribos.txt
 			
-		for nuc in "A" "C" "G" "T" "Combined"; do
-			
-			#Calculate counts of rNMPs
-			A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/{$sample}-$region.ribos.txt | wc -l)
-			C_Ribo=$(awk '$1 == "C" || $1 == "c"' $output/{$sample}-$region.ribos.txt | wc -l)
-			G_Ribo=$(awk '$1 == "G" || $1 == "g"' $output/{$sample}-$region.ribos.txt | wc -l)
-			U_Ribo=$(awk '$1 == "T" || $1 == "t"' $output/{$sample}-$region.ribos.txt | wc -l)
+		#Calculate counts of rNMPs
+		A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/{$sample}-$region.ribos.txt | wc -l)
+		C_Ribo=$(awk '$1 == "C" || $1 == "c"' $output/{$sample}-$region.ribos.txt | wc -l)
+		G_Ribo=$(awk '$1 == "G" || $1 == "g"' $output/{$sample}-$region.ribos.txt | wc -l)
+		U_Ribo=$(awk '$1 == "T" || $1 == "t"' $output/{$sample}-$region.ribos.txt | wc -l)
 	
-			#Calculate total number of rNMPs
-			RiboTotal=$(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
+		#Calculate total number of rNMPs
+		RiboTotal=$(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
 	
-			#Calculate normalized frequency of each rNMP
-			A_RiboFreq=$(echo "($A_Ribo/$RiboTotal)/$A_BkgFreq" | bc -l)
-			C_RiboFreq=$(echo "($C_Ribo/$RiboTotal)/$C_BkgFreq" | bc -l)
-			G_RiboFreq=$(echo "($G_Ribo/$RiboTotal)/$G_BkgFreq" | bc -l)
-			U_RiboFreq=$(echo "($U_Ribo/$RiboTotal)/$T_BkgFreq" | bc -l)
+		#Calculate normalized frequency of each rNMP
+		A_RiboFreq=$(echo "($A_Ribo/$RiboTotal)/$A_BkgFreq" | bc -l)
+		C_RiboFreq=$(echo "($C_Ribo/$RiboTotal)/$C_BkgFreq" | bc -l)
+		G_RiboFreq=$(echo "($G_Ribo/$RiboTotal)/$G_BkgFreq" | bc -l)
+		U_RiboFreq=$(echo "($U_Ribo/$RiboTotal)/$T_BkgFreq" | bc -l)
 				
-			#Calculate un-normalized frequency of each rNMP
-			#A_RiboFreq=$(echo "($A_Ribo/$RiboTotal)" | bc -l)
-			#C_RiboFreq=$(echo "($C_Ribo/$RiboTotal)" | bc -l)
-			#G_RiboFreq=$(echo "($G_Ribo/$RiboTotal)" | bc -l)
-			#U_RiboFreq=$(echo "($U_Ribo/$RiboTotal)" | bc -l)
+		#Calculate un-normalized frequency of each rNMP
+		#A_RiboFreq=$(echo "($A_Ribo/$RiboTotal)" | bc -l)
+		#C_RiboFreq=$(echo "($C_Ribo/$RiboTotal)" | bc -l)
+		#G_RiboFreq=$(echo "($G_Ribo/$RiboTotal)" | bc -l)
+		#U_RiboFreq=$(echo "($U_Ribo/$RiboTotal)" | bc -l)
 			
+		for nuc in "A" "C" "G" "T" "Combined"; do
+
 			#Save frequencies of rNMPs to TXT files
 			if [[ $nuc == "A" ]]; then
 				echo $A_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-$region.A_Ribo.txt
@@ -229,6 +229,8 @@ for file in $output/${sample}-*.bed; do
 			#Combine rNMP frequencies into one file
 			Ribo=$(paste $output/${sample}-$region.{A,C,G,U}_Ribo.txt)
 
+		done
+		
 #############################################################################################################################
 			
 			#Obtain coordinates/sequences of dNMPs +/- 100 bp from rNMPs
