@@ -263,15 +263,15 @@ for file in $output/${sample}-*.bed; do
 			
 				#Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
 
-				for dir in "Upstream" "Downstream"; do
+				for direction in "Upstream" "Downstream"; do
 		
 					for i in {1..100}; do
 		
 						#Calculate count of each dNMP
-						A_Flank=$(awk -v field=$i '{ print $field }' $output/${sample}-$dir.$nuc.tab | grep -Eo 'A|a' | wc -l)
-						C_Flank=$(awk -v field=$i '{ print $field }' $output/${sample}-$dir.$nuc.tab | grep -Eo 'C|c' | wc -l)
-						G_Flank=$(awk -v field=$i '{ print $field }' $output/${sample}-$dir.$nuc.tab | grep -Eo 'G|g' | wc -l)
-						T_Flank=$(awk -v field=$i '{ print $field }' $output/${sample}-$dir.$nuc.tab | grep -Eo 'T|t' | wc -l)
+						A_Flank=$(awk -v field=$i '{ print $field }' $output/${sample}-$direction.$nuc.tab | grep -Eo 'A|a' | wc -l)
+						C_Flank=$(awk -v field=$i '{ print $field }' $output/${sample}-$direction.$nuc.tab | grep -Eo 'C|c' | wc -l)
+						G_Flank=$(awk -v field=$i '{ print $field }' $output/${sample}-$direction.$nuc.tab | grep -Eo 'G|g' | wc -l)
+						T_Flank=$(awk -v field=$i '{ print $field }' $output/${sample}-$direction.$nuc.tab | grep -Eo 'T|t' | wc -l)
 
 						#Calculate total number of dNMPs
 						FlankTotal=$(($A_Flank + $C_Flank + $G_Flank + $T_Flank))
@@ -299,31 +299,31 @@ for file in $output/${sample}-*.bed; do
 				
 						#Save normalized dNMPs frequencies to TXT files
 						if [[ $A_FlankFreq != 'NA' ]]; then
-							echo $A_FlankFreq | xargs printf "%.*f\n" 5 >> $output/${sample}-$dir.A.txt
+							echo $A_FlankFreq | xargs printf "%.*f\n" 5 >> $output/${sample}-$direction.A.txt
 						
 						elif [[ $A_FlankFreq == 'NA' ]]; then
-							echo $A_FlankFreq >> $output/${sample}-$dir.A.txt
+							echo $A_FlankFreq >> $output/${sample}-$direction.A.txt
 						fi
 				
 						if [[ $C_FlankFreq != 'NA' ]]; then
-							echo $C_FlankFreq | xargs printf "%.*f\n" 5 >> $output/${sample}-$dir.C.txt
+							echo $C_FlankFreq | xargs printf "%.*f\n" 5 >> $output/${sample}-$direction.C.txt
 						
 						elif [[ $C_FlankFreq == 'NA' ]]; then
-							echo $C_FlankFreq >> $output/${sample}-$dir.C.txt
+							echo $C_FlankFreq >> $output/${sample}-$direction.C.txt
 						fi
 				
 						if [[ $G_FlankFreq != 'NA' ]]; then
-							echo $G_FlankFreq | xargs printf "%.*f\n" 5 >> $output/${sample}-$dir.G.txt
+							echo $G_FlankFreq | xargs printf "%.*f\n" 5 >> $output/${sample}-$direction.G.txt
 						
 						elif [[ $G_FlankFreq == 'NA' ]]; then
-							echo $G_FlankFreq >> $output/${sample}-$dir.G.txt
+							echo $G_FlankFreq >> $output/${sample}-$direction.G.txt
 						fi
 				
 						if [[ $T_FlankFreq != 'NA' ]]; then
-							echo $T_FlankFreq | xargs printf "%.*f\n" 5 >> $output/${sample}-$dir.T.txt
+							echo $T_FlankFreq | xargs printf "%.*f\n" 5 >> $output/${sample}-$direction.T.txt
 						
 						elif [[ $T_FlankFreq == 'NA' ]]; then
-							echo $T_FlankFreq >> $output/${sample}-$dir.T.txt
+							echo $T_FlankFreq >> $output/${sample}-$direction.T.txt
 						fi
 		
 						#Combine dNMP frequencies into one file per location
