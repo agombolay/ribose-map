@@ -180,10 +180,10 @@ for file in $output/${sample}-*.bed; do
 		#Calculate total number of rNMPs
 		RiboTotal=$(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
 		
-		A_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.fa | head -1)
-		C_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.fa | head -2 | tail -1)
-		G_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.fa | head -3 | tail -1)
-		T_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.fa | head -4 | tail -1)
+		A_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.txt | head -1)
+		C_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.txt | head -2 | tail -1)
+		G_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.txt | head -3 | tail -1)
+		T_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.txt | head -4 | tail -1)
 		
 		#Calculate normalized frequency of each rNMP
 		A_RiboFreq=$(echo "($A_Ribo/$RiboTotal)/$A_BkgFreq" | bc -l)
