@@ -169,7 +169,7 @@ for file in $output/${sample}-*.bed; do
 		region=$(basename $temp .bed)
 		
 		#Extract rNMP nucleotides from FASTA
-		bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -bed $file | grep -v '>' > $output/{$sample}-$region.ribos.txt
+		bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -bed $file | grep -v '>' > $output/${sample}-$region.ribos.txt
 			
 		#Calculate counts of rNMPs
 		A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/{$sample}-$region.ribos.txt | wc -l)
