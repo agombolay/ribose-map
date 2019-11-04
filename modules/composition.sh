@@ -154,7 +154,7 @@ done
 for file in $output/${sample}-*.nucs.tab; do
 
 	#Nucleotide Frequencies of rNMPs
-	if [ -s $output/${sample}-*.nucs.tab ]; then
+	if [ -s $file ]; then
 	
 		temp=$(echo $file | awk -F '[-]' '{print $2 $3 $4}')
 		region=$(basename $temp .nucs.tab)
