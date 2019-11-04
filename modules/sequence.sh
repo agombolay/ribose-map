@@ -196,7 +196,7 @@ for file in $output/${sample}-*.bed; do
 				echo 'NA' > $output/${sample}-Ribo$nuc.$region.U.txt
 				
 				#Create BED file for only A ribonucleotide
-				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -tab -bed $file | awk '$2 == "A" || $2 == "a"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-Ribo$nuc.$region.$nuc.bed
+				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -tab -bed $file | awk '$2 == "A" || $2 == "a"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-Ribo.$region.$nuc.bed
 
 			elif [[ $nuc == "C" ]]; then
 				echo $C_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-Ribo$nuc.$region.$nuc.txt
@@ -205,7 +205,7 @@ for file in $output/${sample}-*.bed; do
 				echo 'NA' > $output/${sample}-Ribo$nuc.$region.U.txt
 				
 				#Create BED file for only C ribonucleotide
-				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -tab -bed $file | awk '$2 == "C" || $2 == "c"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-Ribo$nuc.$region.$nuc.bed
+				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -tab -bed $file | awk '$2 == "C" || $2 == "c"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-Ribo.$region.$nuc.bed
 				
 			elif [[ $nuc == "G" ]]; then
 				echo $G_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-Ribo$nuc.$region.$nuc.txt
@@ -214,7 +214,7 @@ for file in $output/${sample}-*.bed; do
 				echo 'NA' > $output/${sample}-Ribo$nuc.$region.U.txt
 				
 				#Create BED file for only G ribonucleotide
-				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -tab -bed $file | awk '$2 == "G" || $2 == "g"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-Ribo$nuc.$region.$nuc.bed
+				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -tab -bed $file | awk '$2 == "G" || $2 == "g"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-Ribo.$region.$nuc.bed
 
 			elif [[ $nuc == "U" ]]; then
 				echo $U_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-Ribo$nuc.$region.$nuc.txt
@@ -223,7 +223,7 @@ for file in $output/${sample}-*.bed; do
 				echo 'NA' > $output/${sample}-Ribo$nuc.$region.G.txt
 				
 				#Create BED file for only U ribonucleotide
-				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -tab -bed $file | awk '$2 == "T" || $2 == "t"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-Ribo$nuc.$region.$nuc.bed
+				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -tab -bed $file | awk '$2 == "T" || $2 == "t"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-Ribo.$region.$nuc.bed
 
 			elif [[ $nuc == "Combined" ]]; then
 				echo $A_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-Ribo$nuc.$region.A.txt
@@ -232,7 +232,7 @@ for file in $output/${sample}-*.bed; do
 				echo $U_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-Ribo$nuc.$region.U.txt
 				
 				#Create BED file for all ribonucleotides
-				cp $file $output/${sample}-Ribo$nuc.$region.$nuc.bed
+				cp $file $output/${sample}-Ribo.$region.$nuc.bed
 			fi
 		
 #############################################################################################################################
