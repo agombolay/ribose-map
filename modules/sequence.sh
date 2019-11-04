@@ -172,10 +172,10 @@ for file in $output/${sample}-*.bed; do
 		bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -bed $file | grep -v '>' > $output/${sample}-$region.ribos.txt
 			
 		#Calculate counts of rNMPs
-		A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/{$sample}-$region.ribos.txt | wc -l)
-		C_Ribo=$(awk '$1 == "C" || $1 == "c"' $output/{$sample}-$region.ribos.txt | wc -l)
-		G_Ribo=$(awk '$1 == "G" || $1 == "g"' $output/{$sample}-$region.ribos.txt | wc -l)
-		U_Ribo=$(awk '$1 == "T" || $1 == "t"' $output/{$sample}-$region.ribos.txt | wc -l)
+		A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/${sample}-$region.ribos.txt | wc -l)
+		C_Ribo=$(awk '$1 == "C" || $1 == "c"' $output/${sample}-$region.ribos.txt | wc -l)
+		G_Ribo=$(awk '$1 == "G" || $1 == "g"' $output/${sample}-$region.ribos.txt | wc -l)
+		U_Ribo=$(awk '$1 == "T" || $1 == "t"' $output/${sample}-$region.ribos.txt | wc -l)
 	
 		#Calculate total number of rNMPs
 		RiboTotal=$(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
