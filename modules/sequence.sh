@@ -163,7 +163,7 @@ done
 #Calculate frequencies of rNMPs
 for file in $output/${sample}-*.bed; do
 
-	if [ -s $output/${sample}-*.bed ]; then
+	if [ -s $file ]; then
 	
 		temp=$(echo $file | awk -F '[-]' '{print $2 $3 $4}')
 		region=$(basename $temp .bed)
