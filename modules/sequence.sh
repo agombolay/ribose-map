@@ -240,7 +240,7 @@ for file in $output/${sample}-*.bed; do
 			#Obtain coordinates/sequences of dNMPs +/- 100 bp from rNMPs
 		
 			#Continue only for BED files > 0
-			if [[ -s $output/${sample}-$region.$nuc.bed ]]; then
+			if [[ -s $output/${sample}-Ribo.$region.$nuc.bed ]]; then
 			
 				#Obtain coordinates of flanking sequences and remove coordinates where start = end
 				bedtools flank -i $output/${sample}-$region.$nuc.bed -s -g $(dirname $fasta)/$(basename $fasta .fa).bed -l 100 -r 0 | awk '$2 != $3' > $output/${sample}-Upstream.$region.$nuc.bed
