@@ -322,10 +322,10 @@ for file in $output/${sample}-*.bed; do
 				T_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.txt | head -4 | tail -1)
 			
 				#Save rNMP and flanking frequencies to separate variables
-				A_allFreqs=$(paste <(cat <(cat $output/${sample}-Upstream.A.txt | tac) <(cat $output/${sample}-$region.A_Ribo.txt) <(cat $output/${sample}-Downstream.A.txt)))
-				C_allFreqs=$(paste <(cat <(cat $output/${sample}-Upstream.C.txt | tac) <(cat $output/${sample}-$region.C_Ribo.txt) <(cat $output/${sample}-Downstream.C.txt)))
-				G_allFreqs=$(paste <(cat <(cat $output/${sample}-Upstream.G.txt | tac) <(cat $output/${sample}-$region.G_Ribo.txt) <(cat $output/${sample}-Downstream.G.txt)))
-				T_allFreqs=$(paste <(cat <(cat $output/${sample}-Upstream.T.txt | tac) <(cat $output/${sample}-$region.U_Ribo.txt) <(cat $output/${sample}-Downstream.T.txt)))
+				A_allFreqs=$(paste <(cat <(cat $output/${sample}-Upstream.$region.$nuc.A.txt | tac) <(cat $output/${sample}-$region.$nuc.A_Ribo.txt) <(cat $output/${sample}-Downstream.$region.$nuc.A.txt)))
+				C_allFreqs=$(paste <(cat <(cat $output/${sample}-Upstream.$region.$nuc.C.txt | tac) <(cat $output/${sample}-$region.$nuc.C_Ribo.txt) <(cat $output/${sample}-Downstream.$region.$nuc.C.txt)))
+				G_allFreqs=$(paste <(cat <(cat $output/${sample}-Upstream.$region.$nuc.G.txt | tac) <(cat $output/${sample}-$region.$nuc.G_Ribo.txt) <(cat $output/${sample}-Downstream.$region.$nuc.G.txt)))
+				T_allFreqs=$(paste <(cat <(cat $output/${sample}-Upstream.$region.$nuc.T.txt | tac) <(cat $output/${sample}-$region.$nuc.U_Ribo.txt) <(cat $output/${sample}-Downstream.$region.$nuc.T.txt)))
 
 				#Add positions and frequencies of nucleotides in correct order to create dataset (un-normalized to reference genome)
 				paste <(echo "$(seq -100 1 100)") <(for a in $A_allFreqs; do if [[ $a != "NA" ]]; then echo $a | bc -l | xargs printf "%.*f\n" 5; else echo $a; fi; done) \
