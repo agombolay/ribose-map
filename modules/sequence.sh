@@ -243,12 +243,12 @@ for file in $output/${sample}-*.bed; do
 			if [[ -s $output/${sample}-$region.$nuc.bed ]]; then
 			
 				#Obtain coordinates of flanking sequences and remove coordinates where start = end
-				bedtools flank -i $output/${sample}-$region.$nuc.bed -s -g $(dirname $fasta)/$(basename $fasta .fa).bed -l 100 -r 0 | awk '$2 != $3' > $output/${sample}-Upstream.$nuc.bed
-				bedtools flank -i $output/${sample}-$region.$nuc.bed -s -g $(dirname $fasta)/$(basename $fasta .fa).bed -l 0 -r 100 | awk '$2 != $3' > $output/${sample}-Downstream.$nuc.bed
+				bedtools flank -i $output/${sample}-$region.$nuc.bed -s -g $(dirname $fasta)/$(basename $fasta .fa).bed -l 100 -r 0 | awk '$2 != $3' > $output/${sample}-Upstream.$region.$nuc.bed
+				bedtools flank -i $output/${sample}-$region.$nuc.bed -s -g $(dirname $fasta)/$(basename $fasta .fa).bed -l 0 -r 100 | awk '$2 != $3' > $output/${sample}-Downstream.$region.$nuc.bed
 	
 				#Obtain nucleotides flanking rNMPs (reverse order of upstream) and insert tabs bases for easier parsing
-				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)_$region.fa -bed $output/Upstream.bed | grep -v '>' | rev | sed 's/.../& /2g;s/./& /g' > $output/${sample}-Upstream.$nuc.tab
-				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)_$region.fa -bed $output/Downstream.bed | grep -v '>' | sed 's/.../& /2g;s/./& /g' > $output/${sample}-Downstream.$nuc.tab
+				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)_$region.fa -bed $output/${sample}-Upstream.$region.$nuc.bed | grep -v '>' | rev | sed 's/.../& /2g;s/./& /g' > $output/${sample}-Upstream.$region.$nuc.tab
+				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)_$region.fa -bed $output/${sample}-Downstream.$region.$nuc.bed | grep -v '>' | sed 's/.../& /2g;s/./& /g' > $output/${sample}-Downstream.$region.$nuc.tab
 							
 				#Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
 				for direction in "Upstream" "Downstream"; do
@@ -256,10 +256,10 @@ for file in $output/${sample}-*.bed; do
 					for i in {1..100}; do
 		
 						#Calculate count of each dNMP
-						A_Flank=$(awk -v field=$i '{ print $field }' $output/${sample}-$direction.$nuc.tab | grep -Eo 'A|a' | wc -l)
-						C_Flank=$(awk -v field=$i '{ print $field }' $output/${sample}-$direction.$nuc.tab | grep -Eo 'C|c' | wc -l)
-						G_Flank=$(awk -v field=$i '{ print $field }' $output/${sample}-$direction.$nuc.tab | grep -Eo 'G|g' | wc -l)
-						T_Flank=$(awk -v field=$i '{ print $field }' $output/${sample}-$direction.$nuc.tab | grep -Eo 'T|t' | wc -l)
+						A_Flank=$(awk -v field=$i '{ print $field }' $output/${sample}-$direction.$region.$nuc.tab | grep -Eo 'A|a' | wc -l)
+						C_Flank=$(awk -v field=$i '{ print $field }' $output/${sample}-$direction.$region.$nuc.tab | grep -Eo 'C|c' | wc -l)
+						G_Flank=$(awk -v field=$i '{ print $field }' $output/${sample}-$direction.$region.$nuc.tab | grep -Eo 'G|g' | wc -l)
+						T_Flank=$(awk -v field=$i '{ print $field }' $output/${sample}-$direction.$region.$nuc.tab | grep -Eo 'T|t' | wc -l)
 
 						#Calculate total number of dNMPs
 						FlankTotal=$(($A_Flank + $C_Flank + $G_Flank + $T_Flank))
