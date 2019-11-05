@@ -136,10 +136,10 @@ for file in $(dirname $fasta)/$(basename $fasta .fa)-*.fa; do
 	#Nucleotide Frequencies of Reference Genome
 			
 	#Calculate counts of each nucleotide
-	A_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)-$region.fa | grep -Eo 'A|a' - | wc -l)
-	C_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)-$region.fa | grep -Eo 'C|c' - | wc -l)
-	G_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)-$region.fa | grep -Eo 'G|g' - | wc -l)
-	T_Bkg=$(grep -v '>' $(dirname $fasta)/$(basename $fasta .fa)-$region.fa | grep -Eo 'T|t' - | wc -l)
+	A_Bkg=$(grep -v '>' $file | grep -Eo 'A|a' - | wc -l)
+	C_Bkg=$(grep -v '>' $file | grep -Eo 'C|c' - | wc -l)
+	G_Bkg=$(grep -v '>' $file | grep -Eo 'G|g' - | wc -l)
+	T_Bkg=$(grep -v '>' $file | grep -Eo 'T|t' - | wc -l)
 	
 	#Calculate total number of nucleotides
 	BkgTotal=$(($A_Bkg + $C_Bkg + $G_Bkg + $T_Bkg))
