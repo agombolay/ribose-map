@@ -353,3 +353,5 @@ for file in $output/${sample}-*.bed; do
 	rm $output/*.txt $output/*{Upstream,Downstream}*.{bed,tab}
 
 done
+
+rm $output/*.bed
