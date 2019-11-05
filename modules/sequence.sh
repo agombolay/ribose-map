@@ -350,6 +350,6 @@ for file in $output/${sample}-*.bed; do
 	fi
 	
 	#Remove temporary files
-	rm $output/*.txt $output/*{Upstream,Downstream}*.{bed,tab}
+	rm $output/*.{bed,txt} $output/*{Upstream,Downstream}*.{bed,tab}
 
 done
