@@ -24,7 +24,6 @@ Based on the chromosomal coordinates of rNMPs, the **Composition**, **Sequence**
 * Calculate the top 1% of rNMP sites and creates sequence logo plots for those sites
 
 ## Required Data
-**Ribose-Map requires the following files**:
 1. FASTQ file of rNMP sequencing data
 2. FASTA file of nucleotide sequence of reference genome
 3. Bowtie2 indexes (extension = .bt2) of reference genome
