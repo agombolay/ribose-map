@@ -22,8 +22,7 @@ Based on the chromosomal coordinates, the **Composition**, **Sequence**, **Distr
 * Create bedgraph files of data to be uploaded and visualized in any genome browser of choice and also plot the per-nucleotide rNMP coverage (given as percentage to allow comparison between libraries of different depth)  
 
 * Calculate the top 1% of rNMP sites and creates sequence logo plots for those sites
- 
-&nbsp;
+
 ## Required Data
 **Ribose-Map requires the following files**:
 1. FASTQ files of sequencing data generated using NGS
@@ -35,7 +34,6 @@ Note: If you have a list of single nucleotide coordinates that were not created 
 
 "$repository/results/$sample/coordinate" ($repository and $sample variables should be those provided in the config file)
 
-&nbsp;
 ## Software Installation
 
 1. **Clone Ribose-Map GitHub repository**:  
