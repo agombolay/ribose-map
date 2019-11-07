@@ -18,7 +18,7 @@ Based on the chromosomal coordinates, the **Composition**, **Sequence**, **Distr
 
 * Calculate and plot the percentage of r{A,C,G,U}MP normalized to the reference genome sequence  
 
-* Calculate and plot the nucleotide frequencies of rNMP sites and up/downstream from those sites  
+* Calculate and plot the nucleotide frequencies of rNMP sites and up/down-stream from those sites  
 
 * Create bedgraph files of data to be uploaded and visualized in any genome browser of choice and then plots the per-nucleotide coverage of rNMPs for each chromosome (given as percentage to allow comparison among rNMP libraries of different sequencing depth)  
 
