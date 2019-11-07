@@ -13,6 +13,7 @@ Ribose-Map is the first and only bioinformatics toolkit that can process and ana
 **Coordinate**: Calculates single-nucleotide chromosomal coordinates of rNMPs based on sequencing technique used  
 
 Based on the chromosomal coordinates, the Composition, Sequence, and Distribution Modules...  
+
 **Composition**: Calculates and plots the percentage of r{A,C,G,U}MP noramlized to the reference genome sequence  
 **Sequence**: Calculates and plots the nucleotide frequencies of rNMP sites and those up/downstream from those sites  
 **Distribution**: Creates bedgraph files to upload to genome browser of choice and plots per-nucleotide rNMP coverage
