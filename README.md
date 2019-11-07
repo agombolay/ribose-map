@@ -8,11 +8,11 @@ If you use Ribose-Map, please use the following citation:
 Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit to map ribonucleotides embedded in genomic DNA. *Nucleic Acids Research* 2019. DOI: 10.1093/nar/gky874.
 
 ## Modules
-**Process rNMP sequencing data independent of the rNMP sequencing technique**:  
+**Process rNMP sequencing data**:  
 * **Alignment**: Align reads to the reference, de-depulicate based on UMIs, and de-multiplex by barcode  
 * **Coordinate**: Locate genomic coordinates of rNMPs for ribose-seq, Pu-seq, emRibo-seq, or HydEn-seq  
 
-**Analyze sequence context of embedded rNMPs and their genome-wide distribution**:  
+**Analyze rNMP sequencing data**:  
 * **Sequence**: Calculate and visualize frequencies of nucleotides at and flanking sites of embedded rNMPs  
 * **Distribution**: Visualize coverage of rNMPs across genome and create bedgraph files for genome browser  
  
