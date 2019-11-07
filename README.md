@@ -18,7 +18,7 @@ Based on the chromosomal coordinates, the Composition, Sequence, and Distributio
 
 * **Sequence**: Calculates and plots the nucleotide frequencies of rNMP sites and up/downstream from them  
 
-* **Distribution**: Creates bedgraph files of data to be uploaded and visualized in any genome browser of choice and plots the per-nucleotide coverage of rNMPs for each chromosome and normalizes to account for sequencing depth  
+* **Distribution**: Creates bedgraph files of data to be uploaded and visualized in any genome browser of choice and plots the per-nucleotide coverage of rNMPs for each chromosome while normalizing to account for sequencing depth  
 
 * **Hotspot**: Calculates the top 1% of rNMP sites and creates sequence logo plots for those sites
  
