@@ -20,7 +20,7 @@ Based on the chromosomal coordinates, the Composition, Sequence, and Distributio
 
 * **Distribution**: Creates bedgraph files of data to be uploaded and visualized in genome browser of choice and plots the per-nucleotide coverage of rNMPs across each chromosome  
 
-* **Hotspot**: Calculates the top 1% of rNMP sites and creates sequence logo plots of those sites
+* **Hotspot**: Calculates the top 1% of rNMP sites and creates sequence logo plots for those sites
  
 &nbsp;
 ## Required Data
