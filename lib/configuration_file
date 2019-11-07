@@ -6,7 +6,7 @@ barcode: Nucleotide sequence of molecular barcode present in reads (barcode='TCA
 sample: Name of sample to use for labeling output files (sample='sample1')
 technique: Name of rNMP sequencing technique used (technique='ribose-seq')
 
-repository: Path to Ribose-Map repository (repository='/filepath/ribose-map')
+repository: Path to output repository (repository='/filepath/output')
 
 read1: Path to FASTQ file of sequencing read 1 (read1='/filepath/sample1_1.fastq')
 read2: Path to FASTQ file of sequencing read 2 (read1='/filepath/sample1_2.fastq')
