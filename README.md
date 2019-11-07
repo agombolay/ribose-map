@@ -74,7 +74,7 @@ source activate ribosemap_env
 
 2. **Run scripts with configuration_file as input**:
 ```
-ribosemap {alignment, coordinate,composition, sequence, distribution} config
+ribosemap {alignment, coordinate, composition, sequence, distribution} config
 ```
 
 3. **Once the analysis is complete, exit environment**:  
