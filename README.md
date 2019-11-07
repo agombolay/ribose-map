@@ -33,7 +33,7 @@ Based on the chromosomal coordinates of rNMPs, the **Composition**, **Sequence**
 
 "$repository/results/$sample/coordinate$quality" ($variables should be those provided in config)
 
-## Software Installation
+## Install Software
 
 1. **Clone Ribose-Map GitHub repository**:  
    * Click [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for information on installing Git on Linux
@@ -64,7 +64,7 @@ To ensure easy installation and versioning of these software, we recommend using
    conda env create --name ribosemap_env --file ribosemap.yaml
    ```
 
-## How to run Ribose-Map
+## Run Ribose-Map
 Before proceeding, close current terminal window and open a new window to refresh the settings  
 * If SAMtools gives an error, then install this dependency: conda install -c conda-forge ncurses
 
