@@ -35,7 +35,7 @@ Based on the chromosomal coordinates of rNMPs, the **Composition**, **Sequence**
 
 ## Install Software
 
-1. **Clone Ribose-Map GitHub repository**:  
+1. **Clone Ribose-Map repository**:  
    ```
    git clone https://github.com/agombolay/ribose-map/
    ```
