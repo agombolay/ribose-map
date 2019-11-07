@@ -14,7 +14,6 @@ read2: Path to FASTQ file of sequencing read 2 (read1='/filepath/sample1_2.fastq
 fasta: FASTA file of reference genome sequence (fasta='/filepath/sacCer2.fa')
 basename: Basename of Bowtie2 genome index files (basename='/filepath/sacCer2')
 
-sort: Sort SAM file of read alignments produced by Alignment Module (sort='yes')
 scale: Use same scale for all plots produced by Distribution Module (scale='no')
 
 seed: Seed size to use for Bowtie2 alignment (seed='123456789')
