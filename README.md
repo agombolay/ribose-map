@@ -11,7 +11,7 @@ Ribose-Map is the first and only bioinformatics toolkit that can process and ana
 ## Modules
 The **Alignment Module** aligns reads to reference genome, de-depulicates based on UMI, and de-multiplexes by barcode  
 
-Based on the positions of the aligned reads, the **Coordinate Module** calculates single-nucleotide chromosomal coordinates of rNMPs for the particular rNMP sequencing technique used during library preparation.  
+The **Coordinate Module** calculates single-nucleotide chromosomal coordinates of rNMPs based on the positions of the aligned reads. The coordinates can be calculated for any of the currently available rNMP sequencing techniques.
 
 Based on the chromosomal coordinates, the Composition, Sequence, and Distribution Modules...  
 
