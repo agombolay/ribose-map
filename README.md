@@ -20,7 +20,7 @@ Based on the chromosomal coordinates, the **Composition**, **Sequence**, **Distr
 
 * Calculate and plot the nucleotide frequencies of rNMP sites and up/down-stream from those sites  
 
-* Create bedgraph files of data to be uploaded and visualized in any genome browser of choice and then plot the per-nucleotide coverage of rNMPs for each chromosome (given as a percentage to allow comparison between libraries of different sequencing depth)  
+* Create bedgraph files of data to be uploaded and visualized in any genome browser of choice and then plot the per-nucleotide rNMP coverage for each chromosome (given as a percentage to allow comparison between libraries of different sequencing depth)  
 
 * Calculate the top 1% of rNMP sites and creates sequence logo plots for those sites
  
