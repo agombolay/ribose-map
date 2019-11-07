@@ -65,7 +65,6 @@ To ensure easy installation and versioning of these software, we recommend using
    conda env create --name ribosemap_env --file ribosemap.yaml
    ```
 
-&nbsp;
 ## How to run Ribose-Map
 Before proceeding, close current terminal window and open a new window to refresh the settings  
 * If SAMtools gives an error, then install this dependency: conda install -c conda-forge ncurses
