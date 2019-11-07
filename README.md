@@ -13,7 +13,7 @@ The **Alignment Module** aligns reads to the reference genome and de-depulicates
 
 The **Coordinate Module** calculates single-nucleotide chromosomal coordinates of rNMPs based on the positions of the aligned reads. The coordinates can be calculated for any of the rNMP sequencing techniques.  
   
-Based on the chromosomal coordinates, the **Composition**, **Sequence**, **Distribution**, and **Hotspot Modules**...  
+Based on the chromosomal coordinates of rNMPs, the **Composition**, **Sequence**, **Distribution**, and **Hotspot Modules**...  
 
 * Calculate and plot the percentage of r{A,C,G,U}MP normalized to the reference genome sequence  
 
