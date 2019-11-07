@@ -11,6 +11,9 @@ repository: Path to Ribose-Map repository (repository='/filepath/ribose-map')
 read1: Path to FASTQ file of sequencing read 1 (read1='/filepath/sample1_1.fastq')
 read2: Path to FASTQ file of sequencing read 2 (read1='/filepath/sample1_2.fastq')
 
+fasta: Path to FASTA file of reference genome sequence (fasta='/filepath/sacCer2.fa')
+basename: Path to basename of Bowtie2 genome index files (basename='/filepath/sacCer2')
+
 sort: Sort SAM file of read alignments produced by Alignment Module (sort='yes')
 scale: Use same scale for all plots produced by Distribution Module (scale='no')
 
@@ -18,8 +21,5 @@ seed: Seed size to use for Bowtie2 alignment (seed='123456789')
 threads: Number of threads to use for Bowtie2 and SAMtools (threads='4')
 quality: Minimum quality score cut-off for filtering reads (quality='30')
 
-fasta: Path to FASTA file of reference genome sequence (fasta='/filepath/sacCer2.fa')
-basename: Path to basename of Bowtie2 genome index files (basename='/filepath/sacCer2')
-
-check: Check and remove biologically meaningless coordinates from BED file (check='no')
-#The 'check' variable is recommended if the technique = emRiboSeq, HydEn-seq, or Pu-seq
+#'check' is recommended if technique='emRiboSeq, HydEn-seq, or Pu-seq'
+check: Check and remove biologically meaningless coordinates from BED file (check='yes')
