@@ -13,15 +13,15 @@ The **Alignment Module** aligns reads to reference genome, de-depulicates based 
 
 The **Coordinate Module** calculates single-nucleotide chromosomal coordinates of rNMPs based on the positions of the aligned reads. The coordinates can be calculated for any of the currently available rNMP sequencing techniques.
 
-Based on the chromosomal coordinates, the **Composition**, **Sequence**, **Distribution**, and **Hotspot** Modules...  
+Based on the chromosomal coordinates, the **Composition**, **Sequence**, **Distribution**, and **Hotspot Modules**...  
 
-* Calculates and plots the percentage of r{A,C,G,U}MP normalized to the reference genome  
+* Calculate and plot the percentage of r{A,C,G,U}MP normalized to the reference genome  
 
-* Calculates and plots the nucleotide frequencies of rNMP sites and up/downstream from them  
+* Calculate and plot the nucleotide frequencies of rNMP sites and up/downstream from them  
 
-* Creates bedgraph files of data to be uploaded and visualized in any genome browser of choice and then plots the per-nucleotide coverage of rNMPs for each chromosome (given as percentage to allow comparison among rNMP libraries of different sequencing depth)  
+* Create bedgraph files of data to be uploaded and visualized in any genome browser of choice and then plots the per-nucleotide coverage of rNMPs for each chromosome (given as percentage to allow comparison among rNMP libraries of different sequencing depth)  
 
-* Calculates the top 1% of rNMP sites and creates sequence logo plots for those sites
+* Calculate the top 1% of rNMP sites and creates sequence logo plots for those sites
  
 &nbsp;
 ## Required Data
