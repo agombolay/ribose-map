@@ -5,7 +5,7 @@
 
 If you use Ribose-Map, please use the following citation:  
 
-Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit to map ribonucleotides embedded in genomic DNA. *Nucleic Acids Research* 2018. DOI: 10.1093/nar/gky874.
+Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit to map ribonucleotides embedded in genomic DNA. *Nucleic Acids Research* 2019. DOI: 10.1093/nar/gky874.
 
 ## Modules
 **Process rNMP sequencing data independent of the rNMP sequencing technique**:  
