@@ -1,5 +1,5 @@
 ![Logo](https://github.com/agombolay/Images/blob/master/Logo.png)
-# A bioinformatics toolkit for mapping rNMPs embedded in DNA
+# A bioinformatics toolkit for mapping rNMPs genomic in DNA
 **© 2017 Alli Gombolay, Fredrik Vannberg, and Francesca Storici**  
 **School of Biological Sciences, Georgia Institute of Technology**
 
