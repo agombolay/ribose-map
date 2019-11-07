@@ -49,8 +49,6 @@ To ensure easy installation and versioning of these software, we recommend using
    ```
 
 3. **Install MiniConda and source your .bashrc file**:  
-   * Follow prompts to install MiniConda in home directory
-   * Run these commands from within ribose-map/lib directory
    ```
    sh Miniconda3-latest-Linux-x86_64.sh && source ~/.bashrc
    ```
