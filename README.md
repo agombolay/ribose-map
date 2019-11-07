@@ -16,7 +16,7 @@ Based on the chromosomal coordinates, the Composition, Sequence, and Distributio
 
 **Composition**: Calculates and plots the percentage of r{A,C,G,U}MP normalized to the reference genome  
 **Sequence**: Calculates and plots the nucleotide frequencies of rNMP sites and those up/downstream from those sites  
-**Distribution**: Creates bedgraph files of data to be uploaded and visualized in genome browser of choice and plots the per-nucleotide coverage of rNMPs across each chromosome
+**Distribution**: Creates bedgraph files of data to be uploaded and visualized in genome browser of choice and plots the per-nucleotide coverage of rNMPs across each chromosome  
 **Hotspot**: Calculates the top 1% of rNMP sites and creates sequence logo plots of those sites
  
 &nbsp;
