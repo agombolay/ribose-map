@@ -10,7 +10,6 @@ Ribose-Map is the first and only bioinformatics toolkit that can process and ana
 
 ## Modules
 **Alignment**: Aligns reads to reference genome, de-depulicates reads based on UMI, and de-multiplexes by barcode  
-
 **Coordinate**: Calculates single-nucleotide chromosomal coordinates of rNMPs based on sequencing technique used  
 
 Based on the chromosomal coordinates, the Composition, Sequence, and Distribution Modules...  
