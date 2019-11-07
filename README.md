@@ -32,7 +32,7 @@ Based on the chromosomal coordinates of rNMPs, the **Composition**, **Sequence**
 
 Note: If you have a list of single nucleotide coordinates that were not created using the Coordinate Module and would like to directly use the Sequence, Distribution, or Hotspot Modules, first create a directory with the path shown below:
 
-"$repository/results/$sample/coordinate$quality" ($repository, $sample, and $quality should be those provided in config file)
+"$repository/results/$sample/coordinate$quality" ($repository, $sample, & $quality should be those provided in config)
 
 ## Software Installation
 
