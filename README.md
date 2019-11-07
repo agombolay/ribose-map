@@ -54,7 +54,6 @@ To ensure easy installation and versioning of these software, we recommend using
    ```
 
 4. **Create environment in which to run Ribose-Map**:  
-   * Run these commands from within ribose-map/lib directory
    ```
    conda update conda
    conda install anaconda-client anaconda-build conda-build
