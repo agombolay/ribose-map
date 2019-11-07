@@ -14,8 +14,9 @@ read2: Path to FASTQ file of sequencing read 2 (read1='/filepath/sample1_2.fastq
 sort: Sort SAM file of read alignments produced by Alignment Module (sort='yes')
 scale: Use same scale for all plots produced by Distribution Module (scale='no')
 
-threads: Number of threads to use for Bowtie2 and SAMtools (threads=2)
-quality: Minimum quality score cut-off when filtering reads (quality=30)
+seed: Seed size to use for Bowtie2 alignment (seed='123456789')
+threads: Number of threads to use for Bowtie2 and SAMtools (threads='4')
+quality: Minimum quality score cut-off for filtering reads (quality='30')
 
 fasta: Path to FASTA file of reference genome sequence (fasta='/filepath/sacCer2.fa')
 basename: Path to basename of Bowtie2 genome index files (basename='/filepath/sacCer2')
