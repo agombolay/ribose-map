@@ -8,6 +8,7 @@ technique: Name of rNMP sequencing technique used (technique='ribose-seq')
 
 repository: Path to output repository (repository='/filepath/output')
 
+#Read 1 for single-end sequencing, both Reads 1 and 2 for paired-end sequencing
 read1: Path to FASTQ file of sequencing read 1 (read1='/filepath/sample1_1.fastq')
 read2: Path to FASTQ file of sequencing read 2 (read1='/filepath/sample1_2.fastq')
 
