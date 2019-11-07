@@ -19,7 +19,7 @@ scale: Use same scale for all plots produced by Distribution Module (scale='no')
 
 seed: Seed size to use for Bowtie2 alignment (seed='123456789')
 threads: Number of threads to use for Bowtie2 and SAMtools (threads='4')
-quality: Minimum quality score cut-off for filtering reads (quality='30')
+quality: Minimum quality score cut-off for filtering reads (quality='0')
 
 #Required if technique='emRiboSeq, HydEn-seq, or Pu-seq'
 check: Check and remove coordinates from BED file that exceed length of chromosome (check='yes')
