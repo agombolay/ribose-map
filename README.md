@@ -41,7 +41,7 @@ Based on the chromosomal coordinates of rNMPs, the **Composition**, **Sequence**
    ```
    
     Ribose-Map uses [Bowtie 2](https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.1), [BEDtools](http://bedtools.readthedocs.io/en/latest/content/installation.html), [SAMtools](http://www.htslib.org/download/), [cutadapt](http://cutadapt.readthedocs.io/en/stable/), [UMI-tools](https://github.com/CGATOxford/UMI-tools), [R](https://cran.r-project.org/), and [Python](https://www.python.org/) to analyze and visualize data.  
-To ensure easy installation and versioning of these software, we recommend using the MiniConda package manager.
+To ensure easy installation and versioning of these software, we recommend using MiniConda package manager.
 
 2. **Install pre-requisite packages for conda**:
    ```
