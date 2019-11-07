@@ -30,9 +30,9 @@ Based on the chromosomal coordinates of rNMPs, the **Composition**, **Sequence**
 3. Bowtie2 indexes (extension = .bt2) of reference genome
 4. Configuration file (example provided in ribose-map/lib)
 
-Note: If you have a list of single nucleotide coordinates that were not created using the Coordinate Module and would like to use the Sequence and/or Distribution Modules, you will need to first create a directory with the path shown below:
+Note: If you have a list of single nucleotide coordinates that were not created using the Coordinate Module and would like to directly use the Sequence, Distribution, or Hotspot Modules, first create a directory with the path shown below:
 
-"$repository/results/$sample/coordinate" ($repository and $sample variables should be those provided in the config file)
+"$repository/results/$sample/coordinate$quality" ($repository, $sample, and $quality should be those provided in config file)
 
 ## Software Installation
 
