@@ -25,9 +25,9 @@ Based on the chromosomal coordinates of rNMPs, the **Composition**, **Sequence**
 
 ## Required Data
 **Ribose-Map requires the following files**:
-1. FASTQ files of rNMP sequencing data
-2. Bowtie2 indexes (extension .bt2) for reference genome
-3. FASTA file of nucleotide sequence of reference genome
+1. FASTQ file of rNMP sequencing data
+2. FASTA file of nucleotide sequence of reference genome
+3. Bowtie2 indexes (extension .bt2) for reference genome
 4. Configuration file (example provided in ribose-map/lib)
 
 Note: If you have a list of single nucleotide coordinates that were not created using the Coordinate Module and would like to use the Sequence and/or Distribution Modules, you will need to first create a directory with the path shown below:
