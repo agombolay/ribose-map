@@ -48,12 +48,12 @@ To ensure easy installation and versioning of these software, we recommend using
    python3 -m pip install pycosat pyyaml requests --user
    ```
 
-3. **Install MiniConda and source your .bashrc file**:  
+3. **Install MiniConda and source .bashrc file**:  
    ```
    sh Miniconda3-latest-Linux-x86_64.sh && source ~/.bashrc
    ```
 
-4. **Create environment in which to run Ribose-Map**:  
+4. **Create conda environment**:  
    ```
    conda update conda
    conda install anaconda-client anaconda-build conda-build
