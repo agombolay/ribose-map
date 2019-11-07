@@ -14,8 +14,6 @@ read2: Path to FASTQ file of sequencing read 2 (read1='/filepath/sample1_2.fastq
 fasta: FASTA file of reference genome sequence (fasta='/filepath/sacCer2.fa')
 basename: Basename of Bowtie2 genome index files (basename='/filepath/sacCer2')
 
-scale: Use same scale for all plots produced by Distribution Module (scale='no')
-
 seed: Seed size to use for Bowtie2 alignment (seed='123456789')
 threads: Number of threads to use for Bowtie2 and SAMtools (threads='4')
 quality: Minimum quality score cut-off for filtering reads (quality='0')
@@ -25,3 +23,5 @@ check: Check and remove coordinates from BED file that exceed length of chromoso
 
 mito: Name of mitochondrial sequence in FASTA file (mito='chrM')
 other: Name of sequences in FASTA file other than nuclear and mito (other='chloroplast plasmid')
+
+scale: Use same scale for all plots produced by Distribution Module (scale='no')
