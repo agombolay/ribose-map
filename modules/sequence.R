@@ -43,7 +43,7 @@ ymin <- min(minimum)
 ####################################################################################################################################################################
 			#Specify datasets to be used for each round of loop
 			if (i == "normal") {data = read.table(file, sep = "\t", header = TRUE)}
-			if (i == "zoomed") {data = read.table(file, sep = "\t", header = TRUE)[91:111,]}
+			if (i == "zoomed") {data = read.table(file, sep = "\t", header = TRUE)[96:106,]}
     
 			#Define variables to store nucleotide positions and frequencies
 			position <- data$X; A <- data$A; C <- data$C; G <- data$G; T <- data$U.T
