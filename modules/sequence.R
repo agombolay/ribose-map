@@ -17,7 +17,7 @@ library(ggplot2); library(tools)
 ####################################################################################################################################################################
 #Input/Output
 output <- file.path(repository, "results", sample, paste("sequence", quality, sep = ""))
-input_files <- list.files(path = output, pattern = "*.tab", full.names = TRUE, recursive = FALSE)	
+input_files <- list.files(path = output, pattern = "*normalized.tab", full.names = TRUE, recursive = FALSE)	
 
 ####################################################################################################################################################################
 #Find maximum y-axis value
