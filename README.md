@@ -41,7 +41,7 @@ Based on the coordinates of rNMPs, ...
     Ribose-Map uses [Bowtie 2](https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.1), [BEDtools](http://bedtools.readthedocs.io/en/latest/content/installation.html), [SAMtools](http://www.htslib.org/download/), [cutadapt](http://cutadapt.readthedocs.io/en/stable/), [UMI-tools](https://github.com/CGATOxford/UMI-tools), [R](https://cran.r-project.org/), and [Python](https://www.python.org/) to analyze and visualize data.  
 To ensure easy installation and versioning of these software, we recommend using MiniConda package manager.
 
-2. Please following [these instructions](https://docs.conda.io/en/latest/miniconda.html) to install MiniConda for your operating system and make sure to add MiniConda to your path
+2. Please following [these instructions](https://docs.conda.io/en/latest/miniconda.html) to install MiniConda on your operating system
 
 3. **Create conda environment**:  
    ```
