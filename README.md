@@ -6,7 +6,7 @@
 **If you use Ribose-Map, please use the following citation**:  
 Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit to map ribonucleotides embedded in genomic DNA. *Nucleic Acids Research*, Volume 47, Issue 1, 10 Jan 2019, Page e5, https://doi.org/10.1093/nar/gky874.
 
-Ribose-Map is the only standardized bioinformatics toolkit that can process and analyze any type of high-throughput rNMP sequencing data (i.e., data generated from any organism and using ribose-seq, emRiboSeq, Alk-HydEn-seq, RHII-HydEn-seq, or Pu-seq). In addition to rNMP sequencing data, Ribose-Map's Composition, Sequence, Distribution, and Hotspot Modules can also be used to analyze any type of single-nucleotide sequencing data. 
+Ribose-Map is the only standardized bioinformatics toolkit that can process and analyze any type of high-throughput rNMP sequencing data (i.e., data generated from any organism and using any rNMP sequencing technique- ribose-seq, emRiboSeq, Alk-HydEn-seq, RHII-HydEn-seq, or Pu-seq). In addition to rNMP sequencing data, Ribose-Map's Composition, Sequence, Distribution, and Hotspot Modules can also be used to analyze any type of single-nucleotide sequencing data. 
 
 ## Modules
 The **Alignment Module** aligns reads to the reference genome and de-depulicates/de-multiplexes the reads
