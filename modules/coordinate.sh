@@ -48,7 +48,7 @@ elif [[ $technique == "emRiboSeq" ]]; then
 		join -t $'\t' <(sort $output/reference.bed) <(sort $output/temporary.bed) | mawk -v "OFS=\t" '$3 >= 0 && $2 >= $4 { print $1, $3, $4, $5, $6, $7 }' | sort -k1,1 -k2,2n -k 6 > $output/$sample.bed
 	fi
 	
-elif [[ $technique == "HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
+elif [[ $technique == "Alk-HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
 	
 	if [[ ! $check ]]; then
 	
@@ -66,6 +66,12 @@ elif [[ $technique == "HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
 		#Remove coordinates of rNMPs if the end position is greater than length of chromosome
 		join -t $'\t' <(sort $output/reference.bed) <(sort $output/temporary.bed) | mawk -v "OFS=\t" '$3 >= 0 && $2 >= $4 { print $1, $3, $4, $5, $6, $7 }' | sort -k1,1 -k2,2n -k 6 > $output/$sample.bed
 	fi
+
+elif [[ $technique == "RHII-HydEn-seq" ]]; then
+
+	#Obtain coordinates of rNMPs depending on the strand of DNA and sort data
+	mawk -v "OFS=\t" '{if ($6 == "+") print $1, $2, ($2 + 1), $4, $5, "+"; else if ($6 == "-") print $1, ($3 - 1), $3, $4, $5, "-";}' $output/reads.bed | sort -k1,1 -k2,2n -k 6 > $output/$sample.bed
+	
 fi
 
 #Calculate raw and normalized (per 100) counts of rNMPs (must sort data before using uniq command)
