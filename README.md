@@ -33,12 +33,12 @@ Based on the coordinates of rNMPs, ...
 
 ## Install Software
 
-1. **Clone Ribose-Map repository**:  
+1. **Clone Ribose-Map GitHub repository**:  
    ```
    git clone https://github.com/agombolay/ribose-map/
    ```
 
-2. **Create conda environment**:  
+2. **Create conda software environment**:  
 * If you do not already have MiniConda installed, please visit [this link](https://docs.conda.io/en/latest/miniconda.html) to install it on your operating system
   ```
    conda update conda
