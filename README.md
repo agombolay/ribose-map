@@ -39,7 +39,7 @@ Based on the coordinates of rNMPs, ...
    ```
 
 2. **Create conda environment**:  
-If you do not already have MiniConda installed, please visit [this link](https://docs.conda.io/en/latest/miniconda.html) to install it on your operating system
+* If you do not already have MiniConda installed, please visit [this link](https://docs.conda.io/en/latest/miniconda.html) to install it on your operating system
   ```
    conda update conda
    conda install anaconda-client anaconda-build conda-build
