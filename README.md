@@ -17,9 +17,9 @@ Based on the coordinates of rNMPs, ...
 
 * **Sequence**: Plots the nucleotide frequencies of rNMP sites and up/down-stream from those sites  
 
-* **Distribution**: Creates bedgraph files of per-nucleotide rNMP coverage to be uploaded and visualized in any genome browser of choice and plots the per-nucleotide rNMP coverage for each chromosome as a percentage of the total number of rNMPs  
+* **Distribution**: Creates bedgraph files of per-nucleotide rNMP coverage to be uploaded and visualized in any genome browser of choice and plots the per-nucleotide rNMP coverage (%) for each chromosome
 
-* **Hotspot**: Calculate the top 1% of rNMP sites and creates sequence logo plots for those sites
+* **Hotspot**: Calculate the top 1% most abundant sites of rNMP incorporation and creates sequence logo plots for those sites
 
 ## Required Data
 1. FASTQ file of rNMP sequencing data
