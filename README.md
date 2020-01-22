@@ -33,12 +33,7 @@ Based on the coordinates of rNMPs, ...
 
 ## Install Software
 
-1. **Clone Ribose-Map repository from GitHub**:  
-   ```
-   git clone https://github.com/agombolay/ribose-map/
-   ```
-
-2. **Create ribosemap_env software environment**:  
+1. **Create conda software environment**:  
 * If you do not already have MiniConda installed, please visit [this link](https://docs.conda.io/en/latest/miniconda.html)
   ```
    conda update conda
@@ -46,6 +41,11 @@ Based on the coordinates of rNMPs, ...
    conda env create --name ribosemap_env --file ribosemap.yaml
    ```
 
+2. **Clone Ribose-Map GitHub repository**:  
+   ```
+   git clone https://github.com/agombolay/ribose-map/
+   ```
+   
 ## Run Ribose-Map
 Before proceeding, close current terminal window and open a new window to refresh the settings  
 * If SAMtools gives an error, then install this dependency: conda install -c conda-forge ncurses
