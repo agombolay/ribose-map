@@ -13,9 +13,9 @@ The **Coordinate Module** calculates single-nucleotide chromosomal coordinates o
   
 Based on the coordinates of rNMPs, ...  
 
-* **Composition**: Calculates and plots the percentage of r{A,C,G,U}MP normalized to the reference genome sequence  
+* **Composition**: Plots the percentage of r{A,C,G,U} normalized to the reference genome sequence  
 
-* **Sequence**: Calculates and plots the nucleotide frequencies of rNMP sites and up/down-stream from those sites  
+* **Sequence**: Plots the nucleotide frequencies of rNMP sites and up/down-stream from those sites  
 
 * **Distribution**: Create bedgraph files of data to be uploaded and visualized in any genome browser of choice and also plot the per-nucleotide rNMP coverage for each chromosome  
 
