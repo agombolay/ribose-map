@@ -8,7 +8,7 @@ Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit t
 
 Ribose-Map is the first and only bioinformatics toolkit that can process and analyze high-throughput rNMP sequencing data that was generated using any of the currently available rNMP sequencing techniques.  
 
-Current techniques include: ribose-seq, emRiboSeq, Alk-HydEn-seq, RHII-HydEn-seq, and Pu-seq.
+**Current rNMP sequencing techniques include**: ribose-seq, emRiboSeq, Alk-HydEn-seq, RHII-HydEn-seq, and Pu-seq.
 
 In addition to rNMP data, Ribose-Map's Composition, Sequence, Distribution, and Hotspot Modules can also be used to analyze any type of single-nucleotide sequencing data.  
 
