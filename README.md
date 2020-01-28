@@ -7,9 +7,9 @@
 Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit to map ribonucleotides embedded in genomic DNA. *Nucleic Acids Research*, Volume 47, Issue 1, 10 Jan 2019, Page e5, https://doi.org/10.1093/nar/gky874. 
 
 ## Modules
-The **Alignment Module** aligns reads to the reference genome and de-depulicates/de-multiplexes the reads
+The **Alignment Module** aligns reads to reference genome and de-depulicates/de-multiplexes reads if needed
 
-The **Coordinate Module** calculates single-nucleotide chromosomal coordinates of rNMPs based on the aligned reads. Coordinates can be calculated for any rNMP-seq technique: ribose-seq, emRiboSeq, Alk/RHII-HydEn-seq, or Pu-seq.  
+The **Coordinate Module** calculates single-nucleotide chromosomal coordinates of rNMPs based on aligned reads. Coordinates can be calculated for any rNMP-seq technique: ribose-seq, emRiboSeq, Alk/RHII-HydEn-seq, or Pu-seq.  
   
 Based on the coordinates of rNMPs, ...  
 
