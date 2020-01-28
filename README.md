@@ -9,7 +9,7 @@ Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit t
 ## Modules
 The **Alignment Module** aligns reads to reference genome and de-depulicates/de-multiplexes reads if needed
 
-The **Coordinate Module** calculates single-nucleotide chromosomal coordinates of rNMPs based on aligned reads for any NGS rNMP sequencing method: ribose-seq, emRiboSeq, Alk-HydEn-seq, RHII-HydEn-seq, or Pu-seq.  
+The **Coordinate Module** calculates single-nucleotide chromosomal coordinates of rNMPs based on aligned reads for any NGS rNMP sequencing technique: ribose-seq, emRiboSeq, Alk-HydEn-seq, RHII-HydEn-seq, or Pu-seq.  
   
 Based on the coordinates of rNMPs, ...  
 
