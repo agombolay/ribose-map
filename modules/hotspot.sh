@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-modules/subset.sh
-
+. "$2"
+$modules/subset.sh $2
+    
 #Load config file
 . "$1"
 
