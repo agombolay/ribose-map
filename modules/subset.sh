@@ -32,7 +32,8 @@ if [[ $other ]]; then
 
 	done
 else
-
+	
+	#Chromosomes
 	cut -f1,2,3,6 $output/${sample}.bed | uniq -c - | awk -v "OFS=\t" '{print $2, $3, $4, $5, $1}' - | sort -k5,5n - > $output/${sample}-chromosomes.counts.tab
 
 fi
