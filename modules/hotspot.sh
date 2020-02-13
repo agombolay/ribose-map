@@ -40,8 +40,7 @@ fi
 ######################################################################################################################################################
 
 #Save top 1% of rNMP coordinates
-awk -v "OFS=\t" -v "x=$percentile" '{if ($5 >= x) print $0}' $output/${sample}-$region.counts.tab | \
-awk -v "OFS=\t" '{ print $1, $2, $3, ".", ".", $4 }' - > $output/${sample}-$region.top.bed
+awk -v "OFS=\t" -v "x=$percentile" '{if ($5 >= x) print $0}' $output/${sample}-$region.counts.tab | awk -v "OFS=\t" '{ print $1, $2, $3, ".", ".", $4 }' - > $output/${sample}-$region.top.bed
 
 ######################################################################################################################################################
 
@@ -50,8 +49,7 @@ for file in $(ls $output/${sample}-$region.top.bed); do
 	#Get sequence of rNMPs and the 3 nucleotides upstream and downstream from them
 	bedtools slop -s -i $file -g $output/$(basename $fasta .fa).bed -b 3 > $output/$(basename $file .bed).slop.bed
 	
-	bedtools getfasta -s -fi $fasta -bed $output/$(basename $file .bed).slop.bed | awk '/>/{$0 = ">" ++i substr($0, 2)} 1' - > \
-	$output/$(basename $file .bed).flank.txt
+	bedtools getfasta -s -fi $fasta -bed $output/$(basename $file .bed).slop.bed | awk '/>/{$0 = ">" ++i substr($0, 2)} 1' - > $output/$(basename $file .bed).flank.txt
 
 	sites=$(grep -c "^>" $output/$(basename $file .bed).flank.txt)
 
