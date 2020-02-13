@@ -18,6 +18,8 @@ if [[ $other ]]; then
 
 	samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)-chromosomes.fa
 	samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-chromosomes.fa
+	
+	$output/$(basename $fasta .fa).bed
 
 	#Other
 	for region in $other; do
@@ -29,6 +31,8 @@ if [[ $other ]]; then
 
 		samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
 		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
+		
+		$output/$(basename $fasta .fa).bed
 
 	done
 else
