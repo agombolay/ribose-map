@@ -35,6 +35,6 @@ elif [[ $1 == "composition" ]]; then
  elif [[ $1 == "hotspot" ]]; then
     . "$2"
     $modules/subset.sh $2
-    #$modules/hotspot.sh $2
+    $modules/hotspot.sh $2
     #$modules/hotspot.R $2
 fi
