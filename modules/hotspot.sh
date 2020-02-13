@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+#Load config file
+. "$1"
+
 #Create output directory and remove any old files
 output=$repository/results/$sample/hotspot$quality
 rm -r $output; mkdir -p $output
