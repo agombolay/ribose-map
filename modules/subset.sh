@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-#Load config file
-. "$1"
-
 #Specify directory
 output=$repository/results/$sample/coordinate$quality
 
