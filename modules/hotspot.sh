@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-/nv/hp16/agombolay3/data/agombolay3_copy/AGS/scripts/subset.sh
+modules/subset.sh
 
 #Load config file
 . "$1"
