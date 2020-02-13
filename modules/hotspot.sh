@@ -51,9 +51,10 @@ for region in $other "chromosomes"; do
 
 	for file in $(ls $output/${sample}-$region.top.bed); do
 
-		#Get sequence of rNMPs and the 3 nucleotides upstream and downstream from them
+		#Get genomic coordinates of rNMPs and the 3 nucleotides up/downstream from them
 		bedtools slop -s -i $file -g $(dirname $fasta)/$(basename $fasta .fa).bed -b 3 > $output/$(basename $file .bed).slop.bed
 	
+		#Get nucleotide sequence of rNMPs and the 3 nucleotides up/downstream from them
 		bedtools getfasta -s -fi $fasta -bed $output/$(basename $file .bed).slop.bed | awk '/>/{$0 = ">" ++i substr($0, 2)} 1' - > $output/$(basename $file .bed).flank.txt
 
 		sites=$(grep -c "^>" $output/$(basename $file .bed).flank.txt)
