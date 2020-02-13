@@ -9,7 +9,7 @@ rm -r $output; mkdir -p $output
 
 ######################################################################################################################################################
 
-for region in $other; do
+for region in $other "chromosomes"; do
 
 	#Calculate index
 	index=$(echo "$(wc -l < $repository/results/$sample/coordinate$quality/${sample}-$region.counts.tab)*0.99" | bc)
