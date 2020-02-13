@@ -18,3 +18,4 @@ dependencies:
   - sra-tools=2.8.2
   - umi_tools=0.5.3
   - r-ggplot2=2.2.1
+  - meme
