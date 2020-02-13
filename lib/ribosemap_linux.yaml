@@ -8,7 +8,7 @@ dependencies:
   - sed=4.4
   - seqtk=1.3
   - mawk=1.3.4
-  - python=3.5.2
+  - python=2.7.0
   - samtools=1.8
   - fastqc=0.11.7
   - cutadapt=1.9.1
