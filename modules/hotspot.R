@@ -1,5 +1,8 @@
 #!/usr/bin/env Rscript
 
+#Load config
+source(commandArgs(TRUE)[1])
+
 #Load the required packages
 library(tools); require(ggplot2); require(ggseqlogo)
 
