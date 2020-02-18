@@ -27,7 +27,7 @@ for(file in input_files){
 	#Plot customized logo
 	plot <- ggseqlogo(sequences, seq_type = 'dna', col_scheme = colors, method = 'bits') + theme_classic() + xlab("") + ylab("") +
 
-	scale_y_continuous(limits = c(0, 0.5), expand = c(0.02, 0)) + scale_x_continuous(breaks = seq(1,7,1), labels = seq(-3,3,1), expand = c(0.02, 0)) +
+	scale_y_continuous(limits = c(0, 2), expand = c(0.02, 0)) + scale_x_continuous(breaks = seq(1,7,1), labels = seq(-3,3,1), expand = c(0.02, 0)) +
 
 	theme(
 	      axis.line = element_line(color = "black", size = 1), axis.text = element_text(color = "black", size = 45), axis.ticks = element_line(color
