@@ -4,7 +4,8 @@
 library(tools); require(ggplot2); require(ggseqlogo)
 
 #Input/Output
-input <- list.files(path = "/nv/hp16/agombolay3/data/agombolay3_copy/algae/consensus/percentile_90/alternative_plotting", pattern = "*.txt", full.names = TRUE, recursive = TRUE)
+output <- file.path(repository, "results", sample, paste("hotspot", quality, sep = ""))
+input_files <- list.files(path = output, pattern = "*.txt", full.names = TRUE, recursive = TRUE)
 
 for(file in input){
 
