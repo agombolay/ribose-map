@@ -20,6 +20,7 @@ for(file in input_files){
 	#Select sequences
 	rows <- grep("\\s\\.\\s", data, value = TRUE)
 	sequences <- substr(rows, 54, 60)
+	print(sequences)
 
 	#Specify color scheme
 	colors = make_col_scheme(chars = c('A', 'C', 'G', 'T'), cols = c('red2', 'blue4', 'darkorange2', 'green4'))
