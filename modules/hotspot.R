@@ -10,7 +10,7 @@ library(tools); require(ggplot2); require(ggseqlogo)
 output <- file.path(repository, "results", sample, paste("hotspot", quality, sep = ""))
 input_files <- list.files(path = output, pattern = "*.txt", full.names = TRUE, recursive = TRUE)
 
-for(file in input){
+for(file in input_files){
 
 	if (file.size(file) > 0) {
 
