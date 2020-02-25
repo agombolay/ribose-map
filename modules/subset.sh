@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #Alli Gombolay, 02/2020
-#Subset data by genomic region
+#Subsets data by genomic region
 
 ######################################################################################################################################################
 #Load config file
