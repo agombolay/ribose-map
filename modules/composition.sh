@@ -20,7 +20,7 @@ for file in $repository/results/$sample/coordinate$quality/${sample}-*.coords.be
 	
 	#Nucleotide Frequencies of rNMPs
 	
-	temp=$(echo $file | awk -F '[-]' '{print $2 $3 $4}')
+	temp=$(echo $output/$(basename $file .coords.bed).nucs.tab | awk -F '[-]' '{print $2 $3 $4}')
 	region=$(basename $temp .nucs.tab)
 	
 	#Calculate counts of each nucleotide
