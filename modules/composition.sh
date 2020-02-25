@@ -70,8 +70,10 @@ done
 
 ######################################################################################################################################################
 
-for file in $output/${sample}-*.nucs.tab; do
+for file in $repository/results/$sample/coordinate$quality/${sample}-*.coords.bed; do
 
+	bedtools getfasta -s -fi $fasta -bed $file | grep -v '>' > $output/$(basename $file .bed).nucs.tab
+	
 	#Nucleotide Frequencies of rNMPs
 	if [ -s $file ]; then
 	
