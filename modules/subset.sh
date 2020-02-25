@@ -6,6 +6,9 @@
 #Specify directory
 output=$repository/results/$sample/coordinate$quality
 
+#Create index file
+samtools faidx $fasta
+
 if [[ $other ]]; then
 
 	other_new=$(echo $other | sed 's/ /|/g')
