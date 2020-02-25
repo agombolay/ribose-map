@@ -24,10 +24,10 @@ for file in $repository/results/$sample/coordinate$quality/${sample}-*.coords.be
 	region=$(basename $temp .nucs.tab)
 	
 	#Calculate counts of each nucleotide
-	A_Ribo=$(awk '$1 == "A" || $1 == "a"' $file | wc -l)
-	C_Ribo=$(awk '$1 == "C" || $1 == "c"' $file | wc -l)
-	G_Ribo=$(awk '$1 == "G" || $1 == "g"' $file | wc -l)
-	U_Ribo=$(awk '$1 == "T" || $1 == "t"' $file | wc -l)
+	A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/$(basename $file .coords.bed).nucs.tab | wc -l)
+	C_Ribo=$(awk '$1 == "C" || $1 == "c"' $output/$(basename $file .coords.bed).nucs.tab | wc -l)
+	G_Ribo=$(awk '$1 == "G" || $1 == "g"' $output/$(basename $file .coords.bed).nucs.tab | wc -l)
+	U_Ribo=$(awk '$1 == "T" || $1 == "t"' $output/$(basename $file .coords.bed).nucs.tab | wc -l)
 	
 	#Calculate total number of nucleotides
 	RiboTotal=$(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
