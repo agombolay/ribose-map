@@ -17,6 +17,7 @@ elif [[ $1 == "coordinate" ]]; then
     . "$2"
     $modules/coordinate.sh $2
     $modules/subset.sh $2
+    $modules/refFreqs.sh $2
     
 elif [[ $1 == "sequence" ]]; then
     . "$2"
