@@ -8,7 +8,7 @@ library(ggplot2); library(tools)
 
 #Input/Output
 output <- file.path(repository, "results", sample, paste("composition", quality, sep = ""))
-input_files <- list.files(path = output, pattern = "*.txt", full.names = TRUE, recursive = FALSE)
+input_files <- list.files(path = output, pattern = "*frequencies.txt", full.names = TRUE, recursive = FALSE)
 
 for(file in input_files){
 
