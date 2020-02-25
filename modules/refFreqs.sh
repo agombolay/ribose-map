@@ -1,3 +1,10 @@
+#!/usr/bin/env bash
+
+#© 2020 Alli Gombolay
+#Calculates nucleotide frequencies of reference genome
+
+#############################################################################################################################
+
 for file in $(dirname $fasta)/$(basename $fasta .fa)-*.fa; do
 
 	temp=$(echo $file | awk -F '[-]' '{print $2 $3 $4}')
