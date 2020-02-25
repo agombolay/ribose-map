@@ -11,32 +11,6 @@ output=$repository/results/$sample/composition$quality
 rm -r $output; mkdir -p $output
 
 ######################################################################################################################################################
-
-#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
-grep -wv $mito $repository/results/$sample/coordinate$quality/$sample.bed | grep -Ewv $other_new - | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-nucleus.nucs.tab
-
-#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
-grep -w $mito $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-mito.nucs.tab
-
-#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
-grep -w $region $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
-
-#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
-grep -wv $mito $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-nucleus.nucs.tab
-
-#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
-grep -w $mito $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-mito.nucs.tab
-
-#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
-grep -Ewv $other_new $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-nucleus.nucs.tab
-
-#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
-grep -w $region $repository/results/$sample/coordinate$quality/$sample.bed | bedtools getfasta -s -fi $fasta -bed - | grep -v '>' > $output/${sample}-$region.nucs.tab
-
-#Separate BED file by oraganelle and get nucleotide for each chromosomal coordinate
-bedtools getfasta -s -fi $fasta -bed $repository/results/$sample/coordinate$quality/$sample.bed | grep -v '>' > $output/${sample}-nucleus.nucs.tab
-
-######################################################################################################################################################
 	
 for file in $(dirname $fasta)/$(basename $fasta .fa)-*.fa; do
 
@@ -72,7 +46,8 @@ done
 
 for file in $repository/results/$sample/coordinate$quality/${sample}-*.coords.bed; do
 
-	bedtools getfasta -s -fi $fasta -bed $file | grep -v '>' > $output/$(basename $file .bed).nucs.tab
+	#Get nucleotide for each genomic coordinate
+	bedtools getfasta -s -fi $fasta -bed $file | grep -v '>' > $output/$(basename $file .coords.bed).nucs.tab
 	
 	#Nucleotide Frequencies of rNMPs
 	if [ -s $file ]; then
