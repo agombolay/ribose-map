@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#© 2020 Alli Gombolay
+#Alli Gombolay, 02/2020
 #Calculates nucleotide frequencies of reference genome
 
 #############################################################################################################################
