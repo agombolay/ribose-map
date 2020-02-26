@@ -13,14 +13,6 @@ rm -r $output; mkdir -p $output
 
 #############################################################################################################################
 
-#Create .fai file for reference
-samtools faidx $fasta
-
-#Create .bed file for reference
-cut -f 1,2 $fasta.fai > $(dirname $fasta)/$(basename $fasta .fa).bed
-
-#############################################################################################################################
-
 if [[ $mito ]]; then
 	
 	if [[ $other ]]; then
