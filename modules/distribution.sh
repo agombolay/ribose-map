@@ -20,11 +20,8 @@ rm -r $output; mkdir -p $output
 mawk -v "OFS=\t" -v total="$(wc -l < $repository/results/$sample/coordinate$quality/$sample.bed)" '{print $1, $2, $3, $4, $5/total*100}' \
 $repository/results/$sample/coordinate$quality/$sample.counts.tab > $repository/results/$sample/coordinate$quality/$sample.normalized.tab
 
-#Create FASTA index file and BED file for reference
-samtools faidx $fasta && cut -f 1,2 $fasta.fai > $output/reference.bed
-
 #Save coverage of rNMPs per chromosome to separate files
-for chromosome in $( awk '{print $1}' $output/reference.bed ); do
+for chromosome in $( awk '{print $1}' $output/$(basename $fasta .fa).bed ); do
 	
 	if [[ $(grep -w "$chromosome" $repository/results/$sample/coordinate$quality/$sample.normalized.tab | wc -l) > 0 ]]; then
 		grep -w "$chromosome" $repository/results/$sample/coordinate$quality/$sample.normalized.tab > $output/$sample-$chromosome.tab
