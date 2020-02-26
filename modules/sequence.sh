@@ -81,7 +81,7 @@ for region in $other "chromosomes"; do
 			echo $U_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-Ribo$nuc.$region.U.txt
 				
 			#Create BED file for all ribonucleotides
-			cp $file $output/${sample}-Ribo.$region.$nuc.bed
+			cp $repository/results/$sample/coordinate$quality/${sample}-$region.counts.tab $output/${sample}-Ribo.$region.$nuc.bed
 		fi
 		
 #############################################################################################################################
