@@ -117,7 +117,7 @@ fi
 #############################################################################################################################
 
 #Calculate frequencies of rNMPs
-for file in $output/${sample}-*.bed; do
+for file in $output/${sample}-*.tab; do
 
 	if [ -s $file ]; then
 	
