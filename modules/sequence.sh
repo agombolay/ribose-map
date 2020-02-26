@@ -4,6 +4,7 @@
 #Calculates frequencies of rNMP nucleotides and flanking nucleotides
 
 #############################################################################################################################
+
 #Load config file
 . "$1"
 
