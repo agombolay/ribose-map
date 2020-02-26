@@ -117,9 +117,7 @@ fi
 #############################################################################################################################
 
 #Calculate frequencies of rNMPs
-for file in $output/${sample}-*.tab; do
-
-	if [ -s $file ]; then
+for region in $other "chromosomes"; do
 	
 		temp=$(echo $file | awk -F '[-]' '{print $2 $3 $4}')
 		region=$(basename $temp .bed)
@@ -306,8 +304,6 @@ for file in $output/${sample}-*.tab; do
 	
 		#Remove temporary files
 		rm $output/*.txt $output/*{Upstream,Downstream}*.{bed,tab}
-	
-	fi
 
 done
 
