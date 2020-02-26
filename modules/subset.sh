@@ -23,9 +23,6 @@ if [[ $other ]]; then
 
 	samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)-chromosomes.fa
 	samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-chromosomes.fa
-	
-	#Create BED file for Chromosomes
-	cut -f 1,2 $fasta.fai > $(dirname $fasta)/$(basename $fasta .fa).bed
 
 	#Other
 	for region in $other; do
@@ -38,9 +35,6 @@ if [[ $other ]]; then
 
 		samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
 		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
-		
-		#Create BED file for Other
-		cut -f 1,2 $fasta.fai > $(dirname $fasta)/$(basename $fasta .fa).bed
 
 	done
 else
