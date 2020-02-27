@@ -14,9 +14,7 @@ for file in $(dirname $fasta)/$(basename $fasta .fa)-*.fa; do
 
 	temp=$(echo $file | awk -F '[-]' '{print $2 $3 $4}')
 	region=$(basename $temp .fa)
-	
-	#Nucleotide Frequencies of Reference Genome
-	
+		
 	#Calculate counts of each nucleotide
 	A_Bkg=$(grep -v '>' $file | grep -Eo 'A|a' - | wc -l)
 	C_Bkg=$(grep -v '>' $file | grep -Eo 'C|c' - | wc -l)
