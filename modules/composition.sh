@@ -21,9 +21,10 @@ for file in $repository/results/$sample/coordinate$quality/${sample}-*.coords.be
 	bedtools getfasta -s -fi $fasta -bed $file | grep -v '>' > $output/$(basename $file .coords.bed).nucs.tab
 	
 	#Nucleotide Frequencies of rNMPs
-	temp=$(echo $output/$(basename $file .coords.bed).nucs.tab | awk -F '[-]' '{print $2 $3 $4}')
-	region=$(basename $temp .nucs.tab)
+	#temp=$(echo $output/$(basename $file .coords.bed).nucs.tab | awk -F '[-]' '{print $2 $3 $4}')
+	#region=$(basename $temp .nucs.tab)
 	
+	region=$(basename $file .coords.bed | cut -d "-" -f2)
 	echo $region
 	
 	#Calculate counts of each nucleotide
