@@ -12,8 +12,9 @@
 
 for file in $(dirname $fasta)/$(basename $fasta .fa)-*.fa; do
 
-	temp=$(echo $file | awk -F '[-]' '{print $2 $3 $4}')
-	region=$(basename $temp .fa)
+	#temp=$(echo $file | awk -F '[-]' '{print $2 $3 $4}')
+	#region=$(basename $temp .fa)
+	region=$(basename $file .fa | cut -d "-" -f2)
 		
 	#Calculate counts of each nucleotide
 	A_Bkg=$(grep -v '>' $file | grep -Eo 'A|a' - | wc -l)
