@@ -44,7 +44,7 @@ elif [[ $technique == "emRiboSeq" ]]; then
 		mawk -v "OFS=\t" '{if ($6 == "-") print $1, $3, ($3 + 1), $4, $5, "+"; else if ($6 == "+") print $1, ($2 - 1), $2, $4, $5, "-";}' $output/reads.bed > $output/temporary.bed
 
 		#Remove coordinates of rNMPs if the end position is greater than length of chromosome
-		join -t $'\t' <(sort $output/$(basename $fasta .fa).bed) <(sort $output/temporary.bed) | mawk -v "OFS=\t" '$3 >= 0 && $2 >= $4 { print $1, $3, $4, $5, $6, $7 }' | sort -k1,1 -k2,2n -k 6 > $output/$sample.bed
+		join -t $'\t' <(sort $output/$(basename $fasta .fa).chrom.sizes) <(sort $output/temporary.bed) | mawk -v "OFS=\t" '$3 >= 0 && $2 >= $4 { print $1, $3, $4, $5, $6, $7 }' | sort -k1,1 -k2,2n -k 6 > $output/$sample.bed
 	fi
 	
 elif [[ $technique == "Alk-HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
@@ -60,7 +60,7 @@ elif [[ $technique == "Alk-HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
 		mawk -v "OFS=\t" '{if ($6 == "+") print $1, ($2 - 1), $2, $4, $5, "+"; else if ($6 == "-") print $1, $3, ($3 + 1), $4, $5, "-";}' $output/reads.bed > $output/temporary.bed
 	
 		#Remove coordinates of rNMPs if the end position is greater than length of chromosome
-		join -t $'\t' <(sort $output/$(basename $fasta .fa).bed) <(sort $output/temporary.bed) | mawk -v "OFS=\t" '$3 >= 0 && $2 >= $4 { print $1, $3, $4, $5, $6, $7 }' | sort -k1,1 -k2,2n -k 6 > $output/$sample.bed
+		join -t $'\t' <(sort $output/$(basename $fasta .fa).chrom.sizes) <(sort $output/temporary.bed) | mawk -v "OFS=\t" '$3 >= 0 && $2 >= $4 { print $1, $3, $4, $5, $6, $7 }' | sort -k1,1 -k2,2n -k 6 > $output/$sample.bed
 	fi
 
 elif [[ $technique == "RHII-HydEn-seq" ]]; then
