@@ -14,8 +14,6 @@ rm -r $output; mkdir -p $output
 ######################################################################################################################################################
 
 for file in $repository/results/$sample/coordinate$quality/${sample}-*.coords.bed; do
-
-	echo $file
 	
 	#Get nucleotide for each genomic coordinate
 	bedtools getfasta -s -fi $fasta -bed $file | grep -v '>' > $output/$(basename $file .coords.bed).nucs.tab
@@ -25,7 +23,6 @@ for file in $repository/results/$sample/coordinate$quality/${sample}-*.coords.be
 	#region=$(basename $temp .nucs.tab)
 	
 	region=$(basename $file .coords.bed | cut -d "-" -f2)
-	echo $region
 	
 	#Calculate counts of each nucleotide
 	A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/$(basename $file .coords.bed).nucs.tab | wc -l)
