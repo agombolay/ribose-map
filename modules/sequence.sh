@@ -92,8 +92,8 @@ for region in $other "chromosomes"; do
 		if [[ -s $output/${sample}-Ribo.$region.$nuc.bed ]]; then
 			
 			#Obtain coordinates of flanking sequences and remove coordinates where start = end
-			bedtools flank -i $output/${sample}-Ribo.$region.$nuc.bed -s -g $(dirname $fasta)/$(basename $fasta .fa).bed -l 100 -r 0 | awk '$2 != $3' > $output/${sample}-Upstream.$region.$nuc.bed
-			bedtools flank -i $output/${sample}-Ribo.$region.$nuc.bed -s -g $(dirname $fasta)/$(basename $fasta .fa).bed -l 0 -r 100 | awk '$2 != $3' > $output/${sample}-Downstream.$region.$nuc.bed
+			bedtools flank -i $output/${sample}-Ribo.$region.$nuc.bed -s -g $(dirname $fasta)/$(basename $fasta .fa).chrom.sizes -l 100 -r 0 | awk '$2 != $3' > $output/${sample}-Upstream.$region.$nuc.bed
+			bedtools flank -i $output/${sample}-Ribo.$region.$nuc.bed -s -g $(dirname $fasta)/$(basename $fasta .fa).chrom.sizes -l 0 -r 100 | awk '$2 != $3' > $output/${sample}-Downstream.$region.$nuc.bed
 	
 			#Obtain nucleotides flanking rNMPs (reverse order of upstream) and insert tabs bases for easier parsing
 			bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -bed $output/${sample}-Upstream.$region.$nuc.bed | grep -v '>' | rev | sed 's/.../& /2g;s/./& /g' > $output/${sample}-Upstream.$region.$nuc.tab
