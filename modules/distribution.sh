@@ -21,7 +21,7 @@ mawk -v "OFS=\t" -v total="$(wc -l < $repository/results/$sample/coordinate$qual
 $repository/results/$sample/coordinate$quality/$sample.counts.tab > $repository/results/$sample/coordinate$quality/$sample.normalized.tab
 
 #Save coverage of rNMPs per chromosome to separate files
-for chromosome in $( awk '{print $1}' $output/$(basename $fasta .fa).bed ); do
+for chromosome in $( awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).chrom.sizes ); do
 	
 	if [[ $(grep -w "$chromosome" $repository/results/$sample/coordinate$quality/$sample.normalized.tab | wc -l) > 0 ]]; then
 		grep -w "$chromosome" $repository/results/$sample/coordinate$quality/$sample.normalized.tab > $output/$sample-$chromosome.tab
