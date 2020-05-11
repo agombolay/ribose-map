@@ -47,7 +47,10 @@ for region in $other "chromosomes"; do
 		awk -v "OFS=\t" '$4 == "-" {print $1, $2, $3, $5}' $repository/results/$sample/coordinate$quality/$sample.counts.tab >> $output/$sample-Reverse.bg
 
 	fi
+
 done
+
 #############################################################################################################################
+
 #Print status
 echo "Status: Distribution Module for $sample is complete"
