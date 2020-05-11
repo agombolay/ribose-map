@@ -30,8 +30,8 @@ for(file in input_files){
 	scale_y_continuous(limits = c(0, 2), expand = c(0.02, 0)) + scale_x_continuous(breaks = seq(1,7,1), labels = seq(-3,3,1), expand = c(0.02, 0)) +
 
 	theme(
-	      axis.line = element_line(color = "black", size = 1), axis.text = element_text(color = "black", size = 45), axis.ticks = element_line(color
-	      = "black", size = 1), axis.ticks.length = unit(0.5, "cm"), plot.margin = margin(0.5, 0.5, 0.5, 0.5, "cm")
+	      axis.title = element_text(color = "black", size = 25), axis.line = element_line(color = "black", size = 1), axis.text = element_text(color = "black", size = 25),
+	      axis.ticks = element_line(color = "black", size = 1), axis.ticks.length = unit(0.5, "cm"), plot.margin = margin(0.5, 0.5, 0.5, 0.5, "cm")
 	)
 
 	ggsave(filename = file.path(paste(dirname(file),"-","ggseqlogo",".png",sep = "")), plot = plot)
