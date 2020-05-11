@@ -16,34 +16,38 @@ output=$repository/results/$sample/distribution$quality
 rm -r $output; mkdir -p $output
 
 #############################################################################################################################
-#Calculate normalized counts of rNMPs
-mawk -v "OFS=\t" -v total="$(wc -l < $repository/results/$sample/coordinate$quality/$sample.bed)" '{print $1, $2, $3, $4, $5/total*100}' \
-$repository/results/$sample/coordinate$quality/$sample.counts.tab > $repository/results/$sample/coordinate$quality/$sample.normalized.tab
 
-#Save coverage of rNMPs per chromosome to separate files
-for chromosome in $( awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).chrom.sizes ); do
+for region in $other "chromosomes"; do
+
+	#Calculate normalized counts of rNMPs
+	mawk -v "OFS=\t" -v total="$(wc -l < $repository/results/$sample/coordinate$quality/$sample.bed)" '{print $1, $2, $3, $4, $5/total*100}' \
+	$repository/results/$sample/coordinate$quality/$sample.counts.tab > $repository/results/$sample/coordinate$quality/$sample.normalized.tab
+
+	#Save coverage of rNMPs per chromosome to separate files
+	for chromosome in $( awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).chrom.sizes ); do
 	
-	if [[ $(grep -w "$chromosome" $repository/results/$sample/coordinate$quality/$sample.normalized.tab | wc -l) > 0 ]]; then
-		grep -w "$chromosome" $repository/results/$sample/coordinate$quality/$sample.normalized.tab > $output/$sample-$chromosome.tab
+		if [[ $(grep -w "$chromosome" $repository/results/$sample/coordinate$quality/$sample.normalized.tab | wc -l) > 0 ]]; then
+			grep -w "$chromosome" $repository/results/$sample/coordinate$quality/$sample.normalized.tab > $output/$sample-$chromosome.tab
+		fi
+	
+	done
+
+	if [[ $(wc -l < $repository/results/$sample/coordinate$quality/$sample.counts.tab) > 0 ]]; then
+
+		#Add trackline for forward strand to input into UCSC genome browser
+		echo "track type=bedGraph name="$sample-ForwardStrand" description="$sample-ForwardStrand" color=0,128,0 visibility=full" > $output/$sample-Forward.bg
+		
+		#Add trackline for reverse strand to input into UCSC genome browser
+		echo "track type=bedGraph name="$sample-ReverseStrand" description="$sample-ReverseStrand" color=0,0,255 visibility=full" > $output/$sample-Reverse.bg
+		
+		#Rearrange forward strand file so format is the same as bedgraph format
+		awk -v "OFS=\t" '$4 == "+" {print $1, $2, $3, $5}' $repository/results/$sample/coordinate$quality/$sample.counts.tab >> $output/$sample-Forward.bg
+
+		#Rearrange reverse strand file so format is the same as bedgraph format
+		awk -v "OFS=\t" '$4 == "-" {print $1, $2, $3, $5}' $repository/results/$sample/coordinate$quality/$sample.counts.tab >> $output/$sample-Reverse.bg
+
 	fi
-	
 done
-
-if [[ $(wc -l < $repository/results/$sample/coordinate$quality/$sample.counts.tab) > 0 ]]; then
-
-	#Add trackline for forward strand to input into UCSC genome browser
-	echo "track type=bedGraph name="$sample-ForwardStrand" description="$sample-ForwardStrand" color=0,128,0 visibility=full" > $output/$sample-Forward.bg
-		
-	#Add trackline for reverse strand to input into UCSC genome browser
-	echo "track type=bedGraph name="$sample-ReverseStrand" description="$sample-ReverseStrand" color=0,0,255 visibility=full" > $output/$sample-Reverse.bg
-		
-	#Rearrange forward strand file so format is the same as bedgraph format
-	awk -v "OFS=\t" '$4 == "+" {print $1, $2, $3, $5}' $repository/results/$sample/coordinate$quality/$sample.counts.tab >> $output/$sample-Forward.bg
-
-	#Rearrange reverse strand file so format is the same as bedgraph format
-	awk -v "OFS=\t" '$4 == "-" {print $1, $2, $3, $5}' $repository/results/$sample/coordinate$quality/$sample.counts.tab >> $output/$sample-Reverse.bg
-
-fi
 #############################################################################################################################
 #Print status
 echo "Status: Distribution Module for $sample is complete"
