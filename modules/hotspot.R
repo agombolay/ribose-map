@@ -25,7 +25,7 @@ for(file in input_files){
 	colors = make_col_scheme(chars = c('A', 'C', 'G', 'T'), cols = c('red2', 'blue4', 'darkorange2', 'green4'))
 
 	#Plot customized logo
-	plot <- ggseqlogo(sequences, seq_type = 'dna', col_scheme = colors, method = 'bits') + theme_classic() + xlab("") + ylab("") +
+	plot <- ggseqlogo(sequences, seq_type = 'dna', col_scheme = colors, method = 'bits') + theme_classic() + xlab("Position relative to rNMP") + ylab("Bits") +
 
 	scale_y_continuous(limits = c(0, 2), expand = c(0.02, 0)) + scale_x_continuous(breaks = seq(1,7,1), labels = seq(-3,3,1), expand = c(0.02, 0)) +
 
