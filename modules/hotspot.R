@@ -31,7 +31,8 @@ for(file in input_files){
 
 	theme(
 	      axis.title = element_text(color = "black", size = 25), axis.line = element_line(color = "black", size = 1), axis.text = element_text(color = "black", size = 25),
-	      axis.ticks = element_line(color = "black", size = 1), axis.ticks.length = unit(0.5, "cm"), plot.margin = margin(0.5, 0.5, 0.5, 0.5, "cm")
+	      axis.ticks = element_line(color = "black", size = 1), axis.ticks.length = unit(0.5, "cm"), axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)),
+	      axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)), plot.margin = margin(0.5, 0.5, 0.5, 0.5, "cm")
 	)
 
 	ggsave(filename = file.path(paste(dirname(file),"-","ggseqlogo",".png",sep = "")), plot = plot)
