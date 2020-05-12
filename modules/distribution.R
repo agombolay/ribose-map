@@ -30,10 +30,10 @@ input_files <- list.files(path = output, pattern = ".tab", full.names = TRUE, re
 #ylimit <- max(maximum)
 
 ####################################################################################################################################################################
-maximum <- c()
 
 for(file in input_files){
 	
+	maximum <- c()
 	maximum <- c(maximum, max(data$V5))
 	ylimit <- max(maximum)
 	
