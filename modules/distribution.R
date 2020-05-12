@@ -32,8 +32,6 @@ input_files <- list.files(path = output, pattern = ".tab", full.names = TRUE, re
 ####################################################################################################################################################################
 
 for(file in input_files){
-
-	ylimit <- max(data$V5)
 	
         #Specify dataset
 	data = read.table(file, sep = "\t", header = FALSE)
@@ -43,6 +41,8 @@ for(file in input_files){
 		
 	#Specify DNA strand labels for plot
 	labels <- c('+' = 'Forward Strand', '-' = 'Reverse Strand')
+	
+	ylimit <- max(data$V5)
 		
 ####################################################################################################################################################################
 	if (scale == 'yes'){
