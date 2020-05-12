@@ -21,16 +21,21 @@ input_files <- list.files(path = output, pattern = ".tab", full.names = TRUE, re
 
 ####################################################################################################################################################################
 #Find maximum y-axis value
+#maximum <- c()
+
+#for(file in input_files){
+#	data = read.table(file, sep = "\t", header = FALSE)
+#	maximum <- c(maximum, max(data$V5))
+#}
+#ylimit <- max(maximum)
+
+####################################################################################################################################################################
 maximum <- c()
 
 for(file in input_files){
-	data = read.table(file, sep = "\t", header = FALSE)
+	
 	maximum <- c(maximum, max(data$V5))
-}
-ylimit <- max(maximum)
-
-####################################################################################################################################################################
-for(file in input_files){
+	ylimit <- max(maximum)
 	
         #Specify dataset
 	data = read.table(file, sep = "\t", header = FALSE)
