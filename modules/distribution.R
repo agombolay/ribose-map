@@ -32,10 +32,8 @@ input_files <- list.files(path = output, pattern = ".tab", full.names = TRUE, re
 ####################################################################################################################################################################
 
 for(file in input_files){
-	
-	maximum <- c()
-	maximum <- c(maximum, max(data$V5))
-	ylimit <- max(maximum)
+
+	ylimit <- max(data$V5)
 	
         #Specify dataset
 	data = read.table(file, sep = "\t", header = FALSE)
