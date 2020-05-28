@@ -64,7 +64,8 @@ ymin <- min(minimum)
 
 				       #Format legend symbols and specify y-axis limits
 				       guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0, shape = c(15, 16, 17, 18)))) + scale_y_continuous(trans = 'log2', limits = c(ymin, ymax), labels = scales::number_format(accuracy = 0.01)) +
-
+				       scale_x_continuous(labels = scales::number_format(accuracy = 1)) +
+				
 				       #Add axis lines and ticks and increase font size
 				       theme(
 					     axis.title = element_text(color = "black", size = 25), axis.line = element_line(size = 1), axis.text = element_text(color = "black", size = 25),
