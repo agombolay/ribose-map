@@ -42,7 +42,7 @@ ymin <- min(minimum)
 
 ####################################################################################################################################################################
 			#Specify datasets to be used for each round of loop
-			if (i == "normal") {data = read.table(file, sep = "\t", header = TRUE)}
+			#if (i == "normal") {data = read.table(file, sep = "\t", header = TRUE)}
 			if (i == "zoomed") {data = read.table(file, sep = "\t", header = TRUE)[96:106,]}
     
 			#Define variables to store nucleotide positions and frequencies
@@ -64,7 +64,7 @@ ymin <- min(minimum)
 
 				       #Format legend symbols and specify y-axis limits
 				       guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0, shape = c(15, 16, 17, 18)))) + scale_y_continuous(trans = 'log2', limits = c(ymin, ymax), labels = scales::number_format(accuracy = 0.01)) +
-				       scale_x_discrete(limits=c(-5,5), labels = letters[-5:5]) +
+				       scale_x_continuous(limits=c(-5,5)) +
 				
 				       #Add axis lines and ticks and increase font size
 				       theme(
