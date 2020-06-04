@@ -22,10 +22,11 @@ Based on the coordinates of rNMPs, ...
 * **Hotspot**: Calculates the top 1% most abundant sites of rNMP incorporation and creates sequence logos
 
 ## Required Data
-1. FASTQ file of rNMP sequencing data
-2. FASTA file of nucleotide sequence of reference genome
-3. Bowtie2 indexes (extension = .bt2) of reference genome
-4. Configuration file (example provided in ribose-map/lib)
+1. Single or paired-end rNMP-seq data (FASTQ file)
+2. Nucleotide sequence of reference genome (FASTA and FAI files)
+3. Chromosome sizes of reference genome (extension .chrom.sizes)
+4. Bowtie2 indexes of reference genome (extension = .bt2)
+5. Configuration file (example provided in ribose-map/lib)
 
 **Note**: If you have a BED file of single-nucleotide genomic coordinates and want to input that file directly into the Sequence, Distribution, and Hotspot Modules, create a folder with the filepath below, save the file in this folder, and create a config file.
 
