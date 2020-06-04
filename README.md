@@ -7,19 +7,19 @@
 Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit to map ribonucleotides embedded in genomic DNA. *Nucleic Acids Research*, Volume 47, Issue 1, 10 Jan 2019, Page e5, https://doi.org/10.1093/nar/gky874. 
 
 ## Modules
-The **Alignment Module** aligns reads to reference genome and de-depulicates/de-multiplexes reads if needed
+1. **Alignment Module** aligns reads to reference genome and de-depulicates/de-multiplexes reads if needed
 
-The **Coordinate Module** calculates single-nucleotide chromosomal coordinates of rNMPs based on aligned reads for any NGS rNMP sequencing technique, including ribose-seq, emRiboSeq, RHII-HydEn-seq, Alk-HydEn-seq, or Pu-seq.  
+2. **Coordinate Module** calculates single-nucleotide chromosomal coordinates of rNMPs based on aligned reads for any NGS rNMP sequencing technique, including ribose-seq, emRiboSeq, RHII-HydEn-seq, Alk-HydEn-seq, or Pu-seq.  
 
 Based on the coordinates of rNMPs, ...  
 
-* **Composition**: Plots the percentage of r{A,C,G,U} normalized to the reference genome sequence  
+3. **Composition**: Plots the percentage of r{A,C,G,U} normalized to the reference genome sequence  
 
-* **Sequence**: Plots the nucleotide frequencies of rNMP sites and up/down-stream from those sites  
+4. **Sequence**: Plots the nucleotide frequencies of rNMP sites and up/down-stream from those sites  
 
-* **Distribution**: Creates bedgraph files of per-nucleotide rNMP coverage to be visualized in a genome browser and plots the per-nucleotide rNMP coverage for each chromosome (%) normalized to account for sequencing depth
+5. **Distribution**: Creates bedgraph files of per-nucleotide rNMP coverage to be visualized in a genome browser and plots the per-nucleotide rNMP coverage for each chromosome (%) normalized to account for sequencing depth
 
-* **Hotspot**: Calculates the top 1% most abundant sites of rNMP incorporation and creates sequence logos
+6. **Hotspot**: Calculates the top 1% most abundant sites of rNMP incorporation and creates sequence logos
 
 ## Required Data
 1. Single or paired-end rNMP-seq data (FASTQ file)
