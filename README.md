@@ -13,7 +13,7 @@ Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit t
 
 3. **Composition**: Calculates the percentage of r{A, C, G, U} normalized to the reference genome sequence  
 
-4. **Sequence**: Calculates the nucleotide frequencies of rNMP sites and up and downstream from those sites  
+4. **Sequence**: Calculates the frequencies of r{A, C, G, U/T} at rNMP sites and up/downstream from those sites  
 
 5. **Distribution**: Creates bedgraph files of per-nucleotide rNMP coverage to be visualized in a genome browser and plots the per-nucleotide rNMP coverage for each chromosome (%) normalized to account for sequencing depth
 
