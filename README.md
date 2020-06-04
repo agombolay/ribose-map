@@ -17,7 +17,7 @@ Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit t
 
 5. **Distribution**: Creates bedgraph files of per-nucleotide rNMP coverage to be visualized in a genome browser and plots the per-nucleotide rNMP coverage for each chromosome (%) normalized to account for sequencing depth
 
-6. **Hotspot**: Calculates the top 1% most abundant sites of rNMP incorporation and creates sequence logos
+6. **Hotspot**: Calculates the top 1% most abundant sites of rNMP incorporation and creates sequence logos using [ggseqlogo](https://github.com/omarwagih/ggseqlogo)
 
 ## Required Data
 1. Single or paired-end rNMP-seq data (FASTQ file)
