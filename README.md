@@ -27,7 +27,7 @@ Based on the coordinates of rNMPs, ...
 3. Bowtie2 indexes (extension = .bt2) of reference genome
 4. Configuration file (example provided in ribose-map/lib)
 
-**Note**: If you have a BED file of single-nucleotide genomic coordinates and would like to directly use Ribose-Map's Sequence, Distribution, or Hotspot Modules, create a folder with the path below, save the file in this folder, and create a config file.
+**Note**: If you have a BED file of single-nucleotide genomic coordinates and would like to directly use Ribose-Map's Sequence, Distribution, or Hotspot Modules, create a folder with the filepath below, save the file in this folder, and create a config file.
 
 "$repository/results/$sample/coordinate$quality" ($variables should be those provided in config)
 
