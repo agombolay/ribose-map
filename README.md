@@ -35,7 +35,7 @@ Based on the coordinates of rNMPs, ...
 ## Install Software
 
 1. **Create conda software environment**:  
-* If you do not already have Anaconda3 installed, please visit [this link](https://docs.conda.io/en/latest/miniconda.html)
+* If you do not already have conda installed, please visit [this link](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html)
    ```bash
    conda update conda
    conda install anaconda-client anaconda-build conda-build
