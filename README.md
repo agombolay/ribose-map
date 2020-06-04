@@ -51,16 +51,16 @@ Before proceeding, close current terminal window and open a new window to refres
 * If SAMtools gives an error, then install this dependency: conda install -c conda-forge ncurses
 
 1. **Activate environment to access software**:
-```
+```bash
 source activate ribosemap_env
 ```
 
 2. **Run scripts with configuration_file as input**:
-```
+```bash
 ribosemap {alignment, coordinate, composition, sequence, distribution, hotspot} config
 ```
 
 3. **Once the analysis is complete, exit environment**:  
-```
+```bash
 source deactivate ribosemap_env
 ```
