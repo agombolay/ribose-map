@@ -7,17 +7,17 @@
 Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit to map ribonucleotides embedded in genomic DNA. *Nucleic Acids Research*, Volume 47, Issue 1, 10 Jan 2019, Page e5, https://doi.org/10.1093/nar/gky874. 
 
 ## Modules
-1. **Alignment Module** aligns reads to reference genome using [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml) and de-depulicates/de-multiplexes reads if needed
+1. **Alignment** aligns reads to reference genome using [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml) and de-depulicates/de-multiplexes reads if needed
 
-2. **Coordinate Module** calculates single-nucleotide genomic coordinates of rNMPs based on aligned reads for any currently available rNMP sequencing technique, including ribose-seq, emRiboSeq, RHII-HydEn-seq, Alk-HydEn-seq, and Pu-seq.  
+2. **Coordinate** calculates single-nucleotide genomic coordinates of rNMPs based on aligned reads for any currently available rNMP sequencing technique, including ribose-seq, emRiboSeq, RHII-HydEn-seq, Alk-HydEn-seq, and Pu-seq.  
 
-3. **Composition Module**: Calculates the percentage of r{A, C, G, U} normalized to the reference genome sequence  
+3. **Composition**: Calculates the percentage of r{A, C, G, U} normalized to the reference genome sequence  
 
-4. **Sequence Module**: Calculates the frequencies of r{A, C, G, U/T} at rNMP sites and up/downstream from those sites  
+4. **Sequence**: Calculates the frequencies of r{A, C, G, U/T} at rNMP sites and up/downstream from those sites  
 
-5. **Distribution Module**: Creates bedgraph files of per-nucleotide rNMP coverage to be visualized in a genome browser and plots the per-nucleotide rNMP coverage for each chromosome (%) normalized to account for sequencing depth
+5. **Distribution**: Creates bedgraph files of per-nucleotide rNMP coverage to be visualized in a genome browser and plots the per-nucleotide rNMP coverage for each chromosome (%) normalized to account for sequencing depth
 
-6. **Hotspot Module**: Calculates top 1% most abundant sites of rNMP incorporation and creates sequence logos using [ggseqlogo](https://github.com/omarwagih/ggseqlogo)
+6. **Hotspot**: Calculates top 1% most abundant sites of rNMP incorporation and creates sequence logos using [ggseqlogo](https://github.com/omarwagih/ggseqlogo)
 
 ## Required Data
 1. Single or paired-end rNMP-seq data (FASTQ file)
