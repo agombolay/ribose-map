@@ -26,7 +26,7 @@ Based on the coordinates of rNMPs, ...
 2. Nucleotide sequence of reference genome (FASTA and FAI files)
 3. Chromosome sizes of reference genome (extension .chrom.sizes)
 4. Bowtie2 indexes of reference genome (extension = .bt2)
-5. Configuration file (example provided in ribose-map/lib)
+5. [Configuration file](https://github.com/agombolay/ribose-map/blob/master/lib/sample.config)
 
 **Note**: If you have a BED file of single-nucleotide genomic coordinates and want to input that file directly into the Sequence, Distribution, and Hotspot Modules, create a folder with the filepath below, save the file in this folder, and create a config file.
 
