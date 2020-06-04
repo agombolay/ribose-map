@@ -15,7 +15,7 @@ Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit t
 
 4. **Sequence**: Calculates frequencies of r{A, C, G, U/T} at rNMP sites and up to 100 bp up/downstream from those sites  
 
-5. **Distribution**: Creates BedGraph files of per-nucleotide rNMP coverage to be visualized in a genome browser and calculates per-nucleotide rNMP coverage for each genomic unit of reference genome and normalizes for sequencing depth
+5. **Distribution**: Creates BedGraph files of per-nucleotide rNMP coverage to be visualized in a genome browser and calculates per-nucleotide rNMP coverage for each genomic unit of reference genome and normalizes for read depth
 
 6. **Hotspot**: Calculates top 1% most abundant sites of rNMP incorporation and creates sequence logos using [ggseqlogo](https://github.com/omarwagih/ggseqlogo)
 
