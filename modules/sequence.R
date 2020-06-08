@@ -108,7 +108,7 @@ ymin <- min(minimum)
 
 ####################################################################################################################################################################
 			} else {
-				linear <- ggplot(data, aes(x = position)) + theme_minimal() + xlab("Position relative to rNMP") + ylab("Normalized Frequency") +
+				linear_normal <- ggplot(data, aes(x = position)) + theme_minimal() + xlab("Position relative to rNMP") + ylab("Normalized Frequency") +
 
 				       #Specify color and no legend title
 				       scale_colour_manual(values = c("A" = "red2", "C" = "blue4", "G" = "darkorange2", "U/T" = "green4"), name = "") +
@@ -120,8 +120,10 @@ ymin <- min(minimum)
 				       geom_line(aes(y = G, colour = "G"), size = .75) + geom_line(aes(y = T, colour = "U/T"), size = .75) +		   
 
 				       #Format legend symbols and specify y-axis limits
-				       guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0, shape = c(15, 16, 17, 18)))) + scale_y_continuous(limits = c(0, ymax)) +
-
+				       guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0, shape = c(15, 16, 17, 18)))) +
+				       scale_y_continuous(limits = c(0, ymax), labels = scales::number_format(accuracy = 0.01)) +
+				       scale_x_continuous(limits=c(-5,5),breaks=c(-5,-4,-3,-2,-1,0,1,2,3,4,5)) +
+				
 				       #Add axis lines and ticks and increase font size
 				       theme(
 					     axis.title = element_text(color = "black", size = 25), axis.line = element_line(size = 1), axis.text = element_text(color = "black", size = 25),
@@ -130,7 +132,7 @@ ymin <- min(minimum)
 				  	     plot.margin = unit(c(.5, .5, .5, .5), "cm")
 				       )
 
-			        ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep = "")), plot = linear)
+			        ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep = "")), plot = linear_normal)
 				#ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".pdf", sep = "")), plot = linear)
 }
 }
