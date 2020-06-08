@@ -20,10 +20,10 @@ Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit t
 6. **Hotspot**: Calculates top 1% most abundant sites of rNMP incorporation and creates [sequence logos](https://github.com/omarwagih/ggseqlogo)
 
 ## Required Data
-1. Single or paired-end rNMP-seq data (FASTQ file)
-2. Nucleotide sequence of reference genome (FASTA and FAI files)
-3. Chromosome sizes of reference genome (extension .chrom.sizes)
-4. Bowtie2 indexes of reference genome (extension = .bt2)
+1. FASTQ file of single/paired-end rNMP sequencing reads
+2. FASTA file of nucleotide sequence of reference genome
+3. Chromosome sizes of reference genome (.chrom.sizes)
+4. Bowtie2 indexes of reference genome (.bt2)
 5. [Configuration file](https://github.com/agombolay/ribose-map/blob/master/lib/sample.config)
 
 **Note**: If you have a BED file of single-nucleotide genomic coordinates and want to input that file directly into the Sequence, Distribution, and Hotspot Modules, create a folder with the filepath below, save the file in this folder, and create a config file.
