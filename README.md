@@ -33,7 +33,7 @@ Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit t
 ## Install Software
 
 1. **Create conda software environment**:  
-* If you do not already have conda installed, please visit [this link](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html). The .yaml file is available [here](https://github.com/agombolay/ribose-map/blob/master/lib/ribosemap_env.yaml)
+* If conda is not already installed, please visit [this link](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html). The .yaml file is available [here](https://github.com/agombolay/ribose-map/blob/master/lib/ribosemap_env.yaml)
    ```bash
    conda env create --name ribosemap_env --file ribosemap_env.yaml
    ```
