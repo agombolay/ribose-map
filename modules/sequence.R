@@ -74,7 +74,6 @@ ymin <- min(minimum)
 				  	     plot.margin = unit(c(.5, .5, .5, .5), "cm"), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank()
 				       )
 
-
 			        ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep = "")), plot = log_normal)
 				#ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".pdf", sep = "")), plot = log_normal)
 
@@ -102,7 +101,6 @@ ymin <- min(minimum)
 				  	     axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)), axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)),
 				  	     plot.margin = unit(c(.5, .5, .5, .5), "cm"), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank()
 				       )
-
 
 			        ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep = "")), plot = log_zoomed)
 
