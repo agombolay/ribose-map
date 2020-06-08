@@ -20,7 +20,7 @@ Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit t
 6. **Hotspot**: Calculates top 1% most abundant sites of rNMP incorporation and creates [sequence logos](https://github.com/omarwagih/ggseqlogo)
 
 ## Required Files
-1. FASTQ file of single/paired-end rNMP sequencing reads
+1. FASTQ file of NGS rNMP-seq reads (SE or PE)
 2. FASTA file of nucleotide sequence of reference genome
 3. Chromosome sizes of reference genome (.chrom.sizes)
 4. Bowtie2 indexes of reference genome (.bt2)
