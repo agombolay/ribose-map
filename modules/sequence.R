@@ -103,6 +103,7 @@ ymin <- min(minimum)
 				       )
 
 			        ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep = "")), plot = linear_normal)
+			}
 			
 ####################################################################################################################################################################
 			if (i == "zoomed") {data = read.table(file, sep = "\t", header = TRUE)[96:106,]}
@@ -164,7 +165,7 @@ ymin <- min(minimum)
 
 			        ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep = "")), plot = linear_zoomed)
 				#ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".pdf", sep = "")), plot = linear)
-}
+			}
 }
 }
 message("Status: Sequence Module plotting for ", sample, " is complete")
