@@ -13,22 +13,22 @@ rm -r $output; mkdir -p $output
 
 ######################################################################################################################################################
 
-for file in $repository/results/$sample/coordinate$quality/${sample}-*.coords.bed; do
-	
+for region in $other "chromosomes"; do
+
 	#Get nucleotide for each genomic coordinate
-	bedtools getfasta -s -fi $fasta -bed $file | grep -v '>' > $output/$(basename $file .coords.bed).nucs.tab
+	bedtools getfasta -s -fi $fasta -bed $repository/results/$sample/coordinate$quality/${sample}-$region.coords.bed | grep -v '>' > $output/${sample}-$region.nucs.tab
 	
 	#Nucleotide Frequencies of rNMPs
 	#temp=$(echo $output/$(basename $file .coords.bed).nucs.tab | awk -F '[-]' '{print $2 $3 $4}')
 	#region=$(basename $temp .nucs.tab)
 	
-	region=$(basename $file .coords.bed | cut -d "-" -f2)
+	#region=$(basename $file .coords.bed | cut -d "-" -f2)
 	
 	#Calculate counts of each nucleotide
-	A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/$(basename $file .coords.bed).nucs.tab | wc -l)
-	C_Ribo=$(awk '$1 == "C" || $1 == "c"' $output/$(basename $file .coords.bed).nucs.tab | wc -l)
-	G_Ribo=$(awk '$1 == "G" || $1 == "g"' $output/$(basename $file .coords.bed).nucs.tab | wc -l)
-	U_Ribo=$(awk '$1 == "T" || $1 == "t"' $output/$(basename $file .coords.bed).nucs.tab | wc -l)
+	A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/${sample}-$region.nucs.tab | wc -l)
+	C_Ribo=$(awk '$1 == "C" || $1 == "c"' $output/${sample}-$region.nucs.tab | wc -l)
+	G_Ribo=$(awk '$1 == "G" || $1 == "g"' $output/${sample}-$region.nucs.tab | wc -l)
+	U_Ribo=$(awk '$1 == "T" || $1 == "t"' $output/${sample}-$region.nucs.tab | wc -l)
 	
 	#Calculate total number of nucleotides
 	RiboTotal=$(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
