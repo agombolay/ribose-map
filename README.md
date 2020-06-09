@@ -11,9 +11,9 @@ Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit t
 
 2. **Coordinate**: Calculates single-nucleotide genomic coordinates of rNMPs based on aligned reads for any currently available rNMP sequencing technique: ribose-seq, emRiboSeq, RHII-HydEn-seq, Alk-HydEn-seq, and Pu-seq  
 
-3. **Composition**: Calculates percentage of r{A, C, G, U} normalized to corresponding percentages of reference genome
+3. **Composition**: Calculates percentage of r[A, C, G, U] normalized to corresponding percentages of reference genome
 
-4. **Sequence**: Calculates frequencies of r{A, C, G, U/T} at rNMP sites and up to 100 bp up/downstream from those sites  
+4. **Sequence**: Calculates frequencies of r[A, C, G, U/T] at rNMP sites and up to 100 bp up/downstream from those sites  
 
 5. **Distribution**: Creates BedGraph files of per-nucleotide rNMP coverage to be visualized in a genome browser and calculates per-nucleotide rNMP coverage for each genomic unit of reference genome normalized for read depth
 
