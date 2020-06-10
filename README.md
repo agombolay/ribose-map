@@ -42,7 +42,7 @@ Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit t
 2. **Clone Ribose-Map GitHub repository**:  
 * To install git, please visit [this link](https://git-scm.com/)
    ```bash
-   git clone https://github.com/agombolay/ribose-map/
+   git clone https://github.com/agombolay/ribose-map.git
    ```
    
 ## Run Ribose-Map
