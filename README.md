@@ -7,7 +7,7 @@
 Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit to map ribonucleotides embedded in genomic DNA. *Nucleic Acids Research*, Volume 47, Issue 1, 10 Jan 2019, Page e5, https://doi.org/10.1093/nar/gky874. 
 
 ## Output of each Module
-1. **Alignment**: BAM file of read alignments and log file with alignment statistics
+1. **Alignment**: BAM file of read alignments and log file of alignment statistics
 
 2. **Coordinate**: BED files of rNMP genomic coordinates and TAB files of rNMP counts at each coordinate
 
