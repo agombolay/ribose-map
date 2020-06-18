@@ -23,7 +23,7 @@ Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit t
    * Output: TAB, PNG, and BedGraph files of per-nucleotide rNMP coverage normalized to read depth  
 
 6. **Hotspot**: Calculates top % most abundant sites of rNMP incorporation and creates [sequence logos](https://github.com/omarwagih/ggseqlogo)
-   * Output: PNG file of consensus sequence
+   * Output: PNG file of consensus sequence for top % most abundant sites of rNMP incorporation
 
 ## Required Files
 1. FASTQ file of NGS rNMP-seq reads (SE or PE)
