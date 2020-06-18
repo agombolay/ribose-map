@@ -13,7 +13,7 @@ Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit t
 
 3. **Composition**: TXT files of raw counts and normalized percentages for r[A, C, G, U] and barcharts of results
 
-4. **Sequence**: TAB files of raw & normalized frequencies for A, C, G, & U/T at/surrounding rNMP sites and plots of results
+4. **Sequence**: TAB files of raw and normalized frequencies for A, C, G, U/T at/surrounding rNMP sites and plots of results
 
 5. **Distribution**: TAB & BedGraph files of per-nucleotide rNMP coverage normalized for read depth and plots of results
 
