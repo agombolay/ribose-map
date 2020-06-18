@@ -19,7 +19,7 @@ Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit t
 4. **Sequence**: Calculates frequencies of A, C, G, U/T at rNMP sites and up to 100 bp up/downstream from those sites  
    * Output: TAB files of raw and normalized frequencies for A, C, G, U/T
 
-5. **Distribution**: Creates BedGraph files of per-nucleotide rNMP coverage to be visualized in a genome browser and calculates per-nucleotide rNMP coverage for each genomic unit of reference genome normalized for read depth
+5. **Distribution**:
    * Output: TAB, PNG, and BedGraph files of per-nucleotide rNMP coverage normalized to read depth  
 
 6. **Hotspot**:
