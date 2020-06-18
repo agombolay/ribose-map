@@ -27,7 +27,7 @@ Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit t
 4. Bowtie2 index files of reference genome (.bt2)
 5. [Configuration file](https://github.com/agombolay/ribose-map/blob/master/lib/sample.config)
 
-**Note**: If you have a BED file of single-nucleotide genomic coordinates and want to input that file directly into the Sequence, Distribution, and Hotspot Modules, create a folder with the filepath below, save the file in this folder, and create a config file.
+**Note**: If you have a BED file of single-nucleotide genomic coordinates and want to input that file directly into the Sequence, Distribution, & Hotspot Modules, create a folder with the filepath below, save the file in this folder, and create a config file.
 
 "$repository/results/$sample/coordinate$quality" ($variables should be those provided in config)
 
