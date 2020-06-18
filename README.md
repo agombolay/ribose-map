@@ -15,7 +15,7 @@ Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit t
 
 4. **Sequence**: TAB files of raw & normalized frequencies for A, C, G, U/T at rNMP sites and 1-100 bp up/downstream
 
-5. **Distribution**: TAB, PNG, & BedGraph files of per-nucleotide rNMP coverage normalized for read depth  
+5. **Distribution**: TAB, PNG, & BedGraph files of per-nucleotide rNMP coverage normalized for read depth of library
 
 6. **Hotspot**: PNG files of consensus sequences for top X% most abundant sites of rNMP incorporation
 
