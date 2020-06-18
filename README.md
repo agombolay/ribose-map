@@ -16,14 +16,14 @@ Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit t
 3. **Composition**: Calculates percentage of r[A, C, G, U] normalized to corresponding percentages of reference genome
 * Output: TXT files of raw counts and normalized frequencies for r[A, C, G, U] and barcharts of frequencies
 
-4. **Sequence**: Calculates frequencies of r[A, C, G, U/T] at rNMP sites and up to 100 bp up/downstream from those sites  
-* Output: TAB files of raw and normalized
+4. **Sequence**: Calculates frequencies of A, C, G, U/T at rNMP sites and up to 100 bp up/downstream from those sites  
+* Output: TAB files of raw and normalized frequencies for A, C, G, U/T
 
 5. **Distribution**: Creates BedGraph files of per-nucleotide rNMP coverage to be visualized in a genome browser and calculates per-nucleotide rNMP coverage for each genomic unit of reference genome normalized for read depth
-* Output:
+* Output: TAB, PNG, and BedGraph files of per-nucleotide rNMP coverage normalized to read depth  
 
-6. **Hotspot**: Calculates top 1% most abundant sites of rNMP incorporation and creates [sequence logos](https://github.com/omarwagih/ggseqlogo)
-* Output: 
+6. **Hotspot**: Calculates top % most abundant sites of rNMP incorporation and creates [sequence logos](https://github.com/omarwagih/ggseqlogo)
+* Output: PNG file of consensus sequence
 
 ## Required Files
 1. FASTQ file of NGS rNMP-seq reads (SE or PE)
