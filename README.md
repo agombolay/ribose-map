@@ -7,17 +7,17 @@
 Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit to map ribonucleotides embedded in genomic DNA. *Nucleic Acids Research*, Volume 47, Issue 1, 10 Jan 2019, Page e5, https://doi.org/10.1093/nar/gky874. 
 
 ## Output of each Module
-1. **Alignment** BAM file of read alignments and log file with alignment statistics
+1. **Alignment**: BAM file of read alignments and log file with alignment statistics
 
-2. **Coordinate** BED file of rNMP genomic coordinates and TAB files of rNMP counts
+2. **Coordinate**: BED file of rNMP genomic coordinates and TAB files of rNMP counts
 
-3. **Composition** TXT files of counts and normalized perecentages for r[A, C, G, U] and barcharts results
+3. **Composition**: TXT files of counts and normalized perecentages for r[A, C, G, U] and barcharts results
 
-4. **Sequence** TAB files of raw and normalized frequencies for A, C, G, U/T at rNMP sites and up to 100 bp up/downstream from those sites 
+4. **Sequence**: TAB files of raw & normalized frequencies for A, C, G, U/T at rNMP sites and 1-100 bp up/downstream from those sites 
 
-5. **Distribution** TAB, PNG, & BedGraph files of per-nucleotide rNMP coverage normalized for read depth  
+5. **Distribution**: TAB, PNG, & BedGraph files of per-nucleotide rNMP coverage normalized for read depth  
 
-6. **Hotspot** PNG files of consensus sequences for top X% most abundant sites of rNMP incorporation
+6. **Hotspot**: PNG files of consensus sequences for top X% most abundant sites of rNMP incorporation
 
 ## Required Files
 1. FASTQ file of NGS rNMP-seq reads (SE or PE)
