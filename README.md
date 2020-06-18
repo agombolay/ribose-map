@@ -9,7 +9,7 @@ Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit t
 ## Output of each Module
 1. **Alignment**: BAM file of read alignments and log file with alignment statistics
 
-2. **Coordinate**: BED files of rNMP genomic coordinates and TAB files of counts at each coordinate
+2. **Coordinate**: BED files of rNMP genomic coordinates and TAB files of rNMP counts at each coordinate
 
 3. **Composition**: TXT files of counts and normalized perecentages for r[A, C, G, U] and barcharts of results
 
