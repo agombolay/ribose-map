@@ -8,16 +8,22 @@ Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit t
 
 ## Modules
 1. **Alignment**: Aligns reads to reference genome using [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml) and de-depulicates/de-multiplexes reads if needed
+* Output: BAM file of read alignments and alignment.log file with alignment statistics
 
 2. **Coordinate**: Calculates single-nucleotide genomic coordinates of rNMPs based on aligned reads for any currently available rNMP sequencing technique: ribose-seq, emRiboSeq, RHII-HydEn-seq, Alk-HydEn-seq, and Pu-seq  
+* Output: BED file of rNMP genomic coordinates for each genomic unit specified and TAB files of rNMP counts
 
 3. **Composition**: Calculates percentage of r[A, C, G, U] normalized to corresponding percentages of reference genome
+* Output: TXT files of raw counts and normalized frequencies for r[A, C, G, U] and barcharts of frequencies
 
 4. **Sequence**: Calculates frequencies of r[A, C, G, U/T] at rNMP sites and up to 100 bp up/downstream from those sites  
+* Output: TAB files of raw and normalized
 
 5. **Distribution**: Creates BedGraph files of per-nucleotide rNMP coverage to be visualized in a genome browser and calculates per-nucleotide rNMP coverage for each genomic unit of reference genome normalized for read depth
+* Output:
 
 6. **Hotspot**: Calculates top 1% most abundant sites of rNMP incorporation and creates [sequence logos](https://github.com/omarwagih/ggseqlogo)
+* Output: 
 
 ## Required Files
 1. FASTQ file of NGS rNMP-seq reads (SE or PE)
