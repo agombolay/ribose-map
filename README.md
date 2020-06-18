@@ -52,7 +52,7 @@ Before proceeding, close current terminal window and open a new window to refres
 
 1. **Activate environment to access software**:
 ```bash
-source activate ribosemap_env
+conda activate ribosemap_env
 ```
 
 2. **Run scripts with configuration_file as input**:
@@ -62,5 +62,5 @@ ribose-map/modules/ribosemap {alignment, coordinate, composition, sequence, dist
 
 3. **Once the analysis is complete, exit environment**:  
 ```bash
-source deactivate ribosemap_env
+conda deactivate ribosemap_env
 ```
