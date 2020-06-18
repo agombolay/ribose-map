@@ -7,8 +7,7 @@
 Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit to map ribonucleotides embedded in genomic DNA. *Nucleic Acids Research*, Volume 47, Issue 1, 10 Jan 2019, Page e5, https://doi.org/10.1093/nar/gky874. 
 
 ## Modules
-1. **Alignment**: Aligns reads to reference genome using [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml) and de-depulicates/de-multiplexes reads if needed
-   * Output: BAM file of read alignments and log file with alignment statistics
+1. **Alignment** Output: BAM file of read alignments and log file with alignment statistics
 
 2. **Coordinate**: Calculates single-nucleotide genomic coordinates of rNMPs based on aligned reads for any currently available rNMP sequencing technique: ribose-seq, emRiboSeq, RHII-HydEn-seq, Alk-HydEn-seq, and Pu-seq
    * Output: BED file of rNMP genomic coordinates and TAB files of rNMP counts
