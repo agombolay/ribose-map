@@ -11,7 +11,7 @@ Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit t
 
 2. **Coordinate**: BED file of rNMP genomic coordinates and TAB files of rNMP counts
 
-3. **Composition**: TXT files of counts and normalized perecentages for r[A, C, G, U] and barcharts results
+3. **Composition**: TXT files of counts and normalized perecentages for r[A, C, G, U] and barcharts of results
 
 4. **Sequence**: TAB files of raw & normalized frequencies for A, C, G, U/T at rNMP sites and 1-100 bp up/downstream
 
