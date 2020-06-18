@@ -8,10 +8,10 @@ Gombolay, AL, FO Vannberg, and F Storici. Ribose-Map: a bioinformatics toolkit t
 
 ## Modules
 1. **Alignment**: Aligns reads to reference genome using [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml) and de-depulicates/de-multiplexes reads if needed
-  * Output: BAM file of read alignments and log file with alignment statistics
+   * Output: BAM file of read alignments and log file with alignment statistics
 
 2. **Coordinate**: Calculates single-nucleotide genomic coordinates of rNMPs based on aligned reads for any currently available rNMP sequencing technique: ribose-seq, emRiboSeq, RHII-HydEn-seq, Alk-HydEn-seq, and Pu-seq
-  * Output: BED file of rNMP genomic coordinates and TAB files of rNMP counts
+   * Output: BED file of rNMP genomic coordinates and TAB files of rNMP counts
 
 3. **Composition**: Calculates percentage of r[A, C, G, U] normalized to corresponding percentages of reference genome
   * Output: TXT files of raw counts and normalized frequencies for r[A, C, G, U] and barcharts of frequencies
