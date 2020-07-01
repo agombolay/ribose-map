@@ -31,7 +31,7 @@ Ribose-Map is a user-friendly, standardized bioinformatics toolkit for the compr
 
 "$repository/results/$sample/coordinate$quality" ($variables should be those provided in config)
 
-## Install Software
+## Install Software, Timing ~ 30 min
 
 1. **Create conda software environment**:  
 * To install conda, please visit [this link](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html)
@@ -46,7 +46,7 @@ Ribose-Map is a user-friendly, standardized bioinformatics toolkit for the compr
    git clone https://github.com/agombolay/ribose-map.git
    ```
    
-## Run Ribose-Map
+## Run Ribose-Map, Timing < 3 hr for most datasets
 Before proceeding, close current terminal window and open a new window to refresh the settings  
 * If SAMtools gives an error, then install this dependency: conda install -c conda-forge ncurses
 
