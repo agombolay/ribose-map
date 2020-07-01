@@ -17,8 +17,8 @@ Ribose-Map is a user-friendly, standardized bioinformatics toolkit for the compr
 6. **Hotspot**: Sequence logo plots of consensus sequences for top X% most abundant sites of rNMP incorporation
 
 ## Hardware and Software Requirements
-Hardware (64-bit computer running Linux or Mac OS X; 4 GB of RAM)
-Software dependencies and versions are listed in the ribose-map/lib/ribosemap_env.yaml file
+* Hardware (64-bit computer running Linux or Mac OS X; 4 GB of RAM)  
+* Software dependencies and versions are listed in the ribose-map/lib/ribosemap_env.yaml file
 
 ## Required Files
 1. FASTQ file of NGS rNMP-seq reads (SE or PE)
