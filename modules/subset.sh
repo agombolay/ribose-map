@@ -42,7 +42,6 @@ if [[ $other ]]; then
 		elif [[ $nuc == "U" ]]; then	
 			#Create BED file for only U ribonucleotide
 			bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -tab -bed $repository/results/$sample/coordinate$quality/${sample}-chromosomes.coords.bed | awk '$2 == "T" || $2 == "t"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-Ribo.chromosomes.$nuc.bed
-
 		fi
 	done
 	
@@ -76,7 +75,6 @@ if [[ $other ]]; then
 			elif [[ $nuc == "U" ]]; then	
 				#Create BED file for only U ribonucleotide
 				bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -tab -bed $repository/results/$sample/coordinate$quality/${sample}-$region.coords.bed | awk '$2 == "T" || $2 == "t"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-Ribo.$region.$nuc.bed
-
 			fi
 		done
 
@@ -104,7 +102,6 @@ else
 		elif [[ $nuc == "U" ]]; then	
 			#Create BED file for only U ribonucleotide
 			bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -tab -bed $repository/results/$sample/coordinate$quality/${sample}-chromosomes.coords.bed | awk '$2 == "T" || $2 == "t"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-Ribo.chromosomes.$nuc.bed
-
 		fi
 	done
 fi
