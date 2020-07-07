@@ -16,7 +16,7 @@ if [[ $other ]]; then
 		
 	#Chromosomes
 	grep -Ewv $other_new $repository/results/$sample/coordinate$quality/$sample.bed > $repository/results/$sample/coordinate$quality/${sample}-chromosomes.bed
-	cut -f1,2,3,6 $repository/results/$sample/coordinate$quality/${sample}-chromosomes.bed | uniq -c - | awk -v "OFS=\t" '{print $2, $3, $4, ".", ".", $5, $1}' - | sort -k7,7n - > $repository/results/$sample/coordinate$quality/${sample}-chromosomes.tab
+	cut -f1,2,3,6 $repository/results/$sample/coordinate$quality/${sample}-chromosomes.bed | uniq -c - | awk -v "OFS=\t" '{print $2, $3, $4, ".", ".", $5, $1}' - | sort -k7,7n - > $repository/results/$sample/coordinate$quality/${sample}-chromosomes.Combined.tab
 
 	#Create FASTA and FAI files for Chromosomes
 	chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).chrom.sizes | grep -Ewv $other_new -)
@@ -53,7 +53,7 @@ if [[ $other ]]; then
 	for region in $other; do
 				
 		grep -w $region $repository/results/$sample/coordinate$quality/$sample.bed > $repository/results/$sample/coordinate$quality/${sample}-$region.bed
-		cut -f1,2,3,6 $repository/results/$sample/coordinate$quality/${sample}-$region.bed | uniq -c - | awk -v "OFS=\t" '{print $2, $3, $4, ".", ".", $5, $1}' - | sort -k7,7n - > $repository/results/$sample/coordinate$quality/${sample}-$region.tab
+		cut -f1,2,3,6 $repository/results/$sample/coordinate$quality/${sample}-$region.bed | uniq -c - | awk -v "OFS=\t" '{print $2, $3, $4, ".", ".", $5, $1}' - | sort -k7,7n - > $repository/results/$sample/coordinate$quality/${sample}-$region.Combined.tab
 		
 		#Create FASTA and FAI files for Other
 		chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).chrom.sizes | grep -w $region -)
@@ -90,7 +90,7 @@ if [[ $other ]]; then
 else
 	
 	#Chromosomes
-	cut -f1,2,3,6 $repository/results/$sample/coordinate$quality/${sample}.bed | uniq -c - | awk -v "OFS=\t" '{print $2, $3, $4, ".", ".", $5, $1}' - | sort -k7,7n - > $repository/results/$sample/coordinate$quality/${sample}-chromosomes.tab
+	cut -f1,2,3,6 $repository/results/$sample/coordinate$quality/${sample}.bed | uniq -c - | awk -v "OFS=\t" '{print $2, $3, $4, ".", ".", $5, $1}' - | sort -k7,7n - > $repository/results/$sample/coordinate$quality/${sample}-chromosomes.Combined.tab
 
 	for nuc in "A" "C" "G" "U" "Combined"; do
 
