@@ -12,7 +12,7 @@ rm -r $output; mkdir -p $output
 for region in $other "chromosomes"; do
 	
 	#Calculate index
-	index=$(echo "$(wc -l < $repository/results/$sample/coordinate$quality/${sample}-$region.$type.tab)*$percentile" | bc)
+	index=$(echo "$(wc -l < $repository/results/$sample/coordinate$quality/${sample}-$region.$nuc.tab)*$percentile" | bc)
 
 	#Test if index is integer or floating
 	integer=$(echo $index | grep -E '[0-9]+\.[0]{2}' -)
