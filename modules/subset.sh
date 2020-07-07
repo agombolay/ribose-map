@@ -24,7 +24,7 @@ if [[ $other ]]; then
 	samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)-chromosomes.fa
 	samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-chromosomes.fa
 
-	for nuc in "A" "C" "G" "U"; do
+	for nuc in "A" "C" "G" "U" "Combined"; do
 
 		#Save frequencies of rNMPs to TXT files
 		if [[ $nuc == "A" ]]; then
@@ -61,7 +61,7 @@ if [[ $other ]]; then
 		samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
 		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
 		
-		for nuc in "A" "C" "G" "U"; do
+		for nuc in "A" "C" "G" "U" "Combined"; do
 
 			#Save frequencies of rNMPs to TXT files
 			if [[ $nuc == "A" ]]; then
@@ -92,7 +92,7 @@ else
 	#Chromosomes
 	cut -f1,2,3,6 $repository/results/$sample/coordinate$quality/${sample}.bed | uniq -c - | awk -v "OFS=\t" '{print $2, $3, $4, ".", ".", $5, $1}' - | sort -k7,7n - > $repository/results/$sample/coordinate$quality/${sample}-chromosomes.tab
 
-	for nuc in "A" "C" "G" "U"; do
+	for nuc in "A" "C" "G" "U" "Combined"; do
 
 		#Save frequencies of rNMPs to TXT files
 		if [[ $nuc == "A" ]]; then
