@@ -51,7 +51,7 @@ for region in $other "chromosomes"; do
 #############################################################################################################################################################################################################################################
 
 		#Save top 1% of rNMP coordinates
-		#awk -v "OFS=\t" -v "x=$percentile" '{if ($7 >= x) print $0}' $repository/results/$sample/coordinate$quality/${sample}-$region.$nuc.tab > $output/${sample}-$region.$nuc.top.tab
+		awk -v "OFS=\t" -v "x=$percentile" '{if ($7 >= x) print $0}' $repository/results/$sample/coordinate$quality/${sample}-$region.$nuc.tab > $output/${sample}-$region.$nuc.top.tab
 
 #############################################################################################################################################################################################################################################
 
