@@ -51,19 +51,19 @@ for region in $other "chromosomes"; do
 
 #############################################################################################################################################################################################################################################
 
-		for file in $(ls $output/${sample}-$region.$nuc.top.tab); do
+		#for file in $(ls $output/${sample}-$region.$nuc.top.tab); do
 
-			#Get genomic coordinates of rNMPs and the 3 nucleotides up/downstream from them
-			bedtools slop -s -i $file -g $(dirname $fasta)/$(basename $fasta .fa).chrom.sizes -b 3 > $output/$(basename $file .top.tab).flank.tab
+		#Get genomic coordinates of rNMPs and the 3 nucleotides up/downstream from them
+		bedtools slop -s -i $output/${sample}-$region.$nuc.top.tab -g $(dirname $fasta)/$(basename $fasta .fa).chrom.sizes -b 3 > $output/$(basename $output/${sample}-$region.$nuc.top.tab .top.tab).flank.tab
 	
-			#Get nucleotide sequence of rNMPs and the 3 nucleotides up/downstream from them
-			bedtools getfasta -s -fi $fasta -bed $output/$(basename $file .top.tab).flank.tab | awk '/>/{$0 = ">" ++i substr($0, 2)} 1' - > $output/$(basename $file .top.tab).flank.txt
+		#Get nucleotide sequence of rNMPs and the 3 nucleotides up/downstream from them
+		bedtools getfasta -s -fi $fasta -bed $output/$(basename $output/${sample}-$region.$nuc.top.tab .top.tab).flank.tab | awk '/>/{$0 = ">" ++i substr($0, 2)} 1' - > $output/$(basename $output/${sample}-$region.$nuc.top.tab .top.tab).flank.txt
 
-			sites=$(grep -c "^>" $output/$(basename $file .top.tab).flank.txt)
+		sites=$(grep -c "^>" $output/$(basename $output/${sample}-$region.$nuc.top.tab .top.tab).flank.txt)
 
-			meme $output/$(basename $file .top.tab).flank.txt -o $output/meme-$(basename $file .top.tab) -dna -minw 7 -nsites $sites -brief 1000000
+		meme $output/$(basename $output/${sample}-$region.$nuc.top.tab .top.tab).flank.txt -o $output/meme-$(basename $output/${sample}-$region.$nuc.top.tab .top.tab) -dna -minw 7 -nsites $sites -brief 1000000
 
-		done
+		#done
 	done
 done
 
