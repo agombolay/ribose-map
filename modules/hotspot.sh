@@ -47,21 +47,21 @@ for region in $other "chromosomes"; do
 #############################################################################################################################################################################################################################################
 
 		#Save top 1% of rNMP coordinates
-		awk -v "OFS=\t" -v "x=$percentile" '{if ($7 >= x) print $0}' $repository/results/$sample/coordinate$quality/${sample}-$region.$nuc.tab > $output/${sample}-$region.top.tab
+		awk -v "OFS=\t" -v "x=$percentile" '{if ($7 >= x) print $0}' $repository/results/$sample/coordinate$quality/${sample}-$region.$nuc.tab > $output/${sample}-$region.$nuc.top.tab
 
 #############################################################################################################################################################################################################################################
 
-		for file in $(ls $output/${sample}-$region.top.tab); do
+		for file in $(ls $output/${sample}-$region.$nuc.top.tab); do
 
 			#Get genomic coordinates of rNMPs and the 3 nucleotides up/downstream from them
-			bedtools slop -s -i $file -g $(dirname $fasta)/$(basename $fasta .fa).chrom.sizes -b 3 > $output/$(basename $file .tab).slop.tab
+			bedtools slop -s -i $file -g $(dirname $fasta)/$(basename $fasta .fa).chrom.sizes -b 3 > $output/$(basename $file .tab).$nuc.slop.tab
 	
 			#Get nucleotide sequence of rNMPs and the 3 nucleotides up/downstream from them
-			bedtools getfasta -s -fi $fasta -bed $output/$(basename $file .tab).slop.tab | awk '/>/{$0 = ">" ++i substr($0, 2)} 1' - > $output/$(basename $file .tab).flank.txt
+			bedtools getfasta -s -fi $fasta -bed $output/$(basename $file .tab).$nuc.slop.tab | awk '/>/{$0 = ">" ++i substr($0, 2)} 1' - > $output/$(basename $file .tab).$nuc.flank.txt
 
-			sites=$(grep -c "^>" $output/$(basename $file .tab).flank.txt)
+			sites=$(grep -c "^>" $output/$(basename $file .tab).$nuc.flank.txt)
 
-			meme $output/$(basename $file .tab).flank.txt -o $output/meme-$(basename $file .tab) -dna -minw 7 -nsites $sites -brief 1000000
+			meme $output/$(basename $file .tab).$nuc.flank.txt -o $output/meme-$(basename $file .tab) -dna -minw 7 -nsites $sites -brief 1000000
 
 		done
 	done
