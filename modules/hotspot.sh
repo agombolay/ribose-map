@@ -54,10 +54,10 @@ for region in $other "chromosomes"; do
 		for file in $(ls $output/${sample}-$region.$nuc.top.tab); do
 
 			#Get genomic coordinates of rNMPs and the 3 nucleotides up/downstream from them
-			bedtools slop -s -i $file -g $(dirname $fasta)/$(basename $fasta .fa).chrom.sizes -b 3 > $output/$(basename $file .top.tab).tab
+			bedtools slop -s -i $file -g $(dirname $fasta)/$(basename $fasta .fa).chrom.sizes -b 3 > $output/$(basename $file .top.tab).flank.tab
 	
 			#Get nucleotide sequence of rNMPs and the 3 nucleotides up/downstream from them
-			bedtools getfasta -s -fi $fasta -bed $output/$(basename $file .top.tab).tab | awk '/>/{$0 = ">" ++i substr($0, 2)} 1' - > $output/$(basename $file .top.tab).flank.txt
+			bedtools getfasta -s -fi $fasta -bed $output/$(basename $file .top.tab).flank.tab | awk '/>/{$0 = ">" ++i substr($0, 2)} 1' - > $output/$(basename $file .top.tab).flank.txt
 
 			sites=$(grep -c "^>" $output/$(basename $file .top.tab).flank.txt)
 
