@@ -44,24 +44,28 @@ for region in $other "chromosomes"; do
 	
 		fi
 
+		echo $region
+		echo $nuc
+		echo $percentile
+		
 #############################################################################################################################################################################################################################################
 
 		#Save top 1% of rNMP coordinates
-		awk -v "OFS=\t" -v "x=$percentile" '{if ($7 >= x) print $0}' $repository/results/$sample/coordinate$quality/${sample}-$region.$nuc.tab > $output/${sample}-$region.$nuc.top.tab
+		#awk -v "OFS=\t" -v "x=$percentile" '{if ($7 >= x) print $0}' $repository/results/$sample/coordinate$quality/${sample}-$region.$nuc.tab > $output/${sample}-$region.$nuc.top.tab
 
 #############################################################################################################################################################################################################################################
 
 		#for file in $(ls $output/${sample}-$region.$nuc.top.tab); do
 
 		#Get genomic coordinates of rNMPs and the 3 nucleotides up/downstream from them
-		bedtools slop -s -i $output/${sample}-$region.$nuc.top.tab -g $(dirname $fasta)/$(basename $fasta .fa).chrom.sizes -b 3 > $output/$(basename $output/${sample}-$region.$nuc.top.tab .top.tab).flank.tab
+		#bedtools slop -s -i $output/${sample}-$region.$nuc.top.tab -g $(dirname $fasta)/$(basename $fasta .fa).chrom.sizes -b 3 > $output/$(basename $output/${sample}-$region.$nuc.top.tab .top.tab).flank.tab
 	
 		#Get nucleotide sequence of rNMPs and the 3 nucleotides up/downstream from them
-		bedtools getfasta -s -fi $fasta -bed $output/$(basename $output/${sample}-$region.$nuc.top.tab .top.tab).flank.tab | awk '/>/{$0 = ">" ++i substr($0, 2)} 1' - > $output/$(basename $output/${sample}-$region.$nuc.top.tab .top.tab).flank.txt
+		#bedtools getfasta -s -fi $fasta -bed $output/$(basename $output/${sample}-$region.$nuc.top.tab .top.tab).flank.tab | awk '/>/{$0 = ">" ++i substr($0, 2)} 1' - > $output/$(basename $output/${sample}-$region.$nuc.top.tab .top.tab).flank.txt
 
-		sites=$(grep -c "^>" $output/$(basename $output/${sample}-$region.$nuc.top.tab .top.tab).flank.txt)
+		#sites=$(grep -c "^>" $output/$(basename $output/${sample}-$region.$nuc.top.tab .top.tab).flank.txt)
 
-		meme $output/$(basename $output/${sample}-$region.$nuc.top.tab .top.tab).flank.txt -o $output/meme-$(basename $output/${sample}-$region.$nuc.top.tab .top.tab) -dna -minw 7 -nsites $sites -brief 1000000
+		#meme $output/$(basename $output/${sample}-$region.$nuc.top.tab .top.tab).flank.txt -o $output/meme-$(basename $output/${sample}-$region.$nuc.top.tab .top.tab) -dna -minw 7 -nsites $sites -brief 1000000
 
 		#done
 	done
