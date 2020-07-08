@@ -61,7 +61,7 @@ for region in $other "chromosomes"; do
 
 			sites=$(grep -c "^>" $output/$(basename $file .tab).$nuc.flank.txt)
 
-			meme $output/$(basename $file .tab).$nuc.flank.txt -o $output/meme-$(basename $file .tab) -dna -minw 7 -nsites $sites -brief 1000000
+			meme $output/$(basename $file .tab).$nuc.flank.txt -o $output/meme-$(basename $file .top.tab) -dna -minw 7 -nsites $sites -brief 1000000
 
 		done
 	done
