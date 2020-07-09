@@ -44,10 +44,8 @@ for region in $other "chromosomes"; do
 	
 		fi
 
-		echo $region
-		echo $nuc
-		echo $percentile
 		echo $repository/results/$sample/coordinate$quality/${sample}-$region.$nuc.tab
+		echo $percentile
 		
 #############################################################################################################################################################################################################################################
 
