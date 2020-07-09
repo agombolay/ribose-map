@@ -67,4 +67,4 @@ for region in $other "chromosomes"; do
 	done
 done
 
-#rm $output/*.txt
+rm $output/*.txt
