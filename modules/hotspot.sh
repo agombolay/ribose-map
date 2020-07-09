@@ -43,10 +43,6 @@ for region in $other "chromosomes"; do
 			threshold=$(head -${line} $repository/results/$sample/coordinate$quality/${sample}-$region.$nuc.tab | tail -1 | awk '{ print $7 }')
 	
 		fi
-
-		echo $percentile
-		echo $threshold
-		echo $repository/results/$sample/coordinate$quality/${sample}-$region.$nuc.tab
 		
 #############################################################################################################################################################################################################################################
 
