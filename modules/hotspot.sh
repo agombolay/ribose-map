@@ -9,9 +9,9 @@ rm -r $output; mkdir -p $output
 
 #############################################################################################################################################################################################################################################
 
-#for region in $other "chromosomes"; do
+for region in $other "chromosomes"; do
 	
-	#for nuc in "A" "C" "G" "U" "Combined"; do
+	for nuc in "A" "C" "G" "U" "Combined"; do
 	
 		#Calculate index
 		index=$(echo "$(wc -l < $repository/results/$sample/coordinate$quality/${sample}-$region.$nuc.tab)*$percentile" | bc)
@@ -68,7 +68,7 @@ rm -r $output; mkdir -p $output
 		#meme $output/$(basename $output/${sample}-$region.$nuc.top.tab .top.tab).flank.txt -o $output/meme-$(basename $output/${sample}-$region.$nuc.top.tab .top.tab) -dna -minw 7 -nsites $sites -brief 1000000
 
 		#done
-	#done
-#done
+	done
+done
 
 #rm $output/*.txt
