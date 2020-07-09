@@ -46,12 +46,13 @@ rm -r $output; mkdir -p $output
 	
 		fi
 
+		echo $percentile
 		echo $threshold
 		
 #############################################################################################################################################################################################################################################
 
 		#Save top 1% of rNMP coordinates
-		#awk -v "OFS=\t" -v "x=$threshold" '{if ($7 >= x) print $0}' $repository/results/$sample/coordinate$quality/${sample}-$region.$nuc.tab > $output/${sample}-$region.$nuc.top.tab
+		awk -v "OFS=\t" -v "x=$threshold" '{if ($7 >= x) print $0}' $repository/results/$sample/coordinate$quality/${sample}-$region.$nuc.tab > $output/${sample}-$region.$nuc.top.tab
 
 #############################################################################################################################################################################################################################################
 
@@ -71,4 +72,4 @@ rm -r $output; mkdir -p $output
 	#done
 #done
 
-rm $output/*.txt
+#rm $output/*.txt
