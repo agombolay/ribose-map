@@ -32,7 +32,7 @@ rm -r $output; mkdir -p $output
 			value1=$(head -${line1} $repository/results/$sample/coordinate$quality/${sample}-$region.$nuc.tab | tail -1 | awk '{ print $7 }')
 			value2=$(head -${line2} $repository/results/$sample/coordinate$quality/${sample}-$region.$nuc.tab | tail -1 | awk '{ print $7 }')
 
-			#Calculate 99th percentile (average of counts)
+			#Calculate Xth percentile (average of counts)
 			threshold=$(echo "scale=2; ($value1 + $value2)/2" | bc -l)
 
 		else
