@@ -9,12 +9,13 @@ rm -r $output; mkdir -p $output
 
 #############################################################################################################################################################################################################################################
 
-for region in $other "chromosomes"; do
+#for region in $other "chromosomes"; do
 	
-	for nuc in "A" "C" "G" "U" "Combined"; do
+	#for nuc in "A" "C" "G" "U" "Combined"; do
 	
 		#Calculate index
-		index=$(echo "$(wc -l < $repository/results/$sample/coordinate$quality/${sample}-$region.$nuc.tab)*$percentile" | bc)
+		index=$(echo "$(wc -l < /nv/hp16/agombolay3/data/FS25-Ribo/results/FS257/coordinate30/FS257-chrM.Combined.tab)*$percentile" | bc)
+		#index=$(echo "$(wc -l < $repository/results/$sample/coordinate$quality/${sample}-$region.$nuc.tab)*$percentile" | bc)
 
 		#Test if index is integer or floating
 		integer=$(echo $index | grep -E '[0-9]+\.[0]{2}' -)
@@ -40,7 +41,8 @@ for region in $other "chromosomes"; do
 			line=$(echo $index | awk '{print int($1 + 1)}')
 
 			#Calculate Xth percentile (count at the line)
-			threshold=$(head -${line} $repository/results/$sample/coordinate$quality/${sample}-$region.$nuc.tab | tail -1 | awk '{ print $7 }')
+			threshold=$(head -${line} /nv/hp16/agombolay3/data/FS25-Ribo/results/FS257/coordinate30/FS257-chrM.Combined.tab | tail -1 | awk '{ print $7 }')
+			#threshold=$(head -${line} $repository/results/$sample/coordinate$quality/${sample}-$region.$nuc.tab | tail -1 | awk '{ print $7 }')
 	
 		fi
 
@@ -66,7 +68,7 @@ for region in $other "chromosomes"; do
 		#meme $output/$(basename $output/${sample}-$region.$nuc.top.tab .top.tab).flank.txt -o $output/meme-$(basename $output/${sample}-$region.$nuc.top.tab .top.tab) -dna -minw 7 -nsites $sites -brief 1000000
 
 		#done
-	done
-done
+	#done
+#done
 
 rm $output/*.txt
