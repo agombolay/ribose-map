@@ -10,12 +10,12 @@
 
 ######################################################################################################################################################
 
-if [[ $other ]]; then
+if [[ $unit ]]; then
 
-	other_new=$(echo $other | sed 's/ /|/g')
+	unit_new=$(echo $unit | sed 's/ /|/g')
 		
 	#Chromosomes
-	grep -Ewv $other_new $repository/results/$sample/coordinate$quality/$sample.bed > $repository/results/$sample/coordinate$quality/${sample}-chromosomes.bed
+	grep -Ewv $unit_new $repository/results/$sample/coordinate$quality/$sample.bed > $repository/results/$sample/coordinate$quality/${sample}-chromosomes.bed
 	cut -f1,2,3,6 $repository/results/$sample/coordinate$quality/${sample}-chromosomes.bed | uniq -c - | awk -v "OFS=\t" '{print $2, $3, $4, ".", ".", $5, $1}' - | sort -k7,7n - > $repository/results/$sample/coordinate$quality/${sample}-chromosomes.Combined.tab
 
 	#Create FASTA and FAI files for Chromosomes
@@ -50,7 +50,7 @@ if [[ $other ]]; then
 	done
 	
 	#Other
-	for region in $other; do
+	for region in $unit; do
 				
 		grep -w $region $repository/results/$sample/coordinate$quality/$sample.bed > $repository/results/$sample/coordinate$quality/${sample}-$region.bed
 		cut -f1,2,3,6 $repository/results/$sample/coordinate$quality/${sample}-$region.bed | uniq -c - | awk -v "OFS=\t" '{print $2, $3, $4, ".", ".", $5, $1}' - | sort -k7,7n - > $repository/results/$sample/coordinate$quality/${sample}-$region.Combined.tab
