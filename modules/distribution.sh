@@ -18,7 +18,7 @@ rm -r $output; mkdir -p $output
 
 #############################################################################################################################
 
-for region in $other "chromosomes"; do
+for region in $unit "chromosomes"; do
 
 	#Calculate normalized counts of rNMPs
 	mawk -v "OFS=\t" -v total="$(wc -l < $repository/results/$sample/coordinate$quality/$sample-$region.coords.bed)" '{print $1, $2, $3, $6, $7/total*100}' \
