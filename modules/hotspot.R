@@ -11,6 +11,8 @@ source(commandArgs(TRUE)[1])
 #Load the required packages
 library(tools); require(ggplot2); require(ggseqlogo)
 
+#############################################################################################################################
+
 #Input/Output
 output <- file.path(repository, "results", sample, paste("hotspot", quality, sep = ""))
 input_files <- list.files(path = output, pattern = "*.txt", full.names = TRUE, recursive = TRUE)
