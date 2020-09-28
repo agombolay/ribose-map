@@ -1,12 +1,7 @@
 #!/usr/bin/env bash
 
-#© 2016 Alli Gombolay
 #Author: Alli Lauren Gombolay
-#E-mail: alli.gombolay@gatech.edu
-
-#1. Pre-processing (if UMI and/or barcode)
-#2. Alignment or SE or PE reads to reference
-#3. De-duplication based on UMI and chr coords
+#Processes UMI and/or barcode if necessary, aligns reads to reference genome, and de-duplicates aligned reads
 
 #############################################################################################################################
 #Load config file
