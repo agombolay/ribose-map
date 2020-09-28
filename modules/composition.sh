@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-#Alli Gombolay, 11/2018
-#Calculates counts of rAMP, rCMP, rGMP, and rUMP
+#Author: Alli Gombolay
+#Calculates normalized percentage of each rNMP
 
 ######################################################################################################################################################
 
