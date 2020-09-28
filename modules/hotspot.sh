@@ -51,8 +51,6 @@ for region in $unit "chromosomes"; do
 
 #############################################################################################################################################################################################################################################
 
-		#for file in $(ls $output/${sample}-$region.$nuc.top.tab); do
-
 		#Get genomic coordinates of rNMPs and the 3 nucleotides up/downstream from them
 		bedtools slop -s -i $output/${sample}-$region.$nuc.top.tab -g $(dirname $fasta)/$(basename $fasta .fa).chrom.sizes -b 3 > $output/$(basename $output/${sample}-$region.$nuc.top.tab .top.tab).flank.tab
 	
@@ -63,7 +61,6 @@ for region in $unit "chromosomes"; do
 
 		meme $output/$(basename $output/${sample}-$region.$nuc.top.tab .top.tab).flank.txt -o $output/meme-$(basename $output/${sample}-$region.$nuc.top.tab .top.tab) -dna -minw 7 -nsites $sites -brief 1000000
 
-		#done
 	done
 done
 
