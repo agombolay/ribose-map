@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
-#© 2016 Alli Gombolay
-#Author: Alli Lauren Gombolay
-#E-mail: alli.gombolay@gatech.edu
-
+#Author: Alli L. Gombolay
 #Calculates genomic coordinates of rNMPs for ribose-seq, emRiboSeq, Alk-HydEn-seq, RHII-HydEn-seq, and Pu-seq
 
 #############################################################################################################################
