@@ -11,6 +11,8 @@ source(commandArgs(TRUE)[1])
 #Load libraries
 library(ggplot2); library(tools)
 
+#############################################################################################################################
+
 #Input/Output
 output <- file.path(repository, "results", sample, paste("composition", quality, sep = ""))
 input_files <- list.files(path = output, pattern = "*frequencies.txt", full.names = TRUE, recursive = FALSE)
