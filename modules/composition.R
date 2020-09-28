@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
 
-#Author: Alli Lauren Gombolay
+#Author: Alli L. Gombolay
 #Creates barchart of rNMP composition
 
 #############################################################################################################################
