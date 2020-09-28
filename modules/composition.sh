@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#Author: Alli Gombolay
+#Author: Alli L. Gombolay
 #Calculates normalized percentage of each rNMP
 
 ######################################################################################################################################################
