@@ -1,5 +1,10 @@
 #!/usr/bin/env Rscript
 
+#Author: Alli L. Gombolay
+#Creates MEME plots for rNMP hotspots
+
+#############################################################################################################################
+
 #Load config
 source(commandArgs(TRUE)[1])
 
