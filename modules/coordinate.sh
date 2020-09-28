@@ -4,6 +4,7 @@
 #Calculates genomic coordinates of rNMPs for ribose-seq, emRiboSeq, Alk-HydEn-seq, RHII-HydEn-seq, and Pu-seq
 
 #############################################################################################################################
+
 #Load config file
 . "$1"
 
@@ -12,6 +13,7 @@ output=$repository/results/$sample/coordinate$quality
 rm -r $output; mkdir -p $output
 			
 #############################################################################################################################
+
 if [[ ! $read2 ]]; then
 	#Convert BAM file to BED and filter by quality score
 	bedtools bamtobed -i $repository/results/$sample/alignment/$sample.bam | mawk -v "OFS=\t" -v q="$quality" '$5 >= q { print }' - > $output/reads.bed
@@ -70,6 +72,7 @@ fi
 cut -f1,2,3,6 $output/$sample.bed | uniq -c - | mawk -v "OFS=\t" '{print $2, $3, $4, ".", ".", $5, $1}' > $output/$sample.counts.tab
 
 #############################################################################################################################
+
 #Remove temporary files
 rm -f $output/reads.bed $output/temporary.bed
 
