@@ -1,13 +1,10 @@
 #!/usr/bin/env Rscript
 
-#Copyright 2016 Alli Gombolay
-#Author: Alli Lauren Gombolay
-#E-mail: alli.gombolay@gatech.edu
-
-#1. Plots rNMP nt frequencies for mito and nucleus
-#2. Saves plots as png files to appropriate directory
+#Author: Alli L. Gombolay
+#Plots nucleotide sequence context of rNMPs
 
 ####################################################################################################################################################################
+
 #Load config
 source(commandArgs(TRUE)[1])
 
@@ -15,11 +12,13 @@ source(commandArgs(TRUE)[1])
 library(ggplot2); library(tools)
 
 ####################################################################################################################################################################
+
 #Input/Output
 output <- file.path(repository, "results", sample, paste("sequence", quality, sep = ""))
 input_files <- list.files(path = output, pattern = "*normalized.tab", full.names = TRUE, recursive = FALSE)	
 
 ####################################################################################################################################################################
+
 #Find maximum y-axis value
 maximum <- c()
 minimum <- c()
@@ -35,12 +34,14 @@ ymin <- min(minimum)
 
 
 ####################################################################################################################################################################
+	
 	for(file in input_files){
 	
 		#Regular and zoomed datasets
 		for(i in c("normal", "zoomed")) {
 
 ####################################################################################################################################################################
+			
 			#Specify datasets to be used for each round of loop
 			if (i == "normal") {data = read.table(file, sep = "\t", header = TRUE)
 			#if (i == "zoomed") {data = read.table(file, sep = "\t", header = TRUE)[96:106,]}
@@ -49,6 +50,7 @@ ymin <- min(minimum)
 			position <- data$X; A <- data$A; C <- data$C; G <- data$G; T <- data$U.T
 
 ####################################################################################################################################################################
+			
 			if (ymin > 0) {
 
 				log_normal <- ggplot(data, aes(x = position)) + theme_minimal() + xlab("Position relative to rNMP") + ylab("Normalized Frequency (log2)") +
@@ -106,6 +108,7 @@ ymin <- min(minimum)
 			}}
 			
 ####################################################################################################################################################################
+			
 			if (i == "zoomed") {data = read.table(file, sep = "\t", header = TRUE)[96:106,]
 			position <- data$X; A <- data$A; C <- data$C; G <- data$G; T <- data$U.T
 			
