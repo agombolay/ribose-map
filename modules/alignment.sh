@@ -4,6 +4,7 @@
 #Processes UMI and/or barcode if necessary, aligns reads to reference genome, and de-duplicates aligned reads
 
 #############################################################################################################################
+
 #Load config file
 . "$1"
 
@@ -12,6 +13,7 @@ output=$repository/results/$sample/alignment
 rm -r $output; mkdir -p $output
 
 #############################################################################################################################
+
 if [[ ! $read2 ]]; then
 	
 	if [[ ! $pattern ]]; then
@@ -94,6 +96,7 @@ elif [[ $read2 ]]; then
 fi
 
 #############################################################################################################################
+
 #Print status
 echo "Status: Alignment Module for $sample is complete"
 
