@@ -100,7 +100,16 @@ fi
 
 #############################################################################################################################
 
+#Remove temporary files
+rm $output/aligned.sam $output/sorted.bam
+
+if [[ $pattern ]]; then
+	rm $output/extracted1.fq
+fi
+
+if [[ $barcode ]]; then
+	rm $output/demultiplexed1.fq
+fi
+
 #Print status
 echo "Status: Alignment Module for $sample is complete"
-
-rm $output/aligned.sam $output/sorted.bam $output/extracted1.fq $output/demultiplexed1.fq
