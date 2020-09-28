@@ -1,5 +1,7 @@
 #!/usr/bin/env Rscript
 
+#Author: Alli Lauren Gombolay
+
 #Load config
 source(commandArgs(TRUE)[1])
 
