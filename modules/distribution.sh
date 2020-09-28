@@ -1,11 +1,7 @@
 #!/usr/bin/env bash
 
-#© 2016 Alli Gombolay
 #Author: Alli Lauren Gombolay
-#E-mail: alli.gombolay@gatech.edu
-
-#1. Creates bedgraph files for forward and reverse strands
-#2. Saves coverage of rNMPs per chromosome to separate files
+#Creates bedgraph files of per nucleotide rNMP coverage for each DNA strand
 
 #############################################################################################################################
 
