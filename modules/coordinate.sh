@@ -23,6 +23,8 @@ elif [[ $read2 ]]; then
 	samtools view -b -f67 $repository/results/$sample/alignment/$sample.bam | bedtools bamtobed -i stdin | mawk -v "OFS=\t" -v q="$quality" '$5 >= q { print }' - > $output/reads.bed
 fi
 
+#############################################################################################################################
+
 #Determine coordinates for each technique
 if [[ $technique == "ribose-seq" ]]; then
 
@@ -31,35 +33,19 @@ if [[ $technique == "ribose-seq" ]]; then
 	
 elif [[ $technique == "emRiboSeq" ]]; then
 
-	if [[ ! $check ]]; then
-	
-		#Obtain coordinates of rNMPs depending on the strand of DNA and sort data
-		mawk -v "OFS=\t" '{if ($6 == "-") print $1, $3, ($3 + 1), $4, $5, "+"; else if ($6 == "+") print $1, ($2 - 1), $2, $4, $5, "-";}' $output/reads.bed | sort -k1,1 -k2,2n -k 6 > $output/$sample.bed
-	
-	elif [[ $check ]]; then
-	
-		#Obtain coordinates of rNMPs depending on the strand of DNA and sort data
-		mawk -v "OFS=\t" '{if ($6 == "-") print $1, $3, ($3 + 1), $4, $5, "+"; else if ($6 == "+") print $1, ($2 - 1), $2, $4, $5, "-";}' $output/reads.bed > $output/temporary.bed
+	#Obtain coordinates of rNMPs depending on the strand of DNA and sort data
+	mawk -v "OFS=\t" '{if ($6 == "-") print $1, $3, ($3 + 1), $4, $5, "+"; else if ($6 == "+") print $1, ($2 - 1), $2, $4, $5, "-";}' $output/reads.bed > $output/temporary.bed
 
-		#Remove coordinates of rNMPs if the end position is greater than length of chromosome
-		join -t $'\t' <(sort $(dirname $fasta)/$(basename $fasta .fa).chrom.sizes) <(sort $output/temporary.bed) | mawk -v "OFS=\t" '$3 >= 0 && $2 >= $4 { print $1, $3, $4, $5, $6, $7 }' | sort -k1,1 -k2,2n -k 6 > $output/$sample.bed
-	fi
+	#Remove coordinates of rNMPs if the end position is greater than length of chromosome
+	join -t $'\t' <(sort $(dirname $fasta)/$(basename $fasta .fa).chrom.sizes) <(sort $output/temporary.bed) | mawk -v "OFS=\t" '$3 >= 0 && $2 >= $4 { print $1, $3, $4, $5, $6, $7 }' | sort -k1,1 -k2,2n -k 6 > $output/$sample.bed
 	
 elif [[ $technique == "Alk-HydEn-seq" ]] || [[ $technique == "Pu-seq" ]]; then
 	
-	if [[ ! $check ]]; then
+	#Obtain coordinates of rNMPs depending on the strand of DNA and sort data
+	mawk -v "OFS=\t" '{if ($6 == "+") print $1, ($2 - 1), $2, $4, $5, "+"; else if ($6 == "-") print $1, $3, ($3 + 1), $4, $5, "-";}' $output/reads.bed > $output/temporary.bed
 	
-		#Obtain coordinates of rNMPs depending on the strand of DNA and sort data
-		mawk -v "OFS=\t" '{if ($6 == "+") print $1, ($2 - 1), $2, $4, $5, "+"; else if ($6 == "-") print $1, $3, ($3 + 1), $4, $5, "-";}' $output/reads.bed | sort -k1,1 -k2,2n -k 6 > $output/$sample.bed
-	
-	elif [[ $check ]]; then
-
-		#Obtain coordinates of rNMPs depending on the strand of DNA and sort data
-		mawk -v "OFS=\t" '{if ($6 == "+") print $1, ($2 - 1), $2, $4, $5, "+"; else if ($6 == "-") print $1, $3, ($3 + 1), $4, $5, "-";}' $output/reads.bed > $output/temporary.bed
-	
-		#Remove coordinates of rNMPs if the end position is greater than length of chromosome
-		join -t $'\t' <(sort $(dirname $fasta)/$(basename $fasta .fa).chrom.sizes) <(sort $output/temporary.bed) | mawk -v "OFS=\t" '$3 >= 0 && $2 >= $4 { print $1, $3, $4, $5, $6, $7 }' | sort -k1,1 -k2,2n -k 6 > $output/$sample.bed
-	fi
+	#Remove coordinates of rNMPs if the end position is greater than length of chromosome
+	join -t $'\t' <(sort $(dirname $fasta)/$(basename $fasta .fa).chrom.sizes) <(sort $output/temporary.bed) | mawk -v "OFS=\t" '$3 >= 0 && $2 >= $4 { print $1, $3, $4, $5, $6, $7 }' | sort -k1,1 -k2,2n -k 6 > $output/$sample.bed
 
 elif [[ $technique == "RHII-HydEn-seq" ]]; then
 
