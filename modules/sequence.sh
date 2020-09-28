@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#Alli Gombolay
+#Author: Alli L. Gombolay
 #Calculates frequencies of rNMP nucleotides and flanking nucleotides
 
 #############################################################################################################################
