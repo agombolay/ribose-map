@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#Author: Alli Lauren Gombolay
+#Author: Alli L. Gombolay
 #Processes UMI and/or barcode if necessary, aligns reads to reference genome, and de-duplicates aligned reads
 
 #############################################################################################################################
