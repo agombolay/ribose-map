@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-#Alli Gombolay, 02/2020
-#Subsets data by genomic region
+#Author: Alli L. Gombolay
+#Subsets rNMP genomic coordinates by unit
 
 ######################################################################################################################################################
 
