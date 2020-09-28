@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+#Author: Alli L. Gombolay
+#Identifies top percentile of rNMP sites
+
+#############################################################################################################################
+
 #Load config file
 . "$1"
 
