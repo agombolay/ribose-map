@@ -4,8 +4,7 @@
 #Author: Alli Lauren Gombolay
 #E-mail: alli.gombolay@gatech.edu
 
-#1. Determine the chromosome coordinates of rNMPs
-#2. Can be applied to any rNMP sequencing technique
+#Calculates genomic coordinates of rNMPs for ribose-seq, emRiboSeq, Alk-HydEn-seq, RHII-HydEn-seq, and Pu-seq
 
 #############################################################################################################################
 #Load config file
