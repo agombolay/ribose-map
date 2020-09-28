@@ -18,12 +18,6 @@ for region in $unit "chromosomes"; do
 	#Get nucleotide for each genomic coordinate
 	bedtools getfasta -s -fi $fasta -bed $repository/results/$sample/coordinate$quality/${sample}-$region.coords.bed | grep -v '>' > $output/${sample}-$region.nucs.tab
 	
-	#Nucleotide Frequencies of rNMPs
-	#temp=$(echo $output/$(basename $file .coords.bed).nucs.tab | awk -F '[-]' '{print $2 $3 $4}')
-	#region=$(basename $temp .nucs.tab)
-	
-	#region=$(basename $file .coords.bed | cut -d "-" -f2)
-	
 	#Calculate counts of each nucleotide
 	A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/${sample}-$region.nucs.tab | wc -l)
 	C_Ribo=$(awk '$1 == "C" || $1 == "c"' $output/${sample}-$region.nucs.tab | wc -l)
