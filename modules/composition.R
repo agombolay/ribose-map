@@ -1,7 +1,9 @@
 #!/usr/bin/env Rscript
 
 #Author: Alli Lauren Gombolay
+#Creates barchart of rNMP composition
 
+#############################################################################################################################
 #Load config
 source(commandArgs(TRUE)[1])
 
