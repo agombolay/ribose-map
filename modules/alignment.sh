@@ -20,8 +20,7 @@ if [[ ! $read2 ]]; then
 	
 		bowtie2 -N $mismatches --seed 123456789 --threads $threads -x $basename -U $read1 -S $output/aligned.sam 2> $output/alignment.log
 		samtools view -bS -@ $threads $output/aligned.sam | samtools sort - -@ $threads -o $output/$sample.bam
-		samtools index $output/$sample.bam	
-	fi
+		samtools index $output/$sample.bam
 		
 	elif [[ $pattern ]]; then
 		
@@ -56,7 +55,6 @@ elif [[ $read2 ]]; then
 		bowtie2 -N $mismatches --seed 123456789 --threads $threads -x $basename -1 $read1 -2 $read2 -S $output/aligned.sam 2> $output/alignment.log
 		samtools view -bS -@ $threads $output/aligned.sam | samtools sort - -@ $threads -o $output/$sample.bam
 		samtools index $output/$sample.bam
-	fi
 		
 	elif [[ $pattern ]]; then
 		
