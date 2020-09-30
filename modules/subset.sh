@@ -10,16 +10,16 @@
 
 ######################################################################################################################################################
 
-if [[ $unit ]]; then
+if [[ $units ]]; then
 
-	unit_new=$(echo $unit | sed 's/ /|/g')
+	units_new=$(echo $units | sed 's/ /|/g')
 		
 	#Chromosomes
-	grep -Ewv $unit_new $repository/results/$sample/coordinate$quality/$sample.bed > $repository/results/$sample/coordinate$quality/${sample}-chromosomes.bed
+	grep -Ewv $units_new $repository/results/$sample/coordinate$quality/$sample.bed > $repository/results/$sample/coordinate$quality/${sample}-chromosomes.bed
 	cut -f1,2,3,6 $repository/results/$sample/coordinate$quality/${sample}-chromosomes.bed | uniq -c - | awk -v "OFS=\t" '{print $2, $3, $4, ".", ".", $5, $1}' - | sort -k7,7n - > $repository/results/$sample/coordinate$quality/${sample}-chromosomes.Combined.tab
 
 	#Create FASTA and FAI files for Chromosomes
-	chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).chrom.sizes | grep -Ewv $unit_new -)
+	chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).chrom.sizes | grep -Ewv $units_new -)
 
 	samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)-chromosomes.fa
 	samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-chromosomes.fa
@@ -50,7 +50,7 @@ if [[ $unit ]]; then
 	done
 	
 	#Unit
-	for region in $unit; do
+	for region in $units; do
 				
 		grep -w $region $repository/results/$sample/coordinate$quality/$sample.bed > $repository/results/$sample/coordinate$quality/${sample}-$region.bed
 		cut -f1,2,3,6 $repository/results/$sample/coordinate$quality/${sample}-$region.bed | uniq -c - | awk -v "OFS=\t" '{print $2, $3, $4, ".", ".", $5, $1}' - | sort -k7,7n - > $repository/results/$sample/coordinate$quality/${sample}-$region.Combined.tab
