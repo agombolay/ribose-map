@@ -94,6 +94,11 @@ if [[ $pattern ]]; then
 		echo "Reads after de-duplication (%)": $duplication_statistics >> $output/alignment.log
 	
 	elif [[ $barcode ]]; then
+	
+		#Reads after de-duplication (%)
+		duplication_statistics=$( bc -l <<< $(samtools view -c -F 4 $output/$sample.bam)/$(samtools view -c -F 4 $output/sorted.bam)*100 | xargs printf "%.*f\n" 2)
+		echo "Reads after de-duplication (%)": $duplication_statistics >> $output/alignment.log
+		
 		#Reads containing barcode (%)
 		barcode_statistics=$( bc -l <<< $(wc -l $output/demultiplexed1.fq | awk '{print $1 / 4}')/$(wc -l $read1 | awk '{print $1 / 4}')*100 | xargs printf "%.*f\n" 2 )
 		echo "Reads containing barcode (%)": $barcode_statistics >> $output/alignment.log
