@@ -16,7 +16,7 @@ rm -r $output; mkdir -p $output
 for region in $units "chromosomes"; do
 
 	#Get nucleotide for each genomic coordinate
-	bedtools getfasta -s -fi $fasta -bed $repository/results/$sample/coordinate$quality/${sample}-$region.coords.bed | grep -v '>' > $output/${sample}-$region.nucs.tab
+	bedtools getfasta -s -fi $fasta -bed $repository/results/$sample/coordinate$quality/${sample}-$region.bed | grep -v '>' > $output/${sample}-$region.nucs.tab
 	
 	#Calculate counts of each nucleotide
 	A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/${sample}-$region.nucs.tab | wc -l)
