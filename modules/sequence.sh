@@ -75,10 +75,10 @@ for region in $unit "chromosomes"; do
 			bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -tab -bed $repository/results/$sample/coordinate$quality/${sample}-$region.tab | awk '$2 == "T" || $2 == "t"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-Ribo.$region.$nuc.bed
 
 		elif [[ $nuc == "Combined" ]]; then
-			echo $A_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-Ribo$nuc.$region.A.txt
-			echo $C_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-Ribo$nuc.$region.C.txt
-			echo $G_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-Ribo$nuc.$region.G.txt
-			echo $U_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-Ribo$nuc.$region.U.txt
+			echo $A_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-RiboCombined.$region.A.txt
+			echo $C_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-RiboCombined.$region.C.txt
+			echo $G_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-RiboCombined.$region.G.txt
+			echo $U_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-RiboCombined.$region.U.txt
 				
 			#Create BED file for all ribonucleotides
 			cp $repository/results/$sample/coordinate$quality/${sample}-$region.tab $output/${sample}-Ribo.$region.$nuc.bed
