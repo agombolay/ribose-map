@@ -5,16 +5,16 @@ channels:
   - defaults
 
 dependencies:
-  - r-ggseqlogo=0.1
-  - r-ggplot2=3.0.0
-  - trim-galore=0.6.5
-  - meme=5.1.1-0
-  - umi_tools=1.0.1
-  - sra-tools=2.8.2
-  - bedtools=2.27.1
-  - samtools=1.10  
-  - bowtie2=2.3.4.1
-  - coreutils=8.25
-  - sed=4.4
-  - seqtk=1.3
-  - mawk=1.3.4
+  - r-ggseqlogo
+  - r-ggplot2
+  - trim-galore
+  - meme
+  - umi_tools
+  - sra-tools
+  - bedtools
+  - samtools  
+  - bowtie2
+  - coreutils
+  - sed
+  - seqtk
+  - mawk
