@@ -9,7 +9,7 @@
 source(commandArgs(TRUE)[1])
 
 #Load libraries
-library(ggplot2); library(tools)
+library(ggplot2); library(tools); library(scales)
 
 ####################################################################################################################################################################
 
