@@ -33,6 +33,7 @@ ymax <- max(maximum)
 ymin <- min(minimum)
 
 format_decimals <- function(x){format(x, nsmall = 2, scientific = FALSE)}
+
 ####################################################################################################################################################################
 	
 	for(file in input_files){
