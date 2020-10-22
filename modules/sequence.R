@@ -32,7 +32,7 @@ for(file in input_files){
 ymax <- max(maximum)
 ymin <- min(minimum)
 
-
+format_decimals <- function(x){format(x, nsmall = 2, scientific = FALSE)}
 ####################################################################################################################################################################
 	
 	for(file in input_files){
@@ -65,7 +65,7 @@ ymin <- min(minimum)
 
 				       #Format legend symbols and specify y-axis limits
 				       guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0, shape = c(15, 16, 17, 18)))) + 
-				       scale_y_continuous(trans = 'log2', limits = c(ymin, ymax), labels = scales::number_format(accuracy = 0.01)) +
+				       scale_y_continuous(trans = 'log2', limits = c(ymin, ymax), labels = format_decimals) +
 				
 				       #Add axis lines and ticks and increase font size
 				       theme(
@@ -92,7 +92,7 @@ ymin <- min(minimum)
 
 				       #Format legend symbols and specify y-axis limits
 				       guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0, shape = c(15, 16, 17, 18)))) +
-				       scale_y_continuous(limits = c(0, ymax), labels = scales::number_format(accuracy = 0.01)) +
+				       scale_y_continuous(limits = c(0, ymax), labels = format_decimals) +
 
 				       #Add axis lines and ticks and increase font size
 				       theme(
