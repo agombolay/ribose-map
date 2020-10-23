@@ -17,7 +17,7 @@ rm -r $output; mkdir -p $output
 for region in $unit "chromosomes"; do
 
 	#Calculate normalized counts of rNMPs
-	mawk -v "OFS=\t" -v total="$(wc -l < $repository/results/$sample/coordinate$quality/$sample-$region.coords.bed)" '{print $1, $2, $3, $6, $7/total*100}' \
+	mawk -v "OFS=\t" -v total="$(wc -l < $repository/results/$sample/coordinate$quality/$sample-$region.bed)" '{print $1, $2, $3, $6, $7/total*100}' \
 	$repository/results/$sample/coordinate$quality/$sample-$region.counts.tab > $repository/results/$sample/coordinate$quality/$sample-$region.normalized.tab
 
 	#Save coverage of rNMPs per chromosome to separate files
