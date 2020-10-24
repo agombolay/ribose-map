@@ -55,7 +55,6 @@ for(file in input_files){
 	ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".png", sep = "")), plot = distribution, width = 15)
 		
 }
-}
 
 message("Status: Distribution Module plotting for ", sample, " is complete")
 warnings()
