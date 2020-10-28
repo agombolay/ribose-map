@@ -18,7 +18,7 @@ rm -r $output; mkdir -p $output
 for region in $unit "chromosomes"; do
 		
 	#Extract rNMP nucleotides from FASTA
-	bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -bed $repository/results/$sample/coordinate$quality/${sample}-$region.tab | grep -v '>' > $output/${sample}-$region.ribos.txt
+	bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -bed $repository/results/$sample/coordinate$quality/${sample}-$region.Combined.tab | grep -v '>' > $output/${sample}-$region.ribos.txt
 			
 	#Calculate counts of rNMPs
 	A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/${sample}-$region.ribos.txt | wc -l)
