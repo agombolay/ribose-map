@@ -10,10 +10,8 @@
 
 #############################################################################################################################
 
-for file in $(dirname $fasta)/$(basename $fasta .fa)-*.fa; do
+for file in $repository/$(dirname $fasta)/$(basename $fasta .fa)-*.fa; do
 
-	#temp=$(echo $file | awk -F '[-]' '{print $2 $3 $4}')
-	#region=$(basename $temp .fa)
 	region=$(basename $file .fa | cut -d "-" -f2)
 		
 	#Calculate counts of each nucleotide
@@ -32,9 +30,9 @@ for file in $(dirname $fasta)/$(basename $fasta .fa)-*.fa; do
 	T_BkgFreq=$(echo "($T_Bkg + $A_Bkg)/($BkgTotal*2)" | bc -l)
 		
 	#Save nucleotide frequencies to .txt file
-	paste <(echo -e "A") <(echo "$A_BkgFreq" | xargs printf "%.*f\n" 5) > $(dirname $fasta)/$(basename $fasta .fa)-$region.txt
-	paste <(echo -e "C") <(echo "$C_BkgFreq" | xargs printf "%.*f\n" 5) >> $(dirname $fasta)/$(basename $fasta .fa)-$region.txt
-	paste <(echo -e "G") <(echo "$G_BkgFreq" | xargs printf "%.*f\n" 5) >> $(dirname $fasta)/$(basename $fasta .fa)-$region.txt
-	paste <(echo -e "U") <(echo "$T_BkgFreq" | xargs printf "%.*f\n" 5) >> $(dirname $fasta)/$(basename $fasta .fa)-$region.txt
+	paste <(echo -e "A") <(echo "$A_BkgFreq" | xargs printf "%.*f\n" 5) > $repository/$(dirname $fasta)/$(basename $fasta .fa)-$region.txt
+	paste <(echo -e "C") <(echo "$C_BkgFreq" | xargs printf "%.*f\n" 5) >> $repository/$(dirname $fasta)/$(basename $fasta .fa)-$region.txt
+	paste <(echo -e "G") <(echo "$G_BkgFreq" | xargs printf "%.*f\n" 5) >> $repository/$(dirname $fasta)/$(basename $fasta .fa)-$region.txt
+	paste <(echo -e "U") <(echo "$T_BkgFreq" | xargs printf "%.*f\n" 5) >> $repository/$(dirname $fasta)/$(basename $fasta .fa)-$region.txt
 
 done
