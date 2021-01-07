@@ -199,8 +199,8 @@ for region in $unit "chromosomes"; do
 	done
 	
 	#Remove temporary files
-	rm $output/*.txt $output/*{Upstream,Downstream}*.{bed,tab}
+	#rm $output/*.txt $output/*{Upstream,Downstream}*.{bed,tab}
 
 done
 
-rm $output/*.bed
+#rm $output/*.bed
