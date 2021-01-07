@@ -21,8 +21,8 @@ if [[ $units ]]; then
 	#Create FASTA and FAI files for Chromosomes
 	chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).chrom.sizes | grep -Ewv $units_new -)
 
-	samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)-chromosomes.fa
-	samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-chromosomes.fa
+	samtools faidx $fasta $chr > $repository/$(dirname $fasta)/$(basename $fasta .fa)-chromosomes.fa
+	samtools faidx $repository/$(dirname $fasta)/$(basename $fasta .fa)-chromosomes.fa
 
 	for nuc in "A" "C" "G" "U"; do
 
@@ -58,8 +58,8 @@ if [[ $units ]]; then
 		#Create FASTA and FAI files for unit
 		chr=$(awk '{print $1}' $(dirname $fasta)/$(basename $fasta .fa).chrom.sizes | grep -w $region -)
 
-		samtools faidx $fasta $chr > $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
-		samtools faidx $(dirname $fasta)/$(basename $fasta .fa)-$region.fa
+		samtools faidx $fasta $chr > $repository/$(dirname $fasta)/$(basename $fasta .fa)-$region.fa
+		samtools faidx $repository/$(dirname $fasta)/$(basename $fasta .fa)-$region.fa
 		
 		for nuc in "A" "C" "G" "U"; do
 
