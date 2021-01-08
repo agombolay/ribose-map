@@ -96,8 +96,8 @@ for region in $unit "chromosomes"; do
 			bedtools flank -i $output/${sample}-Ribo.$region.$nuc.bed -s -g $(dirname $fasta)/$(basename $fasta .fa).chrom.sizes -l 0 -r 100 | awk '$2 != $3' > $output/${sample}-Downstream.$region.$nuc.bed
 	
 			#Obtain nucleotides flanking rNMPs (reverse order of upstream) and insert tabs bases for easier parsing
-			bedtools getfasta -s -fi $repository/$(dirname $fasta)/$(basename $fasta .fa)-$region.fa -bed $output/${sample}-Upstream.$region.$nuc.bed | grep -v '>' | rev | sed 's/.../& /2g;s/./& /g' > $output/${sample}-Upstream.$region.$nuc.tab
-			bedtools getfasta -s -fi $repository/$(dirname $fasta)/$(basename $fasta .fa)-$region.fa -bed $output/${sample}-Downstream.$region.$nuc.bed | grep -v '>' | sed 's/.../& /2g;s/./& /g' > $output/${sample}-Downstream.$region.$nuc.tab
+			bedtools getfasta -s -fi $repository/$(basename $fasta .fa)-$region.fa -bed $output/${sample}-Upstream.$region.$nuc.bed | grep -v '>' | rev | sed 's/.../& /2g;s/./& /g' > $output/${sample}-Upstream.$region.$nuc.tab
+			bedtools getfasta -s -fi $repository/$(basename $fasta .fa)-$region.fa -bed $output/${sample}-Downstream.$region.$nuc.bed | grep -v '>' | sed 's/.../& /2g;s/./& /g' > $output/${sample}-Downstream.$region.$nuc.tab
 							
 			#Calculate frequencies of dNMPs +/- 100 base pairs from rNMPs
 			for direction in "Upstream" "Downstream"; do
