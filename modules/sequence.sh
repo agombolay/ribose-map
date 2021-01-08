@@ -166,10 +166,10 @@ for region in $unit "chromosomes"; do
 			echo -e "\tA\tC\tG\tU/T" > $output/${sample}-$region.$nuc.normalized.tab
 				
 			#Background frequencies of dNMPs
-			A_BkgFreq=$(cut -f2 $repository/$(dirname $fasta)/$(basename $fasta .fa)-$region.txt | head -1)
-			C_BkgFreq=$(cut -f2 $repository/$(dirname $fasta)/$(basename $fasta .fa)-$region.txt | head -2 | tail -1)
-			G_BkgFreq=$(cut -f2 $repository/$(dirname $fasta)/$(basename $fasta .fa)-$region.txt | head -3 | tail -1)
-			T_BkgFreq=$(cut -f2 $repository/$(dirname $fasta)/$(basename $fasta .fa)-$region.txt | head -4 | tail -1)
+			A_BkgFreq=$(cut -f2 $repository/$(basename $fasta .fa)-$region.txt | head -1)
+			C_BkgFreq=$(cut -f2 $repository/$(basename $fasta .fa)-$region.txt | head -2 | tail -1)
+			G_BkgFreq=$(cut -f2 $repository/$(basename $fasta .fa)-$region.txt | head -3 | tail -1)
+			T_BkgFreq=$(cut -f2 $repository/$(basename $fasta .fa)-$region.txt | head -4 | tail -1)
 			
 			#Save rNMP and flanking frequencies to separate variables
 			A_allFreqs=$(paste <(cat <(cat $output/${sample}-Upstream.$region.$nuc.A.txt | tac) <(cat $output/${sample}-Ribo$nuc.$region.A.txt) <(cat $output/${sample}-Downstream.$region.$nuc.A.txt)))
