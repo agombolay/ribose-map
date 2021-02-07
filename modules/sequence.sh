@@ -15,7 +15,7 @@ rm -r $output; mkdir -p $output
 #############################################################################################################################
 
 #Calculate frequencies of rNMPs
-for region in $unit "chromosomes"; do
+for region in $units "chromosomes"; do
 		
 	#Extract rNMP nucleotides from FASTA
 	bedtools getfasta -s -fi $repository/$(basename $fasta .fa)-$region.fa -bed $repository/results/$sample/coordinate$quality/${sample}-$region.Combined.tab | grep -v '>' > $output/${sample}-$region.ribos.txt
