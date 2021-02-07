@@ -9,7 +9,7 @@ dependencies:
   - r-ggplot2
   - trim-galore
   - meme
-  - umi_tools=1.1.0-0
+  - umi_tools=1.0.0-0
   - sra-tools
   - bedtools
   - samtools  
