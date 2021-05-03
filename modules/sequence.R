@@ -187,7 +187,7 @@ format_decimals <- function(x){format(x, nsmall = 2, scientific = FALSE)}
 				       #Format legend symbols and specify y-axis limits
 				       guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0, shape = c(15, 16, 17, 18)))) + 
 				       scale_y_continuous(trans = 'log2', limits = c(ymin, ymax), labels = format_decimals) +
-				       scale_x_continuous(limits = c(-50, 50), breaks = c(-50, -40, -30, -20, -10, 0, 10, 20, 30, 40, 50)) +
+				       scale_x_continuous(limits = c(-50, 50), breaks = c(-50, -25, 0, 25, 50)) +
 				
 				       #Add axis lines and ticks and increase font size
 				       theme(
@@ -215,7 +215,7 @@ format_decimals <- function(x){format(x, nsmall = 2, scientific = FALSE)}
 				       #Format legend symbols and specify y-axis limits
 				       guides(colour = guide_legend(override.aes = list(size = 5, linetype = 0, shape = c(15, 16, 17, 18)))) +
 				       scale_y_continuous(limits = c(0, ymax), labels = format_decimals) +
-				       scale_x_continuous(limits = c(-50, 50), breaks = c(-50, -40, -30, -20, -10, 0, 10, 20, 30, 40, 50)) +
+				       scale_x_continuous(limits = c(-50, 50), breaks = c(-50, -25, 0, 25, 50)) +
 				
 				       #Add axis lines and ticks and increase font size
 				       theme(
