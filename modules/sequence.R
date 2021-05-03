@@ -39,7 +39,7 @@ format_decimals <- function(x){format(x, nsmall = 2, scientific = FALSE)}
 	for(file in input_files){
 	
 		#Regular and zoomed datasets
-		for(i in c("normal", "zoomed")) {
+		for(i in c("normal", "zoomed10", "zoomed50")) {
 
 ####################################################################################################################################################################
 			
@@ -108,7 +108,7 @@ format_decimals <- function(x){format(x, nsmall = 2, scientific = FALSE)}
 			
 ####################################################################################################################################################################
 			
-			if (i == "zoomed") {data = read.table(file, sep = "\t", header = TRUE)[96:106,]
+			if (i == "zoomed10") {data = read.table(file, sep = "\t", header = TRUE)[96:106,]
 			position <- data$X; A <- data$A; C <- data$C; G <- data$G; T <- data$U.T
 			
 			if (ymin > 0) {
