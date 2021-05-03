@@ -168,7 +168,7 @@ format_decimals <- function(x){format(x, nsmall = 2, scientific = FALSE)}
 			        ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep = "")), plot = linear_zoomed)
 			}}
 			
-			if (i == "zoomed50") {data = read.table(file, sep = "\t", header = TRUE)[96:106,]
+			if (i == "zoomed50") {data = read.table(file, sep = "\t", header = TRUE)[51:151,]
 			position <- data$X; A <- data$A; C <- data$C; G <- data$G; T <- data$U.T
 			
 			if (ymin > 0) {
