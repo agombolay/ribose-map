@@ -18,7 +18,7 @@ rm -r $output; mkdir -p $output
 for region in $units "chromosomes"; do
 		
 	#Extract rNMP nucleotides from FASTA
-	bedtools getfasta -s -fi $repository/$(basename $fasta .fa)-$region.fa -bed $repository/results/$sample/coordinate$quality/${sample}-$region.Combined.tab | grep -v '>' > $output/${sample}-$region.ribos.txt
+	bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -bed $repository/results/$sample/coordinate$quality/${sample}-$region.Combined.tab | grep -v '>' > $output/${sample}-$region.ribos.txt
 			
 	#Calculate counts of rNMPs
 	A_Ribo=$(awk '$1 == "A" || $1 == "a"' $output/${sample}-$region.ribos.txt | wc -l)
@@ -45,7 +45,7 @@ for region in $units "chromosomes"; do
 			echo 'NA' > $output/${sample}-Ribo$nuc.$region.U.txt
 				
 			#Create BED file for only A ribonucleotide
-			bedtools getfasta -s -fi $repository/$(basename $fasta .fa)-$region.fa -tab -bed $repository/results/$sample/coordinate$quality/${sample}-$region.Combined.tab | awk '$2 == "A" || $2 == "a"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-Ribo.$region.$nuc.bed
+			bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -tab -bed $repository/results/$sample/coordinate$quality/${sample}-$region.Combined.tab | awk '$2 == "A" || $2 == "a"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-Ribo.$region.$nuc.bed
 
 		elif [[ $nuc == "C" ]]; then
 			echo $C_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-Ribo$nuc.$region.$nuc.txt
@@ -54,7 +54,7 @@ for region in $units "chromosomes"; do
 			echo 'NA' > $output/${sample}-Ribo$nuc.$region.U.txt
 				
 			#Create BED file for only C ribonucleotide
-			bedtools getfasta -s -fi $repository/$(basename $fasta .fa)-$region.fa -tab -bed $repository/results/$sample/coordinate$quality/${sample}-$region.Combined.tab | awk '$2 == "C" || $2 == "c"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-Ribo.$region.$nuc.bed
+			bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -tab -bed $repository/results/$sample/coordinate$quality/${sample}-$region.Combined.tab | awk '$2 == "C" || $2 == "c"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-Ribo.$region.$nuc.bed
 				
 		elif [[ $nuc == "G" ]]; then
 			echo $G_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-Ribo$nuc.$region.$nuc.txt
@@ -63,7 +63,7 @@ for region in $units "chromosomes"; do
 			echo 'NA' > $output/${sample}-Ribo$nuc.$region.U.txt
 				
 			#Create BED file for only G ribonucleotide
-			bedtools getfasta -s -fi $repository/$(basename $fasta .fa)-$region.fa -tab -bed $repository/results/$sample/coordinate$quality/${sample}-$region.Combined.tab | awk '$2 == "G" || $2 == "g"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-Ribo.$region.$nuc.bed
+			bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -tab -bed $repository/results/$sample/coordinate$quality/${sample}-$region.Combined.tab | awk '$2 == "G" || $2 == "g"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-Ribo.$region.$nuc.bed
 
 		elif [[ $nuc == "U" ]]; then
 			echo $U_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-Ribo$nuc.$region.$nuc.txt
@@ -72,7 +72,7 @@ for region in $units "chromosomes"; do
 			echo 'NA' > $output/${sample}-Ribo$nuc.$region.G.txt
 				
 			#Create BED file for only U ribonucleotide
-			bedtools getfasta -s -fi $repository/$(basename $fasta .fa)-$region.fa -tab -bed $repository/results/$sample/coordinate$quality/${sample}-$region.Combined.tab | awk '$2 == "T" || $2 == "t"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-Ribo.$region.$nuc.bed
+			bedtools getfasta -s -fi $(dirname $fasta)/$(basename $fasta .fa)-$region.fa -tab -bed $repository/results/$sample/coordinate$quality/${sample}-$region.Combined.tab | awk '$2 == "T" || $2 == "t"' | cut -f1 | sed 's/\:/\t/' | sed 's/\-/\t/' | sed 's/(/\t.\t.\t/;s/)//' > $output/${sample}-Ribo.$region.$nuc.bed
 
 		elif [[ $nuc == "Combined" ]]; then
 			echo $A_RiboFreq | xargs printf "%.*f\n" 5 > $output/${sample}-RiboCombined.$region.A.txt
