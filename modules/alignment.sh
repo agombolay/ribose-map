@@ -18,7 +18,7 @@ if [[ ! $read2 ]]; then
 	
 	if [[ ! $pattern ]]; then
 	
-		bowtie2 -N $mismatches --seed $seed --threads $threads -x $basename -U $read1 -S $output/aligned.sam 2> $output/alignment.log
+		bowtie2 -N $mismatches --threads $threads -x $basename -U $read1 -S $output/aligned.sam 2> $output/alignment.log
 		samtools view -bS -@ $threads $output/aligned.sam | samtools sort - -@ $threads -o $output/$sample.bam
 		samtools index $output/$sample.bam
 		
@@ -28,7 +28,7 @@ if [[ ! $read2 ]]; then
 		
 		if [[ ! $barcode ]]; then
 		
-			bowtie2 -N $mismatches --seed $seed --threads $threads -x $basename -U $output/extracted1.fq -S $output/aligned.sam 2> $output/alignment.log
+			bowtie2 -N $mismatches --threads $threads -x $basename -U $output/extracted1.fq -S $output/aligned.sam 2> $output/alignment.log
 			samtools view -bS -@ $threads $output/aligned.sam | samtools sort - -@ $threads -o $output/sorted.bam
 			samtools index $output/sorted.bam
 	
@@ -39,7 +39,7 @@ if [[ ! $read2 ]]; then
 			
 			grep -B 1 -A 2 ^$barcode $output/extracted1.fq | sed '/^--$/d' | seqtk trimfq -b ${#barcode} - > $output/demultiplexed1.fq
   
-			bowtie2 -N $mismatches --seed $seed --threads $threads -x $basename -U $output/demultiplexed1.fq -S $output/aligned.sam 2> $output/alignment.log
+			bowtie2 -N $mismatches --threads $threads -x $basename -U $output/demultiplexed1.fq -S $output/aligned.sam 2> $output/alignment.log
 			samtools view -bS -@ $threads $output/aligned.sam | samtools sort - -@ $threads -o $output/sorted.bam
 			samtools index $output/sorted.bam
 	
@@ -52,7 +52,7 @@ elif [[ $read2 ]]; then
 	
 	if [[ ! $pattern ]]; then
 
-		bowtie2 -N $mismatches --seed $seed --threads $threads -x $basename -1 $read1 -2 $read2 -S $output/aligned.sam 2> $output/alignment.log
+		bowtie2 -N $mismatches --threads $threads -x $basename -1 $read1 -2 $read2 -S $output/aligned.sam 2> $output/alignment.log
 		samtools view -bS -@ $threads $output/aligned.sam | samtools sort - -@ $threads -o $output/$sample.bam
 		samtools index $output/$sample.bam
 		
@@ -62,7 +62,7 @@ elif [[ $read2 ]]; then
   
 		if [[ ! $barcode ]]; then
 		
-			bowtie2 -N $mismatches --seed $seed --threads $threads -x $basename -1 $output/extracted1.fq -2 $output/extracted2.fq -S $output/aligned.sam 2> $output/alignment.log
+			bowtie2 -N $mismatches --threads $threads -x $basename -1 $output/extracted1.fq -2 $output/extracted2.fq -S $output/aligned.sam 2> $output/alignment.log
 			samtools view -bS -@ $threads $output/aligned.sam | samtools sort - -@ $threads -o $output/sorted.bam
 			samtools index $output/sorted.bam
 	
@@ -73,7 +73,7 @@ elif [[ $read2 ]]; then
 		
 			grep -B 1 -A 2 ^$barcode $output/extracted1.fq | sed '/^--$/d' | seqtk trimfq -b ${#barcode} - > $output/demultiplexed1.fq
 			
-			bowtie2 -N $mismatches --seed $seed --threads $threads -x $basename -1 $output/demultiplexed1.fq -2 $output/extracted2.fq -S $output/aligned.sam 2> $output/alignment.log
+			bowtie2 -N $mismatches --threads $threads -x $basename -1 $output/demultiplexed1.fq -2 $output/extracted2.fq -S $output/aligned.sam 2> $output/alignment.log
 			samtools view -bS -@ $threads $output/aligned.sam | samtools sort - -@ $threads -o $output/sorted.bam
 			samtools index $output/sorted.bam
 	
