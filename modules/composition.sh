@@ -13,7 +13,7 @@ rm -r $output; mkdir -p $output
 
 ######################################################################################################################################################
 
-for region in $units "chromosomes"; do
+for region in $units "genome"; do
 
 	#Get nucleotide for each genomic coordinate
 	bedtools getfasta -s -fi $fasta -bed $repository/results/$sample/coordinate$quality/${sample}-$region.bed | grep -v '>' > $output/${sample}-$region.nucs.tab
