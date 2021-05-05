@@ -10,7 +10,7 @@
 
 #############################################################################################################################
 
-#for file in $(dirname $fasta)/*.fa; do
+for file in $(dirname $fasta)/*.fa; do
 
 	#region=$(basename $file .fa | cut -d "-" -f2)
 		
@@ -35,4 +35,4 @@
 	paste <(echo -e "G") <(echo "$G_BkgFreq" | xargs printf "%.*f\n" 5) >> $(dirname $fasta)/$(basename $fasta .fa).txt
 	paste <(echo -e "U") <(echo "$T_BkgFreq" | xargs printf "%.*f\n" 5) >> $(dirname $fasta)/$(basename $fasta .fa).txt
 
-#done
+done
