@@ -49,7 +49,7 @@ if [[ $units ]]; then
 		fi
 	done
 	
-	#Unit
+	#Units
 	for region in $units; do
 				
 		grep -w $region $repository/results/$sample/coordinate$quality/$sample.bed > $repository/results/$sample/coordinate$quality/${sample}-$region.bed
