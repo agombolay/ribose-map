@@ -10,7 +10,7 @@
 
 #############################################################################################################################
 
-for file in $repository/$(basename $fasta .fa)*.fa; do
+for file in $(dirname $fasta)/*.fa; do
 
 	#region=$(basename $file .fa | cut -d "-" -f2)
 		
