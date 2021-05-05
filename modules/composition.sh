@@ -27,10 +27,10 @@ for region in $units "chromosomes"; do
 	#Calculate total number of nucleotides
 	RiboTotal=$(($A_Ribo + $C_Ribo + $G_Ribo + $U_Ribo))
 	
-	A_BkgFreq=$(cut -f2 $repository/$(basename $fasta .fa)-$region.txt | head -1)
-	C_BkgFreq=$(cut -f2 $repository/$(basename $fasta .fa)-$region.txt | head -2 | tail -1)
-	G_BkgFreq=$(cut -f2 $repository/$(basename $fasta .fa)-$region.txt | head -3 | tail -1)
-	T_BkgFreq=$(cut -f2 $repository/$(basename $fasta .fa)-$region.txt | head -4 | tail -1)
+	A_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.txt | head -1)
+	C_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.txt | head -2 | tail -1)
+	G_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.txt | head -3 | tail -1)
+	T_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa)-$region.txt | head -4 | tail -1)
 	
 	#Calculate normalized frequency of each nucleotide, step 1
 	A_RiboFreq1=$(echo "($A_Ribo/$RiboTotal)/$A_BkgFreq" | bc -l)
