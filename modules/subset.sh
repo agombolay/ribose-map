@@ -89,7 +89,6 @@ if [[ $units ]]; then
 	done
 else
 	
-	#Chromosomes
 	cut -f1,2,3,6 $repository/results/$sample/coordinate$quality/${sample}.bed | uniq -c - | awk -v "OFS=\t" '{print $2, $3, $4, ".", ".", $5, $1}' - | sort -k7,7n - > $repository/results/$sample/coordinate$quality/${sample}.Combined.tab
 
 	for nuc in "A" "C" "G" "U"; do
