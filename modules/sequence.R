@@ -219,5 +219,6 @@ format_decimals <- function(x){format(x, nsmall = 2, scientific = FALSE)}
 			}}
 }
 }
+
 message("Status: Sequence Module plotting for ", sample, " is complete")
 warnings()
