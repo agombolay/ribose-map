@@ -207,6 +207,8 @@ if [[ $units ]]; then
 
 	rm $output/*.bed
 
+#############################################################################################################################
+
 else
 
 	#Calculate frequencies of rNMPs
@@ -353,49 +355,47 @@ else
 
 #############################################################################################################################
 			
-				#Create and save dataset file containing nucleotide frequencies
+			#Create and save dataset file containing nucleotide frequencies
 			
-				#Add nucleotides to header line
-				echo -e "\tA\tC\tG\tU/T" > $output/${sample}-$nuc.raw.tab
-				echo -e "\tA\tC\tG\tU/T" > $output/${sample}-$nuc.normalized.tab
+			#Add nucleotides to header line
+			echo -e "\tA\tC\tG\tU/T" > $output/${sample}-$nuc.raw.tab
+			echo -e "\tA\tC\tG\tU/T" > $output/${sample}-$nuc.normalized.tab
 				
-				#Background frequencies of dNMPs
-				A_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa).txt | head -1)
-				C_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa).txt | head -2 | tail -1)
-				G_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa).txt | head -3 | tail -1)
-				T_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa).txt | head -4 | tail -1)
+			#Background frequencies of dNMPs
+			A_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa).txt | head -1)
+			C_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa).txt | head -2 | tail -1)
+			G_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa).txt | head -3 | tail -1)
+			T_BkgFreq=$(cut -f2 $(dirname $fasta)/$(basename $fasta .fa).txt | head -4 | tail -1)
 			
-				#Save rNMP and flanking frequencies to separate variables
-				A_allFreqs=$(paste <(cat <(cat $output/${sample}-Upstream.$nuc.A.txt | tac) <(cat $output/${sample}-Ribo$nuc.A.txt) <(cat $output/${sample}-Downstream.$nuc.A.txt)))
-				C_allFreqs=$(paste <(cat <(cat $output/${sample}-Upstream.$nuc.C.txt | tac) <(cat $output/${sample}-Ribo$nuc.C.txt) <(cat $output/${sample}-Downstream.$nuc.C.txt)))
-				G_allFreqs=$(paste <(cat <(cat $output/${sample}-Upstream.$nuc.G.txt | tac) <(cat $output/${sample}-Ribo$nuc.G.txt) <(cat $output/${sample}-Downstream.$nuc.G.txt)))
-				T_allFreqs=$(paste <(cat <(cat $output/${sample}-Upstream.$nuc.T.txt | tac) <(cat $output/${sample}-Ribo$nuc.U.txt) <(cat $output/${sample}-Downstream.$nuc.T.txt)))
+			#Save rNMP and flanking frequencies to separate variables
+			A_allFreqs=$(paste <(cat <(cat $output/${sample}-Upstream.$nuc.A.txt | tac) <(cat $output/${sample}-Ribo$nuc.A.txt) <(cat $output/${sample}-Downstream.$nuc.A.txt)))
+			C_allFreqs=$(paste <(cat <(cat $output/${sample}-Upstream.$nuc.C.txt | tac) <(cat $output/${sample}-Ribo$nuc.C.txt) <(cat $output/${sample}-Downstream.$nuc.C.txt)))
+			G_allFreqs=$(paste <(cat <(cat $output/${sample}-Upstream.$nuc.G.txt | tac) <(cat $output/${sample}-Ribo$nuc.G.txt) <(cat $output/${sample}-Downstream.$nuc.G.txt)))
+			T_allFreqs=$(paste <(cat <(cat $output/${sample}-Upstream.$nuc.T.txt | tac) <(cat $output/${sample}-Ribo$nuc.U.txt) <(cat $output/${sample}-Downstream.$nuc.T.txt)))
 
-				#Add positions and frequencies of nucleotides in correct order to create dataset (un-normalized to reference genome)
-				paste <(echo "$(seq -100 1 100)") <(for a in $A_allFreqs; do if [[ $a != "NA" ]]; then echo $a | bc -l | xargs printf "%.*f\n" 5; else echo $a; fi; done) \
-							  	  <(for c in $C_allFreqs; do if [[ $c != "NA" ]]; then echo $c | bc -l | xargs printf "%.*f\n" 5; else echo $c; fi; done) \
-							  	  <(for g in $G_allFreqs; do if [[ $g != "NA" ]]; then echo $g | bc -l | xargs printf "%.*f\n" 5; else echo $g; fi; done) \
-							  	  <(for t in $T_allFreqs; do if [[ $t != "NA" ]]; then echo $t | bc -l | xargs printf "%.*f\n" 5; else echo $t; fi; done) \
-							  	  >> $output/${sample}-$nuc.raw.tab
+			#Add positions and frequencies of nucleotides in correct order to create dataset (un-normalized to reference genome)
+			paste <(echo "$(seq -100 1 100)") <(for a in $A_allFreqs; do if [[ $a != "NA" ]]; then echo $a | bc -l | xargs printf "%.*f\n" 5; else echo $a; fi; done) \
+							  <(for c in $C_allFreqs; do if [[ $c != "NA" ]]; then echo $c | bc -l | xargs printf "%.*f\n" 5; else echo $c; fi; done) \
+							  <(for g in $G_allFreqs; do if [[ $g != "NA" ]]; then echo $g | bc -l | xargs printf "%.*f\n" 5; else echo $g; fi; done) \
+							  <(for t in $T_allFreqs; do if [[ $t != "NA" ]]; then echo $t | bc -l | xargs printf "%.*f\n" 5; else echo $t; fi; done) \
+							  >> $output/${sample}-$nuc.raw.tab
 								  
-				#Add positions and frequencies of nucleotides in correct order to create dataset (normalized to reference genome)
-				paste <(echo "$(seq -100 1 100)") <(for a in $A_allFreqs; do if [[ $a != "NA" ]]; then echo $a/$A_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $a; fi; done) \
-							  	  <(for c in $C_allFreqs; do if [[ $c != "NA" ]]; then echo $c/$C_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $c; fi; done) \
-							  	  <(for g in $G_allFreqs; do if [[ $g != "NA" ]]; then echo $g/$G_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $g; fi; done) \
-							  	  <(for t in $T_allFreqs; do if [[ $t != "NA" ]]; then echo $t/$T_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $t; fi; done) \
-							  	  >> $output/${sample}-$nuc.normalized.tab
+			#Add positions and frequencies of nucleotides in correct order to create dataset (normalized to reference genome)
+			paste <(echo "$(seq -100 1 100)") <(for a in $A_allFreqs; do if [[ $a != "NA" ]]; then echo $a/$A_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $a; fi; done) \
+							  <(for c in $C_allFreqs; do if [[ $c != "NA" ]]; then echo $c/$C_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $c; fi; done) \
+							  <(for g in $G_allFreqs; do if [[ $g != "NA" ]]; then echo $g/$G_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $g; fi; done) \
+							  <(for t in $T_allFreqs; do if [[ $t != "NA" ]]; then echo $t/$T_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $t; fi; done) \
+							  >> $output/${sample}-$nuc.normalized.tab
 
 #############################################################################################################################
-				#Print status
-				echo "Status: Sequence Module for $sample ($nuc) is complete"
+			#Print status
+			echo "Status: Sequence Module for $sample ($nuc) is complete"
 				
-			fi
-		done
-	
-		#Remove temporary files
-		rm $output/*.txt $output/*{Upstream,Downstream}*.{bed,tab}
-
+		fi
 	done
+	
+	#Remove temporary files
+	rm $output/*.txt $output/*{Upstream,Downstream}*.{bed,tab}
 
-	rm $output/*.bed
+rm $output/*.bed
 fi
