@@ -3,7 +3,7 @@
 #Author: Alli L. Gombolay
 #Calculates frequencies of rNMP nucleotides and flanking nucleotides
 
-#############################################################################################################################
+###################################################################################################################################################################
 
 #Load config file
 . "$1"
@@ -12,7 +12,7 @@
 output=$repository/results/$sample/sequence$quality
 rm -r $output; mkdir -p $output
 
-#############################################################################################################################
+###################################################################################################################################################################
 
 if [[ $units ]]; then
 
@@ -85,8 +85,6 @@ if [[ $units ]]; then
 				#Create BED file for all ribonucleotides
 				cp $repository/results/$sample/coordinate$quality/${sample}-$region.Combined.tab $output/${sample}-Ribo.$region.$nuc.bed
 			fi
-		
-#############################################################################################################################
 			
 			#Obtain coordinates/sequences of dNMPs +/- 100 bp from rNMPs
 		
@@ -158,8 +156,6 @@ if [[ $units ]]; then
 
 					done
 				done
-
-#############################################################################################################################
 			
 				#Create and save dataset file containing nucleotide frequencies
 			
@@ -193,7 +189,6 @@ if [[ $units ]]; then
 							  	  <(for t in $T_allFreqs; do if [[ $t != "NA" ]]; then echo $t/$T_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $t; fi; done) \
 							  	  >> $output/${sample}-$region.$nuc.normalized.tab
 
-#############################################################################################################################
 				#Print status
 				echo "Status: Sequence Module for $sample ($nuc,$region) is complete"
 				
@@ -205,7 +200,7 @@ if [[ $units ]]; then
 
 	done
 
-#############################################################################################################################
+###################################################################################################################################################################
 
 else
 
@@ -277,8 +272,6 @@ else
 			#Create BED file for all ribonucleotides
 			cp $repository/results/$sample/coordinate$quality/${sample}.Combined.tab $output/${sample}-Ribo.$nuc.bed
 		fi
-		
-#############################################################################################################################
 			
 		#Obtain coordinates/sequences of dNMPs +/- 100 bp from rNMPs
 		
@@ -350,8 +343,6 @@ else
 
 				done
 			done
-
-#############################################################################################################################
 			
 			#Create and save dataset file containing nucleotide frequencies
 			
@@ -385,7 +376,6 @@ else
 							  <(for t in $T_allFreqs; do if [[ $t != "NA" ]]; then echo $t/$T_BkgFreq | bc -l | xargs printf "%.*f\n" 5; else echo $t; fi; done) \
 							  >> $output/${sample}-$nuc.normalized.tab
 
-#############################################################################################################################
 			#Print status
 			echo "Status: Sequence Module for $sample ($nuc) is complete"
 				
@@ -396,6 +386,8 @@ else
 	rm $output/*.txt $output/*{Upstream,Downstream}*.{bed,tab}
 
 fi
+
+###################################################################################################################################################################
 
 #Remove temporary files
 rm $output/*.bed
