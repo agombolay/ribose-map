@@ -205,8 +205,6 @@ if [[ $units ]]; then
 
 	done
 
-	rm $output/*.bed
-
 #############################################################################################################################
 
 else
@@ -397,5 +395,7 @@ else
 	#Remove temporary files
 	rm $output/*.txt $output/*{Upstream,Downstream}*.{bed,tab}
 
-rm $output/*.bed
 fi
+
+#Remove temporary files
+rm $output/*.bed
