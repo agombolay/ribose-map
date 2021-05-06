@@ -3,7 +3,7 @@
 #Author: Alli L. Gombolay
 #Plots nucleotide sequence context of rNMPs
 
-####################################################################################################################################################################
+###################################################################################################################################################################
 
 #Load config
 source(commandArgs(TRUE)[1])
@@ -11,13 +11,11 @@ source(commandArgs(TRUE)[1])
 #Load libraries
 library(ggplot2); library(tools)
 
-####################################################################################################################################################################
+###################################################################################################################################################################
 
 #Input/Output
 output <- file.path(repository, "results", sample, paste("sequence", quality, sep = ""))
 input_files <- list.files(path = output, pattern = "*normalized.tab", full.names = TRUE, recursive = FALSE)	
-
-####################################################################################################################################################################
 
 #Find maximum y-axis value
 maximum <- c()
@@ -33,23 +31,17 @@ ymax <- max(maximum)
 ymin <- min(minimum)
 
 format_decimals <- function(x){format(x, nsmall = 2, scientific = FALSE)}
-
-####################################################################################################################################################################
 	
 	for(file in input_files){
 	
 		#Regular and zoomed datasets
 		for(i in c("normal", "zoomed10", "zoomed50")) {
-
-####################################################################################################################################################################
 			
 			#Specify datasets to be used for each round of loop
 			if (i == "normal") {data = read.table(file, sep = "\t", header = TRUE)
     
 			#Define variables to store nucleotide positions and frequencies
 			position <- data$X; A <- data$A; C <- data$C; G <- data$G; T <- data$U.T
-
-####################################################################################################################################################################
 			
 			if (ymin > 0) {
 
@@ -105,8 +97,6 @@ format_decimals <- function(x){format(x, nsmall = 2, scientific = FALSE)}
 
 			        ggsave(filename = file.path(output, paste(file_path_sans_ext(basename(file)), ".", i, ".png", sep = "")), plot = linear_normal)
 			}}
-			
-####################################################################################################################################################################
 			
 			if (i == "zoomed10") {data = read.table(file, sep = "\t", header = TRUE)[96:106,]
 			position <- data$X; A <- data$A; C <- data$C; G <- data$G; T <- data$U.T
