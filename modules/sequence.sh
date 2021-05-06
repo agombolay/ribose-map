@@ -331,13 +331,13 @@ else
 					fi
 				
 					if [[ $C_FlankFreq != 'NA' ]]; then
-						echo $C_FlankFreq >> $output/${sample}-$direction.$region.$nuc.C.txt
+						echo $C_FlankFreq >> $output/${sample}-$direction.$nuc.C.txt
 					else
 						echo $C_FlankFreq | xargs printf "%.*f\n" 5 >> $output/${sample}-$direction.$nuc.C.txt
 					fi
 				
 					if [[ $G_FlankFreq != 'NA' ]]; then
-						echo $G_FlankFreq >> $output/${sample}-$direction.$region.$nuc.G.txt
+						echo $G_FlankFreq >> $output/${sample}-$direction.$nuc.G.txt
 					else
 						echo $G_FlankFreq | xargs printf "%.*f\n" 5 >> $output/${sample}-$direction.$nuc.G.txt	
 					fi
@@ -387,7 +387,7 @@ else
 
 #############################################################################################################################
 				#Print status
-				echo "Status: Sequence Module for $sample ($nuc,$region) is complete"
+				echo "Status: Sequence Module for $sample ($nuc) is complete"
 				
 			fi
 		done
