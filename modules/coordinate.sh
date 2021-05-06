@@ -3,7 +3,7 @@
 #Author: Alli L. Gombolay
 #Calculates genomic coordinates of rNMPs for ribose-seq, emRiboSeq, Alk-HydEn-seq, RHII-HydEn-seq, and Pu-seq
 
-#############################################################################################################################
+###################################################################################################################################################################
 
 #Load config file
 . "$1"
@@ -12,7 +12,7 @@
 output=$repository/results/$sample/coordinate$quality
 rm -r $output; mkdir -p $output
 			
-#############################################################################################################################
+###################################################################################################################################################################
 
 if [[ ! $read2 ]]; then
 	#Convert BAM file to BED and filter by quality score
@@ -23,7 +23,7 @@ elif [[ $read2 ]]; then
 	samtools view -b -f67 $repository/results/$sample/alignment/$sample.bam | bedtools bamtobed -i stdin | mawk -v "OFS=\t" -v q="$quality" '$5 >= q { print }' - > $output/reads.bed
 fi
 
-#############################################################################################################################
+###################################################################################################################################################################
 
 #Determine coordinates for each technique
 if [[ $technique == "ribose-seq" ]]; then
@@ -57,7 +57,7 @@ fi
 #Calculate raw and normalized (per 100) counts of rNMPs (must sort data before using uniq command)
 cut -f1,2,3,6 $output/$sample.bed | uniq -c - | mawk -v "OFS=\t" '{print $2, $3, $4, ".", ".", $5, $1}' > $output/$sample.tab
 
-#############################################################################################################################
+###################################################################################################################################################################
 
 #Remove temporary files
 rm -f $output/reads.bed $output/temporary.bed
