@@ -103,7 +103,7 @@ else
 		awk -v "OFS=\t" -v "x=$threshold" '{if ($7 >= x) print $0}' $repository/results/$sample/coordinate$quality/${sample}.$nuc.tab > $output/${sample}.$nuc.top.tab
 
 		#Get genomic coordinates of rNMPs and the 3 nucleotides up/downstream from them
-		bedtools slop -s -i $output/${sample}-$region.$nuc.top.tab -g $(dirname $fasta)/$(basename $fasta .fa).chrom.sizes -b 3 > $output/$(basename $output/${sample}.$nuc.top.tab .top.tab).flank.tab
+		bedtools slop -s -i $output/${sample}.$nuc.top.tab -g $(dirname $fasta)/$(basename $fasta .fa).chrom.sizes -b 3 > $output/$(basename $output/${sample}.$nuc.top.tab .top.tab).flank.tab
 	
 		#Get nucleotide sequence of rNMPs and the 3 nucleotides up/downstream from them
 		bedtools getfasta -s -fi $fasta -bed $output/$(basename $output/${sample}.$nuc.top.tab .top.tab).flank.tab | awk '/>/{$0 = ">" ++i substr($0, 2)} 1' - > $output/$(basename $output/${sample}.$nuc.top.tab .top.tab).flank.txt
