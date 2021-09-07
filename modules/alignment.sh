@@ -11,103 +11,103 @@
 #Create output directory and remove any old files
 output=$repository/results/$sample/alignment
 rm -r $output; mkdir -p $output
-echo $output
+
 ###################################################################################################################################################################
 
-#if [[ ! $read2 ]]; then
+if [[ ! $read2 ]]; then
 	
-#	if [[ ! $pattern ]]; then
+	if [[ ! $pattern ]]; then
 	
-#		bowtie2 --threads $threads --seed $seed -N $mismatches -x $basename -U $read1 -S $output/aligned.sam 2> $output/alignment.log
-#		samtools view -bS $output/aligned.sam | samtools sort - -o $output/$sample.bam
-#		samtools index $output/$sample.bam
+		bowtie2 --threads $threads --seed $seed -N $mismatches -x $basename -U $read1 -S $output/aligned.sam 2> $output/alignment.log
+		samtools view -bS $output/aligned.sam | samtools sort - -o $output/$sample.bam
+		samtools index $output/$sample.bam
 		
-#	elif [[ $pattern ]]; then
+	elif [[ $pattern ]]; then
 		
-#		umi_tools extract -v 0 -I $read1 -p $pattern -S $output/extracted1.fq
+		umi_tools extract -v 0 -I $read1 -p $pattern -S $output/extracted1.fq
 		
-#		if [[ ! $barcode ]]; then
+		if [[ ! $barcode ]]; then
 		
-#			bowtie2 --threads $threads --seed $seed -N $mismatches -x $basename -U $output/extracted1.fq -S $output/aligned.sam 2> $output/alignment.log
-#			samtools view -bS $output/aligned.sam | samtools sort - -o $output/sorted.bam
-#			samtools index $output/sorted.bam
+			bowtie2 --threads $threads --seed $seed -N $mismatches -x $basename -U $output/extracted1.fq -S $output/aligned.sam 2> $output/alignment.log
+			samtools view -bS $output/aligned.sam | samtools sort - -o $output/sorted.bam
+			samtools index $output/sorted.bam
 	
-#			umi_tools dedup -v 0 -I $output/sorted.bam | samtools sort - -o $output/$sample.bam
-#			samtools index $output/$sample.bam
+			umi_tools dedup -v 0 -I $output/sorted.bam | samtools sort - -o $output/$sample.bam
+			samtools index $output/$sample.bam
 		
-#		elif [[ $barcode ]]; then
+		elif [[ $barcode ]]; then
 			
-#			grep -B 1 -A 2 ^$barcode $output/extracted1.fq | sed '/^--$/d' | seqtk trimfq -b ${#barcode} - > $output/demultiplexed1.fq
+			grep -B 1 -A 2 ^$barcode $output/extracted1.fq | sed '/^--$/d' | seqtk trimfq -b ${#barcode} - > $output/demultiplexed1.fq
   
-#			bowtie2 --threads $threads --seed $seed -N $mismatches -x $basename -U $output/demultiplexed1.fq -S $output/aligned.sam 2> $output/alignment.log
-#			samtools view -bS $output/aligned.sam | samtools sort - -o $output/sorted.bam
-#			samtools index $output/sorted.bam
+			bowtie2 --threads $threads --seed $seed -N $mismatches -x $basename -U $output/demultiplexed1.fq -S $output/aligned.sam 2> $output/alignment.log
+			samtools view -bS $output/aligned.sam | samtools sort - -o $output/sorted.bam
+			samtools index $output/sorted.bam
 	
-#			umi_tools dedup -v 0 -I $output/sorted.bam | samtools sort - -o $output/$sample.bam
-#			samtools index $output/$sample.bam
-#		fi
-#	fi
+			umi_tools dedup -v 0 -I $output/sorted.bam | samtools sort - -o $output/$sample.bam
+			samtools index $output/$sample.bam
+		fi
+	fi
 
 ###################################################################################################################################################################
 
-#elif [[ $read2 ]]; then
+elif [[ $read2 ]]; then
 	
-#	if [[ ! $pattern ]]; then
+	if [[ ! $pattern ]]; then
 
-#		bowtie2 --threads $threads --seed $seed -N $mismatches -x $basename -1 $read1 -2 $read2 -S $output/aligned.sam 2> $output/alignment.log
-#		samtools view -bS $output/aligned.sam | samtools sort - -o $output/$sample.bam
-#		samtools index $output/$sample.bam
+		bowtie2 --threads $threads --seed $seed -N $mismatches -x $basename -1 $read1 -2 $read2 -S $output/aligned.sam 2> $output/alignment.log
+		samtools view -bS $output/aligned.sam | samtools sort - -o $output/$sample.bam
+		samtools index $output/$sample.bam
 		
-#	elif [[ $pattern ]]; then
+	elif [[ $pattern ]]; then
 		
-#		umi_tools extract -v 0 -I $read1 -p $pattern -S $output/extracted1.fq --read2-in=$read2 --read2-out=$output/extracted2.fq
+		umi_tools extract -v 0 -I $read1 -p $pattern -S $output/extracted1.fq --read2-in=$read2 --read2-out=$output/extracted2.fq
   
-#		if [[ ! $barcode ]]; then
+		if [[ ! $barcode ]]; then
 		
-#			bowtie2 --threads $threads --seed $seed -N $mismatches -x $basename -1 $output/extracted1.fq -2 $output/extracted2.fq -S $output/aligned.sam 2> $output/alignment.log
-#			samtools view -bS $output/aligned.sam | samtools sort - -o $output/sorted.bam
-#			samtools index $output/sorted.bam
+			bowtie2 --threads $threads --seed $seed -N $mismatches -x $basename -1 $output/extracted1.fq -2 $output/extracted2.fq -S $output/aligned.sam 2> $output/alignment.log
+			samtools view -bS $output/aligned.sam | samtools sort - -o $output/sorted.bam
+			samtools index $output/sorted.bam
 	
-#			umi_tools dedup -v 0 --paired -I $output/sorted.bam | samtools sort - -o $output/$sample.bam
-#			samtools index $output/$sample.bam
+			umi_tools dedup -v 0 --paired -I $output/sorted.bam | samtools sort - -o $output/$sample.bam
+			samtools index $output/$sample.bam
 		
-#		elif [[ $barcode ]]; then
+		elif [[ $barcode ]]; then
 		
-#			grep -B 1 -A 2 ^$barcode $output/extracted1.fq | sed '/^--$/d' | seqtk trimfq -b ${#barcode} - > $output/demultiplexed1.fq
+			grep -B 1 -A 2 ^$barcode $output/extracted1.fq | sed '/^--$/d' | seqtk trimfq -b ${#barcode} - > $output/demultiplexed1.fq
 			
-#			bowtie2 --threads $threads --seed $seed -N $mismatches -x $basename -1 $output/demultiplexed1.fq -2 $output/extracted2.fq -S $output/aligned.sam 2> $output/alignment.log
-#			samtools view -bS $output/aligned.sam | samtools sort - -o $output/sorted.bam
-#			samtools index $output/sorted.bam
+			bowtie2 --threads $threads --seed $seed -N $mismatches -x $basename -1 $output/demultiplexed1.fq -2 $output/extracted2.fq -S $output/aligned.sam 2> $output/alignment.log
+			samtools view -bS $output/aligned.sam | samtools sort - -o $output/sorted.bam
+			samtools index $output/sorted.bam
 	
-#			umi_tools dedup -v 0 --paired -I $output/sorted.bam | samtools sort - -o $output/$sample.bam
-#			samtools index $output/$sample.bam
-#		fi
-#	fi
-#fi
+			umi_tools dedup -v 0 --paired -I $output/sorted.bam | samtools sort - -o $output/$sample.bam
+			samtools index $output/$sample.bam
+		fi
+	fi
+fi
 
 ###################################################################################################################################################################
 
-#if [[ $pattern ]]; then
+if [[ $pattern ]]; then
 
-#	if [[ ! $barcode ]]; then
+	if [[ ! $barcode ]]; then
 	
 		#Reads after de-duplication (%)
-#		duplication_statistics=$( bc -l <<< $(samtools view -c -F 4 $output/$sample.bam)/$(samtools view -c -F 4 $output/sorted.bam)*100 | xargs printf "%.*f\n" 2)
-#		echo "Reads after de-duplication (%)": $duplication_statistics >> $output/alignment.log
+		duplication_statistics=$( bc -l <<< $(samtools view -c -F 4 $output/$sample.bam)/$(samtools view -c -F 4 $output/sorted.bam)*100 | xargs printf "%.*f\n" 2)
+		echo "Reads after de-duplication (%)": $duplication_statistics >> $output/alignment.log
 	
-#	elif [[ $barcode ]]; then
+	elif [[ $barcode ]]; then
 	
 		#Reads after de-duplication (%)
-#		duplication_statistics=$( bc -l <<< $(samtools view -c -F 4 $output/$sample.bam)/$(samtools view -c -F 4 $output/sorted.bam)*100 | xargs printf "%.*f\n" 2)
-#		echo "Reads after de-duplication (%)": $duplication_statistics >> $output/alignment.log
+		duplication_statistics=$( bc -l <<< $(samtools view -c -F 4 $output/$sample.bam)/$(samtools view -c -F 4 $output/sorted.bam)*100 | xargs printf "%.*f\n" 2)
+		echo "Reads after de-duplication (%)": $duplication_statistics >> $output/alignment.log
 		
 		#Reads containing barcode (%)
-#		barcode_statistics=$( bc -l <<< $(wc -l $output/demultiplexed1.fq | awk '{print $1 / 4}')/$(wc -l $read1 | awk '{print $1 / 4}')*100 | xargs printf "%.*f\n" 2 )
-#		echo "Reads containing barcode (%)": $barcode_statistics >> $output/alignment.log
-#	fi
-#fi
+		barcode_statistics=$( bc -l <<< $(wc -l $output/demultiplexed1.fq | awk '{print $1 / 4}')/$(wc -l $read1 | awk '{print $1 / 4}')*100 | xargs printf "%.*f\n" 2 )
+		echo "Reads containing barcode (%)": $barcode_statistics >> $output/alignment.log
+	fi
+fi
 
 ###################################################################################################################################################################
 
 #Print status
-#echo "Status: Alignment Module for $sample is complete"
+echo "Status: Alignment Module for $sample is complete"
