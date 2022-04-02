@@ -45,7 +45,7 @@ format_decimals <- function(x){format(x, nsmall = 2, scientific = FALSE)}
 			
 			if (ymin > 0) {
 
-				log_normal <- ggplot(data, aes(x = position)) + theme_minimal() + xlab("Position relative to rNMP") + ylab("Normalized Frequency (log2)") +
+				log_normal <- ggplot(data, aes(x = position)) + theme_minimal() + xlab("Position relative to rNMP") + ylab("Frequency (log2)") +
 
 				       #Specify color and no legend title
 				       scale_colour_manual(values = c("A" = "red2", "C" = "blue4", "G" = "darkorange2", "U/T" = "green4"), name = "") +
@@ -62,7 +62,7 @@ format_decimals <- function(x){format(x, nsmall = 2, scientific = FALSE)}
 				
 				       #Add axis lines and ticks and increase font size
 				       theme(
-					     axis.title = element_text(color = "black", size = 25), axis.line = element_line(size = 1), axis.text = element_text(color = "black", size = 25),
+					     axis.title = element_text(color = "black", size = 25), axis.line = element_line(size = 1), axis.text = element_text(color = "black", size = 35),
 				  	     axis.ticks = element_line(colour = "black", size = 1), axis.ticks.length = unit(.4, "cm"),legend.text = element_text(color = "black", size = 20),
 				  	     axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)), axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)),
 				  	     plot.margin = unit(c(.5, .5, .5, .5), "cm"), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank()
